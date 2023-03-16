@@ -4,6 +4,17 @@
             "outputFile": "com.tutor.app-mergeDebugResources-33:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
+                    "source": "/Users/ramanbhardwaz/Desktop/own/newTut/lets-try/node_modules/@react-native-community/datetimepicker/android/build/intermediates/packaged_res/debug/values-night-v8/values-night-v8.xml",
+                    "from": {
+                        "startLines": "2,5",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,200",
+                        "endLines": "4,7",
+                        "endColumns": "9,9",
+                        "endOffsets": "195,340"
+                    }
+                },
+                {
                     "source": "/Users/ramanbhardwaz/.gradle/caches/transforms-3/b8880fdded47cec5985d61f897e9986d/transformed/appcompat-1.4.1/res/values-night-v8/values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
@@ -18,17 +29,6 @@
                         "startOffsets": "345,415,499,583,679,781,883,2839",
                         "endColumns": "69,83,83,95,101,101,93,88",
                         "endOffsets": "410,494,578,674,776,878,972,2923"
-                    }
-                },
-                {
-                    "source": "/Users/ramanbhardwaz/Desktop/own/Tutor/node_modules/@react-native-community/datetimepicker/android/build/intermediates/packaged_res/debug/values-night-v8/values-night-v8.xml",
-                    "from": {
-                        "startLines": "2,5",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,200",
-                        "endLines": "4,7",
-                        "endColumns": "9,9",
-                        "endOffsets": "195,340"
                     }
                 },
                 {

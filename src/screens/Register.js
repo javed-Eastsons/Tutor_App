@@ -31,6 +31,8 @@ import {
 
 import {useDispatch, useSelector} from 'react-redux';
 import { Loader } from '../common/Loader';
+import { Dropdown } from 'react-native-element-dropdown';
+import { countryCode } from '../common/countrycode';
 
 const Register = ({route}) => {
   const navigation = useNavigation();
@@ -47,6 +49,8 @@ const Register = ({route}) => {
   const [otp, setOtp] = useState('');
   const [enable, setEnable] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [value, setValue] = useState([]);
+
 
 
   const {Registermsg} = useSelector(state => state.TutorReducer);
@@ -66,7 +70,17 @@ const Register = ({route}) => {
   //     }
 
   // }, [])
-
+  const data = countryCode
+  // [
+  //   { label: 'Item 1', value: '1' },
+  //   { label: 'Item 2', value: '2' },
+  //   { label: 'Item 3', value: '3' },
+  //   { label: 'Item 4', value: '4' },
+  //   { label: 'Item 5', value: '5' },
+  //   { label: 'Item 6', value: '6' },
+  //   { label: 'Item 7', value: '7' },
+  //   { label: 'Item 8', value: '8' },
+  // ];
   const showcontent = () => {
     if (showemail == false) {
       setShowEmail(true);
@@ -104,7 +118,7 @@ const Register = ({route}) => {
     } else if (Mobile == '') {
       Alert.alert('Enter Mobile Number');
     } else {
-      dispatch(RegisterUser(FirstName, LastName, Password, Email, Mobile));
+      dispatch(RegisterUser(FirstName, LastName, Password, Email, value,Mobile));
 
       console.log('sddddddddd');
 
@@ -285,18 +299,64 @@ const Register = ({route}) => {
             </View>
           </View>
         ) : (
-          <View style={styles.searchSection}>
+          <View>
             <Text style={styles.TextInputText}>Mobile Number</Text>
-            <TextInput
+    <View style={{flexDirection:'row',alignItems:'center',flex:1}}>
+           
+ <Dropdown
+        style={{
+               flex:1,
+          borderWidth: 1,
+          borderColor: '#D3D3D3',
+          borderRadius: 20,
+          fontSize: 14,
+          // width:wp(30),
+          marginRight:5,
+          // fontFamily: 'SharpSansDispNo1-Semibold',
+          paddingLeft: 12,
+          color: '#131313',
+          height: 45,
+        }}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        data={data}
+        search
+        maxHeight={300}
+        labelField="value"
+        valueField="value"
+        placeholder="Code"
+        searchPlaceholder="Search..."
+        value={value}
+        onChange={item => {
+          setValue(item.value);
+        }}
+        // renderLeftIcon={() => (
+        //   <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
+        // )}
+      />
+       <TextInput
               onChangeText={text => {
                 setMobile(text);
               }}
               placeholder="Mobile Number"
               value={Mobile}
               keyboardType="number-pad"
-              style={styles.input}
+              style={{
+               flex:1.5,
+                borderWidth: 1,
+                borderColor: '#D3D3D3',
+                borderRadius: 20,
+                fontSize: 14,
+               // width:wp(50),
+                // fontFamily: 'SharpSansDispNo1-Semibold',
+                paddingLeft: 12,
+                color: '#131313',
+                height: 45,
+              }}
             />
-
+      </View>
             <TouchableOpacity
               style={styles.RequsertButton}
               //onPress={() => navigation.navigate('OTPScreen')}

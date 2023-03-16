@@ -42,8 +42,8 @@ export const GetAllTutors = () => {
 }
 
 
-export const RegisterUser = (FirstName, LastName, Password, Email, Mobile) => {
-    console.log(FirstName, LastName, Email, Mobile, Password)
+export const RegisterUser = (FirstName, LastName, Password, Email,country_phone_code, Mobile) => {
+    console.log(FirstName, LastName, Email,country_phone_code, Mobile, Password)
     return (dispatch, getState) => {
 
         //const login = await getApiKey();
@@ -56,9 +56,9 @@ export const RegisterUser = (FirstName, LastName, Password, Email, Mobile) => {
         formData.append('first_name', FirstName)
         formData.append('last_name', LastName)
         formData.append('email', Email)
+        formData.append('country_phone_code',country_phone_code)
         formData.append('mobile', Mobile)
         formData.append('password', Password)
-        console.log("FORMDATAAAAA", formData)
 
         return fetch(url1,
             {
@@ -107,7 +107,7 @@ export const RegisterUser = (FirstName, LastName, Password, Email, Mobile) => {
 
                 }
             })
-            .catch(error => console.log('LLLLLLLLL', error.message))
+            .catch(error => console.log( error.message))
 
 
     }
