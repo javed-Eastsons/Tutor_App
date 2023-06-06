@@ -272,7 +272,7 @@ const BookingInformationConfirmation = () => {
             <Text style={styles.BookText5}>Cancel Booking</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('')}
+            onPress={() => navigation.navigate('MakeOffer')}
             style={{
               height: '100%',
               width: '50%',

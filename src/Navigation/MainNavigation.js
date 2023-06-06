@@ -43,6 +43,18 @@ import Messages from '../screens/Messages';
 import Tab3 from '../screens/Tab3';
 import Tab4 from '../screens/Tab4';
 import SplashScreen from '../screens/SplashScreen';
+import MakeOffer from '../screens/MakeOffer';
+import NonNegotiate from '../screens/NonNegotiate';
+import Negotiate from '../screens/Negotiate';
+import AcceptNon from '../screens/AcceptNon';
+import NegotiateOffer from '../screens/NegotiateOffer';
+
+import NonNegotiateTutor from '../screens/NonNegotiateTutor';
+import NegotiateTutor from '../screens/NegotiateTutor';
+import AcceptNonTutor from '../screens/AcceptNonTutor';
+import AcceptTutor from '../screens/AcceptTutor';
+import MyBookings from '../screens/MyBookings';
+import MyFav from '../screens/MyFav';
 
 
 
@@ -61,11 +73,11 @@ function SignInScreen() {
         name="SplashScreen"
         component={SplashScreen}
         options={{
-          
-          headerShown: false,
-         
 
-        
+          headerShown: false,
+
+
+
         }}
       />
       <Stack.Screen
@@ -492,6 +504,7 @@ function SecondStacknavigation() {
   return (
     <SecondStack.Navigator screenOptions={{ headerShown: false }} tabBar={props => <MyTabBar {...props} />} >
 
+
       <SecondStack.Screen
         name="ClientLanding"
         component={ClientLanding}
@@ -510,6 +523,206 @@ function SecondStacknavigation() {
           },
         }}
       />
+
+<Stack.Screen
+        name="MakeOffer"
+        component={MakeOffer}
+        options={{
+          title: 'AuthCheck',
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#e85b3d',
+          },
+
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+
+<Stack.Screen
+        name="NonNegotiate"
+        component={NonNegotiate}
+        options={{
+          title: 'AuthCheck',
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#e85b3d',
+          },
+
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="Negotiate"
+        component={Negotiate}
+        options={{
+          title: 'AuthCheck',
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#e85b3d',
+          },
+
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+
+<Stack.Screen
+        name="AcceptNon"
+        component={AcceptNon}
+        options={{
+          title: 'AuthCheck',
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#e85b3d',
+          },
+
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+
+
+      <Stack.Screen
+        name="NegotiateOffer"
+        component={NegotiateOffer}
+        options={{
+          title: 'AuthCheck',
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#e85b3d',
+          },
+
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+
+<Stack.Screen
+        name="NegotiateTutor"
+        component={NegotiateTutor}
+        options={{
+          title: 'AuthCheck',
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#e85b3d',
+          },
+
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+
+<Stack.Screen
+        name="NonNegotiateTutor"
+        component={NonNegotiateTutor}
+        options={{
+          title: 'AuthCheck',
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#e85b3d',
+          },
+
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="AcceptNonTutor"
+        component={AcceptNonTutor}
+        options={{
+          title: 'AuthCheck',
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#e85b3d',
+          },
+
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="MyBookings"
+        component={MyBookings}
+        options={{
+          title: 'AuthCheck',
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#e85b3d',
+          },
+
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="MyFav"
+        component={MyFav}
+        options={{
+          title: 'AuthCheck',
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#e85b3d',
+          },
+
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+        <Stack.Screen
+        name="AcceptTutor"
+        component={AcceptTutor}
+        options={{
+          title: 'AuthCheck',
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: '#e85b3d',
+          },
+
+          headerTintColor: '#fff',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      />
+
+
+
 
       <SecondStack.Screen
 
@@ -586,7 +799,7 @@ function SecondStacknavigation() {
           },
         }}
       />
-      
+
       <SecondStack.Screen
         name="OurTutor"
         component={OurTutor}
@@ -661,6 +874,8 @@ function SecondStacknavigation() {
         }}
       />
 
+
+
 <Stack.Screen
         name="TutionSchedulePicker"
         component={TutionSchedulePicker}
@@ -716,7 +931,7 @@ function SecondStacknavigation() {
         }}
       />
 
-      
+
 
 
 
@@ -1194,8 +1409,9 @@ function MainNavigation() {
             headerShown: false
           }}
         >
-          
-          <Stack.Screen name="home" component={MyDrawer3} />
+
+            <Stack.Screen name="home" component={MyDrawer3} />
+           {/* <Stack.Screen name="home" component={MyDrawer2} /> */}
 
           <Stack.Screen name="Auth2" component={MyDrawer2} />
 

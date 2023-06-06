@@ -922,7 +922,7 @@ const OurTutor = ({props, route}) => {
         <View style={styles.LittlemoreContainer}>
           <View style={styles.LittlLeft}>
             <Text style={styles.Text1}>Our Tutors</Text>
-            <Text style={styles.Text2}>….for your selection....</Text>
+            <Text style={styles.Text2}>….for your selection...</Text>
           </View>
           <View style={styles.LittlRight}>
             <View style={styles.rightImageWrapper}>

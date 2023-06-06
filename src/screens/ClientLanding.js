@@ -72,7 +72,7 @@ const ClientLanding = () => {
           <View style={styles.UserRight}>
             <Text>I want to be an Educator.....</Text>
             <TouchableOpacity
-              //onPress={() => navigation.navigate('TutorLanding')}
+              onPress={() => navigation.navigate('TutorLanding')}
               >
               <Image
                 source={require('../Assets/btoggle.png')}
@@ -289,7 +289,7 @@ const ClientLanding = () => {
         )}
         />
 
-       
+
 
           {/* <View style={[styles.card, styles.shadowProp]}>
             <View style={styles.Boxtwo}>
@@ -340,7 +340,7 @@ const ClientLanding = () => {
               <Text style={styles.searchText}>Upcoming</Text>
             </View>
           </View>
-        </View> */} 
+        </View> */}
 
         {/* <View style={styles.SearchContainer}>
           <View style={[styles.card, styles.shadowProp]}>
@@ -356,15 +356,15 @@ const ClientLanding = () => {
           </View>
         </View> */}
 
-        {/* <View style={[styles.card, styles.shadowProp]}>  
-        <View>  
-          <Text style={styles.heading}>  
-            React Native Box Shadow (Shadow Props)  
-          </Text>  
-        </View>  
-        <Text>  
-Using the elevation style prop to apply box-shadow for iOS devices  
-        </Text>  
+        {/* <View style={[styles.card, styles.shadowProp]}>
+        <View>
+          <Text style={styles.heading}>
+            React Native Box Shadow (Shadow Props)
+          </Text>
+        </View>
+        <Text>
+Using the elevation style prop to apply box-shadow for iOS devices
+        </Text>
       </View>  */}
       </ScrollView>
     </View>
@@ -581,8 +581,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin:10,
-    
-   
+
+
     // backgroundColor:"red",
   },
   shadowProp: {
@@ -684,7 +684,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    
+
   },
   shadowPropSlider: {
     shadowOffset: {width: 8, height: 15},

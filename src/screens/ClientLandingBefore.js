@@ -304,7 +304,7 @@ const ClientLandingBefore = () => {
 
         <View style={styles.SearchContainer}>
           <Text style={{color: '#000', fontWeight: '700', fontSize: 16}}>
-            Featured Tutors
+            Featured Tutors 
           </Text>
         </View>
 

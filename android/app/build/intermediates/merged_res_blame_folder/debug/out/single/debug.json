@@ -260,6 +260,10 @@
         "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_pencil.png"
     },
     {
+        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_userwhite.png.flat",
+        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_userwhite.png"
+    },
+    {
         "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_node_modules_reactnativeelementdropdown_src_assets_close.png.flat",
         "source": "com.tutor.app-main-37:/drawable-mdpi/node_modules_reactnativeelementdropdown_src_assets_close.png"
     },
@@ -350,6 +354,10 @@
     {
         "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_night.png.flat",
         "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_night.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_map.jpeg.flat",
+        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_map.jpeg"
     },
     {
         "merged": "com.tutor.app-merged_res-35:/drawable-xhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",

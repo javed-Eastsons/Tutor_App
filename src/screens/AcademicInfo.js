@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import {
     SafeAreaView,
     StyleSheet,
@@ -22,7 +21,7 @@ const AcademicInfo = () => {
     const navigation = useNavigation();
 
     const [showemail, setShowEmail] = React.useState('Qualification');
-    
+
 
 
 
@@ -223,14 +222,16 @@ const AcademicInfo = () => {
                                             {/* <Text style={{ color: '#000', fontSize: 14, }}>{year}</Text> */}
                                         </View>
                                         <View >
-                                            <TouchableOpacity onPress={() => setDetails(true)} style={{ backgroundColor: 'lightblue', borderRadius: 6, height: hp(6), width: wp(14), alignItems: 'center', justifyContent: 'center' }}>
+                                            <TouchableOpacity
+                                                onPress={() => setDetails(true)}
+                                                style={{ backgroundColor: 'lightblue', borderRadius: 6, height: hp(6), width: wp(14), alignItems: 'center', justifyContent: 'center' }}>
                                                 <Image source={require('../Assets/Pencil.png')}
                                                     style={{ height: hp(3), width: wp(5) }}
                                                 />
                                             </TouchableOpacity>
-                                            <View style={{ backgroundColor: '#2F5597', borderRadius: 6, height: hp(6), width: wp(14), alignItems: 'center', justifyContent: 'center',marginTop:5 }}>
+                                            <View style={{ backgroundColor: '#2F5597', borderRadius: 6, height: hp(6), width: wp(14), alignItems: 'center', justifyContent: 'center', marginTop: 5 }}>
                                                 <Image source={require('../Assets/delete.png')}
-                                                    style={{ height: hp(4), width: wp(7) ,}}
+                                                    style={{ height: hp(4), width: wp(7), }}
                                                 />
                                             </View>
                                         </View>
@@ -282,26 +283,30 @@ const AcademicInfo = () => {
 
                         </Modal >
 
-                        <Modal animationType="slide"
+                        <Modal
+                            animationType="slide"
                             transparent={true}
                             visible={details}
-                            onRequestClose={() => {
-                                setDetails(false);
-                            }}>
+                            onRequestClose={() => setDetails(false)}>
                             <View style={styles.modalWrapper2}>
 
                                 <View style={styles.modalWrapp}>
 
                                     <View style={{ flexDirection: 'row', marginTop: hp(2), justifyContent: 'space-between', marginHorizontal: wp(5) }}>
-                                        <TouchableOpacity onPress={() => setDetails(false)} style={styles.crossImageWrapper}>
+                                        <TouchableOpacity
+                                            onPress={() => setDetails(false)}
+                                            style={styles.crossImageWrapper}>
                                             <Image source={require('../Assets/closeingray.png')} style={styles.crossImage} />
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={styles.tickWrapper}>
+                                        <TouchableOpacity
+                                            onPress={() => setDetails(false)}
+
+                                            style={styles.tickWrapper}>
                                             <Image source={require('../Assets/right.png')} style={styles.tickImage} />
                                         </TouchableOpacity>
                                     </View>
                                     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text style={{ color: 'grey', fontSize: 20, fontWeight: '800' }}>Add Details</Text>
+                                        <Text style={{ color: 'grey', fontSize: 20, fontWeight: '800' }}>Add Detail</Text>
                                     </View>
 
                                     <View style={{ position: 'absolute', top: hp(12), left: wp(10), zIndex: 999, backgroundColor: '#fff' }}>
@@ -341,12 +346,12 @@ const AcademicInfo = () => {
                                                         item.value === Experience && (
                                                             <Text
                                                                 key={item.value}
-                                                                style={{ fontSize: 13, color: '#000',marginTop:10 }}>
+                                                                style={{ fontSize: 13, color: '#000', marginTop: 10 }}>
                                                                 {item.label}
                                                             </Text>
                                                         )
                                                 )}
-                                                <Image source={require('../Assets/downbutton.png')} style={{ height: hp(3), width: wp(6) ,marginTop:hp(1)}} />
+                                                <Image source={require('../Assets/downbutton.png')} style={{ height: hp(3), width: wp(6), marginTop: hp(1) }} />
 
                                             </View>
                                         </RNPickerSelect>
@@ -396,16 +401,16 @@ const AcademicInfo = () => {
                         </Modal >
 
                     </View>
-                    <View style={{ flex: 0.1 ,flexDirection:"row",justifyContent:"space-between"}}>
-                        <TouchableOpacity onPress={()=>navigation.goBack()}
-                        style={styles.circleArrow}>
-                            <Image style={{transform: [{ rotate: '180deg' }]}}
-                             source={require('../Assets/circleArrow.png')} />
+                    <View style={{ flex: 0.1, flexDirection: "row", justifyContent: "space-between" }}>
+                        <TouchableOpacity onPress={() => navigation.goBack()}
+                            style={styles.circleArrow}>
+                            <Image style={{ transform: [{ rotate: '180deg' }] }}
+                                source={require('../Assets/circleArrow.png')} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => setShowEmail('History')}
-                        style={styles.circleArrow}>
+                            style={styles.circleArrow}>
                             <Image
-                             source={require('../Assets/circleArrow.png')} />
+                                source={require('../Assets/circleArrow.png')} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -414,7 +419,7 @@ const AcademicInfo = () => {
                 showemail == 'History' &&
                 <View style={{ flex: 1 }}>
                     <View style={{ flex: 0.9 }}>
-                        <TouchableOpacity  onPress = {()=>  setHistoryModal(true)}style={{ borderWidth: 1, borderColor: 'lightgrey', height: hp(8), paddingHorizontal: wp(2), width: wp(90), marginLeft: wp(5) }}>
+                        <TouchableOpacity onPress={() => setHistoryModal(true)} style={{ borderWidth: 1, borderColor: 'lightgrey', height: hp(8), paddingHorizontal: wp(2), width: wp(90), marginLeft: wp(5) }}>
                             <Text style={{ color: 'lightgrey', fontSize: 14, paddingTop: hp(.5) }}>You can list the School Name, Exam & Results in this section</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => setHistoryModal(true)} style={{ flexDirection: 'row', alignItems: 'center', marginLeft: wp(5), marginTop: hp(2) }}>
@@ -432,12 +437,14 @@ const AcademicInfo = () => {
                                 <Text style={{ color: '#000', fontSize: 14, }}>{grade}</Text>
                             </View>
                             <View >
-                                <TouchableOpacity onPress={() => setDetails(true)} style={{ backgroundColor: 'lightblue', borderRadius: 6, height: hp(6), width: wp(14), alignItems: 'center', justifyContent: 'center' }}>
+                                <TouchableOpacity
+                                    onPress={() => setDetails(true)}
+                                    style={{ backgroundColor: 'lightblue', borderRadius: 6, height: hp(6), width: wp(14), alignItems: 'center', justifyContent: 'center' }}>
                                     <Image source={require('../Assets/Pencil.png')}
                                         style={{ height: hp(3), width: wp(6) }}
                                     />
                                 </TouchableOpacity>
-                                <View style={{ backgroundColor: '#2F5597',marginTop:5, borderRadius: 6, height: hp(6), width: wp(14), alignItems: 'center', justifyContent: 'center' }}>
+                                <View style={{ backgroundColor: '#2F5597', marginTop: 5, borderRadius: 6, height: hp(6), width: wp(14), alignItems: 'center', justifyContent: 'center' }}>
                                     <Image source={require('../Assets/delete.png')}
                                         style={{ height: hp(4), width: wp(7) }}
                                     />
@@ -503,12 +510,12 @@ const AcademicInfo = () => {
                                                         item.value === state && (
                                                             <Text
                                                                 key={item.value}
-                                                                style={{ fontSize: 13, color: '#000',marginTop:10 }}>
+                                                                style={{ fontSize: 13, color: '#000', marginTop: 10 }}>
                                                                 {item.label}
                                                             </Text>
                                                         )
                                                 )}
-                                                <Image source={require('../Assets/downbutton.png')} style={{ height: hp(3), width: wp(6) ,marginTop:hp(1)}} />
+                                                <Image source={require('../Assets/downbutton.png')} style={{ height: hp(3), width: wp(6), marginTop: hp(1) }} />
 
                                             </View>
                                         </RNPickerSelect>
@@ -556,7 +563,7 @@ const AcademicInfo = () => {
                                             </View>
                                             <TouchableOpacity>
                                                 <Image source={require('../Assets/Deletes.png')}
-                                                    style={{ height: hp(3), width: wp(6), marginTop: hp(3) ,marginLeft:wp(1)}}
+                                                    style={{ height: hp(3), width: wp(6), marginTop: hp(3), marginLeft: wp(1) }}
                                                 />
                                             </TouchableOpacity>
                                         </View>
@@ -574,10 +581,10 @@ const AcademicInfo = () => {
                         </Modal >
                     </View>
                     <View style={{ flex: 0.1, paddingBottom: hp(5) }}>
-                        <TouchableOpacity onPress={()=>navigation.goBack()}
-                        style={styles.circleArrow}>
-                            <Image  style={{transform: [{ rotate: '180deg' }]}}
-                            source={require('../Assets/circleArrow.png')} />
+                        <TouchableOpacity onPress={() => navigation.goBack()}
+                            style={styles.circleArrow}>
+                            <Image style={{ transform: [{ rotate: '180deg' }] }}
+                                source={require('../Assets/circleArrow.png')} />
                         </TouchableOpacity>
                         <View style={{ alignItems: 'center' }}>
 
@@ -617,7 +624,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         flexDirection: "row",
         width: wp(100),
-        marginTop:hp(2)
+        marginTop: hp(2)
     },
 
 
@@ -682,7 +689,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
 
-    circleArrow: { flex: 0.1, justifyContent: 'flex-start', alignItems: 'flex-start',marginHorizontal:wp(5), paddingBottom: hp(4) },
+    circleArrow: { flex: 0.1, justifyContent: 'flex-start', alignItems: 'flex-start', marginHorizontal: wp(5), paddingBottom: hp(4) },
     modalWrapper2: { flex: 1, backgroundColor: '#00000040', alignItems: 'center', justifyContent: 'flex-end' },
     modalWrapp: { height: hp(48), width: wp(100), backgroundColor: '#fff' },
     crossWRapper: { flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: wp(5), marginTop: hp(2) },

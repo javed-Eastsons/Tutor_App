@@ -281,7 +281,9 @@ const TutorLanding = () => {
 
         <View style={styles.SearchContainer1}>
           <View style={[styles.card, styles.shadowProp]}>
-            <View style={styles.Boxtwo}>
+            <TouchableOpacity
+            onPress={() => navigation.navigate('MyBookings')}
+            style={styles.Boxtwo}>
               <View style={styles.cardShadow}>
                 <Image
                   source={require('../Assets/Booking.png')}
@@ -289,10 +291,12 @@ const TutorLanding = () => {
                 />
               </View>
               <Text style={styles.searchText}>My Bookings</Text>
-            </View>
+            </TouchableOpacity>
           </View>
+                
 
-          <View style={[styles.card, styles.shadowProp]}>
+
+          {/* <View style={[styles.card, styles.shadowProp]}>
             <View style={styles.Boxone}>
               <View style={styles.cardShadow}>
                 <Image
@@ -302,7 +306,22 @@ const TutorLanding = () => {
               </View>
               <Text style={styles.searchText}>My Posts</Text>
             </View>
-          </View>
+          </View> */}
+
+
+           <TouchableOpacity style={[styles.card, styles.shadowProp]}
+            onPress={() => navigation.navigate('MyFav')}
+           >
+            <View style={styles.Boxone}>
+              <View style={styles.cardShadow}>
+                <Image
+                  source={require('../Assets/Favourite.png')}
+                  style={styles.postRighticons}
+                />
+              </View>
+              <Text style={styles.searchText}>My Fav</Text>
+            </View>
+          </TouchableOpacity>
 
           {/* <View style={styles.Boxone}>
 
@@ -325,8 +344,10 @@ const TutorLanding = () => {
           </View>
         </View>
 
-        <View style={styles.SearchContainer}>
-          <View style={[styles.card, styles.shadowProp]}>
+        {/* <View style={styles.SearchContainer}>
+          <TouchableOpacity
+          onPress={() => navigation.navigate('MyFav')}
+          style={[styles.card, styles.shadowProp]}>
             <View style={styles.Boxone}>
               <View style={styles.cardShadow}>
                 <Image
@@ -336,8 +357,8 @@ const TutorLanding = () => {
               </View>
               <Text style={styles.searchText}>My Faves</Text>
             </View>
-          </View>
-        </View>
+          </TouchableOpacity>
+        </View> */}
       </ScrollView>
     </View>
   );
@@ -509,7 +530,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
     height: hp(11),
-    width: wp(23),
+    width: wp(30),
     justifyContent: 'center',
 
     marginVertical: 0,
@@ -644,6 +665,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignSelf: 'center',
   },
+
   SearchContainer1: {
     height: hp(15),
     width: wp(100),

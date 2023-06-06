@@ -429,6 +429,7 @@ const TutoringDetail = () => {
 
 
         console.log(selectArray)
+        navigation.navigate('YourProfle')
     }
 
 

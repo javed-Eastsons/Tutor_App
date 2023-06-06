@@ -26,6 +26,7 @@ const WordYou = () => {
 
     const savedata = () => {
         console.log('LLLLLLLLLLLLLLLLLLL', mark, yourdata)
+        navigation.navigate('YourProfle')
     }
 
     return (

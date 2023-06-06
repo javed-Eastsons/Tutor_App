@@ -147,6 +147,7 @@ const YourProfle = ({ props, route }) => {
     const saveprofile = () => {
 
         console.log('save Profile')
+   
     }
 
     const navigation = useNavigation();
@@ -259,7 +260,8 @@ const YourProfle = ({ props, route }) => {
                                     <Text style={styles.postText}>Academic History</Text>
                                     <Text style={styles.postSemiText}>Now we need to know something about your academic background</Text>
 
-                                    <TouchableOpacity onPress={() => navigation.navigate('AcademicInfo')} style={styles.infoWrapper}>
+                                    <TouchableOpacity 
+                                    onPress={() => navigation.navigate('AcademicInfo')} style={styles.infoWrapper}>
                                         <Text style={styles.infoWrapperText}>Enter Academic History</Text>
                                     </TouchableOpacity>
                                 </View>
