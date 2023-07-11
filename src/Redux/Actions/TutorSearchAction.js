@@ -68,6 +68,7 @@ export const GetfilterQualification = (postalcode, tuition_type, gender, status,
     }
 }
 
+
 export const GetfilterSubject = (postalcode, tuition_type, shortarray, navigation) => {
     var mainarray = [];
     var item = {}

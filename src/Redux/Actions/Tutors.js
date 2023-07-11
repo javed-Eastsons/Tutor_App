@@ -1,4 +1,4 @@
-import { ALL_TUTORS, REGISTER_MSG, OTP_MSG } from "./types";
+import { ALL_TUTORS, REGISTER_MSG, OTP_MSG,GET_USER_ID } from "./types";
 import AsyncStorage from '@react-native-community/async-storage';
 import axios, * as others from 'axios';
 import { Alert } from "react-native";
@@ -193,6 +193,7 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
 
 
 
+
 export const OTPVerify = (code) => {
     // console.log(Mobile, Email, Password)
     return (dispatch, getState) => {
@@ -220,7 +221,14 @@ export const OTPVerify = (code) => {
                 body: formData,
             }).then(response => response.json())
             .then((responseJson) => {
-                //  console.log('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF', responseJson)
+                 console.log('RegisterAPI', responseJson)
+                 dispatch({
+
+                    type: GET_USER_ID,
+                    USER_ID: responseJson?.user_id
+
+
+                });
                 if (responseJson.status == true) {
                     //  navigation.navigate('Auth');
                     console.log('PPPaaa', responseJson.message)
@@ -266,7 +274,7 @@ export const OTPVerifywithrole = (role, otp, navigation) => {
         axios.defaults.baseURL = 'https://refuel.site';
         const url1 = axios.defaults.baseURL + '/projects/tutorapp/APIs/UserRegistration/UserRegistrationOTP.php';
         var formData = new FormData();
-        formData.append('user_type', role)
+        formData.append('user_type', role)    
 
         formData.append('OTP_MOBILE', otp)
 
@@ -285,18 +293,19 @@ export const OTPVerifywithrole = (role, otp, navigation) => {
                 body: formData,
             }).then(response => response.json())
             .then((responseJson) => {
-                //  console.log('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF', responseJson)
+                 console.log('RegisterAPI', responseJson)
+                 dispatch({
+
+                    type: GET_USER_ID,
+                    USER_ID: responseJson?.user_id
+
+
+                });
                 if (responseJson.status == true && role == 'I am an Educator') {
                     navigation.navigate('Auth2');
                     console.log('PPPaaa', responseJson.message)
 
-                    // dispatch({
-
-                    //     type: OTP_MSG,
-                    //     otpmsg: responseJson.message
-
-
-                    // });
+                    
 
 
 
@@ -339,6 +348,72 @@ export const OTPVerifywithrole = (role, otp, navigation) => {
 
     }
 }
+
+
+export const editProfile = (Age, Gender, Nationality,GET_USER_ID,postalcode, tuition_type, shortarray, navigation) => {
+    var mainarray = [];
+    var item = {}
+    item['user_id'] = GET_USER_ID;
+    item['age'] = Age;
+    item['gender'] = Gender;
+    item['nationality'] = Nationality;
+    mainarray.push(item)
+    mainarray.push(shortarray)
+    console.log("mainarray",mainarray)
+
+    return (dispatch, getState) => {
+
+
+        axios.defaults.baseURL = 'https://refuel.site';
+        const url1 = axios.defaults.baseURL + '/projects/tutorapp/APIs/UserRegistration/CompleteUserProfile.php';
+
+        console.log(url1)
+        return fetch(url1,
+            {
+
+                method: 'POST',
+                headers: new Headers({
+                    'Accept': 'application/json',
+                    "Content-Type": "application/json",
+                    // "Authorization": authtoken,
+                }),
+
+                body: JSON.stringify(mainarray)
+
+            }).then(response => response.json())
+            .then((responseJson) => {
+                console.log('completeProfileAPI', responseJson)
+                Alert.alert(responseJson.message)
+                //   Alert.alert(responseJson.message)
+                if (responseJson.Status == true) {
+
+                    console.log('ww', responseJson.Tutor_Search_Data)
+                    // Alert.alert(responseJson.message)
+                    dispatch({
+
+                        type: GET_FILTER_DATA,
+                        FILTER_DATA: responseJson.Tutor_Search_Data
+
+                    });
+                   
+                    
+
+                }
+
+                else if (responseJson.Status == false) {
+
+                    console.log('AAa', responseJson.Message)
+                    Alert.alert(responseJson.Message)
+
+                }
+            })
+            .catch(error => console.log('LLLLLLLLL', error.message))
+
+
+    }
+}
+
+
 
 
 
