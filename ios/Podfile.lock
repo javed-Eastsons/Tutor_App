@@ -401,7 +401,13 @@ PODS:
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
+<<<<<<< HEAD
+  - RNCPicker (2.4.10):
+    - React-Core
+  - RNDateTimePicker (6.7.5):
+=======
   - RNDateTimePicker (6.7.3):
+>>>>>>> javedcode
     - React-Core
   - RNGestureHandler (2.9.0):
     - React-Core
@@ -437,6 +443,11 @@ PODS:
   - RNScreens (3.19.0):
     - React-Core
     - React-RCTImage
+<<<<<<< HEAD
+  - RNSVG (13.8.0):
+    - React-Core
+=======
+>>>>>>> javedcode
   - SocketRocket (0.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -508,11 +519,19 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - "RNCCheckbox (from `../node_modules/@react-native-community/checkbox`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
+<<<<<<< HEAD
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
+=======
+>>>>>>> javedcode
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+<<<<<<< HEAD
+  - RNSVG (from `../node_modules/react-native-svg`)
+=======
+>>>>>>> javedcode
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -615,6 +634,11 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/checkbox"
   RNCMaskedView:
     :path: "../node_modules/@react-native-community/masked-view"
+<<<<<<< HEAD
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
+=======
+>>>>>>> javedcode
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNGestureHandler:
@@ -625,6 +649,11 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+<<<<<<< HEAD
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
+=======
+>>>>>>> javedcode
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -683,11 +712,20 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
   RNCCheckbox: 38989bbd3d7d536adf24ba26c6b3e6cefe0bea6f
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
+<<<<<<< HEAD
+  RNCPicker: 0bc2f0a29abcca7b7ed44a2d036aac9ab6d25700
+  RNDateTimePicker: 65e1d202799460b286ff5e741d8baf54695e8abd
+=======
   RNDateTimePicker: 00247f26c34683c80be94207f488f6f13448586e
+>>>>>>> javedcode
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
   RNReanimated: cc5e3aa479cb9170bcccf8204291a6950a3be128
   RNScreens: ea4cd3a853063cda19a4e3c28d2e52180c80f4eb
+<<<<<<< HEAD
+  RNSVG: c1e76b81c76cdcd34b4e1188852892dc280eb902
+=======
+>>>>>>> javedcode
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: 921eb014669cf9c718ada68b08d362517d564e0c
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a

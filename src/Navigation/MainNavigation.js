@@ -354,6 +354,7 @@ function MyTabBar({ state, descriptors, navigation }) {
       }}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
+        console.log(options,'options')
         const label =
           options.tabBarLabel !== undefined
             ? options.tabBarLabel
@@ -365,8 +366,22 @@ function MyTabBar({ state, descriptors, navigation }) {
         const isFocused = state.index === index;
         let showlabel = "";
         let iconNm = "";
+if (label == "Home") {
+          // showlabel = "Settings";
+          iconNm = require('../Assets/homeBottomTab.png');
 
-        if (label == "TutorLanding") {
+
+          // {
+          //   isFocused ?
+
+          //     iconNm = require('../Assets/bell.png')
+
+          //     :
+          //     iconNm = require('../Assets/bell.png')
+          // }
+        }
+
+        if (label == "Setting") {
           // showlabel = "Dashboard";
           iconNm = require('../Assets/Settings.png');
 
@@ -383,26 +398,12 @@ function MyTabBar({ state, descriptors, navigation }) {
 
 
 
+        
+
+
         if (label == "Bookmark") {
-          // showlabel = "Settings";
-          iconNm = require('../Assets/Chats.png');
-
-
-          // {
-          //   isFocused ?
-
-          //     iconNm = require('../Assets/bell.png')
-
-          //     :
-          //     iconNm = require('../Assets/bell.png')
-          // }
-        }
-
-
-
-        if (label == "ClientLanding") {
           //showlabel = "Home";
-          iconNm = require('../Assets/Bookings.png');
+          iconNm = require('../Assets/bookmarkIcon.png');
 
           // {
           //   isFocused ?
@@ -411,10 +412,10 @@ function MyTabBar({ state, descriptors, navigation }) {
           //     iconNm = require('../Assets/bell.png')
           // }
         }
-
-        if (label == "FirstStacknavigation") {
+        
+        if (label == "Chat") {
           //showlabel = "Home";
-          iconNm = require('../Assets/Settings.png');
+          iconNm = require('../Assets/chatIcon.png');
 
           // {
           //   isFocused ?
@@ -891,7 +892,7 @@ function MainNavigation1() {
         name="SecondStacknavigation"
         component={SecondStacknavigation}
         options={{
-          title: 'ClientLanding',
+          title: 'Home',
           headerStyle: {
             backgroundColor: '#e85b3d',
           },
@@ -912,7 +913,7 @@ function MainNavigation1() {
         name="Messages"
         component={Messages}
         options={{
-          title: 'Bookmark',
+          title: 'Chat',
 
           headerStyle: {
             backgroundColor: '#e85b3d',
@@ -932,7 +933,7 @@ function MainNavigation1() {
         name="Tab3"
         component={Tab3}
         options={{
-          title: 'ClientLanding',
+          title: 'Bookmark',
           headerStyle: {
             backgroundColor: '#e85b3d',
           },
@@ -953,7 +954,7 @@ function MainNavigation1() {
         name="Tab4"
         component={Tab4}
         options={{
-          title: 'TutorLanding',
+          title: 'Setting',
           headerStyle: {
 
             backgroundColor: '#e85b3d',

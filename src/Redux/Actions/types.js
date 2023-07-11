@@ -4,3 +4,4 @@ export const OTP_MSG = 'OTP_MSG';
 export const GET_POSTAL_DATA = 'GET_POSTAL_DATA';
 export const GET_FILTER_DATA = 'GET_FILTER_DATA';
 export const GET_QUICK_DATA = 'GET_QUICK_DATA';
+export const GET_USER_ID= 'GET_USER_ID';

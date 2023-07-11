@@ -1520,6 +1520,7 @@ drawable src_assets_logo
 drawable src_assets_logogrey
 drawable src_assets_mailuser
 drawable src_assets_male
+drawable src_assets_map
 drawable src_assets_morning
 drawable src_assets_myactivities
 drawable src_assets_mypost
@@ -1564,6 +1565,7 @@ drawable src_assets_twitter
 drawable src_assets_upcoming
 drawable src_assets_user
 drawable src_assets_usericon
+drawable src_assets_userwhite
 drawable src_assets_welcome
 drawable src_assets_wordyou
 drawable test_custom_background

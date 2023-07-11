@@ -92,7 +92,13 @@ android {
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
+<<<<<<< HEAD
 
+=======
+    packagingOptions {
+        pickFirst 'lib/armeabi-v7a/libfbjni.so'
+    }
+>>>>>>> javedcode
     namespace "com.tutor"
     defaultConfig {
         applicationId "com.tutor"
@@ -101,7 +107,14 @@ android {
         versionCode 1
         versionName "1.0"
     }
+<<<<<<< HEAD
 
+=======
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+>>>>>>> javedcode
     splits {
         abi {
             reset()
@@ -128,9 +141,18 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+<<<<<<< HEAD
         }
     }
 
+=======
+
+        }
+    }
+    aaptOptions{
+        ignoreAssetsPattern '!.png'
+    }
+>>>>>>> javedcode
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -151,12 +173,21 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+<<<<<<< HEAD
 
+=======
+    implementation('com.google.android.gms:play-services-vision:20.0.0')
+>>>>>>> javedcode
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.squareup.okhttp3', module:'okhttp'
+<<<<<<< HEAD
+=======
+        exclude group: 'com.google.android.gms', module: 'play-services-vision-common'
+
+>>>>>>> javedcode
     }
 
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}")
