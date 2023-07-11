@@ -1,498 +1,498 @@
 [
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_bookchat.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_bookchat.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_student.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_student.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_redheart.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_redheart.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_exam.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_exam.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_dollar.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_dollar.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_mailuser.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_mailuser.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_logo.jpg.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_logo.jpg"
+        "merged": "com.tutor.app-merged_res-5:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.tutor.app-main-7:/mipmap-xxxhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/mipmap-mdpi_ic_launcher_round.png.flat",
-        "source": "com.tutor.app-main-37:/mipmap-mdpi/ic_launcher_round.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_course.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_course.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_login.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_login.png"
+        "merged": "com.tutor.app-merged_res-5:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.tutor.app-main-7:/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_togglebb.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_togglebb.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_slider4.jpg.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_slider4.jpg"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-hdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-hdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_chat.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_chat.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_heart.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_heart.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_student.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_student.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-hdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-hdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_upcoming.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_upcoming.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_chattutors.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_chattutors.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_male.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_male.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_privacy.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_privacy.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_linkedin.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_linkedin.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_usericon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_usericon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
-        "source": "com.tutor.app-main-37:/mipmap-xxxhdpi/ic_launcher_round.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_three_dot.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_three_dot.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_downbutton.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_downbutton.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-hdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-hdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_evening.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_evening.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_welcome.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_welcome.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-xxxhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-xxxhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_login.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_login.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_people.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_people.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_personal.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_personal.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_heart.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_heart.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-xxhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-xxhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable_rn_edit_text_material.xml.flat",
-        "source": "com.tutor.app-main-37:/drawable/rn_edit_text_material.xml"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_subjectexperience.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_subjectexperience.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-xhdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-xhdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_userwhite.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_userwhite.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_subjectexperience.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_subjectexperience.png"
+        "merged": "com.tutor.app-merged_res-5:/raw_src_assets_second.mp4.flat",
+        "source": "com.tutor.app-main-7:/raw/src_assets_second.mp4"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_closeingray.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_closeingray.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_location.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_location.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_duration.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_duration.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_fb.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_fb.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_chats.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_chats.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "com.tutor.app-main-37:/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_node_modules_reactnativeelementdropdown_src_assets_down.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/node_modules_reactnativeelementdropdown_src_assets_down.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_calendarwhite.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_calendarwhite.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_tutionsjobs.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_tutionsjobs.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_btoggle.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_btoggle.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_fb.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_fb.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_ourservice.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_ourservice.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_start.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_start.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_school.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_school.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_academic.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_academic.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_insta.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_insta.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_right.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_right.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_wordyou.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_wordyou.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-xxxhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-xxxhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_search.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_search.png"
+        "merged": "com.tutor.app-merged_res-5:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.tutor.app-main-7:/mipmap-xhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_grade.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_grade.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_pastedgraphic7.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_pastedgraphic7.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_flag.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_flag.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_ourservice.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_ourservice.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_delete.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_delete.png"
+        "merged": "com.tutor.app-merged_res-5:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.tutor.app-main-7:/mipmap-hdpi/ic_launcher.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_slider3.jpg.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_slider3.jpg"
+        "merged": "com.tutor.app-merged_res-5:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.tutor.app-main-7:/mipmap-mdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/raw_src_assets_third.mp4.flat",
-        "source": "com.tutor.app-main-37:/raw/src_assets_third.mp4"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_backgrey.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_backgrey.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_bell.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_bell.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_afternoon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_afternoon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-xxxhdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-xxxhdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
+        "merged": "com.tutor.app-merged_res-5:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.tutor.app-main-7:/mipmap-xxhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_exam.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_exam.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_evening.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_evening.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/raw_src_assets_second.mp4.flat",
-        "source": "com.tutor.app-main-37:/raw/src_assets_second.mp4"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_time.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_time.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_start.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_start.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_node_modules_reactnative_libraries_newappscreen_components_logo.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/node_modules_reactnative_libraries_newappscreen_components_logo.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_ourtutors.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_ourtutors.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_calendarwhite.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_calendarwhite.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_bookings.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_bookings.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_tutiontype.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_tutiontype.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/raw_src_assets_four.mp4.flat",
-        "source": "com.tutor.app-main-37:/raw/src_assets_four.mp4"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_settings.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_settings.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_back.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_back.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable_logogrey.png.flat",
+        "source": "com.tutor.app-main-7:/drawable/logogrey.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_three_dot.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_three_dot.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_redheart.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_redheart.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_right.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_right.png"
+        "merged": "com.tutor.app-merged_res-5:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.tutor.app-main-7:/mipmap-mdpi/ic_launcher.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_insta.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_insta.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_promotion.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_promotion.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_mypost.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_mypost.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_homework.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_homework.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_edit.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_edit.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_baricon.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_baricon.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_grade.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_grade.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_afternoon.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_afternoon.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_node_modules_reactnavigation_elements_src_assets_backiconmask.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/node_modules_reactnavigation_elements_src_assets_backiconmask.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_mailuser.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_mailuser.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_help.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_help.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_chats.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_chats.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_terms.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_terms.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-xxhdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-xxhdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_logo.jpg.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_logo.jpg"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_node_modules_reactnative_libraries_newappscreen_components_logo.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/node_modules_reactnative_libraries_newappscreen_components_logo.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_pencil.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_pencil.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_user.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_user.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_slider3.jpg.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_slider3.jpg"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_favourite.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_favourite.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_delete.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_delete.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_tutiontype.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_tutiontype.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_wordyou.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_wordyou.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-hdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-hdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
+        "merged": "com.tutor.app-merged_res-5:/raw_src_assets_third.mp4.flat",
+        "source": "com.tutor.app-main-7:/raw/src_assets_third.mp4"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_myqr.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_myqr.png"
+        "merged": "com.tutor.app-merged_res-5:/raw_src_assets_four.mp4.flat",
+        "source": "com.tutor.app-main-7:/raw/src_assets_four.mp4"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "com.tutor.app-main-37:/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_deletes.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_deletes.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_pencil.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_pencil.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_togglebb.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_togglebb.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_userwhite.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_userwhite.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_pastedgraphic5.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_pastedgraphic5.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_node_modules_reactnativeelementdropdown_src_assets_close.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/node_modules_reactnativeelementdropdown_src_assets_close.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_dollar.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_dollar.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_circlearrow.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_circlearrow.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_upcoming.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_upcoming.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_terms.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_terms.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_linkedin.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_linkedin.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_usericon.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_usericon.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_baricon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_baricon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_pastedgraphic5.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_pastedgraphic5.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_ourtutors.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_ourtutors.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_booking.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_booking.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_tutiontypes.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_tutiontypes.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_myactivities.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_myactivities.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_twitter.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_twitter.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable_logogrey.png.flat",
-        "source": "com.tutor.app-main-37:/drawable/logogrey.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_bookchat.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_bookchat.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_mypost.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_mypost.png"
+        "merged": "com.tutor.app-merged_res-5:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.tutor.app-main-7:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_backgrey.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_backgrey.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_qualification.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_qualification.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_course.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_course.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_booking.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_booking.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_personal.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_personal.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_morning.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_morning.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/mipmap-hdpi_ic_launcher_round.png.flat",
-        "source": "com.tutor.app-main-37:/mipmap-hdpi/ic_launcher_round.png"
+        "merged": "com.tutor.app-merged_res-5:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.tutor.app-main-7:/mipmap-hdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_tutiontypes.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_tutiontypes.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_slider1.jpg.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_slider1.jpg"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/mipmap-xxhdpi_ic_launcher_round.png.flat",
-        "source": "com.tutor.app-main-37:/mipmap-xxhdpi/ic_launcher_round.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_back.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_back.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_academic.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_academic.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_hometution.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_hometution.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_slider2.jpg.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_slider2.jpg"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_myactivities.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_myactivities.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_onlinetution.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_onlinetution.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_searching.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_searching.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_node_modules_reactnativeelementdropdown_src_assets_down.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/node_modules_reactnativeelementdropdown_src_assets_down.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_school.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_school.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_plus.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_plus.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_favourite.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_favourite.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_logogrey.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_logogrey.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_search.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_search.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_postrequire.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_postrequire.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-xxxhdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-xxxhdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_night.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_night.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_female.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_female.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_map.jpeg.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_map.jpeg"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_homework.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_homework.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-xhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-xhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_health.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_health.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_qualification.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_qualification.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_chattutors.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_chattutors.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_logogrey.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_logogrey.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_female.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_female.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_circle.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_circle.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-xxhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-xxhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_node_modules_reactnativeelementdropdown_src_assets_close.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/node_modules_reactnativeelementdropdown_src_assets_close.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_settings.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_settings.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_promotion.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_promotion.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_pastedgraphic7.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_pastedgraphic7.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_male.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_male.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_help.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_help.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_map.jpeg.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_map.jpeg"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_duration.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_duration.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_share.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_share.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_health.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_health.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_location.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_location.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_twitter.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_twitter.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_bookings.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_bookings.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_circle.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_circle.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_downbutton.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_downbutton.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "com.tutor.app-main-37:/mipmap-mdpi/ic_launcher.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_slider2.jpg.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_slider2.jpg"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_privacy.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_privacy.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_myqr.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_myqr.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_expand.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_expand.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-xhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-xhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_assests.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_assests.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_expand.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_expand.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/mipmap-xhdpi_ic_launcher_round.png.flat",
-        "source": "com.tutor.app-main-37:/mipmap-xhdpi/ic_launcher_round.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_people.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_people.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_share.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_share.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_flag.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_flag.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_tutionsjobs.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_tutionsjobs.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-xxhdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-xxhdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_edit.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_edit.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_assests.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_assests.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_morning.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_morning.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_online.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_online.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_slider4.jpg.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_slider4.jpg"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_user.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_user.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_hometution.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_hometution.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable_rn_edit_text_material.xml.flat",
+        "source": "com.tutor.app-main-7:/drawable/rn_edit_text_material.xml"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/raw_src_assets_first.mp4.flat",
-        "source": "com.tutor.app-main-37:/raw/src_assets_first.mp4"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_chat.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_chat.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_deletes.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_deletes.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_night.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_night.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "com.tutor.app-main-37:/mipmap-hdpi/ic_launcher.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_circlearrow.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_circlearrow.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_welcome.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_welcome.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_plus.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_plus.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_closeingray.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_closeingray.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_postrequire.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_postrequire.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_online.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_online.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_btoggle.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_btoggle.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "com.tutor.app-main-37:/mipmap-xhdpi/ic_launcher.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_bell.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_bell.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_node_modules_reactnavigation_elements_src_assets_backiconmask.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/node_modules_reactnavigation_elements_src_assets_backiconmask.png"
+        "merged": "com.tutor.app-merged_res-5:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.tutor.app-main-7:/mipmap-xhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_time.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_time.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_onlinetution.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_onlinetution.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_searching.png.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_searching.png"
+        "merged": "com.tutor.app-merged_res-5:/drawable-xhdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-xhdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-35:/drawable-mdpi_src_assets_slider1.jpg.flat",
-        "source": "com.tutor.app-main-37:/drawable-mdpi/src_assets_slider1.jpg"
+        "merged": "com.tutor.app-merged_res-5:/raw_src_assets_first.mp4.flat",
+        "source": "com.tutor.app-main-7:/raw/src_assets_first.mp4"
     }
 ]

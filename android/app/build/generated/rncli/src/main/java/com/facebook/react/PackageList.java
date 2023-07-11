@@ -21,8 +21,6 @@ import com.reactnativecommunity.checkbox.ReactCheckBoxPackage;
 import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 // @react-native-community/masked-view
 import org.reactnative.maskedview.RNCMaskedViewPackage;
-// @react-native-picker/picker
-import com.reactnativecommunity.picker.RNCPickerPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.RNGestureHandlerPackage;
 // react-native-image-picker
@@ -91,7 +89,6 @@ public class PackageList {
       new ReactCheckBoxPackage(),
       new RNDateTimePickerPackage(),
       new RNCMaskedViewPackage(),
-      new RNCPickerPackage(),
       new RNGestureHandlerPackage(),
       new ImagePickerPackage(),
       new MapsPackage(),
