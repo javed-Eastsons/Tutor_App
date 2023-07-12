@@ -27,32 +27,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import RadioGroup from 'react-native-radio-buttons-group';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import MultiSelect from 'react-native-multiple-select';
-<<<<<<< HEAD
-
-const TutorSearchProfile = ({props, route}) => {
-    const navigation = useNavigation();
-    const [showwhat, setshowwhat] = React.useState('');
-    
-    const data= route.params.data
-    console.log("🚀 ~ file: TutorSearchProfile.js ~ line 36 ~ TutorSearchProfile ~ data", data)
-
-    //Radio Button//
-    const [radioButtons , setRadioButtons] = useState([
-        {
-            id:'1',
-            label:"Experience",
-            value:"Experience"
-        },
-        {
-            id:'2',
-            label:'MySchools',
-            value:'MySchools'
-        },
-        {
-            id:'3',
-            label:'Reviews',
-            value:'Reviews'
-=======
 import Collapsible from 'react-native-collapsible';
 const TutorSearchProfile = ({ props, route }) => {
     const navigation = useNavigation();
@@ -82,7 +56,6 @@ const TutorSearchProfile = ({ props, route }) => {
             id: '3',
             label: 'Reviews',
             value: 'Reviews'
->>>>>>> javedcode
         },
     ])
 
@@ -130,17 +103,6 @@ const TutorSearchProfile = ({ props, route }) => {
                 </View>
 
             </View>
-<<<<<<< HEAD
-            <View style={styles.threeDotContainer}>
-                <Image source={require('../Assets/baricon.png')}
-                    style={styles.threeDoticons}
-                />
-            </View>
-            <View style={[styles.cardCenter, styles.shadowPropCenter,]}>
-                <View style={{ height: 60, width: "100%", flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <View style={{ height: 80, width: 80, borderRadius: 40, marginBottom: 40,}}>
-                        <Image source={require('../Assets/user.png')} style={styles.leftImage} />
-=======
             {/* <View style={styles.threeDotContainer}>
                 <Image source={require('../Assets/baricon.png')}
                     style={styles.threeDoticons}
@@ -156,7 +118,6 @@ const TutorSearchProfile = ({ props, route }) => {
                         /> */}
                         <Image source={{ uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${data?.profile_image}` }} style={{ resizeMode: 'cover', width: '100%', height: '100%' }} />
 
->>>>>>> javedcode
                     </View>
                     <View style={{ height: 40, width: 40, position: 'absolute', right: 30 }}>
                         <Image source={require('../Assets/flag.png')} style={styles.flagImage} />
@@ -171,20 +132,11 @@ const TutorSearchProfile = ({ props, route }) => {
                 <View style={{ height: 25, width: "100%" }}>
                     <Text style={styles.infoText}>{data.name_of_school}</Text>
                 </View>
-<<<<<<< HEAD
-                <View style={{ height: 50, width: "100%", flexDirection: "row",marginTop:10}}>
-=======
                 <View style={{ height: 50, width: "100%", flexDirection: "row", marginTop: 10 }}>
->>>>>>> javedcode
                     <View style={styles.infoContainer}>
                         <Text style={styles.infoText}>{data.Tutor_Age}</Text>
                         <Text style={styles.infoText1}>Age</Text>
 
-<<<<<<< HEAD
-                        
-=======
-
->>>>>>> javedcode
 
                     </View>
                     <View style={styles.line}></View>
@@ -224,57 +176,6 @@ const TutorSearchProfile = ({ props, route }) => {
                  */}
             </View>
 
-<<<<<<< HEAD
- <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-                    <View style={styles.FavBooKChat}>
-                    <Image source={require('../Assets/heart.png')}
-                            style={styles.Bookicons}
-                        />
-                    </View>
-                    <TouchableOpacity   onPress={()=>navigation.navigate('LetsBook',{
-                        data: data
-                    })}
-                     style={styles.FavBooKChat}>
-                    <Image source={require('../Assets/people.png')}
-                            style={styles.Bookicons}
-                        />
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                    
-                    style={styles.FavBooKChat}>
-                    <Image source={require('../Assets/Bookchat.png')}
-                            style={styles.Bookicons}
-                        />
-                    </TouchableOpacity>      
-                    <View style={{height:30,width:50,position:"absolute",right:10}}>
-                    <Image source={require('../Assets/location.png')}
-                            style={styles.Locationicons}
-                        />
-                        <View style={{marginTop:5}}>
-                        <Image source={require('../Assets/share.png')}
-                            style={styles.Locationicons}
-                        />
-                        </View>
-                       
-                    </View>
-
-                </View>
-                 <View style={{ height: 30, width: "50%", alignSelf: "center", flexDirection: "row", marginTop: 5, marginLeft: 10 ,}}>
-                    <View style={styles.FavBooKChatContainer}>
-                        <Text style={{ alignSelf: "center",color:"grey" }}>Favourite</Text>
-                    </View>
-                    <TouchableOpacity
-                    onPress={()=>navigation.navigate('LetsBook',{
-                        data: data
-                    })}
-                     style={styles.FavBooKChatContainer}>
-                        <Text style={{ alignSelf: "center",color:"grey" }}>Book</Text>
-                    </TouchableOpacity>
-                    <View style={styles.FavBooKChatContainer}>
-                        <Text style={{ alignSelf: "center",color:"grey" }}>Chat</Text>
-                    </View>
-                    {/* <View style={{height:30,width:50,marginLeft:20}}>
-=======
             <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
                 <View style={styles.FavBooKChat}>
                     <Image source={require('../Assets/heart.png')}
@@ -324,7 +225,6 @@ const TutorSearchProfile = ({ props, route }) => {
                     <Text style={{ alignSelf: "center", color: "grey" }}>Chat</Text>
                 </View>
                 {/* <View style={{height:30,width:50,marginLeft:20}}>
->>>>>>> javedcode
                     <Image source={require('../Assets/location.png')}
                             style={styles.Bookicons}
                         />
@@ -332,15 +232,6 @@ const TutorSearchProfile = ({ props, route }) => {
                             style={styles.Bookicons}
                         />
                     </View> */}
-<<<<<<< HEAD
-                </View>
-                
-
-
-
-            <View style={{height:50,width:"90%",alignSelf:"center",}}>
-                <Text style={{fontWeight:"bold",fontSize:18,color:"black"}}>A bit about me</Text>
-=======
             </View>
 
 
@@ -348,99 +239,10 @@ const TutorSearchProfile = ({ props, route }) => {
 
             <View style={{ height: 30, width: "90%", alignSelf: "center", }}>
                 <Text style={{ fontWeight: "bold", fontSize: 18, color: "black" }}>A bit about me</Text>
->>>>>>> javedcode
                 {/* <View style={{height:50,width:"90%",marginTop:20}} >
                 <Text style={{fontSize:12,color:"black"}}>I am an excellent tutor but i look kind of odd</Text>
                 </View> */}
             </View>
-<<<<<<< HEAD
-            <View style={{height:50,width:"90%",marginTop:20,alignSelf:"center"}} >
-                <Text style={{fontSize:12,color:"black"}}>I am an excellent tutor but i look kind of odd</Text>
-                </View>
-            <View style={{height:1,width:"90%",backgroundColor:"grey",alignSelf:"center",marginTop:10}}></View>
-          
-           {(() => {
-                    if (showwhat == 'Experience') {
-                        return (
-
-                            <View style={styles.moblieSec}>
-                                <TouchableOpacity style={styles.emailtoch}
-                                    onPress={() => showwhatfunc('Experience')}
-                                >
-                                    <Text style={styles.ButtonText}>Experience</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.mobiletoch}
-                                    onPress={() => showwhatfunc('My Schools')}
-                                >
-                                    <Text style={styles.ButtonText}>My Schools</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.emailtoch}
-                                    onPress={() => showwhatfunc('Reviews')}
-                                >
-                                    <Text style={styles.ButtonText}>Reviews</Text>
-                                </TouchableOpacity>
-                            </View>
-                        )
-                    }
-
-                    else if (showwhat == 'My Schools') {
-                        return (
-
-                            <View style={styles.moblieSec}>
-                                <TouchableOpacity style={styles.mobiletoch}
-                                    onPress={() => showwhatfunc('Experience')}
-                                >
-                                    <Text style={styles.ButtonText}>Experience</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.emailtoch}
-                                    onPress={() => showwhatfunc('My Schools')}
-                                >
-                                    <Text style={styles.ButtonText}>My Schools</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.emailtoch}
-                                    onPress={() => showwhatfunc('Reviews')}
-                                >
-                                    <Text style={styles.ButtonText}>Reviews</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                        )
-                    }
-
-                    else {
-                        return (
-                            <View style={styles.moblieSec}>
-                                <TouchableOpacity style={styles.emailtoch}
-                                    onPress={() => showwhatfunc('Experience')}
-                                >
-                                    <Text style={styles.ButtonText}>Experience</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.emailtoch}
-                                    onPress={() => showwhatfunc('My Schools')}
-                                >
-                                    <Text style={styles.ButtonText}>My Schools</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.mobiletoch}
-                                    onPress={() => showwhatfunc('Reviews')}
-                                >
-                                    <Text style={styles.ButtonText}>Reviews</Text>
-                                </TouchableOpacity>
-                            </View>
-                        )
-                    }
-
-
-                 })()}
-
-{(() => {
-                    if (showwhat == 'Experience') {
-                        return (
-
-                            <View>
-                                <View style={styles.searchSection}>
-                                    <Text style={styles.TextInputText}> School</Text>
-                                    {/* <TextInput
-=======
             <View style={{ height: 50, width: "90%",marginBottom: 10, alignSelf: "center" }} >
                 <Text style={{ fontSize: 12, color: "black" }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</Text>
             </View>
@@ -527,19 +329,11 @@ const TutorSearchProfile = ({ props, route }) => {
                             {/* <View style={styles.searchSection}>
                                 <Text style={styles.TextInputText}> School</Text>
                                 <TextInput
->>>>>>> javedcode
                                         onChangeText={(text) => { setEmail(text) }}
                                         placeholder="Your Name"
                                         // value={Email}
 
                                         style={styles.input}
-<<<<<<< HEAD
-                                    /> */}
-                                </View>
-                                <View style={styles.searchSection}>
-                                    <Text style={styles.TextInputText}>Primary school</Text>
-                                    {/* <TextInput
-=======
                                     />
                             </View> */}
                             <TouchableOpacity onPress={toggleExpanded}>
@@ -563,27 +357,11 @@ const TutorSearchProfile = ({ props, route }) => {
                             {/* <View style={styles.searchSection}>
                                 <Text style={styles.TextInputText}>Primary school</Text>
                                 <TextInput
->>>>>>> javedcode
                                         onChangeText={(text) => { setPassword(text) }}
                                         placeholder="Password"
                                         // value={Password}
 
                                         style={styles.input}
-<<<<<<< HEAD
-                                    /> */}
-                                </View>
-                               
-                            </View>
-                        )
-                    }
-
-                    else if (showwhat == 'My Schools') {
-                        return (
-                            <View>
-                                <View style={styles.searchSection}>
-                                    <Text style={styles.TextInputText}>Primary School</Text>
-                                    {/* <TextInput
-=======
                                     />
                             </View> */}
 
@@ -597,42 +375,22 @@ const TutorSearchProfile = ({ props, route }) => {
                             <View style={styles.searchSection}>
                                 <Text style={styles.TextInputText}>Primary School</Text>
                                 {/* <TextInput
->>>>>>> javedcode
                                         onChangeText={(text) => { setMobile(text) }}
                                         placeholder="Mobile"
                                         // value={Mobile}
                                         keyboardType="number-pad"
                                         style={styles.input}
                                     /> */}
-<<<<<<< HEAD
-                                </View>
-                                <View style={styles.searchSection}>
-                                    <Text style={styles.TextInputText}>Pre School</Text>
-                                    {/* <TextInput
-=======
                             </View>
                             <View style={styles.searchSection}>
                                 <Text style={styles.TextInputText}>Pre School</Text>
                                 {/* <TextInput
->>>>>>> javedcode
                                         onChangeText={(text) => { setPassword(text) }}
                                         placeholder="Password"
                                         // value={Password}
 
                                         style={styles.input}
                                     /> */}
-<<<<<<< HEAD
-                                </View>
-                               
-                            </View>
-                        )
-                    }
-
-                   
-
-
-                })()}
-=======
                             </View>
 
                         </View>
@@ -643,15 +401,12 @@ const TutorSearchProfile = ({ props, route }) => {
 
 
             })()}
->>>>>>> javedcode
 
         </SafeAreaView>
     )
 }
 export default TutorSearchProfile;
 const styles = StyleSheet.create({
-<<<<<<< HEAD
-=======
     container: {
         flex: 1,
         backgroundColor: '#F5FCFF',
@@ -678,7 +433,6 @@ const styles = StyleSheet.create({
     },
 
 
->>>>>>> javedcode
     Headers: {
         height: hp(10),
         justifyContent: "center",
@@ -703,27 +457,12 @@ const styles = StyleSheet.create({
         height: 30,
         width: 30,
         marginRight: 10,
-<<<<<<< HEAD
-        alignSelf:"center"
-=======
         alignSelf: "center"
->>>>>>> javedcode
     },
     Bookicons: {
         height: 30,
         width: 30,
         // marginRight: 10,
-<<<<<<< HEAD
-        alignSelf:"center"
-    },
-    Locationicons: {
-        height: 20,
-        width:20,
-        // marginRight: 10,
-        alignSelf:"center"
-    },
-    
-=======
         alignSelf: "center"
     },
     Locationicons: {
@@ -733,7 +472,6 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
 
->>>>>>> javedcode
     cardCenter: {
         // borderWidth: 0.2,
         height: 210,
@@ -751,11 +489,7 @@ const styles = StyleSheet.create({
     threeDotContainer: {
         height: 40,
         width: 40,
-<<<<<<< HEAD
-        backgroundColor:"#2F5597",
-=======
         backgroundColor: "#2F5597",
->>>>>>> javedcode
         alignSelf: 'flex-end',
         marginHorizontal: 10,
         borderRadius: 10,
@@ -793,15 +527,9 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: 'black',
         alignSelf: "center",
-<<<<<<< HEAD
-        marginTop:5,
-        color:"grey"
-        
-=======
         marginTop: 5,
         color: "grey"
 
->>>>>>> javedcode
     },
     line: {
         height: 40,
@@ -815,19 +543,11 @@ const styles = StyleSheet.create({
         backgroundColor: "black",
         borderRadius: 25,
         marginHorizontal: 5,
-<<<<<<< HEAD
-       marginTop:-20,
-        alignSelf: "center",
-        justifyContent:"center",
-        alignItems:"center"
-        
-=======
         marginTop: -20,
         alignSelf: "center",
         justifyContent: "center",
         alignItems: "center"
 
->>>>>>> javedcode
     },
     FavBooKChatContainer: {
         height: 30,
@@ -844,11 +564,7 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         width: wp(90),
         flexDirection: "row",
-<<<<<<< HEAD
-        alignSelf:"center"
-=======
         alignSelf: "center"
->>>>>>> javedcode
     },
     emailtoch: {
         backgroundColor: "lightgray",
@@ -881,10 +597,5 @@ const styles = StyleSheet.create({
         lineHeight: 16,
         paddingBottom: 8,
         // backgroundColor:"pink"
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> javedcode
     },
 })

@@ -358,11 +358,7 @@ const TutorQualification = ({route}) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
-<<<<<<< HEAD
-              navigation.navigate('TutionSchedulePicker')
-=======
               navigation.navigate('BookingInformationConfirmation')
->>>>>>> javedcode
             }
             style={{
               height: '100%',
