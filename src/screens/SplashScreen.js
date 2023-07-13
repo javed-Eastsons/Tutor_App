@@ -16,12 +16,17 @@ const SplashScreen = ({navigation}) => {
  // const navigation = useNavigation();
   const gotoSignInScreen = async() => {
     let token =await AsyncStorage.getItem("token")
+    let userType =await AsyncStorage.getItem("user_type")
     setTimeout(function async() {
         
-    console.log(token)
-    if(token){
+    console.log(token,'SplashScreen',userType,'USerType')
+    if(token && userType == 'I am an Educator'){
         navigation.replace('Auth') 
-    }else{
+    }
+   else if(token && userType == 'I am looking for a Tutor'){
+        navigation.replace('Auth2') 
+    }
+    else{
         navigation.replace('IntroScreen') 
     
     }

@@ -1037,7 +1037,7 @@ const MyBookings = ({ props, route }) => {
                   <Image source={require('../Assets/UserWhite.png')} style={{ height: 20, width: 20 }} />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate('')}
+              // onPress={() => navigation.navigate('')}
               style={{
                 height: '100%',
                 width: '45%',
@@ -1051,9 +1051,9 @@ const MyBookings = ({ props, route }) => {
             <TouchableOpacity
               onPress={() =>
 
-                navigation.navigate('AcceptNonTutor', {
-                  amount: offerAmount,
-                  youramount: youroffer
+                navigation.navigate('MakeOffer', {
+                  // amount: offerAmount,
+                  // youramount: youroffer
                 })
               }
               style={{
@@ -1188,7 +1188,7 @@ const MyBookings = ({ props, route }) => {
                   }}>
 
                   <TouchableOpacity
-                    onPress={() => navigation.navigate('')}
+                    // onPress={() => navigation.navigate('')}
                     style={{
                       height: '100%',
                       width: '50%',
@@ -1200,13 +1200,13 @@ const MyBookings = ({ props, route }) => {
                     <Text style={styles.BookText5}>Book This Tutor</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={() =>
+                    // onPress={() =>
 
-                      navigation.navigate('AcceptNonTutor', {
-                        amount: offerAmount,
-                        youramount: youroffer
-                      })
-                    }
+                    //   navigation.navigate('AcceptNonTutor', {
+                    //     amount: offerAmount,
+                    //     youramount: youroffer
+                    //   })
+                    // }
                     style={{
                       height: '100%',
                       width: '50%',
@@ -1337,7 +1337,7 @@ const MyBookings = ({ props, route }) => {
                   }}>
 
                   <TouchableOpacity
-                    onPress={() => navigation.navigate('')}
+                    // onPress={() => navigation.navigate('')}
                     style={{
                       height: '100%',
                       width: '50%',
@@ -1349,13 +1349,13 @@ const MyBookings = ({ props, route }) => {
                     <Text style={styles.BookText5}>Book This Tutor</Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={() =>
+                    // onPress={() =>
 
-                      navigation.navigate('AcceptNonTutor', {
-                        amount: offerAmount,
-                        youramount: youroffer
-                      })
-                    }
+                    //   navigation.navigate('AcceptNonTutor', {
+                    //     amount: offerAmount,
+                    //     youramount: youroffer
+                    //   })
+                    // }
                     style={{
                       height: '100%',
                       width: '50%',
@@ -1418,13 +1418,13 @@ const MyBookings = ({ props, route }) => {
                 }}
               >
                 <TouchableOpacity
-                  onPress={() =>
+                  // onPress={() =>
 
-                    navigation.navigate('AcceptNonTutor', {
-                      amount: offerAmount,
-                      youramount: youroffer
-                    })
-                  }
+                  //   navigation.navigate('AcceptNonTutor', {
+                  //     amount: offerAmount,
+                  //     youramount: youroffer
+                  //   })
+                  // }
                   style={{
                     height: '100%',
 
@@ -1520,13 +1520,13 @@ const MyBookings = ({ props, route }) => {
                     }}
                   >
                     <TouchableOpacity
-                      onPress={() =>
+                      // onPress={() =>
 
-                        navigation.navigate('AcceptNonTutor', {
-                          amount: offerAmount,
-                          youramount: youroffer
-                        })
-                      }
+                      //   navigation.navigate('AcceptNonTutor', {
+                      //     amount: offerAmount,
+                      //     youramount: youroffer
+                      //   })
+                      // }
                       style={{
                         height: '100%',
 
@@ -1622,13 +1622,13 @@ const MyBookings = ({ props, route }) => {
                     }}
                   >
                     <TouchableOpacity
-                      onPress={() =>
+                      // onPress={() =>
 
-                        navigation.navigate('AcceptNonTutor', {
-                          amount: offerAmount,
-                          youramount: youroffer
-                        })
-                      }
+                      //   navigation.navigate('AcceptNonTutor', {
+                      //     amount: offerAmount,
+                      //     youramount: youroffer
+                      //   })
+                      // }
                       style={{
                         height: '100%',
 

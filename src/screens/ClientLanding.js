@@ -24,31 +24,40 @@ import { Shadow } from 'react-native-shadow-2';
 const ClientLanding = () => {
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const toggleSwitch = () => {
+  
+    setIsEnabled(previousState => !previousState)
+  
+  }
   const cardsData = [
     {
       name: "My Bookings",
       src: require("../Assets/Booking.png"),
+      Url:'MyBookings'
 
     },
     {
       name: "My Posts",
       src: require("../Assets/newPostIcon.png"),
+      Url:''
 
     },
     {
       name: "Upcomings",
       src: require("../Assets/Upcoming.png"),
+      Url:''
 
     },
     {
       name: "My Faves",
       src: require("../Assets/newFavIcon.png"),
+      Url:'MyFav'
 
     },
     {
-      "name": "Payments",
-      "image": require("../Assets/PayN.png"),
+      name: "Payments",
+      src: require("../Assets/PayN.png"),
+      Url:''
 
     },
 
@@ -109,7 +118,7 @@ const ClientLanding = () => {
             </View>
           </View>
           <View style={styles.UserRight}>
-            <Text>I want to be an Educator.....</Text>
+            <Text>{console.log(isEnabled)}I want to be an Educator.....</Text>
             <TouchableOpacity
             //onPress={() => navigation.navigate('TutorLanding')}
             >
@@ -320,7 +329,10 @@ const ClientLanding = () => {
           numColumns={3}
           renderItem={({ item }) => (
             <View style={[styles.card, styles.shadowProp]}>
-              <View style={styles.Boxtwo}>
+              <TouchableOpacity 
+              onPress={() => navigation.navigate(item.Url)}
+              
+              style={styles.Boxtwo}>
                 <View style={styles.cardShadow}>
                   <Image
                     source={item?.src}
@@ -328,7 +340,7 @@ const ClientLanding = () => {
                   />
                 </View>
                 <Text style={styles.searchText}>{item?.name}</Text>
-              </View>
+              </TouchableOpacity>
             </View>
           )}
         />

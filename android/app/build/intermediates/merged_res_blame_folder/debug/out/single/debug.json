@@ -68,6 +68,10 @@
         "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_login.png"
     },
     {
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_filtericon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_filtericon.png"
+    },
+    {
         "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_personal.png.flat",
         "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_personal.png"
     },
@@ -200,6 +204,10 @@
         "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_insta.png"
     },
     {
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_newfavicon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_newfavicon.png"
+    },
+    {
         "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_mypost.png.flat",
         "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_mypost.png"
     },
@@ -292,6 +300,10 @@
         "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_twitter.png"
     },
     {
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_sorticon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_sorticon.png"
+    },
+    {
         "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_bookchat.png.flat",
         "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_bookchat.png"
     },
@@ -336,6 +348,10 @@
         "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_searching.png"
     },
     {
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_hometuticon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_hometuticon.png"
+    },
+    {
         "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_school.png.flat",
         "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_school.png"
     },
@@ -354,6 +370,10 @@
     {
         "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_female.png.flat",
         "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_female.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_rightarrowcode.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_rightarrowcode.png"
     },
     {
         "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_homework.png.flat",
@@ -378,6 +398,10 @@
     {
         "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_node_modules_reactnativeelementdropdown_src_assets_close.png.flat",
         "source": "com.tutor.app-main-7:/drawable-mdpi/node_modules_reactnativeelementdropdown_src_assets_close.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_helptuticon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_helptuticon.png"
     },
     {
         "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_promotion.png.flat",
@@ -424,6 +448,10 @@
         "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_expand.png"
     },
     {
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_onlinetuticon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_onlinetuticon.png"
+    },
+    {
         "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_people.png.flat",
         "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_people.png"
     },
@@ -466,6 +494,14 @@
     {
         "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_plus.png.flat",
         "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_plus.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_payn.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_payn.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_newposticon.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/src_assets_newposticon.png"
     },
     {
         "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_src_assets_postrequire.png.flat",

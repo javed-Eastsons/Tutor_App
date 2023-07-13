@@ -54,7 +54,7 @@ const Login = () => {
     //  console.log(FirstName, LastName, Password, Email, ConfirmEmail, Mobile);
     setLoader(true)
     dispatch(LoginUser(Mobile, Email, Password, navigation)).then(res=>setLoader(false)).catch(err=>console.log(err)).finally(()=>setLoader(false));
-    
+     
     console.log('sddddddddd');
   };
 

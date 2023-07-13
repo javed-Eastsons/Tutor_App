@@ -15,6 +15,7 @@ import { TextInput } from 'react-native-gesture-handler';
 // import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const DrawerTwo = ({navigation}) => {
 
@@ -25,8 +26,6 @@ const DrawerTwo = ({navigation}) => {
                     <Image source={require('../Assets/logo.jpg')}
                         style={styles.logoicons}
                     />
-
-
 
                 </View>
             </View>
@@ -76,11 +75,27 @@ const DrawerTwo = ({navigation}) => {
                     <Image source={require('../Assets/Help.png')}
                         style={styles.icons}
                     />
-                    <Text style={styles.MenuHead}>Help & Support</Text>
+                    <Text style={styles.MenuHead}>Help & Supportqq</Text>
 
                 </View>
 
             </View>
+
+            <TouchableOpacity 
+            onPress={()=>{
+                AsyncStorage.clear()
+                navigation.replace("home")
+            }}
+            style={styles.MenuLIstContainer}>
+                <View style={styles.MenuLIst}>
+                    <Image source={require('../Assets/Privacy.png')}
+                        style={styles.icons}
+                    />
+                    <Text style={styles.MenuHead}>Logout</Text>
+
+                </View>
+
+            </TouchableOpacity>
 
 
             <View style={styles.MenuLIstContainer}>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   SafeAreaView,
@@ -12,7 +12,7 @@ import {
   Alert,
 } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
-import {TextInput} from 'react-native-gesture-handler';
+import { TextInput } from 'react-native-gesture-handler';
 // import { useIsFocused, useNavigation } from '@react-navigation/native';
 import OTPTextView from 'react-native-otp-textinput';
 
@@ -20,7 +20,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {useIsFocused, useNavigation} from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import Modal from 'react-native-modal';
 import {
   RegisterUser,
@@ -29,12 +29,12 @@ import {
 } from '../Redux/Actions/Tutors';
 //import OTPInputView from '@twotalltotems/react-native-otp-input';
 
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Loader } from '../common/Loader';
 import { Dropdown } from 'react-native-element-dropdown';
 import { countryCode } from '../common/countrycode';
 
-const Register = ({route}) => {
+const Register = ({ route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [FirstName, setFirstName] = React.useState('');
@@ -53,8 +53,8 @@ const Register = ({route}) => {
 
 
 
-  const {Registermsg} = useSelector(state => state.TutorReducer);
-  const {otpmsgs} = useSelector(state => state.TutorReducer);
+  const { Registermsg } = useSelector(state => state.TutorReducer);
+  const { otpmsgs } = useSelector(state => state.TutorReducer);
   // console.log('LLLLLLLLLLLLLLLLLLLLLL', Registermsg)
   //   console.log('SSSSSSSSSSSSSSSSSSSSSSS', otpmsgs)
 
@@ -118,30 +118,30 @@ const Register = ({route}) => {
     } else if (Mobile == '') {
       Alert.alert('Enter Mobile Number');
     } else {
-      dispatch(RegisterUser(FirstName, LastName, Password, Email, value,Mobile));
+      dispatch(RegisterUser(FirstName, LastName, Password, Email, value, Mobile));
 
       console.log('sddddddddd');
 
-     // Alert.alert(Registermsg);
+      // Alert.alert(Registermsg);
       setVerifyModalVisible(!isVerfyModalVisible);
     }
   };
 
   const verifyOTP = () => {
     //console.log('LLLLLLLLLLPPPPPPPPPPPPP', otpcode);
-    let otpcode =otp
+    let otpcode = otp
     setOtp(otpcode);
     setLoader(true)
     //  console.log('newwwwwwwwwwwwwww', otp)
-    dispatch(OTPVerify(otpcode)).then(res=>setLoader(false)).finally(()=>setLoader(false));
+    dispatch(OTPVerify(otpcode)).then(res => setLoader(false)).finally(() => setLoader(false));
     console.log('isVerfyModalVisible=', isVerfyModalVisible);
     //Alert.alert(otpmsgs)
     setVerifyModalVisible(false);
-    
+
 
   };
 
-  
+
 
   const selectrole = role => {
     console.log('AAAAAAAAAAAAAAAA', role, otp);
@@ -153,11 +153,11 @@ const Register = ({route}) => {
   return (
     <View style={styles.container}>
       <Loader
-      flag={loader}
+        flag={loader}
       />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{width: wp(92), alignSelf: 'center'}}>
+        style={{ width: wp(92), alignSelf: 'center' }}>
         <View style={styles.Headcontainer}>
           <Text style={styles.headtext}>Create Account</Text>
           <Text style={styles.Firsttext}>
@@ -189,7 +189,7 @@ const Register = ({route}) => {
               style={styles.input1}
             />
           </View>
-        
+
           <View style={styles.searchSection}>
             <Text style={styles.TextInputText1}>Last Name</Text>
             <TextInput
@@ -201,9 +201,9 @@ const Register = ({route}) => {
               style={styles.input1}
             />
           </View>
-       
-          
-         
+
+
+
         </View>
 
         <View style={styles.searchSection}>
@@ -217,31 +217,31 @@ const Register = ({route}) => {
             style={styles.input}
           />
         </View>
-        
-        <View style={{flexDirection: 'row'}}>
+
+        <View style={{ flexDirection: 'row' }}>
           <Text style={styles.TermsCondition}>
             I agree to the Terms & Conditions, and the {'\n'} Privacy Policy
           </Text>
           <TouchableOpacity
-            onPress={() =>setEnable(!enable)}
+            onPress={() => setEnable(!enable)}
             style={enable ? {
               height: 20,
               width: 20,
               borderRadius: 20,
               borderColor: 'lightgrey',
-              padding:2,
-              backgroundColor:"#2F5597",
+              padding: 2,
+              backgroundColor: "#2F5597",
               marginLeft: wp(10),
               borderWidth: 3,
-            }:
-            {
-              height: 20,
-              width: 20,
-              borderRadius: 20,
-              borderColor: 'lightgrey',
-              marginLeft: wp(10),
-              borderWidth: 1,
-            }
+            } :
+              {
+                height: 20,
+                width: 20,
+                borderRadius: 20,
+                borderColor: 'lightgrey',
+                marginLeft: wp(10),
+                borderWidth: 1,
+              }
             }></TouchableOpacity>
         </View>
 
@@ -301,71 +301,72 @@ const Register = ({route}) => {
         ) : (
           <View>
             <Text style={styles.TextInputText}>Mobile Number</Text>
-    <View style={{flexDirection:'row',alignItems:'center',flex:1}}>
-           
- <Dropdown
-        style={{
-               flex:1,
-          borderWidth: 1,
-          borderColor: '#D3D3D3',
-          borderRadius: 20,
-          fontSize: 14,
-          // width:wp(30),
-          marginRight:5,
-          // fontFamily: 'SharpSansDispNo1-Semibold',
-          paddingLeft: 12,
-          color: '#131313',
-          height: 45,
-        }}
-        placeholderStyle={styles.placeholderStyle}
-        selectedTextStyle={styles.selectedTextStyle}
-        inputSearchStyle={styles.inputSearchStyle}
-        iconStyle={styles.iconStyle}
-        data={data}
-        search
-        maxHeight={300}
-        labelField="value"
-        valueField="value"
-        placeholder="Code"
-        searchPlaceholder="Search..."
-        value={value}
-        onChange={item => {
-          setValue(item.value);
-        }}
-        // renderLeftIcon={() => (
-        //   <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-        // )}
-      />
-       <TextInput
-              onChangeText={text => {
-                setMobile(text);
-              }}
-              placeholder="Mobile Number"
-              value={Mobile}
-              keyboardType="number-pad"
-              style={{
-               flex:1.5,
-                borderWidth: 1,
-                borderColor: '#D3D3D3',
-                borderRadius: 20,
-                fontSize: 14,
-               // width:wp(50),
-                // fontFamily: 'SharpSansDispNo1-Semibold',
-                paddingLeft: 12,
-                color: '#131313',
-                height: 45,
-              }}
-            />
-      </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+
+              <Dropdown
+                style={{
+                  flex: 1,
+                  borderWidth: 1,
+                  borderColor: '#D3D3D3',
+                  borderRadius: 20,
+                  fontSize: 14,
+                  // width:wp(30),
+                  marginRight: 5,
+                  // fontFamily: 'SharpSansDispNo1-Semibold',
+                  paddingLeft: 12,
+                  color: '#131313',
+                  height: 45,
+                }}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                inputSearchStyle={styles.inputSearchStyle}
+                iconStyle={styles.iconStyle}
+                data={data}
+                search
+                maxHeight={300}
+                labelField="value"
+                valueField="value"
+                placeholder="Code"
+                searchPlaceholder="Search..."
+                value={value}
+                onChange={item => {
+                  setValue(item.value);
+                }}
+              // renderLeftIcon={() => (
+              //   <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
+              // )}
+              />
+              <TextInput
+                onChangeText={text => {
+                  setMobile(text);
+                }}
+                placeholder="Mobile Number"
+                value={Mobile}
+                keyboardType="number-pad"
+                style={{
+                  flex: 1.5,
+                  borderWidth: 1,
+                  borderColor: '#D3D3D3',
+                  borderRadius: 20,
+                  fontSize: 14,
+                  // width:wp(50),
+                  // fontFamily: 'SharpSansDispNo1-Semibold',
+                  paddingLeft: 12,
+                  color: '#131313',
+                  height: 45,
+                }}
+              />
+            </View>
             <TouchableOpacity
               style={styles.RequsertButton}
               //onPress={() => navigation.navigate('OTPScreen')}
-              onPress={()=>{ 
-                enable ? 
-                VerifytoggleModal()
-              : null}}
-              >
-             
+              onPress={() => {
+                enable ?
+                  VerifytoggleModal()
+                  : null
+              }}
+            >
+
               <Text style={styles.ReqButtonText}>Request OTP</Text>
             </TouchableOpacity>
           </View>
@@ -483,21 +484,21 @@ const Register = ({route}) => {
                 We have sent the code verification to your mobile number
               </Text>
             </View>
-          <OTPTextView
-          containerStyle={{flex:1,  marginHorizontal: 16}}
-          handleTextChange={text => setOtp(text)}
-          inputCount={4}
-          keyboardType="numeric"
-        //  defaultValue={OTP}
-          borderWidth={0}
-          backgroundColor={"grey"}
-          borderBottomWidth={0}
-          size={10}
-          borderRadius={10}
-          width={65}
-          height={66}
-          tintColor={'#fff'}
-        />
+            <OTPTextView
+              containerStyle={{ flex: 1, marginHorizontal: 16 }}
+              handleTextChange={text => setOtp(text)}
+              inputCount={4}
+              keyboardType="numeric"
+              //  defaultValue={OTP}
+              borderWidth={0}
+              backgroundColor={"grey"}
+              borderBottomWidth={0}
+              size={10}
+              borderRadius={10}
+              width={65}
+              height={66}
+              tintColor={'#fff'}
+            />
             {/* <OtpInputs
           handleChange={(code) => console.log(code)}
           numberOfInputs={4}
@@ -522,17 +523,17 @@ const Register = ({route}) => {
                 console.log(`Code is ${code}, you are good to go!`);
               }}
             /> */}
-             {/* <OtpInputs
+            {/* <OtpInputs
 
           handleChange={(code) => console.log(code)}
           numberOfInputs={4}
         /> */}
-        <TouchableOpacity 
-        style={{alignSelf:'center',backgroundColor:"#2F5597",width:wp(70),height:50,alignItems:'center',justifyContent:'center',borderRadius:50}}
-        onPress={()=>{  verifyOTP();}}
-        >
-          <Text style={{color:"#fff",fontSize:15,fontWeight:'bold'}}>Submit</Text>
-        </TouchableOpacity>
+            <TouchableOpacity
+              style={{ alignSelf: 'center', backgroundColor: "#2F5597", width: wp(70), height: 50, alignItems: 'center', justifyContent: 'center', borderRadius: 50 }}
+              onPress={() => { verifyOTP(); }}
+            >
+              <Text style={{ color: "#fff", fontSize: 15, fontWeight: 'bold' }}>Submit</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
