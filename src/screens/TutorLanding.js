@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View,
   Text,
+  FlatList,
   ScrollView,
   Image,
   Button,
@@ -25,6 +26,33 @@ const TutorLanding = () => {
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
 
+  const cardsData = [
+    {
+      name: "My Bookings",
+      src: require("../Assets/Booking.png"),
+      Url: "MyBookingTutor",
+    },
+    {
+      name: "My Posts",
+      src: require("../Assets/newPostIcon.png"),
+      Url: "",
+    },
+    {
+      name: "Upcomings",
+      src: require("../Assets/Upcoming.png"),
+      Url: "",
+    },
+    {
+      name: "My Faves",
+      src: require("../Assets/newFavIcon.png"),
+      Url: "MyFav",
+    },
+    {
+      name: "Payments",
+      src: require("../Assets/PayN.png"),
+      Url: "",
+    },
+  ];
   const toggleSwitch = () => {
     MoveToClient();
 
@@ -83,7 +111,7 @@ const TutorLanding = () => {
             </View>
           </View>
           <View style={styles.UserRight}>
-            <Text>{console.log(isEnabled)}I want to look for a Tutor</Text>
+            <Text>{console.log(isEnabled)}I want to be a Student</Text>
             <Switch
               trackColor={{ false: "#767577", true: "#81b0ff" }}
               thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
@@ -187,7 +215,7 @@ const TutorLanding = () => {
                 </View> */}
 
         <View style={styles.SliderContainer}>
-          <ScrollView horizontal={true}>
+          <ScrollView horizontal={true} contentContainerStyle={{ padding: 10 }}>
             <TouchableOpacity
               style={[styles.cardSlider, styles.shadowPropSlider]}
             >
@@ -274,124 +302,28 @@ const TutorLanding = () => {
                 tutions concerns with {"\n"} potential tutors...
               </Text>
             </TouchableOpacity>
-
-            {/* <View style={styles.Slider}>
-                            <Image source={require('../Assets/Promotion.png')}
-                                style={styles.Slidericons}
-                            />
-                            <Text style={styles.postText}>Promotions</Text>
-                            <Text style={styles.sliderText}>Chat with tutors and access their suitability.Sharing your tutions concerns with potential tutors...
-                            <TouchableOpacity><Text style={{color:"#2F5597"}}>See More</Text></TouchableOpacity></Text>
-                        </View> */}
           </ScrollView>
         </View>
 
-        {/* <View style={styles.SearchContainer}>
-          <View style={[styles.card, styles.shadowProp]}>
-            <View style={styles.Boxone}>
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require('../Assets/Favourite.png')}
-                  style={styles.postRighticons}
-                />
-              </View>
-              <Text style={styles.searchText}>My Faves</Text>
+        <FlatList
+          style={{ alignSelf: "center" }}
+          // data={["My Bookings","My Posts","Upcomings" ,"My Faves","Payments"]}
+          data={cardsData}
+          numColumns={3}
+          renderItem={({ item }) => (
+            <View style={[styles.card, styles.shadowProp]}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate(item.Url)}
+                style={styles.Boxtwo}
+              >
+                <View style={styles.cardShadow}>
+                  <Image source={item?.src} style={styles.postRighticons} />
+                </View>
+                <Text style={styles.searchText}>{item?.name}</Text>
+              </TouchableOpacity>
             </View>
-          </View>
-        </View> */}
-
-        {/* <View style={[styles.card, styles.shadowProp,]}>
-                    <View style={styles.Boxone}>
-                        <View style={styles.cardShadow}>
-                            <Image source={require('../Assets/MyPost.png')}
-                                style={styles.postRighticons}
-                            />
-                        </View>
-                        <Text style={styles.searchText}>My Posts</Text>
-
-                    </View>
-                </View> */}
-        {/* </View> */}
-
-        <View style={styles.SearchContainer1}>
-          <View style={[styles.card, styles.shadowProp]}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("MyBookingTutor")}
-              style={styles.Boxtwo}
-            >
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require("../Assets/Booking.png")}
-                  style={styles.postRighticons}
-                />
-              </View>
-              <Text style={styles.searchText}>My Bookings</Text>
-            </TouchableOpacity>
-          </View>
-
-          {/* <View style={[styles.card, styles.shadowProp]}>
-            <View style={styles.Boxone}>
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require('../Assets/MyPost.png')}
-                  style={styles.postRighticons}
-                />
-              </View>
-              <Text style={styles.searchText}>My Posts</Text>
-            </View>
-          </View> */}
-
-          <TouchableOpacity
-            style={[styles.card, styles.shadowProp]}
-            onPress={() => navigation.navigate("MyFav")}
-          >
-            <View style={styles.Boxone}>
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require("../Assets/Favourite.png")}
-                  style={styles.postRighticons}
-                />
-              </View>
-              <Text style={styles.searchText}>My Fav</Text>
-            </View>
-          </TouchableOpacity>
-
-          {/* <View style={styles.Boxone}>
-
-                        <Image source={require('../Assets/payments.png')}
-                            style={styles.searchicons}
-                        />
-                        <Text style={styles.searchText}>Payments</Text>
-                    </View> */}
-
-          <View style={[styles.card, styles.shadowProp]}>
-            <View style={styles.Boxtwo}>
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require("../Assets/Upcoming.png")}
-                  style={styles.postRighticons}
-                />
-              </View>
-              <Text style={styles.searchText}>Upcoming</Text>
-            </View>
-          </View>
-        </View>
-
-        {/* <View style={styles.SearchContainer}>
-          <TouchableOpacity
-          onPress={() => navigation.navigate('MyFav')}
-          style={[styles.card, styles.shadowProp]}>
-            <View style={styles.Boxone}>
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require('../Assets/Favourite.png')}
-                  style={styles.postRighticons}
-                />
-              </View>
-              <Text style={styles.searchText}>My Faves</Text>
-            </View>
-          </TouchableOpacity>
-        </View> */}
+          )}
+        />
       </ScrollView>
     </View>
   );
@@ -410,17 +342,25 @@ const styles = StyleSheet.create({
     // alignItems: 'flex-end',
     marginRight: 0,
   },
+  Boxtwo: {
+    height: hp(11),
+    width: wp(23),
+    justifyContent: "center",
+    alignItems: "center",
+  },
   Boxone: {
     height: hp(15),
     width: wp(30),
     justifyContent: "center",
   },
+
   Headers: {
     height: hp(10),
     justifyContent: "center",
     flexDirection: "row",
     width: wp(100),
   },
+
   Slidericons: {
     alignSelf: "center",
     height: 30,
@@ -429,7 +369,7 @@ const styles = StyleSheet.create({
   },
   SliderContainer: {
     marginTop: 10,
-    height: hp(21),
+    height: hp(22),
     width: "100%",
   },
   Slider: {
@@ -443,8 +383,10 @@ const styles = StyleSheet.create({
   },
   searchText: {
     textAlign: "center",
-    padding: 10,
+    marginTop: 5,
+    color: "black",
   },
+
   postText: {
     width: "90%",
     fontSize: 14,
@@ -531,15 +473,18 @@ const styles = StyleSheet.create({
     width: wp(42),
     borderRadius: 20,
   },
+
   UserLeft: {
     width: wp(35),
     height: hp(10),
   },
+
   toggleicons: {
     height: 30,
     width: 30,
     marginLeft: 10,
   },
+
   UserRight: {
     width: wp(55),
     height: hp(8),
@@ -547,6 +492,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+
   HeadRight: {
     width: wp(45),
     height: hp(10),
@@ -555,19 +501,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
   },
+
   heading: {
     fontSize: 18,
     fontWeight: "600",
     marginBottom: 13,
   },
+
   card: {
     backgroundColor: "white",
-    height: hp(11),
-    width: wp(30),
+    height: hp(13),
+    width: wp(25),
     justifyContent: "center",
-
-    marginVertical: 0,
+    alignItems: "center",
+    margin: 10,
   },
+
   shadowProp: {
     shadowOffset: { width: 8, height: 10 },
     shadowColor: "#2F5597",
@@ -580,20 +529,58 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 25,
-    borderWidth: 0.1,
+    // borderWidth: 0.1,
     alignSelf: "center",
     overflow: "hidden",
     padding: 16,
-    backgroundColor: "transparent",
+    backgroundColor: "white",
     // backgroundColor: '#fff',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
+      // height: 50,
+      // width: 50,
+      // justifyContent: "center",
+      // alignItems: "center",
+      // borderRadius: 25,
+      // borderWidth: 0.1,
+      // alignSelf: "center",
+      // overflow: "hidden",
+      // padding: 16,
+      // backgroundColor: "transparent",
+      // // backgroundColor: '#fff',
+      // shadowColor: "#000",
+      // shadowOffset: {
+      //   width: 0,
+      //   height: 2,
     },
     shadowOpacity: 0.18,
     shadowRadius: 5,
     elevation: 5,
+  },
+  cardShadow1: {
+    height: 50,
+    width: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 40,
+    alignSelf: "center",
+    // overflow: 'hidden',
+    backgroundColor: "white",
+    marginTop: 10,
+    // backgroundColor: 'red',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 5,
+      height: 10,
+      width: -5,
+      height: -10,
+      elevation: 10,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 5,
+    elevation: 10,
   },
   cardLeft: {
     backgroundColor: "white",
@@ -613,6 +600,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 10,
   },
+
   cardRight: {
     backgroundColor: "white",
     justifyContent: "center",
@@ -624,29 +612,40 @@ const styles = StyleSheet.create({
     marginRight: wp(8),
     borderWidth: 0.2,
   },
+
   shadowPropRight: {
     shadowOffset: { width: 8, height: 10 },
     shadowColor: "grey",
     shadowOpacity: 0.5,
     shadowRadius: 3,
   },
+
   cardSlider: {
-    // alignSelf: "flex-start",
-    borderWidth: 0.2,
-    height: hp(18),
-    backgroundColor: "#F9F9F9",
+    backgroundColor: "white",
     width: wp(55),
     marginLeft: 15,
     marginRight: 10,
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
+    padding: 5,
+    // alignSelf: "flex-start",
+    // borderWidth: 0.2,
+    // height: hp(18),
+    // backgroundColor: "#F9F9F9",
+    // width: wp(55),
+    // marginLeft: 15,
+    // marginRight: 10,
+    // borderRadius: 20,
+    // justifyContent: "center",
+    // alignItems: "center",
   },
   shadowPropSlider: {
     shadowOffset: { width: 8, height: 12 },
     shadowColor: "grey",
     shadowOpacity: 0.5,
     shadowRadius: 3,
+    elevation: 10,
   },
   cardShadowLeft: {
     marginTop: 10,

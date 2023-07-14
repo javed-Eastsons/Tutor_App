@@ -141,7 +141,10 @@ export const GetResultAfterPostcode = (postalcode, navigation) => {
         // console.log('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF', responseJson.message)
         //   Alert.alert(responseJson.message)
         if (responseJson.status == true) {
-          console.log("ww", responseJson.Message);
+          console.log(
+            "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            responseJson.Message
+          );
           // Alert.alert(responseJson.message)
           dispatch({
             type: GET_POSTAL_DATA,

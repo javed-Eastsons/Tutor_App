@@ -395,7 +395,7 @@ function MyTabBar({ state, descriptors, navigation }) {
 
         if (label == "ClientLanding") {
           //showlabel = "Home";
-          iconNm = require("../Assets/Bookings.png");
+          iconNm = require("../Assets/Home.png");
 
           // {
           //   isFocused ?
@@ -407,6 +407,17 @@ function MyTabBar({ state, descriptors, navigation }) {
         if (label == "Tab4") {
           //showlabel = "Home";
           iconNm = require("../Assets/Settings.png");
+
+          // {
+          //   isFocused ?
+          //     iconNm = require('../Assets/bell.png')
+          //     :
+          //     iconNm = require('../Assets/bell.png')
+          // }
+        }
+        if (label == "Tab3") {
+          //showlabel = "Home";
+          iconNm = require("../Assets/Bookings.png");
 
           // {
           //   isFocused ?
@@ -1252,7 +1263,7 @@ function MainNavigation1() {
         name="Tab3"
         component={Tab3}
         options={{
-          title: "ClientLanding",
+          title: "Tab3",
           headerStyle: {
             backgroundColor: "#e85b3d",
           },
@@ -1271,7 +1282,7 @@ function MainNavigation1() {
         name="Tab4"
         component={Tab4}
         options={{
-          title: "TutorLanding",
+          title: "Tab4",
           headerStyle: {
             backgroundColor: "#e85b3d",
           },

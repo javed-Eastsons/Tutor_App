@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 import {
   SafeAreaView,
@@ -9,59 +9,51 @@ import {
   Image,
   Button,
   TouchableOpacity,
-  Switch
-} from 'react-native';
-import AppIntroSlider from 'react-native-app-intro-slider';
-import { FlatList, TextInput } from 'react-native-gesture-handler';
+  Switch,
+} from "react-native";
+import AppIntroSlider from "react-native-app-intro-slider";
+import { FlatList, TextInput } from "react-native-gesture-handler";
 // import { useIsFocused, useNavigation } from '@react-navigation/native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { Shadow } from 'react-native-shadow-2';
+} from "react-native-responsive-screen";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { Shadow } from "react-native-shadow-2";
 
 const ClientLanding = () => {
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => {
-  
-    setIsEnabled(previousState => !previousState)
-  
-  }
+    setIsEnabled((previousState) => !previousState);
+  };
   const cardsData = [
     {
       name: "My Bookings",
       src: require("../Assets/Booking.png"),
-      Url:'MyBookings'
-
+      Url: "MyBookings",
     },
     {
       name: "My Posts",
       src: require("../Assets/newPostIcon.png"),
-      Url:''
-
+      Url: "",
     },
     {
       name: "Upcomings",
       src: require("../Assets/Upcoming.png"),
-      Url:''
-
+      Url: "",
     },
     {
       name: "My Faves",
       src: require("../Assets/newFavIcon.png"),
-      Url:'MyFav'
-
+      Url: "MyFav",
     },
     {
       name: "Payments",
       src: require("../Assets/PayN.png"),
-      Url:''
-
+      Url: "",
     },
-
-  ]
+  ];
 
   // let Images=[
   //    require("../Assets/Booking.png"),
@@ -76,18 +68,18 @@ const ClientLanding = () => {
         <View style={styles.HeadLeft}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <Image
-              source={require('../Assets/baricon.png')}
+              source={require("../Assets/baricon.png")}
               style={styles.icons}
             />
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
-          <Image source={require('../Assets/bell.png')} style={styles.icons} />
+          <Image source={require("../Assets/bell.png")} style={styles.icons} />
           <Image
-            source={require('../Assets/search.png')}
+            source={require("../Assets/search.png")}
             style={styles.icons}
           />
-          <Image source={require('../Assets/chat.png')} style={styles.icons} />
+          <Image source={require("../Assets/chat.png")} style={styles.icons} />
         </View>
       </View>
 
@@ -95,24 +87,24 @@ const ClientLanding = () => {
         <View style={styles.usercontainer}>
           <View style={styles.UserLeft}>
             <Image
-              source={require('../Assets/user.png')}
+              source={require("../Assets/user.png")}
               style={styles.usericons}
             />
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: "row" }}>
               <Image
-                source={require('../Assets/start.png')}
+                source={require("../Assets/start.png")}
                 style={styles.sicons}
               />
               <Image
-                source={require('../Assets/start.png')}
+                source={require("../Assets/start.png")}
                 style={styles.sicons}
               />
               <Image
-                source={require('../Assets/start.png')}
+                source={require("../Assets/start.png")}
                 style={styles.sicons}
               />
               <Image
-                source={require('../Assets/start.png')}
+                source={require("../Assets/start.png")}
                 style={styles.sicons}
               />
             </View>
@@ -123,8 +115,8 @@ const ClientLanding = () => {
             //onPress={() => navigation.navigate('TutorLanding')}
             >
               <Switch
-                trackColor={{ false: '#767577', true: '#81b0ff' }}
-                thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+                trackColor={{ false: "#767577", true: "#81b0ff" }}
+                thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={toggleSwitch}
                 value={isEnabled}
@@ -135,33 +127,46 @@ const ClientLanding = () => {
         <View
           style={{
             height: 50,
-            width: '100%',
-            backgroundColor: '#2F5597',
+            width: "100%",
+            backgroundColor: "#2F5597",
             marginBottom: -40,
-            marginTop:10
-          }}></View>
+            marginTop: 10,
+          }}
+        ></View>
         <View style={styles.postContainer}>
           <TouchableOpacity style={[styles.cardLeft, styles.shadowPropLeft]}>
             <View style={styles.cardShadow1}>
               <Image
-                source={require('../Assets/PastedGraphic5.png')}
+                source={require("../Assets/PastedGraphic5.png")}
                 style={styles.posticons}
               />
             </View>
 
             <Text
               style={{
-                textAlign: 'center',
+                textAlign: "center",
                 marginTop: 10,
                 marginBottom: 5,
-                color: 'black',
-              }}>
-              Your Ideal Tutor is {'\n'}waiting
+                color: "black",
+              }}
+            >
+              Your Ideal Tutor is {"\n"}waiting
             </Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate('TutorSearch')}
-              style={[styles.SearchButton, { marginBottom: 10, height: 30, justifyContent: 'center', alignItems: 'center' }]}>
-              <Text style={{ color: '#fff', alignSelf: 'center', fontSize: 14 }}>
+              onPress={() => navigation.navigate("TutorSearch")}
+              style={[
+                styles.SearchButton,
+                {
+                  marginBottom: 10,
+                  height: 30,
+                  justifyContent: "center",
+                  alignItems: "center",
+                },
+              ]}
+            >
+              <Text
+                style={{ color: "#fff", alignSelf: "center", fontSize: 14 }}
+              >
                 Search Now
               </Text>
             </TouchableOpacity>
@@ -170,17 +175,18 @@ const ClientLanding = () => {
           <TouchableOpacity style={[styles.cardLeft, styles.shadowPropLeft]}>
             <View style={styles.cardShadow1}>
               <Image
-                source={require('../Assets/PostRequire.png')}
+                source={require("../Assets/PostRequire.png")}
                 style={styles.postRighticons}
               />
             </View>
             <Text
               style={{
-                textAlign: 'center',
+                textAlign: "center",
                 marginTop: 10,
                 marginBottom: 5,
-                color: 'black',
-              }}>
+                color: "black",
+              }}
+            >
               Post your requirement its Free
             </Text>
             {/* <TouchableOpacity
@@ -192,9 +198,20 @@ const ClientLanding = () => {
               </Text>
             </TouchableOpacity> */}
             <TouchableOpacity
-              onPress={() => navigation.navigate('TutorSearch')}
-              style={[styles.SearchButton, { marginBottom: 10, height: 30, justifyContent: 'center', alignItems: 'center' }]}>
-              <Text style={{ color: '#fff', alignSelf: 'center', fontSize: 14 }}>
+              onPress={() => navigation.navigate("TutorSearch")}
+              style={[
+                styles.SearchButton,
+                {
+                  marginBottom: 10,
+                  height: 30,
+                  justifyContent: "center",
+                  alignItems: "center",
+                },
+              ]}
+            >
+              <Text
+                style={{ color: "#fff", alignSelf: "center", fontSize: 14 }}
+              >
                 Post it!
               </Text>
             </TouchableOpacity>
@@ -204,13 +221,15 @@ const ClientLanding = () => {
         <View style={styles.SliderContainer}>
           <ScrollView horizontal={true} contentContainerStyle={{ padding: 10 }}>
             <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}>
+              style={[styles.cardSlider, styles.shadowPropSlider]}
+            >
               <View style={styles.cardShadow}>
                 <Image
-                  source={require('../Assets/ChatTutors.png')}
+                  source={require("../Assets/ChatTutors.png")}
                   style={styles.Slidericons}
                 />
               </View>
+
               <Text style={styles.postText}>Chat with Tutors</Text>
               <Text numberOfLines={2} style={styles.sliderText}>
                 Chat with tutors and access their suitability.Sharing your
@@ -221,10 +240,11 @@ const ClientLanding = () => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}>
+              style={[styles.cardSlider, styles.shadowPropSlider]}
+            >
               <View style={styles.cardShadow}>
                 <Image
-                  source={require('../Assets/OurTutors.png')}
+                  source={require("../Assets/OurTutors.png")}
                   style={styles.Slidericons}
                 />
               </View>
@@ -236,10 +256,11 @@ const ClientLanding = () => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}>
+              style={[styles.cardSlider, styles.shadowPropSlider]}
+            >
               <View style={styles.cardShadow}>
                 <Image
-                  source={require('../Assets/OurService.png')}
+                  source={require("../Assets/OurService.png")}
                   style={styles.Slidericons}
                 />
               </View>
@@ -251,10 +272,11 @@ const ClientLanding = () => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}>
+              style={[styles.cardSlider, styles.shadowPropSlider]}
+            >
               <View style={styles.cardShadow}>
                 <Image
-                  source={require('../Assets/MyActivities.png')}
+                  source={require("../Assets/MyActivities.png")}
                   style={styles.Slidericons}
                 />
               </View>
@@ -268,10 +290,11 @@ const ClientLanding = () => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}>
+              style={[styles.cardSlider, styles.shadowPropSlider]}
+            >
               <View style={styles.cardShadow}>
                 <Image
-                  source={require('../Assets/Promotion.png')}
+                  source={require("../Assets/Promotion.png")}
                   style={styles.Slidericons}
                 />
               </View>
@@ -280,8 +303,8 @@ const ClientLanding = () => {
                             /> */}
               <Text style={styles.postText}>Promotions</Text>
               <Text numberOfLines={2} style={styles.sliderText}>
-                Chat with tutors and access their suitability.{'\n'}Sharing your
-                tutions concerns with {'\n'} potential tutors...
+                Chat with tutors and access their suitability.{"\n"}Sharing your
+                tutions concerns with {"\n"} potential tutors...
               </Text>
             </TouchableOpacity>
 
@@ -296,56 +319,25 @@ const ClientLanding = () => {
           </ScrollView>
         </View>
 
-        {/* <View style={styles.SearchContainer}>
-          <View style={[styles.card, styles.shadowProp]}>
-            <View style={styles.Boxone}>
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require('../Assets/Favourite.png')}
-                  style={styles.postRighticons}
-                />
-              </View>
-              <Text style={styles.searchText}>My Faves</Text>
-            </View>
-          </View>
-        </View> */}
-
-        {/* <View style={[styles.card, styles.shadowProp,]}>
-                        <View style={styles.Boxone}>
-                            <View style={styles.cardShadow}>
-                                <Image source={require('../Assets/MyPost.png')}
-                                    style={styles.postRighticons}
-                                />
-                            </View>
-                            <Text style={styles.searchText}>My Posts</Text>
-
-                        </View>
-                    </View> */}
-        {/* </View> */}
         <FlatList
-          style={{ alignSelf: 'center' }}
+          style={{ alignSelf: "center" }}
           // data={["My Bookings","My Posts","Upcomings" ,"My Faves","Payments"]}
           data={cardsData}
           numColumns={3}
           renderItem={({ item }) => (
             <View style={[styles.card, styles.shadowProp]}>
-              <TouchableOpacity 
-              onPress={() => navigation.navigate(item.Url)}
-              
-              style={styles.Boxtwo}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate(item.Url)}
+                style={styles.Boxtwo}
+              >
                 <View style={styles.cardShadow}>
-                  <Image
-                    source={item?.src}
-                    style={styles.postRighticons}
-                  />
+                  <Image source={item?.src} style={styles.postRighticons} />
                 </View>
                 <Text style={styles.searchText}>{item?.name}</Text>
               </TouchableOpacity>
             </View>
           )}
         />
-
-
 
         {/* <View style={[styles.card, styles.shadowProp]}>
             <View style={styles.Boxtwo}>
@@ -432,7 +424,7 @@ export default ClientLanding;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   SearchContainer: {
     height: hp(15),
@@ -444,31 +436,31 @@ const styles = StyleSheet.create({
   SearchContainer1: {
     height: hp(15),
     width: wp(100),
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     //backgroundColor: 'red',
   },
   Boxone: {
     height: hp(11),
     width: wp(22),
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   Boxtwo: {
     height: hp(11),
     width: wp(23),
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   Headers: {
     // height: hp(10),
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
     width: wp(100),
   },
   Slidericons: {
-    alignSelf: 'center',
+    alignSelf: "center",
     height: 30,
     width: 30,
     marginBottom: 10,
@@ -481,44 +473,44 @@ const styles = StyleSheet.create({
   SliderContainer: {
     marginTop: 10,
     height: hp(22),
-    width: '100%',
+    width: "100%",
   },
   searchText: {
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 5,
-    color: 'black',
+    color: "black",
   },
   postText: {
-    width: '90%',
+    width: "90%",
     fontSize: 14,
-    fontWeight: '500',
-    color: '#000',
-    alignSelf: 'center',
-    marginLeft:8,
-    marginBottom:8,
-    marginTop:8
+    fontWeight: "500",
+    color: "#000",
+    alignSelf: "center",
+    marginLeft: 8,
+    marginBottom: 8,
+    marginTop: 8,
   },
   sliderText: {
     //  width: '90%',
     fontSize: 12,
-    color: '#000',
-    alignSelf: 'center',
+    color: "#000",
+    alignSelf: "center",
   },
   postTextRight: {
     fontSize: 18,
-    fontWeight: '700',
-    color: '#000',
+    fontWeight: "700",
+    color: "#000",
     bottom: 20,
     left: -10,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 
   usercontainer: {
     height: hp(10),
 
     width: wp(100),
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
   },
   usericons: {
     height: 50,
@@ -527,7 +519,7 @@ const styles = StyleSheet.create({
   searchicons: {
     height: 30,
     width: 30,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   icons: {
     height: 30,
@@ -535,12 +527,12 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   posticons: {
-    alignSelf: 'center',
+    alignSelf: "center",
     height: 77,
     width: 77,
   },
   postRighticons: {
-    alignSelf: 'center',
+    alignSelf: "center",
     height: 30,
     width: 30,
   },
@@ -551,31 +543,31 @@ const styles = StyleSheet.create({
   HeadLeft: {
     width: wp(45),
     // height: hp(10),
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 15,
-    alignItems: 'center',
+    alignItems: "center",
   },
   postContainer: {
     height: hp(20),
-    flexDirection: 'row',
+    flexDirection: "row",
     width: wp(90),
     marginTop: 20,
-    alignSelf: 'center',
-    marginBottom: 15
+    alignSelf: "center",
+    marginBottom: 15,
   },
   postLeft: {
-    backgroundColor: 'red',
+    backgroundColor: "red",
     height: hp(18),
 
     width: wp(38),
     borderRadius: 20,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     marginRight: wp(6),
     borderWidth: 0.2,
   },
   postRight: {
     height: hp(20),
-    backgroundColor: 'lightblue',
+    backgroundColor: "lightblue",
     width: wp(42),
     borderRadius: 20,
   },
@@ -586,68 +578,67 @@ const styles = StyleSheet.create({
   UserRight: {
     width: wp(55),
     height: hp(8),
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   HeadRight: {
     width: wp(45),
     // height: hp(10),
     marginTop: 15,
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
 
   cardShadowLeft: {
     marginTop: 10,
     height: 50,
     width: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 40,
     // borderWidth: 0.1,
-    alignSelf: 'center',
-    overflow: 'hidden',
+    alignSelf: "center",
+    overflow: "hidden",
     padding: 16,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     // backgroundColor: 'red',
   },
   SearchButton: {
-    backgroundColor: '#2F5597',
+    backgroundColor: "#2F5597",
     width: wp(30),
     borderRadius: 20,
     padding: 3,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: 10,
   },
   CheckinButton: {
     // backgroundColor: "#2F5597",
     // padding: 5,
     width: wp(30),
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 10,
   },
 
   heading: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 13,
   },
   card: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     height: hp(13),
     width: wp(25),
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     margin: 10,
-
 
     // backgroundColor:"red",
   },
   shadowProp: {
     shadowOffset: { width: 8, height: 10 },
-    shadowColor: '#2F5597',
+    shadowColor: "#2F5597",
     shadowOpacity: 0.5,
     shadowRadius: 3,
     elevation: 10,
@@ -655,16 +646,16 @@ const styles = StyleSheet.create({
   cardShadow: {
     height: 50,
     width: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 25,
     // borderWidth: 0.1,
-    alignSelf: 'center',
-    overflow: 'hidden',
+    alignSelf: "center",
+    overflow: "hidden",
     padding: 16,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     // backgroundColor: '#fff',
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -676,15 +667,15 @@ const styles = StyleSheet.create({
   cardShadow1: {
     height: 50,
     width: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 40,
-    alignSelf: 'center',
+    alignSelf: "center",
     // overflow: 'hidden',
-    backgroundColor: 'white',
+    backgroundColor: "white",
     marginTop: 10,
     // backgroundColor: 'red',
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 5,
       height: 10,
@@ -697,38 +688,38 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   cardLeft: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     // backgroundColor:"red",
     // height: hp(20),
     width: wp(40),
     borderRadius: 20,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     marginRight: wp(8),
     // borderWidth: 0.2,
     // borderColor: "lightgrey",
   },
   shadowPropLeft: {
     shadowOffset: { width: 8, height: 10 },
-    shadowColor: 'grey',
+    shadowColor: "grey",
     shadowOpacity: 0.5,
     shadowRadius: 3,
     elevation: 10,
   },
   cardRight: {
-    backgroundColor: 'white',
-    justifyContent: 'center',
+    backgroundColor: "white",
+    justifyContent: "center",
     // backgroundColor:"red",
 
     height: hp(20),
     width: wp(40),
     borderRadius: 20,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     marginRight: wp(6),
     // borderWidth: 0.2,
   },
   shadowPropRight: {
     shadowOffset: { width: 8, height: 10 },
-    shadowColor: 'grey',
+    shadowColor: "grey",
     shadowOpacity: 0.5,
     shadowRadius: 3,
     elevation: 10,
@@ -737,19 +728,18 @@ const styles = StyleSheet.create({
     // alignSelf: "flex-start",
     // borderWidth: 0.2,
     //height: hp(19),
-    backgroundColor: 'white',
+    backgroundColor: "white",
     width: wp(55),
     marginLeft: 15,
     marginRight: 10,
     borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding:5
-
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 5,
   },
   shadowPropSlider: {
     shadowOffset: { width: 8, height: 15 },
-    shadowColor: 'grey',
+    shadowColor: "grey",
     shadowOpacity: 0.5,
     shadowRadius: 3,
     elevation: 10,
