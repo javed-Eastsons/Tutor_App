@@ -57,6 +57,8 @@ const TutorLanding = () => {
     MoveToClient();
 
     setIsEnabled((previousState) => !previousState);
+    navigation.navigate("ClientLanding");
+    setIsEnabled(false);
   };
 
   const MoveToClient = () => {

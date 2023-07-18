@@ -100,24 +100,6 @@ function SignInScreen() {
       />
 
       {/* <Stack.Screen
-        name="TutorSearch"
-        component={TutorSearch}
-        options={{
-          title: 'AuthCheck',
-          headerShown: false,
-          headerStyle: {
-            backgroundColor: '#e85b3d',
-          },
-
-          headerTintColor: '#fff',
-          headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-      /> */}
-
-      {/* <Stack.Screen
         name="TutorLanding"
         component={TutorLanding}
         options={{
@@ -197,6 +179,23 @@ function SignInScreen() {
         component={Login}
         options={{
           title: "AuthCheck",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="TutorHomeStacknavigation"
+        component={TutorHomeStacknavigation}
+        options={{
+          title: "TutorHomeStacknavigation",
           headerShown: false,
           headerStyle: {
             backgroundColor: "#e85b3d",
@@ -1064,6 +1063,25 @@ function TutorHomeStacknavigation() {
       screenOptions={{ headerShown: false }}
       tabBar={(props) => <MyTabBar {...props} />}
     >
+      <FirstStack.Screen
+        name="YourProfle"
+        component={YourProfle}
+        options={{
+          title: "YourProfle",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
       <TutorHomeStack.Screen
         name="TutorLanding"
         component={TutorLanding}
@@ -1082,6 +1100,63 @@ function TutorHomeStacknavigation() {
           },
         }}
       />
+
+      <FirstStack.Screen
+        name="PersonalInfo"
+        component={PersonalInfo}
+        options={{
+          title: "PersonalInfo",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <FirstStack.Screen
+        name="AcademicInfo"
+        component={AcademicInfo}
+        options={{
+          title: "AcademicInfo",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <FirstStack.Screen
+        name="HomeTution"
+        component={HomeTution}
+        options={{
+          title: "HomeTution",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
       <Stack.Screen
         name="BookingInformationConfirmation"
         component={BookingInformationConfirmation}
@@ -1120,42 +1195,6 @@ function TutorHomeStacknavigation() {
       />
 
       <TutorHomeStack.Screen
-        name="AcademicInfo"
-        component={AcademicInfo}
-        options={{
-          title: "AcademicInfo",
-
-          headerStyle: {
-            backgroundColor: "#e85b3d",
-          },
-
-          headerShown: false,
-          headerTintColor: "#fff",
-          headerTitleAlign: "center",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-        }}
-      />
-      <TutorHomeStack.Screen
-        name="HomeTution"
-        component={HomeTution}
-        options={{
-          title: "HomeTution",
-
-          headerStyle: {
-            backgroundColor: "#e85b3d",
-          },
-
-          headerShown: false,
-          headerTintColor: "#fff",
-          headerTitleAlign: "center",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-        }}
-      />
-      <TutorHomeStack.Screen
         name="TutoringDetail"
         component={TutoringDetail}
         options={{
@@ -1192,6 +1231,182 @@ function TutorHomeStacknavigation() {
         }}
       />
     </TutorHomeStack.Navigator>
+  );
+}
+
+const TutorHomeStack4 = createStackNavigator();
+function TutorHomeStacknavigation4() {
+  return (
+    <TutorHomeStack4.Navigator
+      screenOptions={{ headerShown: false }}
+      tabBar={(props) => <MyTabBar {...props} />}
+    >
+      <TutorHomeStack.Screen
+        name="TutorLanding"
+        component={TutorLanding}
+        options={{
+          title: "TutorLanding",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <FirstStack.Screen
+        name="YourProfle"
+        component={YourProfle}
+        options={{
+          title: "YourProfle",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <FirstStack.Screen
+        name="PersonalInfo"
+        component={PersonalInfo}
+        options={{
+          title: "PersonalInfo",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <FirstStack.Screen
+        name="AcademicInfo"
+        component={AcademicInfo}
+        options={{
+          title: "AcademicInfo",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <FirstStack.Screen
+        name="HomeTution"
+        component={HomeTution}
+        options={{
+          title: "HomeTution",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="BookingInformationConfirmation"
+        component={BookingInformationConfirmation}
+        options={{
+          title: "AuthCheck",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <TutorHomeStack.Screen
+        name="MyBookingTutor"
+        component={MyBookingTutor}
+        options={{
+          title: "MyBookingTutor",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <TutorHomeStack.Screen
+        name="TutoringDetail"
+        component={TutoringDetail}
+        options={{
+          title: "TutoringDetail",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <TutorHomeStack.Screen
+        name="WordYou"
+        component={WordYou}
+        options={{
+          title: "WordYou",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+    </TutorHomeStack4.Navigator>
   );
 }
 
@@ -1421,6 +1636,91 @@ function MainNavigation2() {
   );
 }
 
+const HomeStack4 = createBottomTabNavigator();
+function MainNavigation4() {
+  return (
+    <HomeStack4.Navigator
+      initialRouteName="TutorLanding"
+      tabBar={(props) => <MyTabBar {...props} />}
+    >
+      <HomeStack1.Screen
+        name="TutorHomeStacknavigation"
+        component={TutorHomeStacknavigation4}
+        options={{
+          // title: 'YourProfle',
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <HomeStack1.Screen
+        name="Messages"
+        component={Messages}
+        options={{
+          title: "Bookmark",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <HomeStack1.Screen
+        name="Tab3"
+        component={Tab3}
+        options={{
+          title: "ClientLanding",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <HomeStack1.Screen
+        name="Tab4"
+        component={Tab4}
+        options={{
+          title: "Tab4",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+    </HomeStack4.Navigator>
+  );
+}
+
 const Drawer = createDrawerNavigator();
 
 function MyDrawer({ navigation, route }) {
@@ -1490,6 +1790,27 @@ function MyDrawer2({ navigation, route }) {
   );
 }
 
+const Drawer4 = createDrawerNavigator();
+
+function MyDrawer4({ navigation, route }) {
+  return (
+    <Drawer4.Navigator
+      defaultStatus="closed"
+      screenOptions={{
+        //  drawerPosition: 'left',
+        headerShown: false,
+        drawerActiveBackgroundColor: "#FAFAFC",
+      }}
+      //initialRouteName="Home"
+      drawerContent={(props) => <DrawerTwo {...props} />}
+    >
+      <Drawer.Screen name="Home4" component={MainNavigation4} />
+
+      {/* <Drawer.Screen name="Home" component={MainNavigation1} /> */}
+    </Drawer4.Navigator>
+  );
+}
+
 const Stack = createNativeStackNavigator();
 
 function MainNavigation() {
@@ -1505,6 +1826,7 @@ function MainNavigation() {
           {/* <Stack.Screen name="home" component={MyDrawer2} /> */}
 
           <Stack.Screen name="Auth2" component={MyDrawer2} />
+          <Stack.Screen name="Auth4" component={MyDrawer4} />
 
           <Stack.Screen name="Auth" component={MyDrawer} />
 

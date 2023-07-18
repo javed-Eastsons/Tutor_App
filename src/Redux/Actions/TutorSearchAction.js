@@ -138,17 +138,17 @@ export const GetResultAfterPostcode = (postalcode, navigation) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        // console.log('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF', responseJson.message)
-        //   Alert.alert(responseJson.message)
+        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
+
         if (responseJson.status == true) {
           console.log(
             "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
-            responseJson.Message
+            responseJson.message
           );
           // Alert.alert(responseJson.message)
           dispatch({
             type: GET_POSTAL_DATA,
-            POSTAL_DATA: responseJson.Message,
+            POSTAL_DATA: responseJson.data,
           });
 
           navigation.navigate("OurTutor", {
@@ -156,8 +156,8 @@ export const GetResultAfterPostcode = (postalcode, navigation) => {
             tuition_type: "Home Tuition",
           });
         } else if (responseJson.status == false) {
-          console.log("AAa", responseJson.Message);
-          Alert.alert(responseJson.Message);
+          console.log("AAa", responseJson.message);
+          Alert.alert(responseJson.message);
           // dispatch({
 
           //     type: REGISTER_MSG,
@@ -190,6 +190,7 @@ export const GetQuickData = (postalcode, navigation) => {
       },
     ],
   ];
+
   return (dispatch, getState) => {
     alert("hiii 1");
     axios.defaults.baseURL = "https://refuel.site";

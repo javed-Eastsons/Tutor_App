@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import RadioGroup from 'react-native-radio-buttons-group';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import MultiSelect from 'react-native-multiple-select';
-import Collapsible from 'react-native-collapsible';
+// import Collapsible from 'react-native-collapsible';
 const TutorSearchProfile = ({ props, route }) => {
     const navigation = useNavigation();
     const [showwhat, setshowwhat] = React.useState('');
@@ -344,7 +344,7 @@ const TutorSearchProfile = ({ props, route }) => {
                                     {/*Heading of Single Collapsible*/}
                                 </View>
                             </TouchableOpacity>
-                            <Collapsible
+                            {/* <Collapsible
                                 collapsed={collapsed}
                                 align="center"
                             >
@@ -353,7 +353,7 @@ const TutorSearchProfile = ({ props, route }) => {
                                         This is a dummy text of Single Collapsible View
                                     </Text>
                                 </View>
-                            </Collapsible>
+                            </Collapsible> */}
                             {/* <View style={styles.searchSection}>
                                 <Text style={styles.TextInputText}>Primary school</Text>
                                 <TextInput

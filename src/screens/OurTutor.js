@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 
 import {
   SafeAreaView,
@@ -13,66 +13,69 @@ import {
   TouchableHighlight,
   Modal,
   ImageBase,
-} from 'react-native';
-import axios from 'axios';
-import AppIntroSlider from 'react-native-app-intro-slider';
-import {TextInput} from 'react-native-gesture-handler';
+} from "react-native";
+import axios from "axios";
+import AppIntroSlider from "react-native-app-intro-slider";
+import { TextInput } from "react-native-gesture-handler";
 // import { useIsFocused, useNavigation } from '@react-navigation/native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import {useIsFocused, useNavigation} from '@react-navigation/native';
-import ItemBox from './ItemBox';
-import RNPickerSelect from 'react-native-picker-select';
+} from "react-native-responsive-screen";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import ItemBox from "./ItemBox";
+import RNPickerSelect from "react-native-picker-select";
 //import CheckBox from '@react-native-community/checkbox';
-import {GetAllTutors} from '../Redux/Actions/Tutors';
+import { GetAllTutors } from "../Redux/Actions/Tutors";
 import {
   GetfilterSubject,
   GetfilterQualification,
   GetQuickData,
-} from '../Redux/Actions/TutorSearchAction';
-import {useDispatch, useSelector} from 'react-redux';
-import RadioGroup from 'react-native-radio-buttons-group';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import MultiSelect from 'react-native-multiple-select';
+} from "../Redux/Actions/TutorSearchAction";
+import { useDispatch, useSelector } from "react-redux";
+import RadioGroup from "react-native-radio-buttons-group";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import MultiSelect from "react-native-multiple-select";
 
 var selectArray = [];
 var selectFilter = [];
 
 var level = [];
 
-const OurTutor = ({props, route}) => {
+const OurTutor = ({ props, route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [Tutor, setTutor] = useState([]);
 
-  const [Primary, setPrimary] = useState('Primary');
-  const [Secondary, setSecondary] = useState('Secondary');
-  const [JCPre, setJCPre] = useState('JC');
-  const [IB, setIB] = useState('IB');
+  const [Primary, setPrimary] = useState("Primary");
+  const [Secondary, setSecondary] = useState("Secondary");
+  const [JCPre, setJCPre] = useState("JC");
+  const [IB, setIB] = useState("IB");
 
-  const [AEIS, setAEIS] = useState('AEIS');
+  const [AEIS, setAEIS] = useState("AEIS");
 
-  const [English, setEnglish] = useState('English');
-  const [Gender, setGender] = useState('');
-  const [Status, setStatus] = useState('');
-  const [Math, setMath] = useState('');
-  const [Science, setScience] = useState('Science');
-  const [Economics, setEconomics] = useState('Economics');
-  const [Chinese, setChinese] = useState('Chinese');
-  const {GET_POSTAL_DATA} = useSelector(state => state.TutorsearchReducer);
-  const {GET_FILTER_DATA} = useSelector(state => state.TutorsearchReducer);
-  const {GET_QUICK_DATA} = useSelector(state => state.TutorsearchReducer);
+  const [English, setEnglish] = useState("English");
+  const [Gender, setGender] = useState("");
+  const [Status, setStatus] = useState("");
+  const [Math, setMath] = useState("");
+  const [Science, setScience] = useState("Science");
+  const [Economics, setEconomics] = useState("Economics");
+  const [Chinese, setChinese] = useState("Chinese");
+  const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
+  const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer);
+  const { GET_QUICK_DATA } = useSelector((state) => state.TutorsearchReducer);
   console.log(
-    '🚀 ~ file: OurTutor.js ~ line 62 ~ OurTutor ~ GET_QUICK_DATA',
-    GET_QUICK_DATA,
+    "🚀 ~ file: OurTutor.js ~ line 62 ~ OurTutor ~ GET_QUICK_DATA",
+    GET_QUICK_DATA
   );
-console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
-  console.log('!!!!!!', GET_FILTER_DATA);
-  const { GET_ALLTUTORS } = useSelector(state => state.TutorReducer);
+  console.log(
+    GET_POSTAL_DATA,
+    "GET_POSTAL_DATAGET_POSTAL_DATAGET_POSTAL_DATAGET_POSTAL_DATA"
+  );
+  console.log("!!!!!!", GET_FILTER_DATA);
+  const { GET_ALLTUTORS } = useSelector((state) => state.TutorReducer);
 
-  console.log("All Tutor",GET_ALLTUTORS)
+  console.log("All Tutor", GET_ALLTUTORS);
   // console.log('AAAAAAAAAAAAAAAAAAAAFILTER@@@@@@@@@@@@@@@@@@@@@@@@@@@', GET_FILTER_DATA)
 
   const [selectedItems, setSelectedItems] = useState([]);
@@ -83,14 +86,14 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
   const [selectedSubject, setSelectedSubject] = useState([]);
   const [selected, setSelected] = useState([]);
   const [allTutor, setAllTutor] = useState([]);
-                             
-  const renderList = ({item, index}) => {
-    const {id, Tutoring_Level, Tutoring_Subjects} = item;
-    const isSelected = selected.filter(i => i == Tutoring_Level).length > 0;
+
+  const renderList = ({ item, index }) => {
+    const { id, Tutoring_Level, Tutoring_Subjects } = item;
+    const isSelected = selected.filter((i) => i == Tutoring_Level).length > 0;
     return <TouchableOpacity></TouchableOpacity>;
   };
 
-  const onSelectedItemsChange = selectedItemsnationality => {
+  const onSelectedItemsChange = (selectedItemsnationality) => {
     // Set Selected Items
     setSelectedItems(selectedItemsnationality);
     createnational(selectedItemsnationality);
@@ -98,59 +101,59 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
   };
   useEffect(() => {
     dispatch(GetAllTutors());
-    setAllTutor(GET_ALLTUTORS)
+    setAllTutor(GET_ALLTUTORS);
 
     // setTutor(GET_ALLTUTORS)
   }, []);
   useEffect(() => {
-    setAllTutor(GET_ALLTUTORS)
+    setAllTutor(GET_ALLTUTORS);
 
     // setTutor(GET_ALLTUTORS)
   }, [GET_ALLTUTORS]);
-  const createnational = data => {
-    console.log(data, ':::::::::::::::::::::::::');
+  const createnational = (data) => {
+    console.log(data, ":::::::::::::::::::::::::");
     if (data.length == 0) {
       selectFilter = [];
-      console.log('ddddddddddddddddddddddd');
+      console.log("ddddddddddddddddddddddd");
     } else {
       const obj3 = {};
       data.forEach((element, index) => {
         // console.log('""""""""""""""', element);
-        obj3['Nationality'] = element;
+        obj3["Nationality"] = element;
         dispatch(
           GetfilterQualification(
             route.params.postalcode,
             route.params.tuition_type,
             Gender,
             Status,
-            selectFilter,
-          ),
+            selectFilter
+          )
         );
 
         // setSelectedQual(element)
       });
-      if (!isExistInArray(selectFilter, 'Nationality', obj3.Qualification)) {
+      if (!isExistInArray(selectFilter, "Nationality", obj3.Qualification)) {
         selectFilter.push(obj3);
       } else {
-        RemoveTempExercise(selectFilter, 'Nationality', obj3.Qualification);
+        RemoveTempExercise(selectFilter, "Nationality", obj3.Qualification);
       }
     }
-    console.log('Nationality????????????????', selectFilter);
+    console.log("Nationality????????????????", selectFilter);
   };
 
-  const createqual = data => {
-    console.log(data, ':::::::::::::::::::::::::');
+  const createqual = (data) => {
+    console.log(data, ":::::::::::::::::::::::::");
     if (data.length == 0) {
       selectFilter = [];
-      console.log('ddddddddddddddddddddddd');
+      console.log("ddddddddddddddddddddddd");
     } else {
       const obj3 = {};
       data.forEach((element, index) => {
         // console.log('""""""""""""""', element);
-        obj3['Qualification'] = element;
+        obj3["Qualification"] = element;
         // setSelectedQual(element)
       });
-      if (!isExistInArray(selectFilter, 'Qualification', obj3.Qualification)) {
+      if (!isExistInArray(selectFilter, "Qualification", obj3.Qualification)) {
         selectFilter.push(obj3);
 
         dispatch(
@@ -159,34 +162,34 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
             route.params.tuition_type,
             Gender,
             Status,
-            selectFilter,
-          ),
+            selectFilter
+          )
         );
       } else {
-        RemoveTempExercise(selectFilter, 'Qualification', obj3.Qualification);
+        RemoveTempExercise(selectFilter, "Qualification", obj3.Qualification);
       }
     }
-    console.log('Qualification????????????????', selectFilter);
+    console.log("Qualification????????????????", selectFilter);
   };
 
-  const onSelectedQualChange = selectedqualification => {
+  const onSelectedQualChange = (selectedqualification) => {
     createqual(selectedqualification);
     setSelectedQual(selectedqualification);
   };
 
-  const createlevel = data => {
-    console.log(data, ':::::::::::::::::::::::::');
+  const createlevel = (data) => {
+    console.log(data, ":::::::::::::::::::::::::");
     if (data.length == 0) {
       selectFilter = [];
-      console.log('ddddddddddddddddddddddd');
+      console.log("ddddddddddddddddddddddd");
     } else {
       const obj3 = {};
       data.forEach((element, index) => {
         // console.log('""""""""""""""', element);
-        obj3['Levels_search'] = element;
+        obj3["Levels_search"] = element;
         // setSelectedQual(element)
       });
-      if (!isExistInArray(selectFilter, 'Levels_search', obj3.Levels_search)) {
+      if (!isExistInArray(selectFilter, "Levels_search", obj3.Levels_search)) {
         selectFilter.push(obj3);
 
         dispatch(
@@ -195,29 +198,29 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
             route.params.tuition_type,
             Gender,
             Status,
-            selectFilter,
-          ),
+            selectFilter
+          )
         );
       } else {
-        RemoveTempExercise(selectFilter, 'Levels_search', obj3.Levels_search);
+        RemoveTempExercise(selectFilter, "Levels_search", obj3.Levels_search);
       }
     }
-    console.log('Level????????????????', selectFilter);
+    console.log("Level????????????????", selectFilter);
   };
 
-  const creategrade = data => {
-    console.log(data, ':::::::::::::::::::::::::');
+  const creategrade = (data) => {
+    console.log(data, ":::::::::::::::::::::::::");
     if (data.length == 0) {
       selectFilter = [];
-      console.log('ddddddddddddddddddddddd');
+      console.log("ddddddddddddddddddddddd");
     } else {
       const obj3 = {};
       data.forEach((element, index) => {
         // console.log('""""""""""""""', element);
-        obj3['Grade'] = element;
+        obj3["Grade"] = element;
         // setSelectedQual(element)
       });
-      if (!isExistInArray(selectFilter, 'Grade', obj3.Grade)) {
+      if (!isExistInArray(selectFilter, "Grade", obj3.Grade)) {
         selectFilter.push(obj3);
 
         dispatch(
@@ -226,29 +229,29 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
             route.params.tuition_type,
             Gender,
             Status,
-            selectFilter,
-          ),
+            selectFilter
+          )
         );
       } else {
-        RemoveTempExercise(selectFilter, 'Grade', obj3.Grade);
+        RemoveTempExercise(selectFilter, "Grade", obj3.Grade);
       }
     }
-    console.log('Level????????????????', selectFilter);
+    console.log("Level????????????????", selectFilter);
   };
 
-  const createStream = data => {
-    console.log(data, ':::::::::::::::::::::::::');
+  const createStream = (data) => {
+    console.log(data, ":::::::::::::::::::::::::");
     if (data.length == 0) {
       selectFilter = [];
-      console.log('ddddddddddddddddddddddd');
+      console.log("ddddddddddddddddddddddd");
     } else {
       const obj3 = {};
       data.forEach((element, index) => {
         // console.log('""""""""""""""', element);
-        obj3['Stream'] = element;
+        obj3["Stream"] = element;
         // setSelectedQual(element)
       });
-      if (!isExistInArray(selectFilter, 'Stream', obj3.Stream)) {
+      if (!isExistInArray(selectFilter, "Stream", obj3.Stream)) {
         selectFilter.push(obj3);
 
         dispatch(
@@ -257,29 +260,29 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
             route.params.tuition_type,
             Gender,
             Status,
-            selectFilter,
-          ),
+            selectFilter
+          )
         );
       } else {
-        RemoveTempExercise(selectFilter, 'Stream', obj3.Stream);
+        RemoveTempExercise(selectFilter, "Stream", obj3.Stream);
       }
     }
-    console.log('Level????????????????', selectFilter);
+    console.log("Level????????????????", selectFilter);
   };
 
-  const createSubject = data => {
-    console.log(data, ':::::::::::::::::::::::::');
+  const createSubject = (data) => {
+    console.log(data, ":::::::::::::::::::::::::");
     if (data.length == 0) {
       selectFilter = [];
-      console.log('ddddddddddddddddddddddd');
+      console.log("ddddddddddddddddddddddd");
     } else {
       const obj3 = {};
       data.forEach((element, index) => {
         // console.log('""""""""""""""', element);
-        obj3['Subject'] = element;
+        obj3["Subject"] = element;
         // setSelectedQual(element)
       });
-      if (!isExistInArray(selectFilter, 'Subject', obj3.Subject)) {
+      if (!isExistInArray(selectFilter, "Subject", obj3.Subject)) {
         selectFilter.push(obj3);
 
         dispatch(
@@ -288,16 +291,16 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
             route.params.tuition_type,
             Gender,
             Status,
-            selectFilter,
-          ),
+            selectFilter
+          )
         );
       } else {
-        RemoveTempExercise(selectFilter, 'Subject', obj3.Subject);
+        RemoveTempExercise(selectFilter, "Subject", obj3.Subject);
       }
     }
-    console.log('Level????????????????', selectFilter);
+    console.log("Level????????????????", selectFilter);
   };
-  const onSelectedlevel = selectedItemslevel => {
+  const onSelectedlevel = (selectedItemslevel) => {
     // Set Selected Items
 
     createlevel(selectedItemslevel);
@@ -305,131 +308,131 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
     // console.log('Level', selectedlevel)
   };
 
-  const onSelectedGrade = selectedItemslevel => {
+  const onSelectedGrade = (selectedItemslevel) => {
     // Set Selected Items
 
     creategrade(selectedItemslevel);
     setSelectedGrade(selectedItemslevel);
   };
 
-  const onSelectedStream = selectedItemslevel => {
+  const onSelectedStream = (selectedItemslevel) => {
     // Set Selected Items
 
     createStream(selectedItemslevel);
     setSelectedStream(selectedItemslevel);
   };
 
-  const onSelectedSubject = selectedItemslevel => {
+  const onSelectedSubject = (selectedItemslevel) => {
     // Set Selected Items
 
     createSubject(selectedItemslevel);
     setSelectedSubject(selectedItemslevel);
   };
 
-  console.log('Grade', SelectedGrade);
+  console.log("Grade", SelectedGrade);
 
   const [radioButtons, setRadioButtons] = useState([
     {
-      id: '1', // acts as primary key, should be unique and non-empty string
-      label: 'Female',
-      value: 'Female',
+      id: "1", // acts as primary key, should be unique and non-empty string
+      label: "Female",
+      value: "Female",
     },
     {
-      id: '2',
-      label: 'Male',
-      value: 'Male',
+      id: "2",
+      label: "Male",
+      value: "Male",
     },
   ]);
 
   const [statusradioButtons, setstatusRadioButtons] = useState([
     {
-      id: '1', // acts as primary key, should be unique and non-empty string
-      label: 'Full Time',
-      value: 'Full Time',
+      id: "1", // acts as primary key, should be unique and non-empty string
+      label: "Full Time",
+      value: "Full Time",
     },
     {
-      id: '2',
-      label: 'Part Time',
-      value: 'Part Time',
+      id: "2",
+      label: "Part Time",
+      value: "Part Time",
     },
   ]);
 
   const [Level, setLevel] = useState([
     {
       id: 1,
-      code: 'Primary',
+      code: "Primary",
     },
     {
       id: 2,
-      code: 'Secondary',
+      code: "Secondary",
     },
     {
       id: 3,
-      code: 'JC/Pre-U',
+      code: "JC/Pre-U",
     },
     {
       id: 4,
-      code: 'IB (Diploma)',
+      code: "IB (Diploma)",
     },
     {
       id: 5,
-      code: 'AEIS',
+      code: "AEIS",
     },
   ]);
 
-  const onPressRadioButton = radioButtonsArray => {
-    console.log('PKKKKKKKKKKKKKKK', radioButtonsArray);
+  const onPressRadioButton = (radioButtonsArray) => {
+    console.log("PKKKKKKKKKKKKKKK", radioButtonsArray);
     var selection = radioButtonsArray[0].selected;
     // setRadioButtons(radioButtonsArray);
-    console.log('PK+++++++++++++++++++++K', selection);
+    console.log("PK+++++++++++++++++++++K", selection);
     if (selection == true) {
-      setGender('Female');
+      setGender("Female");
     } else {
-      setGender('Male');
+      setGender("Male");
     }
   };
 
-  console.log('PPPPPPPPPPPPPPPPPP', Gender);
+  console.log("PPPPPPPPPPPPPPPPPP", Gender);
 
   function onPressstatusRadioButton(radioButtonsArray) {
-    console.log('PKKKKKKKKKKKKKKK', radioButtonsArray);
+    console.log("PKKKKKKKKKKKKKKK", radioButtonsArray);
     var selection = radioButtonsArray[0].selected;
     // setRadioButtons(radioButtonsArray);
-    console.log('PK+++++++++++++++++++++K', selection);
+    console.log("PK+++++++++++++++++++++K", selection);
     if (selection == true) {
-      setStatus('Full Time');
+      setStatus("Full Time");
     } else {
-      setStatus('Part Time');
+      setStatus("Part Time");
     }
     //  setstatusRadioButtons(radioButtonsArray);
   }
 
   const items = [
     // name key is must. It is to show the text in front
-    {id: 1, name: 'India'},
-    {id: 2, name: 'Singapore'},
+    { id: 1, name: "India" },
+    { id: 2, name: "Singapore" },
   ];
 
   const [subjects, setSubjects] = useState([
     {
       id: 6,
-      code: 'English',
+      code: "English",
     },
     {
       id: 7,
-      code: 'Math',
+      code: "Math",
     },
     {
       id: 8,
-      code: 'Science',
+      code: "Science",
     },
     {
       id: 9,
-      code: 'Chinese',
+      code: "Chinese",
     },
     {
       id: 10,
-      code: 'Economics',
+      code: "Economics",
     },
   ]);
 
@@ -437,74 +440,74 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
   const [postaldata, setPostaldata] = useState([]);
   const [quickdata, setQuickdata] = useState([]);
 
-  console.log(allTutor,'himlocal')
+  console.log(allTutor, "himlocal");
   // const [selectedSubject, setSelectedSubject] = useState('');
 
   const [pickerServices, setPickerServices] = useState(false);
   const [filterServices, setFilterServices] = useState(false);
 
-  const [selctedSort, setSelectedSort] = useState('');
+  const [selctedSort, setSelectedSort] = useState("");
 
-  const [state, setState] = useState('Select One Option');
+  const [state, setState] = useState("Select One Option");
   const state_list = [
     // { label: 'Select One Option', value: 'Select One Option' },
-    {label: 'Pre-School', value: 'Pre-School'},
-    {label: 'Primary', value: 'Primary'},
-    {label: 'Secondary', value: 'Secondary'},
-    {label: 'AEIS', value: 'AEIS'},
-    {label: 'JC/Pre-U', value: 'JC/Pre-U'},
-    {label: 'IB (Diploma)', value: 'IB (Diploma)'},
+    { label: "Pre-School", value: "Pre-School" },
+    { label: "Primary", value: "Primary" },
+    { label: "Secondary", value: "Secondary" },
+    { label: "AEIS", value: "AEIS" },
+    { label: "JC/Pre-U", value: "JC/Pre-U" },
+    { label: "IB (Diploma)", value: "IB (Diploma)" },
     {
-      label: 'International School (Grade 1 to 6)',
-      value: 'International School (Grade 1 to 6)',
+      label: "International School (Grade 1 to 6)",
+      value: "International School (Grade 1 to 6)",
     },
     {
-      label: 'International School (Grade 7 to 10)',
-      value: 'International School (Grade 7 to 10)',
+      label: "International School (Grade 7 to 10)",
+      value: "International School (Grade 7 to 10)",
     },
     {
-      label: 'International School (Grade 11, 12, 13)',
-      value: 'International School (Grade 11, 12, 13)',
+      label: "International School (Grade 11, 12, 13)",
+      value: "International School (Grade 11, 12, 13)",
     },
-    {label: 'ITE', value: 'ITE'},
-    {label: 'Polytechnic', value: 'Polytechnic'},
-    {label: 'University', value: 'University'},
-    {label: 'Entrance Exams', value: 'Entrance Exams'},
-    {label: 'Foreign Languages', value: 'Foreign Languages'},
-    {label: 'Music', value: 'Music'},
-    {label: 'Computing', value: 'Computing'},
+    { label: "ITE", value: "ITE" },
+    { label: "Polytechnic", value: "Polytechnic" },
+    { label: "University", value: "University" },
+    { label: "Entrance Exams", value: "Entrance Exams" },
+    { label: "Foreign Languages", value: "Foreign Languages" },
+    { label: "Music", value: "Music" },
+    { label: "Computing", value: "Computing" },
   ];
 
   const grade_list = [
     // { label: 'Select One Option', value: 'Select One Option' },
-    {label: 'P1', value: 'P1'},
-    {label: 'P2', value: 'P2'},
-    {label: 'P3', value: 'P3'},
+    { label: "P1", value: "P1" },
+    { label: "P2", value: "P2" },
+    { label: "P3", value: "P3" },
   ];
 
   const Stream_list = [
     // { label: 'Select One Option', value: 'Select One Option' },
-    {label: 'IP', value: 'IP'},
-    {label: 'NT', value: 'NT'},
+    { label: "IP", value: "IP" },
+    { label: "NT", value: "NT" },
   ];
 
   const subject_list = [
     // { label: 'Select One Option', value: 'Select One Option' },
-    {label: 'English', value: 'English'},
-    {label: 'Business Studies', value: 'Business Studies'},
-    {label: 'Math', value: 'Math'},
+    { label: "English", value: "English" },
+    { label: "Business Studies", value: "Business Studies" },
+    { label: "Math", value: "Math" },
   ];
 
-  const [state2, setState2] = useState('Select one or more');
+  const [state2, setState2] = useState("Select one or more");
   const state_list2 = [
-    {label: 'Select one or more', value: 'Select one or more'},
-    {label: 'A Level', value: 'A Level'},
-    {label: 'IB (Diploma)', value: 'IB (Diploma)'},
-    {label: 'Polytechnic Diploma', value: 'Polytechnic Diploma'},
-    {label: 'University Undergraduate', value: 'University Undergraduate'},
-    {label: 'University dergraduate', value: 'University dergraduate'},
-    {label: 'Ex School Teacher', value: 'Ex School Teacher'},
-    {label: 'Current School Teacher', value: 'Current School Teacher'},
+    { label: "Select one or more", value: "Select one or more" },
+    { label: "A Level", value: "A Level" },
+    { label: "IB (Diploma)", value: "IB (Diploma)" },
+    { label: "Polytechnic Diploma", value: "Polytechnic Diploma" },
+    { label: "University Undergraduate", value: "University Undergraduate" },
+    { label: "University dergraduate", value: "University dergraduate" },
+    { label: "Ex School Teacher", value: "Ex School Teacher" },
+    { label: "Current School Teacher", value: "Current School Teacher" },
   ];
 
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
@@ -515,16 +518,16 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
   const [genderData, setGenderData] = useState([
     {
       id: 1,
-      gender: 'Female',
+      gender: "Female",
     },
     {
       id: 2,
-      gender: 'Male',
+      gender: "Male",
     },
   ]);
 
   useEffect(() => {
-    console.log('!!!!!!! ', GET_FILTER_DATA);
+    console.log("!!!!!!! ", GET_FILTER_DATA);
     // dispatch(GetAllTutors())
     setUserdata(GET_FILTER_DATA);
     setPostaldata(GET_POSTAL_DATA);
@@ -538,41 +541,39 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
   }, [GET_FILTER_DATA, GET_POSTAL_DATA, GET_QUICK_DATA]);
 
   const setPrimaryFun = () => {
-    if (Primary == '') {
-      setPrimary('Primary');
+    if (Primary == "") {
+      setPrimary("Primary");
       // console.log('IN')
 
       var item = {};
       var item1 = {};
 
-      item['tuition_type'] = route.params.tuition_type;
-      item['postal_code'] = route.params.postalcode;
-      item1['Levels_search'] = Primary;
-      RemoveTempExercise(selectArray, 'Levels_search', 'Primary');
+      item["tuition_type"] = route.params.tuition_type;
+      item["postal_code"] = route.params.postalcode;
+      item1["Levels_search"] = Primary;
+      RemoveTempExercise(selectArray, "Levels_search", "Primary");
     } else {
-      setPrimary('');
+      setPrimary("");
 
       var item = {};
       var item1 = {};
 
-      item['tuition_type'] = route.params.tuition_type;
-      item['postal_code'] = route.params.postalcode;
-      item1['Levels_search'] = Primary;
+      item["tuition_type"] = route.params.tuition_type;
+      item["postal_code"] = route.params.postalcode;
+      item1["Levels_search"] = Primary;
 
-      if (!isExistInArray(selectArray, 'Levels_search', item1.Levels_search)) {
+      if (!isExistInArray(selectArray, "Levels_search", item1.Levels_search)) {
         //  console.log('insert in array');
         selectArray.push(item1);
       } else {
-        RemoveTempExercise(selectArray, 'Levels_search', item1.Levels_search);
+        RemoveTempExercise(selectArray, "Levels_search", item1.Levels_search);
       }
     }
 
-    console.log('aaaaaaaaaaa', selectArray);
+    console.log("aaaaaaaaaaa", selectArray);
   };
 
   // const sortFun = () => {
-   
-      
 
   //     var item = {};
   //     var item1 = {};
@@ -588,38 +589,37 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
   //         selectArray,
   //       ),
   //     );
-    
+
   //   }
 
   //   console.log('aaaaaaaaaaa', selectArray);
   // };
 
-
   const setSeconadyFun = () => {
-    if (Secondary == '') {
-      setSecondary('Secondary');
-      console.log('IN');
+    if (Secondary == "") {
+      setSecondary("Secondary");
+      console.log("IN");
       var item1 = {};
-      item1['Levels_search'] = Secondary;
-      RemoveTempExercise(selectArray, 'Levels_search', 'Secondary');
+      item1["Levels_search"] = Secondary;
+      RemoveTempExercise(selectArray, "Levels_search", "Secondary");
     } else {
-      setSecondary('');
-      console.log('OuT');
+      setSecondary("");
+      console.log("OuT");
 
       var item = {};
       var item1 = {};
 
-      item1['Levels_search'] = Secondary;
+      item1["Levels_search"] = Secondary;
 
-      if (!isExistInArray(selectArray, 'Levels_search', item1.Levels_search)) {
+      if (!isExistInArray(selectArray, "Levels_search", item1.Levels_search)) {
         //  console.log('insert in array');
         selectArray.push(item1);
       } else {
-        RemoveTempExercise(selectArray, 'Levels_search', item1.Levels_search);
+        RemoveTempExercise(selectArray, "Levels_search", item1.Levels_search);
       }
     }
 
-    console.log('aaaaaaaaaaa', selectArray);
+    console.log("aaaaaaaaaaa", selectArray);
   };
 
   const isExistInArray = (Ex_array, Ex_Key, Ex_value) => {
@@ -647,7 +647,7 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
         Ex_array[index].hasOwnProperty(Ex_Key) &&
         Ex_array[index][Ex_Key] === Ex_value
       ) {
-        console.log('id:' + Ex_value);
+        console.log("id:" + Ex_value);
         Ex_array.splice(index, 1);
         return false;
       }
@@ -657,267 +657,267 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
     selectFilter = Ex_array;
   };
   const setJCFun = () => {
-    if (JCPre == '') {
-      setJCPre('JC');
+    if (JCPre == "") {
+      setJCPre("JC");
       // console.log('IN')
       var item1 = {};
-      item1['Levels_search'] = JCPre;
-      RemoveTempExercise(selectArray, 'Levels_search', 'JC');
+      item1["Levels_search"] = JCPre;
+      RemoveTempExercise(selectArray, "Levels_search", "JC");
     } else {
-      setJCPre('');
-      console.log('OuT');
+      setJCPre("");
+      console.log("OuT");
 
       var item1 = {};
 
-      item1['Levels_search'] = JCPre;
+      item1["Levels_search"] = JCPre;
 
-      if (!isExistInArray(selectArray, 'Levels_search', item1.Levels_search)) {
+      if (!isExistInArray(selectArray, "Levels_search", item1.Levels_search)) {
         //  console.log('insert in array');
         selectArray.push(item1);
       } else {
-        RemoveTempExercise(selectArray, 'Levels_search', item1.Levels_search);
+        RemoveTempExercise(selectArray, "Levels_search", item1.Levels_search);
       }
     }
-    console.log('aaaaaaaaaaa', selectArray);
+    console.log("aaaaaaaaaaa", selectArray);
   };
 
   const setIBFun = () => {
-    if (IB == '') {
-      setIB('IB');
-      console.log('IN');
+    if (IB == "") {
+      setIB("IB");
+      console.log("IN");
       var item1 = {};
-      item1['Levels_search'] = IB;
-      RemoveTempExercise(selectArray, 'Levels_search', 'IB');
+      item1["Levels_search"] = IB;
+      RemoveTempExercise(selectArray, "Levels_search", "IB");
     } else {
-      setIB('');
-      console.log('OuT');
+      setIB("");
+      console.log("OuT");
       var item1 = {};
 
-      item1['Levels_search'] = IB;
+      item1["Levels_search"] = IB;
 
-      if (!isExistInArray(selectArray, 'Levels_search', item1.Levels_search)) {
+      if (!isExistInArray(selectArray, "Levels_search", item1.Levels_search)) {
         //  console.log('insert in array');
         selectArray.push(item1);
       } else {
-        RemoveTempExercise(selectArray, 'Levels_search', item1.Levels_search);
+        RemoveTempExercise(selectArray, "Levels_search", item1.Levels_search);
       }
     }
-    console.log('aaaaaaaaaaa', selectArray);
+    console.log("aaaaaaaaaaa", selectArray);
   };
 
   const setAEISFun = () => {
-    if (AEIS == '') {
-      setAEIS('AEIS');
-      console.log('IN');
+    if (AEIS == "") {
+      setAEIS("AEIS");
+      console.log("IN");
       var item1 = {};
-      item1['Levels_search'] = AEIS;
-      RemoveTempExercise(selectArray, 'Levels_search', 'AEIS');
+      item1["Levels_search"] = AEIS;
+      RemoveTempExercise(selectArray, "Levels_search", "AEIS");
     } else {
-      setAEIS('');
-      console.log('OuT');
+      setAEIS("");
+      console.log("OuT");
 
       var item1 = {};
 
-      item1['Levels_search'] = AEIS;
+      item1["Levels_search"] = AEIS;
 
-      if (!isExistInArray(selectArray, 'Levels_search', item1.Levels_search)) {
+      if (!isExistInArray(selectArray, "Levels_search", item1.Levels_search)) {
         //  console.log('insert in array');
         selectArray.push(item1);
       } else {
-        RemoveTempExercise(selectArray, 'Levels_search', item1.Levels_search);
+        RemoveTempExercise(selectArray, "Levels_search", item1.Levels_search);
       }
     }
-    console.log('aaaaaaaaaaa', selectArray);
+    console.log("aaaaaaaaaaa", selectArray);
   };
 
   const setEnglishFun = () => {
-    setEnglish('English');
-    if (English == '') {
-      setEnglish('English');
-      console.log('IN');
+    setEnglish("English");
+    if (English == "") {
+      setEnglish("English");
+      console.log("IN");
 
       var item1 = {};
-      item1['subject_search'] = English;
-      RemoveTempExercise(selectArray, 'subject_search', 'English');
+      item1["subject_search"] = English;
+      RemoveTempExercise(selectArray, "subject_search", "English");
 
       dispatch(
         GetfilterSubject(
           route.params.postalcode,
           route.params.tuition_type,
-          selectArray,
-        ),
+          selectArray
+        )
       );
     } else {
-      setEnglish('');
-      console.log('OuT');
+      setEnglish("");
+      console.log("OuT");
 
       var item1 = {};
-      item1['subject_search'] = English;
+      item1["subject_search"] = English;
 
       if (
-        !isExistInArray(selectArray, 'subject_search', item1.subject_search)
+        !isExistInArray(selectArray, "subject_search", item1.subject_search)
       ) {
         //  console.log('insert in array');
         selectArray.push(item1);
       } else {
-        RemoveTempExercise(selectArray, 'subject_search', item1.subject_search);
+        RemoveTempExercise(selectArray, "subject_search", item1.subject_search);
       }
 
       dispatch(
         GetfilterSubject(
           route.params.postalcode,
           route.params.tuition_type,
-          selectArray,
-        ),
+          selectArray
+        )
       );
     }
 
-    console.log('aaaaaaaaaaa', selectArray);
+    console.log("aaaaaaaaaaa", selectArray);
   };
 
   const setScienceFun = () => {
-    console.log('sdgsgsg');
-    if (Science == '') {
-      setScience('Science');
-      console.log('IN');
+    console.log("sdgsgsg");
+    if (Science == "") {
+      setScience("Science");
+      console.log("IN");
       var item1 = {};
-      item1['subject_search'] = Science;
-      RemoveTempExercise(selectArray, 'subject_search', 'Science');
+      item1["subject_search"] = Science;
+      RemoveTempExercise(selectArray, "subject_search", "Science");
       dispatch(
         GetfilterSubject(
           route.params.postalcode,
           route.params.tuition_type,
-          selectArray,
-        ),
+          selectArray
+        )
       );
     } else {
-      setScience('');
-      console.log('OuT');
+      setScience("");
+      console.log("OuT");
       var item1 = {};
-      item1['subject_search'] = Science;
+      item1["subject_search"] = Science;
 
       if (
-        !isExistInArray(selectArray, 'subject_search', item1.subject_search)
+        !isExistInArray(selectArray, "subject_search", item1.subject_search)
       ) {
         //  console.log('insert in array');
         selectArray.push(item1);
       } else {
-        RemoveTempExercise(selectArray, 'subject_search', item1.subject_search);
+        RemoveTempExercise(selectArray, "subject_search", item1.subject_search);
       }
       dispatch(
         GetfilterSubject(
           route.params.postalcode,
           route.params.tuition_type,
-          selectArray,
-        ),
+          selectArray
+        )
       );
 
       //  dispatch(GetfilterSubject(route.params.postalcode, route.params.tuition_type, Primary, English))
     }
 
-    console.log('aaaaaaaaaaa', selectArray);
+    console.log("aaaaaaaaaaa", selectArray);
   };
 
   const setMathFun = () => {
-    if (Math == '') {
-      setMath('Math');
-      console.log('IN');
+    if (Math == "") {
+      setMath("Math");
+      console.log("IN");
       var item1 = {};
-      item1['subject_search'] = Math;
-      RemoveTempExercise(selectArray, 'subject_search', 'Math');
+      item1["subject_search"] = Math;
+      RemoveTempExercise(selectArray, "subject_search", "Math");
       dispatch(
         GetfilterSubject(
           route.params.postalcode,
           route.params.tuition_type,
-          selectArray,
-        ),
+          selectArray
+        )
       );
     } else {
-      setMath('');
-      console.log('OuT');
+      setMath("");
+      console.log("OuT");
       var item1 = {};
-      item1['subject_search'] = Math;
+      item1["subject_search"] = Math;
 
       if (
-        !isExistInArray(selectArray, 'subject_search', item1.subject_search)
+        !isExistInArray(selectArray, "subject_search", item1.subject_search)
       ) {
         //  console.log('insert in array');
         selectArray.push(item1);
       } else {
-        RemoveTempExercise(selectArray, 'subject_search', item1.subject_search);
+        RemoveTempExercise(selectArray, "subject_search", item1.subject_search);
       }
 
       //  dispatch(GetfilterSubject(route.params.postalcode, route.params.tuition_type, Primary, English))
     }
 
-    console.log('aaaaaaaaaaa', selectArray);
+    console.log("aaaaaaaaaaa", selectArray);
   };
 
   const setChineseFun = () => {
-    if (Chinese == '') {
-      setChinese('Chinese');
-      console.log('IN');
+    if (Chinese == "") {
+      setChinese("Chinese");
+      console.log("IN");
       var item1 = {};
-      item1['subject_search'] = Chinese;
-      RemoveTempExercise(selectArray, 'subject_search', 'Chinese');
+      item1["subject_search"] = Chinese;
+      RemoveTempExercise(selectArray, "subject_search", "Chinese");
     } else {
-      setChinese('');
-      console.log('OuT');
+      setChinese("");
+      console.log("OuT");
       var item1 = {};
-      item1['subject_search'] = Chinese;
+      item1["subject_search"] = Chinese;
 
       if (
-        !isExistInArray(selectArray, 'subject_search', item1.subject_search)
+        !isExistInArray(selectArray, "subject_search", item1.subject_search)
       ) {
         //  console.log('insert in array');
         selectArray.push(item1);
       } else {
-        RemoveTempExercise(selectArray, 'subject_search', item1.subject_search);
+        RemoveTempExercise(selectArray, "subject_search", item1.subject_search);
       }
 
       //  dispatch(GetfilterSubject(route.params.postalcode, route.params.tuition_type, Primary, English))
     }
 
-    console.log('aaaaaaaaaaa', selectArray);
+    console.log("aaaaaaaaaaa", selectArray);
   };
 
   const setEconimicsFun = () => {
-    if (Economics == '') {
-      setEconomics('Economics');
-      console.log('IN');
+    if (Economics == "") {
+      setEconomics("Economics");
+      console.log("IN");
       var item1 = {};
-      item1['subject_search'] = Economics;
-      RemoveTempExercise(selectArray, 'subject_search', 'Economics');
+      item1["subject_search"] = Economics;
+      RemoveTempExercise(selectArray, "subject_search", "Economics");
     } else {
-      setEconomics('');
-      console.log('OuT');
+      setEconomics("");
+      console.log("OuT");
       var item1 = {};
-      item1['subject_search'] = Economics;
+      item1["subject_search"] = Economics;
 
       if (
-        !isExistInArray(selectArray, 'subject_search', item1.subject_search)
+        !isExistInArray(selectArray, "subject_search", item1.subject_search)
       ) {
         //  console.log('insert in array');
         selectArray.push(item1);
       } else {
-        RemoveTempExercise(selectArray, 'subject_search', item1.subject_search);
+        RemoveTempExercise(selectArray, "subject_search", item1.subject_search);
       }
 
       //  dispatch(GetfilterSubject(route.params.postalcode, route.params.tuition_type, Primary, English))
     }
 
-    console.log('aaaaaaaaaaa', selectArray);
+    console.log("aaaaaaaaaaa", selectArray);
   };
 
   return (
     <>
       <View style={styles.container}>
         {/* <View style={{height: 70, width: '100%', justifyContent: 'center'}}> */}
-          {/* <TouchableOpacity
+        {/* <TouchableOpacity
             style={{flexDirection: 'row', alignItems: 'center', marginTop: 50}}
             onPress={() => navigation.navigate('TutorSearch')}>
             {/* <Icon name="chevron-back-outline" size={30} color={Colors.text} /> */}
-              {/* <View style={{justifyContent: 'center'}}>
+        {/* <View style={{justifyContent: 'center'}}>
               <Image
                 source={require('../Assets/back.png')}
                 style={{width: 30, height: 30, marginHorizontal: 15}}
@@ -928,29 +928,29 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
             >
               Back
             </Text> */}
-           {/*  </TouchableOpacity> */}
+        {/*  </TouchableOpacity> */}
         {/* </View> */}
         <View style={styles.Headers}>
           <View style={styles.HeadLeft}>
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
               <Image
-                source={require('../Assets/baricon.png')}
+                source={require("../Assets/baricon.png")}
                 style={styles.icons}
               />
             </TouchableOpacity>
           </View>
           <View style={styles.HeadRight}>
             <Image
-              source={require('../Assets/bell.png')}
+              source={require("../Assets/bell.png")}
               style={styles.icons}
             />
 
             <Image
-              source={require('../Assets/search.png')}
+              source={require("../Assets/search.png")}
               style={styles.icons}
             />
             <Image
-              source={require('../Assets/chat.png')}
+              source={require("../Assets/chat.png")}
               style={styles.icons}
             />
           </View>
@@ -964,43 +964,46 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
           <View style={styles.LittlRight}>
             <View style={styles.rightImageWrapper}>
               <Image
-                source={require('../Assets/logogrey.png')}
+                source={require("../Assets/logogrey.png")}
                 //  resizeMode='contain'
                 style={styles.logoicon}
               />
             </View>
             <TouchableOpacity
-              onPress={() => navigation.navigate('MapScreen')}
-              style={styles.rightSecondImageWrapper}>
+              onPress={() => navigation.navigate("MapScreen")}
+              style={styles.rightSecondImageWrapper}
+            >
               <Image
-                source={require('../Assets/logogrey.png')}
+                source={require("../Assets/logogrey.png")}
                 //  resizeMode='contain'
                 style={styles.logoicon}
               />
             </TouchableOpacity>
             <View style={styles.rightSecondImageWrapper}>
               <Image
-                source={require('../Assets/logogrey.png')}
+                source={require("../Assets/logogrey.png")}
                 //  resizeMode='contain'
                 style={styles.logoicon}
               />
             </View>
           </View>
         </View>
-        <View style={{marginLeft: wp(2.5), flexDirection: 'row'}}>
+        <View style={{ marginLeft: wp(2.5), flexDirection: "row" }}>
           <TouchableOpacity
             onPress={() => {
               dispatch(GetQuickData());
-            }}>
+            }}
+          >
             {/* // onPress={() => setPrimaryFun()} style={[styles.subjectsWrapper, { backgroundColor: Primary == 'Primary' ? '#fff' : '#2F5597' }]} */}
             <Text
               style={[
                 styles.subjectText,
                 {
-                  color: Primary == 'Primary' ? '#2F5597' : '#fff',
+                  color: Primary == "Primary" ? "#2F5597" : "#fff",
                   marginTop: 25,
                 },
-              ]}>
+              ]}
+            >
               Primary
             </Text>
           </TouchableOpacity>
@@ -1008,13 +1011,17 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
             onPress={() => setSeconadyFun()}
             style={[
               styles.subjectsWrapper,
-              {backgroundColor: Secondary == 'Secondary' ? '#fff' : '#2F5597'},
-            ]}>
+              {
+                backgroundColor: Secondary == "Secondary" ? "#fff" : "#2F5597",
+              },
+            ]}
+          >
             <Text
               style={[
                 styles.subjectText,
-                {color: Secondary == 'Secondary' ? '#2F5597' : '#fff'},
-              ]}>
+                { color: Secondary == "Secondary" ? "#2F5597" : "#fff" },
+              ]}
+            >
               Secondary
             </Text>
           </TouchableOpacity>
@@ -1022,13 +1029,15 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
             onPress={() => setJCFun()}
             style={[
               styles.subjectsWrapper,
-              {backgroundColor: JCPre == 'JC' ? '#fff' : '#2F5597'},
-            ]}>
+              { backgroundColor: JCPre == "JC" ? "#fff" : "#2F5597" },
+            ]}
+          >
             <Text
               style={[
                 styles.subjectText,
-                {color: JCPre == 'JC' ? '#2F5597' : '#fff'},
-              ]}>
+                { color: JCPre == "JC" ? "#2F5597" : "#fff" },
+              ]}
+            >
               JC/Pre-U
             </Text>
           </TouchableOpacity>
@@ -1036,13 +1045,15 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
             onPress={() => setIBFun()}
             style={[
               styles.subjectsWrapper,
-              {backgroundColor: IB == 'IB' ? '#fff' : '#2F5597'},
-            ]}>
+              { backgroundColor: IB == "IB" ? "#fff" : "#2F5597" },
+            ]}
+          >
             <Text
               style={[
                 styles.subjectText,
-                {color: IB == 'IB' ? '#2F5597' : '#fff'},
-              ]}>
+                { color: IB == "IB" ? "#2F5597" : "#fff" },
+              ]}
+            >
               IB (Diploma)
             </Text>
           </TouchableOpacity>
@@ -1050,30 +1061,34 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
             onPress={() => setAEISFun()}
             style={[
               styles.subjectsWrapper,
-              {backgroundColor: AEIS == 'AEIS' ? '#fff' : '#2F5597'},
-            ]}>
+              { backgroundColor: AEIS == "AEIS" ? "#fff" : "#2F5597" },
+            ]}
+          >
             <Text
               style={[
                 styles.subjectText,
-                {color: AEIS == 'AEIS' ? '#2F5597' : '#fff'},
-              ]}>
+                { color: AEIS == "AEIS" ? "#2F5597" : "#fff" },
+              ]}
+            >
               AEIS
             </Text>
           </TouchableOpacity>
         </View>
 
-        <View style={{marginLeft: wp(2.5), flexDirection: 'row'}}>
+        <View style={{ marginLeft: wp(2.5), flexDirection: "row" }}>
           <TouchableOpacity
             onPress={() => setEnglishFun()}
             style={[
               styles.subjectsWrapper,
-              {backgroundColor: English == 'English' ? '#fff' : '#2F5597'},
-            ]}>
+              { backgroundColor: English == "English" ? "#fff" : "#2F5597" },
+            ]}
+          >
             <Text
               style={[
                 styles.subjectText,
-                {color: English == 'English' ? '#2F5597' : '#fff'},
-              ]}>
+                { color: English == "English" ? "#2F5597" : "#fff" },
+              ]}
+            >
               English
             </Text>
           </TouchableOpacity>
@@ -1081,13 +1096,15 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
             onPress={() => setMathFun()}
             style={[
               styles.subjectsWrapper,
-              {backgroundColor: Math == 'Math' ? '#2F5597' : '#fff'},
-            ]}>
+              { backgroundColor: Math == "Math" ? "#2F5597" : "#fff" },
+            ]}
+          >
             <Text
               style={[
                 styles.subjectText,
-                {color: Math == 'Math' ? '#fff' : '#2F5597'},
-              ]}>
+                { color: Math == "Math" ? "#fff" : "#2F5597" },
+              ]}
+            >
               Math
             </Text>
           </TouchableOpacity>
@@ -1095,13 +1112,15 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
             onPress={() => setScienceFun()}
             style={[
               styles.subjectsWrapper,
-              {backgroundColor: Science == 'Science' ? '#fff' : '#2F5597'},
-            ]}>
+              { backgroundColor: Science == "Science" ? "#fff" : "#2F5597" },
+            ]}
+          >
             <Text
               style={[
                 styles.subjectText,
-                {color: Science == 'Science' ? '#2F5597' : '#fff'},
-              ]}>
+                { color: Science == "Science" ? "#2F5597" : "#fff" },
+              ]}
+            >
               Science
             </Text>
           </TouchableOpacity>
@@ -1109,13 +1128,15 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
             onPress={() => setChineseFun()}
             style={[
               styles.subjectsWrapper,
-              {backgroundColor: Chinese == 'Chinese' ? '#fff' : '#2F5597'},
-            ]}>
+              { backgroundColor: Chinese == "Chinese" ? "#fff" : "#2F5597" },
+            ]}
+          >
             <Text
               style={[
                 styles.subjectText,
-                {color: Chinese == 'Chinese' ? '#2F5597' : '#fff'},
-              ]}>
+                { color: Chinese == "Chinese" ? "#2F5597" : "#fff" },
+              ]}
+            >
               Chinese
             </Text>
           </TouchableOpacity>
@@ -1123,13 +1144,17 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
             onPress={() => setEconimicsFun()}
             style={[
               styles.subjectsWrapper,
-              {backgroundColor: Economics == 'Economics' ? '#fff' : '#2F5597'},
-            ]}>
+              {
+                backgroundColor: Economics == "Economics" ? "#fff" : "#2F5597",
+              },
+            ]}
+          >
             <Text
               style={[
                 styles.subjectText,
-                {color: Economics == 'Economics' ? '#2F5597' : '#fff'},
-              ]}>
+                { color: Economics == "Economics" ? "#2F5597" : "#fff" },
+              ]}
+            >
               Economics
             </Text>
           </TouchableOpacity>
@@ -1168,18 +1193,20 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
           <View style={styles.sortFilterWRapper}>
             <TouchableOpacity
               onPress={() => setPickerServices(true)}
-              style={styles.sortWrapper}>
+              style={styles.sortWrapper}
+            >
               <Image
-                source={require('../Assets/sortIcon.png')}
+                source={require("../Assets/sortIcon.png")}
                 style={styles.sortImage}
               />
               <Text style={styles.sortText}>Sort</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => setFilterServices(true)}
-              style={styles.filterWrapper}>
+              style={styles.filterWrapper}
+            >
               <Image
-                source={require('../Assets/filterIcon.png')}
+                source={require("../Assets/filterIcon.png")}
                 style={styles.filterImage}
               />
               <Text style={styles.filterText}>Filter</Text>
@@ -1187,25 +1214,25 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
           </View>
         </View>
 
-        {GET_FILTER_DATA.length > 0 ? (
-          <FlatList
-            data={userdata}
-            numColumns={1}
-            keyExtractor={(item, index) => index}
-            renderItem={({item, index}) => {
-              return <ItemBox data={item} props />;
-            }}
-          />
-        ) : (
+        {/* {GET_FILTER_DATA.length > 0 ? ( */}
+        <FlatList
+          data={postaldata}
+          numColumns={1}
+          keyExtractor={(item, index) => index}
+          renderItem={({ item, index }) => {
+            return <ItemBox data={item} props />;
+          }}
+        />
+        {/* ) : (
           <FlatList
             data={allTutor}
             numColumns={1}
             keyExtractor={(item, index) => index}
-            renderItem={({item, index}) => {
-              return <ItemBox data={item} props />;
+            renderItem={({ item, index }) => {
+              return <ItemBox data={item} props />; 
             }}
           />
-        )}
+        )} */}
 
         <Modal
           animationType="slide"
@@ -1213,22 +1240,24 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
           visible={pickerServices}
           onRequestClose={() => {
             setPickerServices(false);
-          }}>
+          }}
+        >
           <View style={styles.modalWrapper2}>
             <View style={styles.modalWrapp}>
               <View style={styles.crossWRapper}>
                 <TouchableOpacity
                   onPress={() => setPickerServices(false)}
-                  style={styles.crossImageWrapper}>
+                  style={styles.crossImageWrapper}
+                >
                   <Image
-                    source={require('../Assets/closeingray.png')}
+                    source={require("../Assets/closeingray.png")}
                     style={styles.crossImage}
                   />
                 </TouchableOpacity>
                 <View style={styles.tickWrapper}>
                   <TouchableOpacity onPress={() => setPickerServices(false)}>
                     <Image
-                      source={require('../Assets/right.png')}
+                      source={require("../Assets/right.png")}
                       style={styles.tickImage}
                     />
                   </TouchableOpacity>
@@ -1239,93 +1268,101 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                 <Text style={styles.sortByText}>Sort By</Text>
 
                 <TouchableOpacity
-                  onPress={() => setSelectedSort('Tutor living closest to me')}
+                  onPress={() => setSelectedSort("Tutor living closest to me")}
                   style={{
                     backgroundColor:
-                      selctedSort == 'Tutor living closest to me'
-                        ? '#2F5597'
-                        : '#fff',
+                      selctedSort == "Tutor living closest to me"
+                        ? "#2F5597"
+                        : "#fff",
                     paddingVertical: hp(0.5),
                     paddingLeft: wp(5),
                     marginTop: hp(2),
-                  }}>
+                  }}
+                >
                   <Text
                     style={{
                       color:
-                        selctedSort == 'Tutor living closest to me'
-                          ? '#fff'
-                          : '#000',
-                      fontWeight: '800',
+                        selctedSort == "Tutor living closest to me"
+                          ? "#fff"
+                          : "#000",
+                      fontWeight: "800",
                       fontSize: 14,
-                    }}>
+                    }}
+                  >
                     Tutor living closest to me
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() =>
-                    setSelectedSort('Tutor living furthest from me')
+                    setSelectedSort("Tutor living furthest from me")
                   }
                   style={{
                     backgroundColor:
-                      selctedSort == 'Tutor living furthest from me'
-                        ? '#2F5597'
-                        : '#fff',
+                      selctedSort == "Tutor living furthest from me"
+                        ? "#2F5597"
+                        : "#fff",
                     paddingVertical: hp(0.5),
                     paddingLeft: wp(5),
-                  }}>
+                  }}
+                >
                   <Text
                     style={{
                       color:
-                        selctedSort == 'Tutor living furthest from me'
-                          ? '#fff'
-                          : '#000',
-                      fontWeight: '800',
+                        selctedSort == "Tutor living furthest from me"
+                          ? "#fff"
+                          : "#000",
+                      fontWeight: "800",
                       fontSize: 14,
-                    }}>
+                    }}
+                  >
                     Tutor living furthest from me
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => setSelectedSort('Highest to Lowest rating')}
+                  onPress={() => setSelectedSort("Highest to Lowest rating")}
                   style={{
                     backgroundColor:
-                      selctedSort == 'Highest to Lowest rating'
-                        ? '#2F5597'
-                        : '#fff',
+                      selctedSort == "Highest to Lowest rating"
+                        ? "#2F5597"
+                        : "#fff",
                     paddingVertical: hp(0.5),
                     paddingLeft: wp(5),
-                  }}>
+                  }}
+                >
                   <Text
                     style={{
                       color:
-                        selctedSort == 'Highest to Lowest rating'
-                          ? '#fff'
-                          : '#000',
-                      fontWeight: '800',
+                        selctedSort == "Highest to Lowest rating"
+                          ? "#fff"
+                          : "#000",
+                      fontWeight: "800",
                       fontSize: 14,
-                    }}>
+                    }}
+                  >
                     Highest to Lowest rating
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => setSelectedSort('Lowest to Highest rating')}
+                  onPress={() => setSelectedSort("Lowest to Highest rating")}
                   style={{
                     backgroundColor:
-                      selctedSort == 'Lowest to Highest rating'
-                        ? '#2F5597'
-                        : '#fff',
+                      selctedSort == "Lowest to Highest rating"
+                        ? "#2F5597"
+                        : "#fff",
                     paddingVertical: hp(0.5),
                     paddingLeft: wp(5),
-                  }}>
+                  }}
+                >
                   <Text
                     style={{
                       color:
-                        selctedSort == 'Lowest to Highest rating'
-                          ? '#fff'
-                          : '#000',
-                      fontWeight: '800',
+                        selctedSort == "Lowest to Highest rating"
+                          ? "#fff"
+                          : "#000",
+                      fontWeight: "800",
                       fontSize: 14,
-                    }}>
+                    }}
+                  >
                     Lowest to Highest rating
                   </Text>
                 </TouchableOpacity>
@@ -1340,48 +1377,54 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
           visible={filterServices}
           onRequestClose={() => {
             setFilterServices(false);
-          }}>
-          <SafeAreaView style={{flex: 1}}>
+          }}
+        >
+          <SafeAreaView style={{ flex: 1 }}>
             <ScrollView>
               <View style={styles.modalWrapper3}>
                 <View style={styles.modalSecondWRapper}>
                   <View
                     style={{
-                      flexDirection: 'row',
+                      flexDirection: "row",
                       marginHorizontal: wp(5),
                       marginTop: hp(2),
-                    }}>
+                    }}
+                  >
                     <TouchableOpacity
-                      style={{width: wp(30)}}
-                      onPress={() => setFilterServices(false)}>
+                      style={{ width: wp(30) }}
+                      onPress={() => setFilterServices(false)}
+                    >
                       <Image
-                        source={require('../Assets/backgrey.png')}
-                        style={{height: hp(3), width: wp(6)}}
+                        source={require("../Assets/backgrey.png")}
+                        style={{ height: hp(3), width: wp(6) }}
                       />
                     </TouchableOpacity>
 
                     <View
                       style={{
                         width: wp(30),
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}>
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
                       <Text
                         style={{
-                          color: '#000',
+                          color: "#000",
                           fontSize: 14,
-                          fontWeight: '800',
-                        }}>
+                          fontWeight: "800",
+                        }}
+                      >
                         Filter
                       </Text>
                     </View>
                     <View
                       style={{
                         width: wp(30),
-                        justifyContent: 'center',
-                        alignItems: 'flex-end',
-                      }}>
-                      <Text style={{fontSize: 14, fontWeight: '800'}}>
+                        justifyContent: "center",
+                        alignItems: "flex-end",
+                      }}
+                    >
+                      <Text style={{ fontSize: 14, fontWeight: "800" }}>
                         Reset
                       </Text>
                     </View>
@@ -1389,26 +1432,31 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
 
                   <View
                     style={{
-                      backgroundColor: '#E5E6ED',
+                      backgroundColor: "#E5E6ED",
                       height: hp(7),
                       width: wp(100),
                       marginTop: hp(3),
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      flexDirection: 'row',
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      flexDirection: "row",
                       paddingHorizontal: wp(5),
-                    }}>
+                    }}
+                  >
                     <Text
-                      style={{color: '#000', fontSize: 14, fontWeight: '800'}}>
+                      style={{ color: "#000", fontSize: 14, fontWeight: "800" }}
+                    >
                       Tutoring Details
                     </Text>
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
                       <Text
                         style={{
-                          color: '#000',
+                          color: "#000",
                           fontSize: 14,
-                          fontWeight: '800',
-                        }}>
+                          fontWeight: "800",
+                        }}
+                      >
                         Add
                       </Text>
                       <TouchableOpacity
@@ -1416,14 +1464,15 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                           height: hp(4),
                           width: wp(8),
                           borderRadius: 50,
-                          backgroundColor: '#000',
+                          backgroundColor: "#000",
                           marginLeft: wp(3),
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}>
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
                         <Image
-                          source={require('../Assets/backgrey.png')}
-                          style={{height: hp(3), width: wp(6)}}
+                          source={require("../Assets/backgrey.png")}
+                          style={{ height: hp(3), width: wp(6) }}
                         />
                       </TouchableOpacity>
                     </View>
@@ -1431,12 +1480,13 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
 
                   <View
                     style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
+                      flexDirection: "row",
+                      alignItems: "center",
                       marginTop: hp(2),
                       marginLeft: wp(5),
-                    }}>
-                    <Text style={{color: 'grey', fontSize: 14}}>Level:</Text>
+                    }}
+                  >
+                    <Text style={{ color: "grey", fontSize: 14 }}>Level:</Text>
                   </View>
                   <View style={styles.MainContainer}>
                     <MultiSelect
@@ -1446,8 +1496,8 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                       selectedItems={selectedlevel}
                       selectText="Select one or more"
                       searchInputPlaceholderText="Search Items..."
-                      onChangeInput={text =>
-                        console.log('SSSSSSSSSSSSSS', text)
+                      onChangeInput={(text) =>
+                        console.log("SSSSSSSSSSSSSS", text)
                       }
                       tagRemoveIconColor="#CCC"
                       tagBorderColor="#CCC"
@@ -1456,22 +1506,23 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                       selectedItemIconColor="#CCC"
                       itemTextColor="#000"
                       displayKey="label"
-                      searchInputStyle={{color: '#CCC'}}
+                      searchInputStyle={{ color: "#CCC" }}
                       // submitButtonColor="#000"
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
                       hideSubmitButton
-                      styleItemsContainer={{height: 150}}
+                      styleItemsContainer={{ height: 150 }}
                     />
                   </View>
 
                   <View
                     style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
+                      flexDirection: "row",
+                      alignItems: "center",
                       marginLeft: wp(5),
-                    }}>
-                    <Text style={{color: 'grey', fontSize: 14}}>Grade:</Text>
+                    }}
+                  >
+                    <Text style={{ color: "grey", fontSize: 14 }}>Grade:</Text>
                   </View>
                   <View style={styles.MainContainer}>
                     <MultiSelect
@@ -1481,8 +1532,8 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                       selectedItems={SelectedGrade}
                       selectText="Select one or more"
                       searchInputPlaceholderText="Search Items..."
-                      onChangeInput={text =>
-                        console.log('SSSSSSSSSSSSSS', text)
+                      onChangeInput={(text) =>
+                        console.log("SSSSSSSSSSSSSS", text)
                       }
                       tagRemoveIconColor="#CCC"
                       tagBorderColor="#CCC"
@@ -1491,7 +1542,7 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                       selectedItemIconColor="#CCC"
                       itemTextColor="#000"
                       displayKey="label"
-                      searchInputStyle={{color: '#CCC'}}
+                      searchInputStyle={{ color: "#CCC" }}
                       // submitButtonColor="#000"
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
@@ -1502,11 +1553,12 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
 
                   <View
                     style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
+                      flexDirection: "row",
+                      alignItems: "center",
                       marginLeft: wp(5),
-                    }}>
-                    <Text style={{color: 'grey', fontSize: 14}}>Stream:</Text>
+                    }}
+                  >
+                    <Text style={{ color: "grey", fontSize: 14 }}>Stream:</Text>
                   </View>
                   <View style={styles.MainContainer}>
                     <MultiSelect
@@ -1516,8 +1568,8 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                       selectedItems={SelectedStream}
                       selectText="Select one or more"
                       searchInputPlaceholderText="Search Items..."
-                      onChangeInput={text =>
-                        console.log('SSSSSSSSSSSSSS', text)
+                      onChangeInput={(text) =>
+                        console.log("SSSSSSSSSSSSSS", text)
                       }
                       tagRemoveIconColor="#CCC"
                       tagBorderColor="#CCC"
@@ -1526,7 +1578,7 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                       selectedItemIconColor="#CCC"
                       itemTextColor="#000"
                       displayKey="label"
-                      searchInputStyle={{color: '#CCC'}}
+                      searchInputStyle={{ color: "#CCC" }}
                       // submitButtonColor="#000"
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
@@ -1537,11 +1589,14 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
 
                   <View
                     style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
+                      flexDirection: "row",
+                      alignItems: "center",
                       marginLeft: wp(5),
-                    }}>
-                    <Text style={{color: 'grey', fontSize: 14}}>Subject:</Text>
+                    }}
+                  >
+                    <Text style={{ color: "grey", fontSize: 14 }}>
+                      Subject:
+                    </Text>
                   </View>
                   <View style={styles.MainContainer}>
                     <MultiSelect
@@ -1551,8 +1606,8 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                       selectedItems={selectedSubject}
                       selectText="Select one or more"
                       searchInputPlaceholderText="Search Items..."
-                      onChangeInput={text =>
-                        console.log('SSSSSSSSSSSSSS', text)
+                      onChangeInput={(text) =>
+                        console.log("SSSSSSSSSSSSSS", text)
                       }
                       tagRemoveIconColor="#CCC"
                       tagBorderColor="#CCC"
@@ -1561,7 +1616,7 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                       selectedItemIconColor="#CCC"
                       itemTextColor="#000"
                       displayKey="label"
-                      searchInputStyle={{color: '#CCC'}}
+                      searchInputStyle={{ color: "#CCC" }}
                       // submitButtonColor="#000"
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
@@ -1572,17 +1627,19 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
 
                   <View
                     style={{
-                      backgroundColor: '#E5E6ED',
+                      backgroundColor: "#E5E6ED",
                       height: hp(7),
                       width: wp(100),
                       marginTop: hp(3),
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      flexDirection: 'row',
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      flexDirection: "row",
                       paddingHorizontal: wp(5),
-                    }}>
+                    }}
+                  >
                     <Text
-                      style={{color: '#000', fontSize: 14, fontWeight: '800'}}>
+                      style={{ color: "#000", fontSize: 14, fontWeight: "800" }}
+                    >
                       Tutor’s Qualification
                     </Text>
                   </View>
@@ -1594,8 +1651,8 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                       selectedItems={selectedQual}
                       selectText="Select one or more"
                       searchInputPlaceholderText="Search Items..."
-                      onChangeInput={text =>
-                        console.log('SSSSSSSSSSSSSS', text)
+                      onChangeInput={(text) =>
+                        console.log("SSSSSSSSSSSSSS", text)
                       }
                       tagRemoveIconColor="#CCC"
                       tagBorderColor="#CCC"
@@ -1604,31 +1661,35 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                       selectedItemIconColor="#CCC"
                       itemTextColor="#000"
                       displayKey="label"
-                      searchInputStyle={{color: '#CCC'}}
+                      searchInputStyle={{ color: "#CCC" }}
                       // submitButtonColor="#000"
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
                       hideSubmitButton
-                      styleItemsContainer={{height: 150}}
+                      styleItemsContainer={{ height: 150 }}
                     />
                   </View>
 
                   <View
                     style={{
-                      backgroundColor: '#E5E6ED',
+                      backgroundColor: "#E5E6ED",
                       height: hp(7),
                       width: wp(100),
                       marginTop: hp(3),
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      flexDirection: 'row',
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      flexDirection: "row",
                       paddingHorizontal: wp(5),
-                    }}>
+                    }}
+                  >
                     <Text
-                      style={{color: '#000', fontSize: 14, fontWeight: '800'}}>
+                      style={{ color: "#000", fontSize: 14, fontWeight: "800" }}
+                    >
                       Tutor's Gender
                     </Text>
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
                       <RadioGroup
                         radioButtons={radioButtons}
                         onPress={onPressRadioButton}
@@ -1639,21 +1700,25 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
 
                   <View
                     style={{
-                      backgroundColor: '#E5E6ED',
+                      backgroundColor: "#E5E6ED",
                       height: hp(7),
                       width: wp(100),
                       marginTop: hp(3),
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      flexDirection: 'row',
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      flexDirection: "row",
                       paddingHorizontal: wp(5),
-                    }}>
+                    }}
+                  >
                     <Text
-                      style={{color: '#000', fontSize: 14, fontWeight: '800'}}>
+                      style={{ color: "#000", fontSize: 14, fontWeight: "800" }}
+                    >
                       Tutor’s Status
                     </Text>
 
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
                       <RadioGroup
                         radioButtons={statusradioButtons}
                         onPress={onPressstatusRadioButton}
@@ -1664,17 +1729,19 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
 
                   <View
                     style={{
-                      backgroundColor: '#E5E6ED',
+                      backgroundColor: "#E5E6ED",
                       height: hp(7),
                       width: wp(100),
                       marginTop: hp(3),
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      flexDirection: 'row',
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      flexDirection: "row",
                       paddingHorizontal: wp(5),
-                    }}>
+                    }}
+                  >
                     <Text
-                      style={{color: '#000', fontSize: 14, fontWeight: '800'}}>
+                      style={{ color: "#000", fontSize: 14, fontWeight: "800" }}
+                    >
                       Tutor’s Nationality
                     </Text>
                   </View>
@@ -1687,8 +1754,8 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                       selectedItems={selectedItems}
                       selectText="Select one or more"
                       searchInputPlaceholderText="Search Items..."
-                      onChangeInput={text =>
-                        console.log('SSSSSSSSSSSSSS', text)
+                      onChangeInput={(text) =>
+                        console.log("SSSSSSSSSSSSSS", text)
                       }
                       tagRemoveIconColor="#CCC"
                       tagBorderColor="#CCC"
@@ -1697,12 +1764,12 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                       selectedItemIconColor="#CCC"
                       itemTextColor="#000"
                       displayKey="name"
-                      searchInputStyle={{color: '#CCC'}}
+                      searchInputStyle={{ color: "#CCC" }}
                       // submitButtonColor="#000"
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
                       hideSubmitButton
-                      styleItemsContainer={{height: 150, paddingBottom: 10}}
+                      styleItemsContainer={{ height: 150, paddingBottom: 10 }}
                     />
                   </View>
                 </View>
@@ -1970,11 +2037,13 @@ console.log(GET_POSTAL_DATA,'GET_POSTAL_DATA')
                 onPress={() => setFilterServices(false)}
                 style={{
                   height: hp(10),
-                  justifyContent: 'center',
-                  backgroundColor: '#000',
-                }}>
+                  justifyContent: "center",
+                  backgroundColor: "#000",
+                }}
+              >
                 <Text
-                  style={{color: 'yellow', fontSize: 16, textAlign: 'center'}}>
+                  style={{ color: "yellow", fontSize: 16, textAlign: "center" }}
+                >
                   Show {GET_FILTER_DATA.length} Results
                 </Text>
               </TouchableOpacity>
@@ -1992,7 +2061,7 @@ export default OurTutor;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     // backgroundColor:'pink'
     // padding: 10,
   },
@@ -2000,7 +2069,7 @@ const styles = StyleSheet.create({
     height: hp(20),
     width: wp(30),
     borderRadius: 20,
-    backgroundColor: 'lightgrey',
+    backgroundColor: "lightgrey",
     top: 20,
     marginRight: 10,
     zIndex: 99999,
@@ -2008,58 +2077,58 @@ const styles = StyleSheet.create({
   MainContainer: {
     // flex: 1,
     padding: 12,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
 
   text: {
     padding: 12,
     fontSize: 22,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    color: 'black',
+    textAlign: "center",
+    fontWeight: "bold",
+    color: "black",
   },
 
   LittlemoreContainer: {
     height: hp(15),
     width: wp(100),
     //  backgroundColor: "red",
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   LittlLeft: {
     height: hp(15),
     width: wp(50),
-    justifyContent: 'center',
+    justifyContent: "center",
 
     // backgroundColor: 'red'
   },
   LittlRight: {
     height: hp(15),
     width: wp(40),
-    justifyContent: 'center',
+    justifyContent: "center",
     //  backgroundColor: "yellow",
-    alignItems: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    flexDirection: "row",
   },
   rightImageWrapper: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     height: hp(6),
     width: wp(12),
     elevation: 5,
     borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   rightSecondImageWrapper: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     height: hp(6),
     marginLeft: wp(2),
     width: wp(12),
     elevation: 5,
     borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   logoicon: {
@@ -2074,19 +2143,19 @@ const styles = StyleSheet.create({
   Headers: {
     // backgroundColor: "red",
     height: hp(3),
-    justifyContent: 'center',
-    flexDirection: 'row',
+    justifyContent: "center",
+    flexDirection: "row",
     width: wp(100),
   },
   Text1: {
-    color: '#2F5597',
+    color: "#2F5597",
     fontSize: 24,
-    fontWeight: '700',
+    fontWeight: "700",
   },
 
   Text2: {
     // color: 'grey',
-    color: '#2F5597',
+    color: "#2F5597",
     fontSize: 16,
   },
 
@@ -2099,74 +2168,74 @@ const styles = StyleSheet.create({
   HeadLeft: {
     width: wp(45),
     height: hp(3),
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 15,
-    alignItems: 'center',
+    alignItems: "center",
   },
 
   HeadRight: {
     width: wp(45),
     height: hp(3),
     // backgroundColor: "pink",
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "flex-end",
     marginTop: 15,
   },
   subjectsWrapper: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     paddingVertical: hp(1),
     elevation: 5,
     borderRadius: 4,
     marginLeft: wp(1.5),
     marginTop: hp(2),
   },
-  subjectText: {color: '#2F5597', paddingHorizontal: wp(2), fontSize: 12},
+  subjectText: { color: "#2F5597", paddingHorizontal: wp(2), fontSize: 12 },
   frequentlyWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: hp(1),
     marginLeft: wp(3.7),
   },
   frequentlyText: {
-    color: 'grey',
+    color: "grey",
     fontSize: 14,
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
   },
-  sortFilterWRapper: {flexDirection: 'row', marginRight: wp(3)},
+  sortFilterWRapper: { flexDirection: "row", marginRight: wp(3) },
   sortWrapper: {
     height: hp(5),
     width: wp(21),
-    flexDirection: 'row',
+    flexDirection: "row",
     borderRadius: 5,
-    backgroundColor: 'green',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "green",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  sortImage: {height: hp(3.5), width: wp(5),marginRight:5},
-  sortText: {color: '#fff', fontSize: 13},
+  sortImage: { height: hp(3.5), width: wp(5), marginRight: 5 },
+  sortText: { color: "#fff", fontSize: 13 },
   filterWrapper: {
     height: hp(5),
     width: wp(21),
     marginLeft: wp(2),
-    flexDirection: 'row',
+    flexDirection: "row",
     borderRadius: 5,
-    backgroundColor: 'yellow',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "yellow",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  filterImage: {height: hp(3), width: wp(4),marginRight:5},
-  filterText: {color: '#000', fontSize: 13},
+  filterImage: { height: hp(3), width: wp(4), marginRight: 5 },
+  filterText: { color: "#000", fontSize: 13 },
   modalWrapper2: {
     flex: 1,
-    backgroundColor: '#00000040',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    backgroundColor: "#00000040",
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
-  modalWrapp: {height: hp(45), width: wp(100), backgroundColor: '#fff'},
+  modalWrapp: { height: hp(45), width: wp(100), backgroundColor: "#fff" },
   crossWRapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginHorizontal: wp(5),
     marginTop: hp(2),
   },
@@ -2174,32 +2243,32 @@ const styles = StyleSheet.create({
     height: hp(5),
     width: wp(10),
     borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
-  crossImage: {height: hp(4), width: wp(8)},
+  crossImage: { height: hp(4), width: wp(8) },
   tickWrapper: {
-    backgroundColor: 'green',
+    backgroundColor: "green",
     height: hp(5),
     width: wp(10),
     borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
-  tickImage: {height: hp(2), width: wp(7)},
-  sortByWrapper: {marginHorizontal: wp(5), marginTop: hp(3)},
-  sortByText: {color: '#000', fontSize: 15, fontWeight: '800'},
+  tickImage: { height: hp(2), width: wp(7) },
+  sortByWrapper: { marginHorizontal: wp(5), marginTop: hp(3) },
+  sortByText: { color: "#000", fontSize: 15, fontWeight: "800" },
   modalSecondWRapper: {
     /// height: hp(100),
     width: wp(100),
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   modalWrapper3: {
     // flex: 1,
-    backgroundColor: '#00000040',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#00000040",
+    alignItems: "center",
+    justifyContent: "center",
     //  height: hp(50),
   },
 });

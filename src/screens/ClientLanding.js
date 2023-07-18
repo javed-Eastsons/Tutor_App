@@ -26,6 +26,8 @@ const ClientLanding = () => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
+    navigation.navigate("TutorLanding");
+    setIsEnabled(false);
   };
   const cardsData = [
     {

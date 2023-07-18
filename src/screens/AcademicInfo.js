@@ -21,11 +21,16 @@ import {
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import RNPickerSelect from "react-native-picker-select";
+import { useDispatch, useSelector } from "react-redux";
+import { editProfile } from "../Redux/Actions/Tutors";
+import { AcademicHistory_Data } from "../Redux/Actions/types";
 
 const AcademicInfo = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const [showemail, setShowEmail] = React.useState("Qualification");
+  const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
 
   const [selectQualification, setselectQualification] = useState(false);
   const [details, setDetails] = useState(false);
@@ -63,7 +68,9 @@ const AcademicInfo = () => {
     },
   ]);
 
-  const [selectedCourse, setSelectedCourse] = useState("");
+  const [qualification, setQualification] = useState("");
+  //const [selectedCourse, setSelectedCourse] = useState("");
+
   const [national, setNational] = useState("");
   const [school, setSchool] = useState("");
   const [grade, setGrade] = useState("");
@@ -74,6 +81,16 @@ const AcademicInfo = () => {
   const [historyModal, setHistoryModal] = useState(false);
   const [historyModal1, setHistoryModal1] = useState(false);
 
+  // console.log(
+  //   qualification,
+  //   Experience,
+  //   school,
+  //   grade,
+  //   subject,
+  //   state,
+  //   year,
+  //   "him"
+  // );
   const [state, setState] = useState("Select One Option");
   const state_list = [
     { label: "Select One Option", value: "Select One Option" },
@@ -116,7 +133,22 @@ const AcademicInfo = () => {
   ];
 
   const saveacademicinfo = () => {
-    console.log("LLLLLL", selectedCourse, school, courses, year);
+    console.log("LLLLLL", qualification, Experience, school, courses, year);
+    // dispatch(editProfile(selectedCourse,school,grade,subject,courses, GET_USER_ID));
+    let obj = {
+      qualification: qualification,
+      Experience: Experience,
+      school: school,
+      grade: grade,
+      subject: subject,
+      exam: state,
+      GET_USER_ID: GET_USER_ID,
+    };
+    dispatch({
+      type: AcademicHistory_Data,
+      payload: obj,
+    });
+
     navigation.navigate("YourProfle");
   };
 
@@ -209,7 +241,7 @@ const AcademicInfo = () => {
               </Text>
             </TouchableOpacity>
 
-            {selectedCourse ? (
+            {qualification ? (
               <>
                 <TouchableOpacity
                   style={{
@@ -235,7 +267,7 @@ const AcademicInfo = () => {
                     <Text
                       style={{ color: "#000", fontSize: 13, marginLeft: wp(4) }}
                     >
-                      {selectedCourse}
+                      {qualification}
                     </Text>
                   </View>
                   <TouchableOpacity
@@ -367,7 +399,7 @@ const AcademicInfo = () => {
                       marginTop: hp(2),
                     }}
                   >
-                    {selectedCourse ? (
+                    {qualification ? (
                       <TouchableOpacity
                         onPress={() => setselectQualification(false)}
                         style={styles.tickWrapper}
@@ -406,21 +438,21 @@ const AcademicInfo = () => {
                     renderItem={({ item, index }) => (
                       <TouchableOpacity
                         key={item.id}
-                        onPress={() => setSelectedCourse(item.courses)}
+                        onPress={() => setQualification(item.courses)}
                         style={{
                           height: hp(4.5),
                           alignItems: "center",
                           width: wp(90),
                           flexDirection: "row",
                           backgroundColor:
-                            item.courses == selectedCourse ? "#2F5597" : "#fff",
+                            item.courses == qualification ? "#2F5597" : "#fff",
                           marginTop: hp(2),
                         }}
                       >
                         <Text
                           style={{
                             color:
-                              selectedCourse == item.courses ? "#fff" : "#000",
+                              qualification == item.courses ? "#fff" : "#000",
                             fontSize: 13,
                             marginLeft: wp(4),
                           }}
@@ -730,12 +762,15 @@ const AcademicInfo = () => {
                 marginHorizontal: wp(5),
                 backgroundColor: "#fff",
                 elevation: 10,
-                height: hp(12),
+                height: hp(15),
                 marginTop: hp(2),
               }}
             >
               <View style={{ marginLeft: wp(3) }}>
                 <Text style={{ color: "#000", fontSize: 14 }}>{school}</Text>
+                <Text style={{ color: "#000", fontSize: 14 }}>
+                  {Experience}
+                </Text>
                 <Text style={{ color: "#000", fontSize: 14 }}>{state}</Text>
                 <Text style={{ color: "#000", fontSize: 14 }}>{subject}</Text>
                 <Text style={{ color: "#000", fontSize: 14 }}>{grade}</Text>

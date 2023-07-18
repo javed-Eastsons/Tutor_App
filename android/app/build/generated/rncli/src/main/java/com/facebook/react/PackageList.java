@@ -28,7 +28,7 @@ import com.swmansion.gesturehandler.RNGestureHandlerPackage;
 // react-native-image-picker
 import com.imagepicker.ImagePickerPackage;
 // react-native-maps
-import com.airbnb.android.react.maps.MapsPackage;
+import com.rnmaps.maps.MapsPackage;
 // react-native-permissions
 import com.zoontek.rnpermissions.RNPermissionsPackage;
 // react-native-reanimated
