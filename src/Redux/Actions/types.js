@@ -10,3 +10,6 @@ export const AcademicHistory_Data = "AcademicHistory_Data";
 export const Tutoring_Data = "Tutoring_Data";
 export const TutionStatus_Data = "TutionStatus_Data";
 export const Tution_Type = "Tution_Type";
+export const Student_Detail = "Student_Detail";
+export const Tutor_Qualification = "Tutor_Qualification";
+export const Tutor_Schedule = "Tutor_Schedule";

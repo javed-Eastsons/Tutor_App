@@ -96,7 +96,7 @@ const TutorSearch = () => {
             </View>
             <View style={styles.blueContiner}>
               <Text style={{ color: "#fff", fontSize: 20, padding: 10 }}>
-                Select Tution ServiceMMM
+                Select Tuition Service
               </Text>
             </View>
             <View style={styles.blueContiner1}>

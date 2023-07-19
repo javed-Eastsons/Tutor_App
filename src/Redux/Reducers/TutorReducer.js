@@ -1,3 +1,4 @@
+import TutorQualification from "../../screens/TutorQualification";
 import {
   ALL_TUTORS,
   OTP_MSG,
@@ -8,6 +9,9 @@ import {
   AcademicHistory_Data,
   Tutoring_Data,
   TutionStatus_Data,
+  Student_Detail,
+  Tutor_Qualification,
+  Tutor_Schedule,
 } from "../Actions/types";
 
 const initialstate = {
@@ -20,10 +24,13 @@ const initialstate = {
   AcademicHistory_Data: "",
   Tutoring_Data: "",
   TutionStatus_Data: "",
+  Student_Detail: "",
+  Tutor_Qualification: "",
+  Tutor_Schedule: "",
 };
 
 const TutorReducer = (state = initialstate, action) => {
-  console.log("chatttttttttttttttttttttt", action.otpmsg);
+  console.log("Studenttttt", action.payload);
   switch (action.type) {
     case ALL_TUTORS:
       return { ...state, GET_ALLTUTORS: action.ALLTUTORS };
@@ -45,6 +52,12 @@ const TutorReducer = (state = initialstate, action) => {
       return { ...state, Tutoring_Data: action.payload };
     case TutionStatus_Data:
       return { ...state, TutionStatus_Data: action.payload };
+    case Student_Detail:
+      return { ...state, Student_Detail: action.payload };
+    case Tutor_Qualification:
+      return { ...state, Tutor_Qualification: action.payload };
+    case Tutor_Schedule:
+      return { ...state, Tutor_Schedule: action.payload };
   }
 
   return state;
