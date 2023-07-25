@@ -1,4 +1,10 @@
-import { ALL_TUTORS, REGISTER_MSG, OTP_MSG, GET_USER_ID } from "./types";
+import {
+  ALL_TUTORS,
+  REGISTER_MSG,
+  OTP_MSG,
+  GET_USER_ID,
+  Login_Data,
+} from "./types";
 import AsyncStorage from "@react-native-community/async-storage";
 import axios, * as others from "axios";
 import { Alert } from "react-native";
@@ -132,8 +138,18 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
         ) {
           await AsyncStorage.setItem("token", responseJson.Access_Token);
           await AsyncStorage.setItem("user_type", responseJson.user_type);
+          await AsyncStorage.setItem("user_id", responseJson.user_id);
 
           console.log("Educator succesfull login");
+
+          let obj = {
+            userid: responseJson.user_id,
+            userType: responseJson.user_type,
+          };
+          dispatch({
+            type: Login_Data,
+            payload: obj,
+          });
           navigation.replace("Auth");
         } else if (
           responseJson.Status == true &&

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   SafeAreaView,
@@ -20,15 +20,109 @@ import {
 } from "react-native-responsive-screen";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Shadow } from "react-native-shadow-2";
+import { useDispatch, useSelector } from "react-redux";
+import AsyncStorage from "@react-native-community/async-storage";
+
+let jsonData = {
+  results: [
+    {
+      address_components: [
+        {
+          long_name: "121005",
+          short_name: "121005",
+          types: ["postal_code"],
+        },
+        {
+          long_name: "Faridabad",
+          short_name: "Faridabad",
+          types: ["locality", "political"],
+        },
+        {
+          long_name: "Faridabad",
+          short_name: "Faridabad",
+          types: ["administrative_area_level_3", "political"],
+        },
+        {
+          long_name: "Faridabad Division",
+          short_name: "Faridabad Division",
+          types: ["administrative_area_level_2", "political"],
+        },
+        {
+          long_name: "Haryana",
+          short_name: "HR",
+          types: ["administrative_area_level_1", "political"],
+        },
+        {
+          long_name: "India",
+          short_name: "IN",
+          types: ["country", "political"],
+        },
+      ],
+      formatted_address: "Faridabad, Haryana 121005, India",
+      geometry: {
+        bounds: {
+          northeast: {
+            lat: 28.3852124,
+            lng: 77.3002049,
+          },
+          southwest: {
+            lat: 28.3480555,
+            lng: 77.24536590000001,
+          },
+        },
+        location: {
+          lat: 28.3700239,
+          lng: 77.2692503,
+        },
+        location_type: "APPROXIMATE",
+        viewport: {
+          northeast: {
+            lat: 28.3852124,
+            lng: 77.3002049,
+          },
+          southwest: {
+            lat: 28.3480555,
+            lng: 77.24536590000001,
+          },
+        },
+      },
+      place_id: "ChIJJTT70MzYDDkRmGG21YHEMOQ",
+      postcode_localities: [
+        "Faridabad",
+        "Jawahar Colony",
+        "Masjid Area",
+        "Nangla Gujran",
+        "New Industrial Township",
+        "Pali",
+        "Pali Village",
+        "Sector 22",
+        "Sector 23",
+        "Sector 51",
+        "Sector 52",
+        "Sector 55",
+      ],
+      types: ["postal_code"],
+    },
+  ],
+  status: "OK",
+};
 
 const ClientLanding = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
+  console.log(Login_Data, "Login_DataLogin_DataLogin_Data");
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
     navigation.navigate("Auth4");
     setIsEnabled(false);
   };
+
+  const jj = jsonData.results[0].formatted_address;
+  console.log(jj, "WWWWWWWWWWWWWWWWWWWWWWWWWWW");
+
   const cardsData = [
     {
       name: "My Bookings",
@@ -57,6 +151,13 @@ const ClientLanding = () => {
     },
   ];
 
+  useEffect(() => {}, []);
+
+  // useEffect(async () => {
+  //   console.log(Login_Data, "AAAAAAAAAAAAAAAAAAAAAAAAAA");
+  //   let userID = await AsyncStorage.getItem("user_id");
+  //   console.log(userID, "Bbbbbbbbbbbbbbbbb");
+  // }, []);
   // let Images=[
   //    require("../Assets/Booking.png"),
   //    require("../Assets/postIcon.png"),
@@ -200,7 +301,7 @@ const ClientLanding = () => {
               </Text>
             </TouchableOpacity> */}
             <TouchableOpacity
-              onPress={() => navigation.navigate("TutorSearch")}
+              onPress={() => navigation.navigate("PostReqHome")}
               style={[
                 styles.SearchButton,
                 {
@@ -323,6 +424,7 @@ const ClientLanding = () => {
 
         <FlatList
           style={{ alignSelf: "center" }}
+          scrollEnabled={false}
           // data={["My Bookings","My Posts","Upcomings" ,"My Faves","Payments"]}
           data={cardsData}
           numColumns={3}

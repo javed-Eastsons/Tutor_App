@@ -306,26 +306,29 @@ const TutorLanding = () => {
             </TouchableOpacity>
           </ScrollView>
         </View>
-
-        <FlatList
-          style={{ alignSelf: "center" }}
-          // data={["My Bookings","My Posts","Upcomings" ,"My Faves","Payments"]}
-          data={cardsData}
-          numColumns={3}
-          renderItem={({ item }) => (
-            <View style={[styles.card, styles.shadowProp]}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate(item.Url)}
-                style={styles.Boxtwo}
-              >
-                <View style={styles.cardShadow}>
-                  <Image source={item?.src} style={styles.postRighticons} />
-                </View>
-                <Text style={styles.searchText}>{item?.name}</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        />
+        <View>
+          <FlatList
+            style={{ alignSelf: "center" }}
+            nestedScrollEnabled={true}
+            scrollEnabled={false}
+            // data={["My Bookings","My Posts","Upcomings" ,"My Faves","Payments"]}
+            data={cardsData}
+            numColumns={3}
+            renderItem={({ item }) => (
+              <View style={[styles.card, styles.shadowProp]}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(item.Url)}
+                  style={styles.Boxtwo}
+                >
+                  <View style={styles.cardShadow}>
+                    <Image source={item?.src} style={styles.postRighticons} />
+                  </View>
+                  <Text style={styles.searchText}>{item?.name}</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          />
+        </View>
       </ScrollView>
     </View>
   );

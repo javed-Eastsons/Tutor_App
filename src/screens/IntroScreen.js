@@ -68,7 +68,7 @@ const IntroScreen = () => {
   const onDone = async () => {
     //  setShowRealApp(true);
     navigation.replace("ClientLandingBefore");
-    //navigation.replace("YourProfile");
+    // navigation.replace("Auth2");
     //  navigation.replace("TutorHomeStacknavigation");
     // let token =await AsyncStorage.getItem("token")
     // console.log(token)

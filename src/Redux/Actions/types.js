@@ -13,3 +13,5 @@ export const Tution_Type = "Tution_Type";
 export const Student_Detail = "Student_Detail";
 export const Tutor_Qualification = "Tutor_Qualification";
 export const Tutor_Schedule = "Tutor_Schedule";
+export const Tutor_Booking = "Tutor_Booking";
+export const Login_Data = "Login_Data";

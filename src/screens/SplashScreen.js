@@ -22,6 +22,7 @@ const SplashScreen = ({ navigation }) => {
   const gotoSignInScreen = async () => {
     let token = await AsyncStorage.getItem("token");
     let userType = await AsyncStorage.getItem("user_type");
+    let userID = await AsyncStorage.getItem("user_id");
     setTimeout(function async() {
       console.log(token, "SplashScreen", userType, "USerType");
       if (token && userType == "I am an Educator") {

@@ -37,9 +37,11 @@ import StarRating from "react-native-star-rating";
 import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { Dropdown } from "react-native-element-dropdown";
 import CheckBox from "@react-native-community/checkbox";
+import { BookTutor } from "../Redux/Actions/TutorBooking";
 
 const BookingInformationConfirmation = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const { Tutor_Schedule } = useSelector((state) => state.TutorReducer);
   const { Tution_Type } = useSelector((state) => state.TutorReducer);
   const { Student_Detail } = useSelector((state) => state.TutorReducer);
@@ -66,6 +68,18 @@ const BookingInformationConfirmation = () => {
     Tutor_Qualification,
     "Tutor_Qualification"
   );
+
+  const BookTutorProcess = () => {
+    dispatch(
+      BookTutor(
+        Tution_Type,
+        Student_Detail,
+        Tutor_Qualification,
+        Tutor_Schedule,
+        navigation
+      )
+    );
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -508,7 +522,8 @@ const BookingInformationConfirmation = () => {
             <Text style={styles.BookText5}>Cancel Booking</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate("MakeOffer")}
+            onPress={() => BookTutorProcess()}
+            //  onPress={() => navigation.navigate("MakeOffer")}
             style={{
               height: "100%",
               width: "50%",

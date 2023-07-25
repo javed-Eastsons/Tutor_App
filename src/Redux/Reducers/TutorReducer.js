@@ -12,6 +12,7 @@ import {
   Student_Detail,
   Tutor_Qualification,
   Tutor_Schedule,
+  Login_Data,
 } from "../Actions/types";
 
 const initialstate = {
@@ -27,6 +28,7 @@ const initialstate = {
   Student_Detail: "",
   Tutor_Qualification: "",
   Tutor_Schedule: "",
+  Login_Data: "",
 };
 
 const TutorReducer = (state = initialstate, action) => {
@@ -58,6 +60,8 @@ const TutorReducer = (state = initialstate, action) => {
       return { ...state, Tutor_Qualification: action.payload };
     case Tutor_Schedule:
       return { ...state, Tutor_Schedule: action.payload };
+    case Login_Data:
+      return { ...state, Login_Data: action.payload };
   }
 
   return state;

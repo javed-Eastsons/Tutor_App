@@ -67,6 +67,13 @@ import MyBookings from "../screens/MyBookings";
 import MyFav from "../screens/MyFav";
 import MyBookingTutor from "../screens/MyBookingTutor";
 
+import PostReqHome from "../screens/PostRequirment/index";
+import StudentDetail from "../screens/PostRequirment/StudentDetail";
+import StudentBooking from "../screens/PostRequirment/StudentBooking";
+import PostTutorQualification from "../screens/PostRequirment/PostTutorQualifiction";
+import PostTutorSchedule from "../screens/PostRequirment/PostTutorSchedule";
+import PostSummary from "../screens/PostRequirment/PostSummary";
+
 const SignStack = createStackNavigator();
 
 function SignInScreen() {
@@ -759,6 +766,114 @@ function SecondStacknavigation() {
         component={TutorSearch}
         options={{
           title: "TutorSearch",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <SecondStack.Screen
+        name="PostReqHome"
+        component={PostReqHome}
+        options={{
+          title: "PostReqHome",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <SecondStack.Screen
+        name="StudentDetail"
+        component={StudentDetail}
+        options={{
+          title: "StudentDetail",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <SecondStack.Screen
+        name="StudentBooking"
+        component={StudentBooking}
+        options={{
+          title: "StudentBooking",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <SecondStack.Screen
+        name="PostTutorQualification"
+        component={PostTutorQualification}
+        options={{
+          title: "PostTutorQualification",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <SecondStack.Screen
+        name="PostTutorSchedule"
+        component={PostTutorSchedule}
+        options={{
+          title: "PostTutorSchedule",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <SecondStack.Screen
+        name="PostSummary"
+        component={PostSummary}
+        options={{
+          title: "PostSummary",
           headerStyle: {
             backgroundColor: "#e85b3d",
           },
