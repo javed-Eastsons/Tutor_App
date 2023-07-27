@@ -25,6 +25,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 // import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../common/Loader";
+
 import PostHeader from "./Component/Header";
 import TuitionServicesHorizontal from "./Component/TutionServiceHorizontal";
 import StudentDetailComponent from "./Component/StudentDetailComponent";

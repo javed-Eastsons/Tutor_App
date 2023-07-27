@@ -16,19 +16,42 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import AsyncStorage from "@react-native-community/async-storage";
+import { Login_Data } from "../Redux/Actions/types";
+import { useDispatch, useSelector } from "react-redux";
 
 const SplashScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   // const navigation = useNavigation();
   const gotoSignInScreen = async () => {
     let token = await AsyncStorage.getItem("token");
     let userType = await AsyncStorage.getItem("user_type");
     let userID = await AsyncStorage.getItem("user_id");
     setTimeout(function async() {
-      console.log(token, "SplashScreen", userType, "USerType");
+      console.log(token, "SplashScreen", userType, "USerType", userID);
       if (token && userType == "I am an Educator") {
+        let obj = {
+          userid: userID,
+          userType: userType,
+        };
+
+        console.log(obj, "AAAAAAAAAAAAAAaa");
+        dispatch({
+          type: Login_Data,
+          payload: obj,
+        });
         navigation.replace("Auth");
       } else if (token && userType == "I am looking for a Tutor") {
-        navigation.replace("Auth2");
+        let obj = {
+          userid: userID,
+          userType: userType,
+        };
+        console.log(obj, "BBBBBBBBBBBBBB");
+        dispatch({
+          type: Login_Data,
+          payload: obj,
+        });
+        navigation.replace("Auth");
+        // navigation.replace("Auth2");
       } else {
         // navigation.replace("YourProfle");
         navigation.replace("IntroScreen");

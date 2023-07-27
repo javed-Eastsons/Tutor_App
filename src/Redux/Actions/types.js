@@ -15,3 +15,6 @@ export const Tutor_Qualification = "Tutor_Qualification";
 export const Tutor_Schedule = "Tutor_Schedule";
 export const Tutor_Booking = "Tutor_Booking";
 export const Login_Data = "Login_Data";
+export const Tutor_Detail = "Tutor_Detail";
+export const All_Booked_Student = "All_Booked_Student";
+export const All_Booked_Tutor = "All_Booked_Tutor";

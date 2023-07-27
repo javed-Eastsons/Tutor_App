@@ -157,9 +157,17 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
         ) {
           await AsyncStorage.setItem("token", responseJson.Access_Token);
           await AsyncStorage.setItem("user_type", responseJson.user_type);
-
+          await AsyncStorage.setItem("user_id", responseJson.user_id);
+          let obj = {
+            userid: responseJson.user_id,
+            userType: responseJson.user_type,
+          };
+          dispatch({
+            type: Login_Data,
+            payload: obj,
+          });
           console.log("Client succesfull login");
-          navigation.replace("Auth2");
+          navigation.replace("Auth");
           // await AsyncStorage.setItem("token",responseJson.Access_Token)
           // .then(res=>{
           //     console.log("Client succesfull login")
@@ -244,7 +252,8 @@ export const OTPVerifywithrole = (role, otp, navigation) => {
     var formData = new FormData();
     formData.append("user_type", role);
 
-    formData.append("OTP_MOBILE", otp);
+    formData.append("OTP_EMAIL", otp);
+    //formData.append("OTP_MOBILE", otp);
 
     console.log("FORMDATAAAAA", formData);
 
@@ -329,6 +338,7 @@ export const editProfile = (
       tutor_status: TutionStatus_Data?.WorkAs,
       tuition_type: Tution_Type?.TutionType,
       postal_code: Tution_Type?.Postal_Code,
+      location: Tution_Type?.address,
       tutor_tutoring_experience_years: Tutoring_Data?.state,
       tutor_tutoring_experience_months: Tutoring_Data?.state2,
       personal_statement: TutionStatus_Data?.statement,
@@ -336,10 +346,10 @@ export const editProfile = (
     Tutoring_Data?.selectArray,
   ]);
 
-  // console.log(
-  //   data1,
-  //   "payloadpayloadpayloadpayloadpayloadpayloadpayloadpayload"
-  // );
+  console.log(
+    data1,
+    "payloadpayloadpayloadpayloadpayloadpayloadpayloadpayload"
+  );
 
   return (dispatch, getState) => {
     let config = {

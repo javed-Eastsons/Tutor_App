@@ -5,6 +5,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 import { enableScreens } from "react-native-screens";
 import Register from "../screens/Register";
+
 import IntroScreen from "../screens/IntroScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { LogBox } from "react-native";
@@ -65,7 +66,7 @@ import AcceptNonTutor from "../screens/AcceptNonTutor";
 import AcceptTutor from "../screens/AcceptTutor";
 import MyBookings from "../screens/MyBookings";
 import MyFav from "../screens/MyFav";
-import MyBookingTutor from "../screens/MyBookingTutor";
+import MyBookingTutor from "../screens/TutorBooking/MyBookingTutor";
 
 import PostReqHome from "../screens/PostRequirment/index";
 import StudentDetail from "../screens/PostRequirment/StudentDetail";
@@ -73,6 +74,7 @@ import StudentBooking from "../screens/PostRequirment/StudentBooking";
 import PostTutorQualification from "../screens/PostRequirment/PostTutorQualifiction";
 import PostTutorSchedule from "../screens/PostRequirment/PostTutorSchedule";
 import PostSummary from "../screens/PostRequirment/PostSummary";
+import TutorBookingConfirmation from "../screens/TutorBooking/TutorBookingConfirmation";
 
 const SignStack = createStackNavigator();
 
@@ -1310,6 +1312,25 @@ function TutorHomeStacknavigation() {
       />
 
       <TutorHomeStack.Screen
+        name="TutorBookingConfirmation"
+        component={TutorBookingConfirmation}
+        options={{
+          title: "TutorBookingConfirmation",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <TutorHomeStack.Screen
         name="TutoringDetail"
         component={TutoringDetail}
         options={{
@@ -1471,6 +1492,25 @@ function TutorHomeStacknavigation4() {
         component={MyBookingTutor}
         options={{
           title: "MyBookingTutor",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <TutorHomeStack.Screen
+        name="TutorBookingConfirmation"
+        component={TutorBookingConfirmation}
+        options={{
+          title: "TutorBookingConfirmation",
 
           headerStyle: {
             backgroundColor: "#e85b3d",

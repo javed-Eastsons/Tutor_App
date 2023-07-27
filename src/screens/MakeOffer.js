@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,49 +12,52 @@ import {
   TouchableHighlight,
   Modal,
   ImageBase,
-} from 'react-native';
-import AppIntroSlider from 'react-native-app-intro-slider';
-import {TextInput} from 'react-native-gesture-handler';
+} from "react-native";
+import AppIntroSlider from "react-native-app-intro-slider";
+import { TextInput } from "react-native-gesture-handler";
 // import { useIsFocused, useNavigation } from '@react-navigation/native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import {useIsFocused, useNavigation} from '@react-navigation/native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import RNPickerSelect from 'react-native-picker-select';
+} from "react-native-responsive-screen";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import RNPickerSelect from "react-native-picker-select";
 //import CheckBox from '@react-native-community/checkbox';
-import {GetAllTutors} from '../Redux/Actions/Tutors';
+import { GetAllTutors } from "../Redux/Actions/Tutors";
 import {
   GetfilterSubject,
   GetfilterQualification,
-} from '../Redux/Actions/TutorSearchAction';
-import {useDispatch, useSelector} from 'react-redux';
-import RadioGroup from 'react-native-radio-buttons-group';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import MultiSelect from 'react-native-multiple-select';
-import StarRating from 'react-native-star-rating';
-import {GetResultAfterPostcode} from '../Redux/Actions/TutorSearchAction';
-import {Dropdown} from 'react-native-element-dropdown';
-import moment from 'moment';
+} from "../Redux/Actions/TutorSearchAction";
+import { useDispatch, useSelector } from "react-redux";
+import RadioGroup from "react-native-radio-buttons-group";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import MultiSelect from "react-native-multiple-select";
+import StarRating from "react-native-star-rating";
+import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
+import { Dropdown } from "react-native-element-dropdown";
+import moment from "moment";
 var selectArray = [];
 var selectFilter = [];
 
-const MakeOffer = ({route}) => {
+const MakeOffer = ({ route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [userdata, setUserdata] = useState([]);
   const [postaldata, setPostaldata] = useState([]);
   const [offerAmount, setofferAmount] = useState(0);
   const [selectedlevel, setSelectedlevel] = useState([]);
-  const {GET_POSTAL_DATA} = useSelector(state => state.TutorsearchReducer);
-  const {GET_FILTER_DATA} = useSelector(state => state.TutorsearchReducer);
+  const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
+  const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer);
+  const { Tutor_Qualification } = useSelector((state) => state.TutorReducer);
+  console.log(
+    Tutor_Qualification,
+    "Tutor_QualificationTutor_QualificationTutor_Qualification"
+  );
   const [isFocus, setIsFocus] = useState(false);
   const data1 = [
-    { label: 'Negotiable', value: '1' },
-    { label: 'Non-Negotiable', value: '2' },
-   
-    
+    { label: "Negotiable", value: "1" },
+    { label: "Non-Negotiable", value: "2" },
   ];
   const [datePicker, setDatePicker] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -62,10 +65,10 @@ const MakeOffer = ({route}) => {
   const [timePicker, setTimePicker] = useState(false);
 
   const [time, setTime] = useState(new Date(Date.now()));
-  const [value, setValue] = useState('Negotiable');
+  const [value, setValue] = useState("Negotiable");
   const [sendOffer, setSendOffer] = useState(0);
 
-  const onSelectedlevel = selectedItemslevel => {
+  const onSelectedlevel = (selectedItemslevel) => {
     // Set Selected Items
 
     createlevel(selectedItemslevel);
@@ -89,20 +92,20 @@ const MakeOffer = ({route}) => {
     return isExist;
   };
 
-  const showDatePicker =() =>{
+  const showDatePicker = () => {
     setDatePicker(true);
   };
 
-  const showTimePicker =() =>{
+  const showTimePicker = () => {
     setTimePicker(true);
   };
 
-  const onDateSelected =(event, value) =>{
+  const onDateSelected = (event, value) => {
     setDate(value);
     setDatePicker(false);
   };
 
-  const onTimeSelected = (event, value) =>{
+  const onTimeSelected = (event, value) => {
     setTime(value);
     setTimePicker(false);
   };
@@ -116,7 +119,7 @@ const MakeOffer = ({route}) => {
         Ex_array[index].hasOwnProperty(Ex_Key) &&
         Ex_array[index][Ex_Key] === Ex_value
       ) {
-        console.log('id:' + Ex_value);
+        console.log("id:" + Ex_value);
         Ex_array.splice(index, 1);
         return false;
       }
@@ -127,82 +130,75 @@ const MakeOffer = ({route}) => {
   };
 
   const SendRequest = (val) => {
-    setSendOffer(val)
+    setSendOffer(val);
 
-    if(value == 'Negotiable')
-    {
-      navigation.navigate('Negotiate',{
-        amount:offerAmount,
-        mydate:date,
-        mytime:time
-
-      })
+    if (value == "Negotiable") {
+      navigation.navigate("Negotiate", {
+        amount: offerAmount,
+        mydate: date,
+        mytime: time,
+      });
+    } else {
+      navigation.navigate("NonNegotiate", {
+        amount: offerAmount,
+        mydate: date,
+        mytime: time,
+      });
     }
-    else{
-      navigation.navigate('NonNegotiate',{
-        amount:offerAmount,
-        mydate:date,
-        mytime:time
-      })
+  };
 
-    }
-
- 
-
-  }
-
-  const createlevel = data => {
-    console.log(data, ':::::::::::::::::::::::::');
+  const createlevel = (data) => {
+    console.log(data, ":::::::::::::::::::::::::");
     if (data.length == 0) {
       selectFilter = [];
-      console.log('ddddddddddddddddddddddd');
+      console.log("ddddddddddddddddddddddd");
     } else {
       const obj3 = {};
       data.forEach((element, index) => {
         // console.log('""""""""""""""', element);
-        obj3['Levels_search'] = element;
+        obj3["Levels_search"] = element;
         // setSelectedQual(element)
       });
-      if (!isExistInArray(selectFilter, 'Levels_search', obj3.Levels_search)) {
+      if (!isExistInArray(selectFilter, "Levels_search", obj3.Levels_search)) {
         selectFilter.push(obj3);
 
         // dispatch(GetfilterQualification(route.params.postalcode, route.params.tuition_type, Gender, Status, selectFilter))
       } else {
-        RemoveTempExercise(selectFilter, 'Levels_search', obj3.Levels_search);
+        RemoveTempExercise(selectFilter, "Levels_search", obj3.Levels_search);
       }
     }
-    console.log('Level????????????????', selectFilter);
+    console.log("Level????????????????", selectFilter);
   };
-console.log(offerAmount,'ADAWDQWD')
+  console.log(offerAmount, "ADAWDQWD");
   useEffect(() => {
     // console.log(route.params.postalcode, route.params.tuition_type)
     // dispatch(GetAllTutors())
     setUserdata(GET_FILTER_DATA);
     setPostaldata(GET_POSTAL_DATA);
     console.log(
-      '🚀 ~ file: OurTutor.js ~ line 506 ~ useEffect ~ GET_POSTAL_DATA',
-      GET_POSTAL_DATA,
+      "🚀 ~ file: OurTutor.js ~ line 506 ~ useEffect ~ GET_POSTAL_DATA",
+      GET_POSTAL_DATA
     );
   }, [offerAmount]);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.Headers}>
         <View style={styles.HeadLeft}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <Image
-              source={require('../Assets/baricon.png')}
+              source={require("../Assets/baricon.png")}
               style={styles.icons}
             />
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
-          <Image source={require('../Assets/bell.png')} style={styles.icons} />
+          <Image source={require("../Assets/bell.png")} style={styles.icons} />
           <Image
-            source={require('../Assets/search.png')}
+            source={require("../Assets/search.png")}
             style={styles.icons}
           />
-          <Image source={require('../Assets/chat.png')} style={styles.icons} />
+          <Image source={require("../Assets/chat.png")} style={styles.icons} />
         </View>
       </View>
       <View style={styles.HeaderContainer}>
@@ -211,7 +207,7 @@ console.log(offerAmount,'ADAWDQWD')
       <View style={styles.Container}>
         <View style={styles.LeftImageContainer}>
           <Image
-            source={require('../Assets/user.png')}
+            source={require("../Assets/user.png")}
             style={styles.leftImage}
           />
         </View>
@@ -219,13 +215,13 @@ console.log(offerAmount,'ADAWDQWD')
           <View style={styles.UserInfoContainer1}>
             <Text style={styles.infoText}>Hello</Text>
           </View>
-          <View style={{height: 30, width: 200}}>
+          <View style={{ height: 30, width: 200 }}>
             <Text style={styles.infoText}>University Undergraguate</Text>
           </View>
         </View>
       </View>
       <View style={styles.RatingContainer}>
-        <View style={{width: 40, marginLeft: 5}}>
+        <View style={{ width: 40, marginLeft: 5 }}>
           <StarRating
             fullStarColor="orange"
             disabled={false}
@@ -245,189 +241,308 @@ console.log(offerAmount,'ADAWDQWD')
         <View
           style={{
             height: 90,
-            width: '100%',
-           justifyContent:"center",
-           alignItems:"center",
-          backgroundColor: '#F2F2F2',
-          paddingLeft:5,
-          paddingRight:5
-           // flexDirection: 'row',
-          }}>
-          <Text style={styles.BookText1}>Message: 
-          {sendOffer == 0 ?
-          <Text style={styles.BookText2}>Please offer the Tutor a fee.If fee is Non-negotiable,tutor can only accept or cancel this booking</Text>
-          
-          :
-          <Text style={styles.BookText2}>You have place an offer.Tutor will be informed.you will be recieve an app notification when the tutor has responded</Text>
-          
-          }
-         
-         </Text>
-        
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#F2F2F2",
+            paddingLeft: 5,
+            paddingRight: 5,
+            // flexDirection: 'row',
+          }}
+        >
+          <Text style={styles.BookText1}>
+            Message:
+            {sendOffer == 0 ? (
+              <Text style={styles.BookText2}>
+                Please offer the Tutor a fee.If fee is Non-negotiable,tutor can
+                only accept or cancel this booking
+              </Text>
+            ) : (
+              <Text style={styles.BookText2}>
+                You have place an offer.Tutor will be informed.you will be
+                recieve an app notification when the tutor has responded
+              </Text>
+            )}
+          </Text>
         </View>
-       
-      <ScrollView style={{marginBottom:20}}>
-     <View style={{height:wp(50),width:wp(40),
-      backgroundColor:'#fff',borderRadius:20,margin:20,elevation:10}}>
 
-        <Image
-              source={require('../Assets/Dollar.png')}
+        <ScrollView style={{ marginBottom: 20 }}>
+          <View
+            style={{
+              height: wp(50),
+              width: wp(40),
+              backgroundColor: "#fff",
+              borderRadius: 20,
+              margin: 20,
+              elevation: 10,
+            }}
+          >
+            <Image
+              source={require("../Assets/Dollar.png")}
               style={styles.Dollaricons}
             />
-<Text style={{fontSize:22,textAlign:"center",fontWeight:'700',color:'#2F5597'}}>Your Offer</Text>
+            <Text
+              style={{
+                fontSize: 22,
+                textAlign: "center",
+                fontWeight: "700",
+                color: "#2F5597",
+              }}
+            >
+              Your Offer
+            </Text>
 
-  <View style={{flexDirection:'row', height:50,backgroundColor:"#2F5597",marginTop:wp(5),justifyContent:"center"}}>
-      
-    <Text style={{color:'#fff',fontSize:16,fontWeight:'600',alignSelf:"center",}}>SGD</Text>
-      
-<TextInput
-  style={{
-    height:40,backgroundColor:"#2F5597",width:45,
-    color:'#fff',fontSize:18,marginRight:4,fontWeight:'500',alignSelf:"center",
-  }}
-  keyboardType="numeric"
-  value={offerAmount}
-  onChangeText = {text => setofferAmount(text)}
-  placeholderTextColor="#fff"
-  placeholder="0.00"
+            <View
+              style={{
+                flexDirection: "row",
+                height: 50,
+                backgroundColor: "#2F5597",
+                marginTop: wp(5),
+                justifyContent: "center",
+              }}
+            >
+              <Text
+                style={{
+                  color: "#fff",
+                  fontSize: 16,
+                  fontWeight: "600",
+                  alignSelf: "center",
+                }}
+              >
+                SGD
+              </Text>
 
-/>
-    <Text style={{color:'#fff',fontSize:16,fontWeight:'600',alignSelf:"center",}}>/ hour</Text>
-    
-    </View>
-    <Text style={{textAlign:"center",color:"#2F5597",fontSize:14,marginTop:wp(3)}}>{value}</Text>    
+              <TextInput
+                style={{
+                  height: 40,
+                  backgroundColor: "#2F5597",
+                  width: 45,
+                  color: "#fff",
+                  fontSize: 18,
+                  marginRight: 4,
+                  fontWeight: "500",
+                  alignSelf: "center",
+                }}
+                keyboardType="numeric"
+                value={offerAmount}
+                // value={Tutor_Qualification.FeeOffer}
+                onChangeText={(text) => setofferAmount(text)}
+                placeholderTextColor="#fff"
+                placeholder="0.00"
+              />
+              <Text
+                style={{
+                  color: "#fff",
+                  fontSize: 16,
+                  fontWeight: "600",
+                  alignSelf: "center",
+                }}
+              >
+                / hour
+              </Text>
+            </View>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "#2F5597",
+                fontSize: 14,
+                marginTop: wp(3),
+              }}
+            >
+              {value}
+            </Text>
+          </View>
 
+          {/* <View style={styles.MainContainer}>
+         
 
+            {datePicker && (
+              <DateTimePicker
+                value={date}
+                mode={"date"}
+                display={Platform.OS === "ios" ? "spinner" : "default"}
+                is24Hour={true}
+                onChange={onDateSelected}
+                style={styles.datePicker}
+              />
+            )}
 
+            {timePicker && (
+              <DateTimePicker
+                value={time}
+                mode={"time"}
+                display={Platform.OS === "ios" ? "spinner" : "default"}
+                is24Hour={false}
+                onChange={onTimeSelected}
+                style={styles.datePicker}
+              />
+            )}
 
+            {!datePicker && (
+              <View
+                style={{
+                  marginLeft: 10,
+                  marginBottom: 10,
+                  alignSelf: "flex-start",
+                }}
+              >
+                <Button
+                  title="Select Date"
+                  color="#2F5597"
+                  onPress={showDatePicker}
+                />
+              </View>
+            )}
 
-     </View>
+            {!timePicker && (
+              <View style={{ marginLeft: 10, alignSelf: "flex-start" }}>
+                <Button
+                  title="Select Time"
+                  color="#2F5597"
+                  onPress={showTimePicker}
+                />
+              </View>
+            )}
+          </View> */}
 
+          {/* <View
+            style={{
+              marginTop: wp(5),
+              height: wp(12),
+              backgroundColor: "#2F5597",
+              borderColor: "#2F5597",
+              borderWidth: 1,
+              flexDirection: "row",
+            }}
+          >
+            <Text
+              style={{
+                width: wp(45),
+                backgroundColor: "#2F5597",
+                color: "#fff",
+                fontSize: 15,
+                fontWeight: "500",
+                margin: 10,
+                marginLeft: 20,
+              }}
+            >
+              Your Start Date/Time
+            </Text>
+            <View
+              style={{
+                width: wp(45),
+                height: wp(8),
+                alignSelf: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ color: "#fff", fontSize: 15, fontWeight: "500" }}>
+                {moment(date.toString()).format("ddd,MMMM Do")}{" "}
+                {moment(time.toLocaleTimeString("en-US"), "HH:mm").format(
+                  "hh:mm A"
+                )}
+              </Text>
+            </View>
+          </View> */}
 
-     <View style={styles.MainContainer}>
- 
- {/* <Text style={styles.text}>Date = {date.toDateString()}</Text>
-
- <Text style={styles.text}>Time = {time.toLocaleTimeString('en-US')}</Text> */}
-
- {datePicker && (
-   <DateTimePicker
-     value={date}
-     mode={'date'}
-     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-     is24Hour={true}
-     onChange={onDateSelected}
-     style={styles.datePicker}
-   />
- )}
-
- {timePicker && (
-   <DateTimePicker
-     value={time}
-     mode={'time'}
-     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-     is24Hour={false}
-     onChange={onTimeSelected}
-     style={styles.datePicker}
-   />
- )}
-
- {!datePicker && (
-   <View style={{ marginLeft: 10,marginBottom:10, alignSelf:'flex-start' }}>
-     <Button title="Select Date" color="#2F5597" onPress={showDatePicker} />
-   </View>
- )}
-
- {!timePicker && (
-   <View style={{ marginLeft: 10,alignSelf:'flex-start' }}>
-     <Button title="Select Time" color="#2F5597" onPress={showTimePicker} />
-   </View>
- )}
-
-</View>
-
-
-<View style={{marginTop:wp(5),height:wp(12),backgroundColor:'#2F5597', borderColor:'#2F5597',borderWidth:1,flexDirection:'row',}}> 
-     <Text style={{width:wp(45),backgroundColor:'#2F5597', color:'#fff',fontSize:15,fontWeight:'500',margin:10,marginLeft:20}}>Your Start Date/Time</Text>
-     <View style={{width:wp(45),height:wp(8),alignSelf:'center',justifyContent:"center"}}>
-     <Text style={{color:'#fff',fontSize:15,fontWeight:'500'}}>{moment(date.toString()).format('ddd,MMMM Do')}  {moment(time.toLocaleTimeString('en-US'),"HH:mm").format("hh:mm A")}</Text>
-  
-     </View>
-
-     </View>
-
-
-     {sendOffer == 0 ?
-     <View style={{marginTop:wp(5),height:wp(12),borderColor:'#2F5597',borderWidth:1,flexDirection:'row',}}> 
-     <Text style={{width:wp(48),color:'#2F5597',fontSize:16,fontWeight:'500',margin:10,marginLeft:20}}>SGD    {offerAmount}.00   / hour</Text>
-     <View style={{width:wp(40),height:wp(9),borderWidth:1,borderColor:'#2F5597',alignSelf:'center',justifyContent:"center"}}>
-    
-                 <Dropdown
+          {sendOffer == 0 ? (
+            <View
+              style={{
+                marginTop: wp(5),
+                height: wp(12),
+                borderColor: "#2F5597",
+                borderWidth: 1,
+                flexDirection: "row",
+              }}
+            >
+              <Text
+                style={{
+                  width: wp(48),
+                  color: "#2F5597",
+                  fontSize: 16,
+                  fontWeight: "500",
+                  margin: 10,
+                  marginLeft: 20,
+                }}
+              >
+                SGD {offerAmount}.00 / hour
+              </Text>
+              <View
+                style={{
+                  width: wp(40),
+                  height: wp(9),
+                  borderWidth: 1,
+                  borderColor: "#2F5597",
+                  alignSelf: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Dropdown
                   style={[styles.dropdown, isFocus && { borderColor: "black" }]}
-                  placeholderStyle={{ fontSize: 16 ,color:"#2F5597"}}
+                  placeholderStyle={{ fontSize: 16, color: "#2F5597" }}
                   selectedTextStyle={styles.selectedTextStyle}
-                  itemTextStyle={{color:"#2F5597"}}
+                  itemTextStyle={{ color: "#2F5597" }}
                   iconStyle={styles.iconStyle}
                   data={data1}
                   labelField="label"
                   valueField="label"
                   allowFontScaling={false}
-                //   maxHeight={100}
+                  //   maxHeight={100}
                   placeholder={!isFocus ? " Negotiable " : "..."}
                   value={value}
                   onFocus={() => setIsFocus(true)}
                   onBlur={() => setIsFocus(false)}
-                onChange={item => {
+                  onChange={(item) => {
                     setValue(item.label);
                     setIsFocus(false);
                   }}
-                 />{console.log('country=' + value)}
-               
-     </View>
-
-     </View>
-     :
-     <View/>
-                }
-
-
-
-
-     </ScrollView>
+                />
+                {console.log("country=" + value)}
+              </View>
+            </View>
+          ) : (
+            <View />
+          )}
+        </ScrollView>
         <View
           style={{
-            height: '10%',
-            width: '100%',
-            position: 'absolute',
-            bottom:-30,
-            flexDirection: 'row',
-            alignSelf: 'center',
-          }}>
+            height: "10%",
+            width: "100%",
+            position: "absolute",
+            bottom: -30,
+            flexDirection: "row",
+            alignSelf: "center",
+          }}
+        >
           <TouchableOpacity
-            onPress={() => navigation.navigate('')}
+            onPress={() => navigation.navigate("")}
             style={{
-              height: '100%',
-              width: '50%',
-              backgroundColor: '#C0C0C0',
-              justifyContent: 'center',
-              alignItems: 'center',
+              height: "100%",
+              width: "50%",
+              backgroundColor: "#C0C0C0",
+              justifyContent: "center",
+              alignItems: "center",
               borderRadius: 3,
-            }}>
+            }}
+          >
             <Text style={styles.BookText5}>Cancel Booking</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() =>SendRequest(1)
-             
+            onPress={
+              () => SendRequest(1)
+
               // navigation.navigate('')
             }
             style={{
-              height: '100%',
-              width: '50%',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: offerAmount == 0 || sendOffer == 1 ? '#fff' : '#F6BE00',
+              height: "100%",
+              width: "50%",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor:
+                offerAmount == 0 || sendOffer == 1 ? "#fff" : "#F6BE00",
               borderRadius: 3,
-            }}>
+            }}
+          >
             <Text style={styles.infoText1}>Next</Text>
           </TouchableOpacity>
         </View>
@@ -439,64 +554,65 @@ export default MakeOffer;
 const styles = StyleSheet.create({
   Headers: {
     height: hp(5),
-    justifyContent: 'center',
-    flexDirection: 'row',
+    justifyContent: "center",
+    flexDirection: "row",
     width: wp(100),
     // backgroundColor:'red'
   },
   HeadLeft: {
     width: wp(45),
     height: hp(5),
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   icons: {
     height: 30,
     width: 30,
     marginRight: 10,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
+
   Dollaricons: {
     height: 50,
     width: 50,
     margin: 5,
-   // alignSelf: 'center',
+    // alignSelf: 'center',
   },
   HeadRight: {
     width: wp(45),
     height: hp(5),
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
   HeaderContainer: {
     height: 30,
-    width: '90%',
-    alignSelf: 'center',
+    width: "90%",
+    alignSelf: "center",
   },
   HeaderText: {
     fontSize: 20,
-    color: '#2F5597',
-    fontWeight: 'bold',
+    color: "#2F5597",
+    fontWeight: "bold",
   },
   Container: {
     height: 70,
-    width: '90%',
-    alignSelf: 'center',
+    width: "90%",
+    alignSelf: "center",
     marginTop: 10,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   LeftImageContainer: {
     height: 60,
     width: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   leftImage: {
     width: 60,
     height: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   UserInfoContainer: {
     height: 60,
@@ -508,39 +624,39 @@ const styles = StyleSheet.create({
   },
   RatingContainer: {
     height: 20,
-    width: '90%',
-    alignSelf: 'center',
+    width: "90%",
+    alignSelf: "center",
   },
   cardLeft: {
     height: 30,
-    width: '100%',
-    backgroundColor: 'white',
-    alignSelf: 'center',
+    width: "100%",
+    backgroundColor: "white",
+    alignSelf: "center",
     // borderRadius: 2,
     borderWidth: 0.2,
     marginTop: 10,
     marginBottom: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   shadowPropLeft: {
-    shadowOffset: {width: 0, height: 2},
-    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowColor: "#000000",
     shadowOpacity: 1.0,
     shadowRadius: 6,
   },
   infoText1: {
     fontSize: 15,
-    color: 'black',
-    alignSelf: 'center',
-    fontWeight: '700',
+    color: "black",
+    alignSelf: "center",
+    fontWeight: "700",
   },
   Bookcard: {
-    height: '60%',
-    width: '100%',
+    height: "60%",
+    width: "100%",
     //backgroundColor: '#F5F5F5',
-    backgroundColor: '#fff',
-    alignSelf: 'center',
+    backgroundColor: "#fff",
+    alignSelf: "center",
     // borderRadius: 2,
     borderWidth: 0.2,
     marginTop: 10,
@@ -550,16 +666,16 @@ const styles = StyleSheet.create({
     //padding: 10,
   },
   BookshadowProp: {
-    shadowOffset: {width: 0, height: 2},
-    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowColor: "#000000",
     shadowOpacity: 1.0,
     shadowRadius: 6,
   },
   BookText1: {
     fontSize: 15,
-    color: 'white',
-    fontWeight: 'bold',
-    color: 'red',
+    color: "white",
+    fontWeight: "bold",
+    color: "red",
   },
   TypeImage: {
     width: 40,
@@ -573,28 +689,26 @@ const styles = StyleSheet.create({
   },
   BookText2: {
     fontSize: 12,
-    color: 'grey',
-    fontWeight: 'bold',
+    color: "grey",
+    fontWeight: "bold",
   },
   SelectMoreContainer: {
     height: 100,
-    width: '100%',
-    alignSelf: 'center',
-    backgroundColor: 'white',
+    width: "100%",
+    alignSelf: "center",
+    backgroundColor: "white",
   },
   dropdown: {
     height: 30,
-    width: '95%',
-    borderColor: 'black',
-  
-  
-  
-    alignSelf: 'center',
-    backgroundColor: '#fff',
+    width: "95%",
+    borderColor: "black",
+
+    alignSelf: "center",
+    backgroundColor: "#fff",
   },
   selectedTextStyle: {
     fontSize: 16,
-    color:'#2F5597'
+    color: "#2F5597",
   },
   iconStyle: {
     width: 20,
@@ -602,30 +716,30 @@ const styles = StyleSheet.create({
   },
   cardFrequency: {
     height: 85,
-    width: '100%',
+    width: "100%",
     padding: 10,
     marginTop: 10,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   shadowPropFrequency: {
-    shadowOffset: {width: 0, height: 2},
-    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowColor: "#000000",
     shadowOpacity: 1.0,
     shadowRadius: 6,
   },
   FrequencyDropdown: {
     height: 30,
-    width: '45%',
-    backgroundColor: '#2F5597',
+    width: "45%",
+    backgroundColor: "#2F5597",
     borderRadius: 15,
     marginLeft: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
   },
   DropdownText: {
     fontSize: 14,
-    color: 'white',
+    color: "white",
   },
   DropdownImage: {
     width: 15,
@@ -634,33 +748,32 @@ const styles = StyleSheet.create({
   },
   BookText5: {
     fontSize: 15,
-    color: 'white',
-    fontWeight: 'bold',
-    color: 'grey',
+    color: "white",
+    fontWeight: "bold",
+    color: "grey",
   },
-
 
   MainContainer: {
     flex: 1,
     paddingLeft: 20,
-    alignItems: 'center',
-    backgroundColor: 'white'
+    alignItems: "center",
+    backgroundColor: "white",
   },
- 
+
   text: {
     fontSize: 25,
-    color: 'red',
+    color: "red",
     padding: 3,
     marginBottom: 10,
-    textAlign: 'center'
+    textAlign: "center",
   },
- 
+
   // Style for iOS ONLY...
   datePicker: {
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    justifyContent: "center",
+    alignItems: "flex-start",
     width: 320,
     height: 260,
-    display: 'flex',
+    display: "flex",
   },
 });

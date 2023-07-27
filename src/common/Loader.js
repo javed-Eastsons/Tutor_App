@@ -6,21 +6,20 @@ import { ActivityIndicator, Dimensions, Image, View } from "react-native";
 //         <View style={{padding:10,}}>
 //             <Image
 
-//                 source={require('../images/GIF-image-2.gif')}
+//                 source={require('../../images/GIF-image-2.gif')}
 
 //             />
 //         </View>
 
 //     )
-// }         
+// }
 export const Loader = (props) => {
-    return (
-        <Spinner
-            visible={props.flag}
-            textContent={'Loading...'}
-        //textStyle={styles.spinnerTextStyle}
-        //  customIndicator={<CustomIndicator/>}
-
-        />
-    )
-}
+  return (
+    <Spinner
+      visible={props.flag}
+      textContent={"Loading..."}
+      //textStyle={styles.spinnerTextStyle}
+      //  customIndicator={<CustomIndicator/>}
+    />
+  );
+};

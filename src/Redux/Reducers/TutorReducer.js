@@ -1,4 +1,3 @@
-import TutorQualification from "../../screens/TutorQualification";
 import {
   ALL_TUTORS,
   OTP_MSG,
@@ -13,6 +12,7 @@ import {
   Tutor_Qualification,
   Tutor_Schedule,
   Login_Data,
+  Tutor_Detail,
 } from "../Actions/types";
 
 const initialstate = {
@@ -29,6 +29,7 @@ const initialstate = {
   Tutor_Qualification: "",
   Tutor_Schedule: "",
   Login_Data: "",
+  Tutor_Detail: "",
 };
 
 const TutorReducer = (state = initialstate, action) => {
@@ -62,6 +63,8 @@ const TutorReducer = (state = initialstate, action) => {
       return { ...state, Tutor_Schedule: action.payload };
     case Login_Data:
       return { ...state, Login_Data: action.payload };
+    case Tutor_Detail:
+      return { ...state, Tutor_Detail: action.payload };
   }
 
   return state;

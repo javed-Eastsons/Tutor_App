@@ -1,7 +1,9 @@
 import {
   ALL_TUTORS,
   REGISTER_MSG,
+  All_Booked_Student,
   OTP_MSG,
+  All_Booked_Tutor,
   GET_USER_ID,
   Tutor_Booking,
 } from "./types";
@@ -10,22 +12,95 @@ import axios, * as others from "axios";
 import { Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
+export const GetBookedTutorList = (Login_Data, navigation) => {
+  return async (dispatch, getState) => {
+    //const login = await getApiKey();
+
+    //let data = JSON.parse(login);
+    //var authtoken = data;
+    //  console.log(authtoken)
+    const url1 =
+      "https://refuel.site/projects/tutorapp/APIs/TutorList/TutorListing.php?student_id=" +
+      Login_Data?.userid;
+
+    console.log(url1, "Studenttttttttttttttttttttttttttt1");
+
+    await fetch(url1, {
+      method: "GET",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": authtoken,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.output);
+        if (responseJson.status == true) {
+          dispatch({
+            type: All_Booked_Tutor,
+            payload: responseJson.output,
+          });
+        } else if (responseJson.status == false) {
+          Alert.alert(responseJson.message);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const GetBookedStudentList = (Login_Data, navigation) => {
+  return async (dispatch, getState) => {
+    //const login = await getApiKey();
+
+    //let data = JSON.parse(login);
+    //var authtoken = data;
+    //  console.log(authtoken)
+    const url1 =
+      "https://refuel.site/projects/tutorapp/APIs/TutorList/BookedTutorList.php?tutor_id=" +
+      Login_Data?.userid;
+
+    console.log(url1, "url1url1url1url1url1url1url1url1url1");
+
+    await fetch(url1, {
+      method: "GET",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": authtoken,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.output);
+        if (responseJson.status == true) {
+          dispatch({
+            type: All_Booked_Student,
+            payload: responseJson.output,
+          });
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
 export const BookTutor = (
   Tution_Type,
   Student_Detail,
   Tutor_Qualification,
-
   Tutor_Schedule,
+  Login_Data,
+  Tutor_Detail,
   navigation
 ) => {
-  console.log(navigation, "navigationnavigationnavigation");
+  console.log(Login_Data, navigation, "navigationnavigationnavigation");
 
   let Booking = {
-    student_id: "291",
+    student_id: Login_Data?.userid,
     student_level: Student_Detail.Level,
     student_grade: Student_Detail.Grade,
     student_tution_type: Tution_Type.tuition_type,
-    tutor_id: "401",
+    tutor_id: Tutor_Detail?.tutorid,
     tutor_duration_weeks: Tutor_Qualification.frequency,
     tutor_duration_hours: Tutor_Qualification.duration,
     tutor_tution_fees: Tutor_Qualification.FeeOffer,
@@ -53,11 +128,11 @@ export const BookTutor = (
       },
 
       body: JSON.stringify({
-        student_id: "295",
+        student_id: Login_Data?.userid,
         student_level: Student_Detail.Level,
         student_grade: Student_Detail.Grade,
         student_tution_type: Tution_Type.tuition_type,
-        tutor_id: "401",
+        tutor_id: Tutor_Detail?.tutorid,
         tutor_duration_weeks: Tutor_Qualification.frequency,
         tutor_duration_hours: Tutor_Qualification.duration,
         tutor_tution_fees: Tutor_Qualification.FeeOffer,

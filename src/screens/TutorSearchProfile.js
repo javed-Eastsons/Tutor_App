@@ -33,16 +33,19 @@ import { useDispatch, useSelector } from "react-redux";
 import RadioGroup from "react-native-radio-buttons-group";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MultiSelect from "react-native-multiple-select";
+import { Tutor_Detail } from "../Redux/Actions/types";
 // import Collapsible from 'react-native-collapsible';
 const TutorSearchProfile = ({ props, route }) => {
   const navigation = useNavigation();
   const [showwhat, setshowwhat] = React.useState("");
   const [collapsed, setCollapsed] = useState(true);
   const data = route.params.data;
-  console.log(
-    "🚀 ~ file: TutorSearchProfile.js ~ line 36 ~ TutorSearchProfile ~ data",
-    data
-  );
+  const dispatch = useDispatch();
+
+  // console.log(
+  //   "🚀 ~ file: TutorSearchProfile.js ~ line 36 ~ TutorSearchProfile ~ data",
+  //   data
+  // );
 
   const toggleExpanded = () => {
     // Toggling the state of single Collapsible
@@ -78,6 +81,21 @@ const TutorSearchProfile = ({ props, route }) => {
     // else {
     //     setshowwhat('scan')
     // }
+  };
+
+  const GotoBook = () => {
+    let obj = {
+      tutorid: data?.user_id,
+    };
+
+    dispatch({
+      type: Tutor_Detail,
+      payload: obj,
+    });
+    console.log(obj, "AAAAAAAAAAAAAAAAAAAAAAAAA");
+    navigation.navigate("LetsBook", {
+      data: data,
+    });
   };
 
   return (
@@ -149,7 +167,7 @@ const TutorSearchProfile = ({ props, route }) => {
           <View style={{ height: 25, width: "100%" }}>
             <Text style={styles.infoText}>
               {data.tutor_code}
-              Teacher ID {data.user_id}
+              {/* Teacher ID {data.user_id} */}
             </Text>
           </View>
         </View>
@@ -213,14 +231,7 @@ const TutorSearchProfile = ({ props, route }) => {
             style={styles.Bookicons}
           />
         </View>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("LetsBook", {
-              data: data,
-            })
-          }
-          style={styles.FavBooKChat}
-        >
+        <TouchableOpacity onPress={() => GotoBook()} style={styles.FavBooKChat}>
           <Image
             source={require("../Assets/people.png")}
             style={styles.Bookicons}
@@ -258,11 +269,7 @@ const TutorSearchProfile = ({ props, route }) => {
           <Text style={{ alignSelf: "center", color: "grey" }}>Favourite</Text>
         </View>
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("LetsBook", {
-              data: data,
-            })
-          }
+          onPress={() => GotoBook()}
           style={styles.FavBooKChatContainer}
         >
           <Text style={{ alignSelf: "center", color: "grey" }}>Book</Text>

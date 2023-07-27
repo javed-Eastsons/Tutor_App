@@ -38,7 +38,6 @@ import StarRating from "react-native-star-rating";
 import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { Dropdown } from "react-native-element-dropdown";
 import { Tutor_Qualification } from "../../../Redux/Actions/types";
-import TutorQualification from "../../TutorQualification";
 
 var selectArray = [];
 var selectFilter = [];

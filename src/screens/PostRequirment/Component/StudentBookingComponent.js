@@ -30,7 +30,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 //import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Loader } from "../../../common/Loader";
+import { Loader } from "../../../../../../common/Loader";
 var selectArray = [];
 var selectFilter = [];
 

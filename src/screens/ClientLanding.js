@@ -32,16 +32,19 @@ let jsonData = {
           short_name: "121005",
           types: ["postal_code"],
         },
+
         {
           long_name: "Faridabad",
           short_name: "Faridabad",
           types: ["locality", "political"],
         },
+
         {
           long_name: "Faridabad",
           short_name: "Faridabad",
           types: ["administrative_area_level_3", "political"],
         },
+
         {
           long_name: "Faridabad Division",
           short_name: "Faridabad Division",

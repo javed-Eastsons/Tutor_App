@@ -76,18 +76,6 @@ const HomeTution = () => {
       FirstName,
       "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
     );
-
-    let obj = {
-      Postal_Code: FirstName,
-      TutionType: "Home Tuition",
-      address: mapData?.formatted_address,
-    };
-    dispatch({
-      type: Tution_Type,
-      payload: obj,
-    });
-
-    console.log(obj, "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
   };
   if (mapData) {
     // console.log(mapData?.geometry?.location, "latlong");
@@ -105,6 +93,20 @@ const HomeTution = () => {
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     });
+
+    setAddress(mapData?.formatted_address);
+
+    let obj = {
+      Postal_Code: FirstName,
+      TutionType: "Home Tuition",
+      address: address,
+    };
+    dispatch({
+      type: Tution_Type,
+      payload: obj,
+    });
+
+    console.log(obj, "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
   };
 
   // if(mapData){

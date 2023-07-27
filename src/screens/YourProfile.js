@@ -67,7 +67,7 @@ const YourProfle = ({ props, route }) => {
 
   const [btnP, setBtnP] = useState(false);
   const dispatch = useDispatch();
-  console.log(imageSource, "imageSource0");
+  //  console.log(imageSource, "imageSource0");
   const requestPermission = () => {
     request(PERMISSIONS.IOS.CAMERA).then((result) => {
       console.log("requestPermission -> result", result);
@@ -84,7 +84,7 @@ const YourProfle = ({ props, route }) => {
       } else if (response.customButton) {
         console.log("User tapped custom button: ", response.customButton);
       } else {
-        console.log(response.assets[0].uri);
+        // console.log(response.assets[0].uri);
         setNewImg(response.assets[0].uri);
         AsyncStorage.setItem("profileImage", response.assets[0].uri);
       }
@@ -108,7 +108,7 @@ const YourProfle = ({ props, route }) => {
   toDataURL(newImg).then((dataUrl) => {
     var base64result = dataUrl.split(",")[1];
 
-    console.log("RESULT:", base64result);
+    // console.log("RESULT:", base64result);
     setImageSource(base64result);
     setImageSource1(dataUrl);
   });
@@ -123,7 +123,7 @@ const YourProfle = ({ props, route }) => {
       } else if (response.customButton) {
         console.log("User tapped custom button: ", response.customButton);
       } else {
-        console.log(response);
+        // console.log(response);
         setNewImg(response);
         AsyncStorage.setItem("profileImage", response);
       }

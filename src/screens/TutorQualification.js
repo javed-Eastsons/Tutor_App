@@ -446,62 +446,62 @@ const TutorQualification = ({ route }) => {
                 layout="row"
               />
             </View>
-            {feeOffer == "Place Offer" ? (
-              <View
+            {/* {feeOffer == "Place Offer" ? ( */}
+            <View
+              style={{
+                flexDirection: "row",
+                height: 50,
+                borderWidth: 0.5,
+                // backgroundColor: "#2F5597",
+                // marginTop: wp(5),
+                justifyContent: "center",
+              }}
+            >
+              <Text
                 style={{
-                  flexDirection: "row",
-                  height: 50,
-                  borderWidth: 0.5,
-                  // backgroundColor: "#2F5597",
-                  // marginTop: wp(5),
-                  justifyContent: "center",
+                  color: "#000",
+                  fontSize: 16,
+                  fontWeight: "600",
+                  alignSelf: "center",
                 }}
               >
-                <Text
-                  style={{
-                    color: "#000",
-                    fontSize: 16,
-                    fontWeight: "600",
-                    alignSelf: "center",
-                  }}
-                >
-                  SGD
-                </Text>
+                SGD
+              </Text>
 
-                <TextInput
-                  style={{
-                    height: 40,
-                    backgroundColor: "lightgrey",
-                    width: 70,
-                    color: "#000",
-                    fontSize: 18,
-                    marginRight: 4,
-                    marginLeft: 4,
-                    fontWeight: "500",
-                    justifyContent: "center",
-                    paddingTop: 5,
-                    alignSelf: "center",
-                  }}
-                  keyboardType="numeric"
-                  value={offerAmount}
-                  onChangeText={(text) => setofferAmount(text)}
-                  placeholderTextColor="#fff"
-                  placeholder="0.00"
-                />
-                <Text
-                  style={{
-                    color: "#000",
-                    fontSize: 16,
-                    fontWeight: "600",
-                    alignSelf: "center",
-                  }}
-                >
-                  / hour
-                </Text>
-              </View>
-            ) : (
+              <TextInput
+                style={{
+                  height: 40,
+                  backgroundColor: "lightgrey",
+                  width: 70,
+                  color: "#000",
+                  fontSize: 18,
+                  marginRight: 4,
+                  marginLeft: 4,
+                  fontWeight: "500",
+                  justifyContent: "center",
+                  paddingTop: 5,
+                  alignSelf: "center",
+                }}
+                keyboardType="numeric"
+                value={offerAmount}
+                onChangeText={(text) => setofferAmount(text)}
+                placeholderTextColor="#fff"
+                placeholder="0.00"
+              />
+              <Text
+                style={{
+                  color: "#000",
+                  fontSize: 16,
+                  fontWeight: "600",
+                  alignSelf: "center",
+                }}
+              >
+                / hour
+              </Text>
+            </View>
+            {/* ) : (
               <View />
-            )}
+            )} */}
           </View>
 
           <View

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
 import {
   SafeAreaView,
@@ -9,35 +9,34 @@ import {
   Button,
   ScrollView,
   TouchableOpacity,
-} from 'react-native';
-import AppIntroSlider from 'react-native-app-intro-slider';
-import {TextInput} from 'react-native-gesture-handler';
+} from "react-native";
+import AppIntroSlider from "react-native-app-intro-slider";
+import { TextInput } from "react-native-gesture-handler";
 // import { useIsFocused, useNavigation } from '@react-navigation/native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import {useIsFocused, useNavigation} from '@react-navigation/native';
-import {LoginUser} from '../Redux/Actions/Tutors';
-import {useDispatch, useSelector} from 'react-redux';
-import { Loader } from '../common/Loader';
+} from "react-native-responsive-screen";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { LoginUser } from "../Redux/Actions/Tutors";
+import { useDispatch, useSelector } from "react-redux";
+import { Loader } from "../common/Loader";
 
 const Login = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [Name, setName] = React.useState('');
+  const [Name, setName] = React.useState("");
 
-  const [showwhat, setshowwhat] = React.useState('email');
-  const [FirstName, setFirstName] = React.useState('');
-  const [LastName, setLastName] = React.useState('');
-  const [Password, setPassword] = React.useState('');
-  const [Mobile, setMobile] = React.useState('');
-  const [ConfirmEmail, setConfirmEmail] = React.useState('');
-  const [Email, setEmail] = React.useState('');
+  const [showwhat, setshowwhat] = React.useState("email");
+  const [FirstName, setFirstName] = React.useState("");
+  const [LastName, setLastName] = React.useState("");
+  const [Password, setPassword] = React.useState("");
+  const [Mobile, setMobile] = React.useState("");
+  const [ConfirmEmail, setConfirmEmail] = React.useState("");
+  const [Email, setEmail] = React.useState("");
   const [loader, setLoader] = React.useState(false);
 
-
-  const showwhatfunc = data => {
+  const showwhatfunc = (data) => {
     setshowwhat(data);
     console.log(data);
     // if (showwhat == 'email')
@@ -52,20 +51,22 @@ const Login = () => {
 
   const LoginTOApp = () => {
     //  console.log(FirstName, LastName, Password, Email, ConfirmEmail, Mobile);
-    setLoader(true)
-    dispatch(LoginUser(Mobile, Email, Password, navigation)).then(res=>setLoader(false)).catch(err=>console.log(err)).finally(()=>setLoader(false));
-     
-    console.log('sddddddddd');
+    setLoader(true);
+    dispatch(LoginUser(Mobile, Email, Password, navigation))
+      .then((res) => setLoader(false))
+      .catch((err) => console.log(err))
+      .finally(() => setLoader(false));
+
+    console.log("sddddddddd");
   };
 
   return (
     <View style={styles.container}>
-      <Loader
-      flag={loader}
-      />
+      <Loader flag={loader} />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{width: wp(90), alignSelf: 'center'}}>
+        style={{ width: wp(90), alignSelf: "center" }}
+      >
         <View style={styles.Headcontainer}>
           <Text style={styles.headtext}>Login</Text>
           <Text style={styles.Firsttext}>
@@ -81,42 +82,48 @@ const Login = () => {
         </View>
 
         {(() => {
-          if (showwhat == 'email') {
+          if (showwhat == "email") {
             return (
               <View style={styles.moblieSec}>
                 <TouchableOpacity
                   style={styles.emailtoch}
-                  onPress={() => showwhatfunc('mobile')}>
+                  onPress={() => showwhatfunc("mobile")}
+                >
                   <Text style={styles.ButtonText}>Mobile Number</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.mobiletoch}
-                  onPress={() => showwhatfunc('email')}>
+                  onPress={() => showwhatfunc("email")}
+                >
                   <Text style={styles.ButtonText}>Email</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.emailtoch}
-                  onPress={() => showwhatfunc('QR')}>
+                  onPress={() => showwhatfunc("QR")}
+                >
                   <Text style={styles.ButtonText}>QR Code</Text>
                 </TouchableOpacity>
               </View>
             );
-          } else if (showwhat == 'mobile') {
+          } else if (showwhat == "mobile") {
             return (
               <View style={styles.moblieSec}>
                 <TouchableOpacity
                   style={styles.mobiletoch}
-                  onPress={() => showwhatfunc('mobile')}>
+                  onPress={() => showwhatfunc("mobile")}
+                >
                   <Text style={styles.ButtonText}>Mobile Number</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.emailtoch}
-                  onPress={() => showwhatfunc('email')}>
+                  onPress={() => showwhatfunc("email")}
+                >
                   <Text style={styles.ButtonText}>Email</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.emailtoch}
-                  onPress={() => showwhatfunc('QR')}>
+                  onPress={() => showwhatfunc("QR")}
+                >
                   <Text style={styles.ButtonText}>QR Code</Text>
                 </TouchableOpacity>
               </View>
@@ -126,17 +133,20 @@ const Login = () => {
               <View style={styles.moblieSec}>
                 <TouchableOpacity
                   style={styles.emailtoch}
-                  onPress={() => showwhatfunc('mobile')}>
+                  onPress={() => showwhatfunc("mobile")}
+                >
                   <Text style={styles.ButtonText}>Mobile Number</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.emailtoch}
-                  onPress={() => showwhatfunc('email')}>
+                  onPress={() => showwhatfunc("email")}
+                >
                   <Text style={styles.ButtonText}>Email</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.mobiletoch}
-                  onPress={() => showwhatfunc('QR')}>
+                  onPress={() => showwhatfunc("QR")}
+                >
                   <Text style={styles.ButtonText}>QR Code</Text>
                 </TouchableOpacity>
               </View>
@@ -145,13 +155,13 @@ const Login = () => {
         })()}
 
         {(() => {
-          if (showwhat == 'email') {
+          if (showwhat == "email") {
             return (
               <View>
                 <View style={styles.searchSection}>
                   <Text style={styles.TextInputText}>Email Address</Text>
                   <TextInput
-                    onChangeText={text => {
+                    onChangeText={(text) => {
                       setEmail(text);
                     }}
                     placeholder="Your Name"
@@ -162,7 +172,7 @@ const Login = () => {
                 <View style={styles.searchSection}>
                   <Text style={styles.TextInputText}>Password</Text>
                   <TextInput
-                    onChangeText={text => {
+                    onChangeText={(text) => {
                       setPassword(text);
                     }}
                     secureTextEntry={true}
@@ -176,13 +186,13 @@ const Login = () => {
                 </View>
               </View>
             );
-          } else if (showwhat == 'mobile') {
+          } else if (showwhat == "mobile") {
             return (
               <View>
                 <View style={styles.searchSection}>
                   <Text style={styles.TextInputText}>Mobile Number</Text>
                   <TextInput
-                    onChangeText={text => {
+                    onChangeText={(text) => {
                       setMobile(text);
                     }}
                     placeholder="Mobile"
@@ -194,7 +204,7 @@ const Login = () => {
                 <View style={styles.searchSection}>
                   <Text style={styles.TextInputText}>Password</Text>
                   <TextInput
-                    onChangeText={text => {
+                    onChangeText={(text) => {
                       setPassword(text);
                     }}
                     secureTextEntry={true}
@@ -216,8 +226,8 @@ const Login = () => {
                 <View style={styles.ImageSec}>
                   <View style={styles.Profileimage}>
                     <Image
-                      source={require('../Assets/myQR.png')}
-                      style={{height: 100, width: 100}}
+                      source={require("../Assets/myQR.png")}
+                      style={{ height: 100, width: 100 }}
                     />
                   </View>
                 </View>
@@ -228,7 +238,8 @@ const Login = () => {
 
         <TouchableOpacity
           style={styles.RequsertButton}
-          onPress={() => LoginTOApp()}>
+          onPress={() => LoginTOApp()}
+        >
           <Text style={styles.ReqButtonText}>Sign In </Text>
         </TouchableOpacity>
       </ScrollView>
@@ -241,115 +252,115 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     padding: 25,
   },
   headtext: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#000',
+    fontWeight: "bold",
+    color: "#000",
     marginBottom: 10,
   },
   Firsttext: {
     fontSize: 14,
-    fontWeight: '600',
-    color: 'grey',
+    fontWeight: "600",
+    color: "grey",
     lineHeight: 20,
   },
 
   ImageSec: {
     height: hp(15),
     //  backgroundColor: "red",
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   Profileimage: {
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   input: {
     borderWidth: 1,
-    borderColor: '#D3D3D3',
+    borderColor: "#D3D3D3",
     borderRadius: 20,
     fontSize: 14,
-    width: wp('90%'),
+    width: wp("90%"),
     // fontFamily: 'SharpSansDispNo1-Semibold',
     paddingLeft: 12,
-    color: '#131313',
+    color: "#131313",
     height: 45,
   },
   searchSection: {
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     paddingBottom: 12,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: 5,
   },
   TermsCondition: {
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: "700",
     marginTop: 15,
   },
   TextInputText: {
-    color: '#131313',
+    color: "#131313",
     // fontFamily: 'SharpSansDispNo1-Book',
     fontSize: 14,
     lineHeight: 16,
     paddingBottom: 8,
   },
   ForgotText: {
-    textAlign: 'right',
+    textAlign: "right",
   },
   moblieSec: {
-    backgroundColor: 'lightgrey',
+    backgroundColor: "lightgrey",
     height: hp(8),
     borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 20,
     marginBottom: 30,
     width: wp(90),
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   mobiletoch: {
-    backgroundColor: '#2F5597',
+    backgroundColor: "#2F5597",
     width: wp(28),
     height: hp(6),
     borderRadius: 30,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   emailtoch: {
-    backgroundColor: 'lightgray',
+    backgroundColor: "lightgray",
     width: wp(30),
     height: hp(6),
-    justifyContent: 'center',
+    justifyContent: "center",
     borderRadius: 30,
   },
   ButtonText: {
-    color: '#fff',
-    textAlign: 'center',
+    color: "#fff",
+    textAlign: "center",
   },
   RequsertButton: {
-    backgroundColor: '#2F5597',
+    backgroundColor: "#2F5597",
     height: hp(7),
     borderRadius: 50,
 
     width: wp(90),
-    alignSelf: 'center',
+    alignSelf: "center",
     marginTop: hp(25),
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   ReqButtonText: {
-    color: '#fff',
-    textAlign: 'center',
+    color: "#fff",
+    textAlign: "center",
     fontSize: 18,
   },
   bottomcontent: {
-    justifyContent: 'center',
+    justifyContent: "center",
 
     marginTop: 0,
   },
   loginText: {
-    color: '#5E27DA',
+    color: "#5E27DA",
     fontSize: 14,
-    fontWeight: '700',
+    fontWeight: "700",
     paddingTop: 5,
   },
 });

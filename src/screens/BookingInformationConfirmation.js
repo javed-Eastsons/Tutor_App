@@ -46,6 +46,8 @@ const BookingInformationConfirmation = () => {
   const { Tution_Type } = useSelector((state) => state.TutorReducer);
   const { Student_Detail } = useSelector((state) => state.TutorReducer);
   const { Tutor_Qualification } = useSelector((state) => state.TutorReducer);
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
+  const { Tutor_Detail } = useSelector((state) => state.TutorReducer);
 
   const [tutiontype, setTutionType] = useState("tutiontype");
   const [qualification, setQualification] = useState("qualification");
@@ -66,7 +68,9 @@ const BookingInformationConfirmation = () => {
     Student_Detail,
     "Student_Detail",
     Tutor_Qualification,
-    "Tutor_Qualification"
+    "Tutor_Qualification",
+    Tutor_Detail,
+    "Tutor_Detail"
   );
 
   const BookTutorProcess = () => {
@@ -76,6 +80,8 @@ const BookingInformationConfirmation = () => {
         Student_Detail,
         Tutor_Qualification,
         Tutor_Schedule,
+        Login_Data,
+        Tutor_Detail,
         navigation
       )
     );

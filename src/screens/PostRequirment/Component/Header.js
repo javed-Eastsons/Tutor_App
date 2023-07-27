@@ -24,7 +24,7 @@ import {
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 //import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
-import { Loader } from "../../../common/Loader";
+import { Loader } from "../../../../../../common/Loader";
 
 const PostHeader = () => {
   const navigation = useNavigation();
@@ -81,7 +81,7 @@ const PostHeader = () => {
           </View>
           <View style={styles.LittlRight}>
             {/* <Image
-                source={require("../../../Assets/logogrey.png")}
+                source={require("../../../../../Assets/logogrey.png")}
                 //  resizeMode='contain'
                 style={styles.logoicon}
               /> */}
