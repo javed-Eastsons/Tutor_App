@@ -74,17 +74,18 @@ const BookingInformationConfirmation = () => {
   );
 
   const BookTutorProcess = () => {
-    dispatch(
-      BookTutor(
-        Tution_Type,
-        Student_Detail,
-        Tutor_Qualification,
-        Tutor_Schedule,
-        Login_Data,
-        Tutor_Detail,
-        navigation
-      )
-    );
+    navigation.navigate("MakeOffer");
+    // dispatch(
+    //   BookTutor(
+    //     Tution_Type,
+    //     Student_Detail,
+    //     Tutor_Qualification,
+    //     Tutor_Schedule,
+    //     Login_Data,
+    //     Tutor_Detail,
+    //     navigation
+    //   )
+    // );
   };
 
   return (

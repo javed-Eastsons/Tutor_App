@@ -66,7 +66,7 @@ const TutorQualification = ({ route }) => {
     {
       id: "1", // acts as primary key, should be unique and non-empty string
       label: "Place Offer",
-      value: "Place Offer",
+      value: "Non Negotiable",
     },
     {
       id: "2",
@@ -81,7 +81,7 @@ const TutorQualification = ({ route }) => {
     // setRadioButtons(radioButtonsArray);
     console.log("PK+++++++++++++++++++++K", selection);
     if (selection == true) {
-      setFeeOffer("Place Offer");
+      setFeeOffer("Non Negotiable");
     } else {
       setFeeOffer("Negotiable");
     }

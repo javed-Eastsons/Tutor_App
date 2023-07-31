@@ -36,13 +36,11 @@ import MultiSelect from "react-native-multiple-select";
 import StarRating from "react-native-star-rating";
 import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { Dropdown } from "react-native-element-dropdown";
-import { BookTutor } from "../Redux/Actions/TutorBooking";
 import moment from "moment";
-
 var selectArray = [];
 var selectFilter = [];
 
-const MakeOffer = ({ route }) => {
+const TutorAcceptCancel = ({ route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [userdata, setUserdata] = useState([]);
@@ -52,6 +50,9 @@ const MakeOffer = ({ route }) => {
   const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { Tutor_Qualification } = useSelector((state) => state.TutorReducer);
+  const { All_Booked_Tutor_Detail } = useSelector(
+    (state) => state.TutorBooingReducer
+  );
   console.log(
     Tutor_Qualification,
     "Tutor_QualificationTutor_QualificationTutor_Qualification"
@@ -131,36 +132,23 @@ const MakeOffer = ({ route }) => {
     selectFilter = Ex_array;
   };
 
-  const BookTutorProcess = () => {
-    // dispatch(
-    //   BookTutor(
-    //     Tution_Type,
-    //     Student_Detail,
-    //     Tutor_Qualification,
-    //     Tutor_Schedule,
-    //     Login_Data,
-    //     Tutor_Detail,
-    //     navigation
-    //   )
-    // );
-  };
-  // const SendRequest = (val) => {
-  //   setSendOffer(val);
+  const SendRequest = (val) => {
+    setSendOffer(val);
 
-  //   if (value == "Negotiable") {
-  //     navigation.navigate("Negotiate", {
-  //       amount: offerAmount,
-  //       mydate: date,
-  //       mytime: time,
-  //     });
-  //   } else {
-  //     navigation.navigate("NonNegotiate", {
-  //       amount: offerAmount,
-  //       mydate: date,
-  //       mytime: time,
-  //     });
-  //   }
-  // };
+    if (value == "Negotiable") {
+      navigation.navigate("Negotiate", {
+        amount: offerAmount,
+        mydate: date,
+        mytime: time,
+      });
+    } else {
+      navigation.navigate("NonNegotiate", {
+        amount: offerAmount,
+        mydate: date,
+        mytime: time,
+      });
+    }
+  };
 
   const createlevel = (data) => {
     console.log(data, ":::::::::::::::::::::::::");
@@ -184,6 +172,7 @@ const MakeOffer = ({ route }) => {
     }
     console.log("Level????????????????", selectFilter);
   };
+
   console.log(offerAmount, "ADAWDQWD");
   useEffect(() => {
     // console.log(route.params.postalcode, route.params.tuition_type)
@@ -196,24 +185,32 @@ const MakeOffer = ({ route }) => {
     );
   }, [offerAmount]);
 
+  const BookTutorProcess = () => {};
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.Headers}>
         <View style={styles.HeadLeft}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <Image
-              source={require("../Assets/baricon.png")}
+              source={require("../../Assets/baricon.png")}
               style={styles.icons}
             />
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
-          <Image source={require("../Assets/bell.png")} style={styles.icons} />
           <Image
-            source={require("../Assets/search.png")}
+            source={require("../../Assets/bell.png")}
             style={styles.icons}
           />
-          <Image source={require("../Assets/chat.png")} style={styles.icons} />
+          <Image
+            source={require("../../Assets/search.png")}
+            style={styles.icons}
+          />
+          <Image
+            source={require("../../Assets/chat.png")}
+            style={styles.icons}
+          />
         </View>
       </View>
       <View style={styles.HeaderContainer}>
@@ -222,7 +219,7 @@ const MakeOffer = ({ route }) => {
       <View style={styles.Container}>
         <View style={styles.LeftImageContainer}>
           <Image
-            source={require("../Assets/user.png")}
+            source={require("../../Assets/user.png")}
             style={styles.leftImage}
           />
         </View>
@@ -293,7 +290,7 @@ const MakeOffer = ({ route }) => {
             }}
           >
             <Image
-              source={require("../Assets/Dollar.png")}
+              source={require("../../Assets/Dollar.png")}
               style={styles.Dollaricons}
             />
             <Text
@@ -304,7 +301,7 @@ const MakeOffer = ({ route }) => {
                 color: "#2F5597",
               }}
             >
-              Your Offer
+              Client's Offer
             </Text>
 
             <View
@@ -324,38 +321,9 @@ const MakeOffer = ({ route }) => {
                   alignSelf: "center",
                 }}
               >
-                SGD
+                SGD {All_Booked_Tutor_Detail[0].tutor_tution_offer_amount}
               </Text>
-              <Text
-                style={{
-                  color: "#fff",
-                  fontSize: 16,
-                  width: 45,
-                  fontWeight: "600",
-                  alignSelf: "center",
-                  textAlign: "center",
-                }}
-              >
-                {Tutor_Qualification.FeeOffer}
-              </Text>
-              {/* <TextInput
-                style={{
-                  height: 40,
-                  backgroundColor: "#2F5597",
-                  width: 45,
-                  color: "#fff",
-                  fontSize: 18,
-                  marginRight: 4,
-                  fontWeight: "500",
-                  alignSelf: "center",
-                }}
-                keyboardType="numeric"
-                value={offerAmount}
-                // value={Tutor_Qualification.FeeOffer}
-                onChangeText={(text) => setofferAmount(text)}
-                placeholderTextColor="#fff"
-                placeholder="0.00"
-              /> */}
+
               <Text
                 style={{
                   color: "#fff",
@@ -375,167 +343,16 @@ const MakeOffer = ({ route }) => {
                 marginTop: wp(3),
               }}
             >
-              {value}
+              {All_Booked_Tutor_Detail[0].tutor_tution_offer_amount_type}
             </Text>
           </View>
-
-          {/* <View style={styles.MainContainer}>
-         
-
-            {datePicker && (
-              <DateTimePicker
-                value={date}
-                mode={"date"}
-                display={Platform.OS === "ios" ? "spinner" : "default"}
-                is24Hour={true}
-                onChange={onDateSelected}
-                style={styles.datePicker}
-              />
-            )}
-
-            {timePicker && (
-              <DateTimePicker
-                value={time}
-                mode={"time"}
-                display={Platform.OS === "ios" ? "spinner" : "default"}
-                is24Hour={false}
-                onChange={onTimeSelected}
-                style={styles.datePicker}
-              />
-            )}
-
-            {!datePicker && (
-              <View
-                style={{
-                  marginLeft: 10,
-                  marginBottom: 10,
-                  alignSelf: "flex-start",
-                }}
-              >
-                <Button
-                  title="Select Date"
-                  color="#2F5597"
-                  onPress={showDatePicker}
-                />
-              </View>
-            )}
-
-            {!timePicker && (
-              <View style={{ marginLeft: 10, alignSelf: "flex-start" }}>
-                <Button
-                  title="Select Time"
-                  color="#2F5597"
-                  onPress={showTimePicker}
-                />
-              </View>
-            )}
-          </View> */}
-
-          {/* <View
-            style={{
-              marginTop: wp(5),
-              height: wp(12),
-              backgroundColor: "#2F5597",
-              borderColor: "#2F5597",
-              borderWidth: 1,
-              flexDirection: "row",
-            }}
-          >
-            <Text
-              style={{
-                width: wp(45),
-                backgroundColor: "#2F5597",
-                color: "#fff",
-                fontSize: 15,
-                fontWeight: "500",
-                margin: 10,
-                marginLeft: 20,
-              }}
-            >
-              Your Start Date/Time
-            </Text>
-            <View
-              style={{
-                width: wp(45),
-                height: wp(8),
-                alignSelf: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Text style={{ color: "#fff", fontSize: 15, fontWeight: "500" }}>
-                {moment(date.toString()).format("ddd,MMMM Do")}{" "}
-                {moment(time.toLocaleTimeString("en-US"), "HH:mm").format(
-                  "hh:mm A"
-                )}
-              </Text>
-            </View>
-          </View> */}
-
-          {sendOffer == 0 ? (
-            <View
-              style={{
-                marginTop: wp(5),
-                height: wp(12),
-                borderColor: "#2F5597",
-                borderWidth: 1,
-                flexDirection: "row",
-              }}
-            >
-              <Text
-                style={{
-                  width: wp(48),
-                  color: "#2F5597",
-                  fontSize: 16,
-                  fontWeight: "500",
-                  margin: 10,
-                  marginLeft: 20,
-                }}
-              >
-                SGD {offerAmount}.00 / hour
-              </Text>
-              <View
-                style={{
-                  width: wp(40),
-                  height: wp(9),
-                  borderWidth: 1,
-                  borderColor: "#2F5597",
-                  alignSelf: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Dropdown
-                  style={[styles.dropdown, isFocus && { borderColor: "black" }]}
-                  placeholderStyle={{ fontSize: 16, color: "#2F5597" }}
-                  selectedTextStyle={styles.selectedTextStyle}
-                  itemTextStyle={{ color: "#2F5597" }}
-                  iconStyle={styles.iconStyle}
-                  data={data1}
-                  labelField="label"
-                  valueField="label"
-                  allowFontScaling={false}
-                  //   maxHeight={100}
-                  placeholder={!isFocus ? " Negotiable " : "..."}
-                  value={value}
-                  onFocus={() => setIsFocus(true)}
-                  onBlur={() => setIsFocus(false)}
-                  onChange={(item) => {
-                    setValue(item.label);
-                    setIsFocus(false);
-                  }}
-                />
-                {console.log("country=" + value)}
-              </View>
-            </View>
-          ) : (
-            <View />
-          )}
         </ScrollView>
         <View
           style={{
             height: "10%",
             width: "100%",
             position: "absolute",
-            bottom: -30,
+            bottom: 5,
             flexDirection: "row",
             alignSelf: "center",
           }}
@@ -553,31 +370,27 @@ const MakeOffer = ({ route }) => {
           >
             <Text style={styles.BookText5}>Cancel Booking</Text>
           </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => BookTutorProcess()}
-            // onPress={
-            //   () => SendRequest(1)
-
-            //   // navigation.navigate('')
-            // }
+            //  onPress={() => navigation.navigate("MakeOffer")}
             style={{
               height: "100%",
               width: "50%",
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor:
-                offerAmount == 0 || sendOffer == 1 ? "#fff" : "#F6BE00",
+              backgroundColor: "#F6BE00",
               borderRadius: 3,
             }}
           >
-            <Text style={styles.infoText1}>Next</Text>
+            <Text style={styles.infoText1}>Accept</Text>
           </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
   );
 };
-export default MakeOffer;
+export default TutorAcceptCancel;
 const styles = StyleSheet.create({
   Headers: {
     height: hp(5),

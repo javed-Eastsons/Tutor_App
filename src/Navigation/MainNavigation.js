@@ -75,6 +75,7 @@ import PostTutorQualification from "../screens/PostRequirment/PostTutorQualifict
 import PostTutorSchedule from "../screens/PostRequirment/PostTutorSchedule";
 import PostSummary from "../screens/PostRequirment/PostSummary";
 import TutorBookingConfirmation from "../screens/TutorBooking/TutorBookingConfirmation";
+import TutorAcceptCancel from "../screens/TutorBooking/TutorAcceptCancel";
 
 const SignStack = createStackNavigator();
 
@@ -1312,6 +1313,25 @@ function TutorHomeStacknavigation() {
       />
 
       <TutorHomeStack.Screen
+        name="TutorAcceptCancel"
+        component={TutorAcceptCancel}
+        options={{
+          title: "TutorAcceptCancel",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <TutorHomeStack.Screen
         name="TutorBookingConfirmation"
         component={TutorBookingConfirmation}
         options={{
@@ -1492,6 +1512,25 @@ function TutorHomeStacknavigation4() {
         component={MyBookingTutor}
         options={{
           title: "MyBookingTutor",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <TutorHomeStack.Screen
+        name="TutorAcceptCancel"
+        component={TutorAcceptCancel}
+        options={{
+          title: "TutorAcceptCancel",
 
           headerStyle: {
             backgroundColor: "#e85b3d",

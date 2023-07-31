@@ -41,6 +41,9 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import MultiSelect from "react-native-multiple-select";
 import StarRating from "react-native-star-rating";
 import ReadMore from "react-native-read-more-text";
+import { Booking_Detail } from "../../Redux/Actions/types";
+import { GetBookedTutorDetail } from "../../Redux/Actions/TutorBooking";
+
 var selectArray = [];
 var selectFilter = [];
 
@@ -72,6 +75,7 @@ const MyBookingTutor = ({ props, route }) => {
   const { All_Booked_Student } = useSelector(
     (state) => state.TutorBooingReducer
   );
+
   const { Login_Data } = useSelector((state) => state.TutorReducer);
   console.log(
     "🚀 ~ file: OurTutor.js ~ line 62 ~ OurTutor ~ GET_QUICK_DATA",
@@ -864,6 +868,26 @@ const MyBookingTutor = ({ props, route }) => {
     setTabs(val);
   };
 
+  const GotTOProceed = (stid, BId) => {
+    console.log(stid, BId, "IDDDDDDD");
+
+    let obj = {
+      studentid: stid,
+      BookingId: BId,
+    };
+
+    dispatch({
+      type: Booking_Detail,
+      payload: obj,
+    });
+
+    dispatch(GetBookedTutorDetail(obj, navigation));
+    navigation.navigate("TutorBookingConfirmation", {
+      // amount: offerAmount,
+      // youramount: youroffer
+    });
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -934,6 +958,7 @@ const MyBookingTutor = ({ props, route }) => {
               <View />
             )}
           </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => setTabFunc("Completed")}
             style={{
@@ -1109,6 +1134,7 @@ const MyBookingTutor = ({ props, route }) => {
                         style={{ height: 20, width: 20 }}
                       />
                     </TouchableOpacity>
+
                     <TouchableOpacity
                       // onPress={() => navigation.navigate('')}
                       style={{
@@ -1122,12 +1148,13 @@ const MyBookingTutor = ({ props, route }) => {
                     >
                       <Text style={styles.BookText5}>Cancel Booking</Text>
                     </TouchableOpacity>
+
                     <TouchableOpacity
                       onPress={() =>
-                        navigation.navigate("TutorBookingConfirmation", {
-                          // amount: offerAmount,
-                          // youramount: youroffer
-                        })
+                        GotTOProceed(
+                          item.tutor_id,
+                          item.tutor_booking_process_id
+                        )
                       }
                       style={{
                         height: "100%",

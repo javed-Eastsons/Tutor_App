@@ -37,7 +37,7 @@ import StarRating from "react-native-star-rating";
 import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { Dropdown } from "react-native-element-dropdown";
 import CheckBox from "@react-native-community/checkbox";
-import { BookTutor } from "../../Redux/Actions/TutorBooking";
+import { GetBookedTutorDetail } from "../../Redux/Actions/TutorBooking";
 
 const BookingInformationConfirmation = () => {
   const navigation = useNavigation();
@@ -48,6 +48,19 @@ const BookingInformationConfirmation = () => {
   const { Tutor_Qualification } = useSelector((state) => state.TutorReducer);
   const { Login_Data } = useSelector((state) => state.TutorReducer);
   const { Tutor_Detail } = useSelector((state) => state.TutorReducer);
+  const { Booking_Detail } = useSelector((state) => state.TutorBooingReducer);
+  const { All_Booked_Tutor_Detail } = useSelector(
+    (state) => state.TutorBooingReducer
+  );
+
+  console.log(
+    All_Booked_Tutor_Detail,
+    "All_Booked_Tutor_DetailAll_Booked_Tutor_DetailAll_Booked_Tutor_Detail"
+  );
+  console.log(
+    Booking_Detail,
+    "Booking_DetailBooking_DetailBooking_DetailBooking_Detail"
+  );
 
   const [tutiontype, setTutionType] = useState("tutiontype");
   const [qualification, setQualification] = useState("qualification");
@@ -55,36 +68,48 @@ const BookingInformationConfirmation = () => {
   const [offerprice, setOfferPrice] = useState("offerprice");
   const [timeslots, setTimeSlots] = useState("timeslots");
   const [currentTab, setCurrentTab] = useState("tutiontype");
+  const [allBookedDetail, setAllBookedDetail] = useState([]);
 
   const SelectTab = (selectedval) => {
     setCurrentTab(selectedval);
   };
 
-  console.log(
-    Tutor_Schedule,
-    "Tutor_ScheduleTutor_ScheduleTutor_ScheduleTutor_Schedule",
-    Tution_Type,
-    "Tution_Type",
-    Student_Detail,
-    "Student_Detail",
-    Tutor_Qualification,
-    "Tutor_Qualification",
-    Tutor_Detail,
-    "Tutor_Detail"
-  );
+  // console.log(
+  //   Tutor_Schedule,
+  //   "Tutor_ScheduleTutor_ScheduleTutor_ScheduleTutor_Schedule",
+  //   Tution_Type,
+  //   "Tution_Type",
+  //   Student_Detail,
+  //   "Student_Detail",
+  //   Tutor_Qualification,
+  //   "Tutor_Qualification",
+  //   Tutor_Detail,
+  //   "Tutor_Detail"
+  // );
+
+  useEffect(() => {
+    setAllBookedDetail(All_Booked_Tutor_Detail);
+  }, [All_Booked_Tutor_Detail]);
+
+  // console.log(
+  //   allBookedDetail,
+  //   "dddddddddddddddddd",
+  //   All_Booked_Tutor_Detail[0].user_type
+  // );
 
   const BookTutorProcess = () => {
-    dispatch(
-      BookTutor(
-        Tution_Type,
-        Student_Detail,
-        Tutor_Qualification,
-        Tutor_Schedule,
-        Login_Data,
-        Tutor_Detail,
-        navigation
-      )
-    );
+    navigation.navigate("TutorAcceptCancel");
+    // dispatch(
+    //   BookTutor(
+    //     Tution_Type,
+    //     Student_Detail,
+    //     Tutor_Qualification,
+    //     Tutor_Schedule,
+    //     Login_Data,
+    //     Tutor_Detail,
+    //     navigation
+    //   )
+    // );
   };
 
   return (
@@ -149,6 +174,27 @@ const BookingInformationConfirmation = () => {
           Step 1 of 5: Booking Information required
         </Text>
       </View>
+      <View
+        style={{
+          height: hp(7),
+          width: "95%",
+          //justifyContent: "center",
+          // alignItems: "center",
+          // backgroundColor: "#F2F2F2",
+          justifyContent: "center",
+          alignSelf: "center",
+          //paddingRight: 5
+          // flexDirection: 'row',
+        }}
+      >
+        <Text style={styles.BookText3}>
+          Message:
+          <Text style={styles.BookText4}>
+            The client is interested in hiring you. Accept to proceed to fee &
+            start date negotiation/confirmation.Cancel to turn down offer.
+          </Text>
+        </Text>
+      </View>
 
       <View style={[styles.Bookcard, styles.BookshadowProp]}>
         <View
@@ -168,7 +214,9 @@ const BookingInformationConfirmation = () => {
                 padding: 10,
               }}
             >
-              <Text style={styles.BookText1}>{Tution_Type.tuition_type}</Text>
+              <Text style={styles.BookText1}>
+                {All_Booked_Tutor_Detail[0]?.tuition_type}
+              </Text>
             </View>
             <View
               style={{
@@ -272,7 +320,11 @@ const BookingInformationConfirmation = () => {
               <View
                 style={{ height: 20, width: "70%", justifyContent: "center" }}
               >
-                <Text style={styles.Information}>{Student_Detail.Level}</Text>
+                <Text style={styles.Information}>
+                  {All_Booked_Tutor_Detail[0]?.tutor_id}
+                  {All_Booked_Tutor_Detail[0]?.first_name}
+                  {All_Booked_Tutor_Detail[0]?.last_name}
+                </Text>
               </View>
               <View
                 style={{ height: 20, width: "70%", justifyContent: "center" }}
@@ -340,14 +392,17 @@ const BookingInformationConfirmation = () => {
         ) : currentTab == "qualification" ? (
           <View style={{ height: 120, width: "100%", padding: 10 }}>
             <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
-              {Tutor_Qualification.TutorQualification &&
-                Tutor_Qualification.TutorQualification.map((item) => {
-                  return (
-                    <Text key={item} style={styles.Information}>
-                      {item.qualification}
-                    </Text>
-                  );
-                })}
+              {All_Booked_Tutor_Detail[0]
+                ?.Tutor_booking_process_qualification &&
+                All_Booked_Tutor_Detail[0]?.Tutor_booking_process_qualification.map(
+                  (item) => {
+                    return (
+                      <Text key={item} style={styles.Information}>
+                        {item.Tutor_Qualification}
+                      </Text>
+                    );
+                  }
+                )}
               <TouchableOpacity
                 style={{
                   height: 30,
@@ -379,10 +434,10 @@ const BookingInformationConfirmation = () => {
                 style={{ height: 20, width: "70%", justifyContent: "center" }}
               >
                 <Text style={styles.Information}>
-                  {Tutor_Qualification.duration}
+                  {All_Booked_Tutor_Detail[0]?.tutor_duration_weeks}
                 </Text>
                 <Text style={styles.Information}>
-                  {Tutor_Qualification.frequency}
+                  {All_Booked_Tutor_Detail[0]?.tutor_duration_hours}
                 </Text>
               </View>
               <TouchableOpacity
@@ -416,7 +471,7 @@ const BookingInformationConfirmation = () => {
                 style={{ height: 20, width: "70%", justifyContent: "center" }}
               >
                 <Text style={styles.Information}>
-                  {Tutor_Qualification.FeeOffer}
+                  {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount}
                 </Text>
               </View>
               <TouchableOpacity
@@ -438,7 +493,7 @@ const BookingInformationConfirmation = () => {
                 style={{ height: 20, width: "70%", justifyContent: "center" }}
               >
                 <Text style={styles.Information}>
-                  {Tutor_Qualification.feetype}
+                  {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount_type}
                 </Text>
               </View>
               <TouchableOpacity
@@ -468,14 +523,16 @@ const BookingInformationConfirmation = () => {
         ) : (
           <View style={{ height: 120, width: "100%", padding: 10 }}>
             <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
-              {Tutor_Schedule.Tutor_schedules &&
-                Tutor_Schedule.Tutor_schedules.map((item) => {
-                  return (
-                    <Text key={item} style={styles.Information}>
-                      {item.tutor_schedule}
-                    </Text>
-                  );
-                })}
+              {All_Booked_Tutor_Detail[0]?.Booking_process_TutorSchedule &&
+                All_Booked_Tutor_Detail[0]?.Booking_process_TutorSchedule.map(
+                  (item) => {
+                    return (
+                      <Text key={item} style={styles.Information}>
+                        {item.tutor_schedule}
+                      </Text>
+                    );
+                  }
+                )}
               {Tutor_Schedule.tutor_schedule_time &&
                 Tutor_Schedule.tutor_schedule_time.map((item) => {
                   return (
@@ -533,6 +590,7 @@ const BookingInformationConfirmation = () => {
           >
             <Text style={styles.BookText5}>Cancel Booking</Text>
           </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => BookTutorProcess()}
             //  onPress={() => navigation.navigate("MakeOffer")}
@@ -545,7 +603,7 @@ const BookingInformationConfirmation = () => {
               borderRadius: 3,
             }}
           >
-            <Text style={styles.infoText1}>Next</Text>
+            <Text style={styles.infoText1}>Accept</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -641,6 +699,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     justifyContent: "center",
     alignItems: "center",
+  },
+  BookText4: {
+    fontSize: 12,
+    color: "#C0C0C0",
+    margin: 10,
+    fontWeight: "bold",
+  },
+  BookText3: {
+    fontSize: 14,
+    color: "white",
+    fontWeight: "bold",
+    color: "red",
   },
   shadowPropLeft: {
     shadowOffset: { width: 0, height: 2 },
