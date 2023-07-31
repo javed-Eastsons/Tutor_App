@@ -215,7 +215,7 @@ const BookingInformationConfirmation = () => {
               }}
             >
               <Text style={styles.BookText1}>
-                {All_Booked_Tutor_Detail[0]?.tuition_type}
+                {All_Booked_Tutor_Detail[0]?.student_tution_type}
               </Text>
             </View>
             <View
@@ -321,9 +321,10 @@ const BookingInformationConfirmation = () => {
                 style={{ height: 20, width: "70%", justifyContent: "center" }}
               >
                 <Text style={styles.Information}>
-                  {All_Booked_Tutor_Detail[0]?.tutor_id}
-                  {All_Booked_Tutor_Detail[0]?.first_name}
-                  {All_Booked_Tutor_Detail[0]?.last_name}
+                  {All_Booked_Tutor_Detail[0]?.student_level}
+                </Text>
+                <Text style={styles.Information}>
+                  {All_Booked_Tutor_Detail[0]?.student_grade}
                 </Text>
               </View>
               <View

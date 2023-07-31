@@ -21,7 +21,7 @@ export const GetBookedTutorDetail = (bookingData, navigation) => {
   return async (dispatch, getState) => {
     const url1 =
       "https://refuel.site/projects/tutorapp/APIs/TutorList/BookedBySingleTutorDetails.php?tutor_id=" +
-      bookingData?.studentid +
+      bookingData?.tutorId +
       "&tutor_booking_process_id=" +
       bookingData?.BookingId;
 

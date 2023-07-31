@@ -868,12 +868,13 @@ const MyBookingTutor = ({ props, route }) => {
     setTabs(val);
   };
 
-  const GotTOProceed = (stid, BId) => {
-    console.log(stid, BId, "IDDDDDDD");
+  const GotTOProceed = (Tutid, BId, stId) => {
+    console.log(Tutid, BId, stId, "IDDDDDDD");
 
     let obj = {
-      studentid: stid,
+      tutorId: Tutid,
       BookingId: BId,
+      StudentID: stId,
     };
 
     dispatch({
@@ -1153,7 +1154,8 @@ const MyBookingTutor = ({ props, route }) => {
                       onPress={() =>
                         GotTOProceed(
                           item.tutor_id,
-                          item.tutor_booking_process_id
+                          item.tutor_booking_process_id,
+                          item.student_id
                         )
                       }
                       style={{

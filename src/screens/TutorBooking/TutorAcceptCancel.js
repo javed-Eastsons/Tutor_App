@@ -50,14 +50,13 @@ const TutorAcceptCancel = ({ route }) => {
   const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { Tutor_Qualification } = useSelector((state) => state.TutorReducer);
+  const { Booking_Detail } = useSelector((state) => state.TutorBooingReducer);
   const { All_Booked_Tutor_Detail } = useSelector(
     (state) => state.TutorBooingReducer
   );
-  console.log(
-    Tutor_Qualification,
-    "Tutor_QualificationTutor_QualificationTutor_Qualification"
-  );
+
   const [isFocus, setIsFocus] = useState(false);
+
   const data1 = [
     { label: "Negotiable", value: "1" },
     { label: "Non-Negotiable", value: "2" },
@@ -185,7 +184,13 @@ const TutorAcceptCancel = ({ route }) => {
     );
   }, [offerAmount]);
 
-  const BookTutorProcess = () => {};
+  const TutorAcceptCancel = (Offerstatus) => {
+    console.log(
+      Booking_Detail,
+      Offerstatus,
+      "Booking_DetailBooking_DetailBooking_Detail"
+    );
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -335,6 +340,7 @@ const TutorAcceptCancel = ({ route }) => {
                 / hour
               </Text>
             </View>
+
             <Text
               style={{
                 textAlign: "center",
@@ -372,7 +378,7 @@ const TutorAcceptCancel = ({ route }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => BookTutorProcess()}
+            onPress={() => TutorAcceptCancel("Accept")}
             //  onPress={() => navigation.navigate("MakeOffer")}
             style={{
               height: "100%",
