@@ -14,6 +14,7 @@ import {
   TouchableHighlight,
   Modal,
   ImageBase,
+  ActivityIndicator,
 } from "react-native";
 import axios from "axios";
 import AppIntroSlider from "react-native-app-intro-slider";
@@ -43,6 +44,7 @@ import StarRating from "react-native-star-rating";
 import ReadMore from "react-native-read-more-text";
 import { Booking_Detail } from "../../Redux/Actions/types";
 import { GetBookedTutorDetail } from "../../Redux/Actions/TutorBooking";
+import { Loader } from "../../common/Loader";
 
 var selectArray = [];
 var selectFilter = [];
@@ -95,6 +97,7 @@ const MyBookingTutor = ({ props, route }) => {
   const [SelectedStream, setSelectedStream] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState([]);
   const [selected, setSelected] = useState([]);
+  const [loader, setLoader] = React.useState(false);
 
   const renderList = ({ item, index }) => {
     const { id, Tutoring_Level, Tutoring_Subjects } = item;
@@ -469,7 +472,7 @@ const MyBookingTutor = ({ props, route }) => {
     { label: "Music", value: "Music" },
     { label: "Computing", value: "Computing" },
   ];
-
+  console.log(allBookedStudent, "him");
   const grade_list = [
     // { label: 'Select One Option', value: 'Select One Option' },
     { label: "P1", value: "P1" },
@@ -502,9 +505,11 @@ const MyBookingTutor = ({ props, route }) => {
   ]);
 
   useEffect(() => {
-    console.log("!!!!!!! ", All_Booked_Student);
-
-    setAllBookedStudent(All_Booked_Student);
+    setLoader(true);
+    setTimeout(() => {
+      setAllBookedStudent(All_Booked_Student);
+      setLoader(false);
+    }, 2000);
   }, [All_Booked_Student]);
 
   useEffect(() => {
@@ -513,9 +518,27 @@ const MyBookingTutor = ({ props, route }) => {
     dispatch(GetBookedStudentList(Login_Data, navigation));
   }, []);
 
-  useEffect(() => {
-    setAllBookedStudent(All_Booked_Student);
-  }, [All_Booked_Student]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setAllBookedStudent(All_Booked_Student);
+  //   }, 2000);
+  // }, [All_Booked_Student]);
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      setLoader(true);
+      setTimeout(() => {
+        dispatch(GetBookedStudentList(Login_Data, navigation));
+        setAllBookedStudent(All_Booked_Student);
+        setLoader(false);
+      }, 5000);
+
+      // Call any action
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation, setAllBookedStudent]);
 
   const setPrimaryFun = () => {
     if (Primary == "") {
@@ -868,8 +891,12 @@ const MyBookingTutor = ({ props, route }) => {
     setTabs(val);
   };
 
-  const GotTOProceed = (Tutid, BId, stId) => {
-    console.log(Tutid, BId, stId, "IDDDDDDD");
+  const ViewDetails = () => {
+    navigation.navigate("TutorAcceptCancel");
+  };
+
+  const GotTOProceed = (Tutid, BId, stId, bookingstatus) => {
+    console.log(Tutid, BId, stId, bookingstatus, "IDDDDDDD");
 
     let obj = {
       tutorId: Tutid,
@@ -883,1108 +910,1162 @@ const MyBookingTutor = ({ props, route }) => {
     });
 
     dispatch(GetBookedTutorDetail(obj, navigation));
-    navigation.navigate("TutorBookingConfirmation", {
-      // amount: offerAmount,
-      // youramount: youroffer
-    });
+    navigation.navigate("TutorBookingConfirmation", { bookingID: BId });
   };
 
-  return (
-    <>
+  if (loader) {
+    return (
       <View style={styles.container}>
-        <View style={styles.Headers}>
-          <View style={styles.HeadLeft}>
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <ActivityIndicator
+          size="large"
+          style={{
+            alignSelf: "center",
+          }}
+        />
+      </View>
+    );
+  } else {
+    return (
+      <>
+        <View style={styles.container}>
+          <View style={styles.Headers}>
+            <View style={styles.HeadLeft}>
+              <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                <Image
+                  source={require("../../Assets/baricon.png")}
+                  style={styles.icons}
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.HeadRight}>
               <Image
-                source={require("../../Assets/baricon.png")}
+                source={require("../../Assets/bell.png")}
                 style={styles.icons}
               />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.HeadRight}>
-            <Image
-              source={require("../../Assets/bell.png")}
-              style={styles.icons}
-            />
 
-            <Image
-              source={require("../../Assets/search.png")}
-              style={styles.icons}
-            />
-            <Image
-              source={require("../../Assets/chat.png")}
-              style={styles.icons}
-            />
-          </View>
-        </View>
-
-        <View style={styles.LittlemoreContainer}>
-          <View style={styles.LittlLeft}>
-            <Text style={styles.Text1}>My Booking</Text>
-          </View>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            backgroundColor: "#C5C5C5",
-            width: wp(100),
-          }}
-        >
-          <TouchableOpacity
-            style={{
-              width: wp(50),
-              alignContent: "center",
-              height: hp(8),
-              justifyContent: "center",
-              borderRightWidth: 1,
-              borderColor: "puple",
-              borderStyle: "dotted",
-            }}
-            onPress={() => setTabFunc("InProgress")}
-          >
-            <Text style={{ textAlign: "center", color: "purple" }}>
-              In Progress
-            </Text>
-            {Tabs == "InProgress" ? (
-              <View
-                style={{
-                  width: wp(20),
-                  borderBottomColor: "red",
-                  borderBottomWidth: 3,
-                  alignSelf: "center",
-                  paddingVertical: hp(0.5),
-                }}
-              ></View>
-            ) : (
-              <View />
-            )}
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => setTabFunc("Completed")}
-            style={{
-              width: wp(50),
-              alignContent: "center",
-              height: hp(8),
-              justifyContent: "center",
-              borderRightWidth: 1,
-              borderColor: "puple",
-              borderStyle: "dotted",
-            }}
-          >
-            <Text style={{ textAlign: "center" }}>Completed</Text>
-            {Tabs == "Completed" ? (
-              <View
-                style={{
-                  width: wp(20),
-                  borderBottomColor: "red",
-                  borderBottomWidth: 3,
-                  alignSelf: "center",
-                  paddingVertical: hp(0.5),
-                }}
-              ></View>
-            ) : (
-              <View />
-            )}
-          </TouchableOpacity>
-        </View>
-
-        {Tabs == "InProgress" ? (
-          <>
-            <View style={{ backgroundColor: "purple", height: hp(5) }}>
-              <Text
-                style={{
-                  color: "#fff",
-                  fontWeight: "700",
-                  fontSize: 14,
-                  marginLeft: 4,
-                }}
-              >
-                Client has made you a fee offer
-              </Text>
+              <Image
+                source={require("../../Assets/search.png")}
+                style={styles.icons}
+              />
+              <Image
+                source={require("../../Assets/chat.png")}
+                style={styles.icons}
+              />
             </View>
-            <View
+          </View>
+
+          <View style={styles.LittlemoreContainer}>
+            <View style={styles.LittlLeft}>
+              <Text style={styles.Text1}>My Booking</Text>
+            </View>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              backgroundColor: "#C5C5C5",
+              width: wp(100),
+            }}
+          >
+            <TouchableOpacity
               style={{
-                height: hp(7),
-                width: "100%",
-                //justifyContent: "center",
-                // alignItems: "center",
-                // backgroundColor: "#F2F2F2",
-                marginLeft: 5,
-                //paddingRight: 5
-                // flexDirection: 'row',
+                width: wp(50),
+                alignContent: "center",
+                height: hp(8),
+                justifyContent: "center",
+                borderRightWidth: 1,
+                borderColor: "puple",
+                borderStyle: "dotted",
+              }}
+              onPress={() => setTabFunc("InProgress")}
+            >
+              <Text style={{ textAlign: "center", color: "purple" }}>
+                In Progress
+              </Text>
+              {Tabs == "InProgress" ? (
+                <View
+                  style={{
+                    width: wp(20),
+                    borderBottomColor: "red",
+                    borderBottomWidth: 3,
+                    alignSelf: "center",
+                    paddingVertical: hp(0.5),
+                  }}
+                ></View>
+              ) : (
+                <View />
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => setTabFunc("Completed")}
+              style={{
+                width: wp(50),
+                alignContent: "center",
+                height: hp(8),
+                justifyContent: "center",
+                borderRightWidth: 1,
+                borderColor: "puple",
+                borderStyle: "dotted",
               }}
             >
-              <Text style={styles.BookText3}>
-                Instructions:
-                <Text style={styles.BookText4}>
-                  Client is interested in engaging your service and has made you
-                  a fee offer.If you are interested,you may accept this offer or
-                  negotiate the fee.
+              <Text style={{ textAlign: "center" }}>Completed</Text>
+              {Tabs == "Completed" ? (
+                <View
+                  style={{
+                    width: wp(20),
+                    borderBottomColor: "red",
+                    borderBottomWidth: 3,
+                    alignSelf: "center",
+                    paddingVertical: hp(0.5),
+                  }}
+                ></View>
+              ) : (
+                <View />
+              )}
+            </TouchableOpacity>
+          </View>
+
+          {Tabs == "InProgress" ? (
+            <>
+              <View style={{ backgroundColor: "purple", height: hp(5) }}>
+                <Text
+                  style={{
+                    color: "#fff",
+                    fontWeight: "700",
+                    fontSize: 14,
+                    marginLeft: 4,
+                  }}
+                >
+                  Client has made you a fee offer
                 </Text>
-              </Text>
-            </View>
+              </View>
+              <View
+                style={{
+                  height: hp(7),
+                  width: "100%",
+                  //justifyContent: "center",
+                  // alignItems: "center",
+                  // backgroundColor: "#F2F2F2",
+                  marginLeft: 5,
+                  //paddingRight: 5
+                  // flexDirection: 'row',
+                }}
+              >
+                <Text style={styles.BookText3}>
+                  Instructions:
+                  <Text style={styles.BookText4}>
+                    Client is interested in engaging your service and has made
+                    you a fee offer.If you are interested,you may accept this
+                    offer or negotiate the fee.
+                  </Text>
+                </Text>
+              </View>
 
-            <FlatList
-              // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
-              nestedScrollEnabled={true}
-              scrollEnabled={false}
-              data={allBookedStudent}
-              keyExtractor={(item, index) => index}
-              showsVerticalScrollIndicator={false}
-              //renderItem={renderItem}
+              <FlatList
+                // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
+                nestedScrollEnabled={true}
+                scrollEnabled={false}
+                data={allBookedStudent}
+                keyExtractor={(item, index) => index}
+                showsVerticalScrollIndicator={false}
+                //renderItem={renderItem}
 
-              renderItem={({ item, index }) => (
-                <View style={{ marginBottom: 10, marginTop: 10 }}>
-                  <View style={styles.swipperWrapper}>
-                    <View style={styles.leftImageWrapper}>
-                      <Image
-                        source={require("../../Assets/user.png")}
-                        style={styles.leftImage}
-                      />
-                      <View style={{ alignItems: "center" }}>
-                        <StarRating
-                          fullStarColor="orange"
-                          disabled={false}
-                          maxStars={5}
-                          rating={4}
-                          starSize={15}
-                          // selectedStar={(rating) => setStrCount(rating)}
+                renderItem={({ item, index }) => (
+                  <View style={{ marginBottom: 10, marginTop: 10 }}>
+                    <View style={styles.swipperWrapper}>
+                      <View style={styles.leftImageWrapper}>
+                        <Image
+                          source={require("../../Assets/user.png")}
+                          style={styles.leftImage}
                         />
-                      </View>
-                    </View>
-
-                    {/* {Tutor && Tutor.map((item) => { */}
-
-                    <View style={styles.widthWrapper}>
-                      <View>
-                        <View style={styles.wrraper}>
-                          <Text style={styles.HomeTextWrapper}>
-                            {item.student_tution_type}
-                            {item.tutor_booking_process_id}
-                          </Text>
+                        <View style={{ alignItems: "center" }}>
+                          <StarRating
+                            fullStarColor="orange"
+                            disabled={false}
+                            maxStars={5}
+                            rating={4}
+                            starSize={15}
+                            // selectedStar={(rating) => setStrCount(rating)}
+                          />
                         </View>
-                        <View
-                          style={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            height: 20,
-                            width: "100%",
-                            marginLeft: 10,
-                          }}
-                        >
-                          <View style={{}}>
-                            <Text
-                              style={{
-                                color: "#000",
-                                fontWeight: "500",
-                                fontSize: 12,
-                              }}
-                            >
-                              {item.tutor_booking_status}
-                              {item.student_id}
-                              {item.tutor_tution_offer_amount}
-                              {item.tutor_tution_offer_amount_type}
+                      </View>
+
+                      {/* {Tutor && Tutor.map((item) => { */}
+
+                      <View style={styles.widthWrapper}>
+                        <View>
+                          <View style={styles.wrraper}>
+                            <Text style={styles.HomeTextWrapper}>
+                              {item.student_tution_type}
+                              {item.tutor_booking_process_id}
                             </Text>
-                            <Text
-                              style={{
-                                color: "#000",
-                                fontWeight: "500",
-                                fontSize: 12,
-                              }}
-                            >
-                              {"Offer Price "}
-                              {item.tutor_tution_fees}
-                            </Text>
+                          </View>
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                              height: 20,
+                              width: "100%",
+                              marginLeft: 10,
+                            }}
+                          >
+                            <View style={{}}>
+                              <Text
+                                style={{
+                                  color: "#000",
+                                  fontWeight: "500",
+                                  fontSize: 12,
+                                }}
+                              >
+                                {item.student_id}
+                                {item.tutor_tution_offer_amount}
+                                {item.tutor_tution_offer_amount_type}
+                                {item.tutor_booking_status}
+                              </Text>
+                              <Text
+                                style={{
+                                  color: "#000",
+                                  fontWeight: "500",
+                                  fontSize: 12,
+                                }}
+                              >
+                                {"Offer Price "}
+                                {item.tutor_tution_fees}
+                              </Text>
+                            </View>
                           </View>
                         </View>
                       </View>
+                      <View style={styles.leftImageWrapper}>
+                        <Image
+                          source={require("../../Assets/HomeTution.png")}
+                          style={{ height: 20, width: 20 }}
+                        />
+                      </View>
                     </View>
-                    <View style={styles.leftImageWrapper}>
-                      <Image
-                        source={require("../../Assets/HomeTution.png")}
-                        style={{ height: 20, width: 20 }}
-                      />
+
+                    <View
+                      style={{
+                        // marginTop: 10,
+                        height: 50,
+                        width: "100%",
+                        //position: 'absolute',
+                        //bottom: 30,
+                        //padding:10,
+                        flexDirection: "row",
+                        alignSelf: "center",
+                      }}
+                    >
+                      <TouchableOpacity
+                        style={{
+                          height: "100%",
+                          width: "10%",
+                          backgroundColor: "green",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          borderRadius: 3,
+                        }}
+                      >
+                        <Image
+                          source={require("../../Assets/UserWhite.png")}
+                          style={{ height: 20, width: 20 }}
+                        />
+                      </TouchableOpacity>
+
+                      <TouchableOpacity
+                        // onPress={() => navigation.navigate('')}
+                        style={{
+                          height: "100%",
+                          width: "45%",
+                          backgroundColor: "#C0C0C0",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          borderRadius: 3,
+                        }}
+                      >
+                        <Text style={styles.BookText5}>Cancel Booking</Text>
+                      </TouchableOpacity>
+
+                      {item.tutor_booking_status == "Accept" ? (
+                        <TouchableOpacity
+                          onPress={() =>
+                            ViewDetails(
+                              item.tutor_id,
+                              item.tutor_booking_process_id,
+                              item.student_id,
+                              item.tutor_booking_status
+                            )
+                          }
+                          style={{
+                            height: "100%",
+                            width: "45%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            backgroundColor: "orange",
+                            borderRadius: 3,
+                          }}
+                        >
+                          <Text style={{ color: "#000" }}>View Details</Text>
+                        </TouchableOpacity>
+                      ) : item.tutor_booking_status == "Cancel" ? (
+                        <TouchableOpacity
+                          // onPress={() =>
+                          //   GotTOProceed(
+                          //     item.tutor_id,
+                          //     item.tutor_booking_process_id,
+                          //     item.student_id
+                          //   )
+                          // }
+                          style={{
+                            height: "100%",
+                            width: "45%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            backgroundColor: "red",
+                            borderRadius: 3,
+                          }}
+                        >
+                          <Text style={styles.infoText1}>Cancelled</Text>
+                        </TouchableOpacity>
+                      ) : (
+                        <TouchableOpacity
+                          onPress={() =>
+                            GotTOProceed(
+                              item.tutor_id,
+                              item.tutor_booking_process_id,
+                              item.student_id,
+                              item.tutor_booking_status
+                            )
+                          }
+                          style={{
+                            height: "100%",
+                            width: "45%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            backgroundColor: "purple",
+                            borderRadius: 3,
+                          }}
+                        >
+                          <Text style={styles.infoText1}>Proceed</Text>
+                        </TouchableOpacity>
+                      )}
                     </View>
                   </View>
+                )}
+              />
+            </>
+          ) : Tabs == "BookAgain" ? (
+            <>
+              <View
+                style={{
+                  backgroundColor: "#ADD8E6",
+                  height: hp(25),
+                  marginTop: 5,
+                }}
+              >
+                <View style={styles.swipperWrapper}>
+                  <View style={styles.leftImageWrapper}>
+                    <Image
+                      source={require("../../Assets/user.png")}
+                      style={styles.leftImage}
+                    />
+                  </View>
+                  <View style={styles.widthWrapper}>
+                    <View>
+                      <View style={styles.wrraper}>
+                        <Text style={styles.userIdWrapper}>Bryan Wong</Text>
+                        <Image
+                          source={require("../../Assets/flag.png")}
+                          style={styles.flagImage}
+                        />
 
+                        <TouchableOpacity
+                          style={{ alignItems: "flex-end", width: wp(50) }}
+                        >
+                          <Text>24 July 2022</Text>
+                        </TouchableOpacity>
+                      </View>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          height: 20,
+                          width: "100%",
+                          marginLeft: 10,
+                        }}
+                      >
+                        <View style={{}}>
+                          <Text
+                            style={{
+                              color: "#000",
+                              fontWeight: "500",
+                              fontSize: 12,
+                            }}
+                          >
+                            88888888
+                          </Text>
+                          <StarRating
+                            fullStarColor="orange"
+                            disabled={false}
+                            maxStars={5}
+                            rating={4}
+                            starSize={15}
+                            // selectedStar={(rating) => setStrCount(rating)}
+                          />
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+
+                <View
+                  style={{
+                    height: "17%",
+
+                    width: "90%",
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    alignSelf: "center",
+                  }}
+                >
                   <View
                     style={{
-                      // marginTop: 10,
-                      height: 50,
-                      width: "100%",
-                      //position: 'absolute',
-                      //bottom: 30,
-                      //padding:10,
-                      flexDirection: "row",
-                      alignSelf: "center",
+                      height: "100%",
+                      width: "35%",
                     }}
                   >
                     <TouchableOpacity
-                      style={{
-                        height: "100%",
-                        width: "10%",
-                        backgroundColor: "green",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 3,
-                      }}
-                    >
-                      <Image
-                        source={require("../../Assets/UserWhite.png")}
-                        style={{ height: 20, width: 20 }}
-                      />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                      // onPress={() => navigation.navigate('')}
-                      style={{
-                        height: "100%",
-                        width: "45%",
-                        backgroundColor: "#C0C0C0",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: 3,
-                      }}
-                    >
-                      <Text style={styles.BookText5}>Cancel Booking</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
                       onPress={() =>
-                        GotTOProceed(
-                          item.tutor_id,
-                          item.tutor_booking_process_id,
-                          item.student_id
-                        )
+                        navigation.navigate("AcceptNonTutor", {
+                          amount: offerAmount,
+                          youramount: youroffer,
+                        })
                       }
                       style={{
                         height: "100%",
-                        width: "45%",
+                        borderColor: "red",
+                        justifyContent: "center",
+                        // alignItems: 'center',
+                        // backgroundColor: 'purple',
+                        //  borderRadius: 5,
+                        borderWidth: 1,
+                        marginBottom: 10,
+                      }}
+                    >
+                      <Text style={styles.SuccessText}>Success</Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style={{ width: wp(50), flexDirection: "row" }}>
+                    <View
+                      style={{
+                        width: wp(50),
+                        flexDirection: "row",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Duration.png")}
+                          style={styles.icons}
+                        />
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Frequency Duration
+                        </Text>
+                      </View>
+
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Time.png")}
+                          style={styles.icons}
+                        />
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Tution Schedule
+                        </Text>
+                      </View>
+
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Student.png")}
+                          style={styles.icons}
+                        />
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Student Profile
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    height: "20%",
+                    // marginTop: 10,
+                    width: "100%",
+                    //position: 'absolute',
+                    //bottom: 30,
+                    marginTop: 30,
+                    //padding:10,
+                    flexDirection: "row",
+                    alignSelf: "center",
+                  }}
+                >
+                  <TouchableOpacity
+                    // onPress={() => navigation.navigate('')}
+                    style={{
+                      height: "100%",
+                      width: "50%",
+                      backgroundColor: "#F6BE00",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: 3,
+                    }}
+                  >
+                    <Text style={styles.BookText5}>Book This Tutor</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    // onPress={() =>
+
+                    //   navigation.navigate('AcceptNonTutor', {
+                    //     amount: offerAmount,
+                    //     youramount: youroffer
+                    //   })
+                    // }
+                    style={{
+                      height: "100%",
+                      width: "50%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "purple",
+                      borderRadius: 3,
+                    }}
+                  >
+                    <Text style={styles.infoText1}>Book A New Tutor</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              <View
+                style={{
+                  backgroundColor: "#ADD8E6",
+                  height: hp(25),
+                  marginTop: 5,
+                }}
+              >
+                <View style={styles.swipperWrapper}>
+                  <View style={styles.leftImageWrapper}>
+                    <Image
+                      source={require("../../Assets/user.png")}
+                      style={styles.leftImage}
+                    />
+                  </View>
+                  <View style={styles.widthWrapper}>
+                    <View>
+                      <View style={styles.wrraper}>
+                        <Text style={styles.userIdWrapper}>Bryan Wong</Text>
+                        <Image
+                          source={require("../../Assets/flag.png")}
+                          style={styles.flagImage}
+                        />
+
+                        <TouchableOpacity
+                          style={{ alignItems: "flex-end", width: wp(50) }}
+                        >
+                          <Text>24 July 2022</Text>
+                        </TouchableOpacity>
+                      </View>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          height: 20,
+                          width: "100%",
+                          marginLeft: 10,
+                        }}
+                      >
+                        <View style={{}}>
+                          <Text
+                            style={{
+                              color: "#000",
+                              fontWeight: "500",
+                              fontSize: 12,
+                            }}
+                          >
+                            88888888
+                          </Text>
+                          <StarRating
+                            fullStarColor="orange"
+                            disabled={false}
+                            maxStars={5}
+                            rating={4}
+                            starSize={15}
+                            // selectedStar={(rating) => setStrCount(rating)}
+                          />
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+
+                <View
+                  style={{
+                    height: "17%",
+
+                    width: "90%",
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    alignSelf: "center",
+                  }}
+                >
+                  <View
+                    style={{
+                      height: "100%",
+                      width: "35%",
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate("AcceptNonTutor", {
+                          amount: offerAmount,
+                          youramount: youroffer,
+                        })
+                      }
+                      style={{
+                        height: "100%",
+                        borderColor: "red",
+                        justifyContent: "center",
+                        // alignItems: 'center',
+                        // backgroundColor: 'purple',
+                        //  borderRadius: 5,
+                        borderWidth: 1,
+                        marginBottom: 10,
+                      }}
+                    >
+                      <Text style={styles.SuccessText}>You Cancelled</Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style={{ width: wp(50), flexDirection: "row" }}>
+                    <View
+                      style={{
+                        width: wp(50),
+                        flexDirection: "row",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Duration.png")}
+                          style={styles.icons}
+                        />
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Frequency Duration
+                        </Text>
+                      </View>
+
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Time.png")}
+                          style={styles.icons}
+                        />
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Tution Schedule
+                        </Text>
+                      </View>
+
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Student.png")}
+                          style={styles.icons}
+                        />
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Student Profile
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    height: "20%",
+                    // marginTop: 10,
+                    width: "100%",
+                    //position: 'absolute',
+                    //bottom: 30,
+                    marginTop: 30,
+                    //padding:10,
+                    flexDirection: "row",
+                    alignSelf: "center",
+                  }}
+                >
+                  <TouchableOpacity
+                    // onPress={() => navigation.navigate('')}
+                    style={{
+                      height: "100%",
+                      width: "50%",
+                      backgroundColor: "#F6BE00",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: 3,
+                    }}
+                  >
+                    <Text style={styles.BookText5}>Book This Tutor</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    // onPress={() =>
+
+                    //   navigation.navigate('AcceptNonTutor', {
+                    //     amount: offerAmount,
+                    //     youramount: youroffer
+                    //   })
+                    // }
+                    style={{
+                      height: "100%",
+                      width: "50%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      backgroundColor: "purple",
+                      borderRadius: 3,
+                    }}
+                  >
+                    <Text style={styles.infoText1}>Book A New Tutor</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </>
+          ) : (
+            <>
+              <View
+                style={{
+                  backgroundColor: "#ADD8E6",
+                  height: hp(20),
+                  marginTop: 5,
+                }}
+              >
+                <View style={styles.swipperWrapper}>
+                  <View style={styles.leftImageWrapper}>
+                    <Image
+                      source={require("../../Assets/user.png")}
+                      style={styles.leftImage}
+                    />
+                  </View>
+                  <View style={styles.widthWrapper}>
+                    <View>
+                      <View style={styles.wrraper}>
+                        <Text style={styles.userIdWrapper}>Bryan Wong</Text>
+                        <Image
+                          source={require("../../Assets/flag.png")}
+                          style={styles.flagImage}
+                        />
+
+                        <TouchableOpacity
+                          style={{ alignItems: "flex-end", width: wp(50) }}
+                        >
+                          <Text>24 July 2022</Text>
+                        </TouchableOpacity>
+                      </View>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          height: 20,
+                          width: "100%",
+                          marginLeft: 10,
+                        }}
+                      >
+                        <View style={{}}>
+                          <Text
+                            style={{
+                              color: "#000",
+                              fontWeight: "500",
+                              fontSize: 12,
+                            }}
+                          >
+                            88888888
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+
+                <View
+                  style={{
+                    height: "17%",
+
+                    width: "90%",
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    alignSelf: "center",
+                  }}
+                >
+                  <View
+                    style={{
+                      height: "100%",
+                      width: "35%",
+                    }}
+                  >
+                    <TouchableOpacity
+                      // onPress={() =>
+
+                      //   navigation.navigate('AcceptNonTutor', {
+                      //     amount: offerAmount,
+                      //     youramount: youroffer
+                      //   })
+                      // }
+                      style={{
+                        height: "100%",
+
                         justifyContent: "center",
                         alignItems: "center",
                         backgroundColor: "purple",
-                        borderRadius: 3,
+                        borderRadius: 5,
+                        marginBottom: 10,
                       }}
                     >
-                      <Text style={styles.infoText1}>Proceed</Text>
+                      <Text style={styles.ReviewText}>Leave Me a Review</Text>
                     </TouchableOpacity>
-                  </View>
-                </View>
-              )}
-            />
-          </>
-        ) : Tabs == "BookAgain" ? (
-          <>
-            <View
-              style={{
-                backgroundColor: "#ADD8E6",
-                height: hp(25),
-                marginTop: 5,
-              }}
-            >
-              <View style={styles.swipperWrapper}>
-                <View style={styles.leftImageWrapper}>
-                  <Image
-                    source={require("../../Assets/user.png")}
-                    style={styles.leftImage}
-                  />
-                </View>
-                <View style={styles.widthWrapper}>
-                  <View>
-                    <View style={styles.wrraper}>
-                      <Text style={styles.userIdWrapper}>Bryan Wong</Text>
-                      <Image
-                        source={require("../../Assets/flag.png")}
-                        style={styles.flagImage}
-                      />
 
-                      <TouchableOpacity
-                        style={{ alignItems: "flex-end", width: wp(50) }}
-                      >
-                        <Text>24 July 2022</Text>
-                      </TouchableOpacity>
-                    </View>
+                    <StarRating
+                      fullStarColor="orange"
+                      disabled={false}
+                      maxStars={5}
+                      rating={4}
+                      starSize={15}
+                      // selectedStar={(rating) => setStrCount(rating)}
+                    />
+                  </View>
+
+                  <View style={{ width: wp(50), flexDirection: "row" }}>
                     <View
                       style={{
+                        width: wp(50),
                         flexDirection: "row",
-                        justifyContent: "space-between",
-                        height: 20,
-                        width: "100%",
-                        marginLeft: 10,
+                        justifyContent: "center",
                       }}
                     >
-                      <View style={{}}>
-                        <Text
-                          style={{
-                            color: "#000",
-                            fontWeight: "500",
-                            fontSize: 12,
-                          }}
-                        >
-                          88888888
-                        </Text>
-                        <StarRating
-                          fullStarColor="orange"
-                          disabled={false}
-                          maxStars={5}
-                          rating={4}
-                          starSize={15}
-                          // selectedStar={(rating) => setStrCount(rating)}
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Duration.png")}
+                          style={styles.icons}
                         />
-                      </View>
-                    </View>
-                  </View>
-                </View>
-              </View>
-
-              <View
-                style={{
-                  height: "17%",
-
-                  width: "90%",
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignSelf: "center",
-                }}
-              >
-                <View
-                  style={{
-                    height: "100%",
-                    width: "35%",
-                  }}
-                >
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("AcceptNonTutor", {
-                        amount: offerAmount,
-                        youramount: youroffer,
-                      })
-                    }
-                    style={{
-                      height: "100%",
-                      borderColor: "red",
-                      justifyContent: "center",
-                      // alignItems: 'center',
-                      // backgroundColor: 'purple',
-                      //  borderRadius: 5,
-                      borderWidth: 1,
-                      marginBottom: 10,
-                    }}
-                  >
-                    <Text style={styles.SuccessText}>Success</Text>
-                  </TouchableOpacity>
-                </View>
-
-                <View style={{ width: wp(50), flexDirection: "row" }}>
-                  <View
-                    style={{
-                      width: wp(50),
-                      flexDirection: "row",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Duration.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Frequency Duration
-                      </Text>
-                    </View>
-
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Time.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Tution Schedule
-                      </Text>
-                    </View>
-
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Student.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Student Profile
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  height: "20%",
-                  // marginTop: 10,
-                  width: "100%",
-                  //position: 'absolute',
-                  //bottom: 30,
-                  marginTop: 30,
-                  //padding:10,
-                  flexDirection: "row",
-                  alignSelf: "center",
-                }}
-              >
-                <TouchableOpacity
-                  // onPress={() => navigation.navigate('')}
-                  style={{
-                    height: "100%",
-                    width: "50%",
-                    backgroundColor: "#F6BE00",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderRadius: 3,
-                  }}
-                >
-                  <Text style={styles.BookText5}>Book This Tutor</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  // onPress={() =>
-
-                  //   navigation.navigate('AcceptNonTutor', {
-                  //     amount: offerAmount,
-                  //     youramount: youroffer
-                  //   })
-                  // }
-                  style={{
-                    height: "100%",
-                    width: "50%",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "purple",
-                    borderRadius: 3,
-                  }}
-                >
-                  <Text style={styles.infoText1}>Book A New Tutor</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View
-              style={{
-                backgroundColor: "#ADD8E6",
-                height: hp(25),
-                marginTop: 5,
-              }}
-            >
-              <View style={styles.swipperWrapper}>
-                <View style={styles.leftImageWrapper}>
-                  <Image
-                    source={require("../../Assets/user.png")}
-                    style={styles.leftImage}
-                  />
-                </View>
-                <View style={styles.widthWrapper}>
-                  <View>
-                    <View style={styles.wrraper}>
-                      <Text style={styles.userIdWrapper}>Bryan Wong</Text>
-                      <Image
-                        source={require("../../Assets/flag.png")}
-                        style={styles.flagImage}
-                      />
-
-                      <TouchableOpacity
-                        style={{ alignItems: "flex-end", width: wp(50) }}
-                      >
-                        <Text>24 July 2022</Text>
-                      </TouchableOpacity>
-                    </View>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        height: 20,
-                        width: "100%",
-                        marginLeft: 10,
-                      }}
-                    >
-                      <View style={{}}>
-                        <Text
-                          style={{
-                            color: "#000",
-                            fontWeight: "500",
-                            fontSize: 12,
-                          }}
-                        >
-                          88888888
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Frequency Duration
                         </Text>
-                        <StarRating
-                          fullStarColor="orange"
-                          disabled={false}
-                          maxStars={5}
-                          rating={4}
-                          starSize={15}
-                          // selectedStar={(rating) => setStrCount(rating)}
+                      </View>
+
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Time.png")}
+                          style={styles.icons}
                         />
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Tution Schedule
+                        </Text>
                       </View>
-                    </View>
-                  </View>
-                </View>
-              </View>
 
-              <View
-                style={{
-                  height: "17%",
-
-                  width: "90%",
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignSelf: "center",
-                }}
-              >
-                <View
-                  style={{
-                    height: "100%",
-                    width: "35%",
-                  }}
-                >
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("AcceptNonTutor", {
-                        amount: offerAmount,
-                        youramount: youroffer,
-                      })
-                    }
-                    style={{
-                      height: "100%",
-                      borderColor: "red",
-                      justifyContent: "center",
-                      // alignItems: 'center',
-                      // backgroundColor: 'purple',
-                      //  borderRadius: 5,
-                      borderWidth: 1,
-                      marginBottom: 10,
-                    }}
-                  >
-                    <Text style={styles.SuccessText}>You Cancelled</Text>
-                  </TouchableOpacity>
-                </View>
-
-                <View style={{ width: wp(50), flexDirection: "row" }}>
-                  <View
-                    style={{
-                      width: wp(50),
-                      flexDirection: "row",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Duration.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Frequency Duration
-                      </Text>
-                    </View>
-
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Time.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Tution Schedule
-                      </Text>
-                    </View>
-
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Student.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Student Profile
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  height: "20%",
-                  // marginTop: 10,
-                  width: "100%",
-                  //position: 'absolute',
-                  //bottom: 30,
-                  marginTop: 30,
-                  //padding:10,
-                  flexDirection: "row",
-                  alignSelf: "center",
-                }}
-              >
-                <TouchableOpacity
-                  // onPress={() => navigation.navigate('')}
-                  style={{
-                    height: "100%",
-                    width: "50%",
-                    backgroundColor: "#F6BE00",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderRadius: 3,
-                  }}
-                >
-                  <Text style={styles.BookText5}>Book This Tutor</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  // onPress={() =>
-
-                  //   navigation.navigate('AcceptNonTutor', {
-                  //     amount: offerAmount,
-                  //     youramount: youroffer
-                  //   })
-                  // }
-                  style={{
-                    height: "100%",
-                    width: "50%",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "purple",
-                    borderRadius: 3,
-                  }}
-                >
-                  <Text style={styles.infoText1}>Book A New Tutor</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </>
-        ) : (
-          <>
-            <View
-              style={{
-                backgroundColor: "#ADD8E6",
-                height: hp(20),
-                marginTop: 5,
-              }}
-            >
-              <View style={styles.swipperWrapper}>
-                <View style={styles.leftImageWrapper}>
-                  <Image
-                    source={require("../../Assets/user.png")}
-                    style={styles.leftImage}
-                  />
-                </View>
-                <View style={styles.widthWrapper}>
-                  <View>
-                    <View style={styles.wrraper}>
-                      <Text style={styles.userIdWrapper}>Bryan Wong</Text>
-                      <Image
-                        source={require("../../Assets/flag.png")}
-                        style={styles.flagImage}
-                      />
-
-                      <TouchableOpacity
-                        style={{ alignItems: "flex-end", width: wp(50) }}
-                      >
-                        <Text>24 July 2022</Text>
-                      </TouchableOpacity>
-                    </View>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        height: 20,
-                        width: "100%",
-                        marginLeft: 10,
-                      }}
-                    >
-                      <View style={{}}>
-                        <Text
-                          style={{
-                            color: "#000",
-                            fontWeight: "500",
-                            fontSize: 12,
-                          }}
-                        >
-                          88888888
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Student.png")}
+                          style={styles.icons}
+                        />
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Student Profile
                         </Text>
                       </View>
                     </View>
                   </View>
                 </View>
               </View>
-
               <View
                 style={{
-                  height: "17%",
-
-                  width: "90%",
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignSelf: "center",
+                  backgroundColor: "#ADD8E6",
+                  height: hp(20),
+                  marginTop: 5,
                 }}
               >
-                <View
-                  style={{
-                    height: "100%",
-                    width: "35%",
-                  }}
-                >
-                  <TouchableOpacity
-                    // onPress={() =>
+                <View style={styles.swipperWrapper}>
+                  <View style={styles.leftImageWrapper}>
+                    <Image
+                      source={require("../../Assets/user.png")}
+                      style={styles.leftImage}
+                    />
+                  </View>
+                  <View style={styles.widthWrapper}>
+                    <View>
+                      <View style={styles.wrraper}>
+                        <Text style={styles.userIdWrapper}>Bryan Wong</Text>
+                        <Image
+                          source={require("../../Assets/flag.png")}
+                          style={styles.flagImage}
+                        />
 
-                    //   navigation.navigate('AcceptNonTutor', {
-                    //     amount: offerAmount,
-                    //     youramount: youroffer
-                    //   })
-                    // }
-                    style={{
-                      height: "100%",
-
-                      justifyContent: "center",
-                      alignItems: "center",
-                      backgroundColor: "purple",
-                      borderRadius: 5,
-                      marginBottom: 10,
-                    }}
-                  >
-                    <Text style={styles.ReviewText}>Leave Me a Review</Text>
-                  </TouchableOpacity>
-
-                  <StarRating
-                    fullStarColor="orange"
-                    disabled={false}
-                    maxStars={5}
-                    rating={4}
-                    starSize={15}
-                    // selectedStar={(rating) => setStrCount(rating)}
-                  />
-                </View>
-
-                <View style={{ width: wp(50), flexDirection: "row" }}>
-                  <View
-                    style={{
-                      width: wp(50),
-                      flexDirection: "row",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Duration.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Frequency Duration
-                      </Text>
-                    </View>
-
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Time.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Tution Schedule
-                      </Text>
-                    </View>
-
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Student.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Student Profile
-                      </Text>
+                        <TouchableOpacity
+                          style={{ alignItems: "flex-end", width: wp(50) }}
+                        >
+                          <Text>24 July 2022</Text>
+                        </TouchableOpacity>
+                      </View>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          height: 20,
+                          width: "100%",
+                          marginLeft: 10,
+                        }}
+                      >
+                        <View style={{}}>
+                          <Text
+                            style={{
+                              color: "#000",
+                              fontWeight: "500",
+                              fontSize: 12,
+                            }}
+                          >
+                            88888888
+                          </Text>
+                        </View>
+                      </View>
                     </View>
                   </View>
                 </View>
-              </View>
-            </View>
-            <View
-              style={{
-                backgroundColor: "#ADD8E6",
-                height: hp(20),
-                marginTop: 5,
-              }}
-            >
-              <View style={styles.swipperWrapper}>
-                <View style={styles.leftImageWrapper}>
-                  <Image
-                    source={require("../../Assets/user.png")}
-                    style={styles.leftImage}
-                  />
-                </View>
-                <View style={styles.widthWrapper}>
-                  <View>
-                    <View style={styles.wrraper}>
-                      <Text style={styles.userIdWrapper}>Bryan Wong</Text>
-                      <Image
-                        source={require("../../Assets/flag.png")}
-                        style={styles.flagImage}
-                      />
 
-                      <TouchableOpacity
-                        style={{ alignItems: "flex-end", width: wp(50) }}
-                      >
-                        <Text>24 July 2022</Text>
-                      </TouchableOpacity>
-                    </View>
-                    <View
+                <View
+                  style={{
+                    height: "17%",
+
+                    width: "90%",
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    alignSelf: "center",
+                  }}
+                >
+                  <View
+                    style={{
+                      height: "100%",
+                      width: "35%",
+                    }}
+                  >
+                    <TouchableOpacity
+                      // onPress={() =>
+
+                      //   navigation.navigate('AcceptNonTutor', {
+                      //     amount: offerAmount,
+                      //     youramount: youroffer
+                      //   })
+                      // }
                       style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        height: 20,
-                        width: "100%",
-                        marginLeft: 10,
+                        height: "100%",
+
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: "purple",
+                        borderRadius: 5,
+                        marginBottom: 10,
                       }}
                     >
-                      <View style={{}}>
-                        <Text
-                          style={{
-                            color: "#000",
-                            fontWeight: "500",
-                            fontSize: 12,
-                          }}
-                        >
-                          88888888
+                      <Text style={styles.ReviewText}>Leave Me a Review</Text>
+                    </TouchableOpacity>
+
+                    <StarRating
+                      fullStarColor="orange"
+                      disabled={false}
+                      maxStars={5}
+                      rating={4}
+                      starSize={15}
+                      // selectedStar={(rating) => setStrCount(rating)}
+                    />
+                  </View>
+
+                  <View style={{ width: wp(50), flexDirection: "row" }}>
+                    <View
+                      style={{
+                        width: wp(50),
+                        flexDirection: "row",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Duration.png")}
+                          style={styles.icons}
+                        />
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Frequency Duration
+                        </Text>
+                      </View>
+
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Time.png")}
+                          style={styles.icons}
+                        />
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Tution Schedule
+                        </Text>
+                      </View>
+
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Student.png")}
+                          style={styles.icons}
+                        />
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Student Profile
                         </Text>
                       </View>
                     </View>
                   </View>
                 </View>
               </View>
-
               <View
                 style={{
-                  height: "17%",
-
-                  width: "90%",
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignSelf: "center",
+                  backgroundColor: "#ADD8E6",
+                  height: hp(20),
+                  marginTop: 5,
                 }}
               >
-                <View
-                  style={{
-                    height: "100%",
-                    width: "35%",
-                  }}
-                >
-                  <TouchableOpacity
-                    // onPress={() =>
+                <View style={styles.swipperWrapper}>
+                  <View style={styles.leftImageWrapper}>
+                    <Image
+                      source={require("../../Assets/user.png")}
+                      style={styles.leftImage}
+                    />
+                  </View>
+                  <View style={styles.widthWrapper}>
+                    <View>
+                      <View style={styles.wrraper}>
+                        <Text style={styles.userIdWrapper}>Bryan Wong</Text>
+                        <Image
+                          source={require("../../Assets/flag.png")}
+                          style={styles.flagImage}
+                        />
 
-                    //   navigation.navigate('AcceptNonTutor', {
-                    //     amount: offerAmount,
-                    //     youramount: youroffer
-                    //   })
-                    // }
-                    style={{
-                      height: "100%",
-
-                      justifyContent: "center",
-                      alignItems: "center",
-                      backgroundColor: "purple",
-                      borderRadius: 5,
-                      marginBottom: 10,
-                    }}
-                  >
-                    <Text style={styles.ReviewText}>Leave Me a Review</Text>
-                  </TouchableOpacity>
-
-                  <StarRating
-                    fullStarColor="orange"
-                    disabled={false}
-                    maxStars={5}
-                    rating={4}
-                    starSize={15}
-                    // selectedStar={(rating) => setStrCount(rating)}
-                  />
-                </View>
-
-                <View style={{ width: wp(50), flexDirection: "row" }}>
-                  <View
-                    style={{
-                      width: wp(50),
-                      flexDirection: "row",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Duration.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Frequency Duration
-                      </Text>
-                    </View>
-
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Time.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Tution Schedule
-                      </Text>
-                    </View>
-
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Student.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Student Profile
-                      </Text>
+                        <TouchableOpacity
+                          style={{ alignItems: "flex-end", width: wp(50) }}
+                        >
+                          <Text>24 July 2022</Text>
+                        </TouchableOpacity>
+                      </View>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          height: 20,
+                          width: "100%",
+                          marginLeft: 10,
+                        }}
+                      >
+                        <View style={{}}>
+                          <Text
+                            style={{
+                              color: "#000",
+                              fontWeight: "500",
+                              fontSize: 12,
+                            }}
+                          >
+                            88888888
+                          </Text>
+                        </View>
+                      </View>
                     </View>
                   </View>
                 </View>
-              </View>
-            </View>
-            <View
-              style={{
-                backgroundColor: "#ADD8E6",
-                height: hp(20),
-                marginTop: 5,
-              }}
-            >
-              <View style={styles.swipperWrapper}>
-                <View style={styles.leftImageWrapper}>
-                  <Image
-                    source={require("../../Assets/user.png")}
-                    style={styles.leftImage}
-                  />
-                </View>
-                <View style={styles.widthWrapper}>
-                  <View>
-                    <View style={styles.wrraper}>
-                      <Text style={styles.userIdWrapper}>Bryan Wong</Text>
-                      <Image
-                        source={require("../../Assets/flag.png")}
-                        style={styles.flagImage}
-                      />
 
-                      <TouchableOpacity
-                        style={{ alignItems: "flex-end", width: wp(50) }}
-                      >
-                        <Text>24 July 2022</Text>
-                      </TouchableOpacity>
-                    </View>
-                    <View
+                <View
+                  style={{
+                    height: "17%",
+
+                    width: "90%",
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    alignSelf: "center",
+                  }}
+                >
+                  <View
+                    style={{
+                      height: "100%",
+                      width: "35%",
+                    }}
+                  >
+                    <TouchableOpacity
+                      // onPress={() =>
+
+                      //   navigation.navigate('AcceptNonTutor', {
+                      //     amount: offerAmount,
+                      //     youramount: youroffer
+                      //   })
+                      // }
                       style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        height: 20,
-                        width: "100%",
-                        marginLeft: 10,
+                        height: "100%",
+
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: "purple",
+                        borderRadius: 5,
+                        marginBottom: 10,
                       }}
                     >
-                      <View style={{}}>
-                        <Text
-                          style={{
-                            color: "#000",
-                            fontWeight: "500",
-                            fontSize: 12,
-                          }}
-                        >
-                          88888888
+                      <Text style={styles.ReviewText}>Leave Me a Review</Text>
+                    </TouchableOpacity>
+
+                    <StarRating
+                      fullStarColor="orange"
+                      disabled={false}
+                      maxStars={5}
+                      rating={4}
+                      starSize={15}
+                      // selectedStar={(rating) => setStrCount(rating)}
+                    />
+                  </View>
+
+                  <View style={{ width: wp(50), flexDirection: "row" }}>
+                    <View
+                      style={{
+                        width: wp(50),
+                        flexDirection: "row",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Duration.png")}
+                          style={styles.icons}
+                        />
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Frequency Duration
+                        </Text>
+                      </View>
+
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Time.png")}
+                          style={styles.icons}
+                        />
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Tution Schedule
+                        </Text>
+                      </View>
+
+                      <View style={{ width: wp(15), alignItems: "center" }}>
+                        <Image
+                          source={require("../../Assets/Student.png")}
+                          style={styles.icons}
+                        />
+                        <Text style={{ fontSize: 10, textAlign: "center" }}>
+                          Student Profile
                         </Text>
                       </View>
                     </View>
                   </View>
                 </View>
               </View>
-
-              <View
-                style={{
-                  height: "17%",
-
-                  width: "90%",
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignSelf: "center",
-                }}
-              >
-                <View
-                  style={{
-                    height: "100%",
-                    width: "35%",
-                  }}
-                >
-                  <TouchableOpacity
-                    // onPress={() =>
-
-                    //   navigation.navigate('AcceptNonTutor', {
-                    //     amount: offerAmount,
-                    //     youramount: youroffer
-                    //   })
-                    // }
-                    style={{
-                      height: "100%",
-
-                      justifyContent: "center",
-                      alignItems: "center",
-                      backgroundColor: "purple",
-                      borderRadius: 5,
-                      marginBottom: 10,
-                    }}
-                  >
-                    <Text style={styles.ReviewText}>Leave Me a Review</Text>
-                  </TouchableOpacity>
-
-                  <StarRating
-                    fullStarColor="orange"
-                    disabled={false}
-                    maxStars={5}
-                    rating={4}
-                    starSize={15}
-                    // selectedStar={(rating) => setStrCount(rating)}
-                  />
-                </View>
-
-                <View style={{ width: wp(50), flexDirection: "row" }}>
-                  <View
-                    style={{
-                      width: wp(50),
-                      flexDirection: "row",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Duration.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Frequency Duration
-                      </Text>
-                    </View>
-
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Time.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Tution Schedule
-                      </Text>
-                    </View>
-
-                    <View style={{ width: wp(15), alignItems: "center" }}>
-                      <Image
-                        source={require("../../Assets/Student.png")}
-                        style={styles.icons}
-                      />
-                      <Text style={{ fontSize: 10, textAlign: "center" }}>
-                        Student Profile
-                      </Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </>
-        )}
-      </View>
-    </>
-  );
+            </>
+          )}
+        </View>
+      </>
+    );
+  }
 };
 
 export default MyBookingTutor;
@@ -1992,9 +2073,9 @@ export default MyBookingTutor;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
     backgroundColor: "#fff",
     // backgroundColor:'pink'
-    // padding: 10,
   },
 
   deleteBox: {

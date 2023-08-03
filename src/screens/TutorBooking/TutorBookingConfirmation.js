@@ -15,7 +15,7 @@ import {
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { TextInput } from "react-native-gesture-handler";
-// import { useIsFocused, useNavigation } from '@react-navigation/native';
+
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -38,8 +38,9 @@ import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { Dropdown } from "react-native-element-dropdown";
 import CheckBox from "@react-native-community/checkbox";
 import { GetBookedTutorDetail } from "../../Redux/Actions/TutorBooking";
+import { BookingStatus } from "../../Redux/Actions/TutorBooking";
 
-const BookingInformationConfirmation = () => {
+const BookingInformationConfirmation = ({ route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { Tutor_Schedule } = useSelector((state) => state.TutorReducer);
@@ -51,15 +52,6 @@ const BookingInformationConfirmation = () => {
   const { Booking_Detail } = useSelector((state) => state.TutorBooingReducer);
   const { All_Booked_Tutor_Detail } = useSelector(
     (state) => state.TutorBooingReducer
-  );
-
-  console.log(
-    All_Booked_Tutor_Detail,
-    "All_Booked_Tutor_DetailAll_Booked_Tutor_DetailAll_Booked_Tutor_Detail"
-  );
-  console.log(
-    Booking_Detail,
-    "Booking_DetailBooking_DetailBooking_DetailBooking_Detail"
   );
 
   const [tutiontype, setTutionType] = useState("tutiontype");
@@ -91,14 +83,15 @@ const BookingInformationConfirmation = () => {
     setAllBookedDetail(All_Booked_Tutor_Detail);
   }, [All_Booked_Tutor_Detail]);
 
-  // console.log(
-  //   allBookedDetail,
-  //   "dddddddddddddddddd",
-  //   All_Booked_Tutor_Detail[0].user_type
-  // );
+  const BookTutorProcess = (status) => {
+    console.log(
+      status,
+      route.params.bookingID,
+      All_Booked_Tutor_Detail[0]?.tutor_id
+    );
 
-  const BookTutorProcess = () => {
-    navigation.navigate("TutorAcceptCancel");
+    dispatch(BookingStatus(route.params.bookingID, status, navigation));
+    //navigation.navigate("TutorAcceptCancel");
     // dispatch(
     //   BookTutor(
     //     Tution_Type,
@@ -324,7 +317,7 @@ const BookingInformationConfirmation = () => {
                   {All_Booked_Tutor_Detail[0]?.student_level}
                 </Text>
                 <Text style={styles.Information}>
-                  {All_Booked_Tutor_Detail[0]?.student_grade}
+                  Grade {All_Booked_Tutor_Detail[0]?.student_grade}
                 </Text>
               </View>
               <View
@@ -358,14 +351,16 @@ const BookingInformationConfirmation = () => {
               <View
                 style={{ height: 20, width: "70%", justifyContent: "center" }}
               >
-                {Student_Detail.Subjects &&
-                  Student_Detail.Subjects.map((item) => {
-                    return (
-                      <Text key={item} style={styles.Information}>
-                        {item.subject}
-                      </Text>
-                    );
-                  })}
+                {All_Booked_Tutor_Detail[0]?.booking_process_StudentSubjects &&
+                  All_Booked_Tutor_Detail[0]?.booking_process_StudentSubjects.map(
+                    (item) => {
+                      return (
+                        <Text key={item} style={styles.Information}>
+                          {item.Student_Subjects}
+                        </Text>
+                      );
+                    }
+                  )}
               </View>
               <TouchableOpacity
                 style={{
@@ -534,11 +529,28 @@ const BookingInformationConfirmation = () => {
                     );
                   }
                 )}
-              {Tutor_Schedule.tutor_schedule_time &&
-                Tutor_Schedule.tutor_schedule_time.map((item) => {
+
+              <TouchableOpacity
+                style={{
+                  height: 30,
+                  width: "30%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  source={require("../../Assets/Edit.png")}
+                  style={{ height: 20, width: 20, position: "absolute" }}
+                />
+              </TouchableOpacity>
+            </View>
+
+            <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
+              {All_Booked_Tutor_Detail[0]?.TutorSlotsTime &&
+                All_Booked_Tutor_Detail[0]?.TutorSlotsTime.map((item) => {
                   return (
                     <Text key={item} style={styles.Information}>
-                      {item.slot_time}
+                      {item.tutor_slot_time}
                     </Text>
                   );
                 })}
@@ -579,7 +591,7 @@ const BookingInformationConfirmation = () => {
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate("")}
+            onPress={() => BookTutorProcess("Cancel")}
             style={{
               height: "100%",
               width: "50%",
@@ -593,7 +605,7 @@ const BookingInformationConfirmation = () => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => BookTutorProcess()}
+            onPress={() => BookTutorProcess("Accept")}
             //  onPress={() => navigation.navigate("MakeOffer")}
             style={{
               height: "100%",
