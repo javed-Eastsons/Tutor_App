@@ -25,7 +25,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../common/Loader";
-
+import axios from "axios";
 const TutorSearch = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const TutorSearch = () => {
   const [postalcode, setpostalcode] = useState("");
   const [forwardArrrow, setForwardArrow] = useState(false);
   const [loader, setLoader] = useState(false);
-
+const [address, setAddress]=useState('')
   const presspostalcode = () => {
     if (postalcode == "") {
       Alert.alert("Enter postal code");
@@ -44,7 +44,41 @@ const TutorSearch = () => {
         .finally(() => setLoader(false));
     }
   };
+  const geocodinApi = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${postalcode}&key=AIzaSyBe7R2rEvrkKUsLEoiCkLyFr4kd_sQE0Kw`,
+      headers: {},
+    };
 
+    axios
+      .request(config)
+      .then((response) => {
+        const jsonData = response.data;
+        // console.log(jsonData, "OOOOOOOOOOOOOOOOOOO");
+        const jj = jsonData.results[0];
+        setAddress(jj?.formatted_address)
+          // console.log(jj, "AddressPin");
+              // console.log(
+    //   jj?.formatted_address,
+    //   "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
+    // );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // console.log(
+    //   mapData?.formatted_address,
+    //   FirstName,
+    //   "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
+    // );
+  };
+  const forwardArrowFunc=()=>{
+    geocodinApi()
+    setForwardArrow(true)
+  }
   return (
     <SafeAreaView style={styles.container}>
       <Loader flag={loader} />
@@ -217,7 +251,7 @@ const TutorSearch = () => {
                     keyboardType="phone-pad"
                     style={{ color: "#000", paddingLeft: wp(2), width: wp(28) }}
                   />
-                  <TouchableOpacity onPress={() => setForwardArrow(true)}>
+                  <TouchableOpacity onPress={() => forwardArrowFunc()}>
                     <Image
                       source={require("../Assets/rightArrowCode.png")}
                       style={styles.forwardArrowImage}
@@ -230,13 +264,13 @@ const TutorSearch = () => {
             {forwardArrrow === true && (
               <View style={styles.forwardArrowWrapper}>
                 <Text style={styles.forwardArrowTextWrapper}>
-                  404 Choa Chu Kang North Avenue 4
+                  {address}
                 </Text>
               </View>
             )}
           </View>
           <TouchableOpacity
-            style={styles.circleArrow}
+              style={[styles.circleArrow,{display: !address ? 'none' : 'flex'}]}
             onPress={() => presspostalcode()}
           >
             {/* //onPress={() => navigation.navigate('OurTutor')}> */}
@@ -422,10 +456,10 @@ const styles = StyleSheet.create({
     marginLeft: wp(1),
     marginTop: -hp(2),
   },
-  forwardArrowImage: { height: hp(2), width: wp(4), marginLeft: wp(2) },
+  forwardArrowImage: { height: hp(2), width: wp(6), marginLeft: wp(2) },
   inputWrapper: {
     backgroundColor: "#fff",
-    height: hp(5),
+    height: hp(5), 
     width: wp(38),
     elevation: 6,
     marginTop: hp(1),

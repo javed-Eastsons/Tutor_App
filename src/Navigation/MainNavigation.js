@@ -76,6 +76,9 @@ import PostTutorSchedule from "../screens/PostRequirment/PostTutorSchedule";
 import PostSummary from "../screens/PostRequirment/PostSummary";
 import TutorBookingConfirmation from "../screens/TutorBooking/TutorBookingConfirmation";
 import TutorAcceptCancel from "../screens/TutorBooking/TutorAcceptCancel";
+import StartDT from "../screens/StartDT";
+import TutorMakePayment from "../screens/TutorBooking/TutorMakePayment";
+import TutorStartDT from "../screens/TutorBooking/TutorStartDT";
 
 const SignStack = createStackNavigator();
 
@@ -551,6 +554,23 @@ function SecondStacknavigation() {
       <Stack.Screen
         name="MakeOffer"
         component={MakeOffer}
+        options={{
+          title: "AuthCheck",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="StartDT"
+        component={StartDT}
         options={{
           title: "AuthCheck",
           headerShown: false,
@@ -1311,6 +1331,42 @@ function TutorHomeStacknavigation() {
           },
         }}
       />
+      <TutorHomeStack.Screen
+        name="TutorStartDT"
+        component={TutorStartDT}
+        options={{
+          title: "TutorStartDT",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <TutorHomeStack.Screen
+        name="TutorMakePayment"
+        component={TutorMakePayment}
+        options={{
+          title: "TutorMakePayment",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
 
       <TutorHomeStack.Screen
         name="TutorAcceptCancel"
@@ -1512,6 +1568,43 @@ function TutorHomeStacknavigation4() {
         component={MyBookingTutor}
         options={{
           title: "MyBookingTutor",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <TutorHomeStack.Screen
+        name="TutorStartDT"
+        component={TutorStartDT}
+        options={{
+          title: "TutorStartDT",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <TutorHomeStack.Screen
+        name="TutorMakePayment"
+        component={TutorMakePayment}
+        options={{
+          title: "TutorMakePayment",
 
           headerStyle: {
             backgroundColor: "#e85b3d",

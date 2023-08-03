@@ -16,13 +16,54 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 const currentDate = moment().format("DD-MM-YYYY");
 
+export const AcceptFinalOffer = (TutId, BookingId, OfferStatus, navigation) => {
+  console.log(TutId, BookingId, OfferStatus);
+  return (dispatch, getState) => {
+    axios.defaults.baseURL = "https://refuel.site";
+    const url1 =
+      axios.defaults.baseURL +
+      "/projects/tutorapp/APIs/TutorBookings/DateAndTimeOfferUpdate.php";
+
+    var formData = new FormData();
+    formData.append("tutor_booking_process_id", BookingId);
+    formData.append("tutor_id", TutId);
+    formData.append("tutor_accept_date_time_status", OfferStatus);
+
+    return fetch(url1, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
+        //   Alert.alert(responseJson.message)
+        if (responseJson.status == true) {
+          console.log("ww", responseJson.message);
+          //  navigation.navigate("TutorAcceptCancel");
+          Alert.alert(responseJson.message);
+          // dispatch({
+          //   type: REGISTER_MSG,
+          //   REG_MSG: responseJson.message,
+          // });
+        } else if (responseJson.status == false) {
+          // navigation.navigate("TutorAcceptCancel");
+          console.log("AAa", responseJson.message);
+          // Alert.alert(responseJson.message)
+        }
+      })
+      .catch((error) => console.log(error.message));
+  };
+};
+
 export const OfferStatus = (bookingId, offerstatus, OfferType, navigation) => {
   console.log(bookingId, offerstatus, OfferType);
   return (dispatch, getState) => {
-    //const login = await getApiKey();
-    //let data = JSON.parse(login);
-    //var authtoken = data;
-    //  console.log(authtoken)
     axios.defaults.baseURL = "https://refuel.site";
     const url1 =
       axios.defaults.baseURL +

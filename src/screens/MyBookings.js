@@ -77,7 +77,7 @@ const MyBookings = ({ props, route }) => {
     All_Booked_Tutor,
     "All_Booked_TutorAll_Booked_TutorAll_Booked_TutorAll_Booked_Tutor"
   );
-
+  // tutor_tution_offer_amount_type
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedQual, setSelectedQual] = useState([]);
   const [selectedlevel, setSelectedlevel] = useState([]);
@@ -869,7 +869,8 @@ const MyBookings = ({ props, route }) => {
   const setTabFunc = (val) => {
     setTabs(val);
   };
-
+  console.log(All_Booked_Tutor[0]?.tutor_booking_status,All_Booked_Tutor[0]?.offer_status,'tutorBookingStatus,offerStatus')
+  console.log(All_Booked_Tutor[0]?.tutor_tution_offer_amount_type, All_Booked_Tutor[0]?.tutor_tution_fees, 'jkk')
   return (
     <>
       <View style={styles.container}>
@@ -1005,13 +1006,13 @@ const MyBookings = ({ props, route }) => {
                   marginLeft: 4,
                 }}
               >
-                Tutor has requested for a new start date/
+               { `You have made a ${All_Booked_Tutor[0]?.tutor_tution_offer_amount_type} offer `}
               </Text>
             </View>
             <View
               style={{
                 height: hp(7),
-                width: "100%",
+                width: "100%", 
                 //justifyContent: "center",
                 // alignItems: "center",
                 backgroundColor: "#F2F2F2",
@@ -1023,8 +1024,8 @@ const MyBookings = ({ props, route }) => {
               <Text style={styles.BookText3}>
                 Instructions:
                 <Text style={styles.BookText4}>
-                  Tutor has requested for a new start date and time.Please
-                  proceed to view and arrange
+                You have placed an offer, tutor will be informed 
+                you will be recieve an app notification when the tutor has responded.
                 </Text>
               </Text>
             </View>
@@ -1097,7 +1098,7 @@ const MyBookings = ({ props, route }) => {
                               maxStars={5}
                               rating={4}
                               starSize={15}
-                              // selectedStar={(rating) => setStrCount(rating)}
+                            // selectedStar={(rating) => setStrCount(rating)}
                             />
                           </View>
                         </View>
@@ -1164,7 +1165,15 @@ const MyBookings = ({ props, route }) => {
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() =>
+                        route?.params?.proceed === true ? 
+                        navigation.navigate("AcceptNegotiate")
+                          :
                         navigation.navigate("MakeOffer", {
+                          Amount_type: All_Booked_Tutor[0]?.tutor_tution_offer_amount_type,
+                          fees: All_Booked_Tutor[0]?.tutor_tution_fees,
+                          tutorBookingStatus:All_Booked_Tutor[0]?.tutor_booking_status,
+                          offerStatus:All_Booked_Tutor[0]?.offer_status,
+                          tutorBookingProcessId:All_Booked_Tutor[0]?.tutor_booking_process_id
                           // amount: offerAmount,
                           // youramount: youroffer
                         })
@@ -1174,11 +1183,11 @@ const MyBookings = ({ props, route }) => {
                         width: "45%",
                         justifyContent: "center",
                         alignItems: "center",
-                        backgroundColor: "purple",
+                        backgroundColor: route?.params?.proceed === true ? "purple" : "#F6BE00",
                         borderRadius: 3,
                       }}
                     >
-                      <Text style={styles.infoText1}>Proceed</Text>
+                      <Text style={{color :route?.params?.proceed === true ? 'white' : 'black' }}>{route?.params?.proceed === true ? 'Proceed' : 'View Details'}  </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -1241,7 +1250,7 @@ const MyBookings = ({ props, route }) => {
                           maxStars={5}
                           rating={4}
                           starSize={15}
-                          // selectedStar={(rating) => setStrCount(rating)}
+                        // selectedStar={(rating) => setStrCount(rating)}
                         />
                       </View>
                     </View>
@@ -1429,7 +1438,7 @@ const MyBookings = ({ props, route }) => {
                           maxStars={5}
                           rating={4}
                           starSize={15}
-                          // selectedStar={(rating) => setStrCount(rating)}
+                        // selectedStar={(rating) => setStrCount(rating)}
                         />
                       </View>
                     </View>
@@ -1662,7 +1671,7 @@ const MyBookings = ({ props, route }) => {
                     maxStars={5}
                     rating={4}
                     starSize={15}
-                    // selectedStar={(rating) => setStrCount(rating)}
+                  // selectedStar={(rating) => setStrCount(rating)}
                   />
                 </View>
 
@@ -1804,7 +1813,7 @@ const MyBookings = ({ props, route }) => {
                     maxStars={5}
                     rating={4}
                     starSize={15}
-                    // selectedStar={(rating) => setStrCount(rating)}
+                  // selectedStar={(rating) => setStrCount(rating)}
                   />
                 </View>
 
@@ -1946,7 +1955,7 @@ const MyBookings = ({ props, route }) => {
                     maxStars={5}
                     rating={4}
                     starSize={15}
-                    // selectedStar={(rating) => setStrCount(rating)}
+                  // selectedStar={(rating) => setStrCount(rating)}
                   />
                 </View>
 
@@ -2066,7 +2075,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   infoText1: {
-    color: "#fff",
+    color: "#000",
+  },
+  whiteColor: {
+    color: ' #fff'
   },
   ReviewText: {
     color: "#fff",

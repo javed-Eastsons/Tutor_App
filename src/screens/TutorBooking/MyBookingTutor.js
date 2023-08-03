@@ -891,8 +891,13 @@ const MyBookingTutor = ({ props, route }) => {
     setTabs(val);
   };
 
-  const ViewDetails = () => {
-    navigation.navigate("TutorAcceptCancel");
+  const ViewDetails = (stDate) => {
+    console.log(stDate);
+    if (stDate == "") {
+      navigation.navigate("TutorAcceptCancel");
+    } else {
+      navigation.navigate("TutorStartDT");
+    }
   };
 
   const GotTOProceed = (Tutid, BId, stId, bookingstatus) => {
@@ -1132,6 +1137,16 @@ const MyBookingTutor = ({ props, route }) => {
                                 {"Offer Price "}
                                 {item.tutor_tution_fees}
                               </Text>
+                              <Text
+                                style={{
+                                  color: "#000",
+                                  fontWeight: "500",
+                                  fontSize: 12,
+                                }}
+                              >
+                                {"Offer Price "}
+                                {item.student_offer_date}
+                              </Text>
                             </View>
                           </View>
                         </View>
@@ -1190,10 +1205,11 @@ const MyBookingTutor = ({ props, route }) => {
                         <TouchableOpacity
                           onPress={() =>
                             ViewDetails(
-                              item.tutor_id,
-                              item.tutor_booking_process_id,
-                              item.student_id,
-                              item.tutor_booking_status
+                              // item.tutor_id,
+                              // item.tutor_booking_process_id,
+                              // item.student_id,
+                              // item.tutor_booking_status,
+                              item.student_offer_date
                             )
                           }
                           style={{
