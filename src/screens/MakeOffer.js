@@ -52,7 +52,7 @@ const MakeOffer = ({ route }) => {
   const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { Tutor_Qualification } = useSelector((state) => state.TutorReducer);
-  console.log(route, 'routeee')
+  console.log(route, "routeee");
   console.log(
     Tutor_Qualification,
     "Tutor_QualificationTutor_QualificationTutor_Qualification"
@@ -132,9 +132,7 @@ const MakeOffer = ({ route }) => {
     selectFilter = Ex_array;
   };
 
-  const BookTutorProcess = () => {
-
-  };
+  const BookTutorProcess = () => {};
   // const SendRequest = (val) => {
   //   setSendOffer(val);
 
@@ -234,7 +232,7 @@ const MakeOffer = ({ route }) => {
             maxStars={5}
             // rating={item.Average_rating}
             starSize={15}
-          // selectedStar={(rating) => setStrCount(rating)}
+            // selectedStar={(rating) => setStrCount(rating)}
           />
         </View>
       </View>
@@ -258,14 +256,15 @@ const MakeOffer = ({ route }) => {
         >
           <Text style={styles.BookText1}>
             Message:
-            {route?.params?.Amount_type == 'Non Negotiable' ? (
+            {route?.params?.Amount_type == "Non Negotiable" ? (
               <Text style={styles.BookText2}>
-                You have placed an offer, tutor will be informed
-                you will be recieve an app notification when the tutor has responded.
+                You have placed an offer, tutor will be informed you will be
+                recieve an app notification when the tutor has responded.
               </Text>
             ) : (
               <Text style={styles.BookText2}>
-                Your offer is sent to the tutor you will be informed via email or app notification when tutor has replied.
+                Your offer is sent to the tutor you will be informed via email
+                or app notification when tutor has replied.
               </Text>
             )}
           </Text>
@@ -544,7 +543,6 @@ const MakeOffer = ({ route }) => {
             <Text style={styles.BookText5}>Cancel Booking</Text>
           </TouchableOpacity>
           <TouchableOpacity
-
             onPress={() =>
               // navigation.navigate("MyBookings",{
               //   proceed: true
@@ -553,18 +551,24 @@ const MakeOffer = ({ route }) => {
                 tutorBookingProcessId: route?.params?.tutorBookingProcessId,
                 Amount_type: route?.params?.Amount_type,
                 offerStatus: route?.params?.offerStatus,
-
               })
-
             }
-            disabled={route?.params?.tutorBookingStatus === 'Accept' && route?.params?.offerStatus == 'Accept' ? false : true}
+            disabled={
+              route?.params?.tutorBookingStatus === "Accept" &&
+              route?.params?.offerStatus == "Accept"
+                ? false
+                : true
+            }
             style={{
               height: "100%",
               width: "50%",
               justifyContent: "center",
               alignItems: "center",
               backgroundColor:
-                route?.params?.tutorBookingStatus === 'Accept' && route?.params?.offerStatus == 'Accept' ? "#F6BE00" : "#ffff",
+                route?.params?.tutorBookingStatus === "Accept" &&
+                route?.params?.offerStatus == "Accept"
+                  ? "#F6BE00"
+                  : "#ffff",
               borderRadius: 3,
             }}
           >

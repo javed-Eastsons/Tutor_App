@@ -504,13 +504,11 @@ const MyBookingTutor = ({ props, route }) => {
     },
   ]);
 
-  useEffect(() => {
-    setLoader(true);
-    setTimeout(() => {
-      setAllBookedStudent(All_Booked_Student);
-      setLoader(false);
-    }, 2000);
-  }, [All_Booked_Student]);
+  // useEffect(() => {
+  //   // setLoader(true);
+
+  //   setAllBookedStudent(All_Booked_Student);
+  // }, []);
 
   useEffect(() => {
     console.log("KKKKKKKKKKKKKKKKKKKKK", Login_Data);
@@ -518,11 +516,9 @@ const MyBookingTutor = ({ props, route }) => {
     dispatch(GetBookedStudentList(Login_Data, navigation));
   }, []);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setAllBookedStudent(All_Booked_Student);
-  //   }, 2000);
-  // }, [All_Booked_Student]);
+  useEffect(() => {
+    setAllBookedStudent(All_Booked_Student);
+  }, [All_Booked_Student]);
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -538,7 +534,7 @@ const MyBookingTutor = ({ props, route }) => {
 
     // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
-  }, [navigation, setAllBookedStudent]);
+  }, [navigation]);
 
   const setPrimaryFun = () => {
     if (Primary == "") {
@@ -891,11 +887,97 @@ const MyBookingTutor = ({ props, route }) => {
     setTabs(val);
   };
 
-  const ViewDetails = (stDate) => {
-    console.log(stDate);
-    if (stDate == "") {
-      navigation.navigate("TutorAcceptCancel");
-    } else {
+  const ViewDetails = (
+    tutorID,
+    BookingId,
+    stDate,
+    AceptDate,
+    offerType,
+    stconfirm,
+    amt_offer_status,
+    tutor_offer_date,
+    tutor_offer_time
+  ) => {
+    console.log(
+      tutorID,
+      BookingId,
+      stDate,
+      AceptDate,
+      offerType,
+      stconfirm,
+      amt_offer_status
+    );
+    let obj = {
+      tutorId: tutorID,
+      BookingId: BookingId,
+    };
+
+    dispatch({
+      type: Booking_Detail,
+      payload: obj,
+    });
+
+    dispatch(GetBookedTutorDetail(obj, navigation));
+
+    if (
+      (stDate == "" &&
+        offerType == "Non Negotiable" &&
+        AceptDate == "Accept" &&
+        stconfirm != "Confirmed" &&
+        amt_offer_status == "Accept") ||
+      (stDate != "" &&
+        offerType == "Non Negotiable" &&
+        AceptDate == "Accept" &&
+        stconfirm != "Confirmed" &&
+        amt_offer_status == "Accept")
+    ) {
+      navigation.navigate("TutorAcceptCancel", {
+        BookingId: BookingId,
+      });
+    } else if (
+      (stDate == "" &&
+        offerType != "Negotiable" &&
+        amt_offer_status == "" &&
+        tutor_offer_date == "" &&
+        tutor_offer_time == "" &&
+        AceptDate == "" &&
+        stconfirm == "") ||
+      (stDate != "" &&
+        offerType != "Negotiable" &&
+        amt_offer_status == "" &&
+        tutor_offer_date == "" &&
+        tutor_offer_time == "" &&
+        AceptDate == "" &&
+        stconfirm == "")
+    ) {
+      navigation.navigate("TutorAcceptNegotiate", {
+        BookingId: BookingId,
+      });
+    } else if (
+      stDate != "" &&
+      offerType != "" &&
+      AceptDate == "Accept" &&
+      stconfirm != "Confirmed" &&
+      amt_offer_status == "Accept"
+    ) {
+      navigation.navigate("TutorMakePayment");
+    } else if (
+      stDate != "" &&
+      offerType != "" &&
+      AceptDate == "Accept" &&
+      stconfirm == "Confirmed" &&
+      amt_offer_status == "Accept"
+    ) {
+      navigation.navigate("TutorMakePayment");
+    } else if (
+      stDate != "" &&
+      offerType != "" &&
+      amt_offer_status == "Accept" &&
+      tutor_offer_date == "" &&
+      tutor_offer_time == "" &&
+      AceptDate == "" &&
+      stconfirm == ""
+    ) {
       navigation.navigate("TutorStartDT");
     }
   };
@@ -1137,16 +1219,6 @@ const MyBookingTutor = ({ props, route }) => {
                                 {"Offer Price "}
                                 {item.tutor_tution_fees}
                               </Text>
-                              <Text
-                                style={{
-                                  color: "#000",
-                                  fontWeight: "500",
-                                  fontSize: 12,
-                                }}
-                              >
-                                {"Offer Price "}
-                                {item.student_offer_date}
-                              </Text>
                             </View>
                           </View>
                         </View>
@@ -1205,11 +1277,16 @@ const MyBookingTutor = ({ props, route }) => {
                         <TouchableOpacity
                           onPress={() =>
                             ViewDetails(
-                              // item.tutor_id,
-                              // item.tutor_booking_process_id,
-                              // item.student_id,
-                              // item.tutor_booking_status,
-                              item.student_offer_date
+                              item.tutor_id,
+                              item.tutor_booking_process_id,
+
+                              item.student_offer_date,
+                              item.tutor_accept_date_time_status,
+                              item.tutor_tution_offer_amount_type,
+                              item.student_date_time_offer_confirmation,
+                              item.offer_status,
+                              item.tutor_offer_date,
+                              item.tutor_offer_time
                             )
                           }
                           style={{

@@ -79,6 +79,8 @@ import TutorAcceptCancel from "../screens/TutorBooking/TutorAcceptCancel";
 import StartDT from "../screens/StartDT";
 import TutorMakePayment from "../screens/TutorBooking/TutorMakePayment";
 import TutorStartDT from "../screens/TutorBooking/TutorStartDT";
+import MakePayment from "../screens/MakePayment";
+import TutorAcceptNegotiate from "../screens/TutorBooking/TutorAcceptNegotiate";
 
 const SignStack = createStackNavigator();
 
@@ -381,7 +383,7 @@ function MyTabBar({ state, descriptors, navigation }) {
 
         if (label == "TutorHomeStacknavigation") {
           // showlabel = "Dashboard";
-          iconNm = require("../Assets/Home.png");
+          iconNm = require("../Assets/HomeTution.png");
 
           // {
           //   isFocused ?
@@ -393,7 +395,7 @@ function MyTabBar({ state, descriptors, navigation }) {
 
         if (label == "Bookmark") {
           // showlabel = "Settings";
-          iconNm = require("../Assets/Chats.png");
+          iconNm = require("../Assets/ChatTutors.png");
 
           // {
           //   isFocused ?
@@ -407,7 +409,7 @@ function MyTabBar({ state, descriptors, navigation }) {
 
         if (label == "ClientLanding") {
           //showlabel = "Home";
-          iconNm = require("../Assets/Home.png");
+          iconNm = require("../Assets/HomeTution.png");
 
           // {
           //   isFocused ?
@@ -571,6 +573,23 @@ function SecondStacknavigation() {
       <Stack.Screen
         name="StartDT"
         component={StartDT}
+        options={{
+          title: "AuthCheck",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="MakePayment"
+        component={MakePayment}
         options={{
           title: "AuthCheck",
           headerShown: false,
@@ -1349,6 +1368,25 @@ function TutorHomeStacknavigation() {
           },
         }}
       />
+
+      <TutorHomeStack.Screen
+        name="TutorAcceptNegotiate"
+        component={TutorAcceptNegotiate}
+        options={{
+          title: "TutorAcceptNegotiate",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
       <TutorHomeStack.Screen
         name="TutorMakePayment"
         component={TutorMakePayment}
@@ -1600,6 +1638,24 @@ function TutorHomeStacknavigation4() {
         }}
       />
 
+      <TutorHomeStack.Screen
+        name="TutorAcceptNegotiate"
+        component={TutorAcceptNegotiate}
+        options={{
+          title: "TutorAcceptNegotiate",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
       <TutorHomeStack.Screen
         name="TutorMakePayment"
         component={TutorMakePayment}

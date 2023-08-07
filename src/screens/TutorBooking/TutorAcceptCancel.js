@@ -60,6 +60,10 @@ const TutorAcceptCancel = ({ route }) => {
   const { All_Booked_Student } = useSelector(
     (state) => state.TutorBooingReducer
   );
+  const { All_Booked_Tutor_Detail } = useSelector(
+    (state) => state.TutorBooingReducer
+  );
+
   const { Login_Data } = useSelector((state) => state.TutorReducer);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -210,7 +214,7 @@ const TutorAcceptCancel = ({ route }) => {
 
     // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
-  }, [navigation, All_Booked_Student]);
+  }, [navigation, All_Booked_Tutor_Detail]);
 
   const TutorAcceptCancel = (Offerstatus) => {
     setLoader(true);
@@ -218,9 +222,9 @@ const TutorAcceptCancel = ({ route }) => {
     setTimeout(() => {
       dispatch(
         OfferStatus(
-          All_Booked_Student[0]?.tutor_booking_process_id,
+          All_Booked_Tutor_Detail[0]?.tutor_booking_process_id,
           Offerstatus,
-          All_Booked_Student[0]?.tutor_tution_offer_amount_type,
+          All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount_type,
           navigation
         )
       );
@@ -376,7 +380,7 @@ const TutorAcceptCancel = ({ route }) => {
                     alignSelf: "center",
                   }}
                 >
-                  SGD {All_Booked_Student[0]?.tutor_tution_offer_amount}
+                  SGD {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount}
                 </Text>
 
                 <Text
@@ -399,10 +403,10 @@ const TutorAcceptCancel = ({ route }) => {
                   marginTop: wp(3),
                 }}
               >
-                {All_Booked_Student[0]?.tutor_tution_offer_amount_type}
+                {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount_type}
               </Text>
             </View>
-            {All_Booked_Student[0]?.offer_status == "Accept" ? (
+            {All_Booked_Tutor_Detail[0]?.offer_status == "Accept" ? (
               <View
                 style={{
                   marginTop: wp(5),
@@ -424,7 +428,7 @@ const TutorAcceptCancel = ({ route }) => {
                   }}
                 >
                   Agreed Fee is SGD{" "}
-                  {All_Booked_Student[0]?.tutor_tution_offer_amount} /hour
+                  {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount} /hour
                 </Text>
               </View>
             ) : (
@@ -455,7 +459,7 @@ const TutorAcceptCancel = ({ route }) => {
               <Text style={styles.BookText5}>Cancel Booking</Text>
             </TouchableOpacity>
 
-            {All_Booked_Student[0]?.offer_status == "Accept" ? (
+            {All_Booked_Tutor_Detail[0]?.offer_status == "Accept" ? (
               <TouchableOpacity
                 // onPress={() => TutorAcceptCancel("Accept")}
                 //  onPress={() => navigation.navigate("MakeOffer")}

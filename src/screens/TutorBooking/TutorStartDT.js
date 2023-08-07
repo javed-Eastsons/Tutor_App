@@ -52,10 +52,8 @@ const TutorStartDT = ({ route }) => {
   const { All_Booked_Student } = useSelector(
     (state) => state.TutorBooingReducer
   );
-
-  console.log(
-    All_Booked_Student,
-    "All_Booked_StudentAll_Booked_StudentAll_Booked_Student"
+  const { All_Booked_Tutor_Detail } = useSelector(
+    (state) => state.TutorBooingReducer
   );
 
   const [isFocus, setIsFocus] = useState(false);
@@ -179,15 +177,15 @@ const TutorStartDT = ({ route }) => {
   const AcceptOffer = () => {
     console.log(
       "Accepttttttttttttttt",
-      All_Booked_Student[0]?.tutor_id,
-      All_Booked_Student[0]?.tutor_booking_process_id,
+      All_Booked_Tutor_Detail[0]?.tutor_id,
+      All_Booked_Tutor_Detail[0]?.tutor_booking_process_id,
       "Accept"
     );
 
     dispatch(
       AcceptFinalOffer(
-        All_Booked_Student[0]?.tutor_id,
-        All_Booked_Student[0]?.tutor_booking_process_id,
+        All_Booked_Tutor_Detail[0]?.tutor_id,
+        All_Booked_Tutor_Detail[0]?.tutor_booking_process_id,
         "Accept",
         navigation
       )
@@ -287,8 +285,8 @@ const TutorStartDT = ({ route }) => {
       <View style={[styles.cardLeft, styles.shadowPropLeft]}>
         <Text style={styles.infoText1}>Step 3 of 5: Start Date & Time hhh</Text>
       </View>
-      {All_Booked_Student[0]?.student_offer_date == "Accept" &&
-      All_Booked_Student[0]?.tutor_accept_date_time_status == "" ? (
+      {All_Booked_Tutor_Detail[0]?.student_offer_date == "Accept" &&
+      All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status == "" ? (
         <View
           style={{
             backgroundColor: "#F2F2F2",
@@ -306,7 +304,8 @@ const TutorStartDT = ({ route }) => {
             </Text>
           </Text>
         </View>
-      ) : All_Booked_Student[0]?.tutor_accept_date_time_status == "Accept" ? (
+      ) : All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status ==
+        "Accept" ? (
         <View
           style={{
             backgroundColor: "#F2F2F2",
@@ -463,10 +462,10 @@ const TutorStartDT = ({ route }) => {
           >
             <Text style={{ color: "#fff", fontSize: 12, fontWeight: "500" }}>
               {moment(
-                All_Booked_Student[0]?.student_offer_date,
+                All_Booked_Tutor_Detail[0]?.student_offer_date,
                 "MM-DD-YYYY"
               ).format("ddd,DD MMM YYYY")}{" "}
-              {All_Booked_Student[0]?.student_offer_time}
+              {All_Booked_Tutor_Detail[0]?.student_offer_time}
               {/* {time.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -552,8 +551,8 @@ const TutorStartDT = ({ route }) => {
             <Text style={styles.BookText5}>Cancel Booking</Text>
           </TouchableOpacity>
 
-          {All_Booked_Student[0]?.student_offer_date == "Accept" &&
-          All_Booked_Student[0]?.tutor_accept_date_time_status == "" ? (
+          {All_Booked_Tutor_Detail[0]?.student_offer_date != "" &&
+          All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status == "" ? (
             <TouchableOpacity
               onPress={
                 () => AcceptOffer()
@@ -571,7 +570,7 @@ const TutorStartDT = ({ route }) => {
             >
               <Text style={styles.infoText1}>Accept</Text>
             </TouchableOpacity>
-          ) : All_Booked_Student[0]?.tutor_accept_date_time_status ==
+          ) : All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status ==
             "Accept" ? (
             <TouchableOpacity
               onPress={() => navigation.navigate("TutorMakePayment")}

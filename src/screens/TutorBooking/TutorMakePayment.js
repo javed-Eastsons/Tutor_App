@@ -35,6 +35,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import CalendarPicker from "react-native-calendar-picker";
 import moment from "moment";
 import CountDown from "react-native-countdown-component";
+import CountdownTimer from "./Component/CountdownTimer";
 
 import { offerDateTime } from "../../Redux/Actions/Tutors";
 
@@ -79,154 +80,11 @@ const TutorMakePayment = ({ route }) => {
   };
   console.log(selectedStartDate, "selectedStartDate");
 
-  const onSelectedlevel = (selectedItemslevel) => {
-    // Set Selected Items
-
-    createlevel(selectedItemslevel);
-    setSelectedlevel(selectedItemslevel);
-    // console.log('Level', selectedlevel)
-  };
-
-  const isExistInArray = (Ex_array, Ex_Key, Ex_value) => {
-    var isExist = false;
-    Ex_array.forEach(function (element, index) {
-      if (
-        Ex_array[index] &&
-        Ex_array[index].hasOwnProperty(Ex_Key) &&
-        Ex_array[index][Ex_Key] === Ex_value
-      ) {
-        isExist = true;
-        return false;
-      }
-    });
-
-    return isExist;
-  };
-
-  const showDatePicker = () => {
-    setDatePicker(true);
-  };
-
-  const showTimePicker = () => {
-    setTimePicker(true);
-  };
-
-  const onDateSelected = (event, value) => {
-    setDate(value);
-    setDatePicker(false);
-  };
-
   const onTimeSelected = (event, value) => {
     console.log(value.toLocaleTimeString(), "time");
     setTime(value);
     setTimePicker(false);
   };
-
-  const RemoveTempExercise = (Ex_array, Ex_Key, Ex_value) => {
-    // console.log('sudhanshuuuuuuuuuuuuuuuuuu', JSON.stringify(Ex_array))
-
-    Ex_array.forEach(function (element, index) {
-      if (
-        Ex_array[index] &&
-        Ex_array[index].hasOwnProperty(Ex_Key) &&
-        Ex_array[index][Ex_Key] === Ex_value
-      ) {
-        console.log("id:" + Ex_value);
-        Ex_array.splice(index, 1);
-        return false;
-      }
-    });
-
-    selectArray = Ex_array;
-    selectFilter = Ex_array;
-  };
-
-  const SendRequest = (val) => {
-    setSendOffer(val);
-
-    if (value == "Negotiable") {
-      navigation.navigate("Negotiate", {
-        amount: offerAmount,
-        mydate: date,
-        mytime: time,
-      });
-    } else {
-      navigation.navigate("NonNegotiate", {
-        amount: offerAmount,
-        mydate: date,
-        mytime: time,
-      });
-    }
-  };
-  const dateTimeOffer = () => {
-    const Time = time.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    const Date = moment(
-      selectedStartDate ? selectedStartDate : date.toString()
-    ).format("MM-DD-YYYY");
-
-    dispatch(
-      offerDateTime(
-        route?.params?.tutorBookingProcessId,
-        route?.params?.offerStatus,
-        Time,
-        Date
-      )
-    );
-  };
-
-  const AcceptOffer = () => {
-    console.log(
-      "Accepttttttttttttttt",
-      All_Booked_Student[0]?.tutor_id,
-      All_Booked_Student[0]?.tutor_booking_process_id,
-      "Accept"
-    );
-
-    dispatch(
-      AcceptFinalOffer(
-        All_Booked_Student[0]?.tutor_id,
-        All_Booked_Student[0]?.tutor_booking_process_id,
-        "Accept",
-        navigation
-      )
-    );
-  };
-  const createlevel = (data) => {
-    console.log(data, ":::::::::::::::::::::::::");
-    if (data.length == 0) {
-      selectFilter = [];
-      console.log("ddddddddddddddddddddddd");
-    } else {
-      const obj3 = {};
-      data.forEach((element, index) => {
-        // console.log('""""""""""""""', element);
-        obj3["Levels_search"] = element;
-        // setSelectedQual(element)
-      });
-      if (!isExistInArray(selectFilter, "Levels_search", obj3.Levels_search)) {
-        selectFilter.push(obj3);
-
-        // dispatch(GetfilterQualification(route.params.postalcode, route.params.tuition_type, Gender, Status, selectFilter))
-      } else {
-        RemoveTempExercise(selectFilter, "Levels_search", obj3.Levels_search);
-      }
-    }
-    console.log("Level????????????????", selectFilter);
-  };
-  console.log(offerAmount, "ADAWDQWD");
-  useEffect(() => {
-    // console.log(route.params.postalcode, route.params.tuition_type)
-    // dispatch(GetAllTutors())
-    setUserdata(GET_FILTER_DATA);
-    setPostaldata(GET_POSTAL_DATA);
-    console.log(
-      "🚀 ~ file: OurTutor.js ~ line 506 ~ useEffect ~ GET_POSTAL_DATA",
-      GET_POSTAL_DATA
-    );
-  }, [offerAmount]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -314,19 +172,20 @@ const TutorMakePayment = ({ route }) => {
 
         {/* timer start */}
         <View style={{ marginTop: 10, marginBottom: 10 }}>
-          <CountDown
-            until={86400}
+          <CountdownTimer initialSeconds={86400} />
+          {/* <CountDown
+            // until={10}
             //duration of countdown in seconds
-            timetoShow={("H", "M", "S")}
+            // timetoShow={("H", "M", "S")}
             //formate to show
             onFinish={() => alert("finished")}
             digitStyle={{ backgroundColor: "#000" }}
             digitTxtStyle={{ color: "#fff" }}
             //on Finish call
-            onPress={() => alert("hello")}
+            //  onPress={() => alert("hello")}
             //on Press call
             size={20}
-          />
+          /> */}
         </View>
 
         {/* timer end */}

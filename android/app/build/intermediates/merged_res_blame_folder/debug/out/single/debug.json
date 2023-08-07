@@ -256,6 +256,10 @@
         "source": "com.tutor.app-main-7:/raw/src_assets_third.mp4"
     },
     {
+        "merged": "com.tutor.app-merged_res-5:/drawable-mdpi_node_modules_reactnativepaper_src_assets_backchevron.png.flat",
+        "source": "com.tutor.app-main-7:/drawable-mdpi/node_modules_reactnativepaper_src_assets_backchevron.png"
+    },
+    {
         "merged": "com.tutor.app-merged_res-5:/raw_src_assets_four.mp4.flat",
         "source": "com.tutor.app-main-7:/raw/src_assets_four.mp4"
     },

@@ -61,6 +61,61 @@ export const AcceptFinalOffer = (TutId, BookingId, OfferStatus, navigation) => {
   };
 };
 
+export const NegotiateOfferAmountUpdate = (
+  bookingId,
+
+  OfferType,
+  tutorId,
+  offerAmount,
+  navigation
+) => {
+  console.log(bookingId, OfferType, tutorId, offerAmount);
+  return (dispatch, getState) => {
+    axios.defaults.baseURL = "https://refuel.site";
+    const url1 =
+      axios.defaults.baseURL +
+      "/projects/tutorapp/APIs/TutorBookings/NegotiateOfferAmountUpdate.php";
+    var formData = new FormData();
+    formData.append("tutor_booking_process_id", bookingId);
+    formData.append("tutor_tution_offer_amount_type", OfferType);
+    formData.append("tutor_id", tutorId);
+    formData.append("amount_negotiate_by_tutor", offerAmount);
+
+    return fetch(url1, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
+        //   Alert.alert(responseJson.message)
+        if (responseJson.status == true) {
+          // console.log("ww", responseJson.message);
+          //  navigation.navigate("TutorAcceptCancel");
+          // Alert.alert(responseJson.message)
+          // dispatch({
+          //   type: REGISTER_MSG,
+          //   REG_MSG: responseJson.message,
+          // });
+        } else if (responseJson.status == false) {
+          // navigation.navigate("TutorAcceptCancel");
+          console.log("AAa", responseJson.message);
+          // Alert.alert(responseJson.message)
+          dispatch({
+            type: REGISTER_MSG,
+            REG_MSG: responseJson.message,
+          });
+        }
+      })
+      .catch((error) => console.log(error.message));
+  };
+};
 export const OfferStatus = (bookingId, offerstatus, OfferType, navigation) => {
   console.log(bookingId, offerstatus, OfferType);
   return (dispatch, getState) => {
@@ -85,7 +140,7 @@ export const OfferStatus = (bookingId, offerstatus, OfferType, navigation) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
+        console.log("OFFERRRRRRRRRRRRRRRRRRRRRRRR", responseJson);
         //   Alert.alert(responseJson.message)
         if (responseJson.status == true) {
           // console.log("ww", responseJson.message);
@@ -235,11 +290,6 @@ export const GetBookedTutorList = (Login_Data, navigation) => {
 
 export const GetBookedStudentList = (Login_Data, navigation) => {
   return async (dispatch, getState) => {
-    //const login = await getApiKey();
-
-    //let data = JSON.parse(login);
-    //var authtoken = data;
-    //  console.log(authtoken)
     const url1 =
       "https://refuel.site/projects/tutorapp/APIs/TutorList/BookedTutorList.php?tutor_id=" +
       Login_Data?.userid;

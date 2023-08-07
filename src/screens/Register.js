@@ -53,6 +53,7 @@ const Register = ({ route }) => {
 
   const { Registermsg } = useSelector((state) => state.TutorReducer);
   const { otpmsgs } = useSelector((state) => state.TutorReducer);
+
   // console.log('LLLLLLLLLLLLLLLLLLLLLL', Registermsg)
   //   console.log('SSSSSSSSSSSSSSSSSSSSSSS', otpmsgs)
 
@@ -68,6 +69,7 @@ const Register = ({ route }) => {
   //     }
 
   // }, [])
+
   const data = countryCode;
   // [
   //   { label: 'Item 1', value: '1' },
@@ -123,7 +125,8 @@ const Register = ({ route }) => {
       console.log("sddddddddd");
 
       // Alert.alert(Registermsg);
-      setVerifyModalVisible(!isVerfyModalVisible);
+      //  setVerifyModalVisible(!isVerfyModalVisible);
+      setModalVisible(!isModalVisible);
     }
   };
 
@@ -385,7 +388,7 @@ const Register = ({ route }) => {
         {/* <View style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, alignSelf: 'center', position: 'absolute', bottom: 0, height: hp(45), width: wp(100), backgroundColor: '#fff' }}>
          */}
         <View style={styles.BlueContainer1}>
-          <Text style={styles.BlueText}>Almost Donegsg</Text>
+          <Text style={styles.BlueText}>Almost Done</Text>
         </View>
         <View
           style={{

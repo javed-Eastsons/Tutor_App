@@ -84,7 +84,7 @@ export const RegisterUser = (
         //   Alert.alert(responseJson.message)
         if (responseJson.status == true) {
           console.log("ww", responseJson.message);
-          // Alert.alert(responseJson.message)
+          Alert.alert(responseJson.message);
           dispatch({
             type: REGISTER_MSG,
             REG_MSG: responseJson.message,
@@ -252,7 +252,7 @@ export const OTPVerifywithrole = (role, otp, navigation) => {
     var formData = new FormData();
     formData.append("user_type", role);
 
-    formData.append("OTP_EMAIL", otp);
+    //  formData.append("OTP_EMAIL", otp);
     //formData.append("OTP_MOBILE", otp);
 
     console.log("FORMDATAAAAA", formData);
@@ -421,5 +421,134 @@ export const editProfile = (
     //         }
     //     })
     //     .catch(error => console.log('LLLLLLLLL', error.message))
+  };
+};
+
+export const offerDateTime = (
+  tutorBookingProcessId,
+  student_id,
+  Time,
+  Date
+) => {
+  return (dispatch, getState) => {
+    const url =
+      "https://refuel.site/projects/tutorapp/APIs/TutorBookings/DateAndTimeOfferUpdate.php";
+
+    let data = new FormData();
+    data.append("tutor_booking_process_id", tutorBookingProcessId);
+    data.append("student_id", student_id);
+    data.append("student_offer_date", Date);
+    data.append("student_offer_time", Time);
+
+    console.log(data, "formdata");
+    return fetch(url, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("responseJson", responseJson);
+        if (responseJson.status == true) {
+          Alert.alert(responseJson.message);
+          // navigation.navigate("Auth4");
+        } else if (responseJson.status == false) {
+          Alert.alert("Record not inserted");
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+
+    // let config = {
+    //   method: "POST",
+    //   maxBodyLength: Infinity,
+    //   url: "https://refuel.site/projects/tutorapp/APIs/TutorBookings/AcceptOfferDateTime.php",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   data: data1,
+    // };
+
+    // axios
+    //   .request(config)
+    //   // .then((response) => response.json())
+    //   .then((responseJson) => {
+    //     console.log(JSON.stringify(responseJson.data), "respone");
+    //     if (responseJson.data.status == true) {
+    //       Alert.alert(responseJson.data.message);
+    //       navigation.navigate("Auth4");
+    //     } else if (responseJson.data.status == false) {
+    //       Alert.alert("Record not inserted");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error, "error");
+    //   });
+  };
+};
+
+export const ConfirmofferDateTime = (tutorBookingProcessId, student_id) => {
+  return (dispatch, getState) => {
+    const url =
+      "https://refuel.site/projects/tutorapp/APIs/TutorBookings/DateAndTimeOfferUpdate.php";
+
+    let data = new FormData();
+    data.append("tutor_booking_process_id", tutorBookingProcessId);
+    data.append("student_id", student_id);
+
+    data.append("student_date_time_offer_confirmation", "Confirmed");
+
+    console.log(data, "formdata");
+    return fetch(url, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("responseJson", responseJson);
+        if (responseJson.status == true) {
+          Alert.alert(responseJson.message);
+          // navigation.navigate("Auth4");
+        } else if (responseJson.status == false) {
+          Alert.alert("Record not inserted");
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+
+    // let config = {
+    //   method: "POST",
+    //   maxBodyLength: Infinity,
+    //   url: "https://refuel.site/projects/tutorapp/APIs/TutorBookings/AcceptOfferDateTime.php",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   data: data1,
+    // };
+
+    // axios
+    //   .request(config)
+    //   // .then((response) => response.json())
+    //   .then((responseJson) => {
+    //     console.log(JSON.stringify(responseJson.data), "respone");
+    //     if (responseJson.data.status == true) {
+    //       Alert.alert(responseJson.data.message);
+    //       navigation.navigate("Auth4");
+    //     } else if (responseJson.data.status == false) {
+    //       Alert.alert("Record not inserted");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error, "error");
+    //   });
   };
 };

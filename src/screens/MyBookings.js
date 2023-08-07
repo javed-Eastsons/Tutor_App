@@ -869,8 +869,16 @@ const MyBookings = ({ props, route }) => {
   const setTabFunc = (val) => {
     setTabs(val);
   };
-  console.log(All_Booked_Tutor[0]?.tutor_booking_status,All_Booked_Tutor[0]?.offer_status,'tutorBookingStatus,offerStatus')
-  console.log(All_Booked_Tutor[0]?.tutor_tution_offer_amount_type, All_Booked_Tutor[0]?.tutor_tution_fees, 'jkk')
+  console.log(
+    All_Booked_Tutor[0]?.tutor_booking_status,
+    All_Booked_Tutor[0]?.offer_status,
+    "tutorBookingStatus,offerStatus"
+  );
+  console.log(
+    All_Booked_Tutor[0]?.tutor_tution_offer_amount_type,
+    All_Booked_Tutor[0]?.tutor_tution_fees,
+    "jkk"
+  );
   return (
     <>
       <View style={styles.container}>
@@ -1006,13 +1014,13 @@ const MyBookings = ({ props, route }) => {
                   marginLeft: 4,
                 }}
               >
-               { `You have made a ${All_Booked_Tutor[0]?.tutor_tution_offer_amount_type} offer `}
+                {`You have made a ${All_Booked_Tutor[0]?.tutor_tution_offer_amount_type} offer `}
               </Text>
             </View>
             <View
               style={{
                 height: hp(7),
-                width: "100%", 
+                width: "100%",
                 //justifyContent: "center",
                 // alignItems: "center",
                 backgroundColor: "#F2F2F2",
@@ -1024,8 +1032,8 @@ const MyBookings = ({ props, route }) => {
               <Text style={styles.BookText3}>
                 Instructions:
                 <Text style={styles.BookText4}>
-                You have placed an offer, tutor will be informed 
-                you will be recieve an app notification when the tutor has responded.
+                  You have placed an offer, tutor will be informed you will be
+                  recieve an app notification when the tutor has responded.
                 </Text>
               </Text>
             </View>
@@ -1098,7 +1106,7 @@ const MyBookings = ({ props, route }) => {
                               maxStars={5}
                               rating={4}
                               starSize={15}
-                            // selectedStar={(rating) => setStrCount(rating)}
+                              // selectedStar={(rating) => setStrCount(rating)}
                             />
                           </View>
                         </View>
@@ -1164,30 +1172,81 @@ const MyBookings = ({ props, route }) => {
                       <Text style={styles.BookText5}>Cancel Booking</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                      onPress={() =>
-                        route?.params?.proceed === true ? 
-                        navigation.navigate("AcceptNegotiate")
-                          :
-                        navigation.navigate("MakeOffer", {
-                          Amount_type: All_Booked_Tutor[0]?.tutor_tution_offer_amount_type,
-                          fees: All_Booked_Tutor[0]?.tutor_tution_fees,
-                          tutorBookingStatus:All_Booked_Tutor[0]?.tutor_booking_status,
-                          offerStatus:All_Booked_Tutor[0]?.offer_status,
-                          tutorBookingProcessId:All_Booked_Tutor[0]?.tutor_booking_process_id
-                          // amount: offerAmount,
-                          // youramount: youroffer
-                        })
-                      }
+                      onPress={() => {
+                        if (
+                          All_Booked_Tutor[0]
+                            ?.student_date_time_offer_confirmation ===
+                          "Confirmed"
+                        ) {
+                          navigation.navigate("MakePayment");
+                        } else {
+                          if (
+                            All_Booked_Tutor[0]?.offer_status === "Accept" &&
+                            All_Booked_Tutor[0]
+                              ?.student_date_time_offer_confirmation === ""
+                          ) {
+                            navigation.navigate("StartDT", {
+                              Amount_type:
+                                All_Booked_Tutor[0]
+                                  ?.tutor_tution_offer_amount_type,
+                              fees: All_Booked_Tutor[0]?.tutor_tution_fees,
+                              tutorBookingStatus:
+                                All_Booked_Tutor[0]?.tutor_booking_status,
+                              offerStatus: All_Booked_Tutor[0]?.offer_status,
+                              tutorBookingProcessId:
+                                All_Booked_Tutor[0]?.tutor_booking_process_id,
+                              student_id: All_Booked_Tutor[0]?.student_id,
+                              student_offer_time:
+                                All_Booked_Tutor[0]?.student_offer_time,
+                              student_offer_date:
+                                All_Booked_Tutor[0]?.student_offer_date,
+                              // amount: offerAmount,
+                              // youramount: youroffer
+                            });
+                          } else {
+                            navigation.navigate("MakeOffer", {
+                              Amount_type:
+                                All_Booked_Tutor[0]
+                                  ?.tutor_tution_offer_amount_type,
+                              fees: All_Booked_Tutor[0]?.tutor_tution_fees,
+                              tutorBookingStatus:
+                                All_Booked_Tutor[0]?.tutor_booking_status,
+                              offerStatus: All_Booked_Tutor[0]?.offer_status,
+                              tutorBookingProcessId:
+                                All_Booked_Tutor[0]?.tutor_booking_process_id,
+                              student_id: All_Booked_Tutor[0]?.student_id,
+                              student_offer_time:
+                                All_Booked_Tutor[0]?.student_offer_time,
+                              student_offer_date:
+                                All_Booked_Tutor[0]?.student_offer_date,
+                              // amount: offerAmount,
+                              // youramount: youroffer
+                            });
+                          }
+                        }
+                      }}
                       style={{
                         height: "100%",
                         width: "45%",
                         justifyContent: "center",
                         alignItems: "center",
-                        backgroundColor: route?.params?.proceed === true ? "purple" : "#F6BE00",
+                        backgroundColor:
+                          route?.params?.proceed === true
+                            ? "purple"
+                            : "#F6BE00",
                         borderRadius: 3,
                       }}
                     >
-                      <Text style={{color :route?.params?.proceed === true ? 'white' : 'black' }}>{route?.params?.proceed === true ? 'Proceed' : 'View Details'}  </Text>
+                      <Text
+                        style={{
+                          color:
+                            route?.params?.proceed === true ? "white" : "black",
+                        }}
+                      >
+                        {route?.params?.proceed === true
+                          ? "Proceed"
+                          : "View Details"}{" "}
+                      </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -1250,7 +1309,7 @@ const MyBookings = ({ props, route }) => {
                           maxStars={5}
                           rating={4}
                           starSize={15}
-                        // selectedStar={(rating) => setStrCount(rating)}
+                          // selectedStar={(rating) => setStrCount(rating)}
                         />
                       </View>
                     </View>
@@ -1438,7 +1497,7 @@ const MyBookings = ({ props, route }) => {
                           maxStars={5}
                           rating={4}
                           starSize={15}
-                        // selectedStar={(rating) => setStrCount(rating)}
+                          // selectedStar={(rating) => setStrCount(rating)}
                         />
                       </View>
                     </View>
@@ -1671,7 +1730,7 @@ const MyBookings = ({ props, route }) => {
                     maxStars={5}
                     rating={4}
                     starSize={15}
-                  // selectedStar={(rating) => setStrCount(rating)}
+                    // selectedStar={(rating) => setStrCount(rating)}
                   />
                 </View>
 
@@ -1813,7 +1872,7 @@ const MyBookings = ({ props, route }) => {
                     maxStars={5}
                     rating={4}
                     starSize={15}
-                  // selectedStar={(rating) => setStrCount(rating)}
+                    // selectedStar={(rating) => setStrCount(rating)}
                   />
                 </View>
 
@@ -1955,7 +2014,7 @@ const MyBookings = ({ props, route }) => {
                     maxStars={5}
                     rating={4}
                     starSize={15}
-                  // selectedStar={(rating) => setStrCount(rating)}
+                    // selectedStar={(rating) => setStrCount(rating)}
                   />
                 </View>
 
@@ -2078,7 +2137,7 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   whiteColor: {
-    color: ' #fff'
+    color: " #fff",
   },
   ReviewText: {
     color: "#fff",
