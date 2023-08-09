@@ -35,7 +35,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import CalendarPicker from "react-native-calendar-picker";
 import moment from "moment";
 
-import { offerDateTime } from "../../Redux/Actions/Tutors";
+import { offerDateTime, TutorofferDateTime } from "../../Redux/Actions/Tutors";
 
 var selectArray = [];
 var selectFilter = [];
@@ -46,6 +46,7 @@ const TutorStartDT = ({ route }) => {
   const [userdata, setUserdata] = useState([]);
   const [postaldata, setPostaldata] = useState([]);
   const [offerAmount, setofferAmount] = useState(0);
+  const [loader, setLoader] = React.useState(false);
   const [selectedlevel, setSelectedlevel] = useState([]);
   const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer);
@@ -69,12 +70,15 @@ const TutorStartDT = ({ route }) => {
   const [time, setTime] = useState(new Date(Date.now()));
   const [value, setValue] = useState("Negotiable");
   const [sendOffer, setSendOffer] = useState(0);
-  const [selectedStartDate, setSelectedStartDate] = useState();
+  const [selectedStartDate, setSelectedStartDate] = useState(0);
 
   const onDateChange = (date) => {
     setSelectedStartDate(date);
   };
-  console.log(selectedStartDate, "selectedStartDate");
+  console.log(
+    selectedStartDate,
+    "selectedStartDate???????????????????????????"
+  );
 
   const onSelectedlevel = (selectedItemslevel) => {
     // Set Selected Items
@@ -115,8 +119,41 @@ const TutorStartDT = ({ route }) => {
 
   const onTimeSelected = (event, value) => {
     console.log(value.toLocaleTimeString(), "time");
+
     setTime(value);
     setTimePicker(false);
+  };
+
+  const TutorChangeDate = () => {
+    console.log(
+      moment(selectedStartDate ? selectedStartDate : date.toString()).format(
+        "MM-DD-YYYY"
+      ),
+      time.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      route?.params?.BookingId,
+      "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    );
+
+    setLoader(true);
+
+    const tutorId = All_Booked_Tutor_Detail[0]?.tutor_id;
+
+    const BookingId = route?.params?.BookingId;
+    const TutorDate = moment(
+      selectedStartDate ? selectedStartDate : date.toString()
+    ).format("MM-DD-YYYY");
+
+    const TutorTime = time.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    setTimeout(() => {
+      dispatch(TutorofferDateTime(BookingId, tutorId, TutorDate, TutorTime));
+      setLoader(false);
+    }, 2000);
   };
 
   const RemoveTempExercise = (Ex_array, Ex_Key, Ex_value) => {
@@ -178,14 +215,14 @@ const TutorStartDT = ({ route }) => {
     console.log(
       "Accepttttttttttttttt",
       All_Booked_Tutor_Detail[0]?.tutor_id,
-      All_Booked_Tutor_Detail[0]?.tutor_booking_process_id,
+      route?.params?.BookingId,
       "Accept"
     );
 
     dispatch(
       AcceptFinalOffer(
         All_Booked_Tutor_Detail[0]?.tutor_id,
-        All_Booked_Tutor_Detail[0]?.tutor_booking_process_id,
+        route?.params?.BookingId,
         "Accept",
         navigation
       )
@@ -450,7 +487,7 @@ const TutorStartDT = ({ route }) => {
               marginLeft: 20,
             }}
           >
-            Your Start Date/Time
+            Client's Start Date/Time
           </Text>
           <View
             style={{
@@ -498,7 +535,7 @@ const TutorStartDT = ({ route }) => {
                 marginLeft: 20,
               }}
             >
-              Tutor's Start Date/Time
+              Your Start Date/Time
             </Text>
             <View
               style={{
@@ -516,6 +553,43 @@ const TutorStartDT = ({ route }) => {
                   hour: "2-digit",
                   minute: "2-digit",
                 })}
+              </Text>
+            </View>
+          </View>
+        ) : All_Booked_Tutor_Detail[0]?.tutor_offer_date != "" ? (
+          <View
+            style={{
+              height: wp(12),
+              backgroundColor: "green",
+              borderColor: "#2F5597",
+              borderWidth: 1,
+              flexDirection: "row",
+            }}
+          >
+            <Text
+              style={{
+                width: wp(45),
+                backgroundColor: "green",
+                color: "#fff",
+                fontSize: 12,
+                fontWeight: "500",
+                margin: 10,
+                marginLeft: 20,
+              }}
+            >
+              Your Start Date/Time
+            </Text>
+            <View
+              style={{
+                width: wp(65),
+                height: wp(8),
+                alignSelf: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ color: "#fff", fontSize: 12, fontWeight: "500" }}>
+                {All_Booked_Tutor_Detail[0]?.tutor_offer_date}{" "}
+                {All_Booked_Tutor_Detail[0]?.tutor_offer_time}
               </Text>
             </View>
           </View>
@@ -551,13 +625,64 @@ const TutorStartDT = ({ route }) => {
             <Text style={styles.BookText5}>Cancel Booking</Text>
           </TouchableOpacity>
 
-          {All_Booked_Tutor_Detail[0]?.student_offer_date != "" &&
-          All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status == "" ? (
+          {selectedStartDate == 0 ? (
+            All_Booked_Tutor_Detail[0]?.student_offer_date != "" &&
+            All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status == "" ? (
+              <TouchableOpacity
+                onPress={
+                  () => AcceptOffer()
+                  // navigation.navigate('')
+                }
+                style={{
+                  height: "100%",
+                  width: "50%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#F6BE00",
+
+                  borderRadius: 3,
+                }}
+              >
+                <Text style={styles.infoText1}>Accept</Text>
+              </TouchableOpacity>
+            ) : All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status ==
+              "Accept" ? (
+              <TouchableOpacity
+                // onPress={() => navigation.navigate("TutorMakePayment")}
+                style={{
+                  height: "100%",
+                  width: "50%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#fff",
+
+                  borderRadius: 3,
+                }}
+              >
+                <Text style={styles.infoText1}>Next</Text>
+              </TouchableOpacity>
+            ) : (
+              <Text>Next Starting point</Text>
+            )
+          ) : All_Booked_Tutor_Detail[0]?.tutor_offer_date != "" &&
+            All_Booked_Tutor_Detail[0]?.tutor_offer_time != "" ? (
             <TouchableOpacity
-              onPress={
-                () => AcceptOffer()
-                // navigation.navigate('')
-              }
+              // onPress={() => TutorChangeDate()}
+              style={{
+                height: "100%",
+                width: "50%",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "red",
+
+                borderRadius: 3,
+              }}
+            >
+              <Text style={styles.infoText1}>Next</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => TutorChangeDate()}
               style={{
                 height: "100%",
                 width: "50%",
@@ -568,26 +693,8 @@ const TutorStartDT = ({ route }) => {
                 borderRadius: 3,
               }}
             >
-              <Text style={styles.infoText1}>Accept</Text>
-            </TouchableOpacity>
-          ) : All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status ==
-            "Accept" ? (
-            <TouchableOpacity
-              onPress={() => navigation.navigate("TutorMakePayment")}
-              style={{
-                height: "100%",
-                width: "50%",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#fff",
-
-                borderRadius: 3,
-              }}
-            >
               <Text style={styles.infoText1}>Next</Text>
             </TouchableOpacity>
-          ) : (
-            <Text>Next Starting point</Text>
           )}
         </View>
       </View>

@@ -51,13 +51,13 @@ const TutorMakePayment = ({ route }) => {
   const [selectedlevel, setSelectedlevel] = useState([]);
   const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer);
-  const { All_Booked_Student } = useSelector(
+  const { All_Booked_Tutor_Detail } = useSelector(
     (state) => state.TutorBooingReducer
   );
 
   console.log(
-    All_Booked_Student,
-    "All_Booked_StudentAll_Booked_StudentAll_Booked_Student"
+    All_Booked_Tutor_Detail,
+    "All_Booked_Tutor_DetailAll_Booked_Tutor_Detail"
   );
 
   const [isFocus, setIsFocus] = useState(false);
@@ -218,7 +218,7 @@ const TutorMakePayment = ({ route }) => {
                     marginBottom: 20,
                   }}
                 >
-                  {All_Booked_Student[0]?.student_offer_time}
+                  {All_Booked_Tutor_Detail[0]?.student_offer_time}
                 </Text>
               </View>
             </View>
@@ -257,19 +257,35 @@ const TutorMakePayment = ({ route }) => {
             flexDirection: "row",
           }}
         >
-          <Text
-            style={{
-              width: wp(90),
-              color: "#fff",
-              fontSize: 14,
-              fontWeight: "500",
-              margin: 10,
-              textAlign: "center",
-            }}
-          >
-            Agreed Fee is SGD {All_Booked_Student[0]?.tutor_tution_offer_amount}{" "}
-            /hour
-          </Text>
+          {All_Booked_Tutor_Detail[0]?.amount_negotiate_by_student == "0.00" ? (
+            <Text
+              style={{
+                width: wp(90),
+                color: "#fff",
+                fontSize: 14,
+                fontWeight: "500",
+                margin: 10,
+                textAlign: "center",
+              }}
+            >
+              Agreed Fee is SGD{" "}
+              {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount} /hour
+            </Text>
+          ) : (
+            <Text
+              style={{
+                width: wp(90),
+                color: "#fff",
+                fontSize: 14,
+                fontWeight: "500",
+                margin: 10,
+                textAlign: "center",
+              }}
+            >
+              Agreed Fee is SGD{" "}
+              {All_Booked_Tutor_Detail[0]?.amount_negotiate_by_student} /hour
+            </Text>
+          )}
         </View>
 
         <View
@@ -297,8 +313,8 @@ const TutorMakePayment = ({ route }) => {
             <Text style={styles.BookText5}>Cancel Booking</Text>
           </TouchableOpacity>
 
-          {All_Booked_Student[0]?.student_offer_date == "Accept" &&
-          All_Booked_Student[0]?.tutor_accept_date_time_status == "" ? (
+          {All_Booked_Tutor_Detail[0]?.student_offer_date != "" &&
+          All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status == "" ? (
             <TouchableOpacity
               //   onPress={
               //     () => AcceptOffer()
@@ -314,9 +330,9 @@ const TutorMakePayment = ({ route }) => {
                 borderRadius: 3,
               }}
             >
-              <Text style={styles.infoText1}>Accept</Text>
+              <Text style={styles.infoText1}>Next</Text>
             </TouchableOpacity>
-          ) : All_Booked_Student[0]?.tutor_accept_date_time_status ==
+          ) : All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status ==
             "Accept" ? (
             <TouchableOpacity
               //   onPress={

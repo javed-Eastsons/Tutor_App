@@ -48,9 +48,19 @@ export const RegisterUser = (
   Password,
   Email,
   country_phone_code,
-  Mobile
+  Mobile,
+  role,
+  navigation
 ) => {
-  console.log(FirstName, LastName, Email, country_phone_code, Mobile, Password);
+  console.log(
+    FirstName,
+    LastName,
+    Email,
+    country_phone_code,
+    Mobile,
+    Password,
+    role
+  );
   return (dispatch, getState) => {
     //const login = await getApiKey();
     //let data = JSON.parse(login);
@@ -67,6 +77,7 @@ export const RegisterUser = (
     formData.append("country_phone_code", country_phone_code);
     formData.append("mobile", Mobile);
     formData.append("password", Password);
+    formData.append("user_type", role);
 
     return fetch(url1, {
       method: "POST",
@@ -83,12 +94,28 @@ export const RegisterUser = (
         // console.log('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF', responseJson.message)
         //   Alert.alert(responseJson.message)
         if (responseJson.status == true) {
-          console.log("ww", responseJson.message);
-          Alert.alert(responseJson.message);
-          dispatch({
-            type: REGISTER_MSG,
-            REG_MSG: responseJson.message,
-          });
+          if (responseJson.status == true && role == "I am an Educator") {
+            console.log("ww", responseJson.message);
+            Alert.alert(responseJson.message);
+            dispatch({
+              type: REGISTER_MSG,
+              REG_MSG: responseJson.message,
+            });
+            navigation.navigate("Auth2");
+            console.log("PPPaaa", responseJson.message);
+          } else if (
+            responseJson.status == true &&
+            role == "I am looking for a Tutor"
+          ) {
+            console.log("ww", responseJson.message);
+            Alert.alert(responseJson.message);
+            dispatch({
+              type: REGISTER_MSG,
+              REG_MSG: responseJson.message,
+            });
+            navigation.replace("Auth");
+            console.log("PPPaaa", responseJson.message);
+          }
         } else if (responseJson.status == false) {
           console.log("AAa", responseJson.message);
           // Alert.alert(responseJson.message)
@@ -488,6 +515,49 @@ export const offerDateTime = (
     //   .catch((error) => {
     //     console.log(error, "error");
     //   });
+  };
+};
+
+export const TutorofferDateTime = (
+  tutorBookingProcessId,
+  Tutor_id,
+  Date,
+  Time
+) => {
+  console.log(tutorBookingProcessId, Tutor_id, Time, Date, "PPPPPPPPPPPPPP");
+
+  return (dispatch, getState) => {
+    const url =
+      "https://refuel.site/projects/tutorapp/APIs/TutorBookings/DateAndTimeOfferUpdate.php";
+
+    let data = new FormData();
+    data.append("tutor_booking_process_id", tutorBookingProcessId);
+    data.append("tutor_id", Tutor_id);
+    data.append("tutor_offer_date", Date);
+    data.append("tutor_offer_time", Time);
+
+    console.log(data, "formdata");
+    return fetch(url, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("responseJson", responseJson);
+        if (responseJson.status == true) {
+          Alert.alert(responseJson.message);
+          // navigation.navigate("Auth4");
+        } else if (responseJson.status == false) {
+          Alert.alert("Record not inserted");
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
   };
 };
 

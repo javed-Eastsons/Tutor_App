@@ -118,9 +118,9 @@ const Register = ({ route }) => {
     } else if (Mobile == "") {
       Alert.alert("Enter Mobile Number");
     } else {
-      dispatch(
-        RegisterUser(FirstName, LastName, Password, Email, value, Mobile)
-      );
+      // dispatch(
+      //   RegisterUser(FirstName, LastName, Password, Email, value, Mobile)
+      // );
 
       console.log("sddddddddd");
 
@@ -147,8 +147,25 @@ const Register = ({ route }) => {
   const selectrole = (role) => {
     console.log("AAAAAAAAAAAAAAAA", role, otp);
     //navigation.navigate('Auth');
-    dispatch(OTPVerifywithrole(role, otp, navigation));
-    setModalVisible(false);
+    setLoader(true);
+
+    setTimeout(() => {
+      dispatch(
+        RegisterUser(
+          FirstName,
+          LastName,
+          Password,
+          Email,
+          value,
+          Mobile,
+          role,
+          navigation
+        )
+      );
+      // dispatch(OTPVerifywithrole(role, otp, navigation));
+      setLoader(false);
+      setModalVisible(false);
+    }, 3000);
   };
 
   return (
@@ -368,7 +385,8 @@ const Register = ({ route }) => {
               //onPress={() => navigation.navigate('OTPScreen')}
               onPress={() => VerifytoggleModal()}
             >
-              <Text style={styles.ReqButtonText}>Request OTP</Text>
+              {/* <Text style={styles.ReqButtonText}>Request OTP</Text> */}
+              <Text style={styles.ReqButtonText}>Choose Role</Text>
             </TouchableOpacity>
           </View>
         )}

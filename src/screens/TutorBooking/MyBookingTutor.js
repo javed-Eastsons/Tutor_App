@@ -920,35 +920,38 @@ const MyBookingTutor = ({ props, route }) => {
     dispatch(GetBookedTutorDetail(obj, navigation));
 
     if (
-      (stDate == "" &&
-        offerType == "Non Negotiable" &&
-        AceptDate == "Accept" &&
-        stconfirm != "Confirmed" &&
-        amt_offer_status == "Accept") ||
-      (stDate != "" &&
-        offerType == "Non Negotiable" &&
-        AceptDate == "Accept" &&
-        stconfirm != "Confirmed" &&
-        amt_offer_status == "Accept")
+      //(
+      stDate == "" &&
+      offerType == "Non Negotiable"
+      //&&
+      // AceptDate == "Accept" &&
+      // stconfirm != "Confirmed" &&
+      // amt_offer_status == "Accept")
+      // ||
+      //   (stDate != "" &&
+      //     offerType == "Non Negotiable" &&
+      //     AceptDate != "Accept" &&
+      //     stconfirm != "Confirmed" &&
+      //     amt_offer_status == "Accept")
     ) {
       navigation.navigate("TutorAcceptCancel", {
         BookingId: BookingId,
       });
     } else if (
-      (stDate == "" &&
-        offerType != "Negotiable" &&
-        amt_offer_status == "" &&
-        tutor_offer_date == "" &&
-        tutor_offer_time == "" &&
-        AceptDate == "" &&
-        stconfirm == "") ||
-      (stDate != "" &&
-        offerType != "Negotiable" &&
-        amt_offer_status == "" &&
-        tutor_offer_date == "" &&
-        tutor_offer_time == "" &&
-        AceptDate == "" &&
-        stconfirm == "")
+      (stDate == "" || stDate != "") &&
+      offerType != "" &&
+      (amt_offer_status == "" || amt_offer_status == "Accept") &&
+      tutor_offer_date == "" &&
+      AceptDate == "" &&
+      stconfirm == ""
+      // ||
+      // (stDate != "" &&
+      //   offerType != "" &&
+      //   amt_offer_status == "" &&
+      //   tutor_offer_date == "" &&
+      //   tutor_offer_time == "" &&
+      //   AceptDate == "" &&
+      //   stconfirm == "")
     ) {
       navigation.navigate("TutorAcceptNegotiate", {
         BookingId: BookingId,
@@ -957,28 +960,22 @@ const MyBookingTutor = ({ props, route }) => {
       stDate != "" &&
       offerType != "" &&
       AceptDate == "Accept" &&
-      stconfirm != "Confirmed" &&
-      amt_offer_status == "Accept"
-    ) {
-      navigation.navigate("TutorMakePayment");
-    } else if (
-      stDate != "" &&
-      offerType != "" &&
-      AceptDate == "Accept" &&
       stconfirm == "Confirmed" &&
-      amt_offer_status == "Accept"
+      (tutor_offer_date != "" || tutor_offer_date == "") &&
+      (amt_offer_status == "Accept" || amt_offer_status == "")
     ) {
       navigation.navigate("TutorMakePayment");
     } else if (
       stDate != "" &&
       offerType != "" &&
       amt_offer_status == "Accept" &&
-      tutor_offer_date == "" &&
-      tutor_offer_time == "" &&
-      AceptDate == "" &&
+      (tutor_offer_date == "" || tutor_offer_date != "") &&
+      (AceptDate == "" || AceptDate == "Accept") &&
       stconfirm == ""
     ) {
-      navigation.navigate("TutorStartDT");
+      navigation.navigate("TutorStartDT", {
+        BookingId: BookingId,
+      });
     }
   };
 

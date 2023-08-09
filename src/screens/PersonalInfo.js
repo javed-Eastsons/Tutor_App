@@ -72,17 +72,17 @@ const PersonalInfo = ({ route }) => {
     {
       id: 1,
       country: "Singapore",
-      countryFlag: require("../Assets/flag.png"),
+      countryFlag: require("../Assets/Singapore.png"),
     },
     {
       id: 2,
       country: "Malaysia",
-      countryFlag: require("../Assets/flag.png"),
+      countryFlag: require("../Assets/Malaysia.png"),
     },
     {
       id: 3,
       country: "China",
-      countryFlag: require("../Assets/flag.png"),
+      countryFlag: require("../Assets/china.png"),
     },
     {
       id: 4,
@@ -92,35 +92,36 @@ const PersonalInfo = ({ route }) => {
     {
       id: 5,
       country: "Taiwan",
-      countryFlag: require("../Assets/flag.png"),
+      countryFlag: require("../Assets/Taiwan.png"),
     },
     {
       id: 6,
       country: "Japan",
-      countryFlag: require("../Assets/flag.png"),
+      countryFlag: require("../Assets/Japan.png"),
     },
     {
       id: 7,
       country: "United States",
-      countryFlag: require("../Assets/flag.png"),
+      countryFlag: require("../Assets/US.png"),
     },
     {
       id: 8,
       country: "Canada",
-      countryFlag: require("../Assets/flag.png"),
+      countryFlag: require("../Assets/Canada.png"),
     },
     {
       id: 9,
       country: "United Kingdom",
-      countryFlag: require("../Assets/flag.png"),
+      countryFlag: require("../Assets/UK.png"),
     },
     {
       id: 10,
       country: "Philippines",
-      countryFlag: require("../Assets/flag.png"),
+      countryFlag: require("../Assets/Philippines.png"),
     },
   ]);
   const [selectnational, setSelectNational] = useState("");
+  const [selectflag, setSelectFlag] = useState("");
   const [national, setNational] = useState("");
   const [filterData, setFilterData] = useState([]);
   const [withoutfilter, setWithoutFilter] = useState("");
@@ -514,7 +515,7 @@ const PersonalInfo = ({ route }) => {
                 }}
               >
                 <Image
-                  source={require("../Assets/flag.png")}
+                  source={selectflag}
                   style={{ height: hp(3), width: wp(6), marginLeft: wp(5) }}
                 />
                 <Text
@@ -640,6 +641,7 @@ const PersonalInfo = ({ route }) => {
                         <TouchableOpacity
                           onPress={() => {
                             setSelectNational(item.country);
+                            setSelectFlag(item.countryFlag);
                             setNational(item.country);
                             setPickerServices(false);
                           }}
@@ -656,7 +658,7 @@ const PersonalInfo = ({ route }) => {
                           }}
                         >
                           <Image
-                            source={require("../Assets/flag.png")}
+                            source={item.countryFlag}
                             style={{
                               height: hp(3),
                               width: wp(6),

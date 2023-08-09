@@ -319,7 +319,7 @@ const AcademicInfo = () => {
                       marginLeft: wp(2),
                     }}
                   >
-                    Add Detail (optional)
+                    Add Detail (optional)f
                   </Text>
                 </TouchableOpacity>
 

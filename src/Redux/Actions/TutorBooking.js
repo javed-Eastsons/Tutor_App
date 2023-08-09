@@ -63,13 +63,12 @@ export const AcceptFinalOffer = (TutId, BookingId, OfferStatus, navigation) => {
 
 export const NegotiateOfferAmountUpdate = (
   bookingId,
-
-  OfferType,
   tutorId,
   offerAmount,
+  NewofferType,
   navigation
 ) => {
-  console.log(bookingId, OfferType, tutorId, offerAmount);
+  console.log(bookingId, tutorId, offerAmount, NewofferType);
   return (dispatch, getState) => {
     axios.defaults.baseURL = "https://refuel.site";
     const url1 =
@@ -77,9 +76,10 @@ export const NegotiateOfferAmountUpdate = (
       "/projects/tutorapp/APIs/TutorBookings/NegotiateOfferAmountUpdate.php";
     var formData = new FormData();
     formData.append("tutor_booking_process_id", bookingId);
-    formData.append("tutor_tution_offer_amount_type", OfferType);
+    formData.append("tutor_tution_offer_amount_type", "Negotiable");
     formData.append("tutor_id", tutorId);
     formData.append("amount_negotiate_by_tutor", offerAmount);
+    formData.append("negotiate_by_tutor_amount_type", NewofferType);
 
     return fetch(url1, {
       method: "POST",
@@ -141,7 +141,7 @@ export const OfferStatus = (bookingId, offerstatus, OfferType, navigation) => {
       .then((response) => response.json())
       .then((responseJson) => {
         console.log("OFFERRRRRRRRRRRRRRRRRRRRRRRR", responseJson);
-        //   Alert.alert(responseJson.message)
+        Alert.alert(responseJson.message);
         if (responseJson.status == true) {
           // console.log("ww", responseJson.message);
           //  navigation.navigate("TutorAcceptCancel");
@@ -244,7 +244,8 @@ export const GetBookedTutorDetail = (bookingData, navigation) => {
             payload: responseJson.output,
           });
         } else if (responseJson.status == false) {
-          Alert.alert(responseJson.message);
+          // Alert.alert(responseJson.message);
+          console.log(responseJson.message);
         }
       })
       .catch((error) => console.log(error));

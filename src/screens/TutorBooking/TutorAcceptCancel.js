@@ -37,7 +37,10 @@ import MultiSelect from "react-native-multiple-select";
 import StarRating from "react-native-star-rating";
 import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { Dropdown } from "react-native-element-dropdown";
-import { GetBookedStudentList } from "../../Redux/Actions/TutorBooking";
+import {
+  GetBookedStudentList,
+  GetBookedTutorDetail,
+} from "../../Redux/Actions/TutorBooking";
 import moment from "moment";
 import { OfferStatus } from "../../Redux/Actions/TutorBooking";
 var selectArray = [];
@@ -80,89 +83,13 @@ const TutorAcceptCancel = ({ route }) => {
   const [value, setValue] = useState("Negotiable");
   const [sendOffer, setSendOffer] = useState(0);
 
-  const onSelectedlevel = (selectedItemslevel) => {
-    // Set Selected Items
-
-    createlevel(selectedItemslevel);
-    setSelectedlevel(selectedItemslevel);
-    // console.log('Level', selectedlevel)
-  };
-
-  const isExistInArray = (Ex_array, Ex_Key, Ex_value) => {
-    var isExist = false;
-    Ex_array.forEach(function (element, index) {
-      if (
-        Ex_array[index] &&
-        Ex_array[index].hasOwnProperty(Ex_Key) &&
-        Ex_array[index][Ex_Key] === Ex_value
-      ) {
-        isExist = true;
-        return false;
-      }
-    });
-
-    return isExist;
-  };
-
-  const showDatePicker = () => {
-    setDatePicker(true);
-  };
-
-  const showTimePicker = () => {
-    setTimePicker(true);
-  };
-
-  const onDateSelected = (event, value) => {
-    setDate(value);
-    setDatePicker(false);
-  };
-
-  const onTimeSelected = (event, value) => {
-    setTime(value);
-    setTimePicker(false);
-  };
-
-  const RemoveTempExercise = (Ex_array, Ex_Key, Ex_value) => {
-    // console.log('sudhanshuuuuuuuuuuuuuuuuuu', JSON.stringify(Ex_array))
-
-    Ex_array.forEach(function (element, index) {
-      if (
-        Ex_array[index] &&
-        Ex_array[index].hasOwnProperty(Ex_Key) &&
-        Ex_array[index][Ex_Key] === Ex_value
-      ) {
-        console.log("id:" + Ex_value);
-        Ex_array.splice(index, 1);
-        return false;
-      }
-    });
-
-    selectArray = Ex_array;
-    selectFilter = Ex_array;
-  };
-
-  const SendRequest = (val) => {
-    setSendOffer(val);
-
-    if (value == "Negotiable") {
-      navigation.navigate("Negotiate", {
-        amount: offerAmount,
-        mydate: date,
-        mytime: time,
-      });
-    } else {
-      navigation.navigate("NonNegotiate", {
-        amount: offerAmount,
-        mydate: date,
-        mytime: time,
-      });
-    }
-  };
-
   useEffect(() => {
-    console.log("KKKKKKKKKKKKKKKKKKKKK", Login_Data);
+    let obj = {
+      tutorId: All_Booked_Tutor_Detail[0]?.tutor_id,
+      BookingId: route.params.BookingId,
+    };
 
-    dispatch(GetBookedStudentList(Login_Data, navigation));
+    dispatch(GetBookedTutorDetail(obj, navigation));
   }, []);
 
   useEffect(() => {
@@ -170,66 +97,39 @@ const TutorAcceptCancel = ({ route }) => {
     setTimeout(() => {
       setLoader(false);
     }, 3000);
-  }, []);
-
-  const createlevel = (data) => {
-    console.log(data, ":::::::::::::::::::::::::");
-    if (data.length == 0) {
-      selectFilter = [];
-      console.log("ddddddddddddddddddddddd");
-    } else {
-      const obj3 = {};
-      data.forEach((element, index) => {
-        // console.log('""""""""""""""', element);
-        obj3["Levels_search"] = element;
-        // setSelectedQual(element)
-      });
-      if (!isExistInArray(selectFilter, "Levels_search", obj3.Levels_search)) {
-        selectFilter.push(obj3);
-
-        // dispatch(GetfilterQualification(route.params.postalcode, route.params.tuition_type, Gender, Status, selectFilter))
-      } else {
-        RemoveTempExercise(selectFilter, "Levels_search", obj3.Levels_search);
-      }
-    }
-    console.log("Level????????????????", selectFilter);
-  };
-
-  console.log(offerAmount, "ADAWDQWD");
+  }, [All_Booked_Tutor_Detail]);
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
-      dispatch(GetBookedStudentList(Login_Data, navigation));
-      console.log("FSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-      setLoader(true);
+      let obj = {
+        tutorId: All_Booked_Tutor_Detail[0]?.tutor_id,
+        BookingId: route.params.BookingId,
+      };
 
-      setTimeout(() => {
-        dispatch(GetBookedStudentList(Login_Data, navigation));
-
-        setLoader(false);
-      }, 3000);
-
-      // Call any action
+      dispatch(GetBookedTutorDetail(obj, navigation));
     });
 
-    // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, [navigation, All_Booked_Tutor_Detail]);
 
   const TutorAcceptCancel = (Offerstatus) => {
     setLoader(true);
-
+    let obj = {
+      tutorId: All_Booked_Tutor_Detail[0]?.tutor_id,
+      BookingId: route.params.BookingId,
+    };
     setTimeout(() => {
       dispatch(
         OfferStatus(
-          All_Booked_Tutor_Detail[0]?.tutor_booking_process_id,
+          route.params.BookingId,
           Offerstatus,
           All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount_type,
           navigation
         )
       );
-      dispatch(GetBookedStudentList(Login_Data, navigation));
-      // setAllBookedStudent(All_Booked_Student);
+
+      dispatch(GetBookedTutorDetail(obj, navigation));
+
       setLoader(false);
     }, 5000);
   };

@@ -59,6 +59,8 @@ const SplashScreen = ({ navigation }) => {
     }, 3000);
   };
 
+  useEffect(() => {}, []);
+
   useEffect(() => {
     gotoSignInScreen();
   }, [navigation]);
@@ -124,7 +126,7 @@ const SplashScreen = ({ navigation }) => {
             source={item.logo}
           />
         </View>
-        <ActivityIndicator animating={true} size={50} />
+        <ActivityIndicator animating={true} size="small" />
       </View>
     </View>
   );
