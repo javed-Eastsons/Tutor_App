@@ -20,3 +20,4 @@ export const All_Booked_Student = "All_Booked_Student";
 export const All_Booked_Tutor = "All_Booked_Tutor";
 export const Booking_Detail = "Booking_Detail";
 export const All_Booked_Tutor_Detail = "All_Booked_Tutor_Detail";
+export const Postal_Code_Address = "Postal_Code_Address";

@@ -48,19 +48,9 @@ export const RegisterUser = (
   Password,
   Email,
   country_phone_code,
-  Mobile,
-  role,
-  navigation
+  Mobile
 ) => {
-  console.log(
-    FirstName,
-    LastName,
-    Email,
-    country_phone_code,
-    Mobile,
-    Password,
-    role
-  );
+  console.log(FirstName, LastName, Email, country_phone_code, Mobile, Password);
   return (dispatch, getState) => {
     //const login = await getApiKey();
     //let data = JSON.parse(login);
@@ -77,7 +67,6 @@ export const RegisterUser = (
     formData.append("country_phone_code", country_phone_code);
     formData.append("mobile", Mobile);
     formData.append("password", Password);
-    formData.append("user_type", role);
 
     return fetch(url1, {
       method: "POST",
@@ -94,28 +83,12 @@ export const RegisterUser = (
         // console.log('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF', responseJson.message)
         //   Alert.alert(responseJson.message)
         if (responseJson.status == true) {
-          if (responseJson.status == true && role == "I am an Educator") {
-            console.log("ww", responseJson.message);
-            Alert.alert(responseJson.message);
-            dispatch({
-              type: REGISTER_MSG,
-              REG_MSG: responseJson.message,
-            });
-            navigation.navigate("Auth2");
-            console.log("PPPaaa", responseJson.message);
-          } else if (
-            responseJson.status == true &&
-            role == "I am looking for a Tutor"
-          ) {
-            console.log("ww", responseJson.message);
-            Alert.alert(responseJson.message);
-            dispatch({
-              type: REGISTER_MSG,
-              REG_MSG: responseJson.message,
-            });
-            navigation.replace("Auth");
-            console.log("PPPaaa", responseJson.message);
-          }
+          console.log("ww", responseJson.message);
+          // Alert.alert(responseJson.message)
+          dispatch({
+            type: REGISTER_MSG,
+            REG_MSG: responseJson.message,
+          });
         } else if (responseJson.status == false) {
           console.log("AAa", responseJson.message);
           // Alert.alert(responseJson.message)
@@ -279,7 +252,7 @@ export const OTPVerifywithrole = (role, otp, navigation) => {
     var formData = new FormData();
     formData.append("user_type", role);
 
-    //  formData.append("OTP_EMAIL", otp);
+    formData.append("OTP_EMAIL", otp);
     //formData.append("OTP_MOBILE", otp);
 
     console.log("FORMDATAAAAA", formData);
@@ -451,92 +424,27 @@ export const editProfile = (
   };
 };
 
+
+
 export const offerDateTime = (
   tutorBookingProcessId,
   student_id,
   Time,
-  Date
-) => {
-  return (dispatch, getState) => {
-    const url =
-      "https://refuel.site/projects/tutorapp/APIs/TutorBookings/DateAndTimeOfferUpdate.php";
-
-    let data = new FormData();
-    data.append("tutor_booking_process_id", tutorBookingProcessId);
-    data.append("student_id", student_id);
-    data.append("student_offer_date", Date);
-    data.append("student_offer_time", Time);
-
-    console.log(data, "formdata");
-    return fetch(url, {
-      method: "POST",
-      headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data",
-        // "Authorization": authtoken,
-      }),
-
-      body: data,
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log("responseJson", responseJson);
-        if (responseJson.status == true) {
-          Alert.alert(responseJson.message);
-          // navigation.navigate("Auth4");
-        } else if (responseJson.status == false) {
-          Alert.alert("Record not inserted");
-        }
-      })
-      .catch((error) => console.log("LLLLLLLLL", error.message));
-
-    // let config = {
-    //   method: "POST",
-    //   maxBodyLength: Infinity,
-    //   url: "https://refuel.site/projects/tutorapp/APIs/TutorBookings/AcceptOfferDateTime.php",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   data: data1,
-    // };
-
-    // axios
-    //   .request(config)
-    //   // .then((response) => response.json())
-    //   .then((responseJson) => {
-    //     console.log(JSON.stringify(responseJson.data), "respone");
-    //     if (responseJson.data.status == true) {
-    //       Alert.alert(responseJson.data.message);
-    //       navigation.navigate("Auth4");
-    //     } else if (responseJson.data.status == false) {
-    //       Alert.alert("Record not inserted");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error, "error");
-    //   });
-  };
-};
-
-export const TutorofferDateTime = (
-  tutorBookingProcessId,
-  Tutor_id,
   Date,
-  Time
 ) => {
-  console.log(tutorBookingProcessId, Tutor_id, Time, Date, "PPPPPPPPPPPPPP");
+
 
   return (dispatch, getState) => {
-    const url =
-      "https://refuel.site/projects/tutorapp/APIs/TutorBookings/DateAndTimeOfferUpdate.php";
+
+    const url= "https://refuel.site/projects/tutorapp/APIs/TutorBookings/DateAndTimeOfferUpdate.php"
 
     let data = new FormData();
-    data.append("tutor_booking_process_id", tutorBookingProcessId);
-    data.append("tutor_id", Tutor_id);
-    data.append("tutor_offer_date", Date);
-    data.append("tutor_offer_time", Time);
-
-    console.log(data, "formdata");
+    data.append('tutor_booking_process_id', tutorBookingProcessId);
+    data.append('student_id', student_id);
+    data.append('student_offer_date', Date);
+    data.append('student_offer_time', Time);
+    
+    console.log(data, 'formdata')
     return fetch(url, {
       method: "POST",
       headers: new Headers({
@@ -551,49 +459,16 @@ export const TutorofferDateTime = (
       .then((responseJson) => {
         console.log("responseJson", responseJson);
         if (responseJson.status == true) {
-          Alert.alert(responseJson.message);
-          // navigation.navigate("Auth4");
-        } else if (responseJson.status == false) {
-          Alert.alert("Record not inserted");
-        }
+                Alert.alert(responseJson.message);
+                // navigation.navigate("Auth4");
+              } else if (responseJson.status == false) {
+                Alert.alert("Record not inserted");
+              }
       })
       .catch((error) => console.log("LLLLLLLLL", error.message));
-  };
-};
 
-export const ConfirmofferDateTime = (tutorBookingProcessId, student_id) => {
-  return (dispatch, getState) => {
-    const url =
-      "https://refuel.site/projects/tutorapp/APIs/TutorBookings/DateAndTimeOfferUpdate.php";
 
-    let data = new FormData();
-    data.append("tutor_booking_process_id", tutorBookingProcessId);
-    data.append("student_id", student_id);
 
-    data.append("student_date_time_offer_confirmation", "Confirmed");
-
-    console.log(data, "formdata");
-    return fetch(url, {
-      method: "POST",
-      headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "multipart/form-data",
-        // "Authorization": authtoken,
-      }),
-
-      body: data,
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log("responseJson", responseJson);
-        if (responseJson.status == true) {
-          Alert.alert(responseJson.message);
-          // navigation.navigate("Auth4");
-        } else if (responseJson.status == false) {
-          Alert.alert("Record not inserted");
-        }
-      })
-      .catch((error) => console.log("LLLLLLLLL", error.message));
 
     // let config = {
     //   method: "POST",
@@ -620,5 +495,244 @@ export const ConfirmofferDateTime = (tutorBookingProcessId, student_id) => {
     //   .catch((error) => {
     //     console.log(error, "error");
     //   });
+
+  };
+};
+
+
+export const ConfirmofferDateTime = (
+  tutorBookingProcessId,
+  student_id,
+) => {
+
+
+  return (dispatch, getState) => {
+
+    const url= "https://refuel.site/projects/tutorapp/APIs/TutorBookings/DateAndTimeOfferUpdate.php"
+
+    let data = new FormData();
+    data.append('tutor_booking_process_id', tutorBookingProcessId);
+    data.append('student_id', student_id);
+   
+      data.append('student_date_time_offer_confirmation', 'Confirmed');
+
+    
+
+    console.log(data, 'formdata')
+    return fetch(url, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("responseJson", responseJson);
+        if (responseJson.status == true) {
+                Alert.alert(responseJson.message);
+                // navigation.navigate("Auth4");
+              } else if (responseJson.status == false) {
+                Alert.alert("Record not inserted");
+              }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+
+
+
+
+    // let config = {
+    //   method: "POST",
+    //   maxBodyLength: Infinity,
+    //   url: "https://refuel.site/projects/tutorapp/APIs/TutorBookings/AcceptOfferDateTime.php",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   data: data1,
+    // };
+
+    // axios
+    //   .request(config)
+    //   // .then((response) => response.json())
+    //   .then((responseJson) => {
+    //     console.log(JSON.stringify(responseJson.data), "respone");
+    //     if (responseJson.data.status == true) {
+    //       Alert.alert(responseJson.data.message);
+    //       navigation.navigate("Auth4");
+    //     } else if (responseJson.data.status == false) {
+    //       Alert.alert("Record not inserted");
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error, "error");
+    //   });
+
+  };
+};
+
+export const negotiateByStudent = (
+  tutorBookingProcessId,
+  tutor_tution_offer_amount_type,
+  student_id,
+  offerAmount,
+  value
+) => {
+
+
+  return (dispatch, getState) => {
+
+    const url= "https://refuel.site/projects/tutorapp/APIs/TutorBookings/NegotiateOfferAmountUpdate.php"
+    let data = new FormData();
+    data.append('tutor_booking_process_id', tutorBookingProcessId);
+    data.append('tutor_tution_offer_amount_type', 'Negotiable');
+    data.append('student_id', student_id);
+    data.append('amount_negotiate_by_student', offerAmount);
+    data.append('negotiate_by_student_amount_type',value);
+    
+
+    console.log(data, 'formdata')
+    return fetch(url, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("responseJson", responseJson);
+        if (responseJson.status == true) {
+                Alert.alert(responseJson.message);
+                // navigation.navigate("Auth4");
+              } else if (responseJson.status == false) {
+                Alert.alert("Record not inserted");
+              }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+
+
+
+  };
+};
+
+
+export const acceptOffer = (
+  tutorBookingProcessId,
+  tutor_tution_offer_amount_type,
+  offer_status
+) => {
+
+
+  return (dispatch, getState) => {
+
+    const url= "https://refuel.site/projects/tutorapp/APIs/TutorBookings/OfferStatus.php"
+
+    let data = new FormData();
+    data.append('tutor_booking_process_id', tutorBookingProcessId);
+    data.append('tutor_tution_offer_amount_type', tutor_tution_offer_amount_type);
+    data.append('offer_status', 'Accept');
+
+    
+
+    console.log(data, 'formdata')
+    return fetch(url, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("responseJson", responseJson);
+        if (responseJson.status == true) {
+                Alert.alert(responseJson.message);
+                // navigation.navigate("Auth4");
+              } else if (responseJson.status == false) {
+                Alert.alert("Record not inserted");
+              }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+
+
+
+  };
+};
+
+
+export const studentPostRequirement = (
+  Tutor_Schedule,
+      Tution_Type,
+      Student_Detail,
+      Tutor_Qualification,
+      student_id,
+      Postal_Code_Address
+) => {
+  return (dispatch, getState) => {
+
+    const url= "https://refuel.site/projects/tutorapp/APIs/TutorBookings/StudentPostRequirement.php"
+
+console.log( Tutor_Schedule,
+  Tution_Type,
+  Student_Detail,
+  Tutor_Qualification, 'postReqData')
+
+    let data = JSON.stringify({
+      "student_id": '6',
+      "student_level": Student_Detail?.Level,
+      "student_grade": Student_Detail?.Grade,
+      "student_tution_type": Tution_Type?.TutionType,
+      "student_postal_code": Tution_Type?.Postal_Code,
+      "student_postal_address": Postal_Code_Address,
+      "tutor_id": "4",
+      "tutor_duration_weeks": Tutor_Qualification?.frequency,
+      "tutor_duration_hours": Tutor_Qualification?.duration,
+      // "tutor_tution_fees": Tutor_Qualification?.FeeOffer,
+      // "tutor_tution_schedule_time": "12:30",
+      "tutor_tution_offer_amount_type": Tutor_Qualification?.feetype === 'Place Offer' ? 'Non Negotiable' : 'Negotiable',
+      "tutor_tution_offer_amount": Tutor_Qualification?.FeeOffer,
+      // "booked_date": "17-07-2023",
+      "Subjects": Student_Detail?.Subjects,
+      "Qualifications": Tutor_Qualification?.TutorQualification,
+      "Tutor_schedules": Tutor_Schedule?.Tutor_schedules,
+      "Slots_time": Tutor_Schedule?.tutor_schedule_time
+    });
+    
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://refuel.site/projects/tutorapp/APIs/TutorBookings/StudentPostRequirement.php',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+    
+    axios.request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+    
+
+
+
+
+   
+    
+
+    console.log(data, 'formdata')
+
   };
 };

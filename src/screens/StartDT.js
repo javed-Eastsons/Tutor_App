@@ -40,7 +40,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import CalendarPicker from 'react-native-calendar-picker';
 import moment from 'moment';
 import CountDown from 'react-native-countdown-component';
-import { offerDateTime ,ConfirmofferDateTime} from "../Redux/Actions/Tutors";
+import { offerDateTime, ConfirmofferDateTime } from "../Redux/Actions/Tutors";
 
 var selectArray = [];
 var selectFilter = [];
@@ -56,7 +56,7 @@ const StartDT = ({ route }) => {
     const { GET_FILTER_DATA } = useSelector(state => state.TutorsearchReducer);
     const { All_Booked_Tutor } = useSelector((state) => state.TutorBooingReducer);
     const [isFocus, setIsFocus] = useState(false);
-    const [isConfirm, setIsConfirm]= useState(false)
+    const [isConfirm, setIsConfirm] = useState(false)
     const data1 = [
         { label: 'Negotiable', value: '1' },
         { label: 'Non-Negotiable', value: '2' },
@@ -182,7 +182,7 @@ const StartDT = ({ route }) => {
 
     }
     const confirmdateTimeOffer = () => {
-       
+
         dispatch(ConfirmofferDateTime(
 
             route?.params?.tutorBookingProcessId,
@@ -421,18 +421,22 @@ const StartDT = ({ route }) => {
                 }
 
 
-                {/* {
-                    selectedStartDate && time ?
+                {
+                    All_Booked_Tutor[0]?.tutor_offer_date && All_Booked_Tutor[0]?.tutor_offer_time ?
+
                         <View style={{ height: wp(12), backgroundColor: 'green', borderColor: '#2F5597', borderWidth: 1, flexDirection: 'row' }}>
-                            <Text style={{ width: wp(45), backgroundColor: 'green', color: '#fff', fontSize: 12, fontWeight: '500', margin: 10, marginLeft: 20 }}>Tutor's Start Date/Time</Text>
-                            <View style={{ width: wp(65), height: wp(8), alignSelf: 'center', justifyContent: "center" }}>
-                                <Text style={{ color: '#fff', fontSize: 12, fontWeight: '500' }}>{moment(selectedStartDate ? selectedStartDate : date.toString()).format('ddd,Do MMMM yyyy')}  {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
+                            <Text style={{ width: wp(40), backgroundColor: 'green', color: '#fff', fontSize: 12, fontWeight: '500', margin: 10, }}>Tutor's Start Date/Time</Text>
+                            <View style={{ width: wp(60), height: wp(8), alignSelf: 'center', justifyContent: "center" }}>
+                                <Text style={{ color: '#fff', fontSize: 12, fontWeight: '500' }}> {moment(
+                                    All_Booked_Tutor[0]?.tutor_offer_date,
+                                    "MM-DD-YYYY"
+                                ).format("ddd,DD MMM YYYY")}  {All_Booked_Tutor[0]?.tutor_offer_time}</Text>
 
                             </View>
 
                         </View>
                         : <View></View>
-                } */}
+                }
 
 
                 <View></View>
@@ -462,27 +466,49 @@ const StartDT = ({ route }) => {
                         }}>
                         <Text style={styles.BookText5}>Cancel Booking</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() =>{
-                            if(!student_offer_date && !student_offer_time ){
-                            dateTimeOffer()
-                            // navigation.navigate('') 
-                            }else{
-                                confirmdateTimeOffer()
-                                navigation.navigate('MakePayment')
-                            }
-                        }}
-                        disabled={All_Booked_Tutor[0]?.tutor_booking_status === 'Accept' ? false : true}
-                        style={{
-                            height: '100%',
-                            width: '50%',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            backgroundColor: All_Booked_Tutor[0]?.tutor_booking_status === 'Accept' ? '#F6BE00' : '#fff',
-                            borderRadius: 3,
-                        }}>
-                        <Text style={styles.infoText1}>{All_Booked_Tutor[0]?.tutor_booking_status === 'Accept' ? 'Confirm' : 'Next'}</Text>
-                    </TouchableOpacity>
+
+
+                    {
+                        All_Booked_Tutor[0]?.tutor_accept_date_time_status === "Accept" ?
+                            <TouchableOpacity
+                                onPress={() => {
+
+                                    confirmdateTimeOffer()
+                                    navigation.navigate('MakePayment')
+                                }}
+                                style={{
+                                    height: '100%',
+                                    width: '50%',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    backgroundColor: '#F6BE00',
+                                    borderRadius: 3,
+                                }}>
+                                <Text style={styles.infoText1}>Confirm</Text>
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (!student_offer_date && !student_offer_time) {
+                                        dateTimeOffer()
+                                        // navigation.navigate('') 
+                                    } else {
+                                        confirmdateTimeOffer()
+                                        navigation.navigate('MakePayment')
+                                    }
+                                }}
+                                disabled={!selectedStartDate || (All_Booked_Tutor[0]?.offer_status === 'Accept' && All_Booked_Tutor[0]?.student_offer_date != "" ) ? false : true}
+                                style={{ 
+                                    width: '50%',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    backgroundColor: !selectedStartDate || (All_Booked_Tutor[0]?.offer_status === 'Accept' && All_Booked_Tutor[0]?.student_offer_date != "" )? '#F6BE00' : '#fff',
+                                    borderRadius: 3,
+                                }}>
+                                <Text style={styles.infoText1}>{All_Booked_Tutor[0]?.offer_status === 'Accept' && All_Booked_Tutor[0]?.student_offer_date === "" && All_Booked_Tutor[0]?.student_offer_time === "" ? 'Next' : 'Confirm'}</Text>
+                            </TouchableOpacity>
+                    }
+
                 </View>
             </View>
         </SafeAreaView>

@@ -36,7 +36,6 @@ import CalendarPicker from "react-native-calendar-picker";
 import moment from "moment";
 import CountDown from "react-native-countdown-component";
 import { offerDateTime } from "../Redux/Actions/Tutors";
-import CountdownTimer from "../screens/TutorBooking/Component/CountdownTimer";
 
 var selectArray = [];
 var selectFilter = [];
@@ -49,13 +48,13 @@ const MakePayment = ({ route }) => {
   const [offerAmount, setofferAmount] = useState(0);
   const [selectedlevel, setSelectedlevel] = useState([]);
   const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
-  const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer);
-  const { All_Booked_Student } = useSelector(
+  const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer); 
+  const { All_Booked_Tutor } = useSelector(
     (state) => state.TutorBooingReducer
   );
-  const { All_Booked_Tutor } = useSelector((state) => state.TutorBooingReducer);
+
   console.log(
-    All_Booked_Student,
+    All_Booked_Tutor,
     "All_Booked_StudentAll_Booked_StudentAll_Booked_Student"
   );
 
@@ -240,12 +239,18 @@ const MakePayment = ({ route }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
-          <Image source={require("../Assets/bell.png")} style={styles.icons} />
+          <Image
+            source={require("../Assets/bell.png")}
+            style={styles.icons}
+          />
           <Image
             source={require("../Assets/search.png")}
             style={styles.icons}
           />
-          <Image source={require("../Assets/chat.png")} style={styles.icons} />
+          <Image
+            source={require("../Assets/chat.png")}
+            style={styles.icons}
+          />
         </View>
       </View>
       <View style={styles.HeaderContainer}>
@@ -308,7 +313,7 @@ const MakePayment = ({ route }) => {
 
         {/* timer start */}
         <View style={{ marginTop: 10, marginBottom: 10 }}>
-          {/* <CountDown
+          <CountDown
             until={86400}
             //duration of countdown in seconds
             timetoShow={("H", "M", "S")}
@@ -317,11 +322,10 @@ const MakePayment = ({ route }) => {
             digitStyle={{ backgroundColor: "#000" }}
             digitTxtStyle={{ color: "#fff" }}
             //on Finish call
-            onPress={() => alert("hello")}
+            // onPress={() => alert("hello")}
             //on Press call
             size={20}
-          /> */}
-          <CountdownTimer initialSeconds={86400} />
+          />
         </View>
 
         {/* timer end */}
@@ -440,23 +444,24 @@ const MakePayment = ({ route }) => {
             <Text style={styles.BookText5}>Cancel Booking</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            //   onPress={
-            //     () => AcceptOffer()
-            //     // navigation.navigate('')
-            //   }
-            style={{
-              height: "100%",
-              width: "50%",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#F6BE00",
+         
+            <TouchableOpacity
+              //   onPress={
+              //     () => AcceptOffer()
+              //     // navigation.navigate('')
+              //   }
+              style={{
+                height: "100%",
+                width: "50%",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#F6BE00",
 
-              borderRadius: 3,
-            }}
-          >
-            <Text style={styles.infoText1}>Pay</Text>
-          </TouchableOpacity>
+                borderRadius: 3,
+              }}
+            >
+              <Text style={styles.infoText1}>Pay</Text>
+            </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>

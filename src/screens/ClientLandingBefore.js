@@ -371,7 +371,7 @@ const ClientLandingBefore = () => {
                       source={{
                         uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item.profile_image}`,
                       }}
-                      style={styles.usericons}
+                      style={styles.tutorPic}
                     />
 
                     <View style={{ height: 60, width: "70%", marginLeft: 10 }}>
@@ -474,7 +474,7 @@ const ClientLandingBefore = () => {
                           source={{
                             uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item.profile_image}`,
                           }}
-                          style={styles.usericons}
+                          style={styles.tutorPic}
                         />
 
                         <View
@@ -673,7 +673,6 @@ const ClientLandingBefore = () => {
 };
 
 export default ClientLandingBefore;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -740,18 +739,29 @@ const styles = StyleSheet.create({
   },
   LIstText: {
     marginLeft: 5,
-    fontSize: 14,
-    fontWeight: "700",
+    fontSize: 13,
+    fontFamily: "Poppins-SemiBold",
     color: "black",
   },
   LIstText2: {
+    fontSize: 14,
+    fontFamily: "Poppins-BoldItalic",
+    color: "black",
+  },
+  LIstTextDynamic: {
+    fontSize: 14,
+    fontFamily: "Poppins-Light",
+    color: "black",
+  },
+  LIstView: {
     marginLeft: 5,
     fontSize: 14,
-    fontWeight: "500",
     color: "black",
     marginVertical: 5,
     width: "100%",
     alignSelf: "center",
+    flexDirection: "row",
+    height: 20,
   },
   SearchButton: {
     backgroundColor: "#2F5597",
@@ -831,14 +841,16 @@ const styles = StyleSheet.create({
   },
   postText: {
     fontSize: 16,
-    fontWeight: "700",
+    // fontWeight: "700",
     color: "#2F5597",
     alignSelf: "center",
+    fontFamily: "Poppins-Regular",
   },
   sliderText: {
     fontSize: 12,
     color: "#000",
     alignSelf: "center",
+    fontFamily: "Poppins-Light",
   },
   postTextRight: {
     fontSize: 18,
@@ -860,6 +872,12 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
   },
+  tutorPic: {
+    height: 58,
+    width: 58,
+    borderRadius: 30,
+    padding: 10,
+  },
   Flagicons: {
     height: 20,
     width: 20,
@@ -867,11 +885,11 @@ const styles = StyleSheet.create({
   },
   BlueText: {
     fontSize: 18,
-    fontWeight: "700",
     color: "#fff",
     width: wp(85),
     alignSelf: "center",
     marginTop: 15,
+    fontFamily: "Poppins-BoldItalic",
   },
 
   BlueContainer: {

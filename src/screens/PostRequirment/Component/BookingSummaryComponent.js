@@ -39,6 +39,7 @@ import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { Dropdown } from "react-native-element-dropdown";
 import CheckBox from "@react-native-community/checkbox";
 import { BookTutor } from "../../../Redux/Actions/TutorBooking";
+import { studentPostRequirement } from "../../../Redux/Actions/Tutors";
 
 const BookingSummaryComponent = () => {
   const navigation = useNavigation();
@@ -47,25 +48,37 @@ const BookingSummaryComponent = () => {
   const { Tution_Type } = useSelector((state) => state.TutorReducer);
   const { Student_Detail } = useSelector((state) => state.TutorReducer);
   const { Tutor_Qualification } = useSelector((state) => state.TutorReducer);
+  const { All_Booked_Tutor } = useSelector((state) => state.TutorBooingReducer);
+  const { Postal_Code_Address } = useSelector((state) => state.TutorReducer);
 
+  
   const [tutiontype, setTutionType] = useState("tutiontype");
   const [qualification, setQualification] = useState("qualification");
   const [lesson, setLesson] = useState("lesson");
   const [offerprice, setOfferPrice] = useState("offerprice");
   const [timeslots, setTimeSlots] = useState("timeslots");
   const [currentTab, setCurrentTab] = useState("tutiontype");
-
+console.log(All_Booked_Tutor,'All_Booked_Tutor')
   const SelectTab = (selectedval) => {
     setCurrentTab(selectedval);
   };
 
   const PostReqData = () => {
-    Alert.alert("Post It API Under Process");
+    
+    dispatch(studentPostRequirement(
+      Tutor_Schedule,
+      Tution_Type,
+      Student_Detail,
+      Tutor_Qualification,
+      All_Booked_Tutor[0]?.student_id,
+      Postal_Code_Address
+
+  ));
   };
 
   console.log(
     Tutor_Schedule,
-    "Tutor_ScheduleTutor_ScheduleTutor_ScheduleTutor_Schedule",
+    "Tutor_ScheduleTutor",
     Tution_Type,
     "Tution_Type",
     Student_Detail,

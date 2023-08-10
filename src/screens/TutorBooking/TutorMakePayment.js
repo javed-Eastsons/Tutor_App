@@ -173,19 +173,6 @@ const TutorMakePayment = ({ route }) => {
         {/* timer start */}
         <View style={{ marginTop: 10, marginBottom: 10 }}>
           <CountdownTimer initialSeconds={86400} />
-          {/* <CountDown
-            // until={10}
-            //duration of countdown in seconds
-            // timetoShow={("H", "M", "S")}
-            //formate to show
-            onFinish={() => alert("finished")}
-            digitStyle={{ backgroundColor: "#000" }}
-            digitTxtStyle={{ color: "#fff" }}
-            //on Finish call
-            //  onPress={() => alert("hello")}
-            //on Press call
-            size={20}
-          /> */}
         </View>
 
         {/* timer end */}
@@ -209,17 +196,57 @@ const TutorMakePayment = ({ route }) => {
               }}
             >
               <View style={{}}>
-                <Text
-                  style={{
-                    fontSize: 20,
-                    color: "#000",
-                    fontWeight: "700",
-                    textAlign: "center",
-                    marginBottom: 20,
-                  }}
-                >
-                  {All_Booked_Tutor_Detail[0]?.student_offer_time}
-                </Text>
+                {All_Booked_Tutor_Detail[0]?.tutor_offer_time == "" ? (
+                  <>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: "#000",
+                        fontWeight: "700",
+                        textAlign: "center",
+                        marginBottom: 20,
+                      }}
+                    >
+                      {All_Booked_Tutor_Detail[0]?.student_offer_time}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        color: "#000",
+                        fontWeight: "700",
+                        textAlign: "center",
+                        marginBottom: 20,
+                      }}
+                    >
+                      {All_Booked_Tutor_Detail[0]?.student_offer_date}
+                    </Text>
+                  </>
+                ) : (
+                  <>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: "#000",
+                        fontWeight: "700",
+                        textAlign: "center",
+                        marginBottom: 20,
+                      }}
+                    >
+                      {All_Booked_Tutor_Detail[0]?.tutor_offer_time}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        color: "#000",
+                        fontWeight: "700",
+                        textAlign: "center",
+                        marginBottom: 20,
+                      }}
+                    >
+                      {All_Booked_Tutor_Detail[0]?.tutor_offer_date}
+                    </Text>
+                  </>
+                )}
               </View>
             </View>
             <View

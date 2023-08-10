@@ -394,7 +394,7 @@ const MyBookingTutor = ({ props, route }) => {
     }
   };
 
-  console.log("PPPPPPPPPPPPPPPPPP", Gender);
+  // console.log("PPPPPPPPPPPPPPPPPP", Gender);
 
   function onPressstatusRadioButton(radioButtonsArray) {
     console.log("PKKKKKKKKKKKKKKK", radioButtonsArray);
@@ -472,7 +472,7 @@ const MyBookingTutor = ({ props, route }) => {
     { label: "Music", value: "Music" },
     { label: "Computing", value: "Computing" },
   ];
-  console.log(allBookedStudent, "him");
+  // console.log(allBookedStudent, "him");
   const grade_list = [
     // { label: 'Select One Option', value: 'Select One Option' },
     { label: "P1", value: "P1" },
@@ -528,11 +528,8 @@ const MyBookingTutor = ({ props, route }) => {
         setAllBookedStudent(All_Booked_Student);
         setLoader(false);
       }, 5000);
-
-      // Call any action
     });
 
-    // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, [navigation]);
 
@@ -938,7 +935,7 @@ const MyBookingTutor = ({ props, route }) => {
         BookingId: BookingId,
       });
     } else if (
-      (stDate == "" || stDate != "") &&
+      stDate == "" &&
       offerType != "" &&
       (amt_offer_status == "" || amt_offer_status == "Accept") &&
       tutor_offer_date == "" &&
@@ -971,7 +968,7 @@ const MyBookingTutor = ({ props, route }) => {
       amt_offer_status == "Accept" &&
       (tutor_offer_date == "" || tutor_offer_date != "") &&
       (AceptDate == "" || AceptDate == "Accept") &&
-      stconfirm == ""
+      (stconfirm == "" || stconfirm == "Confirmed")
     ) {
       navigation.navigate("TutorStartDT", {
         BookingId: BookingId,
@@ -1001,7 +998,7 @@ const MyBookingTutor = ({ props, route }) => {
     return (
       <View style={styles.container}>
         <ActivityIndicator
-          size="large"
+          size="small"
           style={{
             alignSelf: "center",
           }}

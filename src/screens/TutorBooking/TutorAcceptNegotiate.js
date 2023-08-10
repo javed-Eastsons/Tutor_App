@@ -40,13 +40,10 @@ import { Dropdown } from "react-native-element-dropdown";
 import { RadioButton } from "react-native-paper";
 import { OfferStatus } from "../../Redux/Actions/TutorBooking";
 import { NegotiateOfferAmountUpdate } from "../../Redux/Actions/TutorBooking";
-import { GetBookedStudentList } from "../../Redux/Actions/TutorBooking";
+import { GetBookedTutorDetail } from "../../Redux/Actions/TutorBooking";
 
 import moment from "moment";
 import Negotiate from "../Negotiate";
-
-var selectArray = [];
-var selectFilter = [];
 
 const TutorAcceptNegotiate = ({ route }) => {
   const navigation = useNavigation();
@@ -61,10 +58,11 @@ const TutorAcceptNegotiate = ({ route }) => {
     (state) => state.TutorBooingReducer
   );
 
-  console.log(
-    All_Booked_Tutor_Detail,
-    "tutor_booking_process_idtutor_booking_process_idtutor_booking_process_idtutor_booking_process_id"
-  );
+  // console.log(
+  //   All_Booked_Tutor_Detail,
+  //   "tutor_booking_process_idtutor_booking_process_idtutor_booking_process_idtutor_booking_process_id"
+  // );
+
   const { Login_Data } = useSelector((state) => state.TutorReducer);
   const [isFocus, setIsFocus] = useState(false);
   const data1 = [
@@ -83,6 +81,35 @@ const TutorAcceptNegotiate = ({ route }) => {
   const [loader, setLoader] = React.useState(false);
   // console.log(valueR, "radiooo");
 
+  useEffect(() => {
+    setLoader(true);
+    setTimeout(() => {
+      updateAllRecord();
+      setLoader(false);
+    }, 2000);
+  }, []);
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      setLoader(true);
+      console.log("JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
+      setTimeout(() => {
+        updateAllRecord();
+        setLoader(false);
+      }, 5000);
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
+  const updateAllRecord = () => {
+    let obj = {
+      BookingId: route.params.BookingId,
+      tutorId: All_Booked_Tutor_Detail[0]?.tutor_id,
+    };
+    dispatch(GetBookedTutorDetail(obj, navigation));
+  };
+
   const GoToNext = () => {
     console.log(
       route.params.BookingId,
@@ -90,6 +117,11 @@ const TutorAcceptNegotiate = ({ route }) => {
       offerAmount,
       value
     );
+
+    let obj = {
+      BookingId: route.params.BookingId,
+      tutorId: All_Booked_Tutor_Detail[0]?.tutor_id,
+    };
 
     setLoader(true);
 
@@ -100,10 +132,11 @@ const TutorAcceptNegotiate = ({ route }) => {
             route.params.BookingId,
             valueR,
             All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount_type,
+            obj,
             navigation
           )
         );
-        dispatch(GetBookedStudentList(Login_Data, navigation));
+        updateAllRecord();
         // setAllBookedStudent(All_Booked_Student);
         setLoader(false);
       }, 5000);
@@ -115,38 +148,41 @@ const TutorAcceptNegotiate = ({ route }) => {
             All_Booked_Tutor_Detail[0]?.tutor_id,
             offerAmount,
             value,
+            obj,
+
             navigation
           )
         );
-        dispatch(GetBookedStudentList(Login_Data, navigation));
-        // setAllBookedStudent(All_Booked_Student);
+        //  updateAllRecord();
+
         setLoader(false);
       }, 5000);
     }
 
-    // navigation.navigate("MyBookingTutor");
-
-    // valueR === "Accept"
-    // ? navigation.navigate("StartDT")
-    // : navigation.navigate("MyBookings")
+    updateAllRecord();
   };
 
   const GoToAccept = () => {
     setLoader(true);
     setTimeout(() => {
       dispatch(
-        OfferStatus(route.params.BookingId, "Accept", "Negotiable", navigation)
+        OfferStatus(
+          route.params.BookingId,
+          "Accept",
+          "Negotiable",
+          obj,
+          navigation
+        )
       );
-      dispatch(GetBookedStudentList(Login_Data, navigation));
-      // setAllBookedStudent(All_Booked_Student);
+      updateAllRecord();
       setLoader(false);
-    }, 5000);
+    }, 2000);
   };
   if (loader) {
     return (
-      <View style={styles.container}>
+      <View style={styles.LoaderContainer}>
         <ActivityIndicator
-          size="large"
+          size="small"
           style={{
             alignSelf: "center",
           }}
@@ -219,7 +255,7 @@ const TutorAcceptNegotiate = ({ route }) => {
         <View style={[styles.Bookcard, styles.BookshadowProp]}>
           <View
             style={{
-              height: 50,
+              height: 60,
               width: "100%",
               justifyContent: "center",
               alignItems: "center",
@@ -229,10 +265,61 @@ const TutorAcceptNegotiate = ({ route }) => {
               // flexDirection: 'row',
             }}
           >
-            <Text style={styles.BookText1}>
-              Message:
-              <Text style={styles.BookText2}>Tutor has made a new offer</Text>
-            </Text>
+            {All_Booked_Tutor_Detail[0]?.offer_status == "Accept" &&
+            All_Booked_Tutor_Detail[0]?.amount_negotiate_by_tutor == "0.00" &&
+            All_Booked_Tutor_Detail[0]?.amount_negotiate_by_student ==
+              "0.00" ? (
+              <>
+                <Text style={styles.BookText1}>
+                  Message:
+                  <Text style={styles.BookText2}>
+                    {" "}
+                    You have accepted client's offer.Client will now be
+                    informed.You will be sent an app notification to proceed to
+                    fix start date/time.
+                  </Text>
+                </Text>
+              </>
+            ) : All_Booked_Tutor_Detail[0]?.offer_status == "" &&
+              All_Booked_Tutor_Detail[0]?.amount_negotiate_by_tutor != "0.00" &&
+              All_Booked_Tutor_Detail[0]?.amount_negotiate_by_student ==
+                "0.00" ? (
+              <>
+                <Text style={styles.BookText1}>
+                  Message:
+                  <Text style={styles.BookText2}>
+                    {" "}
+                    Your offer is sent to the client.You will be notified of the
+                    outcome via app notification. Ensure your phone is set to
+                    receive notification from us.
+                  </Text>
+                </Text>
+              </>
+            ) : All_Booked_Tutor_Detail[0]?.offer_status == "Accept" &&
+              All_Booked_Tutor_Detail[0]?.amount_negotiate_by_tutor != "0.00" &&
+              All_Booked_Tutor_Detail[0]?.amount_negotiate_by_student ==
+                "0.00" ? (
+              <>
+                <Text style={styles.BookText1}>
+                  Message:
+                  <Text style={styles.BookText2}>
+                    {" "}
+                    Client has accepted your offer. you will be sent an app
+                    notification to proceed to fix start date/time.
+                  </Text>
+                </Text>
+              </>
+            ) : (
+              <>
+                <Text style={styles.BookText1}>
+                  Message:
+                  <Text style={styles.BookText2}>
+                    {" "}
+                    Client has offered you a fee
+                  </Text>
+                </Text>
+              </>
+            )}
           </View>
 
           <ScrollView style={{ marginBottom: 20 }}>
@@ -323,17 +410,33 @@ const TutorAcceptNegotiate = ({ route }) => {
                     {value}
                   </Text>
                 ) : ( */}
-
-                <Text
-                  style={{
-                    textAlign: "center",
-                    color: "#2F5597",
-                    fontSize: 14,
-                    marginTop: wp(3),
-                  }}
-                >
-                  {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount_type}
-                </Text>
+                {All_Booked_Tutor_Detail[0]?.negotiate_by_student_amount_type ==
+                "Non Negotiable" ? (
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      color: "#2F5597",
+                      fontSize: 14,
+                      marginTop: wp(3),
+                    }}
+                  >
+                    {
+                      All_Booked_Tutor_Detail[0]
+                        ?.negotiate_by_student_amount_type
+                    }
+                  </Text>
+                ) : (
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      color: "#2F5597",
+                      fontSize: 14,
+                      marginTop: wp(3),
+                    }}
+                  >
+                    {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount_type}
+                  </Text>
+                )}
                 {/* )} */}
               </View>
               {valueR == "Negotiate" ? (
@@ -524,13 +627,18 @@ const TutorAcceptNegotiate = ({ route }) => {
               )}
             </View>
 
-            {/* {All_Booked_Tutor_Detail[0]?.amount_negotiate_by_tutor == "0.00" &&
-            All_Booked_Tutor_Detail[0]?.offer_status == "" ? ( */}
-            {console.log(valueR, "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")}
             {valueR == "Negotiate" ? (
               <View />
             ) : valueR == "" &&
               All_Booked_Tutor_Detail[0]?.amount_negotiate_by_tutor !=
+                "0.00" ? (
+              <View />
+            ) : valueR == "" &&
+              All_Booked_Tutor_Detail[0]?.negotiate_by_student_amount_type ==
+                "Non Negotiable" ? (
+              <View />
+            ) : All_Booked_Tutor_Detail[0]?.offer_status == "Accept" &&
+              All_Booked_Tutor_Detail[0]?.amount_negotiate_by_tutor ==
                 "0.00" ? (
               <View />
             ) : (
@@ -634,7 +742,9 @@ const TutorAcceptNegotiate = ({ route }) => {
             )}
 
             {All_Booked_Tutor_Detail[0]?.offer_status == "Accept" &&
-            All_Booked_Tutor_Detail[0]?.amount_negotiate_by_tutor == "0.00" ? (
+            All_Booked_Tutor_Detail[0]?.amount_negotiate_by_tutor == "0.00" &&
+            All_Booked_Tutor_Detail[0]?.amount_negotiate_by_student ==
+              "0.00" ? (
               <View
                 style={{
                   marginTop: wp(5),
@@ -657,6 +767,7 @@ const TutorAcceptNegotiate = ({ route }) => {
                 >
                   Agreed Fee is SGD{" "}
                   {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount} /hour
+                  1
                 </Text>
               </View>
             ) : All_Booked_Tutor_Detail[0]?.offer_status == "Accept" &&
@@ -684,11 +795,68 @@ const TutorAcceptNegotiate = ({ route }) => {
                 >
                   Agreed Fee is SGD{" "}
                   {All_Booked_Tutor_Detail[0]?.amount_negotiate_by_student}{" "}
-                  /hour
+                  /hour 2
+                </Text>
+              </View>
+            ) : All_Booked_Tutor_Detail[0]?.offer_status == "Accept" &&
+              All_Booked_Tutor_Detail[0]?.amount_negotiate_by_student !=
+                "0.00" ? (
+              <View
+                style={{
+                  marginTop: wp(5),
+                  backgroundColor: "#2F5597",
+                  height: wp(12),
+                  borderColor: "#2F5597",
+                  borderWidth: 1,
+                  flexDirection: "row",
+                }}
+              >
+                <Text
+                  style={{
+                    width: wp(90),
+                    color: "#fff",
+                    fontSize: 16,
+                    fontWeight: "500",
+                    margin: 10,
+                    textAlign: "center",
+                  }}
+                >
+                  Agreed Fee is SGD{" "}
+                  {All_Booked_Tutor_Detail[0]?.amount_negotiate_by_student}{" "}
+                  /hour 3
+                </Text>
+              </View>
+            ) : All_Booked_Tutor_Detail[0]?.offer_status == "Accept" &&
+              All_Booked_Tutor_Detail[0]?.amount_negotiate_by_tutor != "0.00" &&
+              All_Booked_Tutor_Detail[0]?.amount_negotiate_by_student ==
+                "0.00" ? (
+              <View
+                style={{
+                  marginTop: wp(5),
+                  backgroundColor: "#2F5597",
+                  height: wp(12),
+                  borderColor: "#2F5597",
+                  borderWidth: 1,
+                  flexDirection: "row",
+                }}
+              >
+                <Text
+                  style={{
+                    width: wp(90),
+                    color: "#fff",
+                    fontSize: 16,
+                    fontWeight: "500",
+                    margin: 10,
+                    textAlign: "center",
+                  }}
+                >
+                  Agreed Fee is SGD{" "}
+                  {All_Booked_Tutor_Detail[0]?.amount_negotiate_by_tutor} /hour
+                  4
                 </Text>
               </View>
             ) : (
-              <Text>ff</Text>
+              <Text></Text>
             )}
           </ScrollView>
           <View
@@ -733,7 +901,9 @@ const TutorAcceptNegotiate = ({ route }) => {
                 <Text style={styles.infoText1}>Next</Text>
               </TouchableOpacity>
             ) : All_Booked_Tutor_Detail[0]?.amount_negotiate_by_student !=
-              "0.00" ? (
+                "0.00" &&
+              All_Booked_Tutor_Detail[0]?.negotiate_by_student_amount_type ==
+                "" ? (
               <TouchableOpacity
                 // onPress={() => GoToAccept()}
                 style={{
@@ -763,7 +933,10 @@ const TutorAcceptNegotiate = ({ route }) => {
               >
                 <Text style={styles.infoText1}>Next</Text>
               </TouchableOpacity>
-            ) : (
+            ) : valueR == "" &&
+              All_Booked_Tutor_Detail[0]?.negotiate_by_student_amount_type ==
+                "Non Negotiable" &&
+              All_Booked_Tutor_Detail[0]?.offer_status == "" ? (
               <TouchableOpacity
                 onPress={() => GoToAccept()}
                 style={{
@@ -776,6 +949,37 @@ const TutorAcceptNegotiate = ({ route }) => {
                 }}
               >
                 <Text style={styles.infoText1}>Accept</Text>
+              </TouchableOpacity>
+            ) : valueR == "" &&
+              All_Booked_Tutor_Detail[0]?.negotiate_by_student_amount_type ==
+                "Non Negotiable" &&
+              All_Booked_Tutor_Detail[0]?.offer_status == "Accept" ? (
+              <TouchableOpacity
+                // onPress={() => GoToAccept()}
+                style={{
+                  height: "100%",
+                  width: "50%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#fff",
+                  borderRadius: 3,
+                }}
+              >
+                <Text style={styles.infoText1}>Next</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => GoToAccept()}
+                style={{
+                  height: "100%",
+                  width: "50%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#F6BE00",
+                  borderRadius: 3,
+                }}
+              >
+                <Text style={styles.infoText1}>Acceptaa</Text>
               </TouchableOpacity>
             )}
           </View>
@@ -827,6 +1031,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#2F5597",
     fontWeight: "bold",
+  },
+  LoaderContainer: {
+    flex: 1,
+    justifyContent: "center",
   },
   Container: {
     height: 70,
@@ -923,6 +1131,7 @@ const styles = StyleSheet.create({
   BookText2: {
     fontSize: 12,
     color: "grey",
+
     fontWeight: "bold",
   },
   SelectMoreContainer: {

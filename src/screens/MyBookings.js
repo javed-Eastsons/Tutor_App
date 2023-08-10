@@ -869,16 +869,8 @@ const MyBookings = ({ props, route }) => {
   const setTabFunc = (val) => {
     setTabs(val);
   };
-  console.log(
-    All_Booked_Tutor[0]?.tutor_booking_status,
-    All_Booked_Tutor[0]?.offer_status,
-    "tutorBookingStatus,offerStatus"
-  );
-  console.log(
-    All_Booked_Tutor[0]?.tutor_tution_offer_amount_type,
-    All_Booked_Tutor[0]?.tutor_tution_fees,
-    "jkk"
-  );
+  console.log(All_Booked_Tutor[0]?.tutor_booking_status, All_Booked_Tutor[0]?.offer_status, 'tutorBookingStatus,offerStatus')
+  console.log(All_Booked_Tutor[0]?.tutor_tution_offer_amount_type, All_Booked_Tutor[0]?.tutor_tution_fees, 'jkk')
   return (
     <>
       <View style={styles.container}>
@@ -1032,8 +1024,8 @@ const MyBookings = ({ props, route }) => {
               <Text style={styles.BookText3}>
                 Instructions:
                 <Text style={styles.BookText4}>
-                  You have placed an offer, tutor will be informed you will be
-                  recieve an app notification when the tutor has responded.
+                  You have placed an offer, tutor will be informed
+                  you will be recieve an app notification when the tutor has responded.
                 </Text>
               </Text>
             </View>
@@ -1106,7 +1098,7 @@ const MyBookings = ({ props, route }) => {
                               maxStars={5}
                               rating={4}
                               starSize={15}
-                              // selectedStar={(rating) => setStrCount(rating)}
+                            // selectedStar={(rating) => setStrCount(rating)}
                             />
                           </View>
                         </View>
@@ -1203,7 +1195,11 @@ const MyBookings = ({ props, route }) => {
                               // amount: offerAmount,
                               // youramount: youroffer
                             });
-                          } else {
+                          }else if(All_Booked_Tutor[0]?.amount_negotiate_by_tutor != '0.00' ){
+                            navigation.navigate("AcceptNegotiate",{
+                              amount_negotiate_by_tutor: All_Booked_Tutor[0]?.amount_negotiate_by_tutor
+                            })
+                          }else {
                             navigation.navigate("MakeOffer", {
                               Amount_type:
                                 All_Booked_Tutor[0]
@@ -1309,7 +1305,7 @@ const MyBookings = ({ props, route }) => {
                           maxStars={5}
                           rating={4}
                           starSize={15}
-                          // selectedStar={(rating) => setStrCount(rating)}
+                        // selectedStar={(rating) => setStrCount(rating)}
                         />
                       </View>
                     </View>
@@ -1497,7 +1493,7 @@ const MyBookings = ({ props, route }) => {
                           maxStars={5}
                           rating={4}
                           starSize={15}
-                          // selectedStar={(rating) => setStrCount(rating)}
+                        // selectedStar={(rating) => setStrCount(rating)}
                         />
                       </View>
                     </View>
@@ -1730,7 +1726,7 @@ const MyBookings = ({ props, route }) => {
                     maxStars={5}
                     rating={4}
                     starSize={15}
-                    // selectedStar={(rating) => setStrCount(rating)}
+                  // selectedStar={(rating) => setStrCount(rating)}
                   />
                 </View>
 
@@ -1872,7 +1868,7 @@ const MyBookings = ({ props, route }) => {
                     maxStars={5}
                     rating={4}
                     starSize={15}
-                    // selectedStar={(rating) => setStrCount(rating)}
+                  // selectedStar={(rating) => setStrCount(rating)}
                   />
                 </View>
 
@@ -2014,7 +2010,7 @@ const MyBookings = ({ props, route }) => {
                     maxStars={5}
                     rating={4}
                     starSize={15}
-                    // selectedStar={(rating) => setStrCount(rating)}
+                  // selectedStar={(rating) => setStrCount(rating)}
                   />
                 </View>
 
@@ -2137,7 +2133,7 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   whiteColor: {
-    color: " #fff",
+    color: ' #fff'
   },
   ReviewText: {
     color: "#fff",

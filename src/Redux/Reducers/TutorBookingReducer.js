@@ -12,7 +12,7 @@ const initialstate = {
 };
 
 const TutorBooingReducer = (state = initialstate, action) => {
-  console.log("Booked Student", action.payload);
+  //  console.log("Booked Student", action.payload);
   switch (action.type) {
     case All_Booked_Student:
       return { ...state, All_Booked_Student: action.payload };

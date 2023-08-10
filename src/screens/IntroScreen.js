@@ -143,7 +143,7 @@ const IntroScreen = () => {
           <Text
             style={{
               textAlign: "center",
-              fontWeight: "600",
+              //   fontStyle: "Poppins-Regular",
               padding: 14,
               lineHeight: 16,
               color: "#fff",
@@ -329,7 +329,7 @@ const IntroScreen = () => {
               <Text
                 style={{
                   textAlign: "center",
-                  fontWeight: "600",
+                  // fontStyle: "Poppins-Regular",
                   lineHeight: 16,
                   padding: 13,
                   color: "#fff",
@@ -439,12 +439,13 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     // fontFamily: 'SharpSansDispNo1-Book',
     paddingVertical: 10,
+    fontFamily: "Poppins-Regular",
   },
   introTitleStyle: {
     fontSize: 20,
     color: "#2F5597",
-    fontWeight: "700",
-    fontFamily: "Sharp Sans Medium",
+    fontFamily: "Poppins-Bold",
+
     textAlign: "center",
     //  backgroundColor: "red"
   },

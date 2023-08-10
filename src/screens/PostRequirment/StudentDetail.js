@@ -48,7 +48,7 @@ const StudentDetail = ({ route }) => {
   //       .finally(() => setLoader(false));
   //   }
   // };
-
+console.log(route,'route.params.postalcode')
   return (
     <SafeAreaView style={styles.container}>
       <Loader flag={loader} />

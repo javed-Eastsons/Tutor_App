@@ -66,6 +66,7 @@ export const NegotiateOfferAmountUpdate = (
   tutorId,
   offerAmount,
   NewofferType,
+  obj,
   navigation
 ) => {
   console.log(bookingId, tutorId, offerAmount, NewofferType);
@@ -96,6 +97,7 @@ export const NegotiateOfferAmountUpdate = (
         console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
         //   Alert.alert(responseJson.message)
         if (responseJson.status == true) {
+          dispatch(GetBookedTutorDetail(obj));
           // console.log("ww", responseJson.message);
           //  navigation.navigate("TutorAcceptCancel");
           // Alert.alert(responseJson.message)
@@ -116,7 +118,13 @@ export const NegotiateOfferAmountUpdate = (
       .catch((error) => console.log(error.message));
   };
 };
-export const OfferStatus = (bookingId, offerstatus, OfferType, navigation) => {
+export const OfferStatus = (
+  bookingId,
+  offerstatus,
+  OfferType,
+  obj,
+  navigation
+) => {
   console.log(bookingId, offerstatus, OfferType);
   return (dispatch, getState) => {
     axios.defaults.baseURL = "https://refuel.site";
@@ -140,9 +148,10 @@ export const OfferStatus = (bookingId, offerstatus, OfferType, navigation) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("OFFERRRRRRRRRRRRRRRRRRRRRRRR", responseJson);
-        Alert.alert(responseJson.message);
+        console.log("OFFERRRRRRRRRRRRRRRRRRRRRRRR", responseJson.message);
+        // Alert.alert(responseJson.message);
         if (responseJson.status == true) {
+          dispatch(GetBookedTutorDetail(obj));
           // console.log("ww", responseJson.message);
           //  navigation.navigate("TutorAcceptCancel");
           // Alert.alert(responseJson.message)
@@ -225,7 +234,7 @@ export const GetBookedTutorDetail = (bookingData, navigation) => {
       "&tutor_booking_process_id=" +
       bookingData?.BookingId;
 
-    console.log(url1, "Studenttttttttttttttttttttttttttt1");
+    // console.log(url1, "Studenttttttttttttttttttttttttttt1");
 
     await fetch(url1, {
       method: "GET",
@@ -263,7 +272,7 @@ export const GetBookedTutorList = (Login_Data, navigation) => {
       "https://refuel.site/projects/tutorapp/APIs/TutorList/TutorListing.php?student_id=" +
       Login_Data?.userid;
 
-    console.log(url1, "Studenttttttttttttttttttttttttttt1");
+    //console.log(url1, "Studenttttttttttttttttttttttttttt1");
 
     await fetch(url1, {
       method: "GET",

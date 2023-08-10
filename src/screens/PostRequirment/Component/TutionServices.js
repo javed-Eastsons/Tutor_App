@@ -25,7 +25,8 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 //import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../../common/Loader";
-import { Tution_Type } from "../../../Redux/Actions/types";
+import { Tution_Type,Postal_Code_Address } from "../../../Redux/Actions/types";
+import axios from "axios";
 
 const TuitionServices = () => {
   const navigation = useNavigation();
@@ -34,6 +35,47 @@ const TuitionServices = () => {
   const [postalcode, setpostalcode] = useState("");
   const [forwardArrrow, setForwardArrow] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [address, setAddress] = useState('')
+
+
+
+  const geocodinApi = () => {
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://maps.googleapis.com/maps/api/geocode/json?components=postal_code:${postalcode}&key=AIzaSyBe7R2rEvrkKUsLEoiCkLyFr4kd_sQE0Kw`,
+      headers: {},
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        const jsonData = response.data;
+        // console.log(jsonData, "OOOOOOOOOOOOOOOOOOO");
+        const jj = jsonData.results[0];
+        setAddress(jj?.formatted_address)
+        // console.log(jj, "AddressPin");
+        dispatch({
+          type: Postal_Code_Address,
+          payload: jj?.formatted_address,
+        });
+        
+        console.log(
+          jj?.formatted_address,
+          "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // console.log(
+    //   mapData?.formatted_address,
+    //   FirstName,
+    //   "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
+    // );
+  };
+
 
   const presspostalcode = () => {
     if (postalcode == "") {
@@ -52,14 +94,17 @@ const TuitionServices = () => {
       });
 
       navigation.navigate("StudentDetail", {
-        // postalcode: postalcode,
+        postalcode: postalcode,
       });
       //   dispatch(GetResultAfterPostcode(postalcode, navigation))
       //     .then((res) => setLoader(false))
       //     .finally(() => setLoader(false));
     }
   };
-
+  const forwardArrowFunc = () => {
+    geocodinApi()
+    setForwardArrow(true)
+  }
   return (
     <View style={styles.container}>
       <View style={styles.blueContiner}>
@@ -184,7 +229,7 @@ const TuitionServices = () => {
                 keyboardType="phone-pad"
                 style={{ color: "#000", paddingLeft: wp(2), width: wp(28) }}
               />
-              <TouchableOpacity onPress={() => setForwardArrow(true)}>
+              <TouchableOpacity onPress={() => forwardArrowFunc()}>
                 <Image
                   source={require("../../../Assets/rightArrowCode.png")}
                   style={styles.forwardArrowImage}
@@ -193,18 +238,17 @@ const TuitionServices = () => {
             </View>
           </View>
         )}
-
         {forwardArrrow === true && (
           <View style={styles.forwardArrowWrapper}>
             <Text style={styles.forwardArrowTextWrapper}>
-              404 Choa Chu Kang North Avenue 4
+              {address}
             </Text>
           </View>
         )}
+
       </View>
       <TouchableOpacity
-        style={styles.circleArrow}
-        onPress={() => presspostalcode()}
+        style={[styles.circleArrow, { display: !address ? 'none' : 'flex' }]} onPress={() => presspostalcode()}
       >
         {/* //onPress={() => navigation.navigate('OurTutor')}> */}
         {homeTutor === true && (

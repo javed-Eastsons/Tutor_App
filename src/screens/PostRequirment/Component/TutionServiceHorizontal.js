@@ -34,7 +34,8 @@ const TuitionServicesHorizontal = (props) => {
   const [postalcode, setpostalcode] = useState("");
   const [forwardArrrow, setForwardArrow] = useState(true);
   const [loader, setLoader] = useState(false);
-
+  const { Postal_Code_Address } = useSelector((state) => state.TutorReducer);
+  console.log(Postal_Code_Address, "address");
   return (
     <View style={styles.container}>
       <View style={styles.blueContiner}>
@@ -108,10 +109,10 @@ const TuitionServicesHorizontal = (props) => {
                     style={{ color: "#000", paddingLeft: wp(2), width: wp(28) }}
                   />
                   <TouchableOpacity onPress={() => setForwardArrow(true)}>
-                    <Image
+                    {/* <Image
                       source={require("../../../Assets/rightArrowCode.png")}
                       style={styles.forwardArrowImage}
-                    />
+                    /> */}
                   </TouchableOpacity>
                 </View>
               </View>
@@ -120,7 +121,7 @@ const TuitionServicesHorizontal = (props) => {
             {forwardArrrow === true && (
               <View style={styles.forwardArrowWrapper}>
                 <Text style={styles.forwardArrowTextWrapper}>
-                  404 Choa Chu Kang North Avenue 4
+                  {Postal_Code_Address}
                 </Text>
               </View>
             )}

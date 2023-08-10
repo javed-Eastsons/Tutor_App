@@ -11,7 +11,7 @@ const initialstate = {
 };
 
 const TutorsearchReducer = (state = initialstate, action) => {
-  console.log("chatttttttttttttttttttttt", action.type);
+  // console.log("chatttttttttttttttttttttt", action.type);
   switch (action.type) {
     case GET_POSTAL_DATA:
       return { ...state, GET_POSTAL_DATA: action.POSTAL_DATA };

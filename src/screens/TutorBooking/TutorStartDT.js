@@ -150,6 +150,7 @@ const TutorStartDT = ({ route }) => {
       hour: "2-digit",
       minute: "2-digit",
     });
+
     setTimeout(() => {
       dispatch(TutorofferDateTime(BookingId, tutorId, TutorDate, TutorTime));
       setLoader(false);
@@ -588,7 +589,10 @@ const TutorStartDT = ({ route }) => {
               }}
             >
               <Text style={{ color: "#fff", fontSize: 12, fontWeight: "500" }}>
-                {All_Booked_Tutor_Detail[0]?.tutor_offer_date}{" "}
+                {moment(
+                  All_Booked_Tutor_Detail[0]?.tutor_offer_date,
+                  "MM-DD-YYYY"
+                ).format("ddd,DD MMM YYYY")}{" "}
                 {All_Booked_Tutor_Detail[0]?.tutor_offer_time}
               </Text>
             </View>
@@ -627,7 +631,13 @@ const TutorStartDT = ({ route }) => {
 
           {selectedStartDate == 0 ? (
             All_Booked_Tutor_Detail[0]?.student_offer_date != "" &&
-            All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status == "" ? (
+            All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status == "" &&
+            (All_Booked_Tutor_Detail[0]?.student_date_time_offer_confirmation ==
+              "Confirmed" ||
+              All_Booked_Tutor_Detail[0]
+                ?.student_date_time_offer_confirmation == "") &&
+            (All_Booked_Tutor_Detail[0]?.tutor_offer_date == "" ||
+              All_Booked_Tutor_Detail[0]?.tutor_offer_date != "") ? (
               <TouchableOpacity
                 onPress={
                   () => AcceptOffer()
@@ -645,8 +655,11 @@ const TutorStartDT = ({ route }) => {
               >
                 <Text style={styles.infoText1}>Accept</Text>
               </TouchableOpacity>
-            ) : All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status ==
-              "Accept" ? (
+            ) : (All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status ==
+                "Accept" ||
+                All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status ==
+                  "") &&
+              All_Booked_Tutor_Detail[0]?.tutor_offer_date != "" ? (
               <TouchableOpacity
                 // onPress={() => navigation.navigate("TutorMakePayment")}
                 style={{

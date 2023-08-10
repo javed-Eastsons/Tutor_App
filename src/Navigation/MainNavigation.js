@@ -81,6 +81,7 @@ import TutorMakePayment from "../screens/TutorBooking/TutorMakePayment";
 import TutorStartDT from "../screens/TutorBooking/TutorStartDT";
 import MakePayment from "../screens/MakePayment";
 import TutorAcceptNegotiate from "../screens/TutorBooking/TutorAcceptNegotiate";
+import AcceptNegotiate from "../screens/AcceptNegotiate";
 
 const SignStack = createStackNavigator();
 
@@ -556,6 +557,23 @@ function SecondStacknavigation() {
       <Stack.Screen
         name="MakeOffer"
         component={MakeOffer}
+        options={{
+          title: "AuthCheck",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="AcceptNegotiate"
+        component={AcceptNegotiate}
         options={{
           title: "AuthCheck",
           headerShown: false,
