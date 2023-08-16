@@ -538,7 +538,7 @@ const ClientLandingBefore = () => {
                           <Text style={styles.LIstText2}>
                             Nationality: {item.nationality}
                           </Text>
-                          <Text style={styles.LIstText2}>
+                          <Text style={[styles.LIstText2, { width: wp(65) }]}>
                             School Name: {item.name_of_school}
                           </Text>
                           <Text style={styles.LIstText2}>
@@ -547,7 +547,7 @@ const ClientLandingBefore = () => {
                           <Text style={styles.LIstText2}>
                             Tutor Type: {item.tuition_type}
                           </Text>
-                          <Text style={styles.LIstText2}>
+                          <Text style={[styles.LIstText2, { width: wp(60) }]}>
                             Location: {item.location}
                           </Text>
                           <Text style={styles.LIstText2}>

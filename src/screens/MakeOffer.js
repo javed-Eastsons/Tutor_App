@@ -289,8 +289,9 @@ const MakeOffer = ({ route }) => {
               style={{
                 fontSize: 22,
                 textAlign: "center",
-                fontWeight: "700",
+
                 color: "#2F5597",
+                fontFamily: "Poppins-Bold",
               }}
             >
               Your Offer
@@ -309,7 +310,7 @@ const MakeOffer = ({ route }) => {
                 style={{
                   color: "#fff",
                   fontSize: 16,
-                  fontWeight: "600",
+                  fontFamily: "Poppins-Light",
                   alignSelf: "center",
                 }}
               >
@@ -323,6 +324,7 @@ const MakeOffer = ({ route }) => {
                   fontWeight: "600",
                   alignSelf: "center",
                   textAlign: "center",
+                  fontFamily: "Poppins-Light",
                 }}
               >
                 {route?.params?.fees}
@@ -349,7 +351,7 @@ const MakeOffer = ({ route }) => {
                 style={{
                   color: "#fff",
                   fontSize: 16,
-                  fontWeight: "600",
+                  fontFamily: "Poppins-Light",
                   alignSelf: "center",
                 }}
               >
@@ -362,6 +364,7 @@ const MakeOffer = ({ route }) => {
                 color: "#2F5597",
                 fontSize: 14,
                 marginTop: wp(3),
+                fontFamily: "Poppins-Light",
               }}
             >
               {route?.params?.Amount_type}
@@ -538,6 +541,7 @@ const MakeOffer = ({ route }) => {
               justifyContent: "center",
               alignItems: "center",
               borderRadius: 3,
+              fontFamily: "Poppins-Regular",
             }}
           >
             <Text style={styles.BookText5}>Cancel Booking</Text>
@@ -570,6 +574,7 @@ const MakeOffer = ({ route }) => {
                   ? "#F6BE00"
                   : "#ffff",
               borderRadius: 3,
+              fontFamily: "Poppins-Regular",
             }}
           >
             <Text style={styles.infoText1}>Next</Text>
@@ -622,7 +627,10 @@ const styles = StyleSheet.create({
   HeaderText: {
     fontSize: 20,
     color: "#2F5597",
-    fontWeight: "bold",
+    fontFamily: "Poppins-Bold",
+  },
+  infoText: {
+    fontFamily: "Poppins-Light",
   },
   Container: {
     height: 70,
@@ -678,7 +686,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "black",
     alignSelf: "center",
-    fontWeight: "700",
+    fontFamily: "Poppins-Regular",
   },
   Bookcard: {
     height: "60%",
@@ -700,33 +708,39 @@ const styles = StyleSheet.create({
     shadowOpacity: 1.0,
     shadowRadius: 6,
   },
+
   BookText1: {
     fontSize: 15,
     color: "white",
-    fontWeight: "bold",
+    fontFamily: "Poppins-Regular",
     color: "red",
   },
+
   TypeImage: {
     width: 40,
     height: 40,
     marginTop: 5,
   },
+
   TypeImage1: {
     width: 20,
     height: 20,
     // marginTop: 5
   },
+
   BookText2: {
     fontSize: 12,
     color: "grey",
-    fontWeight: "bold",
+    fontFamily: "Poppins-Light",
   },
+
   SelectMoreContainer: {
     height: 100,
     width: "100%",
     alignSelf: "center",
     backgroundColor: "white",
   },
+
   dropdown: {
     height: 30,
     width: "95%",

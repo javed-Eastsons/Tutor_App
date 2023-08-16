@@ -238,7 +238,7 @@ const StudentBooking = (props) => {
                 Level :
               </Text>
             </View>
-            <View style={{ height: 100, width: "60%" }}>
+            <View style={{ width: "60%" }}>
               <Dropdown
                 style={[styles.dropdown, isFocus && { borderColor: "black" }]}
                 placeholderStyle={{ fontSize: 12 }}
@@ -267,7 +267,7 @@ const StudentBooking = (props) => {
                 Grade :
               </Text>
             </View>
-            <View style={{ height: 100, width: "60%" }}>
+            <View style={{ width: "60%" }}>
               <Dropdown
                 style={[styles.dropdown, isFocus2 && { borderColor: "black" }]}
                 placeholderStyle={{ fontSize: 12 }}
@@ -502,8 +502,8 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
   },
   dropdown: {
-    height: 20,
-    width: "70%",
+    //  height: 100,
+    // width: "70%",
     borderColor: "black",
     // borderWidth: 0.5,
     // borderRadius: 8,

@@ -135,7 +135,7 @@ const ClientLanding = () => {
     {
       name: "My Posts",
       src: require("../Assets/newPostIcon.png"),
-      Url: "",
+      Url: "MyPosts",
     },
     {
       name: "Upcomings",
@@ -216,7 +216,9 @@ const ClientLanding = () => {
             </View>
           </View>
           <View style={styles.UserRight}>
-            <Text>{console.log(isEnabled)}I want to be an Educator.....</Text>
+            <Text style={{ fontFamily: "Poppins-Light" }}>
+              {console.log(isEnabled)}I want to be an Educator.....
+            </Text>
             <TouchableOpacity
             //onPress={() => navigation.navigate('TutorLanding')}
             >
@@ -254,6 +256,7 @@ const ClientLanding = () => {
                 marginTop: 10,
                 marginBottom: 5,
                 color: "black",
+                fontFamily: "Poppins-Light",
               }}
             >
               Your Ideal Tutor is {"\n"}waiting
@@ -271,7 +274,12 @@ const ClientLanding = () => {
               ]}
             >
               <Text
-                style={{ color: "#fff", alignSelf: "center", fontSize: 14 }}
+                style={{
+                  color: "#fff",
+                  alignSelf: "center",
+                  fontSize: 14,
+                  fontFamily: "Poppins-Regular",
+                }}
               >
                 Search Now
               </Text>
@@ -291,6 +299,7 @@ const ClientLanding = () => {
                 marginTop: 10,
                 marginBottom: 5,
                 color: "black",
+                fontFamily: "Poppins-Light",
               }}
             >
               Post your requirement its Free
@@ -316,7 +325,12 @@ const ClientLanding = () => {
               ]}
             >
               <Text
-                style={{ color: "#fff", alignSelf: "center", fontSize: 14 }}
+                style={{
+                  color: "#fff",
+                  alignSelf: "center",
+                  fontSize: 14,
+                  fontFamily: "Poppins-Regular",
+                }}
               >
                 Post it!
               </Text>
@@ -586,6 +600,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 5,
     color: "black",
+    fontFamily: "Poppins-Regular",
   },
   postText: {
     width: "90%",
@@ -596,12 +611,15 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     marginBottom: 8,
     marginTop: 8,
+    fontFamily: "Poppins-SemiBold",
   },
   sliderText: {
     //  width: '90%',
     fontSize: 12,
     color: "#000",
     alignSelf: "center",
+
+    fontFamily: "Poppins-Light",
   },
   postTextRight: {
     fontSize: 18,

@@ -33,7 +33,7 @@ const TutorSearch = () => {
   const [postalcode, setpostalcode] = useState("");
   const [forwardArrrow, setForwardArrow] = useState(false);
   const [loader, setLoader] = useState(false);
-const [address, setAddress]=useState('')
+  const [address, setAddress] = useState("");
   const presspostalcode = () => {
     if (postalcode == "") {
       Alert.alert("Enter postal code");
@@ -58,12 +58,12 @@ const [address, setAddress]=useState('')
         const jsonData = response.data;
         // console.log(jsonData, "OOOOOOOOOOOOOOOOOOO");
         const jj = jsonData.results[0];
-        setAddress(jj?.formatted_address)
-          // console.log(jj, "AddressPin");
-              // console.log(
-    //   jj?.formatted_address,
-    //   "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
-    // );
+        setAddress(jj?.formatted_address);
+        // console.log(jj, "AddressPin");
+        // console.log(
+        //   jj?.formatted_address,
+        //   "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
+        // );
       })
       .catch((error) => {
         console.log(error);
@@ -75,10 +75,10 @@ const [address, setAddress]=useState('')
     //   "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
     // );
   };
-  const forwardArrowFunc=()=>{
-    geocodinApi()
-    setForwardArrow(true)
-  }
+  const forwardArrowFunc = () => {
+    geocodinApi();
+    setForwardArrow(true);
+  };
   return (
     <SafeAreaView style={styles.container}>
       <Loader flag={loader} />
@@ -129,7 +129,14 @@ const [address, setAddress]=useState('')
               </View>
             </View>
             <View style={styles.blueContiner}>
-              <Text style={{ color: "#fff", fontSize: 20, padding: 10 }}>
+              <Text
+                style={{
+                  color: "#fff",
+                  fontSize: 20,
+                  padding: 10,
+                  fontFamily: "Poppins-Regular",
+                }}
+              >
                 Select Tuition Service
               </Text>
             </View>
@@ -149,6 +156,7 @@ const [address, setAddress]=useState('')
                     paddingTop: 10,
                     color: "#000",
                     paddingBottom: 10,
+                    fontFamily: "Poppins-Regular",
                   }}
                 >
                   Home Tution
@@ -191,6 +199,7 @@ const [address, setAddress]=useState('')
                     fontSize: 13,
                     paddingTop: 10,
                     paddingBottom: 10,
+                    fontFamily: "Poppins-Regular",
                   }}
                 >
                   Online Tution
@@ -218,6 +227,7 @@ const [address, setAddress]=useState('')
                     paddingTop: 10,
                     color: "#000",
                     paddingBottom: 10,
+                    fontFamily: "Poppins-Regular",
                   }}
                 >
                   Homework{"\n"}Help
@@ -263,14 +273,15 @@ const [address, setAddress]=useState('')
 
             {forwardArrrow === true && (
               <View style={styles.forwardArrowWrapper}>
-                <Text style={styles.forwardArrowTextWrapper}>
-                  {address}
-                </Text>
+                <Text style={styles.forwardArrowTextWrapper}>{address}</Text>
               </View>
             )}
           </View>
           <TouchableOpacity
-              style={[styles.circleArrow,{display: !address ? 'none' : 'flex'}]}
+            style={[
+              styles.circleArrow,
+              { display: !address ? "none" : "flex" },
+            ]}
             onPress={() => presspostalcode()}
           >
             {/* //onPress={() => navigation.navigate('OurTutor')}> */}
@@ -345,7 +356,8 @@ const styles = StyleSheet.create({
   Text1: {
     color: "#2F5597",
     fontSize: 24,
-    fontWeight: "700",
+
+    fontFamily: "Poppins-Bold",
   },
   blueContiner: {
     backgroundColor: "#2F5597",
@@ -368,6 +380,7 @@ const styles = StyleSheet.create({
   Text2: {
     color: "grey",
     fontSize: 16,
+    fontFamily: "Poppins-Regular",
   },
 
   usercontainer: {
@@ -455,11 +468,12 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginLeft: wp(1),
     marginTop: -hp(2),
+    fontFamily: "Poppins-Light",
   },
   forwardArrowImage: { height: hp(2), width: wp(6), marginLeft: wp(2) },
   inputWrapper: {
     backgroundColor: "#fff",
-    height: hp(5), 
+    height: hp(5),
     width: wp(38),
     elevation: 6,
     marginTop: hp(1),
@@ -471,5 +485,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  tutorText: { fontSize: 11, color: "#000" },
+  tutorText: { fontSize: 11, color: "#000", fontFamily: "Poppins-Light" },
 });

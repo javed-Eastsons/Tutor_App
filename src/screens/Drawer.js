@@ -22,99 +22,115 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 const Drawer = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.head}>
-        <View style={styles.HeadLeft}>
-          <Image
-            source={require("../Assets/logo.jpg")}
-            style={styles.logoicons}
-          />
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.head}>
+          <View style={styles.HeadLeft}>
+            <Image
+              source={require("../Assets/logo.jpg")}
+              style={styles.logoicons}
+            />
+          </View>
         </View>
-      </View>
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Image
-            source={require("../Assets/Welcome.png")}
-            style={styles.icons}
-          />
-          <Text style={styles.MenuHead}>Welcome</Text>
+        <View style={styles.MenuLIstContainer}>
+          <View style={styles.MenuLIst}>
+            <Image
+              source={require("../Assets/Welcome.png")}
+              style={styles.icons}
+            />
+            <Text style={styles.MenuHead}>Welcome</Text>
+          </View>
+          <View style={styles.menusublist}>
+            <Text style={styles.subText}>Message from our director</Text>
+            <Text style={styles.subText}>About</Text>
+            <Text style={styles.subText}>Our Services</Text>
+            <Text style={styles.subText}>Our Tutors</Text>
+            <Text style={styles.subText}>Promotions</Text>
+          </View>
         </View>
-        <View style={styles.menusublist}>
-          <Text style={styles.subText}>Message from our director</Text>
-          <Text style={styles.subText}>About</Text>
-          <Text style={styles.subText}>Our Services</Text>
-          <Text style={styles.subText}>Our Tutors</Text>
-          <Text style={styles.subText}>Promotions</Text>
-        </View>
-      </View>
 
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Image source={require("../Assets/bell.png")} style={styles.icons} />
-          <Text style={styles.MenuHead}>Angel's Dashboard</Text>
+        <View style={styles.MenuLIstContainer}>
+          <View style={styles.MenuLIst}>
+            <Image source={require("../Assets/bell.png")} style={styles.icons} />
+            <Text style={styles.MenuHead}>Angel's Dashboard</Text>
+          </View>
+          <View style={styles.menusublist}>
+            <Text style={styles.subText}>My Profile</Text>
+            <Text style={styles.subText}>My Account</Text>
+            <Text style={styles.subText}>My Activities</Text>
+            <Text style={styles.subText}>Favourites</Text>
+            <Text style={styles.subText}>Make Payment</Text>
+          </View>
         </View>
-        <View style={styles.menusublist}>
-          <Text style={styles.subText}>My Profile</Text>
-          <Text style={styles.subText}>My Account</Text>
-          <Text style={styles.subText}>My Activities</Text>
-          <Text style={styles.subText}>Favourites</Text>
-          <Text style={styles.subText}>Make Payment</Text>
-        </View>
-      </View>
+        <TouchableOpacity onPress={() => {
+          navigation.navigate("HelpSupport");
+        }}>
+          <View style={styles.MenuLIstContainer}>
+            <View style={styles.MenuLIst}>
+              <Image source={require("../Assets/Help.png")} style={styles.icons} />
+              <Text style={styles.MenuHead}>Help & Support</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          navigation.navigate("Faq");
+        }}>
+          <View style={styles.MenuLIstContainer}>
+            <View style={styles.MenuLIst}>
+              <Image source={require("../Assets/bell.png")} style={styles.icons} />
+              <Text style={styles.MenuHead}>FAQ</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          navigation.navigate("TermsConditions");
+        }}>
+          <View style={styles.MenuLIstContainer}>
+            <View style={styles.MenuLIst}>
+              <Image
+                source={require("../Assets/Health.png")}
+                style={styles.icons}
+              />
+              <Text style={styles.MenuHead}>Terms & Conditions</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          navigation.navigate("PrivacyPolicy");
+        }}>
+          <View style={styles.MenuLIstContainer}>
+            <View style={styles.MenuLIst}>
+              <Image
+                source={require("../Assets/Privacy.png")}
+                style={styles.icons}
+              />
+              <Text style={styles.MenuHead}>Privacy Policy</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            AsyncStorage.clear();
+            navigation.replace("home");
+          }}
+          style={styles.MenuLIstContainer}
+        >
+          <View style={styles.MenuLIst}>
+            <Image
+              source={require("../Assets/Privacy.png")}
+              style={styles.icons}
+            />
+            <Text style={styles.MenuHead}>Logout</Text>
+          </View>
+        </TouchableOpacity>
 
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Image source={require("../Assets/Help.png")} style={styles.icons} />
-          <Text style={styles.MenuHead}>Help & Support</Text>
+        <View style={styles.MenuLIstContainer}>
+          <View style={styles.MenuLIst}>
+            <Text style={styles.LastText}>The Proof is in the pudding</Text>
+          </View>
         </View>
       </View>
-
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Image source={require("../Assets/bell.png")} style={styles.icons} />
-          <Text style={styles.MenuHead}>FAQ</Text>
-        </View>
-      </View>
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Image
-            source={require("../Assets/Health.png")}
-            style={styles.icons}
-          />
-          <Text style={styles.MenuHead}>Terms & Conditions</Text>
-        </View>
-      </View>
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Image
-            source={require("../Assets/Privacy.png")}
-            style={styles.icons}
-          />
-          <Text style={styles.MenuHead}>Privacy Policy</Text>
-        </View>
-      </View>
-      <TouchableOpacity
-        onPress={() => {
-          AsyncStorage.clear();
-          navigation.replace("home");
-        }}
-        style={styles.MenuLIstContainer}
-      >
-        <View style={styles.MenuLIst}>
-          <Image
-            source={require("../Assets/Privacy.png")}
-            style={styles.icons}
-          />
-          <Text style={styles.MenuHead}>Logout</Text>
-        </View>
-      </TouchableOpacity>
-
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Text style={styles.LastText}>The Proof is in the pudding</Text>
-        </View>
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -132,6 +148,7 @@ const styles = StyleSheet.create({
   },
   subText: {
     color: "#fff",
+    fontFamily: 'Poppins-Light'
   },
   logoicons: {
     height: 80,
@@ -149,7 +166,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontStyle: "italic",
     fontSize: 18,
-    fontWeight: "700",
+    fontFamily: 'Poppins-Regular'
   },
   MenuLIst: {
     flexDirection: "row",
@@ -163,5 +180,6 @@ const styles = StyleSheet.create({
     padding: 5,
     fontSize: 16,
     color: "yellow",
+    fontFamily: 'Poppins-SemiBold'
   },
 });

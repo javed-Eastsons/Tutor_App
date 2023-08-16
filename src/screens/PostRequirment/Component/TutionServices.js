@@ -25,7 +25,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 //import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../../common/Loader";
-import { Tution_Type,Postal_Code_Address } from "../../../Redux/Actions/types";
+import { Tution_Type, Postal_Code_Address } from "../../../Redux/Actions/types";
 import axios from "axios";
 
 const TuitionServices = () => {
@@ -35,9 +35,9 @@ const TuitionServices = () => {
   const [postalcode, setpostalcode] = useState("");
   const [forwardArrrow, setForwardArrow] = useState(false);
   const [loader, setLoader] = useState(false);
-  const [address, setAddress] = useState('')
-
-
+  const [address, setAddress] = useState("");
+  const [lat, setLat] = useState("");
+  const [long, setLong] = useState("");
 
   const geocodinApi = () => {
     let config = {
@@ -53,29 +53,49 @@ const TuitionServices = () => {
         const jsonData = response.data;
         // console.log(jsonData, "OOOOOOOOOOOOOOOOOOO");
         const jj = jsonData.results[0];
-        setAddress(jj?.formatted_address)
-        // console.log(jj, "AddressPin");
-        dispatch({
-          type: Postal_Code_Address,
-          payload: jj?.formatted_address,
-        });
-        
-        console.log(
-          jj?.formatted_address,
-          "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
-        );
+
+        setLat(jj?.geometry?.location?.lat);
+        setLong(jj?.geometry?.location?.lng);
+
+        getAddress(jj?.geometry?.location?.lat, jj?.geometry?.location?.lng);
       })
       .catch((error) => {
         console.log(error);
       });
-
-    // console.log(
-    //   mapData?.formatted_address,
-    //   FirstName,
-    //   "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
-    // );
   };
 
+  const getAddress = (lat, long) => {
+    console.log("WERTYUI");
+    let config1 = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url:
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=` +
+        lat +
+        `,` +
+        long +
+        `&sensor=true"&key=AIzaSyBe7R2rEvrkKUsLEoiCkLyFr4kd_sQE0Kw`,
+      headers: {},
+    };
+
+    axios
+      .request(config1)
+      .then((response) => {
+        const jsonData = response.data;
+        // console.log(jsonData, "OOOOOOOOOOOOOOOOOOO");
+        const jj = jsonData.results[0];
+
+        setAddress(jj?.formatted_address);
+
+        dispatch({
+          type: Postal_Code_Address,
+          payload: jj?.formatted_address,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const presspostalcode = () => {
     if (postalcode == "") {
@@ -102,9 +122,9 @@ const TuitionServices = () => {
     }
   };
   const forwardArrowFunc = () => {
-    geocodinApi()
-    setForwardArrow(true)
-  }
+    geocodinApi();
+    setForwardArrow(true);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.blueContiner}>
@@ -240,15 +260,13 @@ const TuitionServices = () => {
         )}
         {forwardArrrow === true && (
           <View style={styles.forwardArrowWrapper}>
-            <Text style={styles.forwardArrowTextWrapper}>
-              {address}
-            </Text>
+            <Text style={styles.forwardArrowTextWrapper}>{address}</Text>
           </View>
         )}
-
       </View>
       <TouchableOpacity
-        style={[styles.circleArrow, { display: !address ? 'none' : 'flex' }]} onPress={() => presspostalcode()}
+        style={[styles.circleArrow, { display: !address ? "none" : "flex" }]}
+        onPress={() => presspostalcode()}
       >
         {/* //onPress={() => navigation.navigate('OurTutor')}> */}
         {homeTutor === true && (
@@ -427,7 +445,8 @@ const styles = StyleSheet.create({
   forwardArrowTextWrapper: {
     color: "#000",
     fontSize: 10,
-    marginLeft: wp(1),
+    textAlign: "center",
+
     marginTop: -hp(2),
   },
   forwardArrowImage: { height: hp(2), width: wp(4), marginLeft: wp(2) },

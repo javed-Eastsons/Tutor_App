@@ -82,6 +82,11 @@ import TutorStartDT from "../screens/TutorBooking/TutorStartDT";
 import MakePayment from "../screens/MakePayment";
 import TutorAcceptNegotiate from "../screens/TutorBooking/TutorAcceptNegotiate";
 import AcceptNegotiate from "../screens/AcceptNegotiate";
+import MyPosts from "../screens/MyPosts";
+import HelpSupport from "../screens/HelpSupport";
+import Faq from "../screens/Faq";
+import TermsConditions from "../screens/TermsConditions";
+import PrivacyPolicy from "../screens/PrivacyPolicy";
 
 const SignStack = createStackNavigator();
 
@@ -588,9 +593,96 @@ function SecondStacknavigation() {
           },
         }}
       />
+
+      <Stack.Screen
+        name="MyPosts"
+        component={MyPosts}
+        options={{
+          title: "MyPosts",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
       <Stack.Screen
         name="StartDT"
         component={StartDT}
+        options={{
+          title: "AuthCheck",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="HelpSupport"
+        component={HelpSupport}
+        options={{
+          title: "AuthCheck",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Faq"
+        component={Faq}
+        options={{
+          title: "AuthCheck",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="TermsConditions"
+        component={TermsConditions}
+        options={{
+          title: "AuthCheck",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Stack.Screen
+        name="PrivacyPolicy"
+        component={PrivacyPolicy}
         options={{
           title: "AuthCheck",
           headerShown: false,

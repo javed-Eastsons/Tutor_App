@@ -160,7 +160,14 @@ const ItemBox = (props) => {
                 marginLeft: 10,
               }}
             >
-              <Text style={{ color: "#000", fontWeight: "500", fontSize: 12 }}>
+              <Text
+                style={{
+                  color: "#000",
+                  fontWeight: "500",
+                  fontSize: 12,
+                  fontFamily: "Poppins-Light",
+                }}
+              >
                 {props.data.name_of_school}
               </Text>
               <TouchableOpacity
@@ -178,13 +185,18 @@ const ItemBox = (props) => {
                 width: "80%",
                 marginHorizontal: 10,
                 flexDirection: "row",
+                fontFamily: "Poppins-Light",
               }}
             >
               <Text style={{ color: "black" }}>
                 {props.data.personal_statement}...
               </Text>
               <TouchableOpacity>
-                <Text style={{ color: "#2F5597" }}>ReadMore</Text>
+                <Text
+                  style={{ color: "#2F5597", fontFamily: "Poppins-Regular" }}
+                >
+                  ReadMore
+                </Text>
               </TouchableOpacity>
             </View>
             {/* <View style={{height:20,width:"80%",marginLeft:10}}>
@@ -271,6 +283,7 @@ const styles = StyleSheet.create({
     color: "#000",
     fontSize: 12,
     fontWeight: "800",
+    fontFamily: "Poppins-SemiBold",
   },
   flagImage: {
     height: hp(2),

@@ -70,6 +70,13 @@ const Register = ({ route }) => {
 
   // }, [])
 
+  useEffect(() => {
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+  }, []);
+
   const data = countryCode;
   // [
   //   { label: 'Item 1', value: '1' },
@@ -118,15 +125,15 @@ const Register = ({ route }) => {
     } else if (Mobile == "") {
       Alert.alert("Enter Mobile Number");
     } else {
-      // dispatch(
-      //   RegisterUser(FirstName, LastName, Password, Email, value, Mobile)
-      // );
+      dispatch(
+        RegisterUser(FirstName, LastName, Password, Email, value, Mobile)
+      );
 
       console.log("sddddddddd");
 
       // Alert.alert(Registermsg);
-      //  setVerifyModalVisible(!isVerfyModalVisible);
-      setModalVisible(!isModalVisible);
+      setVerifyModalVisible(!isVerfyModalVisible);
+      //  setModalVisible(!isModalVisible);
     }
   };
 
@@ -150,21 +157,22 @@ const Register = ({ route }) => {
     setLoader(true);
 
     setTimeout(() => {
-      dispatch(
-        RegisterUser(
-          FirstName,
-          LastName,
-          Password,
-          Email,
-          value,
-          Mobile,
-          role,
-          navigation
-        )
-      );
-      // dispatch(OTPVerifywithrole(role, otp, navigation));
-      setLoader(false);
+      // dispatch(
+      //   RegisterUser(
+      //     FirstName,
+      //     LastName,
+      //     Password,
+      //     Email,
+      //     value,
+      //     Mobile,
+      //     role,
+      //     navigation
+      //   )
+      // );
+      dispatch(OTPVerifywithrole(role, otp, navigation));
+
       setModalVisible(false);
+      setLoader(false);
     }, 3000);
   };
 
@@ -355,10 +363,8 @@ const Register = ({ route }) => {
                 onChange={(item) => {
                   setValue(item.value);
                 }}
-                // renderLeftIcon={() => (
-                //   <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-                // )}
               />
+
               <TextInput
                 onChangeText={(text) => {
                   setMobile(text);
@@ -385,8 +391,8 @@ const Register = ({ route }) => {
               //onPress={() => navigation.navigate('OTPScreen')}
               onPress={() => VerifytoggleModal()}
             >
-              {/* <Text style={styles.ReqButtonText}>Request OTP</Text> */}
-              <Text style={styles.ReqButtonText}>Choose Role</Text>
+              <Text style={styles.ReqButtonText}>Request OTP</Text>
+              {/* <Text style={styles.ReqButtonText}>Choose Role</Text> */}
             </TouchableOpacity>
           </View>
         )}

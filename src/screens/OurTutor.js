@@ -2074,6 +2074,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     zIndex: 99999,
   },
+
   MainContainer: {
     // flex: 1,
     padding: 12,
@@ -2096,6 +2097,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+
   LittlLeft: {
     height: hp(15),
     width: wp(50),
@@ -2120,6 +2122,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   rightSecondImageWrapper: {
     backgroundColor: "#fff",
     height: hp(6),
@@ -2134,10 +2137,6 @@ const styles = StyleSheet.create({
   logoicon: {
     height: hp(5),
     width: wp(11),
-    // height: 100,
-    // width: 100,
-
-    // borderRadius: 100 / 2
   },
 
   Headers: {
@@ -2147,16 +2146,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: wp(100),
   },
+
   Text1: {
     color: "#2F5597",
     fontSize: 24,
     fontWeight: "700",
+    fontFamily: "Poppins-Bold",
   },
 
   Text2: {
     // color: 'grey',
     color: "#2F5597",
     fontSize: 16,
+    fontFamily: "Poppins-Light",
   },
 
   icons: {
@@ -2190,7 +2192,12 @@ const styles = StyleSheet.create({
     marginLeft: wp(1.5),
     marginTop: hp(2),
   },
-  subjectText: { color: "#2F5597", paddingHorizontal: wp(2), fontSize: 12 },
+  subjectText: {
+    color: "#2F5597",
+    paddingHorizontal: wp(2),
+    fontSize: 12,
+    fontFamily: "Poppins-Light",
+  },
   frequentlyWrapper: {
     flexDirection: "row",
     justifyContent: "space-between",

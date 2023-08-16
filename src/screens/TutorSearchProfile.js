@@ -37,11 +37,13 @@ import { Tutor_Detail } from "../Redux/Actions/types";
 // import Collapsible from 'react-native-collapsible';
 const TutorSearchProfile = ({ props, route }) => {
   const navigation = useNavigation();
-  const [showwhat, setshowwhat] = React.useState("");
+  const [showwhat, setshowwhat] = React.useState("Experience");
   const [collapsed, setCollapsed] = useState(true);
   const data = route.params.data;
   const dispatch = useDispatch();
+  const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
 
+  console.log(data, "GET_POSTAL_DATAGET_POSTAL_DATAGET_POSTAL_DATA");
   // console.log(
   //   "🚀 ~ file: TutorSearchProfile.js ~ line 36 ~ TutorSearchProfile ~ data",
   //   data
@@ -322,19 +324,37 @@ const TutorSearchProfile = ({ props, route }) => {
           return (
             <View style={styles.moblieSec}>
               <TouchableOpacity
-                style={styles.emailtoch}
+                style={[
+                  styles.emailtoch,
+                  {
+                    backgroundColor:
+                      showwhat == "Experience" ? "#2F5597" : "lightgray",
+                  },
+                ]}
                 onPress={() => showwhatfunc("Experience")}
               >
                 <Text style={styles.ButtonText}>Experience</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.mobiletoch}
+                style={[
+                  styles.mobiletoch,
+                  {
+                    backgroundColor:
+                      showwhat == "My Schools" ? "#2F5597" : "lightgray",
+                  },
+                ]}
                 onPress={() => showwhatfunc("My Schools")}
               >
                 <Text style={styles.ButtonText}>My Schools</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.emailtoch}
+                style={[
+                  styles.emailtoch,
+                  {
+                    backgroundColor:
+                      showwhat == "Reviews" ? "#2F5597" : "lightgray",
+                  },
+                ]}
                 onPress={() => showwhatfunc("Reviews")}
               >
                 <Text style={styles.ButtonText}>Reviews</Text>
@@ -345,19 +365,37 @@ const TutorSearchProfile = ({ props, route }) => {
           return (
             <View style={styles.moblieSec}>
               <TouchableOpacity
-                style={styles.mobiletoch}
+                style={[
+                  styles.emailtoch,
+                  {
+                    backgroundColor:
+                      showwhat == "Experience" ? "#2F5597" : "lightgray",
+                  },
+                ]}
                 onPress={() => showwhatfunc("Experience")}
               >
                 <Text style={styles.ButtonText}>Experience</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.emailtoch}
+                style={[
+                  styles.mobiletoch,
+                  {
+                    backgroundColor:
+                      showwhat == "My Schools" ? "#2F5597" : "lightgray",
+                  },
+                ]}
                 onPress={() => showwhatfunc("My Schools")}
               >
                 <Text style={styles.ButtonText}>My Schools</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.emailtoch}
+                style={[
+                  styles.emailtoch,
+                  {
+                    backgroundColor:
+                      showwhat == "Reviews" ? "#2F5597" : "lightgray",
+                  },
+                ]}
                 onPress={() => showwhatfunc("Reviews")}
               >
                 <Text style={styles.ButtonText}>Reviews</Text>
@@ -368,19 +406,37 @@ const TutorSearchProfile = ({ props, route }) => {
           return (
             <View style={styles.moblieSec}>
               <TouchableOpacity
-                style={styles.emailtoch}
+                style={[
+                  styles.emailtoch,
+                  {
+                    backgroundColor:
+                      showwhat == "Experience" ? "#2F5597" : "lightgray",
+                  },
+                ]}
                 onPress={() => showwhatfunc("Experience")}
               >
                 <Text style={styles.ButtonText}>Experience</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.emailtoch}
+                style={[
+                  styles.mobiletoch,
+                  {
+                    backgroundColor:
+                      showwhat == "My Schools" ? "#2F5597" : "lightgray",
+                  },
+                ]}
                 onPress={() => showwhatfunc("My Schools")}
               >
                 <Text style={styles.ButtonText}>My Schools</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.mobiletoch}
+                style={[
+                  styles.emailtoch,
+                  {
+                    backgroundColor:
+                      showwhat == "Reviews" ? "#2F5597" : "lightgray",
+                  },
+                ]}
                 onPress={() => showwhatfunc("Reviews")}
               >
                 <Text style={styles.ButtonText}>Reviews</Text>
@@ -394,66 +450,22 @@ const TutorSearchProfile = ({ props, route }) => {
         if (showwhat == "Experience") {
           return (
             <View>
-              {/* <View style={styles.searchSection}>
-                                <Text style={styles.TextInputText}> School</Text>
-                                <TextInput
-                                        onChangeText={(text) => { setEmail(text) }}
-                                        placeholder="Your Name"
-                                        // value={Email}
-
-                                        style={styles.input}
-                                    />
-                            </View> */}
               <TouchableOpacity onPress={toggleExpanded}>
-                <View style={styles.header}>
-                  <Text style={styles.headerText}>Single Collapsible</Text>
-                  {/*Heading of Single Collapsible*/}
+                <View style={styles.searchSection}>
+                  <Text style={styles.TextInputText}>{data.qualification}</Text>
+                  <Text style={styles.TextInputText}>{data.Course_Exam}</Text>
+                  <Text style={styles.TextInputText}>
+                    {data.OtherCourse_Exam}
+                  </Text>
                 </View>
               </TouchableOpacity>
-              {/* <Collapsible
-                                collapsed={collapsed}
-                                align="center"
-                            >
-                                <View style={styles.content}>
-                                    <Text style={{ textAlign: 'center' }}>
-                                        This is a dummy text of Single Collapsible View
-                                    </Text>
-                                </View>
-                            </Collapsible> */}
-              {/* <View style={styles.searchSection}>
-                                <Text style={styles.TextInputText}>Primary school</Text>
-                                <TextInput
-                                        onChangeText={(text) => { setPassword(text) }}
-                                        placeholder="Password"
-                                        // value={Password}
-
-                                        style={styles.input}
-                                    />
-                            </View> */}
             </View>
           );
         } else if (showwhat == "My Schools") {
           return (
             <View>
               <View style={styles.searchSection}>
-                <Text style={styles.TextInputText}>Primary School</Text>
-                {/* <TextInput
-                                        onChangeText={(text) => { setMobile(text) }}
-                                        placeholder="Mobile"
-                                        // value={Mobile}
-                                        keyboardType="number-pad"
-                                        style={styles.input}
-                                    /> */}
-              </View>
-              <View style={styles.searchSection}>
-                <Text style={styles.TextInputText}>Pre School</Text>
-                {/* <TextInput
-                                        onChangeText={(text) => { setPassword(text) }}
-                                        placeholder="Password"
-                                        // value={Password}
-
-                                        style={styles.input}
-                                    /> */}
+                <Text style={styles.TextInputText}>{data.name_of_school}</Text>
               </View>
             </View>
           );
@@ -619,7 +631,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   emailtoch: {
-    backgroundColor: "lightgray",
+    //  backgroundColor: "lightgray",
     width: wp(30),
     height: hp(5),
     justifyContent: "center",
@@ -630,7 +642,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   mobiletoch: {
-    backgroundColor: "#2F5597",
+    // backgroundColor: showwhat == "My Schools" ? "#2F5597" : "lightgray",
     width: wp(25),
     height: hp(6),
     borderRadius: 30,

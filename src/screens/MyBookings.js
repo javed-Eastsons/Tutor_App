@@ -869,8 +869,16 @@ const MyBookings = ({ props, route }) => {
   const setTabFunc = (val) => {
     setTabs(val);
   };
-  console.log(All_Booked_Tutor[0]?.tutor_booking_status, All_Booked_Tutor[0]?.offer_status, 'tutorBookingStatus,offerStatus')
-  console.log(All_Booked_Tutor[0]?.tutor_tution_offer_amount_type, All_Booked_Tutor[0]?.tutor_tution_fees, 'jkk')
+  console.log(
+    All_Booked_Tutor[0]?.tutor_booking_status,
+    All_Booked_Tutor[0]?.offer_status,
+    "tutorBookingStatus,offerStatus"
+  );
+  console.log(
+    All_Booked_Tutor[0]?.tutor_tution_offer_amount_type,
+    All_Booked_Tutor[0]?.tutor_tution_fees,
+    "jkk"
+  );
   return (
     <>
       <View style={styles.container}>
@@ -924,7 +932,13 @@ const MyBookings = ({ props, route }) => {
             }}
             onPress={() => setTabFunc("InProgress")}
           >
-            <Text style={{ textAlign: "center", color: "purple" }}>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "purple",
+                fontFamily: "Poppins-Light",
+              }}
+            >
               In Progress
             </Text>
             {Tabs == "InProgress" ? (
@@ -953,7 +967,9 @@ const MyBookings = ({ props, route }) => {
               borderStyle: "dotted",
             }}
           >
-            <Text style={{ textAlign: "center" }}>Completed</Text>
+            <Text style={{ textAlign: "center", fontFamily: "Poppins-Light" }}>
+              Completed
+            </Text>
             {Tabs == "Completed" ? (
               <View
                 style={{
@@ -977,7 +993,9 @@ const MyBookings = ({ props, route }) => {
               justifyContent: "center",
             }}
           >
-            <Text style={{ textAlign: "center" }}>Book Again</Text>
+            <Text style={{ textAlign: "center", fontFamily: "Poppins-Light" }}>
+              Book Again
+            </Text>
 
             {Tabs == "BookAgain" ? (
               <View
@@ -1001,9 +1019,10 @@ const MyBookings = ({ props, route }) => {
               <Text
                 style={{
                   color: "#fff",
-                  fontWeight: "700",
+
                   fontSize: 14,
                   marginLeft: 4,
+                  fontFamily: "Poppins-Regular",
                 }}
               >
                 {`You have made a ${All_Booked_Tutor[0]?.tutor_tution_offer_amount_type} offer `}
@@ -1024,8 +1043,8 @@ const MyBookings = ({ props, route }) => {
               <Text style={styles.BookText3}>
                 Instructions:
                 <Text style={styles.BookText4}>
-                  You have placed an offer, tutor will be informed
-                  you will be recieve an app notification when the tutor has responded.
+                  You have placed an offer, tutor will be informed you will be
+                  recieve an app notification when the tutor has responded.
                 </Text>
               </Text>
             </View>
@@ -1085,8 +1104,9 @@ const MyBookings = ({ props, route }) => {
                             <Text
                               style={{
                                 color: "#000",
-                                fontWeight: "500",
+
                                 fontSize: 12,
+                                fontFamily: "Poppins-Light",
                               }}
                             >
                               {item.student_level}
@@ -1098,7 +1118,7 @@ const MyBookings = ({ props, route }) => {
                               maxStars={5}
                               rating={4}
                               starSize={15}
-                            // selectedStar={(rating) => setStrCount(rating)}
+                              // selectedStar={(rating) => setStrCount(rating)}
                             />
                           </View>
                         </View>
@@ -1115,7 +1135,12 @@ const MyBookings = ({ props, route }) => {
                       justifyContent: "center",
                     }}
                   >
-                    <Text style={{ textAlign: "center" }}>
+                    <Text
+                      style={{
+                        textAlign: "center",
+                        fontFamily: "Poppins-Regular",
+                      }}
+                    >
                       404 Chua Chu Kang Avenue 4
                     </Text>
                     <Image
@@ -1195,11 +1220,15 @@ const MyBookings = ({ props, route }) => {
                               // amount: offerAmount,
                               // youramount: youroffer
                             });
-                          }else if(All_Booked_Tutor[0]?.amount_negotiate_by_tutor != '0.00' ){
-                            navigation.navigate("AcceptNegotiate",{
-                              amount_negotiate_by_tutor: All_Booked_Tutor[0]?.amount_negotiate_by_tutor
-                            })
-                          }else {
+                          } else if (
+                            All_Booked_Tutor[0]?.amount_negotiate_by_tutor !=
+                            "0.00"
+                          ) {
+                            navigation.navigate("AcceptNegotiate", {
+                              amount_negotiate_by_tutor:
+                                All_Booked_Tutor[0]?.amount_negotiate_by_tutor,
+                            });
+                          } else {
                             navigation.navigate("MakeOffer", {
                               Amount_type:
                                 All_Booked_Tutor[0]
@@ -1237,6 +1266,7 @@ const MyBookings = ({ props, route }) => {
                         style={{
                           color:
                             route?.params?.proceed === true ? "white" : "black",
+                          fontFamily: "Poppins-Regular",
                         }}
                       >
                         {route?.params?.proceed === true
@@ -1305,7 +1335,7 @@ const MyBookings = ({ props, route }) => {
                           maxStars={5}
                           rating={4}
                           starSize={15}
-                        // selectedStar={(rating) => setStrCount(rating)}
+                          // selectedStar={(rating) => setStrCount(rating)}
                         />
                       </View>
                     </View>
@@ -1493,7 +1523,7 @@ const MyBookings = ({ props, route }) => {
                           maxStars={5}
                           rating={4}
                           starSize={15}
-                        // selectedStar={(rating) => setStrCount(rating)}
+                          // selectedStar={(rating) => setStrCount(rating)}
                         />
                       </View>
                     </View>
@@ -1726,7 +1756,7 @@ const MyBookings = ({ props, route }) => {
                     maxStars={5}
                     rating={4}
                     starSize={15}
-                  // selectedStar={(rating) => setStrCount(rating)}
+                    // selectedStar={(rating) => setStrCount(rating)}
                   />
                 </View>
 
@@ -1868,7 +1898,7 @@ const MyBookings = ({ props, route }) => {
                     maxStars={5}
                     rating={4}
                     starSize={15}
-                  // selectedStar={(rating) => setStrCount(rating)}
+                    // selectedStar={(rating) => setStrCount(rating)}
                   />
                 </View>
 
@@ -2010,7 +2040,7 @@ const MyBookings = ({ props, route }) => {
                     maxStars={5}
                     rating={4}
                     starSize={15}
-                  // selectedStar={(rating) => setStrCount(rating)}
+                    // selectedStar={(rating) => setStrCount(rating)}
                   />
                 </View>
 
@@ -2083,7 +2113,8 @@ const styles = StyleSheet.create({
   BookText4: {
     fontSize: 12,
     color: "grey",
-    fontWeight: "bold",
+
+    fontFamily: "Poppins-Light",
   },
   swipperWrapper: {
     flexDirection: "row",
@@ -2101,7 +2132,7 @@ const styles = StyleSheet.create({
   BookText3: {
     fontSize: 14,
     color: "white",
-    fontWeight: "bold",
+    fontFamily: "Poppins-SemiBold",
     color: "red",
   },
   leftImageWrapper: {
@@ -2133,7 +2164,7 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   whiteColor: {
-    color: ' #fff'
+    color: " #fff",
   },
   ReviewText: {
     color: "#fff",
@@ -2146,12 +2177,14 @@ const styles = StyleSheet.create({
   },
   BookText5: {
     color: "#fff",
-    fontWeight: "800",
+
+    fontFamily: "Poppins-Regular",
   },
   userIdWrapper: {
     color: "#000",
     fontSize: 12,
     fontWeight: "800",
+    fontFamily: "Poppins-SemiBold",
   },
   flagImage: {
     height: hp(2),
@@ -2245,6 +2278,7 @@ const styles = StyleSheet.create({
     color: "#2F5597",
     fontSize: 24,
     fontWeight: "700",
+    fontFamily: "Poppins-Bold",
   },
 
   Text2: {
