@@ -49,31 +49,33 @@ const BookingSummaryComponent = () => {
   const { Student_Detail } = useSelector((state) => state.TutorReducer);
   const { Tutor_Qualification } = useSelector((state) => state.TutorReducer);
   const { All_Booked_Tutor } = useSelector((state) => state.TutorBooingReducer);
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
   const { Postal_Code_Address } = useSelector((state) => state.TutorReducer);
 
-  
   const [tutiontype, setTutionType] = useState("tutiontype");
   const [qualification, setQualification] = useState("qualification");
   const [lesson, setLesson] = useState("lesson");
   const [offerprice, setOfferPrice] = useState("offerprice");
   const [timeslots, setTimeSlots] = useState("timeslots");
   const [currentTab, setCurrentTab] = useState("tutiontype");
-console.log(All_Booked_Tutor,'All_Booked_Tutor')
+  console.log(All_Booked_Tutor, "All_Booked_Tutor");
   const SelectTab = (selectedval) => {
     setCurrentTab(selectedval);
   };
 
   const PostReqData = () => {
-    
-    dispatch(studentPostRequirement(
-      Tutor_Schedule,
-      Tution_Type,
-      Student_Detail,
-      Tutor_Qualification,
-      All_Booked_Tutor[0]?.student_id,
-      Postal_Code_Address
+    console.log(Login_Data.userid, "LLLLLLLLLLLLLLLLLLL");
 
-  ));
+    dispatch(
+      studentPostRequirement(
+        Tutor_Schedule,
+        Tution_Type,
+        Student_Detail,
+        Tutor_Qualification,
+        Login_Data.userid,
+        Postal_Code_Address
+      )
+    );
   };
 
   console.log(
@@ -84,7 +86,8 @@ console.log(All_Booked_Tutor,'All_Booked_Tutor')
     Student_Detail,
     "Student_Detail",
     Tutor_Qualification,
-    "Tutor_Qualification"
+    "Tutor_Qualification",
+    All_Booked_Tutor[0]?.student_id
   );
 
   const BookTutorProcess = () => {

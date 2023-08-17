@@ -526,6 +526,7 @@ const YourProfle = ({ props, route }) => {
                 </Text>
 
                 <TouchableOpacity
+                  onPress={() => navigation.navigate("HomeTution")}
                   style={{
                     height: hp(4),
                     width: wp(8),

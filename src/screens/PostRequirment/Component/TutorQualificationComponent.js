@@ -265,7 +265,7 @@ const TutorQualificationComponent = (props) => {
             styleDropdownMenu={{ backgroundColor: "red" }}
             hideSubmitButton
             styleItemsContainer={{
-              height: 200,
+              height: 100,
             }}
           />
         </View>
@@ -303,7 +303,7 @@ const TutorQualificationComponent = (props) => {
                 valueField="value"
                 allowFontScaling={false}
                 placeholder={
-                  !isFocus2 ? "Select One Option " : "Select One Option"
+                  !isFocus2 ? "Select Frequency " : "Select Frequency"
                 }
                 value={value2}
                 onFocus={() => setIsFocus2(true)}
@@ -337,7 +337,7 @@ const TutorQualificationComponent = (props) => {
                 valueField="value"
                 allowFontScaling={false}
                 placeholder={
-                  !isFocus2 ? "Select One Option " : "Select One Option"
+                  !isFocus2 ? " Select Duration " : "Select Duration"
                 }
                 value={value1}
                 onFocus={() => setIsFocus1(true)}
@@ -385,6 +385,7 @@ const TutorQualificationComponent = (props) => {
                 // backgroundColor: "#2F5597",
                 // marginTop: wp(5),
                 justifyContent: "center",
+                alignItems: "center",
               }}
             >
               <Text
@@ -400,9 +401,9 @@ const TutorQualificationComponent = (props) => {
 
               <TextInput
                 style={{
-                  height: 40,
+                  height: 50,
                   backgroundColor: "lightgrey",
-                  width: 70,
+                  width: 60,
                   color: "#000",
                   fontSize: 18,
                   marginRight: 4,
@@ -410,12 +411,13 @@ const TutorQualificationComponent = (props) => {
                   fontWeight: "500",
                   justifyContent: "center",
                   paddingTop: 5,
-                  alignSelf: "center",
+                  justifyContent: "center",
+                  paddingLeft: 10,
                 }}
                 keyboardType="numeric"
                 value={offerAmount}
                 onChangeText={(text) => setofferAmount(text)}
-                placeholderTextColor="#fff"
+                placeholderTextColor="#000"
                 placeholder="0.00"
               />
               <Text

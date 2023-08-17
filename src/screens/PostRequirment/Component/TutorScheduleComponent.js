@@ -61,23 +61,12 @@ const TutionScheduleComponent = ({}) => {
   // );
   const [selected, setSelected] = useState([]);
   const [selected1, setSelected1] = useState([]);
+
   const handler = (time) => {
     let picker = selected;
     if (selected.includes(time)) {
       picker = picker.filter((item) => item != time);
-    }
-    // } else{
-
-    // picker.push(time);
-    // console.log("ABCABC", picker);
-    // setSelected(picker);
-    // setDate(new Date());
-    else {
-      // const obj3 = {};
-      // obj3["qualification"] = time;
-      // picker.push(obj3);
-      // console.log("XXXXXXXXX", picker);
-
+    } else {
       const obj3 = {};
 
       obj3["slot_time"] = time;
@@ -89,6 +78,7 @@ const TutionScheduleComponent = ({}) => {
       }
     }
     setSelected(picker);
+    setSelected1(picker);
 
     setDate(new Date());
   };
@@ -98,27 +88,26 @@ const TutionScheduleComponent = ({}) => {
     let picker = selected1;
     if (selected1.includes(time)) {
       picker = picker.filter((item) => item != time);
+      console.log(picker, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa");
     } else {
-      // const obj3 = {};
-      // obj3["qualification"] = time;
-      // picker.push(obj3);
-      // console.log("XXXXXXXXX", picker);
-
       const obj3 = {};
 
       obj3["tutor_schedule"] = time;
 
       if (!isExistInArray(picker, "tutor_schedule", obj3.tutor_schedule)) {
+        console.log(picker, "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         picker.push(obj3);
       } else {
         RemoveTempExercise(picker, "tutor_schedule", obj3.tutor_schedule);
       }
     }
     setSelected1(picker);
-
+    setSelected(picker);
     setDate(new Date());
   };
+
   console.log(selected1, "MMMMMMMMMMMMMMMMM");
+
   const isExistInArray = (Ex_array, Ex_Key, Ex_value) => {
     var isExist = false;
     Ex_array.forEach(function (element, index) {
@@ -150,13 +139,10 @@ const TutionScheduleComponent = ({}) => {
 
     Picker = Ex_array;
   };
-  console.log("@@@", handler);
 
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
   const renderTime1 = (item) => {
-    console.log("MONNNNNNNNN", selected1);
-
     return (
       <View>
         <TouchableOpacity
@@ -197,8 +183,9 @@ const TutionScheduleComponent = ({}) => {
     );
   };
 
+  console.log("MONNNNNNNNN", selected1);
+  // console.log("ABCABC 111", selected);
   const renderTime = (item) => {
-    // console.log("ABCABC 111", selected);
     return (
       <View>
         <TouchableOpacity
@@ -311,6 +298,8 @@ const TutionScheduleComponent = ({}) => {
         </View>
         <View style={[styles.cardWeek, styles.shadowPropWeek]}>
           <FlatList
+            nestedScrollEnabled={true}
+            scrollEnabled={false}
             data={days}
             key={new Date()}
             renderItem={(item) => renderTime1(item)}
@@ -377,10 +366,12 @@ const TutionScheduleComponent = ({}) => {
                   height: 40,
                   width: "70%",
                   justifyContent: "center",
+                  //  backgroundColor: time == "morning" ? "#2F5597" : ,
+
                   alignItems: "center",
                 }}
               >
-                <Text style={styles.MorningText}>12 AM to 5:59 AM</Text>
+                <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
               </TouchableOpacity>
             </TouchableOpacity>
 
@@ -461,6 +452,8 @@ const TutionScheduleComponent = ({}) => {
           </View>
           <View style={styles.TimeContainer}>
             <FlatList
+              nestedScrollEnabled={true}
+              scrollEnabled={false}
               data={time}
               key={new Date()}
               renderItem={(item) => renderTime(item)}

@@ -39,7 +39,7 @@ const SplashScreen = ({ navigation }) => {
           type: Login_Data,
           payload: obj,
         });
-        navigation.replace("Auth");
+        navigation.replace("Auth4");
       } else if (token && userType == "I am looking for a Tutor") {
         let obj = {
           userid: userID,

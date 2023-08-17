@@ -80,8 +80,10 @@ export const RegisterUser = (
   Mobile
 ) => {
   console.log(FirstName, LastName, Email, country_phone_code, Mobile, Password);
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     //const login = await getApiKey();
+    let fcmToken = await AsyncStorage.getItem("fcmToken");
+    console.log(fcmToken, "registerrrrrrrrrrrrrrrrrrrrrrrrrrrr");
     //let data = JSON.parse(login);
     //var authtoken = data;
     //  console.log(authtoken)
@@ -96,6 +98,8 @@ export const RegisterUser = (
     formData.append("country_phone_code", country_phone_code);
     formData.append("mobile", Mobile);
     formData.append("password", Password);
+    formData.append("device_token", fcmToken);
+    formData.append("device_type", "Android");
 
     return fetch(url1, {
       method: "POST",
@@ -179,7 +183,7 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
             type: Login_Data,
             payload: obj,
           });
-          navigation.replace("Auth");
+          navigation.replace("Auth4");
         } else if (
           responseJson.Status == true &&
           responseJson.user_type == "I am looking for a Tutor"
@@ -685,11 +689,12 @@ export const studentPostRequirement = (
       Tution_Type,
       Student_Detail,
       Tutor_Qualification,
+      student_id,
       "postReqData"
     );
 
     let data = JSON.stringify({
-      student_id: "6",
+      student_id: student_id,
       student_level: Student_Detail?.Level,
       student_grade: Student_Detail?.Grade,
       student_tution_type: Tution_Type?.TutionType,
@@ -726,6 +731,12 @@ export const studentPostRequirement = (
       .request(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
+        if (response.data.status == true) {
+          Alert.alert(response.data.message);
+          // navigation.navigate("Auth4");
+        } else if (response.data.status == false) {
+          Alert.alert(response.data.message);
+        }
       })
       .catch((error) => {
         console.log(error);

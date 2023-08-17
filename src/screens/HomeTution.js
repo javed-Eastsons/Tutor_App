@@ -66,6 +66,7 @@ const HomeTution = () => {
         const jj = jsonData.results[0];
         //   console.log(jj, "PPPPPPPPPPPPPPPPPP");
         setMapData(jj);
+        getAddress(jj?.geometry?.location?.lat, jj?.geometry?.location?.lng);
       })
       .catch((error) => {
         console.log(error);
@@ -77,6 +78,40 @@ const HomeTution = () => {
       "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
     );
   };
+
+  const getAddress = (lat, long) => {
+    console.log("WERTYUI");
+    let config1 = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url:
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=` +
+        lat +
+        `,` +
+        long +
+        `&sensor=true"&key=AIzaSyBe7R2rEvrkKUsLEoiCkLyFr4kd_sQE0Kw`,
+      headers: {},
+    };
+
+    axios
+      .request(config1)
+      .then((response) => {
+        const jsonData = response.data;
+        // console.log(jsonData, "OOOOOOOOOOOOOOOOOOO");
+        const jj = jsonData.results[0];
+
+        setAddress(jj?.formatted_address);
+
+        dispatch({
+          type: Postal_Code_Address,
+          payload: jj?.formatted_address,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   if (mapData) {
     // console.log(mapData?.geometry?.location, "latlong");
   }
@@ -94,7 +129,7 @@ const HomeTution = () => {
       longitudeDelta: 0.0421,
     });
 
-    setAddress(mapData?.formatted_address);
+    //   setAddress(mapData?.formatted_address);
 
     let obj = {
       Postal_Code: FirstName,
@@ -159,7 +194,8 @@ const HomeTution = () => {
 
         <View style={styles.forwardArrowWrapper}>
           <Text style={styles.forwardArrowTextWrapper}>
-            {mapData?.formatted_address}
+            {/* {mapData?.formatted_address} */}
+            {address}
           </Text>
         </View>
       </View>
