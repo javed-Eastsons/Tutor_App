@@ -152,6 +152,12 @@ const AcademicInfo = () => {
     navigation.navigate("YourProfle");
   };
 
+  const CrossButton = () => {
+    setHistoryModal(false);
+    setSchool("");
+    setGrade("");
+    setSubject("");
+  };
   return (
     <View style={styles.container}>
       {/* <View style={{flex:0.9}}> */}
@@ -319,7 +325,7 @@ const AcademicInfo = () => {
                       marginLeft: wp(2),
                     }}
                   >
-                    Add Detail (optional)f
+                    Add Detail (optional)
                   </Text>
                 </TouchableOpacity>
 
@@ -830,7 +836,8 @@ const AcademicInfo = () => {
                     }}
                   >
                     <TouchableOpacity
-                      onPress={() => setHistoryModal(false)}
+                      onPress={() => CrossButton()}
+                      // onPress={() => setHistoryModal(false)}
                       style={styles.crossImageWrapper}
                     >
                       <Image
@@ -838,7 +845,10 @@ const AcademicInfo = () => {
                         style={styles.crossImage}
                       />
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.tickWrapper}>
+                    <TouchableOpacity
+                      onPress={() => setHistoryModal(false)}
+                      style={styles.tickWrapper}
+                    >
                       <Image
                         source={require("../Assets/right.png")}
                         style={styles.tickImage}

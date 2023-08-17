@@ -125,6 +125,7 @@ const TuitionServices = () => {
     geocodinApi();
     setForwardArrow(true);
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.blueContiner}>

@@ -624,6 +624,7 @@ const YourProfle = ({ props, route }) => {
                 />
                 <Text style={styles.postText}>Personal Statement</Text>
               </View>
+
               <Image
                 source={require("../Assets/tutionsjobs.png")}
                 style={styles.tickIcon}

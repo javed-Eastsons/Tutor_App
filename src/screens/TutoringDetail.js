@@ -376,7 +376,7 @@ const TutoringDetail = () => {
   // console.log(selectListTutor,'selectListTutor')
   // console.log(levelDetail,'levelDetail')
 
-  const [state, setState] = useState("Select year");
+  const [state, setState] = useState("");
   const state_list = [
     { label: "Select year", value: "Select year" },
     { label: "1", value: "1" },
@@ -386,9 +386,9 @@ const TutoringDetail = () => {
     { label: "5", value: "5" },
     { label: "6", value: "6" },
   ];
-  const [state2, setState2] = useState("Select year");
+  const [state2, setState2] = useState("");
   const state_list2 = [
-    { label: "Select year", value: "Select year" },
+    { label: "Select Month", value: "Select Month" },
     { label: "1", value: "1" },
     { label: "2", value: "2" },
     { label: "3", value: "3" },
@@ -411,11 +411,13 @@ const TutoringDetail = () => {
       console.log("ddddddddddddddddddddddd");
     } else {
       const obj3 = {};
+
       data.forEach((element, index) => {
         // console.log('""""""""""""""', element);
         obj3["Tutoring_Subjects"] = element;
         // setSelectedQual(element)
       });
+
       if (
         !isExistInArray(
           selectArray,
@@ -437,7 +439,7 @@ const TutoringDetail = () => {
   };
 
   const onSelectedItemsChange = (selectedItems) => {
-    //  console.log('PPPPPPPPPPPP', selectedItems)
+    console.log("PPPPPPPPPPPP", selectedItems);
     createsubject(selectedItems);
     setselectedItems(selectedItems);
   };
@@ -472,42 +474,40 @@ const TutoringDetail = () => {
 
   const items = [
     {
-      id: "92iijs7yta",
-      name: "Ondo",
+      id: "1",
+      name: "English",
     },
     {
-      id: "a0s0a8ssbsd",
-      name: "Ogun",
+      id: "2",
+      name: "Mathematics",
     },
     {
-      id: "16hbajsabsd",
-      name: "Calabar",
+      id: "3",
+      name: "Chinese",
     },
     {
-      id: "nahs75a5sg",
-      name: "Lagos",
+      id: "4",
+      name: "Malay",
     },
     {
-      id: "667atsas",
-      name: "Maiduguri",
+      id: "5",
+      name: "Tamil",
     },
     {
-      id: "hsyasajs",
-      name: "Anambra",
-    },
-    {
-      id: "djsjudksjd",
-      name: "Benue",
-    },
-    {
-      id: "sdhyaysdj",
-      name: "Kaduna",
-    },
-    {
-      id: "suudydjsjd",
-      name: "Abuja",
+      id: "6",
+      name: "Hindi",
     },
   ];
+
+  const SelectAllOption = () => {
+    setp1fun("P1");
+    setp2fun("P2");
+    setp3fun("P3");
+    setp4fun("P4");
+    setp5fun("P5");
+    setp6fun("P6");
+  };
+
   return (
     <View style={styles.container}>
       {/* <View style={{flex:0.9}}> */}
@@ -559,9 +559,7 @@ const TutoringDetail = () => {
         }}
       >
         <View style={{ marginLeft: wp(3) }}>
-          <Text style={{ color: "#000", fontSize: 14, marginTop: -hp(2) }}>
-            {selectListTutor}
-          </Text>
+          <Text style={{ color: "#000", fontSize: 14 }}>{selectListTutor}</Text>
           <Text style={{ color: "#000", fontSize: 14, paddingTop: hp(2) }}>
             {P1} {P2} {P3} {P4} {P5} {P6}
           </Text>
@@ -569,7 +567,7 @@ const TutoringDetail = () => {
             {state} Years {state2} Months
           </Text>
           <Text style={{ color: "#000", fontSize: 14, paddingTop: hp(2) }}>
-            {selectedItems}
+            {selectedItems + ""}
           </Text>
         </View>
         <View>
@@ -689,6 +687,7 @@ const TutoringDetail = () => {
                     style={styles.crossImage}
                   />
                 </TouchableOpacity>
+
                 <TouchableOpacity
                   onPress={() =>
                     selectListTutor == ""
@@ -812,6 +811,7 @@ const TutoringDetail = () => {
                 </Text>
 
                 <TouchableOpacity
+                  onPress={() => SelectAllOption()}
                   style={{
                     borderWidth: 1,
                     borderColor: "#2F5597",
@@ -1019,7 +1019,7 @@ const TutoringDetail = () => {
                   <RNPickerSelect
                     onValueChange={(value) => setState(value)}
                     items={state_list}
-                    value={state}
+                    //  value={state}
                     placeholder={{}}
                   >
                     <View
@@ -1075,8 +1075,7 @@ const TutoringDetail = () => {
                   <RNPickerSelect
                     onValueChange={(value) => setState2(value)}
                     items={state_list2}
-                    value={state2}
-                    placeholder={{}}
+                    //  value={state2}
                   >
                     <View
                       style={{

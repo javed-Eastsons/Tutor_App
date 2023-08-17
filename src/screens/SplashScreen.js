@@ -53,8 +53,8 @@ const SplashScreen = ({ navigation }) => {
         navigation.replace("Auth");
         // navigation.replace("Auth2");
       } else {
-        // navigation.replace("YourProfle");
-        navigation.replace("IntroScreen");
+        navigation.replace("YourProfle");
+        // navigation.replace("IntroScreen");
       }
     }, 3000);
   };
@@ -75,6 +75,7 @@ const SplashScreen = ({ navigation }) => {
     backgroundColor: "#F7F8FD",
     VVideo: require("../Assets/first.mp4"),
   };
+
   return (
     <View
       style={{
