@@ -45,19 +45,18 @@ const TutoringDetail = () => {
   const [P5, setP5] = useState("");
   const [P6, setP6] = useState("");
 
-  console.log(selectArray, "selectArray");
+  // console.log(selectArray, "selectArray");
 
   // console.log(tutoring,'tutoring')
 
   const AddQualification = (val) => {
-    //   setP1('P1')
     if (P1 == val) {
       setSelectListTutor("");
 
       var item1 = {};
       item1["tutor_qualification_Subject"] = val;
-      item1["Tutoring_Level"] = "Primary";
-      item1["Tutoring_Stream"] = "AEIS";
+      //  item1["Tutoring_Level"] = "Primary";
+      // item1["Tutoring_Stream"] = "AEIS";
 
       RemoveTempExercise(
         selectArray,
@@ -72,7 +71,7 @@ const TutoringDetail = () => {
       var item1 = {};
       item1["tutor_qualification_Subject"] = val;
       item1["Tutoring_Level"] = "Primary";
-      item1["Tutoring_Stream"] = "AEIS";
+      // item1["Tutoring_Stream"] = "AEIS";
 
       if (
         !isExistInArray(
@@ -91,35 +90,35 @@ const TutoringDetail = () => {
         );
       }
     }
-    // console.log('LLLLLLLLLL', P1)
-    // console.log('aaaaaaaaaaa', selectArray)
   };
+
+  console.log(selectArray, "selectArrayselectArrayselectArray");
 
   const setp1fun = (val) => {
     //   setP1('P1')
     if (P1 == val) {
       setP1("");
 
-      var item1 = {};
-      item1["Tutoring_Grade"] = val;
+      // var item1 = {};
+      // item1["Tutoring_Grade"] = val;
 
-      RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
+      // RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
 
-      console.log("PPPPPPPPPPPP");
+      // console.log("PPPPPPPPPPPP");
     } else {
       setP1(val);
 
-      var item1 = {};
-      item1["Tutoring_Grade"] = val;
+      // var item1 = {};
+      // item1["Tutoring_Grade"] = val;
 
-      if (
-        !isExistInArray(selectArray, "Tutoring_Grade", item1.Tutoring_Grade)
-      ) {
-        //  console.log('insert in array');
-        selectArray.push(item1);
-      } else {
-        RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
-      }
+      // if (
+      //   !isExistInArray(selectArray, "Tutoring_Grade", item1.Tutoring_Grade)
+      // ) {
+      //   //  console.log('insert in array');
+      //   // selectArray.push(item1);
+      // } else {
+      //   RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
+      // }
     }
     // console.log('LLLLLLLLLL', P1)
     // console.log('aaaaaaaaaaa', selectArray)
@@ -130,26 +129,26 @@ const TutoringDetail = () => {
     if (P2 == val) {
       setP2("");
 
-      var item1 = {};
-      item1["Tutoring_Grade"] = val;
+      // var item1 = {};
+      // item1["Tutoring_Grade"] = val;
 
-      RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
+      // RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
 
-      console.log("PPPPPPPPPPPP");
+      // console.log("PPPPPPPPPPPP");
     } else {
       setP2(val);
 
-      var item1 = {};
-      item1["Tutoring_Grade"] = val;
+      // var item1 = {};
+      // item1["Tutoring_Grade"] = val;
 
-      if (
-        !isExistInArray(selectArray, "Tutoring_Grade", item1.Tutoring_Grade)
-      ) {
-        //  console.log('insert in array');
-        selectArray.push(item1);
-      } else {
-        RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
-      }
+      // if (
+      //   !isExistInArray(selectArray, "Tutoring_Grade", item1.Tutoring_Grade)
+      // ) {
+      //   //  console.log('insert in array');
+      //   // selectArray.push(item1);
+      // } else {
+      //   RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
+      // }
     }
     console.log("aaaaaaaaaaa", selectArray);
   };
@@ -159,26 +158,26 @@ const TutoringDetail = () => {
     if (P3 == val) {
       setP3("");
 
-      var item1 = {};
-      item1["Tutoring_Grade"] = val;
+      // var item1 = {};
+      // item1["Tutoring_Grade"] = val;
 
-      RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
+      // RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
 
-      console.log("PPPPPPPPPPPP");
+      // console.log("PPPPPPPPPPPP");
     } else {
       setP3(val);
 
-      var item1 = {};
-      item1["Tutoring_Grade"] = val;
+      // var item1 = {};
+      // item1["Tutoring_Grade"] = val;
 
-      if (
-        !isExistInArray(selectArray, "Tutoring_Grade", item1.Tutoring_Grade)
-      ) {
-        //  console.log('insert in array');
-        selectArray.push(item1);
-      } else {
-        RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
-      }
+      // if (
+      //   !isExistInArray(selectArray, "Tutoring_Grade", item1.Tutoring_Grade)
+      // ) {
+      //   //  console.log('insert in array');
+      //   //   selectArray.push(item1);
+      // } else {
+      //   RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
+      // }
     }
     console.log("aaaaaaaaaaa", selectArray);
   };
@@ -188,26 +187,26 @@ const TutoringDetail = () => {
     if (P4 == val) {
       setP4("");
 
-      var item1 = {};
-      item1["Tutoring_Grade"] = val;
+      // var item1 = {};
+      // item1["Tutoring_Grade"] = val;
 
-      RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
+      // RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
 
-      console.log("PPPPPPPPPPPP");
+      // console.log("PPPPPPPPPPPP");
     } else {
       setP4(val);
 
-      var item1 = {};
-      item1["Tutoring_Grade"] = val;
+      // var item1 = {};
+      // item1["Tutoring_Grade"] = val;
 
-      if (
-        !isExistInArray(selectArray, "Tutoring_Grade", item1.Tutoring_Grade)
-      ) {
-        //  console.log('insert in array');
-        selectArray.push(item1);
-      } else {
-        RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
-      }
+      // if (
+      //   !isExistInArray(selectArray, "Tutoring_Grade", item1.Tutoring_Grade)
+      // ) {
+      //   //  console.log('insert in array');
+      //   // selectArray.push(item1);
+      // } else {
+      //   RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
+      // }
     }
     console.log("aaaaaaaaaaa", selectArray);
   };
@@ -217,26 +216,26 @@ const TutoringDetail = () => {
     if (P5 == val) {
       setP5("");
 
-      var item1 = {};
-      item1["Tutoring_Grade"] = val;
+      // var item1 = {};
+      // item1["Tutoring_Grade"] = val;
 
-      RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
+      // RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
 
-      console.log("PPPPPPPPPPPP");
+      // console.log("PPPPPPPPPPPP");
     } else {
       setP5(val);
 
-      var item1 = {};
-      item1["Tutoring_Grade"] = val;
+      // var item1 = {};
+      // item1["Tutoring_Grade"] = val;
 
-      if (
-        !isExistInArray(selectArray, "Tutoring_Grade", item1.Tutoring_Grade)
-      ) {
-        //  console.log('insert in array');
-        selectArray.push(item1);
-      } else {
-        RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
-      }
+      // if (
+      //   !isExistInArray(selectArray, "Tutoring_Grade", item1.Tutoring_Grade)
+      // ) {
+      //   //  console.log('insert in array');
+      //   // selectArray.push(item1);
+      // } else {
+      //   RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
+      // }
     }
     console.log("aaaaaaaaaaa", selectArray);
   };
@@ -246,26 +245,26 @@ const TutoringDetail = () => {
     if (P6 == val) {
       setP6("");
 
-      var item1 = {};
-      item1["Tutoring_Grade"] = val;
+      // var item1 = {};
+      // item1["Tutoring_Grade"] = val;
 
-      RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
+      // RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
 
-      console.log("PPPPPPPPPPPP");
+      // console.log("PPPPPPPPPPPP");
     } else {
       setP6(val);
 
-      var item1 = {};
-      item1["Tutoring_Grade"] = val;
+      // var item1 = {};
+      // item1["Tutoring_Grade"] = val;
 
-      if (
-        !isExistInArray(selectArray, "Tutoring_Grade", item1.Tutoring_Grade)
-      ) {
-        //  console.log('insert in array');
-        selectArray.push(item1);
-      } else {
-        RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
-      }
+      // if (
+      //   !isExistInArray(selectArray, "Tutoring_Grade", item1.Tutoring_Grade)
+      // ) {
+      //   //  console.log('insert in array');
+      //   // selectArray.push(item1);
+      // } else {
+      //   RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
+      // }
     }
     console.log("aaaaaaaaaaa", selectArray);
   };
@@ -372,13 +371,15 @@ const TutoringDetail = () => {
   ]);
 
   const [selectListTutor, setSelectListTutor] = useState("");
+  const [TutorLevel, setTutorLevel] = useState("");
   const [levelDetail, setLevelDetail] = useState("");
+  const [count, setCount] = useState(0);
   // console.log(selectListTutor,'selectListTutor')
   // console.log(levelDetail,'levelDetail')
 
-  const [state, setState] = useState("");
+  const [state, setState] = useState("Select Year");
   const state_list = [
-    { label: "Select year", value: "Select year" },
+    { label: "Select Year", value: "Select Year" },
     { label: "1", value: "1" },
     { label: "2", value: "2" },
     { label: "3", value: "3" },
@@ -386,7 +387,7 @@ const TutoringDetail = () => {
     { label: "5", value: "5" },
     { label: "6", value: "6" },
   ];
-  const [state2, setState2] = useState("");
+  const [state2, setState2] = useState("Select Month");
   const state_list2 = [
     { label: "Select Month", value: "Select Month" },
     { label: "1", value: "1" },
@@ -395,6 +396,11 @@ const TutoringDetail = () => {
     { label: "4", value: "4" },
     { label: "5", value: "5" },
     { label: "6", value: "6" },
+    { label: "7", value: "7" },
+    { label: "8", value: "8" },
+    { label: "9", value: "9" },
+    { label: "10", value: "10" },
+    { label: "11", value: "11" },
   ];
   console.log(state, state2, "state,state2");
 
@@ -403,6 +409,134 @@ const TutoringDetail = () => {
   const [selectedItems, setselectedItems] = useState([]);
   // console.log(tutorSubject,'tutorSubject')
   // console.log(selectedItems,'selectedItems')
+
+  const ALLDATA = () => {
+    selectListTutor, P1, P2, P3, P4, P5, P6, state, state2, selectedItems;
+
+    console.log(
+      selectListTutor,
+      P1,
+      P2,
+      P3,
+      P4,
+      P5,
+      P6,
+      state,
+      state2,
+      selectedItems
+    );
+
+    // if (P1 == P1) {
+    //   setSelectListTutor("");
+    const obj3 = [];
+
+    setCount(count + 1);
+
+    console.log(obj3, "AAAAA");
+
+    var item1 = {};
+    item1["Id"] = count;
+    item1["tutor_qualification_Subject"] = selectListTutor;
+    item1["Tutoring_Grade"] = P1;
+    item1["Tutoring_Grade2"] = P2;
+    item1["Tutoring_Grade3"] = P3;
+    item1["Tutoring_Grade4"] = P4;
+    item1["Tutoring_Grade5"] = P5;
+    item1["Tutoring_Grade6"] = P6;
+
+    item1["Tutoring_Year"] = state;
+    item1["Tutoring_Month"] = state2;
+    item1["Tutoring_ALL_Subjects"] = selectedItems;
+
+    if (
+      !isExistInArray(
+        selectArray,
+        "tutor_qualification_Subject",
+        item1.tutor_qualification_Subject
+      )
+    ) {
+      //  console.log('insert in array');
+      selectArray.push(item1);
+      // selectArray.push(obj3);
+    } else {
+      RemoveTempExercise(
+        selectArray,
+        "tutor_qualification_Subject",
+        item1.tutor_qualification_Subject
+      );
+    }
+    // }
+
+    setTutorSubject(false);
+    setP1("");
+    setP2("");
+    setP3("");
+    setP4("");
+    setP5("");
+    setP6("");
+    setSelectListTutor("");
+    setState("");
+    setState2("");
+    setselectedItems([]);
+  };
+  console.log(count, "countttttttttttt");
+  console.log(
+    selectArray,
+    //selectArray.Tutoring_ALL_Subjects[1],
+    "selectArrayselectArray@@@@@@@@@@@@@@@@@@@@@@@@@"
+  );
+
+  const SelectYear = (val) => {
+    if (state == val) {
+      setState("");
+
+      var item1 = {};
+      item1["Tutoring_year"] = val;
+
+      RemoveTempExercise(selectArray, "Tutoring_year", item1.Tutoring_year);
+
+      console.log("PPPPPPPPPPPP");
+    } else {
+      setState(val);
+
+      var item1 = {};
+      item1["Tutoring_year"] = val;
+
+      if (!isExistInArray(selectArray, "Tutoring_year", item1.Tutoring_year)) {
+        //  console.log('insert in array');
+        selectArray.push(item1);
+      } else {
+        RemoveTempExercise(selectArray, "Tutoring_year", item1.Tutoring_year);
+      }
+    }
+  };
+
+  const SelectMonth = (val) => {
+    if (state2 == val) {
+      setState2("");
+
+      var item1 = {};
+      item1["Tutoring_month"] = val;
+
+      RemoveTempExercise(selectArray, "Tutoring_month", item1.Tutoring_month);
+
+      console.log("PPPPPPPPPPPP");
+    } else {
+      setState2(val);
+
+      var item1 = {};
+      item1["Tutoring_month"] = val;
+
+      if (
+        !isExistInArray(selectArray, "Tutoring_month", item1.Tutoring_month)
+      ) {
+        //  console.log('insert in array');
+        selectArray.push(item1);
+      } else {
+        RemoveTempExercise(selectArray, "Tutoring_month", item1.Tutoring_month);
+      }
+    }
+  };
 
   const createsubject = (data) => {
     console.log(data, ":::::::::::::::::::::::::");
@@ -440,7 +574,7 @@ const TutoringDetail = () => {
 
   const onSelectedItemsChange = (selectedItems) => {
     console.log("PPPPPPPPPPPP", selectedItems);
-    createsubject(selectedItems);
+    // createsubject(selectedItems);
     setselectedItems(selectedItems);
   };
 
@@ -475,27 +609,55 @@ const TutoringDetail = () => {
   const items = [
     {
       id: "1",
-      name: "English",
+      name: "English ",
     },
     {
       id: "2",
-      name: "Mathematics",
+      name: "English Foundation ",
     },
     {
       id: "3",
-      name: "Chinese",
+      name: "Math ",
     },
     {
       id: "4",
-      name: "Malay",
+      name: "Math Foundation ",
     },
     {
       id: "5",
-      name: "Tamil",
+      name: "Science ",
     },
     {
       id: "6",
-      name: "Hindi",
+      name: "Science Foundation ",
+    },
+    {
+      id: "7",
+      name: "Chinese ",
+    },
+    {
+      id: "8",
+      name: "Higher Chinese ",
+    },
+    {
+      id: "9",
+      name: "Malay ",
+    },
+    {
+      id: "10",
+      name: "Higher Malay ",
+    },
+    {
+      id: "11",
+      name: "Tamil ",
+    },
+    {
+      id: "12",
+      name: "Higher Tamil ",
+    },
+    {
+      id: "13",
+      name: "Hindi ",
     },
   ];
 
@@ -533,97 +695,20 @@ const TutoringDetail = () => {
 
       <TouchableOpacity
         style={{
-          borderWidth: 1,
-          borderColor: "lightgrey",
+          //borderWidth: 1,
+          // borderColor: "lightgrey",
           height: hp(8),
+          marginTop: 10,
           paddingHorizontal: wp(2),
           width: wp(90),
           marginLeft: wp(5),
         }}
       >
-        <Text style={{ color: "lightgrey", fontSize: 14, paddingTop: hp(0.5) }}>
-          Select your Current Qualification. You can add detail after selection
+        <Text style={{ color: "grey", fontSize: 14, paddingTop: hp(0.5) }}>
+          You can list your Tutoring Level, Subjects & Experience in this
+          section
         </Text>
       </TouchableOpacity>
-
-      <TouchableOpacity
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginHorizontal: wp(5),
-          backgroundColor: "#fff",
-          elevation: 10,
-          paddingVertical: hp(1),
-          marginTop: hp(2),
-        }}
-      >
-        <View style={{ marginLeft: wp(3) }}>
-          <Text style={{ color: "#000", fontSize: 14 }}>{selectListTutor}</Text>
-          <Text style={{ color: "#000", fontSize: 14, paddingTop: hp(2) }}>
-            {P1} {P2} {P3} {P4} {P5} {P6}
-          </Text>
-          <Text style={{ color: "#000", fontSize: 14, paddingTop: hp(2) }}>
-            {state} Years {state2} Months
-          </Text>
-          <Text style={{ color: "#000", fontSize: 14, paddingTop: hp(2) }}>
-            {selectedItems + ""}
-          </Text>
-        </View>
-        <View>
-          <TouchableOpacity
-            onPress={() => setTutoring(true)}
-            style={{
-              backgroundColor: "lightblue",
-              borderRadius: 6,
-              paddingVertical: hp(1.5),
-              width: wp(14),
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Image
-              source={require("../Assets/bell.png")}
-              style={{ height: hp(4), width: wp(7) }}
-            />
-          </TouchableOpacity>
-          <View
-            style={{
-              backgroundColor: "grey",
-              borderRadius: 6,
-              paddingVertical: hp(1.5),
-              width: wp(14),
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Image
-              source={require("../Assets/delete.png")}
-              style={{ height: hp(4), width: wp(7) }}
-            />
-          </View>
-        </View>
-      </TouchableOpacity>
-      {/* 
-            <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginHorizontal: wp(5), backgroundColor: '#fff', elevation: 10, paddingVertical: hp(1), marginTop: hp(2) }}>
-                <View style={{ marginLeft: wp(3) }}>
-                    <Text style={{ color: '#000', fontSize: 14, marginTop: -hp(2) }}>{'Secondary'}</Text>
-                    <Text style={{ color: '#000', fontSize: 14, paddingTop: hp(2) }}>{'P1,P2, P3,P4'}</Text>
-                </View>
-                <View >
-                    <TouchableOpacity onPress={() => setTutoring(true)} style={{ backgroundColor: 'lightblue', borderRadius: 6, paddingVertical: hp(1.5), width: wp(14), alignItems: 'center', justifyContent: 'center' }}>
-                        <Image source={require('../Assets/bell.png')}
-                            style={{ height: hp(4), width: wp(7) }}
-                        />
-                    </TouchableOpacity>
-                    <View style={{ backgroundColor: 'grey', borderRadius: 6, paddingVertical: hp(1.5), width: wp(14), alignItems: 'center', justifyContent: 'center' }}>
-                        <Image source={require('../Assets/delete.png')}
-                            style={{ height: hp(4), width: wp(7) }}
-                        />
-                    </View>
-                </View>
-            </TouchableOpacity> */}
-
       <TouchableOpacity
         onPress={() => setTutoring(true)}
         style={{
@@ -659,6 +744,137 @@ const TutoringDetail = () => {
         </Text>
       </TouchableOpacity>
 
+      <ScrollView style={{ height: 300 }}>
+        {selectArray.map((item) => (
+          <View
+            style={{
+              justifyContent: "space-between",
+              backgroundColor: "red",
+              marginHorizontal: wp(5),
+              backgroundColor: "#fff",
+              elevation: 10,
+              paddingVertical: hp(1),
+              marginTop: hp(2),
+            }}
+            key={item.Id}
+          >
+            <Text style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}>
+              {item.Id}
+            </Text>
+            <Text style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}>
+              {item.tutor_qualification_Subject}
+            </Text>
+            <Text style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}>
+              {item.Tutoring_Grade} {item.Tutoring_Grade2}{" "}
+              {item.Tutoring_Grade3} {item.Tutoring_Grade4}{" "}
+              {item.Tutoring_Grade5} {item.Tutoring_Grade6}
+            </Text>
+            <Text style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}>
+              {item.Tutoring_Year} Years
+            </Text>
+            <Text style={{ color: "#000", fontSize: 14, marginLeft: wp(3) }}>
+              {item.Tutoring_Month} Months
+            </Text>
+
+            <View>
+              {item.Tutoring_ALL_Subjects.map((subject) => (
+                <Text
+                  style={{ color: "#000", fontSize: 14, marginLeft: wp(3) }}
+                  key={subject}
+                >
+                  {subject}
+                </Text>
+              ))}
+            </View>
+          </View>
+        ))}
+      </ScrollView>
+
+      {/* {selectListTutor ? (
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginHorizontal: wp(5),
+            backgroundColor: "#fff",
+            elevation: 10,
+            paddingVertical: hp(1),
+            marginTop: hp(2),
+          }}
+        >
+          <View style={{ marginLeft: wp(3) }}>
+            <Text style={{ color: "#000", fontSize: 14 }}>
+              {selectListTutor}
+            </Text>
+            <Text style={{ color: "#000", fontSize: 14, paddingTop: hp(2) }}>
+              {P1} {P2} {P3} {P4} {P5} {P6}
+            </Text>
+            <Text style={{ color: "#000", fontSize: 14, paddingTop: hp(2) }}>
+              {state} Years {state2} Months
+            </Text>
+            <Text style={{ color: "#000", fontSize: 14, paddingTop: hp(2) }}>
+              {selectedItems + ""}
+            </Text>
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={() => setTutoring(true)}
+              style={{
+                backgroundColor: "lightblue",
+                borderRadius: 6,
+                paddingVertical: hp(1.5),
+                width: wp(14),
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                source={require("../Assets/bell.png")}
+                style={{ height: hp(4), width: wp(7) }}
+              />
+            </TouchableOpacity>
+            <View
+              style={{
+                backgroundColor: "grey",
+                borderRadius: 6,
+                paddingVertical: hp(1.5),
+                width: wp(14),
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Image
+                source={require("../Assets/delete.png")}
+                style={{ height: hp(4), width: wp(7) }}
+              />
+            </View>
+          </View>
+        </TouchableOpacity>
+      ) : (
+        <View />
+      )} */}
+
+      {/* 
+            <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginHorizontal: wp(5), backgroundColor: '#fff', elevation: 10, paddingVertical: hp(1), marginTop: hp(2) }}>
+                <View style={{ marginLeft: wp(3) }}>
+                    <Text style={{ color: '#000', fontSize: 14, marginTop: -hp(2) }}>{'Secondary'}</Text>
+                    <Text style={{ color: '#000', fontSize: 14, paddingTop: hp(2) }}>{'P1,P2, P3,P4'}</Text>
+                </View>
+                <View >
+                    <TouchableOpacity onPress={() => setTutoring(true)} style={{ backgroundColor: 'lightblue', borderRadius: 6, paddingVertical: hp(1.5), width: wp(14), alignItems: 'center', justifyContent: 'center' }}>
+                        <Image source={require('../Assets/bell.png')}
+                            style={{ height: hp(4), width: wp(7) }}
+                        />
+                    </TouchableOpacity>
+                    <View style={{ backgroundColor: 'grey', borderRadius: 6, paddingVertical: hp(1.5), width: wp(14), alignItems: 'center', justifyContent: 'center' }}>
+                        <Image source={require('../Assets/delete.png')}
+                            style={{ height: hp(4), width: wp(7) }}
+                        />
+                    </View>
+                </View>
+            </TouchableOpacity> */}
+
       <View style={{ flex: 0.9 }}>
         <Modal
           animationType="slide"
@@ -689,6 +905,7 @@ const TutoringDetail = () => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
+                  //  onPress={() => AddQualification(TutorLevel)}
                   onPress={() =>
                     selectListTutor == ""
                       ? setTutoring(false)
@@ -702,7 +919,13 @@ const TutoringDetail = () => {
                   />
                 </TouchableOpacity>
               </View>
-              <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <View
+                style={{
+                  marginBottom: 20,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <Text
                   style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
                 >
@@ -718,16 +941,18 @@ const TutoringDetail = () => {
                 renderItem={({ item, index }) => (
                   <TouchableOpacity
                     key={item.id}
-                    // onPress={() => setSelectListTutor(item.label)}
-                    onPress={() => AddQualification(item.label)}
+                    onPress={() => setSelectListTutor(item.label)}
+                    //    onPress={() => setTutorLevel(item.label)}
+                    //  onPress={() => AddQualification(item.label)}
                     style={{
-                      height: hp(4.5),
+                      height: hp(4),
                       alignItems: "center",
                       width: wp(90),
+                      alignSelf: "center",
                       flexDirection: "row",
                       backgroundColor:
                         selectListTutor == item.label ? "#2F5597" : "#fff",
-                      marginTop: hp(2),
+                      // marginTop: hp(2),
                     }}
                   >
                     <Text
@@ -849,6 +1074,7 @@ const TutoringDetail = () => {
                   }}
                 >
                   <TouchableOpacity
+                    //  onPress={() => setP1("P1")}
                     onPress={() => setp1fun("P1")}
                     style={{
                       height: hp(4),
@@ -1018,8 +1244,9 @@ const TutoringDetail = () => {
                 >
                   <RNPickerSelect
                     onValueChange={(value) => setState(value)}
+                    //onValueChange={(value) => SelectYear(value)}
                     items={state_list}
-                    //  value={state}
+                    value={state}
                     placeholder={{}}
                   >
                     <View
@@ -1074,8 +1301,10 @@ const TutoringDetail = () => {
                 >
                   <RNPickerSelect
                     onValueChange={(value) => setState2(value)}
+                    //  onValueChange={(value) => SelectMonth(value)}
                     items={state_list2}
-                    //  value={state2}
+                    value={state2}
+                    placeholder={{}}
                   >
                     <View
                       style={{
@@ -1085,7 +1314,7 @@ const TutoringDetail = () => {
                         paddingHorizontal: wp(4),
                       }}
                     >
-                      {state_list.map(
+                      {state_list2.map(
                         (item) =>
                           item.value === state2 && (
                             <Text
@@ -1136,7 +1365,8 @@ const TutoringDetail = () => {
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => setTutorSubject(false)}
+                  //  onPress={() => setTutorSubject(false)}
+                  onPress={() => ALLDATA()}
                   style={styles.tickWrapper}
                 >
                   <Image
@@ -1180,7 +1410,11 @@ const TutoringDetail = () => {
                     borderWidth: 1,
                     borderColor: "#000",
                   }}
-                  styleItemsContainer={{ width: wp(90) }}
+                  styleItemsContainer={{
+                    marginTop: 20,
+                    height: wp(90),
+                    width: wp(90),
+                  }}
                   onSelectedItemsChange={onSelectedItemsChange}
                   selectedItems={selectedItems}
                   selectText="Selected item"
@@ -1194,8 +1428,9 @@ const TutoringDetail = () => {
                   itemTextColor="#000"
                   displayKey="name"
                   searchInputStyle={{ color: "#000", fontSize: 13 }}
-                  submitButtonColor="#000"
-                  submitButtonText="Submit"
+                  hideSubmitButton
+                  //  submitButtonColor="#000"
+                  //submitButtonText="Submit"
                   //   removeSelected
                 />
               </View>
@@ -1210,8 +1445,14 @@ const TutoringDetail = () => {
       <View
         style={{ flex: 0.1, justifyContent: "flex-end", paddingBottom: hp(3) }}
       >
-        <TouchableOpacity style={styles.circleArrow}>
-          <Image source={require("../Assets/circleArrow.png")} />
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.circleArrow}
+        >
+          <Image
+            style={{ transform: [{ rotate: "180deg" }] }}
+            source={require("../Assets/circleArrow.png")}
+          />
         </TouchableOpacity>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           <TouchableOpacity
@@ -1335,20 +1576,23 @@ const styles = StyleSheet.create({
   },
   crossImageWrapper: {
     backgroundColor: "red",
-    height: hp(5),
-    width: wp(10),
+    height: 30,
+    width: 30,
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
   },
-  crossImage: { height: hp(4), width: wp(8) },
+  crossImage: {
+    height: 30,
+    width: 30,
+  },
   tickWrapper: {
     backgroundColor: "green",
-    height: hp(5),
-    width: wp(10),
+    height: 30,
+    width: 30,
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
   },
-  tickImage: { height: hp(2), width: wp(7) },
+  tickImage: { height: 20, width: 20 },
 });

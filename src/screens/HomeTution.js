@@ -161,7 +161,7 @@ const HomeTution = () => {
                   setFirstName(text);
                 }}
                 value={FirstName}
-                placeholder="510208"
+                //  placeholder="510208"
                 placeholderTextColor={"#000"}
                 keyboardType="phone-pad"
                 style={{ color: "#000", paddingLeft: wp(2), width: wp(28) }}
@@ -181,15 +181,27 @@ const HomeTution = () => {
               </TouchableOpacity>
             </View>
           </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("YourProfle")}
-            style={styles.crossImageWrapper}
-          >
-            <Image
-              source={require("../Assets/closeingray.png")}
-              style={styles.crossImage}
-            />
-          </TouchableOpacity>
+          {address ? (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("YourProfle")}
+              style={styles.tickWrapper}
+            >
+              <Image
+                source={require("../Assets/right.png")}
+                style={styles.tickImage}
+              />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => navigation.navigate("YourProfle")}
+              style={styles.crossImageWrapper}
+            >
+              <Image
+                source={require("../Assets/closeingray.png")}
+                style={styles.crossImage}
+              />
+            </TouchableOpacity>
+          )}
         </View>
 
         <View style={styles.forwardArrowWrapper}>
@@ -267,7 +279,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  tickImage: { height: hp(2), width: wp(7) },
+  tickImage: { height: hp(2), width: wp(5) },
   forwardArrowWrapper: {
     borderWidth: 0.6,
     borderColor: "#000",

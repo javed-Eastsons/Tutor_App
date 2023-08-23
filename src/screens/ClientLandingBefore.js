@@ -35,6 +35,10 @@ const ClientLandingBefore = () => {
   const [isExpandModalVisible, setExpandModalVisible] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [profileimg, setProfileImg] = useState("");
+  const [tutorcode, setTutorCode] = useState("");
+  const [qualifications, setQualification] = useState("");
+  const [personalstatement, setPersonalStatement] = useState("");
   const dispatch = useDispatch();
   const { GET_ALLTUTORS } = useSelector((state) => state.TutorReducer);
   const navigation = useNavigation();
@@ -48,8 +52,17 @@ const ClientLandingBefore = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const expandToggleModal = () => {
-    console.log("@@@@", expandToggleModal);
+  const expandToggleModal = (
+    Pro_mage,
+    tutor_code,
+    qualification,
+    personal_statement
+  ) => {
+    console.log("@@@@", Pro_mage);
+    setProfileImg(Pro_mage);
+    setTutorCode(tutor_code);
+    setQualification(qualification);
+    setPersonalStatement(personal_statement);
     setExpandModalVisible(!isExpandModalVisible);
   };
 
@@ -354,7 +367,7 @@ const ClientLandingBefore = () => {
             Featured Tutors
           </Text>
         </View>
-        <View>
+        <View style={{ paddingBottom: 10 }}>
           {loader == false ? (
             <FlatList
               // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
@@ -366,7 +379,7 @@ const ClientLandingBefore = () => {
               //renderItem={renderItem}
 
               renderItem={({ item, index }) => (
-                <View style={{ marginTop: 10 }}>
+                <View style={{ marginTop: 10, marginBottom: 10 }}>
                   <TouchableOpacity style={styles.List}>
                     <Image
                       source={{
@@ -375,7 +388,7 @@ const ClientLandingBefore = () => {
                       style={styles.tutorPic}
                     />
 
-                    <View style={{ height: 60, width: "70%", marginLeft: 10 }}>
+                    <View style={{ height: 70, width: "70%", marginLeft: 10 }}>
                       <View
                         style={{
                           height: 20,
@@ -426,22 +439,38 @@ const ClientLandingBefore = () => {
                           flexDirection: "row",
                         }}
                       >
-                        <Text style={styles.LIstText1}>
+                        <Text style={[styles.LIstText1, { width: wp(30) }]}>
                           {item.personal_statement}...
                         </Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() =>
+                            expandToggleModal(
+                              item.profile_image,
+                              item.tutor_code,
+                              item.qualification,
+                              item.personal_statement
+                            )
+                          }
+                        >
                           <Text style={{ color: "#2F5597" }}>ReadMore</Text>
                         </TouchableOpacity>
                       </View>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={expandToggleModal}
+                    onPress={() =>
+                      expandToggleModal(
+                        item.profile_image,
+                        item.tutor_code,
+                        item.qualification,
+                        item.personal_statement
+                      )
+                    }
                     style={{
                       height: 20,
                       width: 30,
                       position: "absolute",
-                      right: 10,
+                      right: 30,
                       marginTop: 30,
                     }}
                   >
@@ -450,123 +479,7 @@ const ClientLandingBefore = () => {
                       style={{ height: 20, width: 20 }}
                     />
                   </TouchableOpacity>
-                  <Modal
-                    isVisible={isExpandModalVisible}
-                    onBackdropPress={() => setExpandModalVisible(false)}
-                  >
-                    <View style={styles.ExpandBlueContainer}>
-                      <Text style={styles.BlueText}>Tutor Info</Text>
-                    </View>
 
-                    <View
-                      style={{
-                        borderTopLeftRadius: 10,
-                        borderTopRightRadius: 10,
-                        alignSelf: "center",
-                        position: "absolute",
-                        bottom: 0,
-                        height: hp(70),
-                        width: wp(95),
-                        backgroundColor: "#fff",
-                      }}
-                    >
-                      <TouchableOpacity style={styles.List}>
-                        <Image
-                          source={{
-                            uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item.profile_image}`,
-                          }}
-                          style={styles.tutorPic}
-                        />
-
-                        <View
-                          style={{ height: 60, width: "100%", marginLeft: 10 }}
-                        >
-                          <View
-                            style={{
-                              height: 20,
-                              width: "50%",
-                              flexDirection: "row",
-                            }}
-                          >
-                            <Text style={styles.LIstText}>
-                              {item.first_name}
-                            </Text>
-                            <Text style={styles.LIstText}>
-                              {item.nationality}
-                            </Text>
-                            {/* <View style={{backgroundColor:"red",height:20,width:30}}>
-                                      <Image source={require('../Assets/Expand.png')}
-                                   style={{height:20,width:20,}}
-                                    />
-                                      </View> */}
-                          </View>
-                          <View
-                            style={{
-                              height: 20,
-                              width: "50%",
-                              backgroundColor: "white",
-                            }}
-                          >
-                            <Text style={styles.LIstText}>
-                              {item.qualification}
-                            </Text>
-                          </View>
-                          <View style={{ width: 40, marginLeft: 5 }}>
-                            <StarRating
-                              fullStarColor="orange"
-                              disabled={false}
-                              maxStars={5}
-                              rating={item.Average_rating}
-                              starSize={15}
-                              // selectedStar={(rating) => setStrCount(rating)}
-                            />
-                          </View>
-                          <Text style={styles.LIstText2}>
-                            Email: {item.email}
-                          </Text>
-                          <Text style={styles.LIstText2}>
-                            First Name: {item.first_name}
-                          </Text>
-                          <Text style={styles.LIstText2}>
-                            Last Name: {item.last_name}
-                          </Text>
-                          <Text style={styles.LIstText2}>
-                            Mobile: {item.mobile}
-                          </Text>
-                          <Text style={styles.LIstText2}>
-                            Address: {item.address1}
-                          </Text>
-                          <Text style={styles.LIstText2}>
-                            Nationality: {item.nationality}
-                          </Text>
-                          <Text style={[styles.LIstText2, { width: wp(65) }]}>
-                            School Name: {item.name_of_school}
-                          </Text>
-                          <Text style={styles.LIstText2}>
-                            Tutor Status: {item.tutor_status}
-                          </Text>
-                          <Text style={styles.LIstText2}>
-                            Tutor Type: {item.tuition_type}
-                          </Text>
-                          <Text style={[styles.LIstText2, { width: wp(60) }]}>
-                            Location: {item.location}
-                          </Text>
-                          <Text style={styles.LIstText2}>
-                            Pin Code: {item.postal_code}
-                          </Text>
-                          <Text style={styles.LIstText2}>
-                            Travel Distance: {item.travel_distance}
-                          </Text>
-                          <Text style={styles.LIstText2}>
-                            Experience: {item.tutor_tutoring_experience_years}
-                          </Text>
-                          <Text style={styles.LIstText2}>
-                            Tutor Code: {item.tutor_code}
-                          </Text>
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  </Modal>
                   {/* <View style={{ height: 20, width: "100%", marginHorizontal: 20, flexDirection: "row" }}>
                                   <Text style={styles.LIstText1}>{item.personal_statement}...</Text>
                                   <TouchableOpacity>
@@ -583,7 +496,111 @@ const ClientLandingBefore = () => {
             </View>
           )}
         </View>
+        <View style={{ height: 20, marginTop: 10 }}></View>
       </ScrollView>
+      <Modal
+        isVisible={isExpandModalVisible}
+        onBackdropPress={() => setExpandModalVisible(false)}
+      >
+        <View style={styles.ExpandBlueContainer}>
+          <Text style={styles.BlueText}>Tutor Info</Text>
+        </View>
+
+        <View
+          style={{
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+            alignSelf: "center",
+            position: "absolute",
+            bottom: 0,
+            height: hp(70),
+            width: wp(95),
+            backgroundColor: "#fff",
+          }}
+        >
+          <TouchableOpacity style={styles.List}>
+            <Image
+              source={{
+                uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${profileimg}`,
+              }}
+              style={styles.tutorPic}
+            />
+
+            <View style={{ height: 60, width: "100%", marginLeft: 10 }}>
+              <View
+                style={{
+                  height: 20,
+                  width: "50%",
+                  flexDirection: "row",
+                }}
+              >
+                <Text style={styles.LIstText}>{tutorcode}</Text>
+
+                {/* <View style={{backgroundColor:"red",height:20,width:30}}>
+                                      <Image source={require('../Assets/Expand.png')}
+                                   style={{height:20,width:20,}}
+                                    />
+                                      </View> */}
+              </View>
+              <View
+                style={{
+                  height: 20,
+                  width: "50%",
+                  backgroundColor: "white",
+                }}
+              >
+                <Text style={styles.LIstText}>{qualifications}</Text>
+              </View>
+              {/* <View style={{ width: 40, marginLeft: 5 }}>
+                <StarRating
+                  fullStarColor="orange"
+                  disabled={false}
+                  maxStars={5}
+                  // rating={item.Average_rating}
+                  starSize={15}
+                  // selectedStar={(rating) => setStrCount(rating)}
+                />
+              </View> */}
+              <Text style={[styles.LIstText2, { width: wp(65) }]}>
+                <Text style={styles.LIstText}>{personalstatement}</Text>
+              </Text>
+              {/* <Text style={styles.LIstText2}>Email: {item.email}</Text> */}
+              {/* <Text style={styles.LIstText2}>
+                First Name: {item.first_name}
+              </Text>
+              <Text style={styles.LIstText2}>Last Name: {item.last_name}</Text>
+              <Text style={styles.LIstText2}>Mobile: {item.mobile}</Text>
+              <Text style={styles.LIstText2}>Address: {item.address1}</Text>
+              <Text style={styles.LIstText2}>
+                Nationality: {item.nationality}
+              </Text>
+              <Text style={[styles.LIstText2, { width: wp(65) }]}>
+                 <Text style={styles.LIstText}>{personalstatement}</Text>
+                School Name: {item.name_of_school}
+              </Text>
+              <Text style={styles.LIstText2}>
+                Tutor Status: {item.tutor_status}
+              </Text>
+              <Text style={styles.LIstText2}>
+                Tutor Type: {item.tuition_type}
+              </Text>
+              <Text style={[styles.LIstText2, { width: wp(60) }]}>
+                Location: {item.location}
+              </Text>
+              <Text style={styles.LIstText2}>Pin Code: {item.postal_code}</Text>
+              <Text style={styles.LIstText2}>
+                Travel Distance: {item.travel_distance}
+              </Text>
+              <Text style={styles.LIstText2}>
+                Experience: {item.tutor_tutoring_experience_years}
+              </Text>
+              <Text style={styles.LIstText2}>
+                Tutor Code: {item.tutor_code}
+              </Text> */}
+            </View>
+          </TouchableOpacity>
+        </View>
+      </Modal>
       <Modal
         isVisible={isModalVisible}
         onBackdropPress={() => setModalVisible(false)}
@@ -840,6 +857,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 10,
   },
+
   postText: {
     fontSize: 16,
     // fontWeight: "700",
@@ -847,6 +865,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontFamily: "Poppins-Regular",
   },
+
   sliderText: {
     fontSize: 12,
     color: "#000",
@@ -990,7 +1009,7 @@ const styles = StyleSheet.create({
   },
   LIstText1: {
     marginLeft: 5,
-    fontSize: 15,
+    fontSize: 12,
     color: "grey",
     // fontWeight: '700'
   },

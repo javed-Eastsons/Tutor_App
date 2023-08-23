@@ -63,6 +63,8 @@ const BookingSummaryComponent = () => {
     setCurrentTab(selectedval);
   };
 
+  console.log(Student_Detail, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
   const PostReqData = () => {
     console.log(Login_Data.userid, "LLLLLLLLLLLLLLLLLLL");
 
@@ -222,16 +224,49 @@ const BookingSummaryComponent = () => {
         </View>
 
         {currentTab == "tutiontype" ? (
-          <View style={{ height: 120, width: "100%", padding: 10 }}>
+          <View
+            style={{
+              height: 120,
+              width: "100%",
+              marginTop: 90,
+              padding: 10,
+            }}
+          >
             <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
-              <View
-                style={{ height: 20, width: "70%", justifyContent: "center" }}
-              >
-                <Text style={styles.Information}>{Student_Detail.Level}</Text>
+              <View style={{ height: 20, justifyContent: "center" }}>
+                {Student_Detail.Student_Data.map((student) => (
+                  <View
+                    key={student.Id}
+                    style={{
+                      height: 100,
+                      width: "100%",
+                      marginBottom: 10,
+                      padding: 10,
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    {/* <Text style={styles.Information}>
+                      Student ID: {student.Id}
+                    </Text> */}
+                    <Text style={styles.Information}>{student.Grade}</Text>
+                    <Text style={styles.Information}>{student.Level}</Text>
+                    <Text style={styles.Information}>
+                      {student.ALL_Subjects.join(", ")}
+                    </Text>
+                    <Text
+                      style={{ color: "#2F5597" }}
+                      ellipsizeMode="clip"
+                      numberOfLines={1}
+                    >
+                      - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                      - - - - - -
+                    </Text>
+                  </View>
+                ))}
               </View>
-              <View
-                style={{ height: 20, width: "70%", justifyContent: "center" }}
-              ></View>
+            </View>
+
+            {/* <View style={{ flexDirection: "row", width: "100%" }}>
               <TouchableOpacity
                 style={{
                   height: 30,
@@ -245,30 +280,6 @@ const BookingSummaryComponent = () => {
                   style={{ height: 20, width: 20, position: "absolute" }}
                 />
               </TouchableOpacity>
-            </View>
-
-            <View
-              style={{
-                width: "100%",
-                marginBottom: 10,
-                justifyContent: "center",
-              }}
-            >
-              <Text style={styles.Information}>{Student_Detail.Grade}</Text>
-            </View>
-            <View style={{ flexDirection: "row", width: "100%" }}>
-              <View
-                style={{ height: 20, width: "70%", justifyContent: "center" }}
-              >
-                {Student_Detail.Subjects &&
-                  Student_Detail.Subjects.map((item) => {
-                    return (
-                      <Text key={item} style={styles.Information}>
-                        {item.subject}
-                      </Text>
-                    );
-                  })}
-              </View>
               <TouchableOpacity
                 style={{
                   height: 30,
@@ -282,15 +293,7 @@ const BookingSummaryComponent = () => {
                   style={{ height: 20, width: 20 }}
                 />
               </TouchableOpacity>
-            </View>
-            <Text
-              style={{ color: "#2F5597" }}
-              ellipsizeMode="clip"
-              numberOfLines={1}
-            >
-              - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-              - -
-            </Text>
+            </View> */}
           </View>
         ) : currentTab == "qualification" ? (
           <View style={{ height: 120, width: "100%", padding: 10 }}>
@@ -423,22 +426,47 @@ const BookingSummaryComponent = () => {
         ) : (
           <View style={{ height: 120, width: "100%", padding: 10 }}>
             <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
-              {Tutor_Schedule.Tutor_schedules &&
+              {/* {Tutor_Schedule.Tutor_schedules &&
                 Tutor_Schedule.Tutor_schedules.map((item) => {
                   return (
                     <Text key={item} style={styles.Information}>
                       {item.tutor_schedule}
                     </Text>
                   );
-                })}
-              {Tutor_Schedule.tutor_schedule_time &&
-                Tutor_Schedule.tutor_schedule_time.map((item) => {
-                  return (
-                    <Text key={item} style={styles.Information}>
-                      {item.slot_time}
-                    </Text>
-                  );
-                })}
+                })} */}
+
+              {Tutor_Schedule.Tutor_schedules &&
+                Tutor_Schedule.Tutor_schedules.map((item, index) => (
+                  <View key={index}>
+                    {item.slot_time.map((item1, index1) => (
+                      <View style={{ flexDirection: "row" }} key={index1}>
+                        <Text style={styles.Information}>
+                          {item.tutor_schedule}
+                        </Text>
+                        <Text style={styles.Information}>
+                          {item1.slot_time}
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
+                ))}
+
+              {/* {Tutor_Schedule.Tutor_schedules &&
+                Tutor_Schedule.Tutor_schedules.map((item, index) => (
+                  <View key={index}>
+                    {item.slot_time.map((item1, subIndex) => (
+                      <View key={subIndex}>
+                        <Text style={styles.Information}>
+                          {item1.slot_time}
+                        </Text>
+                        <Text style={styles.Information}>
+                          {item.tutor_schedule}
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
+                ))} */}
+
               <TouchableOpacity
                 style={{
                   height: 30,
@@ -455,7 +483,7 @@ const BookingSummaryComponent = () => {
             </View>
 
             <Text
-              style={{ color: "#2F5597" }}
+              style={{ color: "#2F5597", marginTop: 10 }}
               ellipsizeMode="clip"
               numberOfLines={1}
             >

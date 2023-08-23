@@ -34,6 +34,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../../../../../common/Loader";
 var selectArray = [];
 var selectFilter = [];
+var SelectDetail = [];
 
 const StudentBooking = (props) => {
   console.log(props.postalcode, "KKKKKKKKKKKKKKKKKKK");
@@ -176,15 +177,15 @@ const StudentBooking = (props) => {
     selectArray = Ex_array;
     selectFilter = Ex_array;
   };
-
+  let obj = {};
   const GoTONext = () => {
-    let obj = {
+    obj = {
       Level: value,
       Grade: value2,
       Subjects: selectFilter,
     };
 
-    console.log(obj, "GGGGGGGGGGGGGGGGGG");
+    //console.log(obj, "GGGGGGGGGGGGGGGGGG");
 
     dispatch({
       type: Student_Detail,
@@ -197,6 +198,8 @@ const StudentBooking = (props) => {
       // data: data,
     });
   };
+
+  console.log(SelectDetail, "SelectDetailSelectDetailSelectDetailSelectDetail");
 
   return (
     // <View style={styles.container}>

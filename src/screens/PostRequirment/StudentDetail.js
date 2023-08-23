@@ -48,7 +48,7 @@ const StudentDetail = ({ route }) => {
   //       .finally(() => setLoader(false));
   //   }
   // };
-console.log(route,'route.params.postalcode')
+  console.log(route, "route.params.postalcode");
   return (
     <SafeAreaView style={styles.container}>
       <Loader flag={loader} />
@@ -61,6 +61,7 @@ console.log(route,'route.params.postalcode')
           <PostHeader />
           <TuitionServicesHorizontal postalcode={route.params.postalcode} />
           <StudentDetailComponent />
+          <Text>Student Detail</Text>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

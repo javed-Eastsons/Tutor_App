@@ -261,75 +261,47 @@ const BookingInformationConfirmation = () => {
         </View>
 
         {currentTab == "tutiontype" ? (
-          <View style={{ height: 120, width: "100%", padding: 10 }}>
+          <View
+            style={{
+              height: 120,
+              width: "100%",
+              marginTop: 90,
+              padding: 10,
+            }}
+          >
             <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
-              <View
-                style={{ height: 20, width: "70%", justifyContent: "center" }}
-              >
-                <Text style={styles.Information}>{Student_Detail.Level}</Text>
+              <View style={{ height: 20, justifyContent: "center" }}>
+                {Student_Detail.Student_Data.map((student) => (
+                  <View
+                    key={student.Id}
+                    style={{
+                      height: 100,
+                      width: "100%",
+                      marginBottom: 10,
+                      padding: 10,
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    {/* <Text style={styles.Information}>
+                   Student ID: {student.Id}
+                 </Text> */}
+                    <Text style={styles.Information}>{student.Grade}</Text>
+                    <Text style={styles.Information}>{student.Level}</Text>
+                    <Text style={styles.Information}>
+                      {student.ALL_Subjects.join(", ")}
+                    </Text>
+                    <Text
+                      style={{ color: "#2F5597" }}
+                      ellipsizeMode="clip"
+                      numberOfLines={1}
+                    >
+                      - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                      - - - - - -
+                    </Text>
+                  </View>
+                ))}
               </View>
-              <View
-                style={{ height: 20, width: "70%", justifyContent: "center" }}
-              ></View>
-              <TouchableOpacity
-                style={{
-                  height: 30,
-                  width: "30%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Image
-                  source={require("../Assets/Edit.png")}
-                  style={{ height: 20, width: 20, position: "absolute" }}
-                />
-              </TouchableOpacity>
             </View>
-
-            <View
-              style={{
-                width: "100%",
-                marginBottom: 10,
-                justifyContent: "center",
-              }}
-            >
-              <Text style={styles.Information}>{Student_Detail.Grade}</Text>
-            </View>
-            <View style={{ flexDirection: "row", width: "100%" }}>
-              <View
-                style={{ height: 20, width: "70%", justifyContent: "center" }}
-              >
-                {Student_Detail.Subjects &&
-                  Student_Detail.Subjects.map((item) => {
-                    return (
-                      <Text key={item} style={styles.Information}>
-                        {item.subject}
-                      </Text>
-                    );
-                  })}
-              </View>
-              <TouchableOpacity
-                style={{
-                  height: 30,
-                  width: "30%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Image
-                  source={require("../Assets/Deletes.png")}
-                  style={{ height: 20, width: 20 }}
-                />
-              </TouchableOpacity>
-            </View>
-            <Text
-              style={{ color: "#2F5597" }}
-              ellipsizeMode="clip"
-              numberOfLines={1}
-            >
-              - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-              - -
-            </Text>
           </View>
         ) : currentTab == "qualification" ? (
           <View style={{ height: 120, width: "100%", padding: 10 }}>
@@ -463,21 +435,21 @@ const BookingInformationConfirmation = () => {
           <View style={{ height: 120, width: "100%", padding: 10 }}>
             <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
               {Tutor_Schedule.Tutor_schedules &&
-                Tutor_Schedule.Tutor_schedules.map((item) => {
-                  return (
-                    <Text key={item} style={styles.Information}>
-                      {item.tutor_schedule}
-                    </Text>
-                  );
-                })}
-              {Tutor_Schedule.tutor_schedule_time &&
-                Tutor_Schedule.tutor_schedule_time.map((item) => {
-                  return (
-                    <Text key={item} style={styles.Information}>
-                      {item.slot_time}
-                    </Text>
-                  );
-                })}
+                Tutor_Schedule.Tutor_schedules.map((item, index) => (
+                  <View key={index}>
+                    {item.slot_time.map((item1, index1) => (
+                      <View style={{ flexDirection: "row" }} key={index1}>
+                        <Text style={styles.Information}>
+                          {item.tutor_schedule}
+                        </Text>
+                        <Text style={styles.Information}>
+                          {item1.slot_time}
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
+                ))}
+
               <TouchableOpacity
                 style={{
                   height: 30,
@@ -494,7 +466,7 @@ const BookingInformationConfirmation = () => {
             </View>
 
             <Text
-              style={{ color: "#2F5597" }}
+              style={{ color: "#2F5597", marginTop: 10 }}
               ellipsizeMode="clip"
               numberOfLines={1}
             >
@@ -506,10 +478,9 @@ const BookingInformationConfirmation = () => {
 
         <View
           style={{
-            height: "10%",
+            height: "15%",
             width: "100%",
-            position: "absolute",
-            bottom: 5,
+
             flexDirection: "row",
             alignSelf: "center",
           }}
@@ -533,6 +504,7 @@ const BookingInformationConfirmation = () => {
             style={{
               height: "100%",
               width: "50%",
+
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: "#F6BE00",

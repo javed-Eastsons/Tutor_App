@@ -113,9 +113,12 @@ const TuitionServices = () => {
         payload: obj,
       });
 
-      navigation.navigate("StudentDetail", {
+      navigation.navigate("StudentBooking", {
         postalcode: postalcode,
       });
+      // navigation.navigate("StudentDetail", {
+      //   postalcode: postalcode,
+      // });
       //   dispatch(GetResultAfterPostcode(postalcode, navigation))
       //     .then((res) => setLoader(false))
       //     .finally(() => setLoader(false));

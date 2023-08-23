@@ -690,58 +690,82 @@ export const studentPostRequirement = (
       Student_Detail,
       Tutor_Qualification,
       student_id,
-      "postReqData"
+      "postReqData",
+
+      Student_Detail.Student_Data.map((item) => item.Grade),
+      Student_Detail.Student_Data.map((item) => item.Level),
+      Student_Detail.Student_Data.map((item) => item.ALL_Subjects),
+      Tutor_Schedule.Tutor_schedules &&
+        Tutor_Schedule.Tutor_schedules.map(
+          (item, index) => item.tutor_schedule
+        ),
+      Tutor_Schedule.Tutor_schedules &&
+        Tutor_Schedule.Tutor_schedules.map((item, index) =>
+          item.slot_time.map((item1, index1) => item1.slot_time)
+        )
     );
 
     let data = JSON.stringify({
       student_id: student_id,
-      student_level: Student_Detail?.Level,
-      student_grade: Student_Detail?.Grade,
+      // student_level: Student_Detail?.Level,
+      student_level: Student_Detail.Student_Data.map((item) => item.Level),
+      student_grade: Student_Detail.Student_Data.map((item) => item.Grade),
       student_tution_type: Tution_Type?.TutionType,
       student_postal_code: Tution_Type?.Postal_Code,
       student_postal_address: Postal_Code_Address,
       tutor_id: "4",
       tutor_duration_weeks: Tutor_Qualification?.frequency,
       tutor_duration_hours: Tutor_Qualification?.duration,
-      // "tutor_tution_fees": Tutor_Qualification?.FeeOffer,
-      // "tutor_tution_schedule_time": "12:30",
+      tutor_tution_fees: Tutor_Qualification?.FeeOffer,
+      tutor_tution_schedule_time: "12:30",
       tutor_tution_offer_amount_type:
         Tutor_Qualification?.feetype === "Place Offer"
           ? "Non Negotiable"
           : "Negotiable",
       tutor_tution_offer_amount: Tutor_Qualification?.FeeOffer,
-      // "booked_date": "17-07-2023",
-      Subjects: Student_Detail?.Subjects,
+      booked_date: "17-07-2023",
+      //Subjects: Student_Detail?.Subjects,
+      Subjects: Student_Detail.Student_Data.map((item) => item.ALL_Subjects),
       Qualifications: Tutor_Qualification?.TutorQualification,
-      Tutor_schedules: Tutor_Schedule?.Tutor_schedules,
-      Slots_time: Tutor_Schedule?.tutor_schedule_time,
+      //Tutor_schedules: Tutor_Schedule?.Tutor_schedules,
+      Tutor_schedules:
+        Tutor_Schedule.Tutor_schedules &&
+        Tutor_Schedule.Tutor_schedules.map(
+          (item, index) => item.tutor_schedule
+        ),
+      // Slots_time: Tutor_Schedule?.tutor_schedule_time,
+      Slots_time:
+        Tutor_Schedule.Tutor_schedules &&
+        Tutor_Schedule.Tutor_schedules.map((item, index) =>
+          item.slot_time.map((item1, index1) => item1.slot_time)
+        ),
     });
+    console.log(data, "newdataaaaaaaa");
+    // let config = {
+    //   method: "post",
+    //   maxBodyLength: Infinity,
+    //   url: "https://refuel.site/projects/tutorapp/APIs/TutorBookings/StudentPostRequirement.php",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   data: data,
+    // };
 
-    let config = {
-      method: "post",
-      maxBodyLength: Infinity,
-      url: "https://refuel.site/projects/tutorapp/APIs/TutorBookings/StudentPostRequirement.php",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
+    // axios
+    //   .request(config)
+    //   .then((response) => {
+    //     console.log(JSON.stringify(response.data));
+    //     if (response.data.status == true) {
+    //       Alert.alert(response.data.message);
+    //       // navigation.navigate("Auth4");
+    //     } else if (response.data.status == false) {
+    //       Alert.alert(response.data.message);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
 
-    axios
-      .request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-        if (response.data.status == true) {
-          Alert.alert(response.data.message);
-          // navigation.navigate("Auth4");
-        } else if (response.data.status == false) {
-          Alert.alert(response.data.message);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    console.log(data, "formdata");
+    // console.log(data, "formdata");
   };
 };

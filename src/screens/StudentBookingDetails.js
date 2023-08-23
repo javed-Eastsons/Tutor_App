@@ -129,7 +129,7 @@ const StudentBookingDetails = ({ route }) => {
             flexDirection: "row",
           }}
         >
-          <Text style={styles.BookText1}>Student's Details...</Text>
+          <Text style={styles.BookText1}>Student's Details......</Text>
           <View style={{ position: "absolute", right: 10 }}>
             <Image
               source={require("../Assets/Student.png")}

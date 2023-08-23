@@ -46,20 +46,55 @@ const Evening = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
 const Night = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
 const Days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
+const morning1 = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
+const Afternoon1 = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM"];
+const Evening1 = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
+const Night1 = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
+
+const morning2 = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
+const Afternoon2 = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM"];
+const Evening2 = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
+const Night2 = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
+
+const morning3 = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
+const Afternoon3 = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM"];
+const Evening3 = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
+const Night3 = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
+
+const morning4 = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
+const Afternoon4 = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM"];
+const Evening4 = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
+const Night4 = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
+
+const morning5 = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
+const Afternoon5 = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM"];
+const Evening5 = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
+const Night5 = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
+
+const morning6 = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
+const Afternoon6 = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM"];
+const Evening6 = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
+const Night6 = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
+
 const TutionScheduleComponent = ({}) => {
-  const [time, setTime] = useState(morning);
+  const [time, setTime] = useState("");
   const [days, setDays] = useState(Days);
+  const [selectedDay, setSelectedDay] = useState("");
+
   const navigation = useNavigation();
   const [date, setDate] = useState("");
   const [isExpandModalVisible, setExpandModalVisible] = useState(false);
   const { Tutor_Qualification } = useSelector((state) => state.TutorReducer);
 
   const dispatch = useDispatch();
-  // console.log(
-  //   Tutor_Qualification,
-  //   "Tutor_QualificationTutor_QualificationTutor_Qualification"
-  // );
+
   const [selected, setSelected] = useState([]);
+  const [selectedTue, setSelectedTue] = useState([]);
+  const [selectedWed, setSelectedWed] = useState([]);
+  const [selectedThu, setSelectedThu] = useState([]);
+  const [selectedFri, setSelectedFri] = useState([]);
+  const [selectedSat, setSelectedSat] = useState([]);
+  const [selectedSun, setSelectedSun] = useState([]);
   const [selected1, setSelected1] = useState([]);
 
   const handler = (time) => {
@@ -72,41 +107,210 @@ const TutionScheduleComponent = ({}) => {
       obj3["slot_time"] = time;
 
       if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
+        // selected.push(time);
         picker.push(obj3);
       } else {
         RemoveTempExercise(picker, "slot_time", obj3.slot_time);
       }
     }
     setSelected(picker);
-    setSelected1(picker);
+    // setSelected1(picker);
 
     setDate(new Date());
   };
 
+  console.log(selected, "selectedMonselectedMon");
+
+  const handlerTue = (time) => {
+    console.log("Selected Tue Timeee", time);
+    let picker = selectedTue;
+    if (selectedTue.includes(time)) {
+      picker = picker.filter((item) => item != time);
+    } else {
+      const obj3 = {};
+
+      obj3["slot_time"] = time;
+
+      if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
+        // selected.push(time);
+        picker.push(obj3);
+      } else {
+        RemoveTempExercise(picker, "slot_time", obj3.slot_time);
+      }
+    }
+    setSelectedTue(picker);
+    //setSelected1(picker);
+
+    setDate(new Date());
+  };
+
+  console.log(selectedTue, "selectedTueselectedTue");
+
+  const handlerWed = (time) => {
+    let picker = selectedWed;
+    if (selectedWed.includes(time)) {
+      picker = picker.filter((item) => item != time);
+    } else {
+      const obj3 = {};
+
+      obj3["slot_time"] = time;
+
+      if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
+        // selected.push(time);
+        picker.push(obj3);
+      } else {
+        RemoveTempExercise(picker, "slot_time", obj3.slot_time);
+      }
+    }
+    setSelectedWed(picker);
+    // setSelected1(picker);
+
+    setDate(new Date());
+  };
+
+  console.log(selectedWed, "selectedWedselectedWed");
+
+  const handlerThu = (time) => {
+    let picker = selectedThu;
+    if (selectedThu.includes(time)) {
+      picker = picker.filter((item) => item != time);
+    } else {
+      const obj3 = {};
+
+      obj3["slot_time"] = time;
+
+      if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
+        // selected.push(time);
+        picker.push(obj3);
+      } else {
+        RemoveTempExercise(picker, "slot_time", obj3.slot_time);
+      }
+    }
+    setSelectedThu(picker);
+    // setSelected1(picker);
+
+    setDate(new Date());
+  };
+
+  console.log(selectedThu, "selectedThuselectedThuselectedThu");
+
+  const handlerFri = (time) => {
+    let picker = selectedFri;
+    if (selectedFri.includes(time)) {
+      picker = picker.filter((item) => item != time);
+    } else {
+      const obj3 = {};
+
+      obj3["slot_time"] = time;
+
+      if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
+        // selected.push(time);
+        picker.push(obj3);
+      } else {
+        RemoveTempExercise(picker, "slot_time", obj3.slot_time);
+      }
+    }
+    setSelectedFri(picker);
+    // setSelected1(picker);
+
+    setDate(new Date());
+  };
+
+  console.log(selectedFri, "selectedFriselectedFriselectedFri");
+
+  const handlerSat = (time) => {
+    let picker = selectedSat;
+    if (selectedSat.includes(time)) {
+      picker = picker.filter((item) => item != time);
+    } else {
+      const obj3 = {};
+
+      obj3["slot_time"] = time;
+
+      if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
+        // selected.push(time);
+        picker.push(obj3);
+      } else {
+        RemoveTempExercise(picker, "slot_time", obj3.slot_time);
+      }
+    }
+    setSelectedSat(picker);
+    // setSelected1(picker);
+
+    setDate(new Date());
+  };
+
+  console.log(selectedSat, "selectedSatselectedSat");
+
+  const handlerSun = (time) => {
+    let picker = selectedSun;
+    if (selectedSun.includes(time)) {
+      picker = picker.filter((item) => item != time);
+    } else {
+      const obj3 = {};
+
+      obj3["slot_time"] = time;
+
+      if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
+        // selected.push(time);
+        picker.push(obj3);
+      } else {
+        RemoveTempExercise(picker, "slot_time", obj3.slot_time);
+      }
+    }
+    setSelectedSun(picker);
+    // setSelected1(picker);
+
+    setDate(new Date());
+  };
+
+  console.log(selectedSun, "selectedSunselectedSunselectedSun");
+
   const handler1 = (time) => {
     console.log(time, "Selected");
+
+    setSelectedDay(time);
+    console.log(selected1, "selectwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
     let picker = selected1;
     if (selected1.includes(time)) {
       picker = picker.filter((item) => item != time);
-      console.log(picker, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa");
+      // console.log(picker, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa");
     } else {
       const obj3 = {};
 
       obj3["tutor_schedule"] = time;
 
       if (!isExistInArray(picker, "tutor_schedule", obj3.tutor_schedule)) {
-        console.log(picker, "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+        if (obj3.tutor_schedule == "Mon") {
+          obj3["slot_time"] = selected;
+        } else if (obj3.tutor_schedule == "Tue") {
+          obj3["slot_time"] = selectedTue;
+        } else if (obj3.tutor_schedule == "Wed") {
+          obj3["slot_time"] = selectedWed;
+        } else if (obj3.tutor_schedule == "Thu") {
+          obj3["slot_time"] = selectedThu;
+        } else if (obj3.tutor_schedule == "Fri") {
+          obj3["slot_time"] = selectedFri;
+        } else if (obj3.tutor_schedule == "Sat") {
+          obj3["slot_time"] = selectedSat;
+        } else if (obj3.tutor_schedule == "Sun") {
+          obj3["slot_time"] = selectedSun;
+        }
+
+        // console.log(picker, "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         picker.push(obj3);
       } else {
         RemoveTempExercise(picker, "tutor_schedule", obj3.tutor_schedule);
       }
     }
     setSelected1(picker);
-    setSelected(picker);
+    //  setSelected(picker);
     setDate(new Date());
   };
 
   console.log(selected1, "MMMMMMMMMMMMMMMMM");
+  //console.log(selectedDay, "MMMMMMMMMMMMMMMMM");
+  // console.log(selected, "BBBBBBBBBBB");
 
   const isExistInArray = (Ex_array, Ex_Key, Ex_value) => {
     var isExist = false;
@@ -183,7 +387,7 @@ const TutionScheduleComponent = ({}) => {
     );
   };
 
-  console.log("MONNNNNNNNN", selected1);
+  //console.log("MONNNNNNNNN", selected1);
   // console.log("ABCABC 111", selected);
   const renderTime = (item) => {
     return (
@@ -226,10 +430,255 @@ const TutionScheduleComponent = ({}) => {
     );
   };
 
+  const renderTimeTue = (item) => {
+    return (
+      <View>
+        <TouchableOpacity
+          onPress={() => handlerTue(item.item)}
+          style={{
+            height: 40,
+            width: 60,
+            backgroundColor: selectedTue.some(
+              (obj) =>
+                obj.hasOwnProperty("slot_time") &&
+                obj["slot_time"] === item.item
+            )
+              ? "#2F5597"
+              : "#fff",
+            marginBottom: 2,
+            margin: 1,
+            borderRadius: 5,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 12,
+              color: selectedTue.some(
+                (obj) =>
+                  obj.hasOwnProperty("slot_time") &&
+                  obj["slot_time"] === item.item
+              )
+                ? "#fff"
+                : "#000",
+            }}
+          >
+            {item.item}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+  const renderWed = (item) => {
+    return (
+      <View>
+        <TouchableOpacity
+          onPress={() => handlerWed(item.item)}
+          style={{
+            height: 40,
+            width: 60,
+            backgroundColor: selectedWed.some(
+              (obj) =>
+                obj.hasOwnProperty("slot_time") &&
+                obj["slot_time"] === item.item
+            )
+              ? "#2F5597"
+              : "#fff",
+            marginBottom: 2,
+            margin: 1,
+            borderRadius: 5,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 12,
+              color: selectedWed.some(
+                (obj) =>
+                  obj.hasOwnProperty("slot_time") &&
+                  obj["slot_time"] === item.item
+              )
+                ? "#fff"
+                : "#000",
+            }}
+          >
+            {item.item}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const renderTimeThu = (item) => {
+    return (
+      <View>
+        <TouchableOpacity
+          onPress={() => handlerThu(item.item)}
+          style={{
+            height: 40,
+            width: 60,
+            backgroundColor: selectedThu.some(
+              (obj) =>
+                obj.hasOwnProperty("slot_time") &&
+                obj["slot_time"] === item.item
+            )
+              ? "#2F5597"
+              : "#fff",
+            marginBottom: 2,
+            margin: 1,
+            borderRadius: 5,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 12,
+              color: selectedThu.some(
+                (obj) =>
+                  obj.hasOwnProperty("slot_time") &&
+                  obj["slot_time"] === item.item
+              )
+                ? "#fff"
+                : "#000",
+            }}
+          >
+            {item.item}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const renderTimeFri = (item) => {
+    return (
+      <View>
+        <TouchableOpacity
+          onPress={() => handlerFri(item.item)}
+          style={{
+            height: 40,
+            width: 60,
+            backgroundColor: selectedFri.some(
+              (obj) =>
+                obj.hasOwnProperty("slot_time") &&
+                obj["slot_time"] === item.item
+            )
+              ? "#2F5597"
+              : "#fff",
+            marginBottom: 2,
+            margin: 1,
+            borderRadius: 5,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 12,
+              color: selectedFri.some(
+                (obj) =>
+                  obj.hasOwnProperty("slot_time") &&
+                  obj["slot_time"] === item.item
+              )
+                ? "#fff"
+                : "#000",
+            }}
+          >
+            {item.item}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const renderTimeSat = (item) => {
+    return (
+      <View>
+        <TouchableOpacity
+          onPress={() => handlerSat(item.item)}
+          style={{
+            height: 40,
+            width: 60,
+            backgroundColor: selectedSat.some(
+              (obj) =>
+                obj.hasOwnProperty("slot_time") &&
+                obj["slot_time"] === item.item
+            )
+              ? "#2F5597"
+              : "#fff",
+            marginBottom: 2,
+            margin: 1,
+            borderRadius: 5,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 12,
+              color: selectedSat.some(
+                (obj) =>
+                  obj.hasOwnProperty("slot_time") &&
+                  obj["slot_time"] === item.item
+              )
+                ? "#fff"
+                : "#000",
+            }}
+          >
+            {item.item}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const renderTimeSun = (item) => {
+    return (
+      <View>
+        <TouchableOpacity
+          onPress={() => handlerSun(item.item)}
+          style={{
+            height: 40,
+            width: 60,
+            backgroundColor: selectedSun.some(
+              (obj) =>
+                obj.hasOwnProperty("slot_time") &&
+                obj["slot_time"] === item.item
+            )
+              ? "#2F5597"
+              : "#fff",
+            marginBottom: 2,
+            margin: 1,
+            borderRadius: 5,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 12,
+              color: selectedSun.some(
+                (obj) =>
+                  obj.hasOwnProperty("slot_time") &&
+                  obj["slot_time"] === item.item
+              )
+                ? "#fff"
+                : "#000",
+            }}
+          >
+            {item.item}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   const GoToNext = () => {
     let obj = {
       Tutor_schedules: selected1,
-      tutor_schedule_time: selected,
+      //  tutor_schedule_time: selected,
     };
 
     dispatch({
@@ -338,129 +787,889 @@ const TutionScheduleComponent = ({}) => {
               <Text style={styles.WeekText}>Sun</Text>
             </View>
           </View> */}
-
-        <View
-          style={{
-            height: 250,
-            width: "100%",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <View style={{ height: 40, width: "40%" }}>
-            <TouchableOpacity
-              style={[
-                styles.cardMorningContainer,
-                styles.shadowPropMorningContainer,
-              ]}
-            >
-              <View style={styles.MorningImageContainer}>
-                <Image
-                  source={require("../../../Assets/Morning.png")}
-                  style={styles.icons}
-                />
-              </View>
+        {selectedDay == "Mon" ? (
+          <View
+            style={{
+              height: 250,
+              width: "100%",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <View style={{ height: 40, width: "40%" }}>
               <TouchableOpacity
-                onPress={() => setTime(morning)}
-                style={{
-                  height: 40,
-                  width: "70%",
-                  justifyContent: "center",
-                  //  backgroundColor: time == "morning" ? "#2F5597" : ,
-
-                  alignItems: "center",
-                }}
+                style={[
+                  styles.cardMorningContainer,
+                  styles.shadowPropMorningContainer,
+                ]}
               >
-                <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
-              </TouchableOpacity>
-            </TouchableOpacity>
+                <View style={styles.MorningImageContainer}>
+                  <Image
+                    source={require("../../../Assets/Morning.png")}
+                    style={styles.icons}
+                  />
+                </View>
+                <TouchableOpacity
+                  onPress={() => setTime(morning)}
+                  style={{
+                    height: 40,
+                    width: "70%",
+                    justifyContent: "center",
+                    //  backgroundColor: time == "morning" ? "#2F5597" : ,
 
-            <View
-              style={[
-                styles.cardMorningContainer,
-                styles.shadowPropMorningContainer,
-              ]}
-            >
-              <View style={styles.MorningImageContainer}>
-                <Image
-                  source={require("../../../Assets/Afternoon.png")}
-                  style={styles.icons}
-                />
-              </View>
-              <TouchableOpacity
-                onPress={() => setTime(Afternoon)}
-                style={{
-                  height: 40,
-                  width: "70%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
+                </TouchableOpacity>
               </TouchableOpacity>
-            </View>
 
-            <View
-              style={[
-                styles.cardMorningContainer,
-                styles.shadowPropMorningContainer,
-              ]}
-            >
-              <View style={styles.MorningImageContainer}>
-                <Image
-                  source={require("../../../Assets/Evening.png")}
-                  style={styles.icons}
-                />
-              </View>
-              <TouchableOpacity
-                onPress={() => setTime(Evening)}
-                style={{
-                  height: 40,
-                  width: "70%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
-              </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity
-              onPress={() => setTime(Night)}
-              style={[
-                styles.cardMorningContainer,
-                styles.shadowPropMorningContainer,
-              ]}
-            >
-              <View style={styles.MorningImageContainer}>
-                <Image
-                  source={require("../../../Assets/Night.png")}
-                  style={styles.icons}
-                />
-              </View>
               <View
-                style={{
-                  height: 40,
-                  width: "70%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
+                style={[
+                  styles.cardMorningContainer,
+                  styles.shadowPropMorningContainer,
+                ]}
               >
-                <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                <View style={styles.MorningImageContainer}>
+                  <Image
+                    source={require("../../../Assets/Afternoon.png")}
+                    style={styles.icons}
+                  />
+                </View>
+                <TouchableOpacity
+                  onPress={() => setTime(Afternoon)}
+                  style={{
+                    height: 40,
+                    width: "70%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
+
+              <View
+                style={[
+                  styles.cardMorningContainer,
+                  styles.shadowPropMorningContainer,
+                ]}
+              >
+                <View style={styles.MorningImageContainer}>
+                  <Image
+                    source={require("../../../Assets/Evening.png")}
+                    style={styles.icons}
+                  />
+                </View>
+                <TouchableOpacity
+                  onPress={() => setTime(Evening)}
+                  style={{
+                    height: 40,
+                    width: "70%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
+                </TouchableOpacity>
+              </View>
+
+              <TouchableOpacity
+                onPress={() => setTime(Night)}
+                style={[
+                  styles.cardMorningContainer,
+                  styles.shadowPropMorningContainer,
+                ]}
+              >
+                <View style={styles.MorningImageContainer}>
+                  <Image
+                    source={require("../../../Assets/Night.png")}
+                    style={styles.icons}
+                  />
+                </View>
+                <View
+                  style={{
+                    height: 40,
+                    width: "70%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.TimeContainer}>
+              <FlatList
+                nestedScrollEnabled={true}
+                scrollEnabled={false}
+                data={time}
+                key={new Date()}
+                renderItem={(item) => renderTime(item)}
+                numColumns={3}
+              />
+            </View>
           </View>
-          <View style={styles.TimeContainer}>
-            <FlatList
-              nestedScrollEnabled={true}
-              scrollEnabled={false}
-              data={time}
-              key={new Date()}
-              renderItem={(item) => renderTime(item)}
-              numColumns={3}
-            />
+        ) : selectedDay == "Tue" ? (
+          <View>
+            <Text>Tue</Text>
+            <View
+              style={{
+                height: 250,
+                width: "100%",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <View style={{ height: 40, width: "40%" }}>
+                <TouchableOpacity
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Morning.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(morning1)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      //  backgroundColor: time == "morning" ? "#2F5597" : ,
+
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
+                  </TouchableOpacity>
+                </TouchableOpacity>
+
+                <View
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Afternoon.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(Afternoon1)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <View
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Evening.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(Evening1)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity
+                  onPress={() => setTime(Night1)}
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Night.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.TimeContainer}>
+                <FlatList
+                  nestedScrollEnabled={true}
+                  scrollEnabled={false}
+                  data={time}
+                  key={new Date()}
+                  renderItem={(item) => renderTimeTue(item)}
+                  numColumns={3}
+                />
+              </View>
+            </View>
           </View>
-        </View>
+        ) : selectedDay == "Wed" ? (
+          <View>
+            <Text>Wed</Text>
+            <View
+              style={{
+                height: 250,
+                width: "100%",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <View style={{ height: 40, width: "40%" }}>
+                <TouchableOpacity
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Morning.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(morning2)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      //  backgroundColor: time == "morning" ? "#2F5597" : ,
+
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
+                  </TouchableOpacity>
+                </TouchableOpacity>
+
+                <View
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Afternoon.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(Afternoon2)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <View
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Evening.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(Evening2)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity
+                  onPress={() => setTime(Night2)}
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Night.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.TimeContainer}>
+                <FlatList
+                  nestedScrollEnabled={true}
+                  scrollEnabled={false}
+                  data={time}
+                  key={new Date()}
+                  renderItem={(item) => renderWed(item)}
+                  numColumns={3}
+                />
+              </View>
+            </View>
+          </View>
+        ) : selectedDay == "Thu" ? (
+          <View>
+            <Text>Thur</Text>
+            <View
+              style={{
+                height: 250,
+                width: "100%",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <View style={{ height: 40, width: "40%" }}>
+                <TouchableOpacity
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Morning.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(morning3)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      //  backgroundColor: time == "morning" ? "#2F5597" : ,
+
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
+                  </TouchableOpacity>
+                </TouchableOpacity>
+
+                <View
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Afternoon.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(Afternoon3)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <View
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Evening.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(Evening3)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity
+                  onPress={() => setTime(Night3)}
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Night.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.TimeContainer}>
+                <FlatList
+                  nestedScrollEnabled={true}
+                  scrollEnabled={false}
+                  data={time}
+                  key={new Date()}
+                  renderItem={(item) => renderTimeThu(item)}
+                  numColumns={3}
+                />
+              </View>
+            </View>
+          </View>
+        ) : selectedDay == "Fri" ? (
+          <View>
+            <Text>Fri</Text>
+            <View
+              style={{
+                height: 250,
+                width: "100%",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <View style={{ height: 40, width: "40%" }}>
+                <TouchableOpacity
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Morning.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(morning4)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      //  backgroundColor: time == "morning" ? "#2F5597" : ,
+
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
+                  </TouchableOpacity>
+                </TouchableOpacity>
+
+                <View
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Afternoon.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(Afternoon4)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <View
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Evening.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(Evening4)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity
+                  onPress={() => setTime(Night4)}
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Night.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.TimeContainer}>
+                <FlatList
+                  nestedScrollEnabled={true}
+                  scrollEnabled={false}
+                  data={time}
+                  key={new Date()}
+                  renderItem={(item) => renderTimeFri(item)}
+                  numColumns={3}
+                />
+              </View>
+            </View>
+          </View>
+        ) : selectedDay == "Sat" ? (
+          <View>
+            <Text>Sat</Text>
+            <View
+              style={{
+                height: 250,
+                width: "100%",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <View style={{ height: 40, width: "40%" }}>
+                <TouchableOpacity
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Morning.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(morning5)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      //  backgroundColor: time == "morning" ? "#2F5597" : ,
+
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
+                  </TouchableOpacity>
+                </TouchableOpacity>
+
+                <View
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Afternoon.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(Afternoon5)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <View
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Evening.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(Evening5)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity
+                  onPress={() => setTime(Night5)}
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Night.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.TimeContainer}>
+                <FlatList
+                  nestedScrollEnabled={true}
+                  scrollEnabled={false}
+                  data={time}
+                  key={new Date()}
+                  renderItem={(item) => renderTimeSat(item)}
+                  numColumns={3}
+                />
+              </View>
+            </View>
+          </View>
+        ) : selectedDay == "Sun" ? (
+          <View>
+            <Text>Sun</Text>
+            <View
+              style={{
+                height: 250,
+                width: "100%",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <View style={{ height: 40, width: "40%" }}>
+                <TouchableOpacity
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Morning.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(morning6)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      //  backgroundColor: time == "morning" ? "#2F5597" : ,
+
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
+                  </TouchableOpacity>
+                </TouchableOpacity>
+
+                <View
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Afternoon.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(Afternoon6)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <View
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Evening.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => setTime(Evening6)}
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity
+                  onPress={() => setTime(Night6)}
+                  style={[
+                    styles.cardMorningContainer,
+                    styles.shadowPropMorningContainer,
+                  ]}
+                >
+                  <View style={styles.MorningImageContainer}>
+                    <Image
+                      source={require("../../../Assets/Night.png")}
+                      style={styles.icons}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      height: 40,
+                      width: "70%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.TimeContainer}>
+                <FlatList
+                  nestedScrollEnabled={true}
+                  scrollEnabled={false}
+                  data={time}
+                  key={new Date()}
+                  renderItem={(item) => renderTimeSun(item)}
+                  numColumns={3}
+                />
+              </View>
+            </View>
+          </View>
+        ) : (
+          <View />
+        )}
+
         <View
           style={{
             height: "10%",

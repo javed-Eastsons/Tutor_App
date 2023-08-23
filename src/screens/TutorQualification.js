@@ -329,7 +329,7 @@ const TutorQualification = ({ route }) => {
               styleDropdownMenu={{ backgroundColor: "red" }}
               hideSubmitButton
               styleItemsContainer={{
-                height: 200,
+                height: 100,
               }}
             />
           </View>
@@ -370,7 +370,7 @@ const TutorQualification = ({ route }) => {
                   valueField="value"
                   allowFontScaling={false}
                   placeholder={
-                    !isFocus2 ? "Select One Option " : "Select One Option"
+                    !isFocus2 ? "Select Frequency" : "Select Frequency"
                   }
                   value={value2}
                   onFocus={() => setIsFocus2(true)}
@@ -407,7 +407,7 @@ const TutorQualification = ({ route }) => {
                   valueField="value"
                   allowFontScaling={false}
                   placeholder={
-                    !isFocus2 ? "Select One Option " : "Select One Option"
+                    !isFocus2 ? " Select Duration " : "Select Duration"
                   }
                   value={value1}
                   onFocus={() => setIsFocus1(true)}
@@ -470,9 +470,9 @@ const TutorQualification = ({ route }) => {
 
               <TextInput
                 style={{
-                  height: 40,
+                  height: 50,
                   backgroundColor: "lightgrey",
-                  width: 70,
+                  width: 60,
                   color: "#000",
                   fontSize: 18,
                   marginRight: 4,
@@ -480,7 +480,8 @@ const TutorQualification = ({ route }) => {
                   fontWeight: "500",
                   justifyContent: "center",
                   paddingTop: 5,
-                  alignSelf: "center",
+                  justifyContent: "center",
+                  paddingLeft: 10,
                 }}
                 keyboardType="numeric"
                 value={offerAmount}

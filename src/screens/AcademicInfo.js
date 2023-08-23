@@ -28,12 +28,15 @@ import { AcademicHistory_Data } from "../Redux/Actions/types";
 const AcademicInfo = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
+  const fArr = []
+  console.log(fArr, 'farr')
+  ''
   const [showemail, setShowEmail] = React.useState("Qualification");
   const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
 
   const [selectQualification, setselectQualification] = useState(false);
   const [details, setDetails] = useState(false);
+  const [detailsE, setDetailsE] = useState(false);
 
   const [show, setShow] = useState(false);
 
@@ -72,15 +75,17 @@ const AcademicInfo = () => {
   //const [selectedCourse, setSelectedCourse] = useState("");
 
   const [national, setNational] = useState("");
-  const [school, setSchool] = useState("");
+  const [school, setSchool] = useState([]);
   const [grade, setGrade] = useState("");
   const [subject, setSubject] = useState("");
   const [courses, setCourses] = useState("");
   const [year, setYear] = useState("");
+  const [count, setCount] = useState(1);
+  const [detailNo, setDetailNo] = useState([])
 
   const [historyModal, setHistoryModal] = useState(false);
   const [historyModal1, setHistoryModal1] = useState(false);
-
+  const [examName, setExamName] = useState('')
   // console.log(
   //   qualification,
   //   Experience,
@@ -132,6 +137,15 @@ const AcademicInfo = () => {
     { label: "25", value: "25" },
   ];
 
+
+  console.log(school, Experience, 'sch, exp')
+  console.log(examName, state, 'examName, Exam')
+  const addDetails = () => {
+    setCount((prev) => prev + 1)
+    setDetailNo(count + 1)
+  }
+  console.log(detailNo, 'detailN0')
+
   const saveacademicinfo = () => {
     console.log("LLLLLL", qualification, Experience, school, courses, year);
     // dispatch(editProfile(selectedCourse,school,grade,subject,courses, GET_USER_ID));
@@ -151,13 +165,56 @@ const AcademicInfo = () => {
 
     navigation.navigate("YourProfle");
   };
-
   const CrossButton = () => {
     setHistoryModal(false);
     setSchool("");
     setGrade("");
     setSubject("");
   };
+
+  const onChangeSchool = (text) => {
+    console.log(text, 'onchange');
+    setSchool(text)
+    console.log(school, 'state')
+    fArr.push(school)
+  }
+  console.log(subjects.map(item => item?.courses), 'sub')
+
+  const checkQual = () => {
+    if (qualification == "Ex School Teacher" || qualification == "Current School Teacher") {
+      setDetails(true)
+
+    } else {
+
+      setDetailsE(true)
+
+    }
+
+  }
+  const qualModalClose = () => {
+    setselectQualification(false);
+    setSchool([])
+    setExperience("Select One Option")
+  }
+  const onDeleteE=()=>{
+    setSchool([])
+    setState("Select One Option")
+    setExamName('')
+  }
+  const onDelete=()=>{
+    setSchool([])
+    setExperience("Select One Option")
+  }
+  const onEditE=()=>{
+    if (qualification == "Ex School Teacher" || qualification == "Current School Teacher") {
+      setDetails(true)
+
+    } else {
+
+      setDetailsE(true)
+
+    }
+  }
   return (
     <View style={styles.container}>
       {/* <View style={{flex:0.9}}> */}
@@ -293,7 +350,7 @@ const AcademicInfo = () => {
                   </TouchableOpacity>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => setDetails(true)}
+                  onPress={() => { checkQual() }}
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
@@ -328,63 +385,142 @@ const AcademicInfo = () => {
                     Add Detail (optional)
                   </Text>
                 </TouchableOpacity>
-
-                <TouchableOpacity
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginHorizontal: wp(5),
-                    backgroundColor: "#fff",
-                    elevation: 10,
-                    height: hp(12),
-                    marginTop: hp(2),
-                  }}
-                >
-                  <View style={{ marginLeft: wp(3) }}>
-                    <Text style={{ color: "#000", fontSize: 14 }}>
-                      Current school / {school}
-                    </Text>
-                    <Text style={{ color: "#000", fontSize: 14 }}>
-                      Year in Service / {Experience}
-                    </Text>
-                    {/* <Text style={{ color: '#000', fontSize: 14, }}>{year}</Text> */}
-                  </View>
-                  <View>
-                    <TouchableOpacity
-                      onPress={() => setDetails(true)}
-                      style={{
-                        backgroundColor: "lightblue",
-                        borderRadius: 6,
-                        height: hp(6),
-                        width: wp(14),
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Image
-                        source={require("../Assets/Pencil.png")}
-                        style={{ height: hp(3), width: wp(5) }}
-                      />
-                    </TouchableOpacity>
+                {
+                  school != [] && Experience != "Select One Option" ?
                     <View
                       style={{
-                        backgroundColor: "#2F5597",
-                        borderRadius: 6,
-                        height: hp(6),
-                        width: wp(14),
+                        flexDirection: "row",
+                        justifyContent: "space-between",
                         alignItems: "center",
-                        justifyContent: "center",
-                        marginTop: 5,
+                        marginHorizontal: wp(5),
+                        backgroundColor: "#fff",
+                        elevation: 10,
+                        height: hp(12),
+                        marginTop: hp(2),
                       }}
                     >
-                      <Image
-                        source={require("../Assets/delete.png")}
-                        style={{ height: hp(4), width: wp(7) }}
-                      />
+                      <View style={{ marginLeft: wp(3) }}>
+                      <Text style={{
+                          fontSize: 13,
+                          color: "#2F5597", fontFamily: 'Poppins-Regular'
+                        }}>
+                          {school}
+                        </Text>
+                        <Text style={{ color: "#000", fontSize: 13 }}>
+                          Year in Service / {Experience}
+                        </Text>
+                        {/* <Text style={{ color: '#000', fontSize: 14, }}>{year}</Text> */}
+                      </View>
+                      <View>
+                        <TouchableOpacity
+                          onPress={() => setDetails(true)}
+                          style={{
+                            backgroundColor: "lightblue",
+                            borderRadius: 6,
+                            height: hp(6),
+                            width: wp(14),
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Image
+                            source={require("../Assets/Pencil.png")}
+                            style={{ height: hp(3), width: wp(5) }}
+                          />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={{
+                            backgroundColor: "#2F5597",
+                            borderRadius: 6,
+                            height: hp(6),
+                            width: wp(14),
+                            alignItems: "center",
+                            justifyContent: "center",
+                            marginTop: 5,
+                          }}
+                          onPress={onDelete}
+                        >
+                          <Image
+                            source={require("../Assets/delete.png")}
+                            style={{ height: hp(4), width: wp(7) }}
+                          />
+                        </TouchableOpacity>
+                      </View>
                     </View>
-                  </View>
-                </TouchableOpacity>
+                    : null
+                }
+
+
+                {
+                  school != [] && state != "Select One Option" && examName != '' ?
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginHorizontal: wp(5),
+                        backgroundColor: "#fff",
+                        elevation: 10,
+                        height: hp(12),
+                        marginTop: hp(2),
+                      }}
+                    >
+                      <View style={{ marginLeft: wp(3) }}>
+                        <Text style={{
+                          fontSize: 13,
+                          color: "#2F5597", fontFamily: 'Poppins-Regular'
+                        }}>
+                          {school}
+                        </Text>
+                        <Text style={{ color: "#000", fontSize: 13 }}>
+                          {state}
+                        </Text>
+                        <Text style={{ color: "#000", fontSize: 13 }}>
+                          {examName}
+                        </Text>
+                        {/* <Text style={{ color: '#000', fontSize: 14, }}>{year}</Text> */}
+                      </View>
+                      <View>
+                        <TouchableOpacity
+                          onPress={onEditE}
+                          style={{
+                            backgroundColor: "lightblue",
+                            borderRadius: 6,
+                            height: hp(6),
+                            width: wp(14),
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Image
+                            source={require("../Assets/Pencil.png")}
+                            style={{ height: hp(3), width: wp(5) }}
+                          />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={{
+                            backgroundColor: "#2F5597",
+                            borderRadius: 6,
+                            height: hp(6),
+                            width: wp(14),
+                            alignItems: "center",
+                            justifyContent: "center",
+                            marginTop: 5,
+                          }}
+                          onPress={onDeleteE}
+                        >
+                          <Image
+                            source={require("../Assets/delete.png")}
+                            style={{ height: hp(4), width: wp(7) }}
+                          />
+                        </TouchableOpacity>
+                        
+                      </View>
+                    </View>
+                    : null
+                }
+
+
               </>
             ) : null}
 
@@ -392,9 +528,7 @@ const AcademicInfo = () => {
               animationType="slide"
               transparent={true}
               visible={selectQualification}
-              onRequestClose={() => {
-                setselectQualification(false);
-              }}
+              onRequestClose={qualModalClose}
             >
               <View style={styles.modalWrapper2}>
                 <View style={styles.modalWrapp}>
@@ -549,13 +683,17 @@ const AcademicInfo = () => {
                       placeholderTextColor={"lightgrey"}
                       style={{ marginLeft: wp(2), width: wp(75) }}
                       value={school}
-                      onChangeText={(text) => setSchool(text)}
-                    />
+                      onChangeText={(text) => { onChangeSchool(text) }}
 
-                    <Image
-                      source={require("../Assets/School.png")}
-                      style={{ height: hp(3), width: wp(6) }}
                     />
+                    <TouchableOpacity onPress={(text) => { onChangeSchool(text) }}>
+                      <Image
+                        source={require("../Assets/School.png")}
+                        style={{ height: hp(3), width: wp(6) }}
+
+                      />
+                    </TouchableOpacity>
+
                   </View>
 
                   <View
@@ -673,6 +811,208 @@ const AcademicInfo = () => {
                 </View>
               </View>
             </Modal>
+
+            {/* Modal when not a ex teacher and current teacher */}
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={detailsE}
+              onRequestClose={() => setDetailsE(false)}
+            >
+              <View style={styles.modalWrapper2}>
+                <View style={styles.modalWrapp}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      marginTop: hp(2),
+                      justifyContent: "space-between",
+                      marginHorizontal: wp(5),
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={() => setDetailsE(false)}
+                      style={styles.crossImageWrapper}
+                    >
+                      <Image
+                        source={require("../Assets/closeingray.png")}
+                        style={styles.crossImage}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => setDetailsE(false)}
+                      style={styles.tickWrapper}
+                    >
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View
+                    style={{ justifyContent: "center", alignItems: "center" }}
+                  >
+                    <Text
+                      style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
+                    >
+                      Add History
+                    </Text>
+                  </View>
+
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: hp(12),
+                      left: wp(10),
+                      zIndex: 999,
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <Text style={{ color: "#000" }}>
+                      {" "}
+                      Name of School
+                    </Text>
+                  </View>
+
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      marginTop: hp(3),
+                      flexDirection: "row",
+                      alignItems: "center",
+                      borderColor: "lightgrey",
+                      marginHorizontal: wp(5),
+                      height: hp(6),
+                      borderRadius: 4,
+                    }}
+                  >
+                    <TextInput
+                      placeholder="National University of Singapore"
+                      placeholderTextColor={"lightgrey"}
+                      style={{ marginLeft: wp(2), width: wp(75) }}
+                      value={school}
+                      onChangeText={(text) => { onChangeSchool(text) }}
+
+                    />
+                    <Image
+                      source={require("../Assets/School.png")}
+                      style={{ height: hp(3), width: wp(6) }}
+
+                    />
+
+                  </View>
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: hp(21),
+                      left: wp(14),
+                      zIndex: 999,
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <Text style={{ color: "#000" }}>
+                      {" "}
+                      Exam
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      marginTop: hp(4),
+                      flexDirection: "row",
+                      alignItems: "center",
+                      borderColor: "lightgrey",
+                      marginHorizontal: wp(5),
+                      height: hp(6),
+                      borderRadius: 4,
+                    }}
+                  >
+                    <RNPickerSelect
+                      onValueChange={(value) => setState(value)}
+                      items={state_list}
+                      value={state}
+                      placeholder={{}}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          width: wp(77),
+                          justifyContent: "space-between",
+                          paddingHorizontal: wp(4),
+                        }}
+                      >
+                        {state_list.map(
+                          (item) =>
+                            item.value === state && (
+                              <Text
+                                key={item.value}
+                                style={{
+                                  fontSize: 13,
+                                  color: "#000",
+                                  marginTop: 10,
+                                }}
+                              >
+                                {item.label}
+                              </Text>
+                            )
+                        )}
+                        <Image
+                          source={require("../Assets/downbutton.png")}
+                          style={{
+                            height: hp(3),
+                            width: wp(6),
+                            marginTop: hp(1),
+                          }}
+                        />
+                      </View>
+                    </RNPickerSelect>
+                    <Image
+                      source={require("../Assets/Course.png")}
+                      style={{ height: hp(3), width: wp(6) }}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      position: "absolute",
+                      top: hp(31),
+                      left: wp(12),
+                      zIndex: 999,
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <Text style={{ color: "#000" }}>
+                      {" "}
+                      Exam Name
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      borderWidth: 1,
+                      marginTop: hp(4),
+                      flexDirection: "row",
+                      alignItems: "center",
+                      borderColor: "lightgrey",
+                      marginHorizontal: wp(5),
+                      height: hp(6),
+                      borderRadius: 4,
+                    }}
+                  >
+                    <TextInput
+                      placeholder="CEGAP"
+                      placeholderTextColor={"lightgrey"}
+                      style={{ marginLeft: wp(2), width: wp(75) }}
+                      value={examName}
+                      onChangeText={(text) => { setExamName(text) }}
+
+                    />
+                    <Image
+                      source={require("../Assets/Course.png")}
+                      style={{ height: hp(3), width: wp(6) }}
+                    />
+                  </View>
+                </View>
+              </View>
+            </Modal>
+            {/* modal end */}
           </View>
           <View
             style={{
@@ -837,7 +1177,6 @@ const AcademicInfo = () => {
                   >
                     <TouchableOpacity
                       onPress={() => CrossButton()}
-                      // onPress={() => setHistoryModal(false)}
                       style={styles.crossImageWrapper}
                     >
                       <Image
@@ -845,9 +1184,8 @@ const AcademicInfo = () => {
                         style={styles.crossImage}
                       />
                     </TouchableOpacity>
-                    <TouchableOpacity
+                    <TouchableOpacity style={styles.tickWrapper}
                       onPress={() => setHistoryModal(false)}
-                      style={styles.tickWrapper}
                     >
                       <Image
                         source={require("../Assets/right.png")}

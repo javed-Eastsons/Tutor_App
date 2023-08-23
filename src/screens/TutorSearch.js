@@ -58,8 +58,9 @@ const TutorSearch = () => {
         const jsonData = response.data;
         // console.log(jsonData, "OOOOOOOOOOOOOOOOOOO");
         const jj = jsonData.results[0];
-        setAddress(jj?.formatted_address);
+        // setAddress(jj?.formatted_address);
         // console.log(jj, "AddressPin");
+        getAddress(jj?.geometry?.location?.lat, jj?.geometry?.location?.lng);
         // console.log(
         //   jj?.formatted_address,
         //   "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
@@ -75,6 +76,40 @@ const TutorSearch = () => {
     //   "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
     // );
   };
+
+  const getAddress = (lat, long) => {
+    console.log("WERTYUI");
+    let config1 = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url:
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=` +
+        lat +
+        `,` +
+        long +
+        `&sensor=true"&key=AIzaSyBe7R2rEvrkKUsLEoiCkLyFr4kd_sQE0Kw`,
+      headers: {},
+    };
+
+    axios
+      .request(config1)
+      .then((response) => {
+        const jsonData = response.data;
+        // console.log(jsonData, "OOOOOOOOOOOOOOOOOOO");
+        const jj = jsonData.results[0];
+
+        setAddress(jj?.formatted_address);
+
+        // dispatch({
+        //   type: Postal_Code_Address,
+        //   payload: jj?.formatted_address,
+        // });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const forwardArrowFunc = () => {
     geocodinApi();
     setForwardArrow(true);
@@ -466,8 +501,7 @@ const styles = StyleSheet.create({
   forwardArrowTextWrapper: {
     color: "#000",
     fontSize: 10,
-    marginLeft: wp(1),
-    marginTop: -hp(2),
+
     fontFamily: "Poppins-Light",
   },
   forwardArrowImage: { height: hp(2), width: wp(6), marginLeft: wp(2) },
