@@ -18,6 +18,11 @@ import {
 import AsyncStorage from "@react-native-community/async-storage";
 import { Login_Data } from "../Redux/Actions/types";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  notificationListner,
+  GetFcmToken,
+  requestUserPermission,
+} from "../Utils/notificationService";
 
 const SplashScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -59,7 +64,10 @@ const SplashScreen = ({ navigation }) => {
     }, 3000);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    requestUserPermission();
+    notificationListner();
+  }, []);
 
   useEffect(() => {
     gotoSignInScreen();

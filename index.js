@@ -19,7 +19,13 @@ global.__reanimatedWorkletInit = () => {};
 
 // Register background handler
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-  console.log("Message handled in the background!", remoteMessage);
+  console.log(
+    "Message handled in the background!INDEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    remoteMessage
+  );
+});
+messaging().onMessage(async (remoteMessage) => {
+  console.log("reeived in Foreground", remoteMessage);
 });
 
 AppRegistry.registerComponent(appName, () => MainNavigation);

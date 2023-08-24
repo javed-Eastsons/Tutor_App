@@ -680,29 +680,66 @@ export const studentPostRequirement = (
   student_id,
   Postal_Code_Address
 ) => {
+  const StudentLevel = []; // Initialize an empty array
+  const StudentGrade = []; // Initialize an empty array
+  const StudentSubjects = []; // Initialize an empty array
+  const TutorSchedules = []; // Initialize an empty array
+
+  Student_Detail.Student_Data.map((item) => {
+    const obj = { Level: item.Level }; // Create an object with only the Id property
+    StudentLevel.push(obj); // Push the object into the array
+  });
+
+  Student_Detail.Student_Data.map((item) => {
+    const obj = { Grade: item.Grade }; // Create an object with only the Id property
+    StudentGrade.push(obj); // Push the object into the array
+  });
+
+  Student_Detail.Student_Data.map((item) => {
+    const obj = { Subjects: item.ALL_Subjects }; // Create an object with only the Id property
+    StudentSubjects.push(obj); // Push the object into the array
+  });
+
+  Student_Detail.Student_Data.map((item) => {
+    const obj = { Id: item.Id, Subjects: item.ALL_Subjects }; // Create an object with only the Id property
+    StudentSubjects.push(obj); // Push the object into the array
+  });
+
+  Tutor_Schedule.Tutor_schedules &&
+    Tutor_Schedule.Tutor_schedules.map((item, index) => {
+      const obj = { Id: item.Id, Tutor_schedules: item.tutor_schedule }; // Create an object with only the Id property
+      TutorSchedules.push(obj); // Push the object into the array
+    });
+
   return (dispatch, getState) => {
     const url =
       "https://refuel.site/projects/tutorapp/APIs/TutorBookings/StudentPostRequirement.php";
 
     console.log(
-      Tutor_Schedule,
-      Tution_Type,
-      Student_Detail,
-      Tutor_Qualification,
-      student_id,
-      "postReqData",
+      // Tutor_Schedule,
+      // Tution_Type,
+      // Student_Detail,
+      // Tutor_Qualification,
+      // student_id,
+      "postReqData"
+      // StudentLevel,
+      // StudentGrade,
+      // StudentSubjects
+      //  TutorSchedules
 
-      Student_Detail.Student_Data.map((item) => item.Grade),
-      Student_Detail.Student_Data.map((item) => item.Level),
-      Student_Detail.Student_Data.map((item) => item.ALL_Subjects),
-      Tutor_Schedule.Tutor_schedules &&
-        Tutor_Schedule.Tutor_schedules.map(
-          (item, index) => item.tutor_schedule
-        ),
-      Tutor_Schedule.Tutor_schedules &&
-        Tutor_Schedule.Tutor_schedules.map((item, index) =>
-          item.slot_time.map((item1, index1) => item1.slot_time)
-        )
+      // Student_Detail,
+      // Student_Detail.Student_Data.map((item) => item.Id),
+      // Student_Detail.Student_Data.map((item) => item.Level),
+
+      // Student_Detail.Student_Data.map((item) => item.Id)
+      // Tutor_Schedule.Tutor_schedules &&
+      //   Tutor_Schedule.Tutor_schedules.map(
+      //     (item, index) => item.tutor_schedule
+      //   ),
+      // Tutor_Schedule.Tutor_schedules &&
+      //   Tutor_Schedule.Tutor_schedules.map((item, index) =>
+      //     item.slot_time.map((item1, index1) => item1.slot_time)
+      //   )
     );
 
     let data = JSON.stringify({

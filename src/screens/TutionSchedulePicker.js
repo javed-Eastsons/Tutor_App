@@ -1729,8 +1729,9 @@ const TutionSchedulePicker = ({}) => {
           style={{
             height: "10%",
             width: "100%",
+            // marginTop: 10,
             position: "absolute",
-            bottom: 5,
+            bottom: wp(-10),
             flexDirection: "row",
             alignSelf: "center",
           }}

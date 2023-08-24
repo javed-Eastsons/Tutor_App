@@ -40,7 +40,7 @@ export const notificationListner = () => {
     );
 
     messaging().onMessage(async (remoteMessage) => {
-      console.log("reeived in Foreground", remoteMessage);
+      console.log("reeived in ForegroundNOTIIIIIIIIIIIIIII", remoteMessage);
     });
 
     messaging()

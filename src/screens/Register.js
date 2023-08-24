@@ -44,7 +44,7 @@ const Register = ({ route }) => {
   const [ConfirmEmail, setConfirmEmail] = React.useState("");
   const [Email, setEmail] = React.useState("");
   const [showemail, setShowEmail] = React.useState(false);
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(true);
   const [isVerfyModalVisible, setVerifyModalVisible] = useState(false);
   const [otp, setOtp] = useState("");
   const [enable, setEnable] = useState(false);
@@ -411,72 +411,83 @@ const Register = ({ route }) => {
       >
         {/* <View style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, alignSelf: 'center', position: 'absolute', bottom: 0, height: hp(45), width: wp(100), backgroundColor: '#fff' }}>
          */}
-        <View style={styles.BlueContainer1}>
-          <Text style={styles.BlueText}>Almost Done</Text>
-        </View>
         <View
           style={{
-            alignSelf: "center",
+            //  height: "50%",
+            marginTop: "auto",
             position: "absolute",
-            bottom: 0,
-            height: hp(40),
+            bottom: -20,
+            left: -20,
             width: wp(100),
-            backgroundColor: "#fff",
           }}
         >
-          {/* <View style={styles.ModelTextContainer}>
-                        <Text style={styles.ModelText}>Tell me, what do you want to do today?</Text>
-                    </View> */}
+          <View style={styles.BlueContainer1}>
+            <Text style={styles.BlueText}>Almost Done</Text>
+          </View>
           <View
             style={{
               alignSelf: "center",
-              width: wp(90),
-              flexDirection: "row",
-              top: hp(-5),
+              // position: "absolute",
+              // bottom: 0,
+              height: hp(25),
+              width: wp(100),
+              backgroundColor: "#fff",
             }}
           >
-            <View style={styles.Rolecontainer}>
-              <Image
-                source={require("../Assets/bell.png")}
-                style={styles.icons}
-              />
-              <Text style={styles.ModelText1}>
-                I am looking for {"\n"}a Tutor
-              </Text>
-              <TouchableOpacity
-                onPress={() => selectrole("I am looking for a Tutor")}
-                // onPress={() => navigation.navigate('Auth')}
-                style={{
-                  height: 20,
-                  width: 20,
-                  borderRadius: 20,
-                  borderColor: "lightgrey",
-                  borderWidth: 1,
-                }}
-              ></TouchableOpacity>
-            </View>
+            {/* <View style={styles.ModelTextContainer}>
+                        <Text style={styles.ModelText}>Tell me, what do you want to do today?</Text>
+                    </View> */}
+            <View
+              style={{
+                alignSelf: "center",
+                width: wp(90),
+                flexDirection: "row",
+                top: hp(-3),
+              }}
+            >
+              <View style={styles.Rolecontainer}>
+                <Image
+                  source={require("../Assets/Tutor_icon.png")}
+                  style={styles.icons}
+                />
+                <Text style={styles.ModelText1}>
+                  I am looking for {"\n"}a Tutor
+                </Text>
+                <TouchableOpacity
+                  onPress={() => selectrole("I am looking for a Tutor")}
+                  // onPress={() => navigation.navigate('Auth')}
+                  style={{
+                    height: 20,
+                    width: 20,
+                    borderRadius: 20,
+                    borderColor: "lightgrey",
+                    borderWidth: 1,
+                  }}
+                ></TouchableOpacity>
+              </View>
 
-            <View style={styles.Rolecontainer}>
-              <Image
-                source={require("../Assets/bell.png")}
-                style={styles.icons}
-              />
-              <Text style={styles.ModelText1}>I am an {"\n"}Educator</Text>
-              <TouchableOpacity
-                //onPress={() => navigation.navigate('Auth2')}
-                onPress={() => selectrole("I am an Educator")}
-                style={{
-                  height: 20,
-                  width: 20,
-                  borderRadius: 20,
-                  borderColor: "lightgrey",
-                  borderWidth: 1,
-                }}
-              ></TouchableOpacity>
+              <View style={styles.Rolecontainer}>
+                <Image
+                  source={require("../Assets/Educator_icon.png")}
+                  style={styles.icons}
+                />
+                <Text style={styles.ModelText1}>I am an {"\n"}Educator</Text>
+                <TouchableOpacity
+                  //onPress={() => navigation.navigate('Auth2')}
+                  onPress={() => selectrole("I am an Educator")}
+                  style={{
+                    height: 20,
+                    width: 20,
+                    borderRadius: 20,
+                    borderColor: "lightgrey",
+                    borderWidth: 1,
+                  }}
+                ></TouchableOpacity>
+              </View>
             </View>
           </View>
+          {/* </View> */}
         </View>
-        {/* </View> */}
       </Modal>
 
       <Modal
@@ -654,7 +665,7 @@ const styles = StyleSheet.create({
     marginTop: hp(10),
   },
   BlueContainer1: {
-    height: hp(15),
+    height: hp(10),
     backgroundColor: "#2F5597",
     borderTopLeftRadius: 20,
     width: wp(100),
@@ -749,8 +760,8 @@ const styles = StyleSheet.create({
   Rolecontainer: {
     //flexDirection: "row",
 
-    width: wp(40),
-    height: hp(30),
+    width: wp(35),
+    height: hp(22),
     justifyContent: "center",
     backgroundColor: "#fff",
     alignSelf: "center",
@@ -762,7 +773,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   ModelText1: {
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: "700",
     color: "grey",
     paddingTop: 10,
@@ -772,8 +783,8 @@ const styles = StyleSheet.create({
     // alignSelf: "flex-end"
   },
   icons: {
-    height: 40,
-    width: 40,
+    height: 30,
+    width: 30,
     marginRight: 10,
   },
   moblieSec: {
