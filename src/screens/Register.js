@@ -44,7 +44,7 @@ const Register = ({ route }) => {
   const [ConfirmEmail, setConfirmEmail] = React.useState("");
   const [Email, setEmail] = React.useState("");
   const [showemail, setShowEmail] = React.useState(false);
-  const [isModalVisible, setModalVisible] = useState(true);
+  const [isModalVisible, setModalVisible] = useState(false);
   const [isVerfyModalVisible, setVerifyModalVisible] = useState(false);
   const [otp, setOtp] = useState("");
   const [enable, setEnable] = useState(false);

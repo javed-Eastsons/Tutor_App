@@ -4,12 +4,134 @@ import {
   OTP_MSG,
   GET_USER_ID,
   Login_Data,
+  POST_DETAIL,
   ALL_POSTS_BY_CLIENT,
+  LEVEL_LIST,
+  GRADE_LIST,
+  SUBJECT_LIST,
 } from "./types";
 import AsyncStorage from "@react-native-community/async-storage";
 import axios, * as others from "axios";
 import { Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+
+export const getLevelList = (Login_Data, navigation) => {
+  return async (dispatch, getState) => {
+    const url1 =
+      "https://refuel.site/projects/tutorapp/APIs/LevelList/LevelList.php";
+    console.log(url1, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    await fetch(url1, {
+      method: "GET",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": authtoken,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("Level-List", responseJson);
+        if (responseJson.status == true) {
+          dispatch({
+            type: LEVEL_LIST,
+            payload: responseJson,
+          });
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+};
+export const getGradeList = (Level) => {
+  return (dispatch, getState) => {
+    const url =
+      "https://refuel.site/projects/tutorapp/APIs/GradeListBasedOnLevel/GradeListBasedOnLevel.php";
+    let data = new FormData();
+    data.append("Level", Level);
+
+    console.log(data, "formdata");
+    return fetch(url, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("GRADE_LIST", responseJson);
+        if (responseJson.status == true) {
+          dispatch({
+            type: GRADE_LIST,
+            payload: responseJson,
+          }); // navigation.navigate("Auth4");
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+  };
+};
+
+export const getSubjectList = (Level) => {
+  return (dispatch, getState) => {
+    const url =
+      "https://refuel.site/projects/tutorapp/APIs/SubjectListBasedOnLevel/SubjectListBasedOnLevel.php";
+    let data = new FormData();
+    data.append("Level", Level);
+
+    console.log(data, "formdata");
+    return fetch(url, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("Subject_LIST-API", responseJson);
+        if (responseJson.status == true) {
+          dispatch({
+            type: SUBJECT_LIST,
+            payload: responseJson,
+          }); // navigation.navigate("Auth4");
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+  };
+};
+
+export const GetPostDetail = (Post_ID, navigation) => {
+  return async (dispatch, getState) => {
+    const url1 =
+      "https://refuel.site/projects/tutorapp/APIs/TutorList/PostRequirementListingDetails.php?student_post_requirements_id=" +
+      Post_ID;
+    console.log(url1, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    await fetch(url1, {
+      method: "GET",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": authtoken,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.output);
+        if (responseJson.status == true) {
+          dispatch({
+            type: POST_DETAIL,
+            payload: responseJson.output,
+          });
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+};
 
 export const AllPostsByClient = (Login_Data, navigation) => {
   return async (dispatch, getState) => {
@@ -678,75 +800,15 @@ export const studentPostRequirement = (
   Student_Detail,
   Tutor_Qualification,
   student_id,
-  Postal_Code_Address
+  Postal_Code_Address,
+  navigation
 ) => {
-  const StudentLevel = []; // Initialize an empty array
-  const StudentGrade = []; // Initialize an empty array
-  const StudentSubjects = []; // Initialize an empty array
-  const TutorSchedules = []; // Initialize an empty array
-
-  Student_Detail.Student_Data.map((item) => {
-    const obj = { Level: item.Level }; // Create an object with only the Id property
-    StudentLevel.push(obj); // Push the object into the array
-  });
-
-  Student_Detail.Student_Data.map((item) => {
-    const obj = { Grade: item.Grade }; // Create an object with only the Id property
-    StudentGrade.push(obj); // Push the object into the array
-  });
-
-  Student_Detail.Student_Data.map((item) => {
-    const obj = { Subjects: item.ALL_Subjects }; // Create an object with only the Id property
-    StudentSubjects.push(obj); // Push the object into the array
-  });
-
-  Student_Detail.Student_Data.map((item) => {
-    const obj = { Id: item.Id, Subjects: item.ALL_Subjects }; // Create an object with only the Id property
-    StudentSubjects.push(obj); // Push the object into the array
-  });
-
-  Tutor_Schedule.Tutor_schedules &&
-    Tutor_Schedule.Tutor_schedules.map((item, index) => {
-      const obj = { Id: item.Id, Tutor_schedules: item.tutor_schedule }; // Create an object with only the Id property
-      TutorSchedules.push(obj); // Push the object into the array
-    });
-
   return (dispatch, getState) => {
-    const url =
-      "https://refuel.site/projects/tutorapp/APIs/TutorBookings/StudentPostRequirement.php";
+    let data = {
+      logged_in_user_id: student_id,
 
-    console.log(
-      // Tutor_Schedule,
-      // Tution_Type,
-      // Student_Detail,
-      // Tutor_Qualification,
-      // student_id,
-      "postReqData"
-      // StudentLevel,
-      // StudentGrade,
-      // StudentSubjects
-      //  TutorSchedules
+      Student_Level_Grade_Subjects: Student_Detail?.Student_Data,
 
-      // Student_Detail,
-      // Student_Detail.Student_Data.map((item) => item.Id),
-      // Student_Detail.Student_Data.map((item) => item.Level),
-
-      // Student_Detail.Student_Data.map((item) => item.Id)
-      // Tutor_Schedule.Tutor_schedules &&
-      //   Tutor_Schedule.Tutor_schedules.map(
-      //     (item, index) => item.tutor_schedule
-      //   ),
-      // Tutor_Schedule.Tutor_schedules &&
-      //   Tutor_Schedule.Tutor_schedules.map((item, index) =>
-      //     item.slot_time.map((item1, index1) => item1.slot_time)
-      //   )
-    );
-
-    let data = JSON.stringify({
-      student_id: student_id,
-      // student_level: Student_Detail?.Level,
-      student_level: Student_Detail.Student_Data.map((item) => item.Level),
-      student_grade: Student_Detail.Student_Data.map((item) => item.Grade),
       student_tution_type: Tution_Type?.TutionType,
       student_postal_code: Tution_Type?.Postal_Code,
       student_postal_address: Postal_Code_Address,
@@ -761,47 +823,37 @@ export const studentPostRequirement = (
           : "Negotiable",
       tutor_tution_offer_amount: Tutor_Qualification?.FeeOffer,
       booked_date: "17-07-2023",
-      //Subjects: Student_Detail?.Subjects,
-      Subjects: Student_Detail.Student_Data.map((item) => item.ALL_Subjects),
-      Qualifications: Tutor_Qualification?.TutorQualification,
-      //Tutor_schedules: Tutor_Schedule?.Tutor_schedules,
-      Tutor_schedules:
-        Tutor_Schedule.Tutor_schedules &&
-        Tutor_Schedule.Tutor_schedules.map(
-          (item, index) => item.tutor_schedule
-        ),
-      // Slots_time: Tutor_Schedule?.tutor_schedule_time,
-      Slots_time:
-        Tutor_Schedule.Tutor_schedules &&
-        Tutor_Schedule.Tutor_schedules.map((item, index) =>
-          item.slot_time.map((item1, index1) => item1.slot_time)
-        ),
-    });
-    console.log(data, "newdataaaaaaaa");
-    // let config = {
-    //   method: "post",
-    //   maxBodyLength: Infinity,
-    //   url: "https://refuel.site/projects/tutorapp/APIs/TutorBookings/StudentPostRequirement.php",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   data: data,
-    // };
 
-    // axios
-    //   .request(config)
-    //   .then((response) => {
-    //     console.log(JSON.stringify(response.data));
-    //     if (response.data.status == true) {
-    //       Alert.alert(response.data.message);
-    //       // navigation.navigate("Auth4");
-    //     } else if (response.data.status == false) {
-    //       Alert.alert(response.data.message);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+      Qualifications: Tutor_Qualification?.TutorQualification,
+
+      Tutor_Schedules_Slot_Time: Tutor_Schedule?.Tutor_schedules,
+    };
+    console.log(data, "newdataaaaaaaa");
+    let config = {
+      method: "POST",
+      maxBodyLength: Infinity,
+      url: "https://refuel.site/projects/tutorapp/APIs/TutorBookings/StudentPostRequirementLoopData.php",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        if (response.data.status == true) {
+          Alert.alert(response.data.message);
+
+          navigation.navigate("MyPosts");
+        } else if (response.data.status == false) {
+          Alert.alert(response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     // console.log(data, "formdata");
   };

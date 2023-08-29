@@ -335,39 +335,43 @@ export const BookTutor = (
   Tutor_Schedule,
   Login_Data,
   Tutor_Detail,
+
   navigation
 ) => {
   console.log(
-    Login_Data,
-    navigation,
-    "navigationnavigationnavigation",
-    currentDate
+    //Login_Data,
+    Tutor_Qualification,
+    Student_Detail.Student_Data,
+    Tutor_Schedule.Tutor_schedules,
+    Tutor_Detail,
+    // navigation,
+    "navigationnavigationnavigation"
+    //   currentDate
   );
 
-  let Booking = {
-    student_id: Login_Data?.userid,
-    student_level: Student_Detail.Level,
-    student_grade: Student_Detail.Grade,
-    student_tution_type: Tution_Type.tuition_type,
-    tutor_id: Tutor_Detail?.tutorid,
-    tutor_duration_weeks: Tutor_Qualification.frequency,
-    tutor_duration_hours: Tutor_Qualification.duration,
-    tutor_tution_fees: Tutor_Qualification.FeeOffer,
-    tutor_tution_schedule_time: "12:30",
-    tutor_tution_offer_amount_type: Tutor_Qualification.feetype,
-    tutor_tution_offer_amount: Tutor_Qualification.FeeOffer,
-    booked_date: currentDate,
-    Subjects: Student_Detail.Subjects,
-    Qualifications: Tutor_Qualification.TutorQualification,
-    Tutor_schedules: Tutor_Schedule.Tutor_schedules,
-    Slots_time: Tutor_Schedule.tutor_schedule_time,
-  };
+  // let Booking = {
+  //   student_id: Login_Data?.userid,
+  //   student_level: Student_Detail.Level,
+  //   student_grade: Student_Detail.Grade,
+  //   student_tution_type: Tution_Type.tuition_type,
+  //   tutor_id: Tutor_Detail?.tutorid,
+  //   tutor_duration_weeks: Tutor_Qualification.frequency,
+  //   tutor_duration_hours: Tutor_Qualification.duration,
+  //   tutor_tution_fees: Tutor_Qualification.FeeOffer,
+  //   tutor_tution_schedule_time: "12:30",
+  //   tutor_tution_offer_amount_type: Tutor_Qualification.feetype,
+  //   tutor_tution_offer_amount: Tutor_Qualification.FeeOffer,
+  //   booked_date: currentDate,
+  //   Subjects: Student_Detail.Subjects,
+  //   Qualifications: Tutor_Qualification.TutorQualification,
+  //   Tutor_schedules: Tutor_Schedule.Tutor_schedules,
+  //   Slots_time: Tutor_Schedule.tutor_schedule_time,
+  // };
 
-  console.log(Booking);
   return (dispatch, getState) => {
     // axios.defaults.baseURL = "https://refuel.site";
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorBookings/TutorBookingsProcess.php";
+      "https://refuel.site/projects/tutorapp/APIs/TutorBookings/TutorBookingsProcessLoopData.php";
 
     fetch(url1, {
       method: "POST",
@@ -378,8 +382,7 @@ export const BookTutor = (
 
       body: JSON.stringify({
         student_id: Login_Data?.userid,
-        student_level: Student_Detail.Level,
-        student_grade: Student_Detail.Grade,
+
         student_tution_type: Tution_Type.tuition_type,
         tutor_id: Tutor_Detail?.tutorid,
         tutor_duration_weeks: Tutor_Qualification.frequency,
@@ -389,15 +392,14 @@ export const BookTutor = (
         tutor_tution_offer_amount_type: Tutor_Qualification.feetype,
         tutor_tution_offer_amount: Tutor_Qualification.FeeOffer,
         booked_date: currentDate,
-        Subjects: Student_Detail.Subjects,
+        Student_Level_Grade_Subjects: Student_Detail.Student_Data,
         Qualifications: Tutor_Qualification.TutorQualification,
-        Tutor_schedules: Tutor_Schedule.Tutor_schedules,
-        Slots_time: Tutor_Schedule.tutor_schedule_time,
+        Tutor_Schedules_Slot_Time: Tutor_Schedule.Tutor_schedules,
       }),
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBB", Booking);
+        //  console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBB", Booking);
         console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
         //   Alert.alert(responseJson.message)
         if (responseJson.status == true) {

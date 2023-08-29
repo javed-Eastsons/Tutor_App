@@ -177,6 +177,7 @@ const PersonalInfo = ({ route }) => {
       markGender: markGender,
       selectnational: selectnational,
     };
+
     dispatch({
       type: PersonalInfo_Data,
       payload: obj,

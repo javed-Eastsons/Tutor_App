@@ -21,6 +21,8 @@ import com.reactnativecommunity.checkbox.ReactCheckBoxPackage;
 import com.reactcommunity.rndatetimepicker.RNDateTimePickerPackage;
 // @react-native-community/masked-view
 import org.reactnative.maskedview.RNCMaskedViewPackage;
+// @react-native-community/slider
+import com.reactnativecommunity.slider.ReactSliderPackage;
 // @react-native-firebase/app
 import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 // @react-native-firebase/messaging
@@ -97,6 +99,7 @@ public class PackageList {
       new ReactCheckBoxPackage(),
       new RNDateTimePickerPackage(),
       new RNCMaskedViewPackage(),
+      new ReactSliderPackage(),
       new ReactNativeFirebaseAppPackage(),
       new ReactNativeFirebaseMessagingPackage(),
       new RNCPickerPackage(),

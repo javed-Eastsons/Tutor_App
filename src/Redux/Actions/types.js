@@ -22,3 +22,7 @@ export const Booking_Detail = "Booking_Detail";
 export const All_Booked_Tutor_Detail = "All_Booked_Tutor_Detail";
 export const Postal_Code_Address = "Postal_Code_Address";
 export const ALL_POSTS_BY_CLIENT = "ALL_POSTS_BY_CLIENT";
+export const POST_DETAIL = "POST_DETAIL";
+export const LEVEL_LIST = "LEVEL_LIST";
+export const GRADE_LIST = "GRADE_LIST";
+export const SUBJECT_LIST = "SUBJECT_LIST";

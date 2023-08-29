@@ -108,7 +108,7 @@ const TutionScheduleComponent = ({}) => {
 
       if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
         // selected.push(time);
-        picker.push(obj3);
+        picker.push(time);
       } else {
         RemoveTempExercise(picker, "slot_time", obj3.slot_time);
       }
@@ -133,7 +133,7 @@ const TutionScheduleComponent = ({}) => {
 
       if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
         // selected.push(time);
-        picker.push(obj3);
+        picker.push(time);
       } else {
         RemoveTempExercise(picker, "slot_time", obj3.slot_time);
       }
@@ -157,7 +157,7 @@ const TutionScheduleComponent = ({}) => {
 
       if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
         // selected.push(time);
-        picker.push(obj3);
+        picker.push(time);
       } else {
         RemoveTempExercise(picker, "slot_time", obj3.slot_time);
       }
@@ -310,7 +310,7 @@ const TutionScheduleComponent = ({}) => {
 
   console.log(selected1, "MMMMMMMMMMMMMMMMM");
   //console.log(selectedDay, "MMMMMMMMMMMMMMMMM");
-  // console.log(selected, "BBBBBBBBBBB");
+  console.log(selected1[0], "BBBBBBBBBBB");
 
   const isExistInArray = (Ex_array, Ex_Key, Ex_value) => {
     var isExist = false;

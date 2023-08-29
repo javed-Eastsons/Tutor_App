@@ -13,6 +13,7 @@ MERGED from [:react-native-community_async-storage] C:\Prince\Tutor_New\lets-try
 MERGED from [:react-native-community_checkbox] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-community\checkbox\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-community_datetimepicker] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-community_masked-view] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-community\masked-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-community_slider] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-community\slider\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-firebase_messaging] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-45:12
 MERGED from [:react-native-firebase_app] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-32:12
 MERGED from [:react-native-picker_picker] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-picker\picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
@@ -296,6 +297,8 @@ MERGED from [:react-native-community_datetimepicker] C:\Prince\Tutor_New\lets-tr
 MERGED from [:react-native-community_datetimepicker] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-community_masked-view] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-community\masked-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-community_masked-view] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-community\masked-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-community_slider] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-community\slider\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-community_slider] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-community\slider\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-firebase_messaging] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-firebase_messaging] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-firebase\messaging\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-firebase_app] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-8:41

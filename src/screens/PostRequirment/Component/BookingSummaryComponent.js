@@ -75,7 +75,8 @@ const BookingSummaryComponent = () => {
         Student_Detail,
         Tutor_Qualification,
         Login_Data.userid,
-        Postal_Code_Address
+        Postal_Code_Address,
+        navigation
       )
     );
   };
@@ -438,16 +439,18 @@ const BookingSummaryComponent = () => {
               {Tutor_Schedule.Tutor_schedules &&
                 Tutor_Schedule.Tutor_schedules.map((item, index) => (
                   <View key={index}>
-                    {item.slot_time.map((item1, index1) => (
-                      <View style={{ flexDirection: "row" }} key={index1}>
-                        <Text style={styles.Information}>
-                          {item.tutor_schedule}
-                        </Text>
-                        <Text style={styles.Information}>
-                          {item1.slot_time}
-                        </Text>
-                      </View>
-                    ))}
+                    <View
+                      style={{
+                        flexWrap: "nowrap",
+                      }}
+                    >
+                      <Text style={styles.Information}>
+                        {item.tutor_schedule + "\n"}
+                      </Text>
+                      <Text style={styles.Information}>
+                        {item.slot_time + "\n"}
+                      </Text>
+                    </View>
                   </View>
                 ))}
 
@@ -481,15 +484,6 @@ const BookingSummaryComponent = () => {
                 />
               </TouchableOpacity>
             </View>
-
-            <Text
-              style={{ color: "#2F5597", marginTop: 10 }}
-              ellipsizeMode="clip"
-              numberOfLines={1}
-            >
-              - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-              - -
-            </Text>
           </View>
         )}
 
@@ -692,6 +686,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginLeft: 8,
+  },
+  ScheduleItem: {
+    marginBottom: 10, // Add margin between each schedule item
   },
   shadowPropFourBoxes1: {
     shadowOffset: { width: 5, height: 5 },

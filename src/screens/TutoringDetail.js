@@ -1,4 +1,4 @@
-import React, { component, useState } from "react";
+import React, { component, useState, useEffect } from "react";
 
 import {
   SafeAreaView,
@@ -29,14 +29,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { editProfile } from "../Redux/Actions/Tutors";
 
 import { Tutoring_Data } from "../Redux/Actions/types";
+import { getLevelList, getGradeList,getSubjectList } from "../Redux/Actions/Tutors";
 
 var selectArray = [];
-
+var gradeArray = [];
 const TutoringDetail = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
-
+  const { LEVEL_LIST } = useSelector((state) => state.TutorReducer);
+  const {SUBJECT_LIST}= useSelector((state) => state.TutorReducer);
+  const { GRADE_LIST } = useSelector((state) => state.TutorReducer);
   const [tutoring, setTutoring] = useState("");
   const [P1, setP1] = useState("");
   const [P2, setP2] = useState("");
@@ -45,9 +48,12 @@ const TutoringDetail = () => {
   const [P5, setP5] = useState("");
   const [P6, setP6] = useState("");
 
-  // console.log(selectArray, "selectArray");
+  const [grade, setGrade] = useState([]);
 
-  // console.log(tutoring,'tutoring')
+  console.log(grade, "gradeJK");
+  console.log(gradeArray, 'gradeArray')
+  console.log(GRADE_LIST, 'GRADE-HIM')
+  console.log(SUBJECT_LIST, 'SUBJECT_LIST')
 
   const AddQualification = (val) => {
     if (P1 == val) {
@@ -94,34 +100,22 @@ const TutoringDetail = () => {
 
   console.log(selectArray, "selectArrayselectArrayselectArray");
 
+  const setGradeFun = (val) => {
+    //   setP1('P1')
+    if (P1 == val) {
+      setGrade([]);
+    } else {
+      setGrade(val);
+    }
+  };
+
   const setp1fun = (val) => {
     //   setP1('P1')
     if (P1 == val) {
       setP1("");
-
-      // var item1 = {};
-      // item1["Tutoring_Grade"] = val;
-
-      // RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
-
-      // console.log("PPPPPPPPPPPP");
     } else {
       setP1(val);
-
-      // var item1 = {};
-      // item1["Tutoring_Grade"] = val;
-
-      // if (
-      //   !isExistInArray(selectArray, "Tutoring_Grade", item1.Tutoring_Grade)
-      // ) {
-      //   //  console.log('insert in array');
-      //   // selectArray.push(item1);
-      // } else {
-      //   RemoveTempExercise(selectArray, "Tutoring_Grade", item1.Tutoring_Grade);
-      // }
     }
-    // console.log('LLLLLLLLLL', P1)
-    // console.log('aaaaaaaaaaa', selectArray)
   };
 
   const setp2fun = (val) => {
@@ -374,7 +368,7 @@ const TutoringDetail = () => {
   const [TutorLevel, setTutorLevel] = useState("");
   const [levelDetail, setLevelDetail] = useState("");
   const [count, setCount] = useState(0);
-  // console.log(selectListTutor,'selectListTutor')
+  console.log(selectListTutor, 'selectListTutor')
   // console.log(levelDetail,'levelDetail')
 
   const [state, setState] = useState("Select Year");
@@ -411,19 +405,14 @@ const TutoringDetail = () => {
   // console.log(selectedItems,'selectedItems')
 
   const ALLDATA = () => {
-    selectListTutor, P1, P2, P3, P4, P5, P6, state, state2, selectedItems;
+    selectListTutor, gradeArray, state, state2, selectedItems;
 
     console.log(
       selectListTutor,
-      P1,
-      P2,
-      P3,
-      P4,
-      P5,
-      P6,
+      gradeArray,
       state,
       state2,
-      selectedItems
+      selectedItems,'ALLDATA'
     );
 
     // if (P1 == P1) {
@@ -437,13 +426,7 @@ const TutoringDetail = () => {
     var item1 = {};
     item1["Id"] = count;
     item1["tutor_qualification_Subject"] = selectListTutor;
-    item1["Tutoring_Grade"] = P1;
-    item1["Tutoring_Grade2"] = P2;
-    item1["Tutoring_Grade3"] = P3;
-    item1["Tutoring_Grade4"] = P4;
-    item1["Tutoring_Grade5"] = P5;
-    item1["Tutoring_Grade6"] = P6;
-
+    item1["Tutoring_Grade"] = gradeArray.map(item=> item?.Grade);
     item1["Tutoring_Year"] = state;
     item1["Tutoring_Month"] = state2;
     item1["Tutoring_ALL_Subjects"] = selectedItems;
@@ -479,12 +462,55 @@ const TutoringDetail = () => {
     setState2("");
     setselectedItems([]);
   };
+
+
+
+  const gradeData = (val) => {
+
+    console.log(
+      val, '@@@@@AAAAJJJJ@@@@'
+    );
+
+    // if (P1 == P1) {
+    //   setSelectListTutor("");
+    const obj3 = [];
+
+    setCount(count + 1);
+
+    console.log(obj3, "AAAAA");
+
+    var item1 = {};
+    item1["Grade"] = val;
+
+
+    if (
+      !isExistInArray(
+        selectArray,
+        "Grade",
+        item1.Grade
+      )
+    ) {
+      //  console.log('insert in array');
+      gradeArray.push(item1);
+      // selectArray.push(obj3);
+    } else {
+      RemoveTempExercise(
+        selectArray,
+        "Grade",
+        item1.Grade
+      );
+    }
+    // }
+
+
+  };
   console.log(count, "countttttttttttt");
   console.log(
     selectArray,
     //selectArray.Tutoring_ALL_Subjects[1],
     "selectArrayselectArray@@@@@@@@@@@@@@@@@@@@@@@@@"
   );
+
 
   const SelectYear = (val) => {
     if (state == val) {
@@ -669,7 +695,21 @@ const TutoringDetail = () => {
     setp5fun("P5");
     setp6fun("P6");
   };
+  useEffect(() => {
+    dispatch(getLevelList());
 
+  }, []);
+  useEffect(() => {
+
+    dispatch(getGradeList(selectListTutor));
+
+  }, [selectListTutor]);
+  
+  useEffect(() => {
+
+    dispatch(getSubjectList(selectListTutor));
+
+  }, [selectListTutor]);
   return (
     <View style={styles.container}>
       {/* <View style={{flex:0.9}}> */}
@@ -764,10 +804,13 @@ const TutoringDetail = () => {
             <Text style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}>
               {item.tutor_qualification_Subject}
             </Text>
+            {item.Tutoring_Grade.map((item) => (
+                <Text style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}>
+                {item}
+              </Text>
+              ))}
             <Text style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}>
-              {item.Tutoring_Grade} {item.Tutoring_Grade2}{" "}
-              {item.Tutoring_Grade3} {item.Tutoring_Grade4}{" "}
-              {item.Tutoring_Grade5} {item.Tutoring_Grade6}
+              {item.Tutoring_Grade?.Grade}
             </Text>
             <Text style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}>
               {item.Tutoring_Year} Years
@@ -934,14 +977,14 @@ const TutoringDetail = () => {
               </View>
 
               <FlatList
-                data={listTutor}
+                data={LEVEL_LIST?.Level_list}
                 numColumns={1}
                 keyExtractor={(item, index) => index}
                 // showsVerticalScrollIndicator={true}
                 renderItem={({ item, index }) => (
                   <TouchableOpacity
                     key={item.id}
-                    onPress={() => setSelectListTutor(item.label)}
+                    onPress={() => setSelectListTutor(item.school_level_name)}
                     //    onPress={() => setTutorLevel(item.label)}
                     //  onPress={() => AddQualification(item.label)}
                     style={{
@@ -951,18 +994,18 @@ const TutoringDetail = () => {
                       alignSelf: "center",
                       flexDirection: "row",
                       backgroundColor:
-                        selectListTutor == item.label ? "#2F5597" : "#fff",
+                        selectListTutor == item.school_level_name ? "#2F5597" : "#fff",
                       // marginTop: hp(2),
                     }}
                   >
                     <Text
                       style={{
-                        color: selectListTutor == item.label ? "#fff" : "#000",
+                        color: selectListTutor == item.school_level_name ? "#fff" : "#000",
                         fontSize: 13,
                         marginLeft: wp(4),
                       }}
                     >
-                      {item.label}
+                      {item.school_level_name}
                     </Text>
                   </TouchableOpacity>
                 )}
@@ -1066,147 +1109,45 @@ const TutoringDetail = () => {
                   flexDirection: "row",
                 }}
               >
-                <View
-                  style={{
-                    width: wp(15),
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TouchableOpacity
-                    //  onPress={() => setP1("P1")}
-                    onPress={() => setp1fun("P1")}
-                    style={{
-                      height: hp(4),
-                      width: wp(8),
-                      borderWidth: 1,
-                      borderColor: "lightgrey",
-                      backgroundColor: P1 == "P1" ? "#2F5597" : "#fff",
-                    }}
-                  ></TouchableOpacity>
-                  <Text
-                    style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
-                  >
-                    P1
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    width: wp(15),
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TouchableOpacity
-                    onPress={() => setp2fun("P2")}
-                    style={{
-                      height: hp(4),
-                      width: wp(8),
-                      borderWidth: 1,
-                      borderColor: "lightgrey",
-                      backgroundColor: P2 == "P2" ? "#2F5597" : "#fff",
-                    }}
-                  ></TouchableOpacity>
-                  <Text
-                    style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
-                  >
-                    P2
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    width: wp(15),
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TouchableOpacity
-                    onPress={() => setp3fun("P3")}
-                    style={{
-                      height: hp(4),
-                      width: wp(8),
-                      borderWidth: 1,
-                      borderColor: "lightgrey",
-                      backgroundColor: P3 == "P3" ? "#2F5597" : "#fff",
-                    }}
-                  ></TouchableOpacity>
-                  <Text
-                    style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
-                  >
-                    P3
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    width: wp(15),
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TouchableOpacity
-                    onPress={() => setp4fun("P4")}
-                    style={{
-                      height: hp(4),
-                      width: wp(8),
-                      borderWidth: 1,
-                      borderColor: "lightgrey",
-                      backgroundColor: P4 == "P4" ? "#2F5597" : "#fff",
-                    }}
-                  ></TouchableOpacity>
+                {
+                  GRADE_LIST?.Grade_List ?
 
-                  <Text
-                    style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
-                  >
-                    P4
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    width: wp(15),
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TouchableOpacity
-                    onPress={() => setp5fun("P5")}
-                    style={{
-                      height: hp(4),
-                      width: wp(8),
-                      borderWidth: 1,
-                      borderColor: "lightgrey",
-                      backgroundColor: P5 == "P5" ? "#2F5597" : "#fff",
-                    }}
-                  ></TouchableOpacity>
+                    GRADE_LIST?.Grade_List.map((item) => {
+                      return (
+                        <View
+                          style={{
+                            width: wp(15),
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
 
-                  <Text
-                    style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
-                  >
-                    P5
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    width: wp(15),
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <TouchableOpacity
-                    onPress={() => setp6fun("P6")}
-                    style={{
-                      height: hp(4),
-                      width: wp(8),
-                      borderWidth: 1,
-                      borderColor: "lightgrey",
-                      backgroundColor: P6 == "P6" ? "#2F5597" : "#fff",
-                    }}
-                  ></TouchableOpacity>
-                  <Text
-                    style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
-                  >
-                    P6
-                  </Text>
-                </View>
+                          <TouchableOpacity
+                            //  onPress={() => setP1("P1")}
+                            onPress={() => gradeData(item?.grade_name)}
+                            style={{
+                              height: hp(4),
+                              width: wp(8),
+                              borderWidth: 1,
+                              borderColor: "lightgrey",
+                              backgroundColor: gradeArray.map(item => item?.Grade)== item?.grade_name ? "#2F5597" : "#fff",
+                            }}
+                          ></TouchableOpacity>
+                          <Text
+                            style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
+                          >
+                            {item?.grade_name}
+                          </Text>
+                        </View>
+                      )
+                    })
+                    : null
+
+                }
+
+
+
+
               </View>
               <View>
                 <View style={{ marginTop: hp(2), marginLeft: wp(5) }}>
@@ -1401,8 +1342,8 @@ const TutoringDetail = () => {
               <View style={{ marginHorizontal: wp(5) }}>
                 <MultiSelect
                   //   hideTags
-                  items={items}
-                  uniqueKey="name"
+                  items={SUBJECT_LIST?.Subject_List}
+                  uniqueKey="subjects_name"
                   //   ref={(component) => { this.multiSelect = component }}
                   styleInputGroup={{
                     width: wp(90),
@@ -1426,12 +1367,12 @@ const TutoringDetail = () => {
                   selectedItemTextColor="#CCC"
                   selectedItemIconColor="#CCC"
                   itemTextColor="#000"
-                  displayKey="name"
+                  displayKey="subjects_name"
                   searchInputStyle={{ color: "#000", fontSize: 13 }}
                   hideSubmitButton
-                  //  submitButtonColor="#000"
-                  //submitButtonText="Submit"
-                  //   removeSelected
+                //  submitButtonColor="#000"
+                //submitButtonText="Submit"
+                //   removeSelected
                 />
               </View>
 

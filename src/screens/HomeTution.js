@@ -22,18 +22,23 @@ import {
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { MapContainer, Circle, Marker } from "react-native-maps";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Tution_Type } from "../Redux/Actions/types";
+import Slider from "@react-native-community/slider";
 
 const HomeTution = () => {
+  const circleCenter = { latitude: 37.78825, longitude: -122.4324 };
+  const circleRadius = 1000; // in meters
   const mapRef = useRef(null);
   const navigation = useNavigation();
   const [FirstName, setFirstName] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [mapData, setMapData] = useState();
   const dispatch = useDispatch();
+  const [slideStartingValue, setSlideStartingValue] = useState(20);
+  const [slideStartingCount, setSlideStartingCount] = useState(0);
   const [state, setstate] = useState({
     coordinate: {
       latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
@@ -49,7 +54,7 @@ const HomeTution = () => {
   };
   console.log(mapData, "mapData");
 
-  console.log(FirstName, "postalcode");
+  console.log(FirstName, slideStartingValue.toFixed(0), "postalcode");
   const geocodinApi = () => {
     let config = {
       method: "get",
@@ -64,7 +69,7 @@ const HomeTution = () => {
         const jsonData = response.data;
         // console.log(jsonData, "OOOOOOOOOOOOOOOOOOO");
         const jj = jsonData.results[0];
-        //   console.log(jj, "PPPPPPPPPPPPPPPPPP");
+        //  console.log(jj, "PPPPPPPPPPPPPPPPPP");
         setMapData(jj);
         getAddress(jj?.geometry?.location?.lat, jj?.geometry?.location?.lng);
       })
@@ -130,18 +135,23 @@ const HomeTution = () => {
     });
 
     //   setAddress(mapData?.formatted_address);
+  };
 
+  const GetPostDetail = () => {
     let obj = {
       Postal_Code: FirstName,
       TutionType: "Home Tuition",
       address: address,
+      Distance: slideStartingValue.toFixed(0),
     };
+
     dispatch({
       type: Tution_Type,
       payload: obj,
     });
 
     console.log(obj, "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+    navigation.navigate("YourProfle");
   };
 
   // if(mapData){
@@ -183,7 +193,8 @@ const HomeTution = () => {
           </View>
           {address ? (
             <TouchableOpacity
-              onPress={() => navigation.navigate("YourProfle")}
+              onPress={() => GetPostDetail()}
+              //onPress={() => navigation.navigate("YourProfle")}
               style={styles.tickWrapper}
             >
               <Image
@@ -212,37 +223,95 @@ const HomeTution = () => {
         </View>
       </View>
       <View></View>
-      <MapView
-        ref={mapRef}
-        style={styles.map}
-        zoomEnabled={true}
-        onRegionChangeComplete={onRegionCHange}
-        onMapReady={() => {
-          setstate({ marginBottom: 0 });
-        }}
-        zoomControlEnabled={true}
-        showsUserLocation={true}
-        showsMyLocationButton={true}
-        userInterfaceStyle="dark"
-        initialRegion={{
-          latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
-          longitude: mapData ? mapData?.geometry?.location?.lng : 77.3812,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-        // mapType={'standard'}
-      >
-        <Marker
-          coordinate={{
-            latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
-            longitude: mapData ? mapData?.geometry?.location?.lng : 77.3812,
-          }}
-          onDragEnd={(e) => this.setState({ x: e.nativeEvent.coordinate })}
-          //  onDragEnd={(e) => alert(JSON.stringify(e.nativeEvent.coordinate))}
-          // title={'Your Location'}
-          // description={mapData?.formatted_address}
-        />
-      </MapView>
+      {address != "" ? (
+        <View style={{}}>
+          <MapView
+            defaultZoom={20}
+            defaultCenter={30}
+            ref={mapRef}
+            style={styles.map}
+            zoomEnabled={true}
+            onRegionChangeComplete={onRegionCHange}
+            onMapReady={() => {
+              setstate({ marginBottom: 0 });
+            }}
+            zoomControlEnabled={true}
+            showsUserLocation={true}
+            showsMyLocationButton={true}
+            userInterfaceStyle="dark"
+            initialRegion={{
+              latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
+              longitude: mapData ? mapData?.geometry?.location?.lng : 77.3812,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+            // mapType={'standard'}
+          >
+            <Circle
+              center={{
+                latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
+                longitude: mapData ? mapData?.geometry?.location?.lng : 77.3812,
+              }}
+              radius={slideStartingValue.toFixed(0) * 80}
+              fillColor="rgba(0, 0, 255, 0.1)"
+              strokeColor="blue"
+              strokeWidth={1}
+            />
+            <Marker
+              coordinate={{
+                latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
+                longitude: mapData ? mapData?.geometry?.location?.lng : 77.3812,
+              }}
+              onDragEnd={(e) => this.setState({ x: e.nativeEvent.coordinate })}
+            />
+          </MapView>
+
+          <Text
+            style={{
+              width: wp(90),
+              textAlign: "center",
+
+              marginLeft: wp(5),
+              marginTop: hp(1),
+              fontSize: 12,
+            }}
+          >
+            Select the furthest distance you are willing to travel from your
+            location for home tuition{" "}
+          </Text>
+          <Slider
+            style={{ width: wp(90), height: 40, alignSelf: "center" }}
+            onSlidingComplete={
+              (value) => setSlideStartingValue(value)
+              // setSlideStartingCount((prev) => prev + 1);
+            }
+            minimumValue={1}
+            value={25}
+            maximumValue={50}
+            minimumTrackTintColor="#000000"
+            maximumT
+            rackTintColor="#000000"
+          />
+          <View
+            style={{
+              width: wp(90),
+              textAlign: "center",
+              marginLeft: wp(5),
+              flexDirection: "row",
+              fontSize: 12,
+            }}
+          >
+            <Text style={{ width: wp(30) }}>100m</Text>
+            <Text style={{ width: wp(30), textAlign: "center" }}>
+              {slideStartingValue.toFixed(0)}km
+            </Text>
+            <Text style={{ width: wp(30), textAlign: "right" }}>50km</Text>
+          </View>
+        </View>
+      ) : (
+        <View />
+      )}
+      {/* <Text>Starts: Value: {slideStartingValue.toFixed(0)}</Text> */}
     </View>
   );
 };
@@ -257,7 +326,7 @@ const styles = StyleSheet.create({
     // padding: 10,
   },
   map: {
-    height: hp(70),
+    height: hp(55),
     width: wp(90),
     marginLeft: wp(5),
     marginTop: hp(2),
@@ -281,7 +350,7 @@ const styles = StyleSheet.create({
   },
   tickImage: { height: hp(2), width: wp(5) },
   forwardArrowWrapper: {
-    borderWidth: 0.6,
+    //  borderWidth: 0.6,
     borderColor: "#000",
     width: wp(60),
     height: hp(5),

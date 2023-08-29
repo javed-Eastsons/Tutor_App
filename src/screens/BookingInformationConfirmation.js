@@ -437,16 +437,12 @@ const BookingInformationConfirmation = () => {
               {Tutor_Schedule.Tutor_schedules &&
                 Tutor_Schedule.Tutor_schedules.map((item, index) => (
                   <View key={index}>
-                    {item.slot_time.map((item1, index1) => (
-                      <View style={{ flexDirection: "row" }} key={index1}>
-                        <Text style={styles.Information}>
-                          {item.tutor_schedule}
-                        </Text>
-                        <Text style={styles.Information}>
-                          {item1.slot_time}
-                        </Text>
-                      </View>
-                    ))}
+                    <View style={{ flexDirection: "row" }}>
+                      <Text style={styles.Information}>
+                        {item.tutor_schedule}
+                      </Text>
+                      <Text style={styles.Information}>{item.slot_time}</Text>
+                    </View>
                   </View>
                 ))}
 

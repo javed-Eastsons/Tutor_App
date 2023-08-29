@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 import {
   SafeAreaView,
@@ -30,6 +30,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 //import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
 import StudentDetailComponent from "./StudentDetailComponent";
+import { getLevelList,getGradeList,getSubjectList } from "../../../Redux/Actions/Tutors";
 
 import { Loader } from "../../../../../../common/Loader";
 import StudentDetail from "../StudentDetail";
@@ -79,10 +80,15 @@ const StudentBookingComponent = (props) => {
 
   const [count, setCount] = useState(0);
   const navigation = useNavigation();
-  //const { Student_Detail } = useSelector((state) => state.TutorReducer);
+  const { LEVEL_LIST } = useSelector((state) => state.TutorReducer);
+  const {SUBJECT_LIST}= useSelector((state) => state.TutorReducer);
 
-  // console.log("@@@@@@", value);
+  const { GRADE_LIST } = useSelector((state) => state.TutorReducer);
+
+  console.log("@@@@@@", value);
   // console.log(">>>>>>", value2);
+console.log(LEVEL_LIST?.Level_list,'LEVEL_LIST-REDUX')
+console.log(SUBJECT_LIST, 'SUBJECT_LIST')
 
   const AddMoreDetail = () => {
     setMoreDetail("showSection");
@@ -241,7 +247,22 @@ const StudentBookingComponent = (props) => {
   let obj = {};
 
   // console.log(SelectDetail, "SelectDetailSelectDetailSelectDetailSelectDetail");
+  useEffect(() => {
+    dispatch(getLevelList());
+   
+  }, []);
+  useEffect(() => {
+   
+      dispatch(getGradeList(value));
 
+  }, [value]);
+  console.log(GRADE_LIST,'GRADE_LIST-REDUX')
+
+  useEffect(() => {
+
+    dispatch(getSubjectList(value));
+
+  }, [value]);
   return (
     // <View style={styles.container}>
     <SafeAreaView style={{ flex: 1, marginHorizontal: 10 }}>
@@ -254,7 +275,7 @@ const StudentBookingComponent = (props) => {
             flexDirection: "row",
           }}
         >
-          <Text style={styles.BookText1}>Student's Details...vvv</Text>
+          <Text style={styles.BookText1}>Student's Details</Text>
           <View style={{ position: "absolute", right: 10 }}>
             <Image
               source={require("../../../Assets/Student.png")}
@@ -461,19 +482,20 @@ const StudentBookingComponent = (props) => {
                     selectedTextStyle={styles.selectedTextStyle}
                     iconStyle={styles.iconStyle}
                     itemTextStyle={{ color: "grey", fontSize: 12 }}
-                    data={data1}
-                    labelField="label"
-                    valueField="value"
+                    data={LEVEL_LIST?.Level_list}
+                    labelField="school_level_name"
+                    valueField="school_level_name"
                     allowFontScaling={false}
                     placeholder={!isFocus ? " " : "..."}
                     value={value}
                     onFocus={() => setIsFocus(true)}
                     onBlur={() => setIsFocus(false)}
                     onChange={(item) => {
-                      setValue(item.value);
+                      setValue(item.school_level_name);
                       setIsFocus(false);
                     }}
                   />
+                 
                 </View>
               </View>
 
@@ -484,7 +506,7 @@ const StudentBookingComponent = (props) => {
                   </Text>
                 </View>
                 <View style={{ width: "60%" }}>
-                  <Dropdown
+                <Dropdown
                     style={[
                       styles.dropdown,
                       isFocus2 && { borderColor: "black" },
@@ -493,19 +515,20 @@ const StudentBookingComponent = (props) => {
                     selectedTextStyle={styles.selectedTextStyle}
                     iconStyle={styles.iconStyle}
                     itemTextStyle={{ color: "grey", fontSize: 12 }}
-                    data={grade_list}
-                    labelField="label2"
-                    valueField="value2"
+                    data={GRADE_LIST?.Grade_List}
+                    labelField="grade_name"
+                    valueField="grade_name"
                     allowFontScaling={false}
                     placeholder={!isFocus2 ? " " : "..."}
                     value={value2}
                     onFocus={() => setIsFocus2(true)}
                     onBlur={() => setIsFocus2(false)}
                     onChange={(item) => {
-                      setValue2(item.value2);
+                      setValue2(item.grade_name);
                       setIsFocus2(false);
                     }}
                   />
+            
                 </View>
               </View>
 
@@ -535,10 +558,10 @@ const StudentBookingComponent = (props) => {
        setIsFocus1(false);
      }}
    /> */}
-                  {/* <View style={styles.SelectMoreContainer}> */}
+                  <View style={styles.SelectMoreContainer}>
                   <MultiSelect
-                    items={subjectdata}
-                    uniqueKey="label"
+                    items={SUBJECT_LIST?.Subject_List}
+                    uniqueKey="subjects_name"
                     onSelectedItemsChange={onSelectedlevel}
                     selectedItems={selectedlevel}
                     //  selectText="Select one or more"
@@ -555,16 +578,19 @@ const StudentBookingComponent = (props) => {
                     itemTextColor="#000"
                     itemFontSize={12}
                     fontSize={14}
-                    displayKey="label"
+                    displayKey="subjects_name"
                     searchInputStyle={{ color: "#CCC", fontSize: 12 }}
                     styleRowList={{ width: "90%" }}
                     // submitButtonColor="#000"
                     //submitButtonText="Submit"
                     styleDropdownMenu={{ backgroundColor: "red" }}
                     hideSubmitButton
-                    styleItemsContainer={{}}
+                    styleItemsContainer={{
+                      height: 100,
+                    }}
                   />
-                  {/* </View> */}
+                
+                  </View>
                 </View>
               </View>
 
@@ -615,6 +641,7 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     fontSize: 12,
+    color:'#000'
   },
   DetailContainer: {
     flexDirection: "row",
@@ -631,8 +658,10 @@ const styles = StyleSheet.create({
   },
   SelectMoreContainer: {
     // height: 150,
-    width: "60%",
+    width: "100%",
     flex: 1,
+    alignSelf: "center",
+
   },
   dropdown: {
     //  height: 100,
@@ -642,6 +671,7 @@ const styles = StyleSheet.create({
     // borderRadius: 8,
     // paddingHorizontal: 8,
     marginTop: 10,
+    color:'black'
     // marginLeft:10
   },
   ButtonText: {

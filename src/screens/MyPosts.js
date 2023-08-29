@@ -20,7 +20,7 @@ import {
 } from "react-native-responsive-screen";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
-import { GetAllTutors, AllPostsByClient } from "../Redux/Actions/Tutors";
+import { GetPostDetail, AllPostsByClient } from "../Redux/Actions/Tutors";
 import { useDispatch, useSelector } from "react-redux";
 import StarRating from "react-native-star-rating";
 
@@ -28,22 +28,48 @@ const MyPosts = () => {
   const [strCount, setStrCount] = useState(1);
   const [isExpandModalVisible, setExpandModalVisible] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [postDetail, setPostDetail] = useState([]);
   const dispatch = useDispatch();
   const { ALL_POSTS_BY_CLIENT } = useSelector((state) => state.TutorReducer);
+  const { POST_DETAIL } = useSelector((state) => state.TutorReducer);
   const navigation = useNavigation();
   const { Login_Data } = useSelector((state) => state.TutorReducer);
   console.log(Login_Data, "POSTSSSSSSSSSSS");
   const [Tutor, setTutor] = useState([]);
-
-  console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP", ALL_POSTS_BY_CLIENT);
+  const [postCode, setPostalCode] = useState([]);
+  const [tuitionType, setTuitionType] = useState([]);
+  const [postAdd, setPostalAdd] = useState([]);
+  const [Fee, setFee] = useState([]);
+  const [OfferType, setOfferType] = useState([]);
 
   const toggleModal = () => {
     console.log("sddddddddd");
     setModalVisible(!isModalVisible);
   };
 
-  const expandToggleModal = () => {
-    console.log("@@@@", expandToggleModal);
+  const expandToggleModal = (
+    PostID,
+    student_tution_type,
+    student_postal_code,
+    student_postal_address,
+    tutor_tution_fees,
+    tutor_tution_offer_amount_type
+  ) => {
+    console.log(
+      "@@@@",
+      PostID,
+      student_tution_type,
+      student_postal_code,
+      student_postal_address,
+      tutor_tution_fees,
+      tutor_tution_offer_amount_type
+    );
+
+    setPostalCode(student_postal_code);
+    setTuitionType(student_tution_type);
+    setPostalAdd(student_postal_address);
+    setFee(tutor_tution_fees);
+    setOfferType(tutor_tution_offer_amount_type);
     setExpandModalVisible(!isExpandModalVisible);
   };
 
@@ -54,7 +80,7 @@ const MyPosts = () => {
 
   useEffect(() => {
     setTutor(ALL_POSTS_BY_CLIENT);
-  }, [ALL_POSTS_BY_CLIENT]);
+  }, [ALL_POSTS_BY_CLIENT, POST_DETAIL]);
   console.log("tutors", Tutor);
 
   return (
@@ -104,7 +130,7 @@ const MyPosts = () => {
           renderItem={({ item, index }) => (
             <View style={{ marginTop: 10 }}>
               <TouchableOpacity style={styles.List}>
-                <View style={{ height: 60, width: "70%", marginLeft: 10 }}>
+                <View style={{ height: 100, width: "100%", marginLeft: 10 }}>
                   <View
                     style={{ height: 20, width: "70%", flexDirection: "row" }}
                   >
@@ -113,42 +139,56 @@ const MyPosts = () => {
                     </Text>
                   </View>
                   <View
-                    style={{
-                      height: 20,
-                      width: "70%",
-                      backgroundColor: "white",
-                    }}
+                    style={
+                      {
+                        // height: 20,
+                        //width: "70%",
+                        //backgroundColor: "white",
+                      }
+                    }
                   >
-                    <Text style={styles.LIstText}>
-                      Subjects :{" "}
-                      {ALL_POSTS_BY_CLIENT[0]?.student_subjects &&
-                        ALL_POSTS_BY_CLIENT[0]?.student_subjects.map((item) => {
+                    <View>
+                      {item.student_level_grade_subjects &&
+                        item.student_level_grade_subjects.map((item) => {
                           return (
-                            <Text key={item} style={styles.Information}>
-                              {item.Student_Subjects}
-                            </Text>
+                            <View>
+                              <View>
+                                <Text style={{ color: "#000", fontSize: 12 }}>
+                                  {" "}
+                                  Level :{" "}
+                                  <Text key={item} style={{ fontSize: 10 }}>
+                                    {item.Level} , {item.Grade}
+                                  </Text>
+                                </Text>
+                              </View>
+                              <View style={{ marginBottom: 10 }}>
+                                <Text style={{ color: "#000", fontSize: 12 }}>
+                                  {" "}
+                                  Subjects :{" "}
+                                  <Text key={item} style={{ fontSize: 10 }}>
+                                    {item.ALL_Subjects}
+                                  </Text>
+                                </Text>
+                              </View>
+                            </View>
                           );
                         })}
-                    </Text>
-                    <Text style={styles.LIstText}>
-                      Level :{item.student_level}
-                    </Text>
+                    </View>
                   </View>
-                  <View
-                    style={{
-                      height: 20,
-                      width: "70%",
-                      backgroundColor: "white",
-                    }}
-                  >
-                    <Text style={styles.LIstText}>
-                      Grade :{item.student_grade}
-                    </Text>
-                  </View>
+                  <View></View>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={expandToggleModal}
+                onPress={() =>
+                  expandToggleModal(
+                    item.student_post_requirements_id,
+                    item.student_tution_type,
+                    item.student_postal_code,
+                    item.student_postal_address,
+                    item.tutor_tution_fees,
+                    item.tutor_tution_offer_amount_type
+                  )
+                }
                 style={{
                   height: 20,
                   width: 30,
@@ -196,34 +236,28 @@ const MyPosts = () => {
                         </Text>
                       </View>
 
-                      <Text style={styles.LIstText2}>
+                      {/* <Text style={styles.LIstText2}>
                         Student Grade: {item.student_grade}
                       </Text>
                       <Text style={styles.LIstText2}>
                         Student level: {item.student_level}
-                      </Text>
+                      </Text> */}
                       <Text style={styles.LIstText2}>
-                        Student tution type: {item.student_tution_type}
+                        Student tution type: {tuitionType}
                       </Text>
-                      <Text style={styles.LIstText2}>
-                        PostCode: {item.student_postal_code}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        Address: {item.student_postal_address}
-                      </Text>
-                      <Text style={styles.LIstText2}>
+                      <Text style={styles.LIstText2}>PostCode: {postCode}</Text>
+                      <Text style={styles.LIstText2}>Address: {postAdd}</Text>
+                      {/* <Text style={styles.LIstText2}>
                         Duration: {item.tutor_duration_weeks}
-                      </Text>
-                      <Text style={styles.LIstText2}>
+                      </Text> */}
+                      {/* <Text style={styles.LIstText2}>
                         Hours: {item.tutor_duration_hours}
-                      </Text>
+                      </Text> */}
                       <Text style={styles.LIstText2}>
-                        Offer Amount Type: {item.tutor_tution_offer_amount_type}
+                        Offer Amount Type: {OfferType}
                       </Text>
-                      <Text style={styles.LIstText2}>
-                        Offer Amount: {item.tutor_tution_offer_amount}
-                      </Text>
-                      <Text style={styles.LIstText2}>
+                      <Text style={styles.LIstText2}>Offer Amount: {Fee}</Text>
+                      {/* <Text style={styles.LIstText2}>
                         Subjects:{" "}
                         {ALL_POSTS_BY_CLIENT[0]?.student_subjects &&
                           ALL_POSTS_BY_CLIENT[0]?.student_subjects.map(
@@ -235,8 +269,8 @@ const MyPosts = () => {
                               );
                             }
                           )}
-                      </Text>
-                      <Text style={styles.LIstText2}>
+                      </Text> */}
+                      {/* <Text style={styles.LIstText2}>
                         Tutor Qualification:{" "}
                         {ALL_POSTS_BY_CLIENT[0]?.tutor_qualification &&
                           ALL_POSTS_BY_CLIENT[0]?.tutor_qualification.map(
@@ -248,8 +282,8 @@ const MyPosts = () => {
                               );
                             }
                           )}
-                      </Text>
-                      <Text style={styles.LIstText2}>
+                      </Text> */}
+                      {/* <Text style={styles.LIstText2}>
                         Schedule Day:{" "}
                         {ALL_POSTS_BY_CLIENT[0]?.tutor_schedule &&
                           ALL_POSTS_BY_CLIENT[0]?.tutor_schedule.map((item) => {
@@ -259,8 +293,8 @@ const MyPosts = () => {
                               </Text>
                             );
                           })}
-                      </Text>
-                      <Text style={styles.LIstText2}>
+                      </Text> */}
+                      {/* <Text style={styles.LIstText2}>
                         Schedule Time:{" "}
                         {ALL_POSTS_BY_CLIENT[0]?.Tutor_slot_time &&
                           ALL_POSTS_BY_CLIENT[0]?.Tutor_slot_time.map(
@@ -272,7 +306,7 @@ const MyPosts = () => {
                               );
                             }
                           )}
-                      </Text>
+                      </Text> */}
                     </View>
                   </TouchableOpacity>
                 </View>

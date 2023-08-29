@@ -109,7 +109,7 @@ const TutionSchedulePicker = ({}) => {
 
       if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
         // selected.push(time);
-        picker.push(obj3);
+        picker.push(time);
       } else {
         RemoveTempExercise(picker, "slot_time", obj3.slot_time);
       }
@@ -134,7 +134,7 @@ const TutionSchedulePicker = ({}) => {
 
       if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
         // selected.push(time);
-        picker.push(obj3);
+        picker.push(time);
       } else {
         RemoveTempExercise(picker, "slot_time", obj3.slot_time);
       }
@@ -158,7 +158,7 @@ const TutionSchedulePicker = ({}) => {
 
       if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
         // selected.push(time);
-        picker.push(obj3);
+        picker.push(time);
       } else {
         RemoveTempExercise(picker, "slot_time", obj3.slot_time);
       }
@@ -182,7 +182,7 @@ const TutionSchedulePicker = ({}) => {
 
       if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
         // selected.push(time);
-        picker.push(obj3);
+        picker.push(time);
       } else {
         RemoveTempExercise(picker, "slot_time", obj3.slot_time);
       }
@@ -206,7 +206,7 @@ const TutionSchedulePicker = ({}) => {
 
       if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
         // selected.push(time);
-        picker.push(obj3);
+        picker.push(time);
       } else {
         RemoveTempExercise(picker, "slot_time", obj3.slot_time);
       }
@@ -230,7 +230,7 @@ const TutionSchedulePicker = ({}) => {
 
       if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
         // selected.push(time);
-        picker.push(obj3);
+        picker.push(time);
       } else {
         RemoveTempExercise(picker, "slot_time", obj3.slot_time);
       }
@@ -254,7 +254,7 @@ const TutionSchedulePicker = ({}) => {
 
       if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
         // selected.push(time);
-        picker.push(obj3);
+        picker.push(time);
       } else {
         RemoveTempExercise(picker, "slot_time", obj3.slot_time);
       }

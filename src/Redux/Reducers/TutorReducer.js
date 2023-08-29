@@ -15,6 +15,10 @@ import {
   Tutor_Detail,
   Postal_Code_Address,
   ALL_POSTS_BY_CLIENT,
+  POST_DETAIL,
+  LEVEL_LIST,
+  GRADE_LIST,
+  SUBJECT_LIST,
 } from "../Actions/types";
 
 const initialstate = {
@@ -32,8 +36,12 @@ const initialstate = {
   Tutor_Schedule: "",
   Login_Data: "",
   Tutor_Detail: "",
+  POST_DETAIL: [],
   Postal_Code_Address: "",
   ALL_POSTS_BY_CLIENT: [],
+  LEVEL_LIST: "",
+  GRADE_LIST: "",
+  SUBJECT_LIST: "",
 };
 
 const TutorReducer = (state = initialstate, action) => {
@@ -73,6 +81,14 @@ const TutorReducer = (state = initialstate, action) => {
       return { ...state, Postal_Code_Address: action.payload };
     case ALL_POSTS_BY_CLIENT:
       return { ...state, ALL_POSTS_BY_CLIENT: action.payload };
+    case POST_DETAIL:
+      return { ...state, POST_DETAIL: action.payload };
+    case LEVEL_LIST:
+      return { ...state, LEVEL_LIST: action.payload };
+    case GRADE_LIST:
+      return { ...state, GRADE_LIST: action.payload };
+    case SUBJECT_LIST:
+      return { ...state, SUBJECT_LIST: action.payload };
   }
 
   return state;
