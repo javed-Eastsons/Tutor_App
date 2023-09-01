@@ -344,12 +344,12 @@
         "source": "com.tutor.app-main-8:/drawable-mdpi/src_assets_assests.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-6:/drawable-mdpi_src_assets_settings.png.flat",
-        "source": "com.tutor.app-main-8:/drawable-mdpi/src_assets_settings.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-6:/drawable-mdpi_src_assets_taiwan.png.flat",
         "source": "com.tutor.app-main-8:/drawable-mdpi/src_assets_taiwan.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-6:/drawable-mdpi_src_assets_settings.png.flat",
+        "source": "com.tutor.app-main-8:/drawable-mdpi/src_assets_settings.png"
     },
     {
         "merged": "com.tutor.app-merged_res-6:/drawable-mdpi_src_assets_morning.png.flat",
@@ -448,6 +448,10 @@
         "source": "com.tutor.app-main-8:/drawable-mdpi/src_assets_exam.png"
     },
     {
+        "merged": "com.tutor.app-merged_res-6:/drawable-mdpi_src_assets_tutor_icon.png.flat",
+        "source": "com.tutor.app-main-8:/drawable-mdpi/src_assets_tutor_icon.png"
+    },
+    {
         "merged": "com.tutor.app-merged_res-6:/drawable-mdpi_src_assets_back.png.flat",
         "source": "com.tutor.app-main-8:/drawable-mdpi/src_assets_back.png"
     },
@@ -490,6 +494,10 @@
     {
         "merged": "com.tutor.app-merged_res-6:/drawable-mdpi_src_assets_share.png.flat",
         "source": "com.tutor.app-main-8:/drawable-mdpi/src_assets_share.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-6:/drawable-mdpi_src_assets_educator_icon.png.flat",
+        "source": "com.tutor.app-main-8:/drawable-mdpi/src_assets_educator_icon.png"
     },
     {
         "merged": "com.tutor.app-merged_res-6:/drawable-mdpi_src_assets_pastedgraphic7.png.flat",

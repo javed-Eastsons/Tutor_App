@@ -156,7 +156,7 @@ const TutorLanding = () => {
               Keep your profile {"\n"}current
             </Text>
             <TouchableOpacity
-              //  onPress={() => navigation.navigate('Auth2')}
+              onPress={() => navigation.navigate("Auth2")}
               style={styles.SearchButton}
             >
               <Text

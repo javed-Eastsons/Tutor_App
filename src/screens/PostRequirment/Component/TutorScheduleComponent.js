@@ -107,7 +107,7 @@ const TutionScheduleComponent = ({}) => {
       obj3["slot_time"] = time;
 
       if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
-        // selected.push(time);
+        //selected.push(time);
         picker.push(time);
       } else {
         RemoveTempExercise(picker, "slot_time", obj3.slot_time);
@@ -301,6 +301,8 @@ const TutionScheduleComponent = ({}) => {
         picker.push(obj3);
       } else {
         RemoveTempExercise(picker, "tutor_schedule", obj3.tutor_schedule);
+
+        //  RemoveTempExercise(picker, "slot_time", obj3.slot_time);
       }
     }
     setSelected1(picker);

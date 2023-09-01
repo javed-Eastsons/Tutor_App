@@ -23,6 +23,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
+import { GetUserProfile } from "../Redux/Actions/Tutors";
 import { editProfile } from "../Redux/Actions/Tutors";
 import { PersonalInfo_Data } from "../Redux/Actions/types";
 
@@ -34,6 +35,12 @@ const PersonalInfo = ({ route }) => {
 
   const [showemail, setShowEmail] = React.useState("Year of Birth");
   const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
+  const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
+  console.log(
+    SINGLE_USER,
+    "SINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USER"
+  );
 
   console.log(GET_USER_ID, "Pika");
   const [pickerServices, setPickerServices] = useState(false);
@@ -41,7 +48,9 @@ const PersonalInfo = ({ route }) => {
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [show, setShow] = useState(false);
-  const [Age, setAge] = useState("");
+  const [Age, setAge] = useState(0);
+  const [userDetail, setUserDetail] = useState([]);
+  const [loader, setLoader] = useState(false);
 
   const onChange = (event, selectedDate) => {
     console.log("dddddddddddddddd");
@@ -148,16 +157,28 @@ const PersonalInfo = ({ route }) => {
   const [markGender, setMarkGender] = useState("");
   const [increateTime, setincreseTime] = useState(new Date());
 
-  // useEffect(() => {
-  //     for (let index = increateTime; index < date; index++) {
-  //         // const element = array[index];
-  //         console.log(index, '[[[[[[[[[[[[[')
-  //     }
-  // }, [increateTime])
+  useEffect(() => {
+    dispatch(GetUserProfile(Login_Data.userid));
+  }, []);
+
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+  }, [SINGLE_USER]);
+
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+    setAge(userDetail[0]?.Extra_info[0]?.age);
+    setMarkGender(userDetail[0]?.Extra_info[0]?.gender);
+    setSelectNational(userDetail[0]?.Extra_info[0]?.nationality);
+  }, [SINGLE_USER]);
 
   var date1 = moment(new Date()).format("MM-YYYY");
   var date2 = moment(date).format("YYYY");
 
+  console.log(
+    userDetail[0]?.Extra_info[0]?.age,
+    "AAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  );
   var Difference_In_Time = date1 - date2;
   //console.log('datesssssssssss', date2);
   var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
@@ -358,6 +379,21 @@ const PersonalInfo = ({ route }) => {
                           style={{fontSize:13,color:'#000', paddingLeft:wp(4)}}
                          /> */}
                 {console.log("yourage", Age)}
+                {/* <TextInput
+                  style={{
+                    color: "#000",
+                    fontSize: 14,
+                    fontWeight: "800",
+                    marginLeft: wp(3),
+                  }}
+                  underlineColorAndroid="rgba(0,0,0,0)"
+                  placeholder={"Enter age"}
+                  keyboardType="default"
+                  returnKeyType="done"
+                  autoCapitalize="none"
+                  value={Age}
+                  // onChangeText={(text) => setAge(text)}
+                /> */}
                 <Text
                   style={{ fontSize: 15, color: "#000", paddingLeft: wp(4) }}
                 >
@@ -523,6 +559,7 @@ const PersonalInfo = ({ route }) => {
                   style={{ color: "#000", fontSize: 13, marginLeft: wp(4) }}
                 >
                   {national}
+                  {/* {selectnational} */}
                 </Text>
               </View>
               <View

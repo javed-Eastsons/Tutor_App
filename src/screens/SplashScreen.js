@@ -31,8 +31,10 @@ const SplashScreen = ({ navigation }) => {
     let token = await AsyncStorage.getItem("token");
     let userType = await AsyncStorage.getItem("user_type");
     let userID = await AsyncStorage.getItem("user_id");
+
     setTimeout(function async() {
       console.log(token, "SplashScreen", userType, "USerType", userID);
+
       if (token && userType == "I am an Educator") {
         let obj = {
           userid: userID,
@@ -50,16 +52,19 @@ const SplashScreen = ({ navigation }) => {
           userid: userID,
           userType: userType,
         };
+
         console.log(obj, "BBBBBBBBBBBBBB");
+
         dispatch({
           type: Login_Data,
           payload: obj,
         });
         navigation.replace("Auth");
+
         // navigation.replace("Auth2");
       } else {
-        navigation.replace("YourProfle");
-        //navigation.replace("IntroScreen");
+        //navigation.replace("YourProfle");
+        navigation.replace("IntroScreen");
       }
     }, 3000);
   };

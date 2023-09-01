@@ -31,11 +31,14 @@ import {
   GetfilterSubject,
   GetfilterQualification,
   GetQuickData,
+
 } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
 import RadioGroup from "react-native-radio-buttons-group";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MultiSelect from "react-native-multiple-select";
+import { getLevelList, getGradeList, getSubjectList } from '../Redux/Actions/Tutors'
+import { Dropdown } from "react-native-element-dropdown";
 
 var selectArray = [];
 var selectFilter = [];
@@ -51,6 +54,7 @@ const OurTutor = ({ props, route }) => {
   const [Secondary, setSecondary] = useState("Secondary");
   const [JCPre, setJCPre] = useState("JC");
   const [IB, setIB] = useState("IB");
+  const [isFocus, setIsFocus] = useState(false);
 
   const [AEIS, setAEIS] = useState("AEIS");
 
@@ -64,6 +68,9 @@ const OurTutor = ({ props, route }) => {
   const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { GET_QUICK_DATA } = useSelector((state) => state.TutorsearchReducer);
+  const { LEVEL_LIST } = useSelector((state) => state.TutorReducer);
+  const { SUBJECT_LIST } = useSelector((state) => state.TutorReducer);
+  const { GRADE_LIST } = useSelector((state) => state.TutorReducer);
   console.log(
     "🚀 ~ file: OurTutor.js ~ line 62 ~ OurTutor ~ GET_QUICK_DATA",
     GET_QUICK_DATA
@@ -77,7 +84,7 @@ const OurTutor = ({ props, route }) => {
 
   console.log("All Tutor", GET_ALLTUTORS);
   // console.log('AAAAAAAAAAAAAAAAAAAAFILTER@@@@@@@@@@@@@@@@@@@@@@@@@@@', GET_FILTER_DATA)
-
+console.log(GRADE_LIST, 'Filter-Grade')
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedQual, setSelectedQual] = useState([]);
   const [selectedlevel, setSelectedlevel] = useState([]);
@@ -86,6 +93,7 @@ const OurTutor = ({ props, route }) => {
   const [selectedSubject, setSelectedSubject] = useState([]);
   const [selected, setSelected] = useState([]);
   const [allTutor, setAllTutor] = useState([]);
+  const [selectListTutor, setSelectListTutor] = useState("");
 
   const renderList = ({ item, index }) => {
     const { id, Tutoring_Level, Tutoring_Subjects } = item;
@@ -184,11 +192,9 @@ const OurTutor = ({ props, route }) => {
       console.log("ddddddddddddddddddddddd");
     } else {
       const obj3 = {};
-      data.forEach((element, index) => {
         // console.log('""""""""""""""', element);
-        obj3["Levels_search"] = element;
+        obj3["Levels_search"] = data;
         // setSelectedQual(element)
-      });
       if (!isExistInArray(selectFilter, "Levels_search", obj3.Levels_search)) {
         selectFilter.push(obj3);
 
@@ -304,7 +310,8 @@ const OurTutor = ({ props, route }) => {
     // Set Selected Items
 
     createlevel(selectedItemslevel);
-    setSelectedlevel(selectedItemslevel);
+    // setSelectedlevel(selectedItemslevel);
+    setSelectListTutor(selectedItemslevel)
     // console.log('Level', selectedlevel)
   };
 
@@ -407,10 +414,58 @@ const OurTutor = ({ props, route }) => {
     //  setstatusRadioButtons(radioButtonsArray);
   }
 
+ 
   const items = [
-    // name key is must. It is to show the text in front
-    { id: 1, name: "India" },
-    { id: 2, name: "Singapore" },
+    {
+      id: 1,
+      country: "Singapore",
+      countryFlag: require("../Assets/Singapore.png"),
+    },
+    {
+      id: 2,
+      country: "Malaysia",
+      countryFlag: require("../Assets/Malaysia.png"),
+    },
+    {
+      id: 3,
+      country: "China",
+      countryFlag: require("../Assets/china.png"),
+    },
+    {
+      id: 4,
+      country: "India",
+      countryFlag: require("../Assets/flag.png"),
+    },
+    {
+      id: 5,
+      country: "Taiwan",
+      countryFlag: require("../Assets/Taiwan.png"),
+    },
+    {
+      id: 6,
+      country: "Japan",
+      countryFlag: require("../Assets/Japan.png"),
+    },
+    {
+      id: 7,
+      country: "United States",
+      countryFlag: require("../Assets/US.png"),
+    },
+    {
+      id: 8,
+      country: "Canada",
+      countryFlag: require("../Assets/Canada.png"),
+    },
+    {
+      id: 9,
+      country: "United Kingdom",
+      countryFlag: require("../Assets/UK.png"),
+    },
+    {
+      id: 10,
+      country: "Philippines",
+      countryFlag: require("../Assets/Philippines.png"),
+    },
   ];
 
   const [subjects, setSubjects] = useState([
@@ -909,6 +964,22 @@ const OurTutor = ({ props, route }) => {
     console.log("aaaaaaaaaaa", selectArray);
   };
 
+  useEffect(() => {
+    dispatch(getLevelList());
+
+  }, []);
+  useEffect(() => {
+
+    dispatch(getGradeList(selectListTutor));
+
+
+  }, [selectListTutor]);
+
+  useEffect(() => {
+
+    dispatch(getSubjectList(selectListTutor));
+
+  }, [selectListTutor]);
   return (
     <>
       <View style={styles.container}>
@@ -1489,9 +1560,32 @@ const OurTutor = ({ props, route }) => {
                     <Text style={{ color: "grey", fontSize: 14 }}>Level:</Text>
                   </View>
                   <View style={styles.MainContainer}>
-                    <MultiSelect
-                      items={state_list}
-                      uniqueKey="label"
+                    
+
+                    <Dropdown
+                      style={[styles.dropdown, isFocus && { borderColor: "black" }]}
+                      placeholderStyle={{ fontSize: 16, color: "#2F5597" }}
+                      selectedTextStyle={styles.selectedTextStyle}
+                      itemTextStyle={{ color: "#2F5597" }}
+                      iconStyle={styles.iconStyle}
+                      data={LEVEL_LIST?.Level_list}
+                      labelField="school_level_name"
+                      valueField="school_level_name"
+                      allowFontScaling={false}
+                      //   maxHeight={100}
+                      placeholder='Select Level'
+                      value={selectListTutor}
+                      onFocus={() => setIsFocus(true)}
+                      onBlur={() => setIsFocus(false)}
+                      onChange={(item) => {
+                        onSelectedlevel(item.school_level_name)
+                        // setSelectListTutor(item.school_level_name);
+                        setIsFocus(false);
+                      }}
+                    />
+                    {/* <MultiSelect
+                      items={LEVEL_LIST?.Level_list}
+                      uniqueKey="school_level_name"
                       onSelectedItemsChange={onSelectedlevel}
                       selectedItems={selectedlevel}
                       selectText="Select one or more"
@@ -1505,14 +1599,14 @@ const OurTutor = ({ props, route }) => {
                       selectedItemTextColor="#CCC"
                       selectedItemIconColor="#CCC"
                       itemTextColor="#000"
-                      displayKey="label"
+                      displayKey="school_level_name"
                       searchInputStyle={{ color: "#CCC" }}
                       // submitButtonColor="#000"
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
                       hideSubmitButton
                       styleItemsContainer={{ height: 150 }}
-                    />
+                    /> */}
                   </View>
 
                   <View
@@ -1525,9 +1619,10 @@ const OurTutor = ({ props, route }) => {
                     <Text style={{ color: "grey", fontSize: 14 }}>Grade:</Text>
                   </View>
                   <View style={styles.MainContainer}>
+                  
                     <MultiSelect
-                      items={grade_list}
-                      uniqueKey="label"
+                      items={GRADE_LIST?.Grade_List}
+                      uniqueKey="grade_name"
                       onSelectedItemsChange={onSelectedGrade}
                       selectedItems={SelectedGrade}
                       selectText="Select one or more"
@@ -1541,13 +1636,13 @@ const OurTutor = ({ props, route }) => {
                       selectedItemTextColor="#CCC"
                       selectedItemIconColor="#CCC"
                       itemTextColor="#000"
-                      displayKey="label"
+                      displayKey="grade_name"
                       searchInputStyle={{ color: "#CCC" }}
                       // submitButtonColor="#000"
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
                       hideSubmitButton
-                      //  styleItemsContainer={{ height: 150, }}
+                    //  styleItemsContainer={{ height: 150, }}
                     />
                   </View>
 
@@ -1583,7 +1678,7 @@ const OurTutor = ({ props, route }) => {
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
                       hideSubmitButton
-                      //   styleItemsContainer={{ height: 150, }}
+                    //   styleItemsContainer={{ height: 150, }}
                     />
                   </View>
 
@@ -1600,8 +1695,8 @@ const OurTutor = ({ props, route }) => {
                   </View>
                   <View style={styles.MainContainer}>
                     <MultiSelect
-                      items={subject_list}
-                      uniqueKey="label"
+                     items={SUBJECT_LIST?.Subject_List}
+                     uniqueKey="subjects_name"
                       onSelectedItemsChange={onSelectedSubject}
                       selectedItems={selectedSubject}
                       selectText="Select one or more"
@@ -1615,13 +1710,13 @@ const OurTutor = ({ props, route }) => {
                       selectedItemTextColor="#CCC"
                       selectedItemIconColor="#CCC"
                       itemTextColor="#000"
-                      displayKey="label"
+                      displayKey="subjects_name"
                       searchInputStyle={{ color: "#CCC" }}
                       // submitButtonColor="#000"
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
                       hideSubmitButton
-                      //    styleItemsContainer={{ height: 150, }}
+                    //    styleItemsContainer={{ height: 150, }}
                     />
                   </View>
 
@@ -1749,7 +1844,7 @@ const OurTutor = ({ props, route }) => {
                   <View style={styles.MainContainer}>
                     <MultiSelect
                       items={items}
-                      uniqueKey="name"
+                      uniqueKey="country"
                       onSelectedItemsChange={onSelectedItemsChange}
                       selectedItems={selectedItems}
                       selectText="Select one or more"
@@ -1763,7 +1858,7 @@ const OurTutor = ({ props, route }) => {
                       selectedItemTextColor="#CCC"
                       selectedItemIconColor="#CCC"
                       itemTextColor="#000"
-                      displayKey="name"
+                      displayKey="country"
                       searchInputStyle={{ color: "#CCC" }}
                       // submitButtonColor="#000"
                       //submitButtonText="Submit"
@@ -2277,5 +2372,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     //  height: hp(50),
+  },
+  dropdown: {
+    height: 30,
+    width: "95%",
+    borderColor: "black",
+
+    alignSelf: "center",
+    backgroundColor: "#fff",
+  },
+  selectedTextStyle: {
+    fontSize: 13,
+    color: "#000",
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
   },
 });

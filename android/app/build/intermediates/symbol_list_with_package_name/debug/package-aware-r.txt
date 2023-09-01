@@ -1644,6 +1644,7 @@ drawable src_assets_dollar
 drawable src_assets_downbutton
 drawable src_assets_duration
 drawable src_assets_edit
+drawable src_assets_educator_icon
 drawable src_assets_evening
 drawable src_assets_exam
 drawable src_assets_expand
@@ -1721,6 +1722,7 @@ drawable src_assets_togglebb
 drawable src_assets_tutionsjobs
 drawable src_assets_tutiontype
 drawable src_assets_tutiontypes
+drawable src_assets_tutor_icon
 drawable src_assets_twitter
 drawable src_assets_uk
 drawable src_assets_upcoming

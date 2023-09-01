@@ -19,6 +19,7 @@ import {
   LEVEL_LIST,
   GRADE_LIST,
   SUBJECT_LIST,
+  SINGLE_USER,
 } from "../Actions/types";
 
 const initialstate = {
@@ -41,6 +42,7 @@ const initialstate = {
   ALL_POSTS_BY_CLIENT: [],
   LEVEL_LIST: "",
   GRADE_LIST: "",
+  SINGLE_USER: [],
   SUBJECT_LIST: "",
 };
 
@@ -89,6 +91,8 @@ const TutorReducer = (state = initialstate, action) => {
       return { ...state, GRADE_LIST: action.payload };
     case SUBJECT_LIST:
       return { ...state, SUBJECT_LIST: action.payload };
+    case SINGLE_USER:
+      return { ...state, SINGLE_USER: action.payload };
   }
 
   return state;

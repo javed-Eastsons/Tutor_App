@@ -9,6 +9,7 @@ import {
   LEVEL_LIST,
   GRADE_LIST,
   SUBJECT_LIST,
+  SINGLE_USER,
 } from "./types";
 import AsyncStorage from "@react-native-community/async-storage";
 import axios, * as others from "axios";
@@ -105,6 +106,36 @@ export const getSubjectList = (Level) => {
   };
 };
 
+export const GetUserProfile = (UserId, navigation) => {
+  return async (dispatch, getState) => {
+    const url1 =
+      "https://refuel.site/projects/tutorapp/APIs/UserDetails/SingleUserProfile.php?user_id=" +
+      UserId;
+    console.log(url1, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    await fetch(url1, {
+      method: "GET",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": authtoken,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(
+          "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+          responseJson.Single_User_details
+        );
+        if (responseJson.status == true) {
+          dispatch({
+            type: SINGLE_USER,
+            payload: responseJson.Single_User_details,
+          });
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+};
 export const GetPostDetail = (Post_ID, navigation) => {
   return async (dispatch, getState) => {
     const url1 =
@@ -473,35 +504,33 @@ export const editProfile = (
   Tutoring_Data,
   navigation
 ) => {
-  console.log(GET_USER_ID, "APIID");
-  console.log(imageSource, "imageSourceAPI");
-  console.log(PersonalInfo_Data, "PersonalInfo_Data");
-  console.log(AcademicHistory_Data, "AcademicHistory_Data");
-  console.log(Tution_Type, "Tution_Type");
+  // console.log(GET_USER_ID, "APIID");
+  // console.log(imageSource, "imageSourceAPI");
+  // console.log(PersonalInfo_Data, "PersonalInfo_Data");
+  // console.log(AcademicHistory_Data, "AcademicHistory_Data");
+  // console.log(Tution_Type, "Tution_Type");
 
-  console.log(Tutoring_Data, "Tutoring_Data_LEVEL");
-  console.log(TutionStatus_Data, "WORD_For_YOU");
+  // console.log(Tutoring_Data.selectArray, "Tutoring_Data_LEVEL");
+  // console.log(TutionStatus_Data, "WORD_For_YOU");
 
-  let data1 = JSON.stringify([
-    {
-      user_id: GET_USER_ID,
-      age: PersonalInfo_Data?.Age,
-      profile_image: imageSource,
-      gender: PersonalInfo_Data?.markGender,
-      nationality: PersonalInfo_Data?.selectnational,
-      qualification: AcademicHistory_Data?.qualification,
-      name_of_school: AcademicHistory_Data?.school,
-      Course_Exam: AcademicHistory_Data?.exam,
-      tutor_status: TutionStatus_Data?.WorkAs,
-      tuition_type: Tution_Type?.TutionType,
-      postal_code: Tution_Type?.Postal_Code,
-      location: Tution_Type?.address,
-      tutor_tutoring_experience_years: Tutoring_Data?.state,
-      tutor_tutoring_experience_months: Tutoring_Data?.state2,
-      personal_statement: TutionStatus_Data?.statement,
-    },
-    Tutoring_Data?.selectArray,
-  ]);
+  let data1 = JSON.stringify({
+    user_id: GET_USER_ID,
+    age: PersonalInfo_Data?.Age,
+    profile_image: imageSource,
+    gender: PersonalInfo_Data?.markGender,
+    nationality: PersonalInfo_Data?.selectnational,
+    qualification: AcademicHistory_Data?.qualification,
+    name_of_school: AcademicHistory_Data?.school,
+    Course_Exam: AcademicHistory_Data?.exam,
+    tutor_status: TutionStatus_Data?.WorkAs,
+    tuition_type: Tution_Type?.TutionType,
+    postal_code: Tution_Type?.Postal_Code,
+    location: Tution_Type?.address,
+    travel_distance: Tution_Type?.Distance,
+    personal_statement: TutionStatus_Data?.statement,
+    HistoryAcademy: AcademicHistory_Data.History,
+    TutoringDetail: Tutoring_Data.selectArray,
+  });
 
   console.log(
     data1,
@@ -512,7 +541,7 @@ export const editProfile = (
     let config = {
       method: "POST",
       maxBodyLength: Infinity,
-      url: "https://refuel.site/projects/tutorapp/APIs/UserRegistration/CompleteUserProfile.php",
+      url: "https://refuel.site/projects/tutorapp/APIs/UserRegistration/CompleteUserProfileLoop.php",
       headers: {
         "Content-Type": "application/json",
       },

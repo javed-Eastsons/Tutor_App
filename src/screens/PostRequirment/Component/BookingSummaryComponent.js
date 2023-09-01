@@ -178,7 +178,11 @@ const BookingSummaryComponent = () => {
         >
           <TouchableOpacity
             onPress={() => SelectTab("tutiontype")}
-            style={[styles.cardFourBoxes, styles.shadowPropFourBoxes]}
+            style={[
+              styles.cardFourBoxes,
+              styles.shadowPropFourBoxes,
+              { borderBottomWidth: currentTab == "tutiontype" ? 1 : 0 },
+            ]}
           >
             <Image
               source={require("../../../Assets/Student.png")}
@@ -187,7 +191,11 @@ const BookingSummaryComponent = () => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => SelectTab("qualification")}
-            style={[styles.cardFourBoxes1, styles.shadowPropFourBoxes1]}
+            style={[
+              styles.cardFourBoxes1,
+              styles.shadowPropFourBoxes1,
+              { borderBottomWidth: currentTab == "qualification" ? 1 : 0 },
+            ]}
           >
             <Image
               source={require("../../../Assets/Qualification.png")}
@@ -196,7 +204,11 @@ const BookingSummaryComponent = () => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => SelectTab("duration")}
-            style={[styles.cardFourBoxes1, styles.shadowPropFourBoxes1]}
+            style={[
+              styles.cardFourBoxes1,
+              styles.shadowPropFourBoxes1,
+              { borderBottomWidth: currentTab == "duration" ? 1 : 0 },
+            ]}
           >
             <Image
               source={require("../../../Assets/Duration.png")}
@@ -205,7 +217,11 @@ const BookingSummaryComponent = () => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => SelectTab("doller")}
-            style={[styles.cardFourBoxes1, styles.shadowPropFourBoxes1]}
+            style={[
+              styles.cardFourBoxes1,
+              styles.shadowPropFourBoxes1,
+              { borderBottomWidth: currentTab == "doller" ? 1 : 0 },
+            ]}
           >
             <Image
               source={require("../../../Assets/Dollar.png")}
@@ -215,7 +231,11 @@ const BookingSummaryComponent = () => {
 
           <TouchableOpacity
             onPress={() => SelectTab("time")}
-            style={[styles.cardFourBoxes1, styles.shadowPropFourBoxes1]}
+            style={[
+              styles.cardFourBoxes1,
+              styles.shadowPropFourBoxes1,
+              { borderBottomWidth: currentTab == "time" ? 1 : 0 },
+            ]}
           >
             <Image
               source={require("../../../Assets/Time.png")}
@@ -227,44 +247,64 @@ const BookingSummaryComponent = () => {
         {currentTab == "tutiontype" ? (
           <View
             style={{
-              height: 120,
+              //height: 150,
               width: "100%",
-              marginTop: 90,
+              //marginTop: 50,
               padding: 10,
             }}
           >
-            <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
-              <View style={{ height: 20, justifyContent: "center" }}>
-                {Student_Detail.Student_Data.map((student) => (
-                  <View
-                    key={student.Id}
-                    style={{
-                      height: 100,
-                      width: "100%",
-                      marginBottom: 10,
-                      padding: 10,
-                      backgroundColor: "#fff",
-                    }}
-                  >
-                    {/* <Text style={styles.Information}>
+            <View style={{ justifyContent: "center", width: "100%" }}>
+              {Student_Detail.Student_Data.map((student) => (
+                <View
+                  key={student.Id}
+                  style={{
+                    height: 100,
+                    width: "100%",
+                    marginBottom: 10,
+                    padding: 10,
+                    backgroundColor: "#fff",
+                  }}
+                >
+                  {/* <Text style={styles.Information}>
                       Student ID: {student.Id}
                     </Text> */}
-                    <Text style={styles.Information}>{student.Grade}</Text>
-                    <Text style={styles.Information}>{student.Level}</Text>
-                    <Text style={styles.Information}>
-                      {student.ALL_Subjects.join(", ")}
-                    </Text>
-                    <Text
-                      style={{ color: "#2F5597" }}
-                      ellipsizeMode="clip"
-                      numberOfLines={1}
-                    >
-                      - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                      - - - - - -
-                    </Text>
+                  <View style={{ flexDirection: "row" }}>
+                    <View style={{ width: wp(80) }}>
+                      <Text style={styles.Information}>{student.Level}</Text>
+                      <Text style={styles.Information}>{student.Grade}</Text>
+                    </View>
+                    <View>
+                      <TouchableOpacity
+                        style={{
+                          height: 30,
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Image
+                          source={require("../../../Assets/Edit.png")}
+                          style={{
+                            height: 20,
+                            width: 20,
+                            position: "absolute",
+                          }}
+                        />
+                      </TouchableOpacity>
+                    </View>
                   </View>
-                ))}
-              </View>
+                  <Text style={styles.Information}>
+                    {student.ALL_Subjects.join(", ")}
+                  </Text>
+                  <Text
+                    style={{ color: "#2F5597" }}
+                    ellipsizeMode="clip"
+                    numberOfLines={1}
+                  >
+                    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                    - - - - -
+                  </Text>
+                </View>
+              ))}
             </View>
 
             {/* <View style={{ flexDirection: "row", width: "100%" }}>

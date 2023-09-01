@@ -34,14 +34,22 @@ const TutorSearch = () => {
   const [forwardArrrow, setForwardArrow] = useState(false);
   const [loader, setLoader] = useState(false);
   const [address, setAddress] = useState("");
+
   const presspostalcode = () => {
+    console.log("cdddddddddddddd");
+
     if (postalcode == "") {
+      console.log("Inside IFFFF");
       Alert.alert("Enter postal code");
     } else {
+      console.log("Inside ELSEEEEEEEEEE");
       setLoader(true);
-      dispatch(GetResultAfterPostcode(postalcode, navigation))
-        .then((res) => setLoader(false))
-        .finally(() => setLoader(false));
+      setTimeout(() => {
+        dispatch(GetResultAfterPostcode(postalcode, navigation))
+          .then((res) => setLoader(false))
+          .finally(() => setLoader(false));
+        setLoader(false);
+      }, 2000);
     }
   };
   const geocodinApi = () => {
@@ -111,8 +119,13 @@ const TutorSearch = () => {
   };
 
   const forwardArrowFunc = () => {
-    geocodinApi();
-    setForwardArrow(true);
+    console.log("QQQQQQQQQQQQQQQQQQQQQQ");
+    setLoader(true);
+    setTimeout(() => {
+      geocodinApi();
+      setForwardArrow(true);
+      setLoader(false);
+    }, 2000);
   };
   return (
     <SafeAreaView style={styles.container}>

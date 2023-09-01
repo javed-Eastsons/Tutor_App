@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -37,7 +37,11 @@ import StarRating from "react-native-star-rating";
 import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { Dropdown } from "react-native-element-dropdown";
 import { Student_Detail } from "../Redux/Actions/types";
-import { getLevelList,getGradeList,getSubjectList } from "../Redux/Actions/Tutors";
+import {
+  getLevelList,
+  getGradeList,
+  getSubjectList,
+} from "../Redux/Actions/Tutors";
 
 var selectArray = [];
 var selectFilter = [];
@@ -65,8 +69,11 @@ const StudentBookingInfo = ({ route }) => {
   const [moredetail, setMoreDetail] = useState("showSection");
 
   const [records, setRecords] = useState(selectArray);
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  const [editId, setEditId] = useState(); // ID of the record you want to edit
   const { LEVEL_LIST } = useSelector((state) => state.TutorReducer);
-  const {SUBJECT_LIST}= useSelector((state) => state.TutorReducer);
+  const { SUBJECT_LIST } = useSelector((state) => state.TutorReducer);
 
   const { GRADE_LIST } = useSelector((state) => state.TutorReducer);
 
@@ -148,6 +155,33 @@ const StudentBookingInfo = ({ route }) => {
     const updatedRecords = records.filter((record) => record.Id !== idToDelete);
     console.log(updatedRecords, "AAAAAAAAAAAA");
     setRecords(updatedRecords);
+  };
+
+  const handleEdit = (idToEdit) => {
+    console.log(idToEdit);
+    setSelectedlevel([]);
+    setShowEditModal(true);
+    setEditId(idToEdit);
+  };
+
+  const UpdateRecord = () => {
+    console.log(editId);
+    const newData = records.map((record) => {
+      if (record.Id === editId) {
+        return {
+          ...record,
+          Grade: value2,
+          Level: value,
+          ALL_Subjects: selectedlevel,
+          // You can update other fields here as well
+        };
+      }
+      return record;
+    });
+
+    setRecords(newData);
+    console.log(newData, "newDatanewDatanewDatanewDatanewData");
+    setShowEditModal(false);
   };
 
   const onSelectedlevel = (selectedItemslevel) => {
@@ -262,19 +296,14 @@ const StudentBookingInfo = ({ route }) => {
   };
   useEffect(() => {
     dispatch(getLevelList());
-   
   }, []);
-  useEffect(() => {
-   
-      dispatch(getGradeList(value));
 
+  useEffect(() => {
+    dispatch(getGradeList(value));
   }, [value]);
   useEffect(() => {
-
     dispatch(getSubjectList(value));
-
   }, [value]);
-
 
   return (
     <SafeAreaView style={{ flex: 1, marginHorizontal: 10 }}>
@@ -425,6 +454,7 @@ const StudentBookingInfo = ({ route }) => {
                 </View>
                 <View style={{ height: 80, width: "10%" }}>
                   <TouchableOpacity
+                    onPress={() => handleEdit(item.Id)}
                     style={{
                       height: 40,
                       width: "100%",
@@ -499,7 +529,7 @@ const StudentBookingInfo = ({ route }) => {
                   </Text>
                 </View>
                 <View style={{ width: "100%" }}>
-                <Dropdown
+                  <Dropdown
                     style={[
                       styles.dropdown,
                       isFocus && { borderColor: "black" },
@@ -632,7 +662,7 @@ const StudentBookingInfo = ({ route }) => {
                   //   right: -230,
                 }}
               >
-                <Text style={styles.ButtonText}>Done1</Text>
+                <Text style={styles.ButtonText}>Done</Text>
               </TouchableOpacity>
             </View>
           ) : (
@@ -707,6 +737,170 @@ const StudentBookingInfo = ({ route }) => {
           </TouchableOpacity>
         </View>
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showEditModal}
+        onRequestClose={() => {
+          setShowEditModal(false);
+        }}
+      >
+        <View style={styles.modalWrapper2}>
+          <View style={styles.modalWrapp}>
+            <View
+              style={{
+                height: "100%",
+                width: "100%",
+                padding: 10,
+                //  backgroundColor: "red",
+              }}
+            >
+              <View style={styles.DetailContainer}>
+                <View style={{ height: 100, width: "30%" }}>
+                  <Text style={{ marginTop: 10, fontSize: 16, color: "black" }}>
+                    Level :
+                  </Text>
+                </View>
+                <View style={{ width: "60%" }}>
+                  <Dropdown
+                    style={[
+                      styles.dropdown,
+                      isFocus && { borderColor: "black" },
+                    ]}
+                    placeholderStyle={{ fontSize: 12 }}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    iconStyle={styles.iconStyle}
+                    itemTextStyle={{ color: "grey", fontSize: 12 }}
+                    data={LEVEL_LIST?.Level_list}
+                    labelField="school_level_name"
+                    valueField="school_level_name"
+                    allowFontScaling={false}
+                    placeholder={!isFocus ? " " : "..."}
+                    value={value}
+                    onFocus={() => setIsFocus(true)}
+                    onBlur={() => setIsFocus(false)}
+                    onChange={(item) => {
+                      setValue(item.school_level_name);
+                      setIsFocus(false);
+                    }}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.DetailContainer}>
+                <View style={{ height: 100, width: "30%" }}>
+                  <Text style={{ marginTop: 10, fontSize: 16, color: "black" }}>
+                    Grade :
+                  </Text>
+                </View>
+                <View style={{ width: "60%" }}>
+                  <Dropdown
+                    style={[
+                      styles.dropdown,
+                      isFocus2 && { borderColor: "black" },
+                    ]}
+                    placeholderStyle={{ fontSize: 12 }}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    iconStyle={styles.iconStyle}
+                    itemTextStyle={{ color: "grey", fontSize: 12 }}
+                    data={GRADE_LIST?.Grade_List}
+                    labelField="grade_name"
+                    valueField="grade_name"
+                    allowFontScaling={false}
+                    placeholder={!isFocus2 ? " " : "..."}
+                    value={value2}
+                    onFocus={() => setIsFocus2(true)}
+                    onBlur={() => setIsFocus2(false)}
+                    onChange={(item) => {
+                      setValue2(item.grade_name);
+                      setIsFocus2(false);
+                    }}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.DetailContainer}>
+                <View style={{ height: 100, width: "30%" }}>
+                  <Text style={{ marginTop: 10, fontSize: 16, color: "black" }}>
+                    Subjects :
+                  </Text>
+                </View>
+
+                <View style={styles.SelectMoreContainer}>
+                  <MultiSelect
+                    items={SUBJECT_LIST?.Subject_List}
+                    uniqueKey="subjects_name"
+                    onSelectedItemsChange={onSelectedlevel}
+                    selectedItems={selectedlevel}
+                    //  selectText="Select one or more"
+                    searchInputPlaceholderText="Search Items..."
+                    onChangeInput={(text) =>
+                      console.log("SSSSSSSSSSSSSS", text)
+                    }
+                    tagRemoveIconColor="#CCC"
+                    tagBorderColor="#CCC"
+                    tagTextColor="#000"
+                    styleTextTag={{ fontSize: 12 }}
+                    selectedItemTextColor="red"
+                    selectedItemIconColor="#CCC"
+                    itemTextColor="#000"
+                    itemFontSize={12}
+                    fontSize={14}
+                    displayKey="subjects_name"
+                    searchInputStyle={{ color: "#CCC", fontSize: 12 }}
+                    ///styleRowList={{ width: "90%" }}
+                    // submitButtonColor="#000"
+                    //submitButtonText="Submit"
+                    //  styleDropdownMenu={{ backgroundColor: "red" }}
+                    hideSubmitButton
+                    styleItemsContainer={{
+                      height: 100,
+                    }}
+                  />
+                </View>
+              </View>
+              <View style={{ flexDirection: "row" }}>
+                <TouchableOpacity
+                  onPress={() => setShowEditModal(false)}
+                  style={{
+                    height: 35,
+                    width: 100,
+                    backgroundColor: "#F6BE00",
+                    alignSelf: "flex-start",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 10,
+                    //bottom: 0,
+                    //right: 10,
+                    // position: "absolute",
+                    //   right: -230,
+                  }}
+                >
+                  <Text style={styles.ButtonText}>Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => UpdateRecord()}
+                  style={{
+                    height: 35,
+                    width: 100,
+                    backgroundColor: "#F6BE00",
+                    alignSelf: "flex-end",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 10,
+                    bottom: 0,
+                    right: 10,
+                    position: "absolute",
+                    //   right: -230,
+                  }}
+                >
+                  <Text style={styles.ButtonText}>Update</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -738,11 +932,24 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 10,
   },
+  // DetailContainer: {
+  //   flexDirection: "row",
+  //   height: "20%",
+  //   width: "100%",
+  // },
+
   DetailContainer: {
     flexDirection: "row",
-    height: "20%",
+    height: "25%",
     width: "100%",
   },
+  modalWrapper2: {
+    flex: 1,
+    backgroundColor: "#00000040",
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  modalWrapp: { height: hp(48), width: wp(100), backgroundColor: "#fff" },
   SelectMoreContainer: {
     // height: 150,
     width: "60%",
@@ -850,8 +1057,7 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     fontSize: 12,
-    color:'#000'
-
+    color: "#000",
   },
   iconStyle: {
     width: 20,
