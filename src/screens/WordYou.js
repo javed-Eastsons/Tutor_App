@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   SafeAreaView,
@@ -23,17 +23,37 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import RNPickerSelect from "react-native-picker-select";
 import { useDispatch, useSelector } from "react-redux";
-import { editProfile } from "../Redux/Actions/Tutors";
+import { editProfile, GetUserProfile } from "../Redux/Actions/Tutors";
 import { TutionStatus_Data } from "../Redux/Actions/types";
 
 const WordYou = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
+  const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
 
   const [mark, setmark] = useState("");
+  const [userDetail, setUserDetail] = useState([]);
   const [yourdata, setYourdata] = useState("");
   console.log("LLLLLLLLLLLLLLLLLLL", mark, yourdata);
+
+  useEffect(() => {
+    dispatch(GetUserProfile(Login_Data.userid));
+  }, []);
+
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+  }, [SINGLE_USER]);
+
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+    setYourdata(userDetail[0]?.Extra_info[0]?.personal_statement);
+    setmark(userDetail[0]?.Extra_info[0]?.tutor_status);
+    // setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
+    // setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
+    // setRecords(userDetail[0]?.history_academy_arr);
+  }, [SINGLE_USER, setYourdata]);
 
   const savedata = () => {
     // dispatch(editProfile(mark, GET_USER_ID));
@@ -151,7 +171,7 @@ const WordYou = () => {
           >
             <TouchableOpacity style={{ alignItems: "center" }}>
               <TouchableOpacity
-                onPress={() => setmark("Full Time tutor")}
+                onPress={() => setmark("Full Time")}
                 style={{
                   borderWidth: 1,
                   borderColor: "lightgrey",
@@ -164,8 +184,7 @@ const WordYou = () => {
               >
                 <View
                   style={{
-                    backgroundColor:
-                      mark == "Full Time tutor" ? "#2F5597" : "#fff",
+                    backgroundColor: mark == "Full Time" ? "#2F5597" : "#fff",
                     borderRadius: 50,
                     height: hp(3),
                     width: wp(6),
@@ -178,7 +197,7 @@ const WordYou = () => {
             </TouchableOpacity>
             <TouchableOpacity style={{ alignItems: "center" }}>
               <TouchableOpacity
-                onPress={() => setmark("Part Time tutor")}
+                onPress={() => setmark("Part Time")}
                 style={{
                   borderWidth: 1,
                   justifyContent: "center",
@@ -191,8 +210,7 @@ const WordYou = () => {
               >
                 <View
                   style={{
-                    backgroundColor:
-                      mark == "Part Time tutor" ? "#2F5597" : "#fff",
+                    backgroundColor: mark == "Part Time" ? "#2F5597" : "#fff",
                     borderRadius: 50,
                     height: hp(3),
                     width: wp(6),

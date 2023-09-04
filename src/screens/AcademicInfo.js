@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -24,6 +24,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import RNPickerSelect from "react-native-picker-select";
 import { useDispatch, useSelector } from "react-redux";
+import { GetUserProfile } from "../Redux/Actions/Tutors";
 import { editProfile } from "../Redux/Actions/Tutors";
 import { AcademicHistory_Data } from "../Redux/Actions/types";
 var selectArray = [];
@@ -38,7 +39,8 @@ const AcademicInfo = () => {
 
   const [showemail, setShowEmail] = React.useState("Qualification");
   const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
-
+  const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
   const [selectQualification, setselectQualification] = useState(false);
   const [details, setDetails] = useState(false);
   const [detailsE, setDetailsE] = useState(false);
@@ -89,6 +91,7 @@ const AcademicInfo = () => {
   const [year, setYear] = useState("");
   const [count, setCount] = useState(1);
   const [detailNo, setDetailNo] = useState([]);
+  const [userDetail, setUserDetail] = useState([]);
 
   const [historyModal, setHistoryModal] = useState(false);
   const [historyModal1, setHistoryModal1] = useState(false);
@@ -108,6 +111,23 @@ const AcademicInfo = () => {
   //   year,
   //   "him"
   // );
+
+  useEffect(() => {
+    dispatch(GetUserProfile(Login_Data.userid));
+  }, []);
+
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+  }, [SINGLE_USER]);
+
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+    setQualification(userDetail[0]?.Extra_info[0]?.qualification);
+    setSchool1(userDetail[0]?.Extra_info[0]?.name_of_school);
+    setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
+    setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
+    setRecords(userDetail[0]?.history_academy_arr);
+  }, [SINGLE_USER, setQualification]);
 
   const [state, setState] = useState("Select One Option");
   const state_list = [
@@ -193,7 +213,9 @@ const AcademicInfo = () => {
   };
 
   const deleteRecord = (idToDelete) => {
-    const updatedRecords = records.filter((record) => record.Id !== idToDelete);
+    const updatedRecords = records.filter(
+      (record) => record.history_academy_id !== idToDelete
+    );
     console.log(updatedRecords, "AAAAAAAAAAAA");
     setRecords(updatedRecords);
   };
@@ -219,7 +241,7 @@ const AcademicInfo = () => {
   const UpdateRecord = () => {
     console.log(editId);
     const newData = records.map((record) => {
-      if (record.Id === editId) {
+      if (record.history_academy_id === editId) {
         return {
           ...record,
           exam: state,
@@ -359,7 +381,7 @@ const AcademicInfo = () => {
     console.log(obj3, "AAAAA");
 
     var item1 = {};
-    item1["Id"] = countD;
+    item1["history_academy_id"] = countD;
     item1["school"] = school;
     item1["exam"] = state == "Others" ? otherExam : state;
     item1["subject"] = subject;
@@ -627,7 +649,7 @@ const AcademicInfo = () => {
                     </View>
                   </View>
                 ) : null}
-                {courses && gradYear ? (
+                {school1 ? (
                   <View
                     style={{
                       flexDirection: "row",
@@ -1372,7 +1394,7 @@ const AcademicInfo = () => {
                       <TouchableOpacity
                         onPress={() =>
                           handleEdit(
-                            item.Id,
+                            item.history_academy_id,
                             item.school,
                             item.exam,
                             item.subject,

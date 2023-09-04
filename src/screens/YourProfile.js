@@ -25,12 +25,16 @@ import { RNCamera, FaceDetector } from "react-native-camera";
 import { launchImageLibrary, launchCamera } from "react-native-image-picker";
 import { request, check, PERMISSIONS, RESULTS } from "react-native-permissions";
 import { useDispatch, useSelector } from "react-redux";
-import { editProfile } from "../Redux/Actions/Tutors";
+import {
+  editProfile,
+  saveProfile,
+  GetUserProfile,
+} from "../Redux/Actions/Tutors";
 
 const YourProfle = ({ props, route }) => {
   const [imageSource, setImageSource] = useState(null);
   const [imageSource1, setImageSource1] = useState(null);
-
+  const [userDetail, setUserDetail] = useState([]);
   const [newImg, setNewImg] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
@@ -39,6 +43,13 @@ const YourProfle = ({ props, route }) => {
   const { AcademicHistory_Data } = useSelector((state) => state.TutorReducer);
   const { Tutoring_Data } = useSelector((state) => state.TutorReducer);
   const { TutionStatus_Data } = useSelector((state) => state.TutorReducer);
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
+  const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
+  console.log(
+    SINGLE_USER,
+    "SINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USER",
+    Login_Data
+  );
 
   if (route.params) {
     const {
@@ -166,6 +177,7 @@ const YourProfle = ({ props, route }) => {
         >
           <Text>Open Camera</Text>
         </TouchableOpacity>
+
         <View style={{ height: 1, width: "100%", backgroundColor: "grey" }} />
         <TouchableOpacity
           onPress={openImageLibrary}
@@ -195,6 +207,43 @@ const YourProfle = ({ props, route }) => {
     },
   };
 
+  useEffect(() => {
+    dispatch(GetUserProfile(Login_Data.userid));
+  }, []);
+
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+  }, [SINGLE_USER]);
+
+  useEffect(
+    () => {
+      setUserDetail(SINGLE_USER);
+      setImageSource1(
+        "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
+          userDetail[0]?.Extra_info[0]?.profile_image
+      );
+    },
+    [SINGLE_USER],
+    setImageSource1
+  );
+
+  useEffect(
+    () => {
+      setImageSource1(
+        "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
+          userDetail[0]?.Extra_info[0]?.profile_image
+      );
+    },
+    [SINGLE_USER],
+    setImageSource1
+  );
+
+  console.log(
+    imageSource,
+    "LLLLLLLLLLLLLLLLLLLLLLLL",
+    userDetail[0]?.Extra_info[0]?.profile_image,
+    imageSource1
+  );
   // console.log('route.params', route.params)
   // const[Personal, setPersonal] = useState('');
   // const[Academic, setAcademic] = useState('');
@@ -207,7 +256,7 @@ const YourProfle = ({ props, route }) => {
   // console.log('route?.params?.complete', route?.params?.complete)
   // console.log('route?.params?.Academiccomplete', route?.params?.Academiccomplete)
 
-  const saveprofile = () => {
+  const UpdateProfile = () => {
     console.log(
       Tution_Type,
       "Tutoring_TypeTutoring_TypeTutoring_Type",
@@ -216,6 +265,33 @@ const YourProfle = ({ props, route }) => {
     setBtnP(true);
     dispatch(
       editProfile(
+        Login_Data,
+        imageSource,
+        PersonalInfo_Data,
+        Tution_Type,
+        AcademicHistory_Data,
+        TutionStatus_Data,
+        Tutoring_Data,
+        navigation
+      )
+    );
+    //Alert.alert("Save Profile Successfully");
+    // console.log("save Profile");
+  };
+
+  const saveprofile = () => {
+    console.log(
+      Login_Data,
+      imageSource,
+      PersonalInfo_Data,
+      Tution_Type,
+      AcademicHistory_Data,
+      TutionStatus_Data,
+      Tutoring_Data
+    );
+    setBtnP(true);
+    dispatch(
+      saveProfile(
         GET_USER_ID,
         imageSource,
         PersonalInfo_Data,
@@ -654,14 +730,23 @@ const YourProfle = ({ props, route }) => {
             </View>
           )}
         </View>
-
-        <TouchableOpacity
-          style={styles.RequsertButton}
-          // onPress={() => navigation.navigate('TutorLanding')}
-          onPress={() => saveprofile()}
-        >
-          <Text style={styles.ReqButtonText}>Done</Text>
-        </TouchableOpacity>
+        {SINGLE_USER == [] ? (
+          <TouchableOpacity
+            style={styles.RequsertButton}
+            // onPress={() => navigation.navigate('TutorLanding')}
+            onPress={() => saveprofile()}
+          >
+            <Text style={styles.ReqButtonText}>Done</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={styles.RequsertButton}
+            // onPress={() => navigation.navigate('TutorLanding')}
+            onPress={() => UpdateProfile()}
+          >
+            <Text style={styles.ReqButtonText}>Update</Text>
+          </TouchableOpacity>
+        )}
       </ScrollView>
     </View>
   );

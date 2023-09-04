@@ -169,16 +169,20 @@ const PersonalInfo = ({ route }) => {
     setUserDetail(SINGLE_USER);
     setAge(userDetail[0]?.Extra_info[0]?.age);
     setMarkGender(userDetail[0]?.Extra_info[0]?.gender);
-    setSelectNational(userDetail[0]?.Extra_info[0]?.nationality);
-  }, [SINGLE_USER]);
+    setNational(userDetail[0]?.Extra_info[0]?.nationality);
+  }, [SINGLE_USER, setAge]);
+
+  // useEffect(() => {
+  //   console.log(userDetail[0]?.Extra_info[0]?.age, "WWWWWWWWWWWWWWWWWW");
+  //   setAge(userDetail[0]?.Extra_info[0] && userDetail[0]?.Extra_info[0]?.age);
+  //   setMarkGender(userDetail[0]?.Extra_info[0]?.gender);
+  //   setNational(userDetail[0]?.Extra_info[0]?.nationality);
+  // }, []);
 
   var date1 = moment(new Date()).format("MM-YYYY");
   var date2 = moment(date).format("YYYY");
 
-  console.log(
-    userDetail[0]?.Extra_info[0]?.age,
-    "AAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-  );
+  // console.log(Age, "AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   var Difference_In_Time = date1 - date2;
   //console.log('datesssssssssss', date2);
   var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
@@ -285,7 +289,7 @@ const PersonalInfo = ({ route }) => {
           ]}
           onPress={() => {
             setShowEmail("Nationality");
-            setPickerServices(true);
+            // setPickerServices(true);
           }}
         >
           <Text
@@ -358,7 +362,9 @@ const PersonalInfo = ({ route }) => {
                 marginLeft: wp(15),
               }}
             >
-              <Text style={{ fontSize: 15, color: "#000" }}>Your Age</Text>
+              <Text style={{ fontSize: 15, color: "#000" }}>
+                Your Age {Age}
+              </Text>
 
               <TouchableOpacity
                 style={{
@@ -379,7 +385,7 @@ const PersonalInfo = ({ route }) => {
                           style={{fontSize:13,color:'#000', paddingLeft:wp(4)}}
                          /> */}
                 {console.log("yourage", Age)}
-                {/* <TextInput
+                <TextInput
                   style={{
                     color: "#000",
                     fontSize: 14,
@@ -393,12 +399,12 @@ const PersonalInfo = ({ route }) => {
                   autoCapitalize="none"
                   value={Age}
                   // onChangeText={(text) => setAge(text)}
-                /> */}
-                <Text
+                />
+                {/* <Text
                   style={{ fontSize: 15, color: "#000", paddingLeft: wp(4) }}
                 >
                   {Age}
-                </Text>
+                </Text> */}
                 <View
                   style={{
                     height: hp(5),
@@ -531,6 +537,7 @@ const PersonalInfo = ({ route }) => {
         <>
           <View style={{ flex: 0.9 }}>
             <TouchableOpacity
+              onPress={() => setPickerServices(true)}
               style={{
                 height: hp(6),
                 borderWidth: 1,

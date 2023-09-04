@@ -26,7 +26,7 @@ import RNPickerSelect from "react-native-picker-select";
 import MultiSelect from "react-native-multiple-select";
 import { set } from "immer/dist/internal";
 import { useDispatch, useSelector } from "react-redux";
-import { editProfile } from "../Redux/Actions/Tutors";
+import { editProfile, GetUserProfile } from "../Redux/Actions/Tutors";
 
 import { Tutoring_Data } from "../Redux/Actions/types";
 import {
@@ -44,6 +44,8 @@ const TutoringDetail = () => {
   const { LEVEL_LIST } = useSelector((state) => state.TutorReducer);
   const { SUBJECT_LIST } = useSelector((state) => state.TutorReducer);
   const { GRADE_LIST } = useSelector((state) => state.TutorReducer);
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
+  const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
   const [tutoring, setTutoring] = useState("");
   const [P1, setP1] = useState("");
   const [P2, setP2] = useState("");
@@ -51,6 +53,7 @@ const TutoringDetail = () => {
   const [P4, setP4] = useState("");
   const [P5, setP5] = useState("");
   const [P6, setP6] = useState("");
+  const [userDetail, setUserDetail] = useState([]);
 
   const [grade, setGrade] = useState([]);
   const [records, setRecords] = useState(selectArray);
@@ -433,8 +436,9 @@ const TutoringDetail = () => {
     console.log(obj3, "AAAAA");
 
     var item1 = {};
-    item1["Id"] = count;
-    item1["tutor_qualification_Subject"] = selectListTutor;
+    item1["tutoring_detail_id"] = count;
+    item1["TutoringLevel"] = selectListTutor;
+    item1["AdmissionLevel"] = "";
     item1["Tutoring_Grade"] = gradeArray.map((item) => item?.Grade);
     item1["Tutoring_Year"] = state;
     item1["Tutoring_Month"] = state2;
@@ -696,8 +700,28 @@ const TutoringDetail = () => {
     dispatch(getSubjectList(selectListTutor));
   }, [selectListTutor]);
 
+  useEffect(() => {
+    dispatch(GetUserProfile(Login_Data.userid));
+  }, []);
+
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+  }, [SINGLE_USER]);
+
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+    setRecords(userDetail[0]?.tutoring_detail_arr);
+    // setSchool1(userDetail[0]?.Extra_info[0]?.name_of_school);
+    // setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
+    // setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
+    // setRecords(userDetail[0]?.history_academy_arr);
+  }, [SINGLE_USER]);
+
   const deleteRecord = (idToDelete) => {
-    const updatedRecords = records.filter((record) => record.Id !== idToDelete);
+    console.log(idToDelete, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    const updatedRecords = records.filter(
+      (record) => record.tutoring_detail_id !== idToDelete
+    );
     console.log(updatedRecords, "AAAAAAAAAAAA");
     setRecords(updatedRecords);
   };
@@ -777,68 +801,39 @@ const TutoringDetail = () => {
       </TouchableOpacity>
 
       <ScrollView style={{ height: 300 }}>
-        {records.map((item) => (
-          <View
-            style={{
-              justifyContent: "space-between",
-              backgroundColor: "red",
-              marginHorizontal: wp(5),
-              backgroundColor: "#fff",
-              elevation: 10,
-              paddingVertical: hp(1),
-              marginTop: hp(2),
-            }}
-            key={item.Id}
-          >
-            {/* <Text style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}>
+        {records &&
+          records.map((item) => (
+            <View
+              style={{
+                justifyContent: "space-between",
+                backgroundColor: "red",
+                marginHorizontal: wp(5),
+                backgroundColor: "#fff",
+                elevation: 10,
+                paddingVertical: hp(1),
+                marginTop: hp(2),
+              }}
+              key={item.tutoring_detail_id}
+            >
+              {/* <Text style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}>
               {item.Id}
             </Text> */}
-            <View style={{ flexDirection: "row", width: wp(90) }}>
-              <View style={{ width: wp(80) }}>
-                <Text
-                  style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}
-                >
-                  {item.tutor_qualification_Subject}
-                </Text>
+              <View style={{ flexDirection: "row", width: wp(90) }}>
+                <View style={{ width: wp(80) }}>
+                  <Text
+                    style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}
+                  >
+                    {item.TutoringLevel}
+                  </Text>
 
-                <Text
-                  style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
-                >
-                  {item.Tutoring_Grade + ","}
-                </Text>
-              </View>
+                  <Text
+                    style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
+                  >
+                    {item.Tutoring_Grade + ","}
+                  </Text>
+                </View>
 
-              <TouchableOpacity
-                style={{
-                  height: 40,
-                  backgroundColor: "lightblue",
-                  width: 40,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Image
-                  source={require("../Assets/Edit.png")}
-                  style={{ height: 20, width: 20 }}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={{ flexDirection: "row", width: wp(90) }}>
-              <View style={{ width: wp(80) }}>
-                <Text
-                  style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
-                >
-                  {item.Tutoring_Year} Years {item.Tutoring_Month} Months
-                </Text>
-                <Text
-                  style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
-                >
-                  {item.Tutoring_ALL_Subjects + ","}
-                </Text>
-              </View>
-              <View>
                 <TouchableOpacity
-                  onPress={() => deleteRecord(item.Id)}
                   style={{
                     height: 40,
                     backgroundColor: "lightblue",
@@ -847,12 +842,42 @@ const TutoringDetail = () => {
                     alignItems: "center",
                   }}
                 >
-                  <Image source={require("../Assets/Deletes.png")} />
+                  <Image
+                    source={require("../Assets/Edit.png")}
+                    style={{ height: 20, width: 20 }}
+                  />
                 </TouchableOpacity>
               </View>
+              <View style={{ flexDirection: "row", width: wp(90) }}>
+                <View style={{ width: wp(80) }}>
+                  <Text
+                    style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
+                  >
+                    {item.Tutoring_Year} Years {item.Tutoring_Month} Months
+                  </Text>
+                  <Text
+                    style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
+                  >
+                    {item.Tutoring_ALL_Subjects + ","}
+                  </Text>
+                </View>
+                <View>
+                  <TouchableOpacity
+                    onPress={() => deleteRecord(item.tutoring_detail_id)}
+                    style={{
+                      height: 40,
+                      backgroundColor: "lightblue",
+                      width: 40,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Image source={require("../Assets/Deletes.png")} />
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
       </ScrollView>
 
       {/* {selectListTutor ? (
