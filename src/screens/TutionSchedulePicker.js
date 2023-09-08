@@ -98,21 +98,24 @@ const TutionSchedulePicker = ({}) => {
   const [selectedSat, setSelectedSat] = useState([]);
   const [selectedSun, setSelectedSun] = useState([]);
   const [selected1, setSelected1] = useState([]);
+
   const handler = (time) => {
     let picker = selected;
     if (selected.includes(time)) {
       picker = picker.filter((item) => item != time);
     } else {
-      const obj3 = {};
+      // const obj3 = {};
 
-      obj3["slot_time"] = time;
+      //  obj3["slot_time"] = time;
 
-      if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
-        // selected.push(time);
-        picker.push(time);
-      } else {
-        RemoveTempExercise(picker, "slot_time", obj3.slot_time);
-      }
+      // if (!isExistInArray(picker, "slot_time", obj3.slot_time)) {
+      // selected.push(time);
+
+      picker.push(time);
+
+      //  } else {
+      //  RemoveTempExercise(picker, "slot_time", obj3.slot_time);
+      // }
     }
     setSelected(picker);
     // setSelected1(picker);
@@ -272,42 +275,103 @@ const TutionSchedulePicker = ({}) => {
 
     setSelectedDay(time);
     console.log(selected1, "selectwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-    let picker = selected1;
-    if (selected1.includes(time)) {
-      picker = picker.filter((item) => item != time);
-      // console.log(picker, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa");
+
+    // Create a copy of the selected1 array to avoid mutating state directly
+    let picker = [...selected1];
+
+    // Find the index of the selected day in selected1 array
+    const dayIndex = selected1.findIndex(
+      (item) => item.tutor_schedule === time
+    );
+
+    if (dayIndex !== -1) {
+      // If the day is already selected, remove it
+      picker.splice(dayIndex, 1);
     } else {
-      const obj3 = {};
-
-      obj3["tutor_schedule"] = time;
-
-      if (!isExistInArray(picker, "tutor_schedule", obj3.tutor_schedule)) {
-        if (obj3.tutor_schedule == "Mon") {
-          obj3["slot_time"] = selected;
-        } else if (obj3.tutor_schedule == "Tue") {
-          obj3["slot_time"] = selectedTue;
-        } else if (obj3.tutor_schedule == "Wed") {
-          obj3["slot_time"] = selectedWed;
-        } else if (obj3.tutor_schedule == "Thu") {
-          obj3["slot_time"] = selectedThu;
-        } else if (obj3.tutor_schedule == "Fri") {
-          obj3["slot_time"] = selectedFri;
-        } else if (obj3.tutor_schedule == "Sat") {
-          obj3["slot_time"] = selectedSat;
-        } else if (obj3.tutor_schedule == "Sun") {
-          obj3["slot_time"] = selectedSun;
-        }
-
-        // console.log(picker, "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-        picker.push(obj3);
-      } else {
-        RemoveTempExercise(picker, "tutor_schedule", obj3.tutor_schedule);
+      const obj3 = {
+        tutor_schedule: time,
+        slot_time: [], // Initialize an empty array for slot_time
+      };
+      // If the day is not selected, add it with slot_time
+      if (time === "Mon") {
+        obj3.slot_time = selected;
+      } else if (time === "Tue") {
+        obj3.slot_time = selectedTue;
+      } else if (time === "Wed") {
+        obj3.slot_time = selectedWed;
+      } else if (time === "Thu") {
+        obj3.slot_time = selectedThu;
+      } else if (time === "Fri") {
+        obj3.slot_time = selectedFri;
+      } else if (time === "Sat") {
+        obj3.slot_time = selectedSat;
+      } else if (time === "Sun") {
+        obj3.slot_time = selectedSun;
       }
+
+      picker.push(obj3);
     }
+
     setSelected1(picker);
-    //  setSelected(picker);
     setDate(new Date());
   };
+
+  // const handler1 = (time) => {
+  //   console.log(time, "Selected");
+
+  //   setSelectedDay(time);
+  //   console.log(selected1, "selectwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+  //   let picker = selected1;
+  //   if (selected1.includes(time)) {
+  //     picker = picker.filter((item) => item != time);
+  //     // console.log(picker, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa");
+  //   } else {
+  //     const obj3 = {};
+
+  //     obj3["tutor_schedule"] = time;
+
+  //     if (!isExistInArray(picker, "tutor_schedule", obj3.tutor_schedule)) {
+  //       if (obj3.tutor_schedule == "Mon") {
+  //         obj3["slot_time"] = selected;
+  //       } else if (obj3.tutor_schedule == "Tue") {
+  //         obj3["slot_time"] = selectedTue;
+  //       } else if (obj3.tutor_schedule == "Wed") {
+  //         obj3["slot_time"] = selectedWed;
+  //       } else if (obj3.tutor_schedule == "Thu") {
+  //         obj3["slot_time"] = selectedThu;
+  //       } else if (obj3.tutor_schedule == "Fri") {
+  //         obj3["slot_time"] = selectedFri;
+  //       } else if (obj3.tutor_schedule == "Sat") {
+  //         obj3["slot_time"] = selectedSat;
+  //       } else if (obj3.tutor_schedule == "Sun") {
+  //         obj3["slot_time"] = selectedSun;
+  //       }
+
+  //       // console.log(picker, "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+  //       picker.push(obj3);
+  //     } else {
+  //       RemoveTempExercise(picker, "tutor_schedule", obj3.tutor_schedule);
+  //       if (obj3.tutor_schedule == "Mon") {
+  //         obj3["slot_time"] = selected;
+  //       } else if (obj3.tutor_schedule == "Tue") {
+  //         obj3["slot_time"] = selectedTue;
+  //       } else if (obj3.tutor_schedule == "Wed") {
+  //         obj3["slot_time"] = selectedWed;
+  //       } else if (obj3.tutor_schedule == "Thu") {
+  //         obj3["slot_time"] = selectedThu;
+  //       } else if (obj3.tutor_schedule == "Fri") {
+  //         obj3["slot_time"] = selectedFri;
+  //       } else if (obj3.tutor_schedule == "Sat") {
+  //         obj3["slot_time"] = selectedSat;
+  //       } else if (obj3.tutor_schedule == "Sun") {
+  //         obj3["slot_time"] = selectedSun;
+  //       }
+  //     }
+  //   }
+  //   setSelected1(picker);
+  //   //  setSelected(picker);
+  //   setDate(new Date());
+  // };
 
   console.log(selected1, "MMMMMMMMMMMMMMMMM");
   //console.log(selectedDay, "MMMMMMMMMMMMMMMMM");
@@ -399,13 +463,18 @@ const TutionSchedulePicker = ({}) => {
           style={{
             height: 40,
             width: 60,
-            backgroundColor: selected.some(
-              (obj) =>
-                obj.hasOwnProperty("slot_time") &&
-                obj["slot_time"] === item.item
-            )
+            backgroundColor: selected.some((obj) => {
+              return obj.includes(item.item);
+            })
               ? "#2F5597"
               : "#fff",
+            // backgroundColor: selected.some(
+            //   (obj) =>
+            //     obj.hasOwnProperty("slot_time") &&
+            //     obj["slot_time"] === item.item
+            // )
+            //   ? "#2F5597"
+            //   : "#fff",
             marginBottom: 2,
             margin: 1,
             borderRadius: 5,
@@ -416,13 +485,18 @@ const TutionSchedulePicker = ({}) => {
           <Text
             style={{
               fontSize: 12,
-              color: selected.some(
-                (obj) =>
-                  obj.hasOwnProperty("slot_time") &&
-                  obj["slot_time"] === item.item
-              )
+              color: selected.some((obj) => {
+                return obj.includes(item.item);
+              })
                 ? "#fff"
                 : "#000",
+              // color: selected.some(
+              //   (obj) =>
+              //     obj.hasOwnProperty("slot_time") &&
+              //     obj["slot_time"] === item.item
+              // )
+              //   ? "#fff"
+              //   : "#000",
             }}
           >
             {item.item}
@@ -440,13 +514,18 @@ const TutionSchedulePicker = ({}) => {
           style={{
             height: 40,
             width: 60,
-            backgroundColor: selectedTue.some(
-              (obj) =>
-                obj.hasOwnProperty("slot_time") &&
-                obj["slot_time"] === item.item
-            )
+            backgroundColor: selectedTue.some((obj) => {
+              return obj.includes(item.item);
+            })
               ? "#2F5597"
               : "#fff",
+            // backgroundColor: selectedTue.some(
+            //   (obj) =>
+            //     obj.hasOwnProperty("slot_time") &&
+            //     obj["slot_time"] === item.item
+            // )
+            //   ? "#2F5597"
+            //   : "#fff",
             marginBottom: 2,
             margin: 1,
             borderRadius: 5,
@@ -457,13 +536,18 @@ const TutionSchedulePicker = ({}) => {
           <Text
             style={{
               fontSize: 12,
-              color: selectedTue.some(
-                (obj) =>
-                  obj.hasOwnProperty("slot_time") &&
-                  obj["slot_time"] === item.item
-              )
+              color: selectedTue.some((obj) => {
+                return obj.includes(item.item);
+              })
                 ? "#fff"
                 : "#000",
+              // color: selectedTue.some(
+              //   (obj) =>
+              //     obj.hasOwnProperty("slot_time") &&
+              //     obj["slot_time"] === item.item
+              // )
+              //   ? "#fff"
+              //   : "#000",
             }}
           >
             {item.item}
@@ -480,13 +564,18 @@ const TutionSchedulePicker = ({}) => {
           style={{
             height: 40,
             width: 60,
-            backgroundColor: selectedWed.some(
-              (obj) =>
-                obj.hasOwnProperty("slot_time") &&
-                obj["slot_time"] === item.item
-            )
+            backgroundColor: selectedwed.some((obj) => {
+              return obj.includes(item.item);
+            })
               ? "#2F5597"
               : "#fff",
+            // backgroundColor: selectedWed.some(
+            //   (obj) =>
+            //     obj.hasOwnProperty("slot_time") &&
+            //     obj["slot_time"] === item.item
+            // )
+            //   ? "#2F5597"
+            //   : "#fff",
             marginBottom: 2,
             margin: 1,
             borderRadius: 5,
@@ -497,13 +586,18 @@ const TutionSchedulePicker = ({}) => {
           <Text
             style={{
               fontSize: 12,
-              color: selectedWed.some(
-                (obj) =>
-                  obj.hasOwnProperty("slot_time") &&
-                  obj["slot_time"] === item.item
-              )
+              color: selectedwed.some((obj) => {
+                return obj.includes(item.item);
+              })
                 ? "#fff"
                 : "#000",
+              // color: selectedWed.some(
+              //   (obj) =>
+              //     obj.hasOwnProperty("slot_time") &&
+              //     obj["slot_time"] === item.item
+              // )
+              //   ? "#fff"
+              //   : "#000",
             }}
           >
             {item.item}
@@ -521,13 +615,18 @@ const TutionSchedulePicker = ({}) => {
           style={{
             height: 40,
             width: 60,
-            backgroundColor: selectedThu.some(
-              (obj) =>
-                obj.hasOwnProperty("slot_time") &&
-                obj["slot_time"] === item.item
-            )
+            backgroundColor: selectedThu.some((obj) => {
+              return obj.includes(item.item);
+            })
               ? "#2F5597"
               : "#fff",
+            // backgroundColor: selectedThu.some(
+            //   (obj) =>
+            //     obj.hasOwnProperty("slot_time") &&
+            //     obj["slot_time"] === item.item
+            // )
+            //   ? "#2F5597"
+            //   : "#fff",
             marginBottom: 2,
             margin: 1,
             borderRadius: 5,
@@ -538,13 +637,18 @@ const TutionSchedulePicker = ({}) => {
           <Text
             style={{
               fontSize: 12,
-              color: selectedThu.some(
-                (obj) =>
-                  obj.hasOwnProperty("slot_time") &&
-                  obj["slot_time"] === item.item
-              )
+              color: selectedThu.some((obj) => {
+                return obj.includes(item.item);
+              })
                 ? "#fff"
                 : "#000",
+              // color: selectedThu.some(
+              //   (obj) =>
+              //     obj.hasOwnProperty("slot_time") &&
+              //     obj["slot_time"] === item.item
+              // )
+              //   ? "#fff"
+              //   : "#000",
             }}
           >
             {item.item}
@@ -562,13 +666,18 @@ const TutionSchedulePicker = ({}) => {
           style={{
             height: 40,
             width: 60,
-            backgroundColor: selectedFri.some(
-              (obj) =>
-                obj.hasOwnProperty("slot_time") &&
-                obj["slot_time"] === item.item
-            )
+            backgroundColor: selectedFri.some((obj) => {
+              return obj.includes(item.item);
+            })
               ? "#2F5597"
               : "#fff",
+            // backgroundColor: selectedFri.some(
+            //   (obj) =>
+            //     obj.hasOwnProperty("slot_time") &&
+            //     obj["slot_time"] === item.item
+            // )
+            //   ? "#2F5597"
+            //   : "#fff",
             marginBottom: 2,
             margin: 1,
             borderRadius: 5,
@@ -579,13 +688,18 @@ const TutionSchedulePicker = ({}) => {
           <Text
             style={{
               fontSize: 12,
-              color: selectedFri.some(
-                (obj) =>
-                  obj.hasOwnProperty("slot_time") &&
-                  obj["slot_time"] === item.item
-              )
+              color: selectedFri.some((obj) => {
+                return obj.includes(item.item);
+              })
                 ? "#fff"
                 : "#000",
+              // color: selectedFri.some(
+              //   (obj) =>
+              //     obj.hasOwnProperty("slot_time") &&
+              //     obj["slot_time"] === item.item
+              // )
+              //   ? "#fff"
+              //   : "#000",
             }}
           >
             {item.item}
@@ -603,13 +717,18 @@ const TutionSchedulePicker = ({}) => {
           style={{
             height: 40,
             width: 60,
-            backgroundColor: selectedSat.some(
-              (obj) =>
-                obj.hasOwnProperty("slot_time") &&
-                obj["slot_time"] === item.item
-            )
+            backgroundColor: selectedSat.some((obj) => {
+              return obj.includes(item.item);
+            })
               ? "#2F5597"
               : "#fff",
+            // backgroundColor: selectedSat.some(
+            //   (obj) =>
+            //     obj.hasOwnProperty("slot_time") &&
+            //     obj["slot_time"] === item.item
+            // )
+            //   ? "#2F5597"
+            //   : "#fff",
             marginBottom: 2,
             margin: 1,
             borderRadius: 5,
@@ -620,13 +739,19 @@ const TutionSchedulePicker = ({}) => {
           <Text
             style={{
               fontSize: 12,
-              color: selectedSat.some(
-                (obj) =>
-                  obj.hasOwnProperty("slot_time") &&
-                  obj["slot_time"] === item.item
-              )
+
+              color: selectedSat.some((obj) => {
+                return obj.includes(item.item);
+              })
                 ? "#fff"
                 : "#000",
+              // color: selectedSat.some(
+              //   (obj) =>
+              //     obj.hasOwnProperty("slot_time") &&
+              //     obj["slot_time"] === item.item
+              // )
+              //   ? "#fff"
+              //   : "#000",
             }}
           >
             {item.item}
@@ -644,13 +769,18 @@ const TutionSchedulePicker = ({}) => {
           style={{
             height: 40,
             width: 60,
-            backgroundColor: selectedSun.some(
-              (obj) =>
-                obj.hasOwnProperty("slot_time") &&
-                obj["slot_time"] === item.item
-            )
+            backgroundColor: selectedSun.some((obj) => {
+              return obj.includes(item.item);
+            })
               ? "#2F5597"
               : "#fff",
+            // backgroundColor: selectedSun.some(
+            //   (obj) =>
+            //     obj.hasOwnProperty("slot_time") &&
+            //     obj["slot_time"] === item.item
+            // )
+            //   ? "#2F5597"
+            //   : "#fff",
             marginBottom: 2,
             margin: 1,
             borderRadius: 5,
@@ -661,13 +791,18 @@ const TutionSchedulePicker = ({}) => {
           <Text
             style={{
               fontSize: 12,
-              color: selectedSun.some(
-                (obj) =>
-                  obj.hasOwnProperty("slot_time") &&
-                  obj["slot_time"] === item.item
-              )
+              color: selectedSun.some((obj) => {
+                return obj.includes(item.item);
+              })
                 ? "#fff"
                 : "#000",
+              // color: selectedSun.some(
+              //   (obj) =>
+              //     obj.hasOwnProperty("slot_time") &&
+              //     obj["slot_time"] === item.item
+              // )
+              //   ? "#fff"
+              //   : "#000",
             }}
           >
             {item.item}

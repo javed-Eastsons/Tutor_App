@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,6 +12,7 @@ import {
   TouchableHighlight,
   Modal,
   ImageBase,
+  ActivityIndicator,
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { TextInput } from "react-native-gesture-handler";
@@ -34,21 +35,206 @@ import RadioGroup from "react-native-radio-buttons-group";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MultiSelect from "react-native-multiple-select";
 import { Tutor_Detail } from "../Redux/Actions/types";
-// import Collapsible from 'react-native-collapsible';
+
+import * as Animatable from "react-native-animatable";
+import Collapsible from "react-native-collapsible";
+import Accordion from "react-native-collapsible/Accordion";
+import { singleUserDetails } from "../Redux/Actions/Tutors";
+
 const TutorSearchProfile = ({ props, route }) => {
   const navigation = useNavigation();
   const [showwhat, setshowwhat] = React.useState("Experience");
-  const [collapsed, setCollapsed] = useState(true);
+  // const [collapsed, setCollapsed] = useState(true);
   const data = route.params.data;
   const dispatch = useDispatch();
   const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
-
+  const { SINGLE_USER_DETAILS } = useSelector((state) => state.TutorReducer);
+  console.log(
+    SINGLE_USER_DETAILS[0]?.tutoring_detail_arr.map(
+      (item) => item?.TutoringLevel
+    ),
+    "SINGLE_USER_DETAILS"
+  );
   console.log(data, "GET_POSTAL_DATAGET_POSTAL_DATAGET_POSTAL_DATA");
-  // console.log(
-  //   "🚀 ~ file: TutorSearchProfile.js ~ line 36 ~ TutorSearchProfile ~ data",
-  //   data
-  // );
+  const [activeSections, setActiveSections] = useState([]);
+  const [activeSectionsSch, setActiveSectionsSch] = useState([]);
 
+  // Collapsed condition for the single collapsible
+  const [collapsed, setCollapsed] = useState(true);
+  // MultipleSelect is for the Multiple Expand allowed
+  // True: Expand multiple at a time
+  // False: One can be expand at a time
+  const [multipleSelect, setMultipleSelect] = useState(false);
+  console.log(data.user_id, "akkkkkkk");
+  // const toggleExpanded = () => {
+  //     //Toggling the state of single Collapsible
+  //     setCollapsed(!collapsed);
+  // };
+  useEffect(() => {
+    dispatch(singleUserDetails(data.user_id));
+  }, []);
+  const setSections = (sections) => {
+    //setting up a active section state
+    setActiveSections(sections.includes(undefined) ? [] : sections);
+  };
+
+  const renderHeader = (section, _, isActive) => {
+    //Accordion Header view
+    return (
+      <Animatable.View
+        duration={400}
+        style={[
+          styles.header,
+          isActive ? styles.active : styles.inactive,
+          { width: wp(90), alignSelf: "center" },
+        ]}
+        transition="backgroundColor"
+      >
+        <Text
+          style={[
+            styles.headerText,
+            {
+              borderRadius: 10,
+              paddingTop: 5,
+              paddingBottom: 5,
+              paddingLeft: 10,
+              fontSize: 14,
+              color: "#fff",
+              backgroundColor: "#067FD0",
+              textAlign: "left",
+            },
+          ]}
+        >
+          {section.TutoringLevel}
+        </Text>
+      </Animatable.View>
+    );
+  };
+
+  const renderContent = (section, _, isActive) => {
+    //Accordion Content view
+    return (
+      <Animatable.View
+        duration={400}
+        style={[
+          styles.content,
+          isActive ? styles.active : styles.inactive,
+          { width: wp(90), alignSelf: "center" },
+        ]}
+        transition="backgroundColor"
+      >
+        <Animatable.Text
+          animation={isActive ? "bounceIn" : undefined}
+          style={{ textAlign: "center", color: "#000" }}
+        >
+          {`Levels :   ${section.Tutoring_Grade}`}
+        </Animatable.Text>
+        <Animatable.Text
+          animation={isActive ? "bounceIn" : undefined}
+          style={{ textAlign: "center", color: "#000" }}
+        >
+          {`Experience :   ${section.Tutoring_Year} Year ${section.Tutoring_Month} Months`}
+        </Animatable.Text>
+        <Animatable.Text
+          animation={isActive ? "bounceIn" : undefined}
+          style={{ textAlign: "center", color: "#000" }}
+        >
+          {`Subjects :   ${section.Tutoring_ALL_Subjects}`}
+        </Animatable.Text>
+      </Animatable.View>
+    );
+  };
+
+  // for My Schools start
+  const setSectionsSch = (sections) => {
+    //setting up a active section state
+    setActiveSectionsSch(sections.includes(undefined) ? [] : sections);
+  };
+
+  const renderHeaderSch = (section, _, isActive) => {
+    //Accordion Header view
+    return (
+      <Animatable.View
+        duration={400}
+        style={[
+          styles.header,
+          isActive ? styles.active : styles.inactive,
+          { width: wp(90), alignSelf: "center" },
+        ]}
+        transition="backgroundColor"
+      >
+        <Text
+          style={[
+            styles.headerText,
+            {
+              borderRadius: 10,
+              paddingTop: 5,
+              paddingBottom: 5,
+              paddingLeft: 10,
+              fontSize: 14,
+              color: "#fff",
+              backgroundColor: "#067FD0",
+              textAlign: "left",
+            },
+          ]}
+        >
+          {section.school} {isActive ? "-" : "+"}
+        </Text>
+      </Animatable.View>
+    );
+  };
+
+  const renderContentSch = (section, _, isActive) => {
+    //Accordion Content view
+    return (
+      <Animatable.View
+        duration={400}
+        style={[
+          styles.content,
+          isActive ? styles.active : styles.inactive,
+          { width: wp(90), alignSelf: "center" },
+        ]}
+        transition="backgroundColor"
+      >
+        <Animatable.Text
+          animation={isActive ? "bounceIn" : undefined}
+          style={{ textAlign: "left", color: "purple" }}
+        >
+          {section.exam}
+        </Animatable.Text>
+        <Animatable.Text
+          animation={isActive ? "bounceIn" : undefined}
+          style={{
+            textAlign: "center",
+            color: "skyblue",
+            marginTop: 5,
+            fontFamily: "Poppins-SemiBold",
+          }}
+        >
+          {"Subjects"} {"Results"}
+        </Animatable.Text>
+        <Animatable.Text
+          animation={isActive ? "bounceIn" : undefined}
+          style={{ textAlign: "center", color: "skyblue" }}
+        >
+          {section.subject} {section.grade}
+        </Animatable.Text>
+        <Animatable.Text
+          animation={isActive ? "bounceIn" : undefined}
+          style={{
+            width: "60%",
+            marginLeft: 58,
+            borderWidth: 1,
+            borderColor: "skyblue",
+            borderBottomWidth: 0,
+            borderLeftWidth: 0,
+            borderRightWidth: 0,
+          }}
+        />
+      </Animatable.View>
+    );
+  };
+  // Endddd
   const toggleExpanded = () => {
     // Toggling the state of single Collapsible
     setCollapsed(false);
@@ -153,7 +339,12 @@ const TutorSearchProfile = ({ props, route }) => {
               source={{
                 uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${data?.profile_image}`,
               }}
-              style={{ resizeMode: "cover", width: "100%", height: "100%" }}
+              style={{
+                resizeMode: "cover",
+                width: "100%",
+                height: "100%",
+                borderRadius: 40,
+              }}
             />
           </View>
           <View
@@ -293,6 +484,7 @@ const TutorSearchProfile = ({ props, route }) => {
         <Text style={{ fontWeight: "bold", fontSize: 18, color: "black" }}>
           A bit about me
         </Text>
+
         {/* <View style={{height:50,width:"90%",marginTop:20}} >
                 <Text style={{fontSize:12,color:"black"}}>I am an excellent tutor but i look kind of odd</Text>
                 </View> */}
@@ -309,6 +501,7 @@ const TutorSearchProfile = ({ props, route }) => {
           {data.personal_statement}
         </Text>
       </View>
+
       <View
         style={{
           height: 1,
@@ -449,25 +642,91 @@ const TutorSearchProfile = ({ props, route }) => {
       {(() => {
         if (showwhat == "Experience") {
           return (
-            <View>
-              <TouchableOpacity onPress={toggleExpanded}>
-                <View style={styles.searchSection}>
-                  <Text style={styles.TextInputText}>{data.qualification}</Text>
-                  <Text style={styles.TextInputText}>{data.Course_Exam}</Text>
-                  <Text style={styles.TextInputText}>
-                    {data.OtherCourse_Exam}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
+            <ScrollView>
+              {SINGLE_USER_DETAILS[0]?.tutoring_detail_arr ? (
+                <ScrollView>
+                  {/* 
+                    <View style={styles.multipleToggle}>
+                        
+                        <Switch
+                        value={multipleSelect}
+                        onValueChange={(multipleSelect) =>
+                            setMultipleSelect(multipleSelect)
+                        }
+                        />
+                    </View> */}
+
+                  {/*Code for Accordion/Expandable List starts here*/}
+                  <Accordion
+                    activeSections={activeSections}
+                    //for any default active section
+                    sections={SINGLE_USER_DETAILS[0]?.tutoring_detail_arr}
+                    //title and content of accordion
+                    touchableComponent={TouchableOpacity}
+                    //which type of touchable component you want
+                    //It can be the following Touchables
+                    //TouchableHighlight, TouchableNativeFeedback
+                    //TouchableOpacity , TouchableWithoutFeedback
+                    expandMultiple={multipleSelect}
+                    //Do you want to expand mutiple at a time or single at a time
+                    renderHeader={renderHeader}
+                    //Header Component(View) to render
+                    renderContent={renderContent}
+                    //Content Component(View) to render
+                    duration={400}
+                    //Duration for Collapse and expand
+                    onChange={setSections}
+                    //setting the state of active sections
+                  />
+                  {/*Code for Accordion/Expandable List ends here*/}
+                </ScrollView>
+              ) : (
+                // <TouchableOpacity onPress={toggleExpanded}>
+                //   <View style={styles.searchSection}>
+                //     <Text style={styles.TextInputText}>{data.qualification}</Text>
+                //     <Text style={styles.TextInputText}>{data.Course_Exam}</Text>
+                //     <Text style={styles.TextInputText}>
+                //       {data.OtherCourse_Exam}
+                //     </Text>
+                //   </View>
+                // </TouchableOpacity>
+                <ActivityIndicator />
+              )}
+            </ScrollView>
           );
         } else if (showwhat == "My Schools") {
           return (
-            <View>
-              <View style={styles.searchSection}>
-                <Text style={styles.TextInputText}>{data.name_of_school}</Text>
-              </View>
-            </View>
+            <ScrollView>
+              {SINGLE_USER_DETAILS[0]?.history_academy_arr ? (
+                <ScrollView>
+                  {/*Code for Accordion/Expandable List starts here*/}
+                  <Accordion
+                    activeSections={activeSectionsSch}
+                    //for any default active section
+                    sections={SINGLE_USER_DETAILS[0]?.history_academy_arr}
+                    //title and content of accordion
+                    touchableComponent={TouchableOpacity}
+                    //which type of touchable component you want
+                    //It can be the following Touchables
+                    //TouchableHighlight, TouchableNativeFeedback
+                    //TouchableOpacity , TouchableWithoutFeedback
+                    expandMultiple={multipleSelect}
+                    //Do you want to expand mutiple at a time or single at a time
+                    renderHeader={renderHeaderSch}
+                    //Header Component(View) to render
+                    renderContent={renderContentSch}
+                    //Content Component(View) to render
+                    duration={400}
+                    //Duration for Collapse and expand
+                    onChange={setSectionsSch}
+                    //setting the state of active sections
+                  />
+                  {/*Code for Accordion/Expandable List ends here*/}
+                </ScrollView>
+              ) : (
+                <ActivityIndicator size="large" />
+              )}
+            </ScrollView>
           );
         }
       })()}
@@ -481,11 +740,75 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5FCFF",
     paddingTop: 30,
   },
+  // title: {
+  //   textAlign: "center",
+  //   fontSize: 18,
+  //   fontWeight: "300",
+  //   marginBottom: 20,
+
+  // },
   title: {
     textAlign: "center",
     fontSize: 18,
     fontWeight: "300",
     marginBottom: 20,
+    color: "#000",
+  },
+  header: {
+    backgroundColor: "purple",
+    padding: 10,
+    color: "#000",
+  },
+  headerText: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#000",
+  },
+  content: {
+    padding: 20,
+    backgroundColor: "#fff",
+    color: "#000",
+  },
+  active: {
+    backgroundColor: "rgba(255,255,255,1)",
+    color: "#000",
+  },
+  inactive: {
+    backgroundColor: "rgba(245,252,255,1)",
+    color: "#000",
+  },
+  selectors: {
+    marginBottom: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    color: "#000",
+    backgroundColor: "red",
+  },
+  selector: {
+    backgroundColor: "#F5FCFF",
+    padding: 10,
+    color: "#000",
+  },
+  activeSelector: {
+    fontWeight: "bold",
+    color: "#000",
+  },
+  selectTitle: {
+    fontSize: 14,
+    fontWeight: "500",
+    padding: 10,
+    textAlign: "center",
+    color: "#000",
+  },
+  multipleToggle: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginVertical: 30,
+    alignItems: "center",
+  },
+  multipleToggle__title: {
+    fontSize: 16,
+    marginRight: 8,
   },
   header: {
     backgroundColor: "#F5FCFF",
@@ -546,6 +869,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     alignSelf: "center",
     borderRadius: 50,
+    // elevation:2
   },
   shadowPropCenter: {
     shadowOffset: { width: 8, height: 10 },
@@ -625,7 +949,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 20,
-    marginBottom: 30,
+    // marginBottom: 30,
     width: wp(90),
     flexDirection: "row",
     alignSelf: "center",
@@ -655,11 +979,15 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   TextInputText: {
-    color: "#131313",
+    color: "#fff",
     // fontFamily: 'SharpSansDispNo1-Book',
     fontSize: 14,
     lineHeight: 16,
     paddingBottom: 8,
-    // backgroundColor:"pink"
+    backgroundColor: "#067FD0",
+    width: 300,
+    marginBottom: 5,
+    padding: 10,
+    borderRadius: 10,
   },
 });

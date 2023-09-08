@@ -9,6 +9,7 @@ import {
   Image,
   Button,
   TouchableOpacity,
+  Switch
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { TextInput } from "react-native-gesture-handler";
@@ -21,16 +22,55 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-community/async-storage";
 
 const Drawer = ({ navigation }) => {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => {
+    setIsEnabled((previousState) => !previousState);
+    navigation.navigate("Auth4");
+    setIsEnabled(false);
+  };
   return (
     <ScrollView>
       <View style={styles.container}>
-        <View style={styles.head}>
-          <View style={styles.HeadLeft}>
+        <View style={{ flexDirection: 'row' }}>
+          <View>
             <Image
-              source={require("../Assets/logo.jpg")}
-              style={styles.logoicons}
+              source={require("../Assets/try-it.png")}
+              style={{ marginLeft: 10, marginTop: 10 }}
             />
           </View>
+
+          <View style={{ flexDirection: 'row', marginLeft: 80, marginTop: 20 }}>
+            <Image
+              source={require("../Assets/rateAppIcon.png")}
+              style={{ width: 35 }}
+            />
+
+            <Image
+              source={require("../Assets/qrIcon.png")}
+              style={{ width: 30 }}
+            />
+            <Image
+              source={require("../Assets/shareIcon.png")}
+              style={{ width: 40 }}
+            />
+          </View>
+
+        </View>
+        <View style={{flexDirection:'row',marginTop:20,marginLeft:50}}>
+          <Text style={{ fontFamily: "Poppins-Light" }}>
+            {console.log(isEnabled)}I want to be an Educator..
+          </Text>
+          <TouchableOpacity
+          //onPress={() => navigation.navigate('TutorLanding')}
+          >
+            <Switch
+              trackColor={{ false: "#767577", true: "#81b0ff" }}
+              thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.MenuLIstContainer}>
           <View style={styles.MenuLIst}>
@@ -38,30 +78,58 @@ const Drawer = ({ navigation }) => {
               source={require("../Assets/Welcome.png")}
               style={styles.icons}
             />
-            <Text style={styles.MenuHead}>Welcome</Text>
+            <Text style={[styles.MenuHead, { marginLeft: 10 }]}>Welcome</Text>
           </View>
-          <View style={styles.menusublist}>
-            <Text style={styles.subText}>Message from our director</Text>
-            <Text style={styles.subText}>About</Text>
-            <Text style={styles.subText}>Our Services</Text>
-            <Text style={styles.subText}>Our Tutors</Text>
-            <Text style={styles.subText}>Promotions</Text>
+          <View style={[styles.menusublist, { flexDirection: 'row' }]}>
+            <View>
+              <View style={styles.verticleLine}></View>
+
+            </View>
+            <View style={{ marginLeft: 10 }}>
+              <Text style={styles.subText}>Message from our director</Text>
+              <Text style={styles.subText}>About</Text>
+              <Text style={styles.subText}>Our Services</Text>
+              <Text style={styles.subText}>Our Tutors</Text>
+              <Text style={styles.subText}>Promotions</Text>
+            </View>
           </View>
         </View>
 
         <View style={styles.MenuLIstContainer}>
           <View style={styles.MenuLIst}>
-            <Image source={require("../Assets/bell.png")} style={styles.icons} />
-            <Text style={styles.MenuHead}>Angel's Dashboard</Text>
+            <Image source={require("../Assets/dashIcon.png")} style={{ width: 30, marginTop: 5 }} />
+            <Text style={[styles.MenuHead, { marginLeft: 10 }]}>Angel's Dashboard</Text>
           </View>
-          <View style={styles.menusublist}>
-            <Text style={styles.subText}>My Profile</Text>
-            <Text style={styles.subText}>My Account</Text>
-            <Text style={styles.subText}>My Activities</Text>
-            <Text style={styles.subText}>Favourites</Text>
-            <Text style={styles.subText}>Make Payment</Text>
+          <View style={[styles.menusublist, { flexDirection: 'row' }]}>
+            <View>
+              <View style={styles.verticleLine}></View>
+
+            </View>
+            <View style={{ marginLeft: 10 }}>
+              <Text style={styles.subText}>My Profile</Text>
+              <Text style={styles.subText}>My Account</Text>
+              <Text style={styles.subText}>My Activities</Text>
+              <Text style={styles.subText}>Favourites</Text>
+              <Text style={styles.subText}>Make Payment</Text>
+            </View>
           </View>
+
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            AsyncStorage.clear();
+            navigation.replace("home");
+          }}
+          style={styles.MenuLIstContainer}
+        >
+          <View style={styles.MenuLIst}>
+            <Image
+              source={require("../Assets/logoutIcon.png")}
+              style={[styles.icons, { backgroundColor: '#fff', marginTop: 5 }]}
+            />
+            <Text style={styles.MenuHead}>Logout</Text>
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => {
           navigation.navigate("HelpSupport");
         }}>
@@ -72,7 +140,7 @@ const Drawer = ({ navigation }) => {
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {
+        {/* <TouchableOpacity onPress={() => {
           navigation.navigate("Faq");
         }}>
           <View style={styles.MenuLIstContainer}>
@@ -81,7 +149,7 @@ const Drawer = ({ navigation }) => {
               <Text style={styles.MenuHead}>FAQ</Text>
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity onPress={() => {
           navigation.navigate("TermsConditions");
         }}>
@@ -108,21 +176,29 @@ const Drawer = ({ navigation }) => {
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            AsyncStorage.clear();
-            navigation.replace("home");
-          }}
-          style={styles.MenuLIstContainer}
-        >
-          <View style={styles.MenuLIst}>
+
+
+
+        <View style={styles.SocialMainContainer}>
+          <View style={styles.SocialContainer}>
+            <Image source={require("../Assets/Fb.png")} style={styles.icons} />
+          </View>
+          <View style={styles.SocialContainer}>
+            <Image source={require("../Assets/Insta.png")} style={styles.icons} />
+          </View>
+          <View style={styles.SocialContainer}>
             <Image
-              source={require("../Assets/Privacy.png")}
+              source={require("../Assets/Twitter.png")}
               style={styles.icons}
             />
-            <Text style={styles.MenuHead}>Logout</Text>
           </View>
-        </TouchableOpacity>
+          <View style={styles.SocialContainer}>
+            <Image
+              source={require("../Assets/LinkedIn.png")}
+              style={styles.icons}
+            />
+          </View>
+        </View>
 
         <View style={styles.MenuLIstContainer}>
           <View style={styles.MenuLIst}>
@@ -139,7 +215,7 @@ export default Drawer;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1f4f79",
+    backgroundColor: "#000",
     // padding: 10,
   },
   head: {
@@ -150,23 +226,19 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontFamily: 'Poppins-Light'
   },
-  logoicons: {
-    height: 80,
-    width: 80,
-  },
+
   icons: {
     height: 25,
     width: 25,
   },
   MenuLIstContainer: {
     padding: 10,
-    marginTop: 10,
   },
   LastText: {
     color: "#fff",
-    fontStyle: "italic",
-    fontSize: 18,
-    fontFamily: 'Poppins-Regular'
+    fontSize: 15,
+    fontFamily: 'Poppins-Italic',
+    marginLeft: 10
   },
   MenuLIst: {
     flexDirection: "row",
@@ -182,4 +254,25 @@ const styles = StyleSheet.create({
     color: "yellow",
     fontFamily: 'Poppins-SemiBold'
   },
+  SocialMainContainer: {
+    height: 40,
+    width: "100%",
+    marginTop: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  SocialContainer: {
+    height: 30,
+    width: "12%",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 5
+  },
+  verticleLine: {
+    height: 115,
+    width: 2,
+    backgroundColor: 'yellow',
+  },
+
 });

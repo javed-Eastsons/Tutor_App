@@ -46,6 +46,35 @@ const AcademicInfo = () => {
   const [detailsE, setDetailsE] = useState(false);
 
   const [show, setShow] = useState(false);
+  const [sections, setSections] = useState([]);
+
+  const AddSubjectSection = () => {
+    const newSection = {
+      subject: "",
+      grade: "",
+    };
+    setSections([...sections, newSection]);
+  };
+
+  console.log(sections, "sectionssectionssectionssectionssections");
+
+  const handleSubjectChange = (text, index) => {
+    const updatedSections = [...sections];
+    updatedSections[index].subject = text;
+    setSections(updatedSections);
+  };
+
+  const handleGradeChange = (text, index) => {
+    const updatedSections = [...sections];
+    updatedSections[index].grade = text;
+    setSections(updatedSections);
+  };
+
+  const deleteSection = (index) => {
+    const updatedSections = [...sections];
+    updatedSections.splice(index, 1);
+    setSections(updatedSections);
+  };
 
   const [subjects, setSubjects] = useState([
     {
@@ -384,18 +413,21 @@ const AcademicInfo = () => {
     item1["history_academy_id"] = countD;
     item1["school"] = school;
     item1["exam"] = state == "Others" ? otherExam : state;
-    item1["subject"] = subject;
-    item1["grade"] = grade;
+    item1["result"] = sections;
+    // item1["subject"] = subject;
+    // item1["grade"] = grade;
 
     if (!isExistInArray(selectArray, "school", item1.school)) {
       //  console.log('insert in array');
       records.push(item1);
+
       // selectArray.push(obj3);
     } else {
       RemoveTempExercise(selectArray, "school", item1.school);
     }
     // }
     CrossButton();
+    setSections([]);
   };
 
   console.log(records, "QQQQQQQQQQQQQQQQQQQQQQ");
@@ -1363,11 +1395,18 @@ const AcademicInfo = () => {
                       marginHorizontal: wp(5),
                       backgroundColor: "#fff",
                       elevation: 10,
-                      height: hp(15),
+
                       marginTop: hp(2),
+                      marginBottom: hp(2),
                     }}
                   >
-                    <View style={{ marginLeft: wp(3) }}>
+                    <View
+                      style={{
+                        marginLeft: wp(3),
+                        paddingTop: 10,
+                        paddingBottom: 10,
+                      }}
+                    >
                       <Text
                         style={{
                           fontSize: 13,
@@ -1383,12 +1422,69 @@ const AcademicInfo = () => {
                       <Text style={{ color: "#000", fontSize: 14 }}>
                         {item?.exam}
                       </Text>
-                      <Text style={{ color: "#000", fontSize: 14 }}>
+
+                      <View>
+                        <View style={{ flexDirection: "row", marginBottom: 5 }}>
+                          <Text
+                            style={{
+                              width: wp(50),
+                              color: "#000",
+                              fontSize: 14,
+                            }}
+                          >
+                            Subject
+                          </Text>
+
+                          <Text
+                            style={{
+                              width: wp(15),
+                              color: "#000",
+                              fontSize: 14,
+                            }}
+                          >
+                            Grade
+                          </Text>
+                        </View>
+                        {item.result &&
+                          item.result.map((item1, resultIndex) => (
+                            <>
+                              <View
+                                style={{
+                                  flexDirection: "row",
+                                  marginBottom: 5,
+                                  borderBottomWidth: 1,
+                                }}
+                              >
+                                <Text
+                                  style={{
+                                    width: wp(50),
+                                    color: "#000",
+                                    fontSize: 14,
+                                  }}
+                                >
+                                  {item1?.subject} {"  "}
+                                </Text>
+
+                                <Text
+                                  style={{
+                                    width: wp(10),
+                                    color: "#000",
+                                    fontSize: 14,
+                                  }}
+                                >
+                                  {item1?.grade}
+                                </Text>
+                              </View>
+                            </>
+                          ))}
+                      </View>
+
+                      {/* <Text style={{ color: "#000", fontSize: 14 }}>
                         {item?.subject}
                       </Text>
                       <Text style={{ color: "#000", fontSize: 14 }}>
                         {item?.grade}
-                      </Text>
+                      </Text> */}
                     </View>
                     <View>
                       <TouchableOpacity
@@ -1476,172 +1572,305 @@ const AcademicInfo = () => {
                       />
                     </TouchableOpacity>
                   </View>
-                  <View
-                    style={{ justifyContent: "center", alignItems: "center" }}
-                  >
-                    <Text
-                      style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
+                  <ScrollView>
+                    <View
+                      style={{ justifyContent: "center", alignItems: "center" }}
                     >
-                      Add History
-                    </Text>
-                  </View>
-
-                  <View
-                    style={{
-                      position: "absolute",
-                      top: hp(12),
-                      left: wp(10),
-                      zIndex: 999,
-                      backgroundColor: "#fff",
-                    }}
-                  >
-                    <Text style={{ color: "#000" }}> Name of School </Text>
-                  </View>
-
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      marginTop: hp(3),
-                      flexDirection: "row",
-                      alignItems: "center",
-                      borderColor: "lightgrey",
-                      marginHorizontal: wp(5),
-                      height: hp(6),
-                      borderRadius: 4,
-                    }}
-                  >
-                    <TextInput
-                      placeholder="Pioneer Junior College"
-                      placeholderTextColor={"lightgrey"}
-                      style={{
-                        marginLeft: wp(2),
-                        width: wp(75),
-                        color: "#000",
-                      }}
-                      value={school}
-                      onChangeText={(text) => setSchool(text)}
-                    />
-
-                    <Image
-                      source={require("../Assets/School.png")}
-                      style={{ height: hp(3), width: wp(6) }}
-                    />
-                  </View>
-                  <View
-                    style={{
-                      position: "absolute",
-                      top: hp(21),
-                      left: wp(10),
-                      zIndex: 999,
-                      backgroundColor: "#fff",
-                    }}
-                  >
-                    <Text style={{ color: "#000" }}> Exam </Text>
-                  </View>
-
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      marginTop: hp(4),
-                      flexDirection: "row",
-                      alignItems: "center",
-                      borderColor: "lightgrey",
-                      marginHorizontal: wp(5),
-                      height: hp(6),
-                      borderRadius: 4,
-                    }}
-                  >
-                    <RNPickerSelect
-                      onValueChange={(value) => setState(value)}
-                      items={state_list}
-                      value={state}
-                      placeholder={{}}
-                    >
-                      <View
+                      <Text
                         style={{
-                          flexDirection: "row",
-                          width: wp(77),
-                          justifyContent: "space-between",
-                          paddingHorizontal: wp(4),
+                          color: "grey",
+                          fontSize: 20,
+                          fontWeight: "800",
                         }}
                       >
-                        {state_list.map(
-                          (item) =>
-                            item.value === state && (
-                              <Text
-                                key={item.value}
-                                style={{
-                                  fontSize: 13,
-                                  color: "#000",
-                                  marginTop: 10,
-                                }}
-                              >
-                                {item.label}
-                              </Text>
-                            )
-                        )}
-                        <Image
-                          source={require("../Assets/downbutton.png")}
-                          style={{
-                            height: hp(3),
-                            width: wp(6),
-                            marginTop: hp(1),
-                          }}
-                        />
-                      </View>
-                    </RNPickerSelect>
-                    <Image
-                      source={require("../Assets/Exam.png")}
-                      style={{ height: hp(3), width: wp(6) }}
-                    />
-                  </View>
-
-                  {state == "Others" ? (
-                    <View>
-                      <View
-                        style={{
-                          position: "absolute",
-                          top: hp(1),
-                          left: wp(10),
-                          zIndex: 999,
-                          backgroundColor: "#fff",
-                        }}
-                      >
-                        <Text style={{ color: "#000" }}> Exam Name</Text>
-                      </View>
-
-                      <View
-                        style={{
-                          borderWidth: 1,
-                          marginTop: hp(3),
-                          flexDirection: "row",
-                          alignItems: "center",
-                          borderColor: "lightgrey",
-                          marginHorizontal: wp(5),
-                          height: hp(6),
-                          borderRadius: 4,
-                        }}
-                      >
-                        <TextInput
-                          placeholder="IGCSE"
-                          placeholderTextColor={"lightgrey"}
-                          style={{
-                            marginLeft: wp(2),
-                            width: wp(75),
-                            color: "#000",
-                          }}
-                          value={otherExam}
-                          onChangeText={(value) => setOtherExam(value)}
-                        />
-
-                        <Image
-                          source={require("../Assets/Exam.png")}
-                          style={{ height: hp(3), width: wp(6) }}
-                        />
-                      </View>
+                        Add History
+                      </Text>
                     </View>
-                  ) : null}
-                  <View style={{ flexDirection: "row" }}>
+
+                    <View
+                      style={{
+                        position: "absolute",
+                        top: hp(12),
+                        left: wp(10),
+                        zIndex: 999,
+                        backgroundColor: "#fff",
+                      }}
+                    >
+                      <Text style={{ color: "#000" }}> Name of School </Text>
+                    </View>
+
+                    <View
+                      style={{
+                        borderWidth: 1,
+                        marginTop: hp(3),
+                        flexDirection: "row",
+                        alignItems: "center",
+                        borderColor: "lightgrey",
+                        marginHorizontal: wp(5),
+                        height: hp(6),
+                        borderRadius: 4,
+                      }}
+                    >
+                      <TextInput
+                        placeholder="Pioneer Junior College"
+                        placeholderTextColor={"lightgrey"}
+                        style={{
+                          marginLeft: wp(2),
+                          width: wp(75),
+                          color: "#000",
+                        }}
+                        value={school}
+                        onChangeText={(text) => setSchool(text)}
+                      />
+
+                      <Image
+                        source={require("../Assets/School.png")}
+                        style={{ height: hp(3), width: wp(6) }}
+                      />
+                    </View>
+                    <View
+                      style={{
+                        position: "absolute",
+                        top: hp(21),
+                        left: wp(10),
+                        zIndex: 999,
+                        backgroundColor: "#fff",
+                      }}
+                    >
+                      <Text style={{ color: "#000" }}> Exam </Text>
+                    </View>
+
+                    <View
+                      style={{
+                        borderWidth: 1,
+                        marginTop: hp(4),
+                        flexDirection: "row",
+                        alignItems: "center",
+                        borderColor: "lightgrey",
+                        marginHorizontal: wp(5),
+                        height: hp(6),
+                        borderRadius: 4,
+                      }}
+                    >
+                      <RNPickerSelect
+                        onValueChange={(value) => setState(value)}
+                        items={state_list}
+                        value={state}
+                        placeholder={{}}
+                      >
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            width: wp(77),
+                            justifyContent: "space-between",
+                            paddingHorizontal: wp(4),
+                          }}
+                        >
+                          {state_list.map(
+                            (item) =>
+                              item.value === state && (
+                                <Text
+                                  key={item.value}
+                                  style={{
+                                    fontSize: 13,
+                                    color: "#000",
+                                    marginTop: 10,
+                                  }}
+                                >
+                                  {item.label}
+                                </Text>
+                              )
+                          )}
+                          <Image
+                            source={require("../Assets/downbutton.png")}
+                            style={{
+                              height: hp(3),
+                              width: wp(6),
+                              marginTop: hp(1),
+                            }}
+                          />
+                        </View>
+                      </RNPickerSelect>
+                      <Image
+                        source={require("../Assets/Exam.png")}
+                        style={{ height: hp(3), width: wp(6) }}
+                      />
+                    </View>
+
+                    {state == "Others" ? (
+                      <View>
+                        <View
+                          style={{
+                            position: "absolute",
+                            top: hp(1),
+                            left: wp(10),
+                            zIndex: 999,
+                            backgroundColor: "#fff",
+                          }}
+                        >
+                          <Text style={{ color: "#000" }}> Exam Name</Text>
+                        </View>
+
+                        <View
+                          style={{
+                            borderWidth: 1,
+                            marginTop: hp(3),
+                            flexDirection: "row",
+                            alignItems: "center",
+                            borderColor: "lightgrey",
+                            marginHorizontal: wp(5),
+                            height: hp(6),
+                            borderRadius: 4,
+                          }}
+                        >
+                          <TextInput
+                            placeholder="IGCSE"
+                            placeholderTextColor={"lightgrey"}
+                            style={{
+                              marginLeft: wp(2),
+                              width: wp(75),
+                              color: "#000",
+                            }}
+                            value={otherExam}
+                            onChangeText={(value) => setOtherExam(value)}
+                          />
+
+                          <Image
+                            source={require("../Assets/Exam.png")}
+                            style={{ height: hp(3), width: wp(6) }}
+                          />
+                        </View>
+                      </View>
+                    ) : null}
+
+                    <View>
+                      {sections.map((section, index) => (
+                        <View style={{ flexDirection: "row" }} key={index}>
+                          <View>
+                            <View
+                              style={{
+                                position: "absolute",
+                                top: hp(1.5),
+                                left: wp(10),
+                                zIndex: 999,
+                                backgroundColor: "#fff",
+                              }}
+                            >
+                              <Text style={{ color: "#000" }}> Subject </Text>
+                            </View>
+
+                            <View
+                              style={{
+                                borderWidth: 1,
+                                marginTop: hp(3),
+                                flexDirection: "row",
+                                alignItems: "center",
+                                marginLeft: wp(5),
+                                borderColor: "lightgrey",
+                                width: wp(45),
+                                height: hp(6),
+                                borderRadius: 4,
+                              }}
+                            >
+                              <TextInput
+                                placeholder="Subject"
+                                placeholderTextColor={"lightgrey"}
+                                style={{
+                                  marginLeft: wp(2),
+                                  width: wp(34),
+                                  color: "#000",
+                                }}
+                                value={section.subject}
+                                onChangeText={(text) =>
+                                  handleSubjectChange(text, index)
+                                }
+                              />
+
+                              <Image
+                                source={require("../Assets/Course.png")}
+                                style={{ height: hp(3), width: wp(6) }}
+                              />
+                            </View>
+                          </View>
+
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              alignItems: "center",
+                            }}
+                          >
+                            <View
+                              style={{
+                                position: "absolute",
+                                top: hp(1.5),
+                                left: wp(10),
+                                zIndex: 999,
+                                backgroundColor: "#fff",
+                              }}
+                            >
+                              <Text style={{ color: "#000" }}> Grade </Text>
+                            </View>
+
+                            <View
+                              style={{
+                                borderWidth: 1,
+                                marginTop: hp(3),
+                                flexDirection: "row",
+                                alignItems: "center",
+                                marginLeft: wp(3),
+                                borderColor: "lightgrey",
+                                width: wp(35),
+                                height: hp(6),
+                                borderRadius: 4,
+                              }}
+                            >
+                              <TextInput
+                                placeholder="Grade"
+                                placeholderTextColor={"lightgrey"}
+                                style={{
+                                  marginLeft: wp(2),
+                                  width: wp(22),
+                                  color: "#000",
+                                }}
+                                value={section.grade}
+                                onChangeText={(text) =>
+                                  handleGradeChange(text, index)
+                                }
+                              />
+
+                              <Image
+                                source={require("../Assets/Grade.png")}
+                                style={{ height: hp(3), width: wp(6) }}
+                              />
+                            </View>
+                            {/* Render subject and grade input fields for each section */}
+
+                            <TouchableOpacity
+                              onPress={() => deleteSection(index)}
+                              style={{
+                                height: hp(3),
+                                width: wp(6),
+                                marginTop: hp(3),
+                                marginLeft: wp(1),
+                              }}
+                            >
+                              {/* Render a delete button for each section */}
+                              <Image
+                                source={require("../Assets/Deletes.png")}
+                                style={{
+                                  height: 20,
+                                  width: 20,
+
+                                  marginLeft: wp(1),
+                                }}
+                              />
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                      ))}
+                    </View>
+
+                    {/* <View style={{ flexDirection: "row" }}>
                     <View>
                       <View
                         style={{
@@ -1723,7 +1952,7 @@ const AcademicInfo = () => {
                             color: "#000",
                           }}
                           value={grade}
-                          onChangeText={(text) => setGrade(text)}
+                          onChangeText={(text) => DeleteSubjectSection(text)}
                         />
 
                         <Image
@@ -1743,7 +1972,49 @@ const AcademicInfo = () => {
                         />
                       </TouchableOpacity>
                     </View>
-                  </View>
+                  </View> */}
+                    <TouchableOpacity
+                      onPress={() => AddSubjectSection(true)}
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginLeft: wp(5),
+                        marginTop: hp(2),
+                      }}
+                    >
+                      <View
+                        style={{
+                          backgroundColor: "blue",
+                          height: hp(5),
+                          width: wp(10),
+                          borderRadius: 4,
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontSize: 25,
+                            color: "#fff",
+                            fontWeight: "800",
+                          }}
+                        >
+                          +
+                        </Text>
+                      </View>
+                      <Text
+                        style={{
+                          fontSize: 15,
+                          color: "#2F5597",
+                          fontWeight: "800",
+                          marginLeft: wp(2),
+                        }}
+                      >
+                        Add Result (optional)
+                      </Text>
+                    </TouchableOpacity>
+                    <View style={{ height: 20 }}></View>
+                  </ScrollView>
                 </View>
               </View>
             </Modal>

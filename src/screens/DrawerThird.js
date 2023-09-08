@@ -20,13 +20,26 @@ import {
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 const DrawerThird = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.head}>
-        <View style={styles.HeadLeft}>
+        <View>
           <Image
-            source={require("../Assets/logo.jpg")}
-            style={styles.logoicons}
+            source={require("../Assets/try-it.png")}
+            style={{ marginLeft: 10, marginTop: 10 }}
+          />
+        </View>
+        <View style={{ flexDirection: 'row', marginLeft: 80, marginTop: 20 }}>
+          <Image
+            source={require("../Assets/rateAppIcon.png")}
+            style={{ width: 35 }}
+          />
+
+          <Image
+            source={require("../Assets/shareIcon.png")}
+            style={{ width: 40 }}
           />
         </View>
       </View>
@@ -36,22 +49,30 @@ const DrawerThird = () => {
             source={require("../Assets/Welcome.png")}
             style={styles.icons}
           />
-          <Text style={styles.MenuHead}>Welcomeaaaaaa</Text>
+          <Text style={styles.MenuHead}>Welcome</Text>
         </View>
-        <View style={styles.menusublist}>
-          <Text style={styles.subText}>Message from our director</Text>
-          <Text style={styles.subText}>About</Text>
-          <Text style={styles.subText}>Our Services</Text>
-          <Text style={styles.subText}>Our Tutors</Text>
-          <Text style={styles.subText}>Promotions</Text>
+        <View style={[styles.menusublist, { flexDirection: 'row' }]}>
+          <View>
+            <View style={styles.verticleLine}></View>
+
+          </View>
+          <View style={{ marginLeft: 10 }}>
+            <Text style={styles.subText}>Message from our director</Text>
+            <Text style={styles.subText}>About</Text>
+            <Text style={styles.subText}>Our Services</Text>
+            <Text style={styles.subText}>Our Tutors</Text>
+            <Text style={styles.subText}>Promotions</Text>
+          </View>
         </View>
+
       </View>
 
       <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
+        <TouchableOpacity style={styles.MenuLIst} onPress={() => navigation.navigate("Login")}>
+
           <Image source={require("../Assets/Login.png")} style={styles.icons} />
           <Text style={styles.MenuHead}>Login</Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.menusublist}>
           {/* <Text style={styles.subText}>My Profile</Text>
                     <Text style={styles.subText}>My Account</Text>
@@ -92,13 +113,6 @@ const DrawerThird = () => {
           <Text style={styles.MenuHead}>Health Advisory</Text>
         </View>
       </View>
-
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Text style={styles.LastText}>The Proof is in the pudding</Text>
-        </View>
-      </View>
-
       <View style={styles.SocialMainContainer}>
         <View style={styles.SocialContainer}>
           <Image source={require("../Assets/Fb.png")} style={styles.icons} />
@@ -119,6 +133,11 @@ const DrawerThird = () => {
           />
         </View>
       </View>
+      <View style={styles.MenuLIstContainer}>
+        <View style={styles.MenuLIst}>
+          <Text style={styles.LastText}>The Proof is in the pudding</Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -134,6 +153,7 @@ const styles = StyleSheet.create({
   head: {
     height: hp(10),
     // backgroundColor: "red"
+    flexDirection: 'row'
   },
   subText: {
     color: "#fff",
@@ -152,9 +172,9 @@ const styles = StyleSheet.create({
   },
   LastText: {
     color: "#fff",
-    fontStyle: "italic",
-    fontSize: 18,
-    fontWeight: "700",
+    fontSize: 15,
+    fontFamily: 'Poppins-Italic',
+    marginLeft: 20
   },
   MenuLIst: {
     flexDirection: "row",
@@ -170,7 +190,7 @@ const styles = StyleSheet.create({
     color: "yellow",
   },
   SocialMainContainer: {
-    height: 100,
+    height: 40,
     width: "100%",
     marginTop: 20,
     alignItems: "center",
@@ -178,9 +198,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   SocialContainer: {
-    height: 50,
-    width: "20%",
+    height: 30,
+    width: "12%",
     alignItems: "center",
     justifyContent: "center",
+    marginRight: 5
+  },
+  verticleLine: {
+    height: 100,
+    width: 2,
+    backgroundColor: 'yellow',
   },
 });

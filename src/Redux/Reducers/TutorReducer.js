@@ -12,6 +12,7 @@ import {
   Tutor_Qualification,
   Tutor_Schedule,
   Login_Data,
+  SINGLE_USER_DETAILS,
   Tutor_Detail,
   Postal_Code_Address,
   ALL_POSTS_BY_CLIENT,
@@ -44,6 +45,7 @@ const initialstate = {
   GRADE_LIST: "",
   SINGLE_USER: [],
   SUBJECT_LIST: "",
+  SINGLE_USER_DETAILS: "",
 };
 
 const TutorReducer = (state = initialstate, action) => {
@@ -93,6 +95,8 @@ const TutorReducer = (state = initialstate, action) => {
       return { ...state, SUBJECT_LIST: action.payload };
     case SINGLE_USER:
       return { ...state, SINGLE_USER: action.payload };
+    case SINGLE_USER_DETAILS:
+      return { ...state, SINGLE_USER_DETAILS: action.payload };
   }
 
   return state;

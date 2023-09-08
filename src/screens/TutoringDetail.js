@@ -26,14 +26,10 @@ import RNPickerSelect from "react-native-picker-select";
 import MultiSelect from "react-native-multiple-select";
 import { set } from "immer/dist/internal";
 import { useDispatch, useSelector } from "react-redux";
-import { editProfile, GetUserProfile } from "../Redux/Actions/Tutors";
+import { editProfile } from "../Redux/Actions/Tutors";
 
 import { Tutoring_Data } from "../Redux/Actions/types";
-import {
-  getLevelList,
-  getGradeList,
-  getSubjectList,
-} from "../Redux/Actions/Tutors";
+import { getLevelList, getGradeList, getSubjectList } from "../Redux/Actions/Tutors";
 
 var selectArray = [];
 var gradeArray = [];
@@ -44,8 +40,6 @@ const TutoringDetail = () => {
   const { LEVEL_LIST } = useSelector((state) => state.TutorReducer);
   const { SUBJECT_LIST } = useSelector((state) => state.TutorReducer);
   const { GRADE_LIST } = useSelector((state) => state.TutorReducer);
-  const { Login_Data } = useSelector((state) => state.TutorReducer);
-  const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
   const [tutoring, setTutoring] = useState("");
   const [P1, setP1] = useState("");
   const [P2, setP2] = useState("");
@@ -53,18 +47,17 @@ const TutoringDetail = () => {
   const [P4, setP4] = useState("");
   const [P5, setP5] = useState("");
   const [P6, setP6] = useState("");
-  const [userDetail, setUserDetail] = useState([]);
 
   const [grade, setGrade] = useState([]);
-  const [records, setRecords] = useState(selectArray);
-  const [showEditModal, setShowEditModal] = useState(false);
-
-  const [editId, setEditId] = useState(); // ID of the record you want to edit
+  const [gradeList, setGradeList] = useState()
+  const [SecondarygradeList, setSecondaryGradeList] = useState()
+  console.log(gradeList, "gradeList");
+  console.log(SecondarygradeList, "SecondarygradeList");
 
   console.log(grade, "gradeJK");
-  console.log(gradeArray, "gradeArray");
-  console.log(GRADE_LIST, "GRADE-HIM");
-  console.log(SUBJECT_LIST, "SUBJECT_LIST");
+  console.log(gradeArray, 'gradeArray')
+  console.log(GRADE_LIST, 'GRADE-HIM')
+  console.log(SUBJECT_LIST, 'SUBJECT_LIST')
 
   const AddQualification = (val) => {
     if (P1 == val) {
@@ -305,7 +298,7 @@ const TutoringDetail = () => {
       }
     });
 
-    gradeArray = Ex_array;
+    selectArray = Ex_array;
   };
 
   const [listTutor, setlistTutor] = useState([
@@ -379,7 +372,7 @@ const TutoringDetail = () => {
   const [TutorLevel, setTutorLevel] = useState("");
   const [levelDetail, setLevelDetail] = useState("");
   const [count, setCount] = useState(0);
-  console.log(selectListTutor, "selectListTutor");
+  console.log(selectListTutor, 'selectListTutor')
   // console.log(levelDetail,'levelDetail')
 
   const [state, setState] = useState("Select Year");
@@ -423,8 +416,7 @@ const TutoringDetail = () => {
       gradeArray,
       state,
       state2,
-      selectedItems,
-      "ALLDATA"
+      selectedItems, 'ALLDATA'
     );
 
     // if (P1 == P1) {
@@ -436,10 +428,9 @@ const TutoringDetail = () => {
     console.log(obj3, "AAAAA");
 
     var item1 = {};
-    item1["tutoring_detail_id"] = count;
-    item1["TutoringLevel"] = selectListTutor;
-    item1["AdmissionLevel"] = "";
-    item1["Tutoring_Grade"] = gradeArray.map((item) => item?.Grade);
+    item1["Id"] = count;
+    item1["tutor_qualification_Subject"] = selectListTutor;
+    item1["Tutoring_Grade"] = gradeArray.map(item => item?.Grade);
     item1["Tutoring_Year"] = state;
     item1["Tutoring_Month"] = state2;
     item1["Tutoring_ALL_Subjects"] = selectedItems;
@@ -452,7 +443,7 @@ const TutoringDetail = () => {
       )
     ) {
       //  console.log('insert in array');
-      records.push(item1);
+      selectArray.push(item1);
       // selectArray.push(obj3);
     } else {
       RemoveTempExercise(
@@ -476,8 +467,13 @@ const TutoringDetail = () => {
     setselectedItems([]);
   };
 
+
+
   const gradeData = (val) => {
-    console.log(val, "@@@@@AAAAJJJJ@@@@");
+
+    console.log(
+      val, '@@@@@AAAAJJJJ@@@@'
+    );
 
     // if (P1 == P1) {
     //   setSelectListTutor("");
@@ -490,21 +486,35 @@ const TutoringDetail = () => {
     var item1 = {};
     item1["Grade"] = val;
 
-    if (!isExistInArray(gradeArray, "Grade", item1.Grade)) {
+
+    if (
+      !isExistInArray(
+        selectArray,
+        "Grade",
+        item1.Grade
+      )
+    ) {
       //  console.log('insert in array');
       gradeArray.push(item1);
       // selectArray.push(obj3);
     } else {
-      RemoveTempExercise(gradeArray, "Grade", item1.Grade);
+      RemoveTempExercise(
+        selectArray,
+        "Grade",
+        item1.Grade
+      );
     }
     // }
+
+
   };
   console.log(count, "countttttttttttt");
   console.log(
-    gradeArray,
+    selectArray,
     //selectArray.Tutoring_ALL_Subjects[1],
     "selectArrayselectArray@@@@@@@@@@@@@@@@@@@@@@@@@"
   );
+
 
   const SelectYear = (val) => {
     if (state == val) {
@@ -691,41 +701,26 @@ const TutoringDetail = () => {
   };
   useEffect(() => {
     dispatch(getLevelList());
+
   }, []);
   useEffect(() => {
+
     dispatch(getGradeList(selectListTutor));
+    if (GRADE_LIST) {
+      setGradeList(GRADE_LIST?.Grade_List)
+    }
+
+    if (GRADE_LIST && selectListTutor == 'Secondary') {
+      setSecondaryGradeList(GRADE_LIST?.Grade_List?.Grades)
+    }
+
   }, [selectListTutor]);
 
   useEffect(() => {
+
     dispatch(getSubjectList(selectListTutor));
+
   }, [selectListTutor]);
-
-  useEffect(() => {
-    dispatch(GetUserProfile(Login_Data.userid));
-  }, []);
-
-  useEffect(() => {
-    setUserDetail(SINGLE_USER);
-  }, [SINGLE_USER]);
-
-  useEffect(() => {
-    setUserDetail(SINGLE_USER);
-    setRecords(userDetail[0]?.tutoring_detail_arr);
-    // setSchool1(userDetail[0]?.Extra_info[0]?.name_of_school);
-    // setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
-    // setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
-    // setRecords(userDetail[0]?.history_academy_arr);
-  }, [SINGLE_USER]);
-
-  const deleteRecord = (idToDelete) => {
-    console.log(idToDelete, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    const updatedRecords = records.filter(
-      (record) => record.tutoring_detail_id !== idToDelete
-    );
-    console.log(updatedRecords, "AAAAAAAAAAAA");
-    setRecords(updatedRecords);
-  };
-
   return (
     <View style={styles.container}>
       {/* <View style={{flex:0.9}}> */}
@@ -801,83 +796,52 @@ const TutoringDetail = () => {
       </TouchableOpacity>
 
       <ScrollView style={{ height: 300 }}>
-        {records &&
-          records.map((item) => (
-            <View
-              style={{
-                justifyContent: "space-between",
-                backgroundColor: "red",
-                marginHorizontal: wp(5),
-                backgroundColor: "#fff",
-                elevation: 10,
-                paddingVertical: hp(1),
-                marginTop: hp(2),
-              }}
-              key={item.tutoring_detail_id}
-            >
-              {/* <Text style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}>
+        {selectArray.map((item) => (
+          <View
+            style={{
+              justifyContent: "space-between",
+              backgroundColor: "red",
+              marginHorizontal: wp(5),
+              backgroundColor: "#fff",
+              elevation: 10,
+              paddingVertical: hp(1),
+              marginTop: hp(2),
+            }}
+            key={item.Id}
+          >
+            <Text style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}>
               {item.Id}
-            </Text> */}
-              <View style={{ flexDirection: "row", width: wp(90) }}>
-                <View style={{ width: wp(80) }}>
-                  <Text
-                    style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}
-                  >
-                    {item.TutoringLevel}
-                  </Text>
+            </Text>
+            <Text style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}>
+              {item.tutor_qualification_Subject}
+            </Text>
+            {item.Tutoring_Grade.map((item) => (
+              <Text style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}>
+                {item}
+              </Text>
+            ))}
+            <Text style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}>
+              {item.Tutoring_Grade?.Grade}
+            </Text>
+            <Text style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}>
+              {item.Tutoring_Year} Years
+            </Text>
+            <Text style={{ color: "#000", fontSize: 14, marginLeft: wp(3) }}>
+              {item.Tutoring_Month} Months
+            </Text>
 
-                  <Text
-                    style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
-                  >
-                    {item.Tutoring_Grade + ","}
-                  </Text>
-                </View>
-
-                <TouchableOpacity
-                  style={{
-                    height: 40,
-                    backgroundColor: "lightblue",
-                    width: 40,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
+            <View>
+              {item.Tutoring_ALL_Subjects.map((subject) => (
+                <Text
+                  style={{ color: "#000", fontSize: 14, marginLeft: wp(3) }}
+                  key={subject}
                 >
-                  <Image
-                    source={require("../Assets/Edit.png")}
-                    style={{ height: 20, width: 20 }}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={{ flexDirection: "row", width: wp(90) }}>
-                <View style={{ width: wp(80) }}>
-                  <Text
-                    style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
-                  >
-                    {item.Tutoring_Year} Years {item.Tutoring_Month} Months
-                  </Text>
-                  <Text
-                    style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
-                  >
-                    {item.Tutoring_ALL_Subjects + ","}
-                  </Text>
-                </View>
-                <View>
-                  <TouchableOpacity
-                    onPress={() => deleteRecord(item.tutoring_detail_id)}
-                    style={{
-                      height: 40,
-                      backgroundColor: "lightblue",
-                      width: 40,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Image source={require("../Assets/Deletes.png")} />
-                  </TouchableOpacity>
-                </View>
-              </View>
+                  {subject}
+                </Text>
+              ))}
             </View>
-          ))}
+          </View>
+        ))}
       </ScrollView>
 
       {/* {selectListTutor ? (
@@ -1041,18 +1005,13 @@ const TutoringDetail = () => {
                       alignSelf: "center",
                       flexDirection: "row",
                       backgroundColor:
-                        selectListTutor == item.school_level_name
-                          ? "#2F5597"
-                          : "#fff",
+                        selectListTutor == item.school_level_name ? "#2F5597" : "#fff",
                       // marginTop: hp(2),
                     }}
                   >
                     <Text
                       style={{
-                        color:
-                          selectListTutor == item.school_level_name
-                            ? "#fff"
-                            : "#000",
+                        color: selectListTutor == item.school_level_name ? "#fff" : "#000",
                         fontSize: 13,
                         marginLeft: wp(4),
                       }}
@@ -1161,8 +1120,11 @@ const TutoringDetail = () => {
                   flexDirection: "row",
                 }}
               >
-                {GRADE_LIST?.Grade_List
-                  ? GRADE_LIST?.Grade_List.map((item) => {
+                {
+                  selectListTutor != 'Secondary'  ?
+
+
+                  gradeList && gradeList?.map((item) => {
                       return (
                         <View
                           style={{
@@ -1171,6 +1133,7 @@ const TutoringDetail = () => {
                             justifyContent: "center",
                           }}
                         >
+
                           <TouchableOpacity
                             //  onPress={() => setP1("P1")}
                             onPress={() => gradeData(item?.grade_name)}
@@ -1179,32 +1142,55 @@ const TutoringDetail = () => {
                               width: wp(8),
                               borderWidth: 1,
                               borderColor: "lightgrey",
-                              backgroundColor: gradeArray.some(
-                                (obj) =>
-                                  obj.hasOwnProperty("Grade") &&
-                                  obj["Grade"] === item.grade_name
-                              )
-                                ? "#2F5597"
-                                : "#fff",
-                              // gradeArray.map((item) => item?.Grade) ==
-                              // item?.grade_name
-                              //   ? "#2F5597"
-                              //   : "#fff",
+                              backgroundColor: gradeArray.map(item => item?.Grade) == item?.grade_name ? "#2F5597" : "#fff",
                             }}
                           ></TouchableOpacity>
                           <Text
-                            style={{
-                              color: "grey",
-                              fontSize: 14,
-                              fontWeight: "800",
-                            }}
+                            style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
                           >
                             {item?.grade_name}
                           </Text>
                         </View>
-                      );
+                      )
                     })
-                  : null}
+                    : null
+                }
+
+                {
+                  selectListTutor == 'Secondary' && SecondarygradeList ?
+                    SecondarygradeList.map((item) => {
+                      return (
+                        <View
+                          style={{
+                            width: wp(15),
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+
+                          <TouchableOpacity
+                            //  onPress={() => setP1("P1")}
+                            onPress={() => gradeData(item?.grade_name)}
+                            style={{
+                              height: hp(4),
+                              width: wp(8),
+                              borderWidth: 1,
+                              borderColor: "lightgrey",
+                              backgroundColor: gradeArray.map(item => item?.Grade) == item?.grade_name ? "#2F5597" : "#fff",
+                            }}
+                          ></TouchableOpacity>
+                          <Text
+                            style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
+                          >
+                            {item?.grade_name}
+                          </Text>
+                        </View>
+                      )
+                    })
+                    : null
+                }
+
+
               </View>
               <View>
                 <View style={{ marginTop: hp(2), marginLeft: wp(5) }}>
@@ -1427,9 +1413,9 @@ const TutoringDetail = () => {
                   displayKey="subjects_name"
                   searchInputStyle={{ color: "#000", fontSize: 13 }}
                   hideSubmitButton
-                  //  submitButtonColor="#000"
-                  //submitButtonText="Submit"
-                  //   removeSelected
+                //  submitButtonColor="#000"
+                //submitButtonText="Submit"
+                //   removeSelected
                 />
               </View>
 

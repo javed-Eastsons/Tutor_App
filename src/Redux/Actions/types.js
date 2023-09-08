@@ -27,3 +27,4 @@ export const LEVEL_LIST = "LEVEL_LIST";
 export const GRADE_LIST = "GRADE_LIST";
 export const SUBJECT_LIST = "SUBJECT_LIST";
 export const SINGLE_USER = "SINGLE_USER";
+export const SINGLE_USER_DETAILS = "SINGLE_USER_DETAILS";

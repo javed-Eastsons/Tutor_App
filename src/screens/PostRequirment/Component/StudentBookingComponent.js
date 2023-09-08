@@ -10,7 +10,6 @@ import {
   Image,
   Button,
   Platform,
-  Modal,
   FlatList,
   TouchableOpacity,
   Alert,
@@ -31,11 +30,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 //import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
 import StudentDetailComponent from "./StudentDetailComponent";
-import {
-  getLevelList,
-  getGradeList,
-  getSubjectList,
-} from "../../../Redux/Actions/Tutors";
+import { getLevelList, getGradeList, getSubjectList } from "../../../Redux/Actions/Tutors";
 
 import { Loader } from "../../../../../../common/Loader";
 import StudentDetail from "../StudentDetail";
@@ -82,10 +77,6 @@ const StudentBookingComponent = (props) => {
   const [moredetail, setMoreDetail] = useState("showSection");
   const [selectedlevel, setSelectedlevel] = useState([]);
   const [records, setRecords] = useState(selectArray);
-  const [showEditModal, setShowEditModal] = useState(false);
-  //const [historyData, setHistoryData] = useState(selectArray);
-  const [editId, setEditId] = useState(); // ID of the record you want to edit
-  const [newGrade, setNewGrade] = useState("");
 
   const [count, setCount] = useState(0);
   const navigation = useNavigation();
@@ -96,8 +87,8 @@ const StudentBookingComponent = (props) => {
 
   console.log("@@@@@@", value);
   // console.log(">>>>>>", value2);
-  console.log(LEVEL_LIST?.Level_list, "LEVEL_LIST-REDUX");
-  console.log(SUBJECT_LIST, "SUBJECT_LIST");
+  console.log(LEVEL_LIST?.Level_list, 'LEVEL_LIST-REDUX')
+  console.log(SUBJECT_LIST, 'SUBJECT_LIST')
 
   const AddMoreDetail = () => {
     setMoreDetail("showSection");
@@ -194,36 +185,8 @@ const StudentBookingComponent = (props) => {
     setRecords(updatedRecords);
   };
 
-  const handleEdit = (idToEdit) => {
-    console.log(idToEdit);
-    setSelectedlevel([]);
-    setShowEditModal(true);
-    setEditId(idToEdit);
-  };
-
-  const UpdateRecord = () => {
-    console.log(editId);
-    const newData = records.map((record) => {
-      if (record.Id === editId) {
-        return {
-          ...record,
-          Grade: value2,
-          Level: value,
-          ALL_Subjects: selectedlevel,
-          // You can update other fields here as well
-        };
-      }
-      return record;
-    });
-
-    setRecords(newData);
-    console.log(newData, "newDatanewDatanewDatanewDatanewData");
-    setShowEditModal(false);
-  };
-
   const createlevel = (data) => {
     console.log(data, ":::::::::::::::::::::::::");
-
     if (data.length == 0) {
       selectFilter = [];
       console.log("ddddddddddddddddddddddd");
@@ -286,20 +249,23 @@ const StudentBookingComponent = (props) => {
   // console.log(SelectDetail, "SelectDetailSelectDetailSelectDetailSelectDetail");
   useEffect(() => {
     dispatch(getLevelList());
+
   }, []);
-
   useEffect(() => {
+
     dispatch(getGradeList(value));
-  }, [value]);
 
-  console.log(GRADE_LIST, "GRADE_LIST-REDUX");
+  }, [value]);
+  console.log(GRADE_LIST, 'GRADE_LIST-REDUX')
 
   useEffect(() => {
+
     dispatch(getSubjectList(value));
+
   }, [value]);
   return (
     // <View style={styles.container}>
-    <SafeAreaView style={{ marginHorizontal: 5 }}>
+    <SafeAreaView style={{ flex: 1, marginHorizontal: 10 }}>
       <View style={[styles.Bookcard, styles.BookshadowProp]}>
         <View
           style={{
@@ -322,469 +288,266 @@ const StudentBookingComponent = (props) => {
             you can add multiple student's details.One at a time...
           </Text>
         </View>
+        <ScrollView nestedScrollEnabled={true}>
 
-        <View
-          style={{
-            height: "80%",
-            width: "100%",
-            padding: 10,
-            backgroundColor: "White",
-          }}
-        >
-          {/* <View
+          <View
             style={{
-              height: 80,
+              height: "80%",
               width: "100%",
-              paddingHorizontal: 10,
-              flexDirection: "row",
+              padding: 10,
+              // backgroundColor: "#fff",
             }}
           >
-            <View style={{ height: 100, width: "90%" }}>
-              <Text style={styles.Information}>{Student_Detail.Level}</Text>
-              <Text style={styles.Information}>{Student_Detail.Grade}</Text>
-              {Student_Detail.Subjects &&
-                Student_Detail.Subjects.map((item) => {
-                  return (
-                    <Text key={item} style={styles.Information}>
-                      {item.subject}
+
+
+            {records.map((item) => (
+              <View>
+                <View
+                  key={item.Id}
+                  style={{
+                    height: 90,
+                    width: "100%",
+                    // paddingHorizontal: 10,
+                    flexDirection: "row",
+                    marginBottom: 15,
+                    elevation: 2,
+                    backgroundColor: "#fff",
+                  }}
+                >
+                  <View style={{ height: 90, width: "10%", backgroundColor: 'purple', elevation: 3 }}>
+
+                  </View >
+                  <View style={{ height: 100, width: "80%" }}>
+                    <Text style={styles.Information}>{item.Level}</Text>
+                    <Text style={styles.Information}>{item.Grade}</Text>
+                    <Text style={styles.Information}>
+                      {item.ALL_Subjects + " "}
                     </Text>
-                  );
-                })}
-              <Text style={styles.Information}></Text>
-            </View>
-            <View style={{ height: 80, width: "10%" }}>
+                    {/* {item.ALL_Subjects.map((subject, index) => (
+                     <Text style={{ flexDirection: "row" }} key={index}>
+                       {subject}
+                     </Text>
+                   ))} */}
+
+                    {/* {item.Subjects &&
+                     Student_Detail.Subjects.map((item) => {
+                       return (
+                         <Text key={item} style={styles.Information}>
+                           {item.subject}
+                         </Text>
+                       );
+                     })} */}
+                    {/* {Student_Detail.Subjects &&
+                     Student_Detail.Subjects.map((item) => {
+                       return (
+                         <Text key={item} style={styles.Information}>
+                           {item.subject}
+                         </Text>
+                       );
+                     })} */}
+                    <Text style={styles.Information}></Text>
+                  </View>
+                  <View style={{ height: 80, width: "10%" }}>
+                    <TouchableOpacity
+                      style={{
+                        height: 40,
+                        width: "100%",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Image
+                        source={require("../../../Assets/Edit.png")}
+                        style={{ height: 20, width: 20 }}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => deleteRecord(item.Id)}
+                      style={{
+                        height: 40,
+                        width: "100%",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Image source={require("../../../Assets/Deletes.png")} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                {/* <Text
+                 style={{ color: "#2F5597" }}
+                 ellipsizeMode="clip"
+                 numberOfLines={1}
+               >
+                 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                 - - -
+               </Text> */}
+              </View>
+
+            ))}
+
+            {moredetail == "AddDataIn" ? (
               <TouchableOpacity
-                style={{
-                  height: 40,
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
+                style={{ height: 30, width: "100%" }}
+                onPress={() => {
+                  AddMoreDetail();
                 }}
               >
                 <Image
-                  source={require("../../../Assets/Edit.png")}
-                  style={{ height: 20, width: 20 }}
+                  source={require("../../../Assets/Plus.png")}
+                  style={{
+                    height: 20,
+                    width: 20,
+                    position: "absolute",
+                    right: 15,
+                  }}
                 />
               </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  height: 40,
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Image source={require("../../../Assets/Deletes.png")} />
-              </TouchableOpacity>
-            </View>
-          </View>
+            ) : (
+              <View />
+            )}
 
-          <Text
-            style={{ color: "#2F5597" }}
-            ellipsizeMode="clip"
-            numberOfLines={1}
-          >
-            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-            -
-          </Text> */}
-
-          {records.map((item) => (
-            <View>
+            {moredetail == "showSection" || records == [] ? (
               <View
-                key={item.Id}
                 style={{
-                  height: 90,
+                  height: "80%",
                   width: "100%",
-                  paddingHorizontal: 10,
-                  flexDirection: "row",
-                  marginBottom: 10,
-                  backgroundColor: "#fff",
+                  padding: 10,
+                  backgroundColor: "white",
                 }}
               >
-                <View style={{ height: 100, width: "90%" }}>
-                  <Text style={styles.Information}>{item.Level}</Text>
-                  <Text style={styles.Information}>{item.Grade}</Text>
-                  <Text style={styles.Information}>
-                    {item.ALL_Subjects + " "}
-                  </Text>
-                  {/* {item.ALL_Subjects.map((subject, index) => (
-                    <Text style={{ flexDirection: "row" }} key={index}>
-                      {subject}
+                <View style={styles.DetailContainer}>
+                  <View style={{ height: 100, width: "30%" }}>
+                    <Text style={{ marginTop: 10, fontSize: 15, color: "black",fontFamily:'Poppins-Regular' }}>
+                      Level :
                     </Text>
-                  ))} */}
-
-                  {/* {item.Subjects &&
-                    Student_Detail.Subjects.map((item) => {
-                      return (
-                        <Text key={item} style={styles.Information}>
-                          {item.subject}
-                        </Text>
-                      );
-                    })} */}
-                  {/* {Student_Detail.Subjects &&
-                    Student_Detail.Subjects.map((item) => {
-                      return (
-                        <Text key={item} style={styles.Information}>
-                          {item.subject}
-                        </Text>
-                      );
-                    })} */}
-                  <Text style={styles.Information}></Text>
-                </View>
-                <View style={{ height: 80, width: "10%" }}>
-                  <TouchableOpacity
-                    onPress={() => handleEdit(item.Id)}
-                    style={{
-                      height: 40,
-                      width: "100%",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Image
-                      source={require("../../../Assets/Edit.png")}
-                      style={{ height: 20, width: 20 }}
+                  </View>
+                  <View style={{ width: "60%" }}>
+                    <Dropdown
+                      style={[
+                        styles.dropdown,
+                        isFocus && { borderColor: "black" },
+                      ]}
+                      placeholderStyle={{ fontSize: 12 }}
+                      selectedTextStyle={styles.selectedTextStyle}
+                      iconStyle={styles.iconStyle}
+                      itemTextStyle={{ color: "grey", fontSize: 12 }}
+                      data={LEVEL_LIST?.Level_list}
+                      labelField="school_level_name"
+                      valueField="school_level_name"
+                      allowFontScaling={false}
+                      placeholder={!isFocus ? " " : "..."}
+                      value={value}
+                      onFocus={() => setIsFocus(true)}
+                      onBlur={() => setIsFocus(false)}
+                      onChange={(item) => {
+                        setValue(item.school_level_name);
+                        setIsFocus(false);
+                      }}
                     />
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => deleteRecord(item.Id)}
-                    style={{
-                      height: 40,
-                      width: "100%",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Image source={require("../../../Assets/Deletes.png")} />
-                  </TouchableOpacity>
+
+                  </View>
                 </View>
-              </View>
 
-              {/* <Text
-                style={{ color: "#2F5597" }}
-                ellipsizeMode="clip"
-                numberOfLines={1}
-              >
-                - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                - - -
-              </Text> */}
-            </View>
-          ))}
+                <View style={styles.DetailContainer}>
+                  <View style={{ height: 100, width: "30%" }}>
+                    <Text style={{ marginTop: 10, fontSize: 15, color: "black",fontFamily:'Poppins-Regular' }}>
+                      Grade :
+                    </Text>
+                  </View>
+                  <View style={{ width: "60%" }}>
+                    <Dropdown
+                      style={[
+                        styles.dropdown,
+                        isFocus2 && { borderColor: "black" },
+                      ]}
+                      placeholderStyle={{ fontSize: 12 }}
+                      selectedTextStyle={styles.selectedTextStyle}
+                      iconStyle={styles.iconStyle}
+                      itemTextStyle={{ color: "grey", fontSize: 12 }}
+                      data={GRADE_LIST?.Grade_List}
+                      labelField="grade_name"
+                      valueField="grade_name"
+                      allowFontScaling={false}
+                      placeholder={!isFocus2 ? " " : "..."}
+                      value={value2}
+                      onFocus={() => setIsFocus2(true)}
+                      onBlur={() => setIsFocus2(false)}
+                      onChange={(item) => {
+                        setValue2(item.grade_name);
+                        setIsFocus2(false);
+                      }}
+                    />
 
-          {moredetail == "AddDataIn" ? (
-            <TouchableOpacity
-              style={{ height: 30, width: "100%" }}
-              onPress={() => {
-                AddMoreDetail();
+                  </View>
+                </View>
+
+                <View style={styles.DetailContainer}>
+                  <View style={{ height: 100, width: "30%" }}>
+                    <Text style={{ marginTop: 10,fontSize:15,  color: "black" ,fontFamily:'Poppins-Regular'}}>
+                      Subjects :
+                    </Text>
+                  </View>
+                  <View style={styles.SelectMoreContainer}>
+                    {/* <Dropdown
+              style={[styles.dropdown, isFocus1 && { borderColor: "black" }]}
+              placeholderStyle={{ fontSize: 12 }}
+              selectedTextStyle={styles.selectedTextStyle}
+              iconStyle={styles.iconStyle}
+              itemTextStyle={{ color: "grey", fontSize: 12 }}
+              data={subjects}
+              labelField="label1"
+              valueField="value1"
+              allowFontScaling={false}
+              placeholder={!isFocus1 ? " " : "..."}
+              value={value1}
+              onFocus={() => setIsFocus1(true)}
+              onBlur={() => setIsFocus1(false)}
+              onChange={(item) => {
+                setValue1(item.value1);
+                setIsFocus1(false);
               }}
-            >
-              <Image
-                source={require("../../../Assets/Plus.png")}
-                style={{
-                  height: 20,
-                  width: 20,
-                  position: "absolute",
-                  right: 15,
-                }}
-              />
-            </TouchableOpacity>
-          ) : (
-            <View />
-          )}
-
-          {moredetail == "showSection" || records == [] ? (
-            <View
-              style={{
-                height: "100%",
-                width: "100%",
-                padding: 10,
-                //  backgroundColor: "red",
-              }}
-            >
-              <View style={styles.DetailContainer}>
-                <View style={{ height: 100, width: "30%" }}>
-                  <Text style={{ marginTop: 10, fontSize: 16, color: "black" }}>
-                    Level :
-                  </Text>
+            /> */}
+                    {/* <View style={styles.SelectMoreContainer}> */}
+                    <MultiSelect
+                      items={SUBJECT_LIST?.Subject_List}
+                      uniqueKey="subjects_name"
+                      onSelectedItemsChange={onSelectedlevel}
+                      selectedItems={selectedlevel}
+                      //  selectText="Select one or more"
+                      searchInputPlaceholderText="Search Items..."
+                      onChangeInput={(text) =>
+                        console.log("SSSSSSSSSSSSSS", text)
+                      }
+                      tagRemoveIconColor="#CCC"
+                      tagBorderColor="#CCC"
+                      tagTextColor="#000"
+                      styleTextTag={{ fontSize: 12 }}
+                      selectedItemTextColor="red"
+                      selectedItemIconColor="#CCC"
+                      itemTextColor="#000"
+                      itemFontSize={12}
+                      fontSize={14}
+                      displayKey="subjects_name"
+                      searchInputStyle={{ color: "#CCC", fontSize: 12 }}
+                      styleRowList={{ width: "90%" }}
+                      // submitButtonColor="#000"
+                      //submitButtonText="Submit"
+                      styleDropdownMenu={{ backgroundColor: "red" }}
+                      hideSubmitButton
+                      styleItemsContainer={{}}
+                    />
+                    {/* </View> */}
+                  </View>
                 </View>
-                <View style={{ width: "60%" }}>
-                  <Dropdown
-                    style={[
-                      styles.dropdown,
-                      isFocus && { borderColor: "black" },
-                    ]}
-                    placeholderStyle={{ fontSize: 12 }}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    iconStyle={styles.iconStyle}
-                    itemTextStyle={{ color: "grey", fontSize: 12 }}
-                    data={LEVEL_LIST?.Level_list}
-                    labelField="school_level_name"
-                    valueField="school_level_name"
-                    allowFontScaling={false}
-                    placeholder={!isFocus ? " " : "..."}
-                    value={value}
-                    onFocus={() => setIsFocus(true)}
-                    onBlur={() => setIsFocus(false)}
-                    onChange={(item) => {
-                      setValue(item.school_level_name);
-                      setIsFocus(false);
-                    }}
-                  />
-                </View>
-              </View>
-
-              <View style={styles.DetailContainer}>
-                <View style={{ height: 100, width: "30%" }}>
-                  <Text style={{ marginTop: 10, fontSize: 16, color: "black" }}>
-                    Grade :
-                  </Text>
-                </View>
-                <View style={{ width: "60%" }}>
-                  <Dropdown
-                    style={[
-                      styles.dropdown,
-                      isFocus2 && { borderColor: "black" },
-                    ]}
-                    placeholderStyle={{ fontSize: 12 }}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    iconStyle={styles.iconStyle}
-                    itemTextStyle={{ color: "grey", fontSize: 12 }}
-                    data={GRADE_LIST?.Grade_List}
-                    labelField="grade_name"
-                    valueField="grade_name"
-                    allowFontScaling={false}
-                    placeholder={!isFocus2 ? " " : "..."}
-                    value={value2}
-                    onFocus={() => setIsFocus2(true)}
-                    onBlur={() => setIsFocus2(false)}
-                    onChange={(item) => {
-                      setValue2(item.grade_name);
-                      setIsFocus2(false);
-                    }}
-                  />
-                </View>
-              </View>
-
-              <View style={styles.DetailContainer}>
-                <View style={{ height: 100, width: "30%" }}>
-                  <Text style={{ marginTop: 10, fontSize: 16, color: "black" }}>
-                    Subjects :
-                  </Text>
-                </View>
-
-                <View style={styles.SelectMoreContainer}>
-                  <MultiSelect
-                    items={SUBJECT_LIST?.Subject_List}
-                    uniqueKey="subjects_name"
-                    onSelectedItemsChange={onSelectedlevel}
-                    selectedItems={selectedlevel}
-                    //  selectText="Select one or more"
-                    searchInputPlaceholderText="Search Items..."
-                    onChangeInput={(text) =>
-                      console.log("SSSSSSSSSSSSSS", text)
-                    }
-                    tagRemoveIconColor="#CCC"
-                    tagBorderColor="#CCC"
-                    tagTextColor="#000"
-                    styleTextTag={{ fontSize: 12 }}
-                    selectedItemTextColor="red"
-                    selectedItemIconColor="#CCC"
-                    itemTextColor="#000"
-                    itemFontSize={12}
-                    fontSize={14}
-                    displayKey="subjects_name"
-                    searchInputStyle={{ color: "#CCC", fontSize: 12 }}
-                    ///styleRowList={{ width: "90%" }}
-                    // submitButtonColor="#000"
-                    //submitButtonText="Submit"
-                    //  styleDropdownMenu={{ backgroundColor: "red" }}
-                    hideSubmitButton
-                    styleItemsContainer={{
-                      height: 100,
-                    }}
-                  />
-                </View>
-              </View>
-              <TouchableOpacity
-                onPress={() => ClickOnDone()}
-                style={{
-                  height: 35,
-                  width: 100,
-                  backgroundColor: "#F6BE00",
-                  alignSelf: "flex-end",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: 10,
-                  bottom: 0,
-                  right: 10,
-                  position: "absolute",
-                  //   right: -230,
-                }}
-              >
-                <Text style={styles.ButtonText}>Done</Text>
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <View />
-          )}
-          <View style={{ marginTop: 10 }}>
-            <TouchableOpacity
-              style={styles.circleArrow}
-              onPress={() => GoToNext()}
-            >
-              <Image source={require("../../../Assets/circleArrow.png")} />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={showEditModal}
-        onRequestClose={() => {
-          setShowEditModal(false);
-        }}
-      >
-        <View style={styles.modalWrapper2}>
-          <View style={styles.modalWrapp}>
-            <View
-              style={{
-                height: "100%",
-                width: "100%",
-                padding: 10,
-                //  backgroundColor: "red",
-              }}
-            >
-              <View style={styles.DetailContainer}>
-                <View style={{ height: 100, width: "30%" }}>
-                  <Text style={{ marginTop: 10, fontSize: 16, color: "black" }}>
-                    Level :
-                  </Text>
-                </View>
-                <View style={{ width: "60%" }}>
-                  <Dropdown
-                    style={[
-                      styles.dropdown,
-                      isFocus && { borderColor: "black" },
-                    ]}
-                    placeholderStyle={{ fontSize: 12 }}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    iconStyle={styles.iconStyle}
-                    itemTextStyle={{ color: "grey", fontSize: 12 }}
-                    data={LEVEL_LIST?.Level_list}
-                    labelField="school_level_name"
-                    valueField="school_level_name"
-                    allowFontScaling={false}
-                    placeholder={!isFocus ? " " : "..."}
-                    value={value}
-                    onFocus={() => setIsFocus(true)}
-                    onBlur={() => setIsFocus(false)}
-                    onChange={(item) => {
-                      setValue(item.school_level_name);
-                      setIsFocus(false);
-                    }}
-                  />
-                </View>
-              </View>
-
-              <View style={styles.DetailContainer}>
-                <View style={{ height: 100, width: "30%" }}>
-                  <Text style={{ marginTop: 10, fontSize: 16, color: "black" }}>
-                    Grade :
-                  </Text>
-                </View>
-                <View style={{ width: "60%" }}>
-                  <Dropdown
-                    style={[
-                      styles.dropdown,
-                      isFocus2 && { borderColor: "black" },
-                    ]}
-                    placeholderStyle={{ fontSize: 12 }}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    iconStyle={styles.iconStyle}
-                    itemTextStyle={{ color: "grey", fontSize: 12 }}
-                    data={GRADE_LIST?.Grade_List}
-                    labelField="grade_name"
-                    valueField="grade_name"
-                    allowFontScaling={false}
-                    placeholder={!isFocus2 ? " " : "..."}
-                    value={value2}
-                    onFocus={() => setIsFocus2(true)}
-                    onBlur={() => setIsFocus2(false)}
-                    onChange={(item) => {
-                      setValue2(item.grade_name);
-                      setIsFocus2(false);
-                    }}
-                  />
-                </View>
-              </View>
-
-              <View style={styles.DetailContainer}>
-                <View style={{ height: 100, width: "30%" }}>
-                  <Text style={{ marginTop: 10, fontSize: 16, color: "black" }}>
-                    Subjects :
-                  </Text>
-                </View>
-
-                <View style={styles.SelectMoreContainer}>
-                  <MultiSelect
-                    items={SUBJECT_LIST?.Subject_List}
-                    uniqueKey="subjects_name"
-                    onSelectedItemsChange={onSelectedlevel}
-                    selectedItems={selectedlevel}
-                    //  selectText="Select one or more"
-                    searchInputPlaceholderText="Search Items..."
-                    onChangeInput={(text) =>
-                      console.log("SSSSSSSSSSSSSS", text)
-                    }
-                    tagRemoveIconColor="#CCC"
-                    tagBorderColor="#CCC"
-                    tagTextColor="#000"
-                    styleTextTag={{ fontSize: 12 }}
-                    selectedItemTextColor="red"
-                    selectedItemIconColor="#CCC"
-                    itemTextColor="#000"
-                    itemFontSize={12}
-                    fontSize={14}
-                    displayKey="subjects_name"
-                    searchInputStyle={{ color: "#CCC", fontSize: 12 }}
-                    ///styleRowList={{ width: "90%" }}
-                    // submitButtonColor="#000"
-                    //submitButtonText="Submit"
-                    //  styleDropdownMenu={{ backgroundColor: "red" }}
-                    hideSubmitButton
-                    styleItemsContainer={{
-                      height: 100,
-                    }}
-                  />
-                </View>
-              </View>
-              <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity
-                  onPress={() => setShowEditModal(false)}
+                  onPress={() => ClickOnDone()}
                   style={{
                     height: 35,
                     width: 100,
                     backgroundColor: "#F6BE00",
-                    alignSelf: "flex-start",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderRadius: 10,
-                    //bottom: 0,
-                    //right: 10,
-                    // position: "absolute",
-                    //   right: -230,
-                  }}
-                >
-                  <Text style={styles.ButtonText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => UpdateRecord()}
-                  style={{
-                    height: 35,
-                    width: 100,
-                    backgroundColor: "#F6BE00",
+
                     alignSelf: "flex-end",
                     justifyContent: "center",
                     alignItems: "center",
@@ -795,13 +558,20 @@ const StudentBookingComponent = (props) => {
                     //   right: -230,
                   }}
                 >
-                  <Text style={styles.ButtonText}>Update</Text>
+                  <Text style={styles.ButtonText}>Done</Text>
                 </TouchableOpacity>
               </View>
-            </View>
+            ) : (
+              <View />
+            )}
           </View>
-        </View>
-      </Modal>
+        </ScrollView>
+      </View>
+      <View style={{ marginTop: 50 }}>
+        <TouchableOpacity style={styles.circleArrow} onPress={() => GoToNext()}>
+          <Image source={require("../../../Assets/circleArrow.png")} />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
     // </View>
   );
@@ -817,18 +587,15 @@ const styles = StyleSheet.create({
     // backgroundColor: 'pink',
     // padding: 10,
   },
-
   selectedTextStyle: {
     fontSize: 12,
-    color: "#000",
+    color: '#000'
   },
-
   DetailContainer: {
     flexDirection: "row",
-    height: "25%",
+    height: "20%",
     width: "100%",
   },
-  modalWrapp: { height: hp(48), width: wp(100), backgroundColor: "#fff" },
   circleArrow: {
     flex: 0.1,
     marginTop: 40,
@@ -837,12 +604,12 @@ const styles = StyleSheet.create({
     paddingRight: wp(3.5),
     paddingBottom: hp(2),
   },
-
   SelectMoreContainer: {
     // height: 150,
-    width: "70%",
-    //flex: 1,
-    // alignSelf: "center",
+    width: "100%",
+    flex: 1,
+    alignSelf: "center",
+
   },
   dropdown: {
     //  height: 100,
@@ -852,7 +619,7 @@ const styles = StyleSheet.create({
     // borderRadius: 8,
     // paddingHorizontal: 8,
     marginTop: 10,
-    color: "black",
+    color: 'black'
     // marginLeft:10
   },
   ButtonText: {
@@ -944,17 +711,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 1.0,
     shadowRadius: 6,
   },
-  modalWrapper2: {
-    flex: 1,
-    backgroundColor: "#00000040",
-    alignItems: "center",
-    justifyContent: "flex-end",
-  },
   BookText1: {
-    fontSize: 15,
-    color: "white",
-    fontWeight: "bold",
     color: "grey",
+fontFamily:'Poppins-SemiBold'
   },
   TypeImage: {
     width: 40,
@@ -962,17 +721,16 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   BookText2: {
-    fontSize: 12,
-    color: "white",
     // fontWeight:"bold",
+    fontSize:12,
     color: "grey",
+    fontFamily:'Poppins-Regular'
   },
   Information: {
-    fontSize: 15,
     color: "black",
-    fontWeight: "500",
     marginTop: 5,
     marginLeft: 10,
+    fontFamily:'Poppons-Regular'
   },
   InfoImage: {},
   BookText: {

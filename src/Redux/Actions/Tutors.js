@@ -8,6 +8,7 @@ import {
   ALL_POSTS_BY_CLIENT,
   LEVEL_LIST,
   GRADE_LIST,
+  SINGLE_USER_DETAILS,
   SUBJECT_LIST,
   SINGLE_USER,
 } from "./types";
@@ -103,6 +104,32 @@ export const getSubjectList = (Level) => {
         }
       })
       .catch((error) => console.log("LLLLLLLLL", error.message));
+  };
+};
+
+export const singleUserDetails = (id) => {
+  return async (dispatch, getState) => {
+    const url1 = `https://refuel.site/projects/tutorapp/APIs/UserDetails/SingleUserProfile.php?user_id=${id}`;
+    console.log(url1, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    await fetch(url1, {
+      method: "GET",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": authtoken,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("singleUserDetails", responseJson);
+        if (responseJson.status == true) {
+          dispatch({
+            type: SINGLE_USER_DETAILS,
+            payload: responseJson?.Single_User_details,
+          });
+        }
+      })
+      .catch((error) => console.log(error));
   };
 };
 

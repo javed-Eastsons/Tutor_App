@@ -113,7 +113,9 @@ const TutorLanding = () => {
             </View>
           </View>
           <View style={styles.UserRight}>
-            <Text>{console.log(isEnabled)}I want to be a Student</Text>
+            <Text style={{ color: "#000", fontFamily: "Poppins-Light" }}>
+              {console.log(isEnabled)}I want to be a Student...
+            </Text>
             <Switch
               trackColor={{ false: "#767577", true: "#81b0ff" }}
               thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
@@ -145,7 +147,7 @@ const TutorLanding = () => {
               <Shadow>
                 <Image
                   source={require("../Assets/Searching.png")}
-                  style={styles.posticons}
+                  style={[styles.posticonsU, { borderRadius: 40 }]}
                 />
               </Shadow>
             </View>
@@ -227,13 +229,14 @@ const TutorLanding = () => {
                   style={styles.Slidericons}
                 />
               </View>
+
               <Text style={styles.postText}>Chat with Tutors</Text>
-              <Text style={styles.sliderText}>
+              <Text numberOfLines={2} style={styles.sliderText}>
                 Chat with tutors and access their suitability.Sharing your
                 tutions concerns with potential tutors...
-                <TouchableOpacity>
-                  <Text style={{ color: "#2F5597" }}>See More</Text>
-                </TouchableOpacity>
+                {/* <TouchableOpacity>
+                  <Text style={{color: '#2F5597'}}>See More</Text>
+                </TouchableOpacity> */}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -247,7 +250,7 @@ const TutorLanding = () => {
               </View>
 
               <Text style={styles.postText}>Our Tutors</Text>
-              <Text style={styles.sliderText}>
+              <Text numberOfLines={2} style={styles.sliderText}>
                 Chat with tutors and access their suitability.Sharing your
                 tutions concerns with potential tutors...
               </Text>
@@ -263,7 +266,7 @@ const TutorLanding = () => {
               </View>
 
               <Text style={styles.postText}>Our Services</Text>
-              <Text style={styles.sliderText}>
+              <Text numberOfLines={2} style={styles.sliderText}>
                 Chat with tutors and access their suitability.Sharing your
                 tutions concerns with potential tutors...
               </Text>
@@ -281,7 +284,7 @@ const TutorLanding = () => {
                                 style={styles.Slidericons}
                             /> */}
               <Text style={styles.postText}>My Activities</Text>
-              <Text style={styles.sliderText}>
+              <Text numberOfLines={2} style={styles.sliderText}>
                 Chat with tutors and access their suitability.Sharing your
                 tutions concerns with potential tutors...
               </Text>
@@ -299,11 +302,20 @@ const TutorLanding = () => {
                                 style={styles.Slidericons}
                             /> */}
               <Text style={styles.postText}>Promotions</Text>
-              <Text style={styles.sliderText}>
+              <Text numberOfLines={2} style={styles.sliderText}>
                 Chat with tutors and access their suitability.{"\n"}Sharing your
                 tutions concerns with {"\n"} potential tutors...
               </Text>
             </TouchableOpacity>
+
+            {/* <View style={styles.Slider}>
+                            <Image source={require('../Assets/Promotion.png')}
+                                style={styles.Slidericons}
+                            />
+                            <Text style={styles.postText}>Promotions</Text>
+                            <Text numberOfLines={2} style={styles.sliderText}>Chat with tutors and access their suitability.Sharing your tutions concerns with potential tutors...
+                            <TouchableOpacity><Text style={{color:"#2F5597"}}>See More</Text></TouchableOpacity></Text>
+                        </View> */}
           </ScrollView>
         </View>
         <View>
@@ -377,6 +389,7 @@ const styles = StyleSheet.create({
     height: hp(22),
     width: "100%",
   },
+
   Slider: {
     height: hp(30),
     backgroundColor: "#F9F9F9",
@@ -390,6 +403,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 5,
     color: "black",
+    fontFamily: "Poppins-Light",
   },
 
   postText: {
@@ -400,10 +414,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   sliderText: {
-    width: "90%",
+    //  width: '90%',
     fontSize: 12,
     color: "#000",
     alignSelf: "center",
+
+    fontFamily: "Poppins-Light",
   },
   postTextRight: {
     fontSize: 18,
@@ -438,6 +454,11 @@ const styles = StyleSheet.create({
   posticons: {
     height: 30,
     width: 30,
+    alignSelf: "center",
+  },
+  posticonsU: {
+    height: 40,
+    width: 40,
     alignSelf: "center",
   },
   postRighticons: {
@@ -520,13 +541,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 10,
-  },
 
+    // backgroundColor:"red",
+  },
   shadowProp: {
     shadowOffset: { width: 8, height: 10 },
     shadowColor: "#2F5597",
     shadowOpacity: 0.5,
     shadowRadius: 3,
+    elevation: 10,
   },
   cardShadow: {
     height: 50,
@@ -654,17 +677,17 @@ const styles = StyleSheet.create({
   },
   cardShadowLeft: {
     marginTop: 10,
-    height: 50,
-    width: 50,
+    height: 45,
+    width: 60,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 40,
+    borderRadius: 60,
     // borderWidth: 0.1,
     alignSelf: "center",
     overflow: "hidden",
-    padding: 16,
+    // padding: 16,
     backgroundColor: "transparent",
-    // backgroundColor: '#fff',
+    // backgroundColor:'red',
   },
   cardShadowRight: {
     marginTop: 10,

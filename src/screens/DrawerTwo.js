@@ -9,6 +9,7 @@ import {
   Image,
   Button,
   TouchableOpacity,
+  Switch
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { TextInput } from "react-native-gesture-handler";
@@ -21,105 +22,192 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-community/async-storage";
 
 const DrawerTwo = ({ navigation }) => {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => {
+    setIsEnabled((previousState) => !previousState);
+    navigation.navigate("ClientLanding");
+    setIsEnabled(false);
+  };
   return (
-    <View style={styles.container}>
-      <View style={styles.head}>
-        <View style={styles.HeadLeft}>
-          <Image
-            source={require("../Assets/logo.jpg")}
-            style={styles.logoicons}
-          />
-        </View>
-      </View>
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Image
-            source={require("../Assets/Welcome.png")}
-            style={styles.icons}
-          />
-          <Text style={styles.MenuHead}>Welcome</Text>
-        </View>
-        <View style={styles.menusublist}>
-          <Text style={styles.subText}>Message from our director</Text>
-          <Text style={styles.subText}>About</Text>
-          <Text style={styles.subText}>Our Services</Text>
-          <Text style={styles.subText}>Our Tutors</Text>
-          <Text style={styles.subText}>Promotions</Text>
-        </View>
-      </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={{ flexDirection: 'row' }}>
+          <View>
+            <Image
+              source={require("../Assets/try-it.png")}
+              style={{ marginLeft: 10, marginTop: 10 }}
+            />
+          </View>
 
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Image source={require("../Assets/Login.png")} style={styles.icons} />
+          <View style={{ flexDirection: 'row', marginLeft: 80, marginTop: 20 }}>
+            <Image
+              source={require("../Assets/rateAppIcon.png")}
+              style={{ width: 35 }}
+            />
+
+            <Image
+              source={require("../Assets/qrIcon.png")}
+              style={{ width: 30 }}
+            />
+            <Image
+              source={require("../Assets/shareIcon.png")}
+              style={{ width: 40 }}
+            />
+          </View>
+
+        </View>
+        <View style={{flexDirection:'row',marginTop:20,marginLeft:50}}>
+          <Text style={{ fontFamily: "Poppins-Light" }}>
+            {console.log(isEnabled)}I want to find a Tutor..
+          </Text>
           <TouchableOpacity
-            onPress={() => navigation.navigate("ClientLandingBefore")}
+          //onPress={() => navigation.navigate('TutorLanding')}
           >
-            <Text style={styles.MenuHead}>Login</Text>
+            <Switch
+              trackColor={{ false: "#767577", true: "#81b0ff" }}
+              thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
           </TouchableOpacity>
         </View>
-        <View style={styles.menusublist}>
-          {/* <Text style={styles.subText}>My Profile</Text>
-                    <Text style={styles.subText}>My Account</Text>
-                    <Text style={styles.subText}>My Activities</Text>
-                    <Text style={styles.subText}>Favourites</Text>
-                    <Text style={styles.subText}>Make Payment</Text> */}
-        </View>
-      </View>
+        <View style={styles.MenuLIstContainer}>
+          <View style={styles.MenuLIst}>
+            <Image
+              source={require("../Assets/Welcome.png")}
+              style={styles.icons}
+            />
+            <Text style={[styles.MenuHead, { marginLeft: 10 }]}>Welcome</Text>
+          </View>
+          <View style={[styles.menusublist, { flexDirection: 'row' }]}>
+            <View>
+              <View style={styles.verticleLine}></View>
 
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Image source={require("../Assets/Help.png")} style={styles.icons} />
-          <Text style={styles.MenuHead}>Help & Supportqq</Text>
+            </View>
+            <View style={{ marginLeft: 10 }}>
+              <Text style={styles.subText}>Message from our director</Text>
+              <Text style={styles.subText}>About</Text>
+              <Text style={styles.subText}>Our Services</Text>
+             
+            </View>
+          </View>
         </View>
-      </View>
 
-      <TouchableOpacity
-        onPress={() => {
-          AsyncStorage.clear();
-          navigation.replace("home");
-        }}
-        style={styles.MenuLIstContainer}
-      >
-        <View style={styles.MenuLIst}>
-          <Image
-            source={require("../Assets/Privacy.png")}
-            style={styles.icons}
-          />
-          <Text style={styles.MenuHead}>Logout</Text>
-        </View>
-      </TouchableOpacity>
+        <View style={styles.MenuLIstContainer}>
+          <View style={styles.MenuLIst}>
+            <Image source={require("../Assets/dashIcon.png")} style={{ width: 30, marginTop: 5 }} />
+            <Text style={[styles.MenuHead, { marginLeft: 10 }]}>Mark's Dashboard</Text>
+          </View>
+          <View style={[styles.menusublist, { flexDirection: 'row' }]}>
+            <View>
+              <View style={styles.verticleLine1}></View>
 
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Image source={require("../Assets/Terms.png")} style={styles.icons} />
-          <Text style={styles.MenuHead}>Terms & Conditions</Text>
-        </View>
-      </View>
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Image
-            source={require("../Assets/Privacy.png")}
-            style={styles.icons}
-          />
-          <Text style={styles.MenuHead}>Privacy Policy</Text>
-        </View>
-      </View>
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Image
-            source={require("../Assets/Health.png")}
-            style={styles.icons}
-          />
-          <Text style={styles.MenuHead}>Health Advisory</Text>
-        </View>
-      </View>
+            </View>
+            <View style={{ marginLeft: 10 }}>
+              <Text style={styles.subText}>My Profile</Text>
+              <Text style={styles.subText}>My Account</Text>
+              <Text style={styles.subText}>My Activities</Text>
+              <Text style={styles.subText}>My Booking</Text>
+              <Text style={styles.subText}>My Applied</Text>
+              <Text style={styles.subText}>My Assignments</Text>
+              <Text style={styles.subText}>Favourites</Text>
+            </View>
+          </View>
 
-      <View style={styles.MenuLIstContainer}>
-        <View style={styles.MenuLIst}>
-          <Text style={styles.LastText}>The Proof is in the pudding</Text>
+        </View>
+        <TouchableOpacity
+          onPress={() => {
+            AsyncStorage.clear();
+            navigation.replace("home");
+          }}
+          style={styles.MenuLIstContainer}
+        >
+          <View style={styles.MenuLIst}>
+            <Image
+              source={require("../Assets/logoutIcon.png")}
+              style={[styles.icons, { backgroundColor: '#fff', marginTop: 5 }]}
+            />
+            <Text style={styles.MenuHead}>Logout</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          navigation.navigate("HelpSupport");
+        }}>
+          <View style={styles.MenuLIstContainer}>
+            <View style={styles.MenuLIst}>
+              <Image source={require("../Assets/Help.png")} style={styles.icons} />
+              <Text style={styles.MenuHead}>Help & Support</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        {/* <TouchableOpacity onPress={() => {
+          navigation.navigate("Faq");
+        }}>
+          <View style={styles.MenuLIstContainer}>
+            <View style={styles.MenuLIst}>
+              <Image source={require("../Assets/bell.png")} style={styles.icons} />
+              <Text style={styles.MenuHead}>FAQ</Text>
+            </View>
+          </View>
+        </TouchableOpacity> */}
+        <TouchableOpacity onPress={() => {
+          navigation.navigate("TermsConditions");
+        }}>
+          <View style={styles.MenuLIstContainer}>
+            <View style={styles.MenuLIst}>
+              <Image
+                source={require("../Assets/Health.png")}
+                style={styles.icons}
+              />
+              <Text style={styles.MenuHead}>Terms & Conditions</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          navigation.navigate("PrivacyPolicy");
+        }}>
+          <View style={styles.MenuLIstContainer}>
+            <View style={styles.MenuLIst}>
+              <Image
+                source={require("../Assets/Privacy.png")}
+                style={styles.icons}
+              />
+              <Text style={styles.MenuHead}>Privacy Policy</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+
+
+
+        <View style={styles.SocialMainContainer}>
+          <View style={styles.SocialContainer}>
+            <Image source={require("../Assets/Fb.png")} style={styles.icons} />
+          </View>
+          <View style={styles.SocialContainer}>
+            <Image source={require("../Assets/Insta.png")} style={styles.icons} />
+          </View>
+          <View style={styles.SocialContainer}>
+            <Image
+              source={require("../Assets/Twitter.png")}
+              style={styles.icons}
+            />
+          </View>
+          <View style={styles.SocialContainer}>
+            <Image
+              source={require("../Assets/LinkedIn.png")}
+              style={styles.icons}
+            />
+          </View>
+        </View>
+
+        <View style={styles.MenuLIstContainer}>
+          <View style={styles.MenuLIst}>
+            <Text style={styles.LastText}>The Proof is in the pudding</Text>
+          </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -137,24 +225,21 @@ const styles = StyleSheet.create({
   },
   subText: {
     color: "#fff",
+    fontFamily: 'Poppins-Light'
   },
-  logoicons: {
-    height: 80,
-    width: 80,
-  },
+
   icons: {
     height: 25,
     width: 25,
   },
   MenuLIstContainer: {
     padding: 10,
-    marginTop: 10,
   },
   LastText: {
     color: "#fff",
-    fontStyle: "italic",
-    fontSize: 18,
-    fontWeight: "700",
+    fontSize: 15,
+    fontFamily: 'Poppins-Italic',
+    marginLeft: 10
   },
   MenuLIst: {
     flexDirection: "row",
@@ -168,5 +253,31 @@ const styles = StyleSheet.create({
     padding: 5,
     fontSize: 16,
     color: "yellow",
+    fontFamily: 'Poppins-SemiBold'
+  },
+  SocialMainContainer: {
+    height: 40,
+    width: "100%",
+    marginTop: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  SocialContainer: {
+    height: 30,
+    width: "12%",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 5
+  },
+  verticleLine: {
+    height: 70,
+    width: 2,
+    backgroundColor: 'yellow',
+  },
+  verticleLine1: {
+    height: 160,
+    width: 2,
+    backgroundColor: 'yellow',
   },
 });

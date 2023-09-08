@@ -8,6 +8,8 @@ import {
   Image,
   Button,
   TouchableOpacity,
+  ActivityIndicator,
+  Alert
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
@@ -17,6 +19,7 @@ import {
 } from "react-native-responsive-screen";
 import VideoPlayer from "react-native-video-player";
 import AsyncStorage from "@react-native-community/async-storage";
+import ProgressCircle from 'react-native-progress-circle'
 
 const slides = [
   {
@@ -24,30 +27,35 @@ const slides = [
     title: "Great first step!",
     text: "Enhance the simplest way to engage a \n  tutor or secure tution assignments \n.........just with a few clicks.Try it",
     image: require("../Assets/slider1.jpg"),
-    logo: require("../Assets/logogrey.png"),
+    logo: require("../Assets/tryItIcon.png"),
     skip: "Skip Introduction",
     backgroundColor: "#F7F8FD",
     VVideo: require("../Assets/first.mp4"),
+    percentage: '20'
   },
   {
     key: 2,
     title: "Engage a tutor",
     text: "Enhance the simplest way to engage a \n  tutor or secure tution assignments \n.........just with a few clicks.Try it",
     image: require("../Assets/slider2.jpg"),
-    logo: require("../Assets/logogrey.png"),
+    logo: require("../Assets/tryItIcon.png"),
     skip: "Skip",
     backgroundColor: "#F7F8FD",
     VVideo: require("../Assets/second.mp4"),
+    percentage: '40'
+
   },
   {
     key: 3,
     title: "Select Tutions jobs!",
     text: "Enhance the simplest way to engage a \n  tutor or secure tution assignments \n.........just with a few clicks.Try it",
     image: require("../Assets/slider3.jpg"),
-    logo: require("../Assets/logogrey.png"),
+    logo: require("../Assets/tryItIcon.png"),
     skip: "Skip",
     backgroundColor: "#F7F8FD",
     VVideo: require("../Assets/third.mp4"),
+    percentage: '60'
+
   },
   {
     key: 4,
@@ -58,16 +66,23 @@ const slides = [
     skip: "Skip",
     backgroundColor: "#F7F8FD",
     VVideo: require("../Assets/four.mp4"),
+    percentage: '100'
+
   },
 ];
 
 const IntroScreen = () => {
   const [showRealApp, setShowRealApp] = useState(false);
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(true)
 
   const onDone = async () => {
     //  setShowRealApp(true);
     navigation.replace("ClientLandingBefore");
+    // navigation.replace("MakePayment");
+    // navigation.replace("YourProfle");
+    // navigation.replace("Accordian");
+
     // navigation.replace("Auth2");
     //  navigation.replace("TutorHomeStacknavigation");
     // let token =await AsyncStorage.getItem("token")
@@ -207,12 +222,26 @@ const IntroScreen = () => {
           //paddingTop: hp(10)
         }}
       >
+        {
+          isLoading == true ?
+            <View style={{
+              height: hp(45),
+              width: wp(100),
+            }}>
+              <ActivityIndicator size='large' style={{ marginTop: 100 }} />
+
+            </View>
+            : null
+        }
         <VideoPlayer
           video={item.VVideo}
+          onLoad={() => { setIsLoading(false) }}
           showDuration={false}
           disableControlsAutoHide={true}
           disableSeek={true}
-          style={styles.equipvideo}
+          style={[styles.equipvideo, {
+            display: isLoading == true ? 'none' : 'flex'
+          }]}
           hideControlsOnStart
           loop
           resizeMode="cover"
@@ -220,6 +249,11 @@ const IntroScreen = () => {
           //videoWidth={1500}
           autoplay
         />
+
+
+
+
+
         <View
           style={{
             backgroundColor: item.backgroundColor,
@@ -239,20 +273,30 @@ const IntroScreen = () => {
             //paddingBottom: 200,
           }}
         >
-          <View style={{ bottom: 60, alignSelf: "center" }}>
-            <Image
-              style={[
-                styles.intrologoStyle,
-                {
-                  width: 100,
-                  height: 100,
-                  borderWidth: 3,
-                  alignSelf: "center",
-                },
-              ]}
-              source={item.logo}
-            />
-            <Text style={styles.introTitleStyle}>{item.title}</Text>
+          <View style={{ bottom: 60, alignSelf: "center", alignItems: 'center' }}>
+            <ProgressCircle
+              percent={item?.percentage}
+              radius={40}
+              borderWidth={5}
+              color="#90EE90"
+              shadowColor="#fff"
+              bgColor="#fff"
+            >
+              <Image
+                style={[
+                  styles.intrologoStyle,
+                  {
+                    width: 100,
+                    height: item.percentage == '100' ? 70 : 80,
+                    borderWidth: 3,
+                    alignSelf: "center",
+                  },
+                ]}
+                source={item.logo}
+              />
+            </ProgressCircle>
+
+            <Text style={[styles.introTitleStyle, { marginTop: 20 }]}>{item.title}</Text>
 
             <Text style={styles.introTextStyle}>{item.text}</Text>
             <TouchableOpacity
@@ -323,8 +367,8 @@ const IntroScreen = () => {
                 marginBottom: 10,
               }}
 
-              // onPress={() => setShowRealApp(false)}
-              // onPress={() => navigation.navigate('ProfileScreen')}
+            // onPress={() => setShowRealApp(false)}
+            // onPress={() => navigation.navigate('ProfileScreen')}
             >
               <Text
                 style={{
@@ -416,11 +460,11 @@ const styles = StyleSheet.create({
   intrologoStyle: {
     height: hp(20),
     resizeMode: "contain",
-    marginBottom: 40,
 
     //  backgroundColor: 'lightgrey',
     borderRadius: wp(50),
   },
+
 
   equipvideo: {
     backgroundColor: "#F7F8FD",

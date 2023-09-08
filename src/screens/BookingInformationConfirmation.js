@@ -59,7 +59,7 @@ const BookingInformationConfirmation = () => {
   const SelectTab = (selectedval) => {
     setCurrentTab(selectedval);
   };
-
+  console.log(currentTab, "currentTab");
   console.log(
     Tutor_Schedule,
     "Tutor_ScheduleTutor_ScheduleTutor_ScheduleTutor_Schedule",
@@ -143,7 +143,6 @@ const BookingInformationConfirmation = () => {
           Step 1 of 5: Booking Information required
         </Text>
       </View>
-
       <View style={[styles.Bookcard, styles.BookshadowProp]}>
         <View
           style={{
@@ -215,9 +214,10 @@ const BookingInformationConfirmation = () => {
           <TouchableOpacity
             onPress={() => SelectTab("tutiontype")}
             style={[
-              styles.cardFourBoxes,
+              currentTab == "tutiontype"
+                ? styles.cardFourBoxes1Active
+                : styles.cardFourBoxes,
               styles.shadowPropFourBoxes,
-              { borderBottomWidth: currentTab == "tutiontype" ? 1 : 0 },
             ]}
           >
             <Image
@@ -228,9 +228,10 @@ const BookingInformationConfirmation = () => {
           <TouchableOpacity
             onPress={() => SelectTab("qualification")}
             style={[
-              styles.cardFourBoxes1,
+              currentTab == "qualification"
+                ? styles.cardFourBoxes1Active
+                : styles.cardFourBoxes1,
               styles.shadowPropFourBoxes1,
-              { borderBottomWidth: currentTab == "qualification" ? 1 : 0 },
             ]}
           >
             <Image
@@ -241,9 +242,10 @@ const BookingInformationConfirmation = () => {
           <TouchableOpacity
             onPress={() => SelectTab("duration")}
             style={[
-              styles.cardFourBoxes1,
+              currentTab == "duration"
+                ? styles.cardFourBoxes1Active
+                : styles.cardFourBoxes1,
               styles.shadowPropFourBoxes1,
-              { borderBottomWidth: currentTab == "duration" ? 1 : 0 },
             ]}
           >
             <Image
@@ -254,9 +256,10 @@ const BookingInformationConfirmation = () => {
           <TouchableOpacity
             onPress={() => SelectTab("doller")}
             style={[
-              styles.cardFourBoxes1,
+              currentTab == "doller"
+                ? styles.cardFourBoxes1Active
+                : styles.cardFourBoxes1,
               styles.shadowPropFourBoxes1,
-              { borderBottomWidth: currentTab == "doller" ? 1 : 0 },
             ]}
           >
             <Image
@@ -268,9 +271,10 @@ const BookingInformationConfirmation = () => {
           <TouchableOpacity
             onPress={() => SelectTab("time")}
             style={[
-              styles.cardFourBoxes1,
+              currentTab == "time"
+                ? styles.cardFourBoxes1Active
+                : styles.cardFourBoxes1,
               styles.shadowPropFourBoxes1,
-              { borderBottomWidth: currentTab == "time" ? 1 : 0 },
             ]}
           >
             <Image
@@ -279,89 +283,139 @@ const BookingInformationConfirmation = () => {
             />
           </TouchableOpacity>
         </View>
-        <View style={{ height: wp(40) }}>
-          {currentTab == "tutiontype" ? (
-            <ScrollView>
-              <View
-                style={{
-                  width: "100%",
-
-                  padding: 10,
-                }}
-              >
-                <View style={{ justifyContent: "center" }}>
-                  {Student_Detail.Student_Data.map((student) => (
-                    <View
-                      key={student.Id}
-                      style={{
-                        width: "100%",
-                        marginBottom: 10,
-                        padding: 10,
-                        backgroundColor: "#fff",
-                      }}
-                    >
-                      {/* <Text style={styles.Information}>
-                   Student ID: {student.Id}
-                 </Text> */}
-                      <Text style={styles.Information}>{student.Grade}</Text>
-                      <Text style={styles.Information}>{student.Level}</Text>
-                      <Text style={styles.Information}>
-                        {student.ALL_Subjects.join(", ")}
-                      </Text>
-                      <Text
-                        style={{ color: "#2F5597" }}
-                        ellipsizeMode="clip"
-                        numberOfLines={1}
-                      >
-                        - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                        - - - - - - -
-                      </Text>
-                    </View>
-                  ))}
-                </View>
-              </View>
-            </ScrollView>
-          ) : currentTab == "qualification" ? (
-            <View style={{ height: 120, width: "100%", padding: 10 }}>
-              <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
-                {Tutor_Qualification.TutorQualification &&
-                  Tutor_Qualification.TutorQualification.map((item) => {
-                    return (
-                      <Text key={item} style={styles.Information}>
-                        {item.qualification}
-                      </Text>
-                    );
-                  })}
-                <TouchableOpacity
+        <ScrollView>
+          <View style={{ paddingBottom: 10 }}>
+            {currentTab == "tutiontype" ? (
+              // <View
+              //   style={{
+              //     height: 120,
+              //     width: "100%",
+              //     marginTop: 90,
+              //     padding: 10,
+              //   }}
+              // >
+              Student_Detail.Student_Data.map((student) => (
+                <View
+                  // key={item.Id}
                   style={{
-                    height: 30,
-                    width: "30%",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    height: 90,
+                    width: "100%",
+                    flexDirection: "row",
+                    marginBottom: 15,
+                    elevation: 2,
+                    backgroundColor: "#fff",
+                    borderBottomColor: "#000",
+                    borderBottomWidth: 1.1,
+                    borderStyle: "dashed",
                   }}
                 >
-                  <Image
-                    source={require("../Assets/Edit.png")}
-                    style={{ height: 20, width: 20, position: "absolute" }}
+                  <View
+                    style={{
+                      height: 90,
+                      width: "10%",
+                      backgroundColor: "purple",
+                      elevation: 3,
+                    }}
                   />
-                </TouchableOpacity>
-              </View>
 
-              <Text
-                style={{ color: "#2F5597" }}
-                ellipsizeMode="clip"
-                numberOfLines={1}
-              >
-                - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                - - -
-              </Text>
-            </View>
-          ) : currentTab == "duration" ? (
-            <View style={{ height: 120, width: "100%", padding: 10 }}>
-              <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
+                  <View
+                    key={student.Id}
+                    style={{
+                      marginBottom: 10,
+                      padding: 10,
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    {/* <Text style={styles.Information}>
+                   Student ID: {student.Id}
+                 </Text> */}
+                    <Text style={styles.Information}>{student.Grade}</Text>
+                    <Text style={styles.Information}>{student.Level}</Text>
+                    <Text style={styles.Information}>
+                      {student.ALL_Subjects.join(", ")}
+                    </Text>
+                  </View>
+                </View>
+              ))
+            ) : currentTab == "qualification" ? (
+              Tutor_Qualification.TutorQualification &&
+              Tutor_Qualification.TutorQualification.map((item) => (
                 <View
-                  style={{ height: 20, width: "70%", justifyContent: "center" }}
+                  // key={item.Id}
+                  style={{
+                    height: 90,
+                    width: "100%",
+                    flexDirection: "row",
+                    marginBottom: 15,
+                    elevation: 2,
+                    backgroundColor: "#fff",
+                    borderBottomColor: "#000",
+                    borderBottomWidth: 1.1,
+                    borderStyle: "dashed",
+                  }}
                 >
+                  <View
+                    style={{
+                      height: 90,
+                      width: "10%",
+                      backgroundColor: "purple",
+                      elevation: 3,
+                    }}
+                  />
+
+                  <View
+                    style={{
+                      marginBottom: 10,
+                      padding: 10,
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    {/* <Text style={styles.Information}>
+                   Student ID: {student.Id}
+                 </Text> */}
+                    <Text
+                      key={item}
+                      style={[styles.Information, { marginTop: 20 }]}
+                    >
+                      {item.qualification}
+                    </Text>
+                  </View>
+                </View>
+              ))
+            ) : currentTab == "duration" ? (
+              <View
+                // key={item.Id}
+                style={{
+                  height: 90,
+                  width: "100%",
+                  flexDirection: "row",
+                  marginBottom: 15,
+                  elevation: 2,
+                  backgroundColor: "#fff",
+                  borderBottomColor: "#000",
+                  borderBottomWidth: 1.1,
+                  borderStyle: "dashed",
+                }}
+              >
+                <View
+                  style={{
+                    height: 90,
+                    width: "10%",
+                    backgroundColor: "purple",
+                    elevation: 3,
+                  }}
+                />
+
+                <View
+                  style={{
+                    marginBottom: 10,
+                    padding: 10,
+                    backgroundColor: "#fff",
+                  }}
+                >
+                  {/* <Text style={styles.Information}>
+                   Student ID: {student.Id}
+                 </Text> */}
                   <Text style={styles.Information}>
                     {Tutor_Qualification.duration}
                   </Text>
@@ -369,131 +423,160 @@ const BookingInformationConfirmation = () => {
                     {Tutor_Qualification.frequency}
                   </Text>
                 </View>
-                <TouchableOpacity
+              </View>
+            ) : currentTab == "doller" ? (
+              <View
+                // key={item.Id}
+                style={{
+                  height: 90,
+                  width: "100%",
+                  flexDirection: "row",
+                  marginBottom: 15,
+                  elevation: 2,
+                  backgroundColor: "#fff",
+                  borderBottomColor: "#000",
+                  borderBottomWidth: 1.1,
+                  borderStyle: "dashed",
+                }}
+              >
+                <View
                   style={{
-                    height: 30,
-                    width: "30%",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    height: 90,
+                    width: "10%",
+                    backgroundColor: "purple",
+                    elevation: 3,
+                  }}
+                />
+
+                <View
+                  style={{
+                    marginBottom: 10,
+                    padding: 10,
+                    backgroundColor: "#fff",
                   }}
                 >
-                  <Image
-                    source={require("../Assets/Edit.png")}
-                    style={{ height: 20, width: 20, position: "absolute" }}
-                  />
-                </TouchableOpacity>
-              </View>
-
-              <Text
-                style={{ color: "#2F5597" }}
-                ellipsizeMode="clip"
-                numberOfLines={1}
-              >
-                - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                - - -
-              </Text>
-            </View>
-          ) : currentTab == "doller" ? (
-            <View style={{ height: 120, width: "100%", padding: 10 }}>
-              <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
-                <View
-                  style={{ height: 20, width: "70%", justifyContent: "center" }}
-                >
+                  {/* <Text style={styles.Information}>
+                   Student ID: {student.Id}
+                 </Text> */}
                   <Text style={styles.Information}>
                     {Tutor_Qualification.FeeOffer}
                   </Text>
-                </View>
-                <TouchableOpacity
-                  style={{
-                    height: 30,
-                    width: "30%",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Image
-                    source={require("../Assets/Edit.png")}
-                    style={{ height: 20, width: 20, position: "absolute" }}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
-                <View
-                  style={{ height: 20, width: "70%", justifyContent: "center" }}
-                >
                   <Text style={styles.Information}>
                     {Tutor_Qualification.feetype}
                   </Text>
                 </View>
-                <TouchableOpacity
+              </View>
+            ) : (
+              // <View style={{ height: 120, width: "100%", padding: 10 }}>
+              //   <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
+              //     <View
+              //       style={{ height: 20, width: "70%", justifyContent: "center" }}
+              //     >
+              //       <Text style={styles.Information}>
+              //         {Tutor_Qualification.FeeOffer}
+              //       </Text>
+              //     </View>
+              //     <TouchableOpacity
+              //       style={{
+              //         height: 30,
+              //         width: "30%",
+              //         justifyContent: "center",
+              //         alignItems: "center",
+              //       }}
+              //     >
+              //       <Image
+              //         source={require("../Assets/Edit.png")}
+              //         style={{ height: 20, width: 20, position: "absolute" }}
+              //       />
+              //     </TouchableOpacity>
+              //   </View>
+              //   <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
+              //     <View
+              //       style={{ height: 20, width: "70%", justifyContent: "center" }}
+              //     >
+              //       <Text style={styles.Information}>
+              //         {Tutor_Qualification.feetype}
+              //       </Text>
+              //     </View>
+              //     <TouchableOpacity
+              //       style={{
+              //         height: 30,
+              //         width: "30%",
+              //         justifyContent: "center",
+              //         alignItems: "center",
+              //       }}
+              //     >
+              //       <Image
+              //         source={require("../Assets/Edit.png")}
+              //         style={{ height: 20, width: 20, position: "absolute" }}
+              //       />
+              //     </TouchableOpacity>
+              //   </View>
+
+              //   <Text
+              //     style={{ color: "#2F5597" }}
+              //     ellipsizeMode="clip"
+              //     numberOfLines={1}
+              //   >
+              //     - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+              //     - -
+              //   </Text>
+              // </View>
+              Tutor_Schedule.Tutor_schedules &&
+              Tutor_Schedule.Tutor_schedules.map((item, index) => (
+                <View
+                  // key={item.Id}
                   style={{
-                    height: 30,
-                    width: "30%",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    height: 90,
+                    width: "100%",
+                    flexDirection: "row",
+                    marginBottom: 15,
+                    elevation: 2,
+                    backgroundColor: "#fff",
+                    borderBottomColor: "#000",
+                    borderBottomWidth: 1.1,
+                    borderStyle: "dashed",
                   }}
                 >
-                  <Image
-                    source={require("../Assets/Edit.png")}
-                    style={{ height: 20, width: 20, position: "absolute" }}
+                  <View
+                    style={{
+                      height: 90,
+                      width: "10%",
+                      backgroundColor: "purple",
+                      elevation: 3,
+                    }}
                   />
-                </TouchableOpacity>
-              </View>
 
-              <Text
-                style={{ color: "#2F5597" }}
-                ellipsizeMode="clip"
-                numberOfLines={1}
-              >
-                - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                - - -
-              </Text>
-            </View>
-          ) : (
-            <View style={{ height: 120, width: "100%", padding: 10 }}>
-              <View style={{ flexDirection: "row", height: 30, width: "100%" }}>
-                {Tutor_Schedule.Tutor_schedules &&
-                  Tutor_Schedule.Tutor_schedules.map((item, index) => (
-                    <View key={index}>
-                      <View style={{ flexDirection: "row" }}>
-                        <Text style={styles.Information}>
-                          {item.tutor_schedule}
-                        </Text>
-                        <Text style={styles.Information}>{item.slot_time}</Text>
-                      </View>
+                  <View
+                    style={{
+                      marginBottom: 10,
+                      padding: 10,
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    {/* <Text style={styles.Information}>
+                   Student ID: {student.Id}
+                 </Text> */}
+                    {/* {item.slot_time.map((item1, index1) => ( */}
+                    <View style={{ flexDirection: "row" }} key={{}}>
+                      <Text style={styles.Information}>
+                        {item.tutor_schedule}
+                      </Text>
+                      <Text> </Text>
+                      <Text style={styles.Information}>
+                        {item.slot_time + " "}
+                      </Text>
                     </View>
-                  ))}
-
-                <TouchableOpacity
-                  style={{
-                    height: 30,
-                    width: "30%",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Image
-                    source={require("../Assets/Edit.png")}
-                    style={{ height: 20, width: 20, position: "absolute" }}
-                  />
-                </TouchableOpacity>
-              </View>
-
-              <Text
-                style={{ color: "#2F5597", marginTop: 10 }}
-                ellipsizeMode="clip"
-                numberOfLines={1}
-              >
-                - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                - - -
-              </Text>
-            </View>
-          )}
-        </View>
+                    {/* ))} */}
+                  </View>
+                </View>
+              ))
+            )}
+          </View>
+        </ScrollView>
         <View
           style={{
             height: "10%",
-            marginTop: 40,
             width: "100%",
             flexDirection: "row",
             alignSelf: "center",
@@ -555,10 +638,9 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   Information: {
-    fontSize: 15,
+    // fontSize: 15,
     color: "black",
-    fontWeight: "500",
-
+    fontFamily: "Poppins-Regular",
     marginLeft: 10,
   },
   HeadRight: {
@@ -576,7 +658,7 @@ const styles = StyleSheet.create({
   HeaderText: {
     fontSize: 20,
     color: "#2F5597",
-    fontWeight: "bold",
+    fontFamily: "Poppins-Bold",
   },
   Container: {
     height: 70,
@@ -629,17 +711,17 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
   },
   infoText1: {
-    fontSize: 15,
+    // fontSize: 15,
     color: "black",
     alignSelf: "center",
-    fontWeight: "700",
+    fontFamily: "Poppins-SemiBold",
   },
   Bookcard: {
-    height: "60%",
+    height: "67.5%",
     width: "100%",
     backgroundColor: "#F5F5F5",
     alignSelf: "center",
-    borderWidth: 0.2,
+    // borderWidth: 0.2,
     marginTop: 10,
     marginBottom: 10,
     padding: 10,
@@ -653,18 +735,17 @@ const styles = StyleSheet.create({
   BookText1: {
     fontSize: 15,
     color: "grey",
-    fontWeight: "bold",
+    fontFamily: "Poppins-SemiBold",
   },
   PostalText: {
-    fontSize: 14,
+    // fontSize: 14,
     color: "grey",
-    fontWeight: "500",
+    fontFamily: "Poppins-Regular",
   },
   BookText5: {
-    fontSize: 15,
+    // fontSize: 15,
     color: "white",
-    fontWeight: "bold",
-    color: "grey",
+    fontFamily: "Poppins-SemiBold",
   },
   TypeImage: {
     width: 30,
@@ -702,10 +783,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: 8,
   },
+  cardFourBoxes1Active: {
+    height: 70,
+    width: "18%",
+    backgroundColor: "#E0E0E0",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 8,
+    borderBottomWidth: 2,
+    borderColor: "#000",
+  },
   shadowPropFourBoxes1: {
     shadowOffset: { width: 5, height: 5 },
     shadowColor: "#000000",
     shadowOpacity: 0.5,
     shadowRadius: 3,
+  },
+  infoText: {
+    // fontSize: 15,
+    color: "black",
+    fontFamily: "Poppins-Regular",
   },
 });

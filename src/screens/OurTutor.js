@@ -1030,12 +1030,12 @@ console.log(GRADE_LIST, 'Filter-Grade')
         <View style={styles.LittlemoreContainer}>
           <View style={styles.LittlLeft}>
             <Text style={styles.Text1}>Our Tutors</Text>
-            <Text style={styles.Text2}>….for your selection....</Text>
+            {/* <Text style={styles.Text2}>….for your selection....</Text> */}
           </View>
           <View style={styles.LittlRight}>
             <View style={styles.rightImageWrapper}>
               <Image
-                source={require("../Assets/logogrey.png")}
+                source={require("../Assets/HeartIcon.png")}
                 //  resizeMode='contain'
                 style={styles.logoicon}
               />
@@ -1045,21 +1045,25 @@ console.log(GRADE_LIST, 'Filter-Grade')
               style={styles.rightSecondImageWrapper}
             >
               <Image
-                source={require("../Assets/logogrey.png")}
+                source={require("../Assets/iIcon.png")}
                 //  resizeMode='contain'
                 style={styles.logoicon}
               />
             </TouchableOpacity>
             <View style={styles.rightSecondImageWrapper}>
               <Image
-                source={require("../Assets/logogrey.png")}
+                source={require("../Assets/PencilIcon.png")}
                 //  resizeMode='contain'
                 style={styles.logoicon}
               />
             </View>
           </View>
         </View>
-        <View style={{ marginLeft: wp(2.5), flexDirection: "row" }}>
+        <View style={{alignItems:'center' ,backgroundColor:'#f7f2fa'}}>
+        <Text style={{color:'purple',paddingTop:5,fontFamily:"Poppins-Regular"}}>Frequently Used Filters</Text>
+
+        </View>
+        <View style={{flexDirection: "row" ,backgroundColor:'#f7f2fa',paddingBottom:10}}>
           <TouchableOpacity
             onPress={() => {
               dispatch(GetQuickData());
@@ -1146,7 +1150,7 @@ console.log(GRADE_LIST, 'Filter-Grade')
           </TouchableOpacity>
         </View>
 
-        <View style={{ marginLeft: wp(2.5), flexDirection: "row" }}>
+        <View style={{ flexDirection: "row",backgroundColor:'#f7f2fa',paddingBottom:10 }}>
           <TouchableOpacity
             onPress={() => setEnglishFun()}
             style={[
@@ -1291,7 +1295,7 @@ console.log(GRADE_LIST, 'Filter-Grade')
           numColumns={1}
           keyExtractor={(item, index) => index}
           renderItem={({ item, index }) => {
-            return <ItemBox data={item} props />;
+            return <ItemBox data={item} index={index} props />;
           }}
         />
         {/* ) : (
@@ -2227,11 +2231,12 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor:''
   },
 
   logoicon: {
     height: hp(5),
-    width: wp(11),
+    width: wp(10),
   },
 
   Headers: {
@@ -2298,6 +2303,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: hp(1),
     marginLeft: wp(3.7),
+    marginBottom:10
   },
   frequentlyText: {
     color: "grey",

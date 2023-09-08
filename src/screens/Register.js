@@ -28,12 +28,14 @@ import {
   OTPVerifywithrole,
 } from "../Redux/Actions/Tutors";
 //import OTPInputView from '@twotalltotems/react-native-otp-input';
+import AsyncStorage from "@react-native-community/async-storage";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../common/Loader";
 import { Dropdown } from "react-native-element-dropdown";
 import { countryCode } from "../common/countrycode";
-
+import { launchImageLibrary, launchCamera } from "react-native-image-picker";
+import { request, check, PERMISSIONS, RESULTS } from "react-native-permissions";
 const Register = ({ route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -50,6 +52,11 @@ const Register = ({ route }) => {
   const [enable, setEnable] = useState(false);
   const [loader, setLoader] = useState(false);
   const [value, setValue] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [imageSource, setImageSource] = useState(null);
+
+  const [imageSource1, setImageSource1] = useState(null);
+  const [newImg, setNewImg] = useState(null);
 
   const { Registermsg } = useSelector((state) => state.TutorReducer);
   const { otpmsgs } = useSelector((state) => state.TutorReducer);
@@ -175,7 +182,129 @@ const Register = ({ route }) => {
       setLoader(false);
     }, 3000);
   };
+  useEffect(async () => {
+    const img = await AsyncStorage.getItem("profileImage");
+    setNewImg(img);
+  }, []);
+  let options = {
+    title: "You can choose one image",
+    maxWidth: 256,
+    maxHeight: 256,
+    storageOptions: {
+      skipBackup: true,
+    },
+  };
+  const requestPermission = () => {
+    request(PERMISSIONS.IOS.CAMERA).then((result) => {
+      console.log("requestPermission -> result", result);
+      if (result === "granted") openCamera();
+    });
+  };
 
+  const openCamera = () => {
+    launchCamera(options, (response) => {
+      if (response.didCancel) {
+        console.log("User cancelled photo picker");
+        Alert.alert("You did not select any image");
+      } else if (response.error) {
+        console.log("ImagePicker Error: ", response.error);
+      } else if (response.customButton) {
+        console.log("User tapped custom button: ", response.customButton);
+      } else {
+        // console.log(response);
+        setNewImg(response);
+        AsyncStorage.setItem("profileImage", response);
+      }
+      setShowPopup(false);
+    });
+  };
+  const openImageLibrary = () => {
+    launchImageLibrary(options, (response) => {
+      if (response.didCancel) {
+        console.log("User cancelled photo picker");
+        Alert.alert("You did not select any image");
+      } else if (response.error) {
+        console.log("ImagePicker Error: ", response.error);
+      } else if (response.customButton) {
+        console.log("User tapped custom button: ", response.customButton);
+      } else {
+        // console.log(response.assets[0].uri);
+        setNewImg(response.assets[0].uri);
+        AsyncStorage.setItem("profileImage", response.assets[0].uri);
+      }
+      setShowPopup(false);
+    });
+  };
+  const toDataURL = (url) =>
+    fetch(url)
+      .then((response) => response.blob())
+      .then(
+        (blob) =>
+          new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          })
+      );
+
+  toDataURL(newImg).then((dataUrl) => {
+    var base64result = dataUrl.split(",")[1];
+
+    // console.log("RESULT:", base64result);
+    setImageSource(base64result);
+    setImageSource1(dataUrl);
+  });
+  const showSelectionPopup = () => (
+    <TouchableOpacity
+      onPress={() => setShowPopup(false)}
+      style={{
+        position: "absolute",
+        // top: 2,
+        justifyContent: "center",
+        alignItems: "center",
+        // backgroundColor: 'rgba(0,0,0,0.2)',
+        zIndex: 10,
+        height: "100%",
+        width: "100%",
+      }}
+    >
+      <View
+        style={{
+          height: 70,
+          width: 200,
+          // backgroundColor: 'red',
+          alignItems: "center",
+          justifyContent: "center",
+          // marginTop: 20,
+        }}
+      >
+        <TouchableOpacity
+          onPress={requestPermission}
+          style={{
+            height: 40,
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ color: "#000" }}>Open Camera</Text>
+        </TouchableOpacity>
+        <View style={{ height: 1, width: "100%", backgroundColor: "grey" }} />
+        <TouchableOpacity
+          onPress={openImageLibrary}
+          style={{
+            height: 40,
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ color: "#000" }}>Open Image Library</Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableOpacity>
+  );
   return (
     <View style={styles.container}>
       <Loader flag={loader} />
@@ -190,11 +319,37 @@ const Register = ({ route }) => {
             intersting features
           </Text>
         </View>
-        <View style={styles.ImageSec}>
+        <View style={styles.usercontainer}>
+          {showPopup && showSelectionPopup()}
+        </View>
+        <TouchableOpacity
+          style={{
+            width: "100%",
+            height: 100,
+            borderRadius: 50,
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "white",
+            // marginTop: 65,s
+          }}
+          onPress={() => setShowPopup(true)}
+        >
+          <Image
+            source={{ uri: imageSource1 }}
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 50,
+              backgroundColor: "grey",
+            }}
+          />
+        </TouchableOpacity>
+
+        {/* <View style={styles.ImageSec}>
           <View style={styles.Profileimage}>
             <Image source={require("../Assets/usericon.png")} />
           </View>
-        </View>
+        </View> */}
         <View
           style={{
             flexDirection: "row",
@@ -256,7 +411,7 @@ const Register = ({ route }) => {
                     borderColor: "lightgrey",
                     padding: 2,
                     backgroundColor: "#2F5597",
-                    marginLeft: wp(10),
+                    // marginLeft: wp(10),
                     borderWidth: 3,
                   }
                 : {
@@ -264,7 +419,7 @@ const Register = ({ route }) => {
                     width: 20,
                     borderRadius: 20,
                     borderColor: "lightgrey",
-                    marginLeft: wp(10),
+                    // marginLeft: wp(10),
                     borderWidth: 1,
                   }
             }
@@ -608,14 +763,15 @@ const styles = StyleSheet.create({
   },
   headtext: {
     fontSize: 20,
-    fontWeight: "bold",
     color: "#000",
+    fontFamily: "Poppins-Bold",
   },
   Firsttext: {
     fontSize: 12,
-    fontWeight: "600",
     color: "grey",
     lineHeight: 20,
+    marginBottom: 10,
+    fontFamily: "Poppins-Regular",
   },
   ModelTextContainer: {
     padding: 20,
@@ -728,14 +884,14 @@ const styles = StyleSheet.create({
   },
   TextInputText: {
     color: "#131313",
-    // fontFamily: 'SharpSansDispNo1-Book',
+    fontFamily: "Poppins-Regular",
     fontSize: 14,
     lineHeight: 16,
     paddingBottom: 8,
   },
   TextInputText1: {
     color: "#131313",
-    // fontFamily: 'SharpSansDispNo1-Book',
+    fontFamily: "Poppins-Regular",
     fontSize: 14,
     //  paddingLeft: 10,
 
@@ -744,7 +900,7 @@ const styles = StyleSheet.create({
   },
   TextInputText2: {
     color: "#131313",
-    // fontFamily: 'SharpSansDispNo1-Book',
+    fontFamily: "Poppins-Regular",
     fontSize: 14,
     lineHeight: 16,
     marginLeft: wp(5),
@@ -753,9 +909,8 @@ const styles = StyleSheet.create({
   TermsCondition: {
     // backgroundColor: "red",
     color: "#131313",
-    // fontFamily: 'SharpSansDispNo1-Book',
-    fontSize: 14,
-    fontWeight: "600",
+    fontFamily: "Poppins-SemiBold",
+    // fontSize: 14,
   },
   Rolecontainer: {
     //flexDirection: "row",
@@ -803,6 +958,7 @@ const styles = StyleSheet.create({
     height: hp(6),
     borderRadius: 30,
     justifyContent: "center",
+    fontFamily: "Poppins-Regular",
   },
   emailtoch: {
     backgroundColor: "lightgray",
@@ -810,6 +966,7 @@ const styles = StyleSheet.create({
     height: hp(6),
     justifyContent: "center",
     borderRadius: 30,
+    fontFamily: "Poppins-Regular",
   },
   ButtonText: {
     color: "#fff",
@@ -825,17 +982,32 @@ const styles = StyleSheet.create({
   ReqButtonText: {
     color: "#fff",
     textAlign: "center",
-    fontSize: 18,
+    fontSize: 16,
+    fontFamily: "Poppins-Regular",
   },
   bottomcontent: {
     justifyContent: "center",
     alignItems: "center",
     marginTop: 15,
   },
+  AlreadyText: {
+    color: "#000",
+    fontFamily: "Poppins-Regular",
+  },
   loginText: {
     color: "#2F5597",
-    fontSize: 14,
-    fontWeight: "700",
+    fontSize: 15,
     paddingTop: 5,
+    fontFamily: "Poppins-Bold",
+    marginBottom: 5,
+  },
+
+  usercontainer: {
+    height: hp(10),
+    // backgroundColor: "red",
+    width: wp(90),
+    alignSelf: "center",
+    flexDirection: "row",
+    //justifyContent: "center"
   },
 });
