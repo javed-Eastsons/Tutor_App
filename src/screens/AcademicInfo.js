@@ -169,7 +169,7 @@ const AcademicInfo = () => {
     { label: "Others", value: "Others" },
   ];
   const [otherExam, setOtherExam] = useState("");
-  const [countD, setCountD] = useState(0);
+  const [countD, setCountD] = useState(1);
 
   const [Experience, setExperience] = useState("Select One Option");
   const Experience_List = [
@@ -243,7 +243,7 @@ const AcademicInfo = () => {
 
   const deleteRecord = (idToDelete) => {
     const updatedRecords = records.filter(
-      (record) => record.history_academy_id !== idToDelete
+      (record) => record.HistoryID !== idToDelete
     );
     console.log(updatedRecords, "AAAAAAAAAAAA");
     setRecords(updatedRecords);
@@ -270,7 +270,7 @@ const AcademicInfo = () => {
   const UpdateRecord = () => {
     console.log(editId);
     const newData = records.map((record) => {
-      if (record.history_academy_id === editId) {
+      if (record.HistoryID === editId) {
         return {
           ...record,
           exam: state,
@@ -398,8 +398,8 @@ const AcademicInfo = () => {
     selectArray = Ex_array;
   };
 
-  const addHistoryData = (school, state, subject, grade) => {
-    console.log(school, state, subject, grade, "@@@@@AAAAJJJJ@@@@");
+  const addHistoryData = (school, state) => {
+    console.log(school, state, "@@@@@AAAAJJJJ@@@@");
 
     // if (P1 == P1) {
     //   setSelectListTutor("");
@@ -410,18 +410,21 @@ const AcademicInfo = () => {
     console.log(obj3, "AAAAA");
 
     var item1 = {};
-    item1["history_academy_id"] = countD;
+    // item1["history_academy_id"] = countD;
+    item1["HistoryID"] = countD;
     item1["school"] = school;
     item1["exam"] = state == "Others" ? otherExam : state;
     item1["result"] = sections;
     // item1["subject"] = subject;
     // item1["grade"] = grade;
+    console.log(item1, "itemasssssssssssss");
 
     if (!isExistInArray(selectArray, "school", item1.school)) {
       //  console.log('insert in array');
-      records.push(item1);
+      // records.push(item1);
 
-      // selectArray.push(obj3);
+      selectArray.push(item1);
+      setRecords(selectArray);
     } else {
       RemoveTempExercise(selectArray, "school", item1.school);
     }
@@ -433,8 +436,10 @@ const AcademicInfo = () => {
   console.log(records, "QQQQQQQQQQQQQQQQQQQQQQ");
 
   const onTickFunc = () => {
-    addHistoryData(school, state, subject, grade);
-    setHistoryModal(false);
+    console.log(school, state, "PPPPPPPPPPPPPPPPPPPPPP");
+    // addHistoryData(school, state, subject, grade);
+    addHistoryData(school, state);
+    // setHistoryModal(false);
   };
   const [refreshing, setRefreshing] = React.useState(false);
 
@@ -1310,6 +1315,7 @@ const AcademicInfo = () => {
                 source={require("../Assets/circleArrow.png")}
               />
             </TouchableOpacity>
+
             <TouchableOpacity
               onPress={() => setShowEmail("History")}
               style={styles.circleArrow}
@@ -1385,154 +1391,157 @@ const AcademicInfo = () => {
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
               }
             >
-              {records.map((item) => {
-                return (
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      marginHorizontal: wp(5),
-                      backgroundColor: "#fff",
-                      elevation: 10,
-
-                      marginTop: hp(2),
-                      marginBottom: hp(2),
-                    }}
-                  >
+              {records &&
+                records.map((item) => {
+                  return (
                     <View
                       style={{
-                        marginLeft: wp(3),
-                        paddingTop: 10,
-                        paddingBottom: 10,
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginHorizontal: wp(5),
+                        backgroundColor: "#fff",
+                        elevation: 10,
+
+                        marginTop: hp(2),
+                        marginBottom: hp(2),
                       }}
                     >
-                      <Text
+                      <View
                         style={{
-                          fontSize: 13,
-                          color: "#2F5597",
-                          fontFamily: "Poppins-Regular",
+                          marginLeft: wp(3),
+                          paddingTop: 10,
+                          paddingBottom: 10,
                         }}
                       >
-                        {item?.school}
-                      </Text>
-                      {/* <Text style={{ color: "#000", fontSize: 14 }}>
+                        <Text
+                          style={{
+                            fontSize: 13,
+                            color: "#2F5597",
+                            fontFamily: "Poppins-Regular",
+                          }}
+                        >
+                          {item?.school}
+                        </Text>
+                        {/* <Text style={{ color: "#000", fontSize: 14 }}>
                           {Experience}
                           </Text> */}
-                      <Text style={{ color: "#000", fontSize: 14 }}>
-                        {item?.exam}
-                      </Text>
+                        <Text style={{ color: "#000", fontSize: 14 }}>
+                          {item?.exam}
+                        </Text>
 
-                      <View>
-                        <View style={{ flexDirection: "row", marginBottom: 5 }}>
-                          <Text
-                            style={{
-                              width: wp(50),
-                              color: "#000",
-                              fontSize: 14,
-                            }}
+                        <View>
+                          <View
+                            style={{ flexDirection: "row", marginBottom: 5 }}
                           >
-                            Subject
-                          </Text>
+                            <Text
+                              style={{
+                                width: wp(50),
+                                color: "#000",
+                                fontSize: 14,
+                              }}
+                            >
+                              Subject
+                            </Text>
 
-                          <Text
-                            style={{
-                              width: wp(15),
-                              color: "#000",
-                              fontSize: 14,
-                            }}
-                          >
-                            Grade
-                          </Text>
+                            <Text
+                              style={{
+                                width: wp(15),
+                                color: "#000",
+                                fontSize: 14,
+                              }}
+                            >
+                              Grade
+                            </Text>
+                          </View>
+                          {item.Results &&
+                            item.Results.map((item1, resultIndex) => (
+                              <>
+                                <View
+                                  style={{
+                                    flexDirection: "row",
+                                    marginBottom: 5,
+                                    borderBottomWidth: 1,
+                                  }}
+                                >
+                                  <Text
+                                    style={{
+                                      width: wp(50),
+                                      color: "#000",
+                                      fontSize: 14,
+                                    }}
+                                  >
+                                    {item1?.Result_subject} {"  "}
+                                  </Text>
+
+                                  <Text
+                                    style={{
+                                      width: wp(10),
+                                      color: "#000",
+                                      fontSize: 14,
+                                    }}
+                                  >
+                                    {item1?.Result_grade}
+                                  </Text>
+                                </View>
+                              </>
+                            ))}
                         </View>
-                        {item.result &&
-                          item.result.map((item1, resultIndex) => (
-                            <>
-                              <View
-                                style={{
-                                  flexDirection: "row",
-                                  marginBottom: 5,
-                                  borderBottomWidth: 1,
-                                }}
-                              >
-                                <Text
-                                  style={{
-                                    width: wp(50),
-                                    color: "#000",
-                                    fontSize: 14,
-                                  }}
-                                >
-                                  {item1?.subject} {"  "}
-                                </Text>
 
-                                <Text
-                                  style={{
-                                    width: wp(10),
-                                    color: "#000",
-                                    fontSize: 14,
-                                  }}
-                                >
-                                  {item1?.grade}
-                                </Text>
-                              </View>
-                            </>
-                          ))}
-                      </View>
-
-                      {/* <Text style={{ color: "#000", fontSize: 14 }}>
+                        {/* <Text style={{ color: "#000", fontSize: 14 }}>
                         {item?.subject}
                       </Text>
                       <Text style={{ color: "#000", fontSize: 14 }}>
                         {item?.grade}
                       </Text> */}
+                      </View>
+                      <View>
+                        <TouchableOpacity
+                          onPress={() =>
+                            handleEdit(
+                              item.HistoryID,
+                              item.school,
+                              item.exam,
+                              item.subject,
+                              item.grade
+                            )
+                          }
+                          style={{
+                            backgroundColor: "lightblue",
+                            borderRadius: 6,
+                            height: hp(6),
+                            width: wp(14),
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Image
+                            source={require("../Assets/Pencil.png")}
+                            style={{ height: hp(3), width: wp(6) }}
+                          />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={{
+                            backgroundColor: "#2F5597",
+                            marginTop: 5,
+                            borderRadius: 6,
+                            height: hp(6),
+                            width: wp(14),
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                          // onPress={() =>RemoveTempExercise(selectArray, "grade", item?.grade)
+                          onPress={() => deleteRecord(item.HistoryID)}
+                        >
+                          <Image
+                            source={require("../Assets/delete.png")}
+                            style={{ height: hp(4), width: wp(7) }}
+                          />
+                        </TouchableOpacity>
+                      </View>
                     </View>
-                    <View>
-                      <TouchableOpacity
-                        onPress={() =>
-                          handleEdit(
-                            item.history_academy_id,
-                            item.school,
-                            item.exam,
-                            item.subject,
-                            item.grade
-                          )
-                        }
-                        style={{
-                          backgroundColor: "lightblue",
-                          borderRadius: 6,
-                          height: hp(6),
-                          width: wp(14),
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Image
-                          source={require("../Assets/Pencil.png")}
-                          style={{ height: hp(3), width: wp(6) }}
-                        />
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        style={{
-                          backgroundColor: "#2F5597",
-                          marginTop: 5,
-                          borderRadius: 6,
-                          height: hp(6),
-                          width: wp(14),
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                        // onPress={() =>RemoveTempExercise(selectArray, "grade", item?.grade)
-                        onPress={() => deleteRecord(item.Id)}
-                      >
-                        <Image
-                          source={require("../Assets/delete.png")}
-                          style={{ height: hp(4), width: wp(7) }}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                );
-              })}
+                  );
+                })}
             </ScrollView>
 
             <Modal

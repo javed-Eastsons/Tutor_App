@@ -38,7 +38,7 @@ import StarRating from "react-native-star-rating";
 import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { Dropdown } from "react-native-element-dropdown";
 import { Tutor_Qualification } from "../Redux/Actions/types";
-import { RadioButton } from 'react-native-paper';
+import { RadioButton } from "react-native-paper";
 
 var selectArray = [];
 var selectFilter = [];
@@ -49,7 +49,7 @@ const TutorQualification = ({ route }) => {
   const [userdata, setUserdata] = useState([]);
   const [postaldata, setPostaldata] = useState([]);
   const [selectedlevel, setSelectedlevel] = useState([]);
-  const [valueR, setValueR] = useState('');
+  const [valueR, setValueR] = useState("");
   const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer);
   const [offerAmount, setofferAmount] = useState("");
@@ -82,8 +82,8 @@ const TutorQualification = ({ route }) => {
     var selection = radioButtonsArray;
     // setRadioButtons(radioButtonsArray);
     console.log("PK+++++++++++++++++++++K", selection);
-    setValueR(radioButtonsArray)
-    if (selection == 'first') {
+    setValueR(radioButtonsArray);
+    if (selection == "first") {
       setFeeOffer("Non Negotiable");
     } else {
       setFeeOffer("Negotiable");
@@ -101,7 +101,7 @@ const TutorQualification = ({ route }) => {
       value: "University Undergraduate",
       id: 3,
     },
-    { label: "University dergraduate", value: "University dergraduate", id: 4 },
+    { label: "University Graduate", value: "University Graduate", id: 4 },
     { label: "Ex School Teacher", value: "Ex School Teacher", id: 5 },
     { label: "Current School Teacher", value: "Current School Teacher", id: 6 },
   ];
@@ -280,7 +280,7 @@ const TutorQualification = ({ route }) => {
               maxStars={5}
               // rating={item.Average_rating}
               starSize={15}
-            // selectedStar={(rating) => setStrCount(rating)}
+              // selectedStar={(rating) => setStrCount(rating)}
             />
           </View>
         </View>
@@ -290,27 +290,26 @@ const TutorQualification = ({ route }) => {
           </Text>
         </View>
         <View style={[styles.Bookcard, styles.BookshadowProp]}>
-
+          <View
+            style={{
+              height: 40,
+              width: "100%",
+              padding: 10,
+              flexDirection: "row",
+            }}
+          >
+            <Text style={styles.BookText1}>Tutor's Qualification</Text>
+            <View style={{ position: "absolute", right: 10 }}>
+              <Image
+                source={require("../Assets/Qualification.png")}
+                style={styles.TypeImage}
+              />
+            </View>
+          </View>
+          <View style={{ height: 20, width: "93%", alignSelf: "center" }}>
+            <Text style={styles.BookText2}>you may select more than one</Text>
+          </View>
           <View style={styles.SelectMoreContainer}>
-            <View
-              style={{
-                height: 40,
-                width: "100%",
-                padding: 10,
-                flexDirection: "row",
-              }}
-            >
-              <Text style={styles.BookText1}>Tutor's Qualification</Text>
-              <View style={{ position: "absolute", right: 10 }}>
-                <Image
-                  source={require("../Assets/Qualification.png")}
-                  style={styles.TypeImage}
-                />
-              </View>
-            </View>
-            <View style={{ height: 20, width: "93%", alignSelf: "center" }}>
-              <Text style={styles.BookText2}>you may select more than one</Text>
-            </View>
             <MultiSelect
               items={data}
               uniqueKey="label"
@@ -319,12 +318,14 @@ const TutorQualification = ({ route }) => {
               selectText="Select one or more"
               // searchInputPlaceholderText="Search Items..."
               onChangeInput={(text) => console.log("SSSSSSSSSSSSSS", text)}
-              tagRemoveIconColor="#CCC"
-              tagBorderColor="#CCC"
-              tagTextColor="#CCC"
-              selectedItemTextColor="#CCC"
-              selectedItemIconColor="#CCC"
+              tagRemoveIconColor="#2F5597"
+              tagBorderColor="#2F5597"
+              tagTextColor="#2F5597"
+              selectedItemTextColor="#2F5597"
+              fontSize={12}
+              selectedItemIconColor="#2F5597"
               itemTextColor="#000"
+              itemFontSize={12}
               displayKey="label"
               searchInputStyle={{ color: "#CCC" }}
               styleRowList={{ width: "90%", borderRadius: 20 }}
@@ -333,10 +334,11 @@ const TutorQualification = ({ route }) => {
               styleDropdownMenu={{ backgroundColor: "red" }}
               hideSubmitButton
               styleItemsContainer={{
-                height: 90,
+                height: 100,
               }}
             />
           </View>
+
           <View style={[styles.cardFrequency, styles.shadowPropFrequency]}>
             <Text style={styles.BookText1}>Frequency & Duration</Text>
             <View style={{ position: "absolute", right: 10 }}>
@@ -349,7 +351,7 @@ const TutorQualification = ({ route }) => {
               style={{
                 height: 40,
                 width: "100%",
-                marginTop: 15,
+                marginTop: 0,
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
@@ -433,15 +435,30 @@ const TutorQualification = ({ route }) => {
                 style={styles.TypeImage}
               />
             </View>
-            <RadioButton.Group onValueChange={onPressRadioButton} value={valueR} >
-              <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 20, marginTop: 20 }}>
-                <View style={[styles.radioBtn,{marginRight:10}]}>
-                  <Text style={{ color: '#fff', marginTop: 7 }}>Place Offer</Text>
+            <RadioButton.Group
+              onValueChange={onPressRadioButton}
+              value={valueR}
+            >
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  paddingHorizontal: 20,
+                  marginTop: 20,
+                }}
+              >
+                <View style={[styles.radioBtn, { marginRight: 10 }]}>
+                  <Text style={{ color: "#fff", marginTop: 7 }}>
+                    Place Offer
+                  </Text>
                   <RadioButton value="first" color="#fff" />
                 </View>
                 <View style={styles.radioBtn}>
-                  <Text style={{ color: '#fff', marginTop: 7 }}>Negotiable</Text>
-                  <RadioButton value="second"  color="#fff"  />
+                  <Text style={{ color: "#fff", marginTop: 7 }}>
+                    Negotiable
+                  </Text>
+                  <RadioButton value="second" color="#fff" />
                 </View>
               </View>
             </RadioButton.Group>
@@ -463,67 +480,65 @@ const TutorQualification = ({ route }) => {
               />
             </View> */}
             {/* {feeOffer == "Place Offer" ? ( */}
-            {
-              valueR ?
+            {valueR ? (
               <View
-              style={{
-                flexDirection: "row",
-                height: 35,
-                borderWidth: 0.5,
-                alignSelf:'center',
-                // backgroundColor: "#2F5597",
-                // marginTop: wp(5),
-                width:'50%',
-                justifyContent: "center",
-                borderRadius:10
-              }}
-            >
-              <Text
                 style={{
-                  color: "#000",
-                  fontSize: 16,
-                  fontWeight: "600",
-                  alignSelf: "center",
-                }}
-              >
-                SGD
-              </Text>
-
-              <TextInput
-                style={{
+                  flexDirection: "row",
                   height: 35,
-                  backgroundColor: "lightgrey",
-                  width: 60,
-                  color: "#000",
-                  fontSize: 18,
-                  marginRight: 4,
-                  marginLeft: 4,
-                  fontWeight: "500",
-                  justifyContent: "center",
-                  paddingTop: 5,
-                  justifyContent: "center",
-                  paddingLeft: 10,
-                }}
-                keyboardType="numeric"
-                value={offerAmount}
-                onChangeText={(text) => setofferAmount(text)}
-                placeholderTextColor="#fff"
-                placeholder="0.00"
-              />
-              <Text
-                style={{
-                  color: "#000",
-                  fontSize: 16,
-                  fontWeight: "600",
+                  borderWidth: 0.5,
                   alignSelf: "center",
+                  // backgroundColor: "#2F5597",
+                  // marginTop: wp(5),
+                  width: "50%",
+                  justifyContent: "center",
+                  borderRadius: 10,
                 }}
               >
-                / hour
-              </Text>
-            </View>
-            :null
-            }
-           
+                <Text
+                  style={{
+                    color: "#000",
+                    fontSize: 16,
+                    fontWeight: "600",
+                    alignSelf: "center",
+                  }}
+                >
+                  SGD
+                </Text>
+
+                <TextInput
+                  style={{
+                    height: 35,
+                    backgroundColor: "lightgrey",
+                    width: 60,
+                    color: "#000",
+                    fontSize: 18,
+                    marginRight: 4,
+                    marginLeft: 4,
+                    fontWeight: "500",
+                    justifyContent: "center",
+                    paddingTop: 5,
+                    justifyContent: "center",
+                    paddingLeft: 10,
+                  }}
+                  keyboardType="numeric"
+                  value={offerAmount}
+                  onChangeText={(text) => setofferAmount(text)}
+                  placeholderTextColor="#fff"
+                  placeholder="0.00"
+                />
+                <Text
+                  style={{
+                    color: "#000",
+                    fontSize: 16,
+                    fontWeight: "600",
+                    alignSelf: "center",
+                  }}
+                >
+                  / hour
+                </Text>
+              </View>
+            ) : null}
+
             {/* ) : (
               <View />
             )} */}
@@ -669,7 +684,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "black",
     alignSelf: "center",
-    fontFamily: 'Poppins-SemiBold'
+    fontFamily: "Poppins-SemiBold",
   },
   Bookcard: {
     height: "60%",
@@ -692,7 +707,7 @@ const styles = StyleSheet.create({
   },
   BookText1: {
     color: "grey",
-    fontFamily:'Poppins-SemiBold'
+    fontFamily: "Poppins-SemiBold",
   },
   TypeImage: {
     width: 40,
@@ -777,21 +792,21 @@ const styles = StyleSheet.create({
   },
   BookText5: {
     fontSize: 15,
-    color: '#ffff',
-    fontFamily: 'Poppins-SemiBold'
+    color: "#ffff",
+    fontFamily: "Poppins-SemiBold",
   },
   infoText: {
     // fontSize: 15,
     color: "black",
-    fontFamily: 'Poppins-Regular'
+    fontFamily: "Poppins-Regular",
   },
   radioBtn: {
     display: "flex",
-    flexDirection: 'row',
+    flexDirection: "row",
     borderRadius: 18,
     paddingHorizontal: 20,
     elevation: 2,
     marginBottom: 5,
-    backgroundColor: '#2F5597'
-  }
+    backgroundColor: "#2F5597",
+  },
 });

@@ -31,13 +31,16 @@ import {
   GetfilterSubject,
   GetfilterQualification,
   GetQuickData,
-
 } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
 import RadioGroup from "react-native-radio-buttons-group";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import MultiSelect from "react-native-multiple-select";
-import { getLevelList, getGradeList, getSubjectList } from '../Redux/Actions/Tutors'
+import {
+  getLevelList,
+  getGradeList,
+  getSubjectList,
+} from "../Redux/Actions/Tutors";
 import { Dropdown } from "react-native-element-dropdown";
 
 var selectArray = [];
@@ -84,7 +87,7 @@ const OurTutor = ({ props, route }) => {
 
   console.log("All Tutor", GET_ALLTUTORS);
   // console.log('AAAAAAAAAAAAAAAAAAAAFILTER@@@@@@@@@@@@@@@@@@@@@@@@@@@', GET_FILTER_DATA)
-console.log(GRADE_LIST, 'Filter-Grade')
+  console.log(GRADE_LIST, "Filter-Grade");
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedQual, setSelectedQual] = useState([]);
   const [selectedlevel, setSelectedlevel] = useState([]);
@@ -192,9 +195,9 @@ console.log(GRADE_LIST, 'Filter-Grade')
       console.log("ddddddddddddddddddddddd");
     } else {
       const obj3 = {};
-        // console.log('""""""""""""""', element);
-        obj3["Levels_search"] = data;
-        // setSelectedQual(element)
+      // console.log('""""""""""""""', element);
+      obj3["Levels_search"] = data;
+      // setSelectedQual(element)
       if (!isExistInArray(selectFilter, "Levels_search", obj3.Levels_search)) {
         selectFilter.push(obj3);
 
@@ -311,7 +314,7 @@ console.log(GRADE_LIST, 'Filter-Grade')
 
     createlevel(selectedItemslevel);
     // setSelectedlevel(selectedItemslevel);
-    setSelectListTutor(selectedItemslevel)
+    setSelectListTutor(selectedItemslevel);
     // console.log('Level', selectedlevel)
   };
 
@@ -414,7 +417,6 @@ console.log(GRADE_LIST, 'Filter-Grade')
     //  setstatusRadioButtons(radioButtonsArray);
   }
 
- 
   const items = [
     {
       id: 1,
@@ -560,7 +562,7 @@ console.log(GRADE_LIST, 'Filter-Grade')
     { label: "IB (Diploma)", value: "IB (Diploma)" },
     { label: "Polytechnic Diploma", value: "Polytechnic Diploma" },
     { label: "University Undergraduate", value: "University Undergraduate" },
-    { label: "University dergraduate", value: "University dergraduate" },
+    { label: "University Graduate", value: "University Graduate" },
     { label: "Ex School Teacher", value: "Ex School Teacher" },
     { label: "Current School Teacher", value: "Current School Teacher" },
   ];
@@ -966,19 +968,13 @@ console.log(GRADE_LIST, 'Filter-Grade')
 
   useEffect(() => {
     dispatch(getLevelList());
-
   }, []);
   useEffect(() => {
-
     dispatch(getGradeList(selectListTutor));
-
-
   }, [selectListTutor]);
 
   useEffect(() => {
-
     dispatch(getSubjectList(selectListTutor));
-
   }, [selectListTutor]);
   return (
     <>
@@ -1560,10 +1556,11 @@ console.log(GRADE_LIST, 'Filter-Grade')
                     <Text style={{ color: "grey", fontSize: 14 }}>Level:</Text>
                   </View>
                   <View style={styles.MainContainer}>
-                    
-
                     <Dropdown
-                      style={[styles.dropdown, isFocus && { borderColor: "black" }]}
+                      style={[
+                        styles.dropdown,
+                        isFocus && { borderColor: "black" },
+                      ]}
                       placeholderStyle={{ fontSize: 16, color: "#2F5597" }}
                       selectedTextStyle={styles.selectedTextStyle}
                       itemTextStyle={{ color: "#2F5597" }}
@@ -1573,12 +1570,12 @@ console.log(GRADE_LIST, 'Filter-Grade')
                       valueField="school_level_name"
                       allowFontScaling={false}
                       //   maxHeight={100}
-                      placeholder='Select Level'
+                      placeholder="Select Level"
                       value={selectListTutor}
                       onFocus={() => setIsFocus(true)}
                       onBlur={() => setIsFocus(false)}
                       onChange={(item) => {
-                        onSelectedlevel(item.school_level_name)
+                        onSelectedlevel(item.school_level_name);
                         // setSelectListTutor(item.school_level_name);
                         setIsFocus(false);
                       }}
@@ -1619,7 +1616,6 @@ console.log(GRADE_LIST, 'Filter-Grade')
                     <Text style={{ color: "grey", fontSize: 14 }}>Grade:</Text>
                   </View>
                   <View style={styles.MainContainer}>
-                  
                     <MultiSelect
                       items={GRADE_LIST?.Grade_List}
                       uniqueKey="grade_name"
@@ -1642,7 +1638,7 @@ console.log(GRADE_LIST, 'Filter-Grade')
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
                       hideSubmitButton
-                    //  styleItemsContainer={{ height: 150, }}
+                      //  styleItemsContainer={{ height: 150, }}
                     />
                   </View>
 
@@ -1678,7 +1674,7 @@ console.log(GRADE_LIST, 'Filter-Grade')
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
                       hideSubmitButton
-                    //   styleItemsContainer={{ height: 150, }}
+                      //   styleItemsContainer={{ height: 150, }}
                     />
                   </View>
 
@@ -1695,8 +1691,8 @@ console.log(GRADE_LIST, 'Filter-Grade')
                   </View>
                   <View style={styles.MainContainer}>
                     <MultiSelect
-                     items={SUBJECT_LIST?.Subject_List}
-                     uniqueKey="subjects_name"
+                      items={SUBJECT_LIST?.Subject_List}
+                      uniqueKey="subjects_name"
                       onSelectedItemsChange={onSelectedSubject}
                       selectedItems={selectedSubject}
                       selectText="Select one or more"
@@ -1716,7 +1712,7 @@ console.log(GRADE_LIST, 'Filter-Grade')
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
                       hideSubmitButton
-                    //    styleItemsContainer={{ height: 150, }}
+                      //    styleItemsContainer={{ height: 150, }}
                     />
                   </View>
 

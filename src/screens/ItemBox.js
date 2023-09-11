@@ -24,7 +24,7 @@ import { GetAllTutors } from "../Redux/Actions/Tutors";
 import { useDispatch, useSelector } from "react-redux";
 
 const ItemBox = (props) => {
-  console.log("Props.data", props.data);
+  //  console.log("Props.data", props.data);
   const navigation = useNavigation();
 
   const leftSwipe = (progress, dragX) => {

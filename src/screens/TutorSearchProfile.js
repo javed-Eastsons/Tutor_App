@@ -211,13 +211,64 @@ const TutorSearchProfile = ({ props, route }) => {
             fontFamily: "Poppins-SemiBold",
           }}
         >
-          {"Subjects"} {"Results"}
+          <View style={{ flexDirection: "row", marginBottom: 5 }}>
+            <Text
+              style={{
+                width: wp(50),
+                color: "skyblue",
+                fontSize: 14,
+              }}
+            >
+              Subject
+            </Text>
+
+            <Text
+              style={{
+                width: wp(15),
+                color: "skyblue",
+                fontSize: 14,
+              }}
+            >
+              Grade
+            </Text>
+          </View>
         </Animatable.Text>
         <Animatable.Text
           animation={isActive ? "bounceIn" : undefined}
           style={{ textAlign: "center", color: "skyblue" }}
         >
-          {section.subject} {section.grade}
+          {section.Results &&
+            section.Results.map((item1, resultIndex) => (
+              <>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginBottom: 5,
+                    borderBottomWidth: 1,
+                  }}
+                >
+                  <Text
+                    style={{
+                      width: wp(50),
+                      color: "#000",
+                      fontSize: 14,
+                    }}
+                  >
+                    {item1?.Result_subject} {"  "}
+                  </Text>
+
+                  <Text
+                    style={{
+                      width: wp(10),
+                      color: "#000",
+                      fontSize: 14,
+                    }}
+                  >
+                    {item1?.Result_grade}
+                  </Text>
+                </View>
+              </>
+            ))}
         </Animatable.Text>
         <Animatable.Text
           animation={isActive ? "bounceIn" : undefined}

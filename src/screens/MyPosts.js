@@ -243,10 +243,13 @@ const MyPosts = () => {
                         Student level: {item.student_level}
                       </Text> */}
                       <Text style={styles.LIstText2}>
-                        Student tution type: {tuitionType}
+                        Tuition Type: {tuitionType}
                       </Text>
                       <Text style={styles.LIstText2}>PostCode: {postCode}</Text>
-                      <Text style={styles.LIstText2}>Address: {postAdd}</Text>
+                      <View style={{ marginTop: 20 }}></View>
+                      <Text style={styles.LIstText2}>
+                        Street Address: {postAdd}
+                      </Text>
                       {/* <Text style={styles.LIstText2}>
                         Duration: {item.tutor_duration_weeks}
                       </Text> */}
@@ -254,9 +257,11 @@ const MyPosts = () => {
                         Hours: {item.tutor_duration_hours}
                       </Text> */}
                       <Text style={styles.LIstText2}>
-                        Offer Amount Type: {OfferType}
+                        Fee Detail: {OfferType}
                       </Text>
-                      <Text style={styles.LIstText2}>Offer Amount: {Fee}</Text>
+                      <Text style={styles.LIstText2}>
+                        Offer Amount: SGD {Fee} per hour
+                      </Text>
                       {/* <Text style={styles.LIstText2}>
                         Subjects:{" "}
                         {ALL_POSTS_BY_CLIENT[0]?.student_subjects &&

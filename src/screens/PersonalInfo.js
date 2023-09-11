@@ -172,12 +172,7 @@ const PersonalInfo = ({ route }) => {
     setNational(userDetail[0]?.Extra_info[0]?.nationality);
   }, [SINGLE_USER, setAge]);
 
-  // useEffect(() => {
-  //   console.log(userDetail[0]?.Extra_info[0]?.age, "WWWWWWWWWWWWWWWWWW");
-  //   setAge(userDetail[0]?.Extra_info[0] && userDetail[0]?.Extra_info[0]?.age);
-  //   setMarkGender(userDetail[0]?.Extra_info[0]?.gender);
-  //   setNational(userDetail[0]?.Extra_info[0]?.nationality);
-  // }, []);
+  useEffect(() => {}, [setAge]);
 
   var date1 = moment(new Date()).format("MM-YYYY");
   var date2 = moment(date).format("YYYY");
@@ -384,13 +379,16 @@ const PersonalInfo = ({ route }) => {
                           placeholderTextColor={'#000'}
                           style={{fontSize:13,color:'#000', paddingLeft:wp(4)}}
                          /> */}
-                {console.log("yourage", Age)}
+                {console.log("yourage", typeof Age, Age)}
                 <TextInput
                   style={{
                     color: "#000",
                     fontSize: 14,
+                    height: hp(5),
+
+                    //  backgroundColor: "red",
                     fontWeight: "800",
-                    marginLeft: wp(3),
+                    //  marginLeft: wp(3),
                   }}
                   underlineColorAndroid="rgba(0,0,0,0)"
                   placeholder={"Enter age"}

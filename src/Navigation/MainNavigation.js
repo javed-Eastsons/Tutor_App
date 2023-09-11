@@ -48,7 +48,7 @@ import BookingInformationConfirmation from "../screens/BookingInformationConfirm
 import MapScreen from "../screens/MapScreen";
 import AcademicInfo from "../screens/AcademicInfo";
 import HomeTution from "../screens/HomeTution";
-import TutoringDetail from "../screens/TutoringDetail";
+import TutoringDetail from "../screens/TutoringDetailA";
 import WordYou from "../screens/WordYou";
 import Messages from "../screens/Messages";
 import Tab3 from "../screens/Tab3";

@@ -1638,6 +1638,7 @@ drawable src_assets_circle
 drawable src_assets_circlearrow
 drawable src_assets_closeingray
 drawable src_assets_course
+drawable src_assets_dashicon
 drawable src_assets_delete
 drawable src_assets_deletes
 drawable src_assets_dollar
@@ -1656,12 +1657,14 @@ drawable src_assets_flag
 drawable src_assets_grade
 drawable src_assets_health
 drawable src_assets_heart
+drawable src_assets_hearticon
 drawable src_assets_help
 drawable src_assets_helptuticon
 drawable src_assets_home
 drawable src_assets_hometuticon
 drawable src_assets_hometution
 drawable src_assets_homework
+drawable src_assets_iicon
 drawable src_assets_insta
 drawable src_assets_japan
 drawable src_assets_linkedin
@@ -1669,6 +1672,7 @@ drawable src_assets_location
 drawable src_assets_login
 drawable src_assets_logo
 drawable src_assets_logogrey
+drawable src_assets_logouticon
 drawable src_assets_mailuser
 drawable src_assets_malaysia
 drawable src_assets_male
@@ -1689,6 +1693,7 @@ drawable src_assets_pastedgraphic5
 drawable src_assets_pastedgraphic7
 drawable src_assets_payn
 drawable src_assets_pencil
+drawable src_assets_pencilicon
 drawable src_assets_people
 drawable src_assets_personal
 drawable src_assets_philippines
@@ -1696,7 +1701,9 @@ drawable src_assets_plus
 drawable src_assets_postrequire
 drawable src_assets_privacy
 drawable src_assets_promotion
+drawable src_assets_qricon
 drawable src_assets_qualification
+drawable src_assets_rateappicon
 drawable src_assets_redheart
 drawable src_assets_right
 drawable src_assets_rightarrowcode
@@ -1705,6 +1712,7 @@ drawable src_assets_search
 drawable src_assets_searching
 drawable src_assets_settings
 drawable src_assets_share
+drawable src_assets_shareicon
 drawable src_assets_singapore
 drawable src_assets_slider1
 drawable src_assets_slider2
@@ -1719,6 +1727,8 @@ drawable src_assets_terms
 drawable src_assets_three_dot
 drawable src_assets_time
 drawable src_assets_togglebb
+drawable src_assets_tryit
+drawable src_assets_tryiticon
 drawable src_assets_tutionsjobs
 drawable src_assets_tutiontype
 drawable src_assets_tutiontypes

@@ -98,7 +98,7 @@ const TutorQualification = ({ route }) => {
       value: "University Undergraduate",
       id: 3,
     },
-    { label: "University dergraduate", value: "University dergraduate", id: 4 },
+    { label: "University Graduate", value: "University Graduate", id: 4 },
     { label: "Ex School Teacher", value: "Ex School Teacher", id: 5 },
     { label: "Current School Teacher", value: "Current School Teacher", id: 6 },
   ];

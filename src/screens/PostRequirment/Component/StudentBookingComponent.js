@@ -30,7 +30,11 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 //import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
 import StudentDetailComponent from "./StudentDetailComponent";
-import { getLevelList, getGradeList, getSubjectList } from "../../../Redux/Actions/Tutors";
+import {
+  getLevelList,
+  getGradeList,
+  getSubjectList,
+} from "../../../Redux/Actions/Tutors";
 
 import { Loader } from "../../../../../../common/Loader";
 import StudentDetail from "../StudentDetail";
@@ -87,8 +91,8 @@ const StudentBookingComponent = (props) => {
 
   console.log("@@@@@@", value);
   // console.log(">>>>>>", value2);
-  console.log(LEVEL_LIST?.Level_list, 'LEVEL_LIST-REDUX')
-  console.log(SUBJECT_LIST, 'SUBJECT_LIST')
+  console.log(LEVEL_LIST?.Level_list, "LEVEL_LIST-REDUX");
+  console.log(SUBJECT_LIST, "SUBJECT_LIST");
 
   const AddMoreDetail = () => {
     setMoreDetail("showSection");
@@ -248,20 +252,16 @@ const StudentBookingComponent = (props) => {
 
   // console.log(SelectDetail, "SelectDetailSelectDetailSelectDetailSelectDetail");
   useEffect(() => {
+    selectArray = [];
     dispatch(getLevelList());
-
   }, []);
   useEffect(() => {
-
     dispatch(getGradeList(value));
-
   }, [value]);
-  console.log(GRADE_LIST, 'GRADE_LIST-REDUX')
+  console.log(GRADE_LIST, "GRADE_LIST-REDUX");
 
   useEffect(() => {
-
     dispatch(getSubjectList(value));
-
   }, [value]);
   return (
     // <View style={styles.container}>
@@ -289,7 +289,6 @@ const StudentBookingComponent = (props) => {
           </Text>
         </View>
         <ScrollView nestedScrollEnabled={true}>
-
           <View
             style={{
               height: "80%",
@@ -298,8 +297,6 @@ const StudentBookingComponent = (props) => {
               // backgroundColor: "#fff",
             }}
           >
-
-
             {records.map((item) => (
               <View>
                 <View
@@ -314,9 +311,14 @@ const StudentBookingComponent = (props) => {
                     backgroundColor: "#fff",
                   }}
                 >
-                  <View style={{ height: 90, width: "10%", backgroundColor: 'purple', elevation: 3 }}>
-
-                  </View >
+                  <View
+                    style={{
+                      height: 90,
+                      width: "10%",
+                      backgroundColor: "purple",
+                      elevation: 3,
+                    }}
+                  ></View>
                   <View style={{ height: 100, width: "80%" }}>
                     <Text style={styles.Information}>{item.Level}</Text>
                     <Text style={styles.Information}>{item.Grade}</Text>
@@ -384,7 +386,6 @@ const StudentBookingComponent = (props) => {
                  - - -
                </Text> */}
               </View>
-
             ))}
 
             {moredetail == "AddDataIn" ? (
@@ -419,7 +420,14 @@ const StudentBookingComponent = (props) => {
               >
                 <View style={styles.DetailContainer}>
                   <View style={{ height: 100, width: "30%" }}>
-                    <Text style={{ marginTop: 10, fontSize: 15, color: "black",fontFamily:'Poppins-Regular' }}>
+                    <Text
+                      style={{
+                        marginTop: 10,
+                        fontSize: 15,
+                        color: "black",
+                        fontFamily: "Poppins-Regular",
+                      }}
+                    >
                       Level :
                     </Text>
                   </View>
@@ -446,13 +454,19 @@ const StudentBookingComponent = (props) => {
                         setIsFocus(false);
                       }}
                     />
-
                   </View>
                 </View>
 
                 <View style={styles.DetailContainer}>
                   <View style={{ height: 100, width: "30%" }}>
-                    <Text style={{ marginTop: 10, fontSize: 15, color: "black",fontFamily:'Poppins-Regular' }}>
+                    <Text
+                      style={{
+                        marginTop: 10,
+                        fontSize: 15,
+                        color: "black",
+                        fontFamily: "Poppins-Regular",
+                      }}
+                    >
                       Grade :
                     </Text>
                   </View>
@@ -479,13 +493,19 @@ const StudentBookingComponent = (props) => {
                         setIsFocus2(false);
                       }}
                     />
-
                   </View>
                 </View>
 
                 <View style={styles.DetailContainer}>
                   <View style={{ height: 100, width: "30%" }}>
-                    <Text style={{ marginTop: 10,fontSize:15,  color: "black" ,fontFamily:'Poppins-Regular'}}>
+                    <Text
+                      style={{
+                        marginTop: 10,
+                        fontSize: 15,
+                        color: "black",
+                        fontFamily: "Poppins-Regular",
+                      }}
+                    >
                       Subjects :
                     </Text>
                   </View>
@@ -589,7 +609,7 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     fontSize: 12,
-    color: '#000'
+    color: "#000",
   },
   DetailContainer: {
     flexDirection: "row",
@@ -609,7 +629,6 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
     alignSelf: "center",
-
   },
   dropdown: {
     //  height: 100,
@@ -619,7 +638,7 @@ const styles = StyleSheet.create({
     // borderRadius: 8,
     // paddingHorizontal: 8,
     marginTop: 10,
-    color: 'black'
+    color: "black",
     // marginLeft:10
   },
   ButtonText: {
@@ -713,7 +732,7 @@ const styles = StyleSheet.create({
   },
   BookText1: {
     color: "grey",
-fontFamily:'Poppins-SemiBold'
+    fontFamily: "Poppins-SemiBold",
   },
   TypeImage: {
     width: 40,
@@ -722,15 +741,15 @@ fontFamily:'Poppins-SemiBold'
   },
   BookText2: {
     // fontWeight:"bold",
-    fontSize:12,
+    fontSize: 12,
     color: "grey",
-    fontFamily:'Poppins-Regular'
+    fontFamily: "Poppins-Regular",
   },
   Information: {
     color: "black",
     marginTop: 5,
     marginLeft: 10,
-    fontFamily:'Poppons-Regular'
+    fontFamily: "Poppons-Regular",
   },
   InfoImage: {},
   BookText: {

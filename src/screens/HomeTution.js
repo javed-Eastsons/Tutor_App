@@ -25,7 +25,7 @@ import moment from "moment";
 import MapView, { MapContainer, Circle, Marker } from "react-native-maps";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { Tution_Type } from "../Redux/Actions/types";
+import { Tution_Type, Postal_Code_Address } from "../Redux/Actions/types";
 import { GetUserProfile } from "../Redux/Actions/Tutors";
 import Slider from "@react-native-community/slider";
 
@@ -36,10 +36,10 @@ const HomeTution = () => {
   const navigation = useNavigation();
   const [FirstName, setFirstName] = React.useState("");
   const [address, setAddress] = React.useState("");
-  const [mapData, setMapData] = useState();
-  mapData?.geometry?.location?.lat;
-  const [latitude, setLatitude] = useState();
-  const [longitude, setLongitude] = useState();
+  const [mapData, setMapData] = useState(0);
+
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
   const [userDetail, setUserDetail] = useState([]);
   const dispatch = useDispatch();
@@ -62,7 +62,7 @@ const HomeTution = () => {
     console.log(FirstName, "????????????????");
     navigation.navigate("YourProfle");
   };
-  console.log(mapData, "mapData");
+  //  console.log(mapData, "mapData");
 
   // console.log(FirstName, slideStartingValue.toFixed(0), "postalcode");
   const geocodinApi = () => {
@@ -77,9 +77,9 @@ const HomeTution = () => {
       .request(config)
       .then((response) => {
         const jsonData = response.data;
-        // console.log(jsonData, "OOOOOOOOOOOOOOOOOOO");
+        console.log(jsonData, "OOOOOOOOOOOOOOOOOOO");
         const jj = jsonData.results[0];
-        //  console.log(jj, "PPPPPPPPPPPPPPPPPP");
+        console.log(jj, "PPPPPPPPPPPPPPPPPP");
         setMapData(jj);
         setLatitude(jj?.geometry?.location?.lat);
         setLongitude(jj?.geometry?.location?.lng);
@@ -97,7 +97,8 @@ const HomeTution = () => {
   };
 
   const getAddress = (lat, long) => {
-    console.log("WERTYUI");
+    console.log("WERTYUI", lat, long);
+
     let config1 = {
       method: "get",
       maxBodyLength: Infinity,
@@ -153,10 +154,10 @@ const HomeTution = () => {
     setLongitude(userDetail[0]?.Extra_info[0]?.longitude);
     // setRecords(userDetail[0]?.history_academy_arr);
   }, [SINGLE_USER, setFirstName]);
-  console.log(
-    typeof slideStartingValue,
-    "userDetail[0]?.Extra_info[0]?.travel_distance"
-  );
+  // console.log(
+  //   typeof slideStartingValue,
+  //   "userDetail[0]?.Extra_info[0]?.travel_distance"
+  // );
 
   const onRegionCHange = (reg) => {
     // console.log(reg, "DDDDDDDDDDDDDDDDDDDDDDDDD");
@@ -280,8 +281,8 @@ const HomeTution = () => {
               showsMyLocationButton={true}
               userInterfaceStyle="dark"
               initialRegion={{
-                latitude: mapData ? latitude : 28.621,
-                longitude: mapData ? longitude : 77.3812,
+                latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
+                longitude: mapData ? mapData?.geometry?.location?.lng : 77.3812,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
               }}
@@ -289,8 +290,10 @@ const HomeTution = () => {
             >
               <Circle
                 center={{
-                  latitude: mapData ? latitude : 28.621,
-                  longitude: mapData ? longitude : 77.3812,
+                  latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
+                  longitude: mapData
+                    ? mapData?.geometry?.location?.lng
+                    : 77.3812,
                 }}
                 radius={slideStartingValue.toFixed(0) * 80}
                 // radius={slideStartingValue * 80}
@@ -300,8 +303,10 @@ const HomeTution = () => {
               />
               <Marker
                 coordinate={{
-                  latitude: mapData ? latitude : 28.621,
-                  longitude: mapData ? longitude : 77.3812,
+                  latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
+                  longitude: mapData
+                    ? mapData?.geometry?.location?.lng
+                    : 77.3812,
                 }}
                 onDragEnd={(e) =>
                   this.setState({ x: e.nativeEvent.coordinate })

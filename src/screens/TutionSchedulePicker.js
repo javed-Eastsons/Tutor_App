@@ -40,38 +40,38 @@ import CheckBox from "@react-native-community/checkbox";
 import Day from "react-native-calendars/src/calendar/day";
 import { Tutor_Schedule } from "../Redux/Actions/types";
 
-const morning = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
+const morning = ["12 A.M", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
 const Afternoon = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM"];
 const Evening = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
 const Night = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
 const Days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-const morning1 = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
+const morning1 = ["12 A.M", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
 const Afternoon1 = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM"];
 const Evening1 = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
 const Night1 = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
 
-const morning2 = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
+const morning2 = ["12 A.M", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
 const Afternoon2 = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM"];
 const Evening2 = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
 const Night2 = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
 
-const morning3 = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
+const morning3 = ["12 A.M", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
 const Afternoon3 = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM"];
 const Evening3 = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
 const Night3 = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
 
-const morning4 = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
+const morning4 = ["12 A.M", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
 const Afternoon4 = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM"];
 const Evening4 = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
 const Night4 = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
 
-const morning5 = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
+const morning5 = ["12 A.M", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
 const Afternoon5 = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM"];
 const Evening5 = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
 const Night5 = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
 
-const morning6 = ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
+const morning6 = ["12 A.M", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM"];
 const Afternoon6 = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM"];
 const Evening6 = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
 const Night6 = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
@@ -117,6 +117,7 @@ const TutionSchedulePicker = ({}) => {
       //  RemoveTempExercise(picker, "slot_time", obj3.slot_time);
       // }
     }
+
     setSelected(picker);
     // setSelected1(picker);
 

@@ -505,7 +505,7 @@ const OurTutor = ({ props, route }) => {
     { label: "IB (Diploma)", value: "IB (Diploma)" },
     { label: "Polytechnic Diploma", value: "Polytechnic Diploma" },
     { label: "University Undergraduate", value: "University Undergraduate" },
-    { label: "University dergraduate", value: "University dergraduate" },
+    { label: "University Graduate", value: "University Graduate" },
     { label: "Ex School Teacher", value: "Ex School Teacher" },
     { label: "Current School Teacher", value: "Current School Teacher" },
   ];

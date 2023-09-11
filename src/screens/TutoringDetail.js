@@ -26,13 +26,17 @@ import RNPickerSelect from "react-native-picker-select";
 import MultiSelect from "react-native-multiple-select";
 import { set } from "immer/dist/internal";
 import { useDispatch, useSelector } from "react-redux";
-import { editProfile } from "../Redux/Actions/Tutors";
+import { editProfile, GetUserProfile } from "../Redux/Actions/Tutors";
 
 import { Tutoring_Data } from "../Redux/Actions/types";
-import { getLevelList, getGradeList, getSubjectList } from "../Redux/Actions/Tutors";
+import {
+  getLevelList,
+  getGradeList,
+  getSubjectList,
+} from "../Redux/Actions/Tutors";
 
 var selectArray = [];
-var gradeArray = [];
+//var gradeArray = [];
 const TutoringDetail = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -40,24 +44,28 @@ const TutoringDetail = () => {
   const { LEVEL_LIST } = useSelector((state) => state.TutorReducer);
   const { SUBJECT_LIST } = useSelector((state) => state.TutorReducer);
   const { GRADE_LIST } = useSelector((state) => state.TutorReducer);
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
+  const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
   const [tutoring, setTutoring] = useState("");
   const [P1, setP1] = useState("");
   const [P2, setP2] = useState("");
   const [P3, setP3] = useState("");
   const [P4, setP4] = useState("");
   const [P5, setP5] = useState("");
+  const [gradeArray, setGradeArray] = useState([]);
   const [P6, setP6] = useState("");
+  const [userDetail, setUserDetail] = useState([]);
 
   const [grade, setGrade] = useState([]);
-  const [gradeList, setGradeList] = useState()
-  const [SecondarygradeList, setSecondaryGradeList] = useState()
-  console.log(gradeList, "gradeList");
-  console.log(SecondarygradeList, "SecondarygradeList");
+  const [records, setRecords] = useState(selectArray);
+  const [showEditModal, setShowEditModal] = useState(false);
 
-  console.log(grade, "gradeJK");
-  console.log(gradeArray, 'gradeArray')
-  console.log(GRADE_LIST, 'GRADE-HIM')
-  console.log(SUBJECT_LIST, 'SUBJECT_LIST')
+  const [editId, setEditId] = useState(); // ID of the record you want to edit
+
+  // console.log(grade, "gradeJK");
+  // console.log(gradeArray, "gradeArray");
+  // console.log(GRADE_LIST, "GRADE-HIM");
+  // console.log(SUBJECT_LIST, "SUBJECT_LIST");
 
   const AddQualification = (val) => {
     if (P1 == val) {
@@ -298,7 +306,8 @@ const TutoringDetail = () => {
       }
     });
 
-    selectArray = Ex_array;
+    //  gradeArray = Ex_array;
+    setGradeArray(Ex_array);
   };
 
   const [listTutor, setlistTutor] = useState([
@@ -372,7 +381,7 @@ const TutoringDetail = () => {
   const [TutorLevel, setTutorLevel] = useState("");
   const [levelDetail, setLevelDetail] = useState("");
   const [count, setCount] = useState(0);
-  console.log(selectListTutor, 'selectListTutor')
+  console.log(selectListTutor, "selectListTutor");
   // console.log(levelDetail,'levelDetail')
 
   const [state, setState] = useState("Select Year");
@@ -384,6 +393,25 @@ const TutoringDetail = () => {
     { label: "4", value: "4" },
     { label: "5", value: "5" },
     { label: "6", value: "6" },
+    { label: "7", value: "7" },
+    { label: "8", value: "8" },
+    { label: "9", value: "9" },
+    { label: "10", value: "10" },
+    { label: "11", value: "11" },
+    { label: "12", value: "12" },
+    { label: "13", value: "13" },
+    { label: "14", value: "14" },
+    { label: "15", value: "15" },
+    { label: "16", value: "16" },
+    { label: "17", value: "17" },
+    { label: "18", value: "18" },
+    { label: "19", value: "19" },
+    { label: "20", value: "20" },
+    { label: "21", value: "21" },
+    { label: "22", value: "22" },
+    { label: "23", value: "23" },
+    { label: "24", value: "24" },
+    { label: "25", value: "25" },
   ];
   const [state2, setState2] = useState("Select Month");
   const state_list2 = [
@@ -416,7 +444,8 @@ const TutoringDetail = () => {
       gradeArray,
       state,
       state2,
-      selectedItems, 'ALLDATA'
+      selectedItems,
+      "ALLDATA"
     );
 
     // if (P1 == P1) {
@@ -428,9 +457,10 @@ const TutoringDetail = () => {
     console.log(obj3, "AAAAA");
 
     var item1 = {};
-    item1["Id"] = count;
-    item1["tutor_qualification_Subject"] = selectListTutor;
-    item1["Tutoring_Grade"] = gradeArray.map(item => item?.Grade);
+    item1["tutoring_detail_id"] = count;
+    item1["TutoringLevel"] = selectListTutor;
+    item1["AdmissionLevel"] = "";
+    item1["Tutoring_Grade"] = gradeArray.map((item) => item?.Grade);
     item1["Tutoring_Year"] = state;
     item1["Tutoring_Month"] = state2;
     item1["Tutoring_ALL_Subjects"] = selectedItems;
@@ -443,8 +473,9 @@ const TutoringDetail = () => {
       )
     ) {
       //  console.log('insert in array');
+      // records.push(item1);
       selectArray.push(item1);
-      // selectArray.push(obj3);
+      setRecords(selectArray);
     } else {
       RemoveTempExercise(
         selectArray,
@@ -467,13 +498,68 @@ const TutoringDetail = () => {
     setselectedItems([]);
   };
 
+  const SelectAllOption = () => {
+    if (GRADE_LIST?.Grade_List) {
+      const allGrades = GRADE_LIST.Grade_List.map((item) => item.grade_name);
 
+      // Check if allGrades are already in gradeArray
+      const areAllGradesSelected = allGrades.every((grade) =>
+        gradeArray.some((obj) => obj.Grade === grade)
+      );
+
+      if (!areAllGradesSelected) {
+        // Add all grades to gradeArray
+        const updatedGradeArray = [
+          ...gradeArray,
+          ...allGrades.map((grade) => ({ Grade: grade })),
+        ];
+        setGradeArray(updatedGradeArray);
+      } else {
+        // Remove all grades from gradeArray
+        const filteredGradeArray = gradeArray.filter(
+          (obj) => !allGrades.includes(obj.Grade)
+        );
+        setGradeArray(filteredGradeArray);
+      }
+    }
+  };
+
+  console.log(gradeArray, "AllArrayAllArray");
+
+  // const SelectAllOption = () => {
+  //   if (GRADE_LIST?.Grade_List) {
+  //     const allGrades = GRADE_LIST.Grade_List.map((item) => item.grade_name);
+  //     // Update the gradeArray with all grades
+  //     console.log(allGrades, "allGradesallGradesallGrades");
+
+  //     const obj3 = [];
+
+  //     setCount(count + 1);
+
+  //     console.log(obj3, "AAAAA");
+
+  //     var item1 = {};
+  //     item1["Grade"] = allGrades;
+
+  //     if (!isExistInArray(gradeArray, "Grade", item1.Grade)) {
+  //       //  console.log('insert in array');
+  //       gradeArray.push(item1);
+  //       // selectArray.push(obj3);
+  //     } else {
+  //       RemoveTempExercise(gradeArray, "Grade", item1.Grade);
+  //     }
+  //     //  setGradeArray(allGrades);
+  //   }
+  // };
+
+  // console.log(
+  //   gradeArray,
+  //   //selectArray.Tutoring_ALL_Subjects[1],
+  //   "@@@@@@@@@@@@@@@@@@@@@@@@@"
+  // );
 
   const gradeData = (val) => {
-
-    console.log(
-      val, '@@@@@AAAAJJJJ@@@@'
-    );
+    console.log(val, "@@@@@AAAAJJJJ@@@@");
 
     // if (P1 == P1) {
     //   setSelectListTutor("");
@@ -486,35 +572,21 @@ const TutoringDetail = () => {
     var item1 = {};
     item1["Grade"] = val;
 
-
-    if (
-      !isExistInArray(
-        selectArray,
-        "Grade",
-        item1.Grade
-      )
-    ) {
+    if (!isExistInArray(gradeArray, "Grade", item1.Grade)) {
       //  console.log('insert in array');
       gradeArray.push(item1);
       // selectArray.push(obj3);
     } else {
-      RemoveTempExercise(
-        selectArray,
-        "Grade",
-        item1.Grade
-      );
+      RemoveTempExercise(gradeArray, "Grade", item1.Grade);
     }
     // }
-
-
   };
   console.log(count, "countttttttttttt");
   console.log(
-    selectArray,
+    gradeArray,
     //selectArray.Tutoring_ALL_Subjects[1],
     "selectArrayselectArray@@@@@@@@@@@@@@@@@@@@@@@@@"
   );
-
 
   const SelectYear = (val) => {
     if (state == val) {
@@ -691,36 +763,52 @@ const TutoringDetail = () => {
     },
   ];
 
-  const SelectAllOption = () => {
-    setp1fun("P1");
-    setp2fun("P2");
-    setp3fun("P3");
-    setp4fun("P4");
-    setp5fun("P5");
-    setp6fun("P6");
-  };
+  // const SelectAllOption = () => {
+  //   setp1fun("P1");
+  //   setp2fun("P2");
+  //   setp3fun("P3");
+  //   setp4fun("P4");
+  //   setp5fun("P5");
+  //   setp6fun("P6");
+  // };
+
   useEffect(() => {
     dispatch(getLevelList());
-
   }, []);
   useEffect(() => {
-
     dispatch(getGradeList(selectListTutor));
-    if (GRADE_LIST) {
-      setGradeList(GRADE_LIST?.Grade_List)
-    }
-
-    if (GRADE_LIST && selectListTutor == 'Secondary') {
-      setSecondaryGradeList(GRADE_LIST?.Grade_List?.Grades)
-    }
-
   }, [selectListTutor]);
 
   useEffect(() => {
-
     dispatch(getSubjectList(selectListTutor));
-
   }, [selectListTutor]);
+
+  useEffect(() => {
+    dispatch(GetUserProfile(Login_Data.userid));
+  }, []);
+
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+  }, [SINGLE_USER]);
+
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+    setRecords(userDetail[0]?.tutoring_detail_arr);
+    // setSchool1(userDetail[0]?.Extra_info[0]?.name_of_school);
+    // setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
+    // setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
+    // setRecords(userDetail[0]?.history_academy_arr);
+  }, [SINGLE_USER]);
+
+  const deleteRecord = (idToDelete) => {
+    console.log(idToDelete, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    const updatedRecords = records.filter(
+      (record) => record.tutoring_detail_id !== idToDelete
+    );
+    console.log(updatedRecords, "AAAAAAAAAAAA");
+    setRecords(updatedRecords);
+  };
+
   return (
     <View style={styles.container}>
       {/* <View style={{flex:0.9}}> */}
@@ -795,53 +883,90 @@ const TutoringDetail = () => {
         </Text>
       </TouchableOpacity>
 
-      <ScrollView style={{ height: 300 }}>
-        {selectArray.map((item) => (
-          <View
-            style={{
-              justifyContent: "space-between",
-              backgroundColor: "red",
-              marginHorizontal: wp(5),
-              backgroundColor: "#fff",
-              elevation: 10,
-              paddingVertical: hp(1),
-              marginTop: hp(2),
-            }}
-            key={item.Id}
-          >
-            <Text style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}>
-              {item.Id}
-            </Text>
-            <Text style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}>
-              {item.tutor_qualification_Subject}
-            </Text>
-            {item.Tutoring_Grade.map((item) => (
-              <Text style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}>
-                {item}
-              </Text>
-            ))}
-            <Text style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}>
-              {item.Tutoring_Grade?.Grade}
-            </Text>
-            <Text style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}>
-              {item.Tutoring_Year} Years
-            </Text>
-            <Text style={{ color: "#000", fontSize: 14, marginLeft: wp(3) }}>
-              {item.Tutoring_Month} Months
-            </Text>
+      {console.log(records, "LLPPPPPPPPPPPPP")}
 
-            <View>
-              {item.Tutoring_ALL_Subjects.map((subject) => (
-                <Text
-                  style={{ color: "#000", fontSize: 14, marginLeft: wp(3) }}
-                  key={subject}
+      <ScrollView style={{ height: 300 }}>
+        {records &&
+          records.map((item) => (
+            <View
+              style={{
+                justifyContent: "space-between",
+                backgroundColor: "red",
+                marginHorizontal: wp(5),
+                backgroundColor: "#fff",
+                elevation: 10,
+                paddingVertical: hp(1),
+                marginTop: hp(2),
+              }}
+              key={item.tutoring_detail_id}
+            >
+              {/* <Text style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}>
+              {item.Id}
+            </Text> */}
+              <View style={{ flexDirection: "row", width: wp(90) }}>
+                <View style={{ width: wp(80) }}>
+                  <Text
+                    style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}
+                  >
+                    {item.TutoringLevel}
+                  </Text>
+                  <Text
+                    style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}
+                  >
+                    {item.AdmissionLevel}
+                  </Text>
+                  <Text
+                    style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
+                  >
+                    {item.Tutoring_Grade + ","}
+                  </Text>
+                </View>
+
+                <TouchableOpacity
+                  style={{
+                    height: 40,
+                    backgroundColor: "lightblue",
+                    width: 40,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 >
-                  {subject}
-                </Text>
-              ))}
+                  <Image
+                    source={require("../Assets/Edit.png")}
+                    style={{ height: 20, width: 20 }}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={{ flexDirection: "row", width: wp(90) }}>
+                <View style={{ width: wp(80) }}>
+                  <Text
+                    style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
+                  >
+                    {item.Tutoring_Year} Years {item.Tutoring_Month} Months
+                  </Text>
+                  <Text
+                    style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
+                  >
+                    {item.Tutoring_ALL_Subjects + ","}
+                  </Text>
+                </View>
+                <View>
+                  <TouchableOpacity
+                    onPress={() => deleteRecord(item.tutoring_detail_id)}
+                    style={{
+                      height: 40,
+                      backgroundColor: "lightblue",
+                      width: 40,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Image source={require("../Assets/Deletes.png")} />
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
-          </View>
-        ))}
+          ))}
       </ScrollView>
 
       {/* {selectListTutor ? (
@@ -962,7 +1087,9 @@ const TutoringDetail = () => {
                   //  onPress={() => AddQualification(TutorLevel)}
                   onPress={() =>
                     selectListTutor == ""
-                      ? setTutoring(false)
+                      ? (() => {
+                          setTutoring(false);
+                        })()
                       : setLevelDetail()
                   }
                   style={styles.tickWrapper}
@@ -995,7 +1122,10 @@ const TutoringDetail = () => {
                 renderItem={({ item, index }) => (
                   <TouchableOpacity
                     key={item.id}
-                    onPress={() => setSelectListTutor(item.school_level_name)}
+                    onPress={() => {
+                      setSelectListTutor(item.school_level_name),
+                        setGradeArray([]);
+                    }}
                     //    onPress={() => setTutorLevel(item.label)}
                     //  onPress={() => AddQualification(item.label)}
                     style={{
@@ -1005,13 +1135,18 @@ const TutoringDetail = () => {
                       alignSelf: "center",
                       flexDirection: "row",
                       backgroundColor:
-                        selectListTutor == item.school_level_name ? "#2F5597" : "#fff",
+                        selectListTutor == item.school_level_name
+                          ? "#2F5597"
+                          : "#fff",
                       // marginTop: hp(2),
                     }}
                   >
                     <Text
                       style={{
-                        color: selectListTutor == item.school_level_name ? "#fff" : "#000",
+                        color:
+                          selectListTutor == item.school_level_name
+                            ? "#fff"
+                            : "#000",
                         fontSize: 13,
                         marginLeft: wp(4),
                       }}
@@ -1120,11 +1255,8 @@ const TutoringDetail = () => {
                   flexDirection: "row",
                 }}
               >
-                {
-                  selectListTutor != 'Secondary'  ?
-
-
-                  gradeList && gradeList?.map((item) => {
+                {GRADE_LIST?.Grade_List
+                  ? GRADE_LIST?.Grade_List.map((item) => {
                       return (
                         <View
                           style={{
@@ -1133,7 +1265,6 @@ const TutoringDetail = () => {
                             justifyContent: "center",
                           }}
                         >
-
                           <TouchableOpacity
                             //  onPress={() => setP1("P1")}
                             onPress={() => gradeData(item?.grade_name)}
@@ -1142,55 +1273,32 @@ const TutoringDetail = () => {
                               width: wp(8),
                               borderWidth: 1,
                               borderColor: "lightgrey",
-                              backgroundColor: gradeArray.map(item => item?.Grade) == item?.grade_name ? "#2F5597" : "#fff",
+                              backgroundColor: gradeArray.some(
+                                (obj) =>
+                                  obj.hasOwnProperty("Grade") &&
+                                  obj["Grade"] === item.grade_name
+                              )
+                                ? "#2F5597"
+                                : "#fff",
+                              // gradeArray.map((item) => item?.Grade) ==
+                              // item?.grade_name
+                              //   ? "#2F5597"
+                              //   : "#fff",
                             }}
                           ></TouchableOpacity>
                           <Text
-                            style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
-                          >
-                            {item?.grade_name}
-                          </Text>
-                        </View>
-                      )
-                    })
-                    : null
-                }
-
-                {
-                  selectListTutor == 'Secondary' && SecondarygradeList ?
-                    SecondarygradeList.map((item) => {
-                      return (
-                        <View
-                          style={{
-                            width: wp(15),
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-
-                          <TouchableOpacity
-                            //  onPress={() => setP1("P1")}
-                            onPress={() => gradeData(item?.grade_name)}
                             style={{
-                              height: hp(4),
-                              width: wp(8),
-                              borderWidth: 1,
-                              borderColor: "lightgrey",
-                              backgroundColor: gradeArray.map(item => item?.Grade) == item?.grade_name ? "#2F5597" : "#fff",
+                              color: "grey",
+                              fontSize: 14,
+                              fontWeight: "800",
                             }}
-                          ></TouchableOpacity>
-                          <Text
-                            style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
                           >
                             {item?.grade_name}
                           </Text>
                         </View>
-                      )
+                      );
                     })
-                    : null
-                }
-
-
+                  : null}
               </View>
               <View>
                 <View style={{ marginTop: hp(2), marginLeft: wp(5) }}>
@@ -1404,18 +1512,18 @@ const TutoringDetail = () => {
                   selectText="Selected item"
                   searchInputPlaceholderText="Search Items..."
                   onChangeInput={(text) => console.log(text)}
-                  tagRemoveIconColor="#CCC"
-                  tagBorderColor="#CCC"
-                  tagTextColor="#CCC"
-                  selectedItemTextColor="#CCC"
-                  selectedItemIconColor="#CCC"
+                  tagRemoveIconColor="blue"
+                  tagBorderColor="blue"
+                  tagTextColor="blue"
+                  selectedItemTextColor="blue"
+                  selectedItemIconColor="blue"
                   itemTextColor="#000"
                   displayKey="subjects_name"
                   searchInputStyle={{ color: "#000", fontSize: 13 }}
                   hideSubmitButton
-                //  submitButtonColor="#000"
-                //submitButtonText="Submit"
-                //   removeSelected
+                  //  submitButtonColor="#000"
+                  //submitButtonText="Submit"
+                  //   removeSelected
                 />
               </View>
 

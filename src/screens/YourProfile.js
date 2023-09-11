@@ -81,7 +81,7 @@ const YourProfle = ({ props, route }) => {
   //  console.log(imageSource, "imageSource0");
   const requestPermission = () => {
     request(PERMISSIONS.IOS.CAMERA).then((result) => {
-      console.log("requestPermission -> result", result);
+      // console.log("requestPermission -> result", result);
       if (result === "granted") openCamera();
     });
   };
@@ -239,10 +239,10 @@ const YourProfle = ({ props, route }) => {
   );
 
   console.log(
-    imageSource,
+    // imageSource,
     "LLLLLLLLLLLLLLLLLLLLLLLL",
-    userDetail[0]?.Extra_info[0]?.profile_image,
-    imageSource1
+    userDetail[0]?.Extra_info[0]?.profile_image
+    //imageSource1
   );
   // console.log('route.params', route.params)
   // const[Personal, setPersonal] = useState('');

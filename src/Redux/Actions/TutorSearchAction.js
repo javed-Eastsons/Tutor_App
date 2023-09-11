@@ -175,7 +175,7 @@ export const GetQuickData = (postalcode, navigation) => {
     "🚀 ~ file: TutorSearchAction.js ~ line 202 ~ GetQuickData ~ postalcode",
     postalcode
   );
-  alert("hiii");
+  // alert("hiii", );
   const _body = [
     {
       tuition_type: "Home Tuition",
@@ -192,7 +192,7 @@ export const GetQuickData = (postalcode, navigation) => {
   ];
 
   return (dispatch, getState) => {
-    alert("hiii 1");
+    // alert("hiii 1");
     axios.defaults.baseURL = "https://refuel.site";
     const url1 =
       "https://refuel.site/projects/tutorapp/APIs/TutorSearch/TutorSearchByTutionServiceAndPostalCodeAndLevelsAndSubjects.php";
