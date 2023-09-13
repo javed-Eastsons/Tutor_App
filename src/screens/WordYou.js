@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View,
   Text,
+  ActivityIndicator,
   ScrollView,
   Image,
   Button,
@@ -32,7 +33,7 @@ const WordYou = () => {
   const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
   const { Login_Data } = useSelector((state) => state.TutorReducer);
   const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
-
+  const [loader, setLoader] = useState(false);
   const [mark, setmark] = useState("");
   const [userDetail, setUserDetail] = useState([]);
   const [yourdata, setYourdata] = useState("");
@@ -47,9 +48,13 @@ const WordYou = () => {
   }, [SINGLE_USER]);
 
   useEffect(() => {
+    setLoader(true);
     setUserDetail(SINGLE_USER);
     setYourdata(userDetail[0]?.Extra_info[0]?.personal_statement);
     setmark(userDetail[0]?.Extra_info[0]?.tutor_status);
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
     // setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
     // setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
     // setRecords(userDetail[0]?.history_academy_arr);
@@ -93,166 +98,171 @@ const WordYou = () => {
           <Image source={require("../Assets/chat.png")} style={styles.icons} />
         </View>
       </View>
-
-      <View style={{ flex: 1 }}>
-        <View style={{ flex: 0.9 }}>
-          <View
-            style={{
-              justifyContent: "flex-end",
-              alignItems: "flex-end",
-              position: "absolute",
-              backgroundColor: "#fff",
-              width: wp(16),
-              zIndex: 9999,
-              right: wp(13),
-              top: -hp(1),
-            }}
-          >
-            <Image
-              source={require("../Assets/closeingray.png")}
-              style={{ height: hp(6), width: wp(12) }}
-            />
-          </View>
-          <TouchableOpacity
-            style={{
-              borderWidth: 2,
-              borderColor: "lightgrey",
-              marginTop: hp(2),
-              height: hp(30),
-              borderRadius: 10,
-              paddingHorizontal: wp(2),
-              width: wp(90),
-              marginLeft: wp(5),
-            }}
-          >
-            <Text
-              style={{
-                color: "#2F5597",
-                fontSize: 14,
-                paddingTop: hp(1.5),
-                textDecorationLine: "underline",
-              }}
-            >
-              Terms & Conditions applies
-            </Text>
-            <TextInput
-              placeholder=" Write something about your tutoring experience. Highlight students’ performance under your tutelage (if available)"
-              numberOfLines={5}
-              multiline={true}
-              onChangeText={(text) => {
-                setYourdata(text);
-              }}
-              value={yourdata}
-              style={{ textAlignVertical: "top" }}
-            />
-            {/* <Text style={{ color: 'lightgrey', fontSize: 14, paddingTop: hp(.5), marginTop: hp(3) }}>
-                            Write something about your tutoring experience. Highlight students’ performance under your tutelage (if available)</Text>
-                        */}
+      {loader == true ? (
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <ActivityIndicator style={{ alignSelf: "center" }} size={"small"} />
+        </View>
+      ) : (
+        <View style={{ flex: 1 }}>
+          <View style={{ flex: 0.9 }}>
             <View
               style={{
                 justifyContent: "flex-end",
                 alignItems: "flex-end",
-                paddingTop: hp(8),
+                position: "absolute",
+                backgroundColor: "#fff",
+                width: wp(16),
+                zIndex: 9999,
+                right: wp(13),
+                top: -hp(1),
               }}
             >
-              <Text style={{ color: "lightgrey", fontSize: 14 }}>
-                300 words max
-              </Text>
+              <Image
+                source={require("../Assets/closeingray.png")}
+                style={{ height: hp(6), width: wp(12) }}
+              />
             </View>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                borderWidth: 2,
+                borderColor: "lightgrey",
+                marginTop: hp(2),
+                height: hp(30),
+                borderRadius: 10,
+                paddingHorizontal: wp(2),
+                width: wp(90),
+                marginLeft: wp(5),
+              }}
+            >
+              <Text
+                style={{
+                  color: "#2F5597",
+                  fontSize: 14,
+                  paddingTop: hp(1.5),
+                  textDecorationLine: "underline",
+                }}
+              >
+                Terms & Conditions applies
+              </Text>
+              <TextInput
+                placeholder=" Write something about your tutoring experience. Highlight students’ performance under your tutelage (if available)"
+                numberOfLines={5}
+                multiline={true}
+                onChangeText={(text) => {
+                  setYourdata(text);
+                }}
+                value={yourdata}
+                style={{ textAlignVertical: "top" }}
+              />
+              {/* <Text style={{ color: 'lightgrey', fontSize: 14, paddingTop: hp(.5), marginTop: hp(3) }}>
+                            Write something about your tutoring experience. Highlight students’ performance under your tutelage (if available)</Text>
+                        */}
+              <View
+                style={{
+                  justifyContent: "flex-end",
+                  alignItems: "flex-end",
+                  paddingTop: hp(8),
+                }}
+              >
+                <Text style={{ color: "lightgrey", fontSize: 14 }}>
+                  300 words max
+                </Text>
+              </View>
+            </TouchableOpacity>
 
+            <View
+              style={{
+                flexDirection: "row",
+                marginHorizontal: wp(5),
+                marginTop: hp(3),
+                justifyContent: "space-around",
+              }}
+            >
+              <TouchableOpacity style={{ alignItems: "center" }}>
+                <TouchableOpacity
+                  onPress={() => setmark("Full Time")}
+                  style={{
+                    borderWidth: 1,
+                    borderColor: "lightgrey",
+                    borderRadius: 6,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: hp(5),
+                    width: wp(10),
+                  }}
+                >
+                  <View
+                    style={{
+                      backgroundColor: mark == "Full Time" ? "#2F5597" : "#fff",
+                      borderRadius: 50,
+                      height: hp(3),
+                      width: wp(6),
+                    }}
+                  ></View>
+                </TouchableOpacity>
+                <Text style={{ marginTop: hp(2), color: "grey", fontSize: 14 }}>
+                  Full Time tutor
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{ alignItems: "center" }}>
+                <TouchableOpacity
+                  onPress={() => setmark("Part Time")}
+                  style={{
+                    borderWidth: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderColor: "lightgrey",
+                    borderRadius: 6,
+                    height: hp(5),
+                    width: wp(10),
+                  }}
+                >
+                  <View
+                    style={{
+                      backgroundColor: mark == "Part Time" ? "#2F5597" : "#fff",
+                      borderRadius: 50,
+                      height: hp(3),
+                      width: wp(6),
+                    }}
+                  ></View>
+                </TouchableOpacity>
+                <Text style={{ marginTop: hp(2), color: "grey", fontSize: 14 }}>
+                  Part Time tutor
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
           <View
             style={{
-              flexDirection: "row",
-              marginHorizontal: wp(5),
-              marginTop: hp(3),
-              justifyContent: "space-around",
+              flex: 0.1,
+              justifyContent: "flex-end",
+              paddingBottom: hp(3),
             }}
           >
-            <TouchableOpacity style={{ alignItems: "center" }}>
+            <TouchableOpacity style={styles.circleArrow}>
+              <Image source={require("../Assets/circleArrow.png")} />
+            </TouchableOpacity>
+            <View style={{ alignItems: "center" }}>
               <TouchableOpacity
-                onPress={() => setmark("Full Time")}
+                onPress={() => savedata()}
+                // onPress={() => navigation.navigate('YourProfle',{
+                //             WordYou:'WordYou'
+                //         })}
                 style={{
-                  borderWidth: 1,
-                  borderColor: "lightgrey",
-                  borderRadius: 6,
+                  backgroundColor: "#2F5597",
+                  borderRadius: 25,
+                  height: hp(6),
+                  width: wp(60),
                   alignItems: "center",
                   justifyContent: "center",
-                  height: hp(5),
-                  width: wp(10),
                 }}
               >
-                <View
-                  style={{
-                    backgroundColor: mark == "Full Time" ? "#2F5597" : "#fff",
-                    borderRadius: 50,
-                    height: hp(3),
-                    width: wp(6),
-                  }}
-                ></View>
+                <Text style={{ color: "#fff", fontSize: 14 }}>Save</Text>
               </TouchableOpacity>
-              <Text style={{ marginTop: hp(2), color: "grey", fontSize: 14 }}>
-                Full Time tutor
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={{ alignItems: "center" }}>
-              <TouchableOpacity
-                onPress={() => setmark("Part Time")}
-                style={{
-                  borderWidth: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderColor: "lightgrey",
-                  borderRadius: 6,
-                  height: hp(5),
-                  width: wp(10),
-                }}
-              >
-                <View
-                  style={{
-                    backgroundColor: mark == "Part Time" ? "#2F5597" : "#fff",
-                    borderRadius: 50,
-                    height: hp(3),
-                    width: wp(6),
-                  }}
-                ></View>
-              </TouchableOpacity>
-              <Text style={{ marginTop: hp(2), color: "grey", fontSize: 14 }}>
-                Part Time tutor
-              </Text>
-            </TouchableOpacity>
+            </View>
           </View>
         </View>
-        <View
-          style={{
-            flex: 0.1,
-            justifyContent: "flex-end",
-            paddingBottom: hp(3),
-          }}
-        >
-          <TouchableOpacity style={styles.circleArrow}>
-            <Image source={require("../Assets/circleArrow.png")} />
-          </TouchableOpacity>
-          <View style={{ alignItems: "center" }}>
-            <TouchableOpacity
-              onPress={() => savedata()}
-              // onPress={() => navigation.navigate('YourProfle',{
-              //             WordYou:'WordYou'
-              //         })}
-              style={{
-                backgroundColor: "#2F5597",
-                borderRadius: 25,
-                height: hp(6),
-                width: wp(60),
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Text style={{ color: "#fff", fontSize: 14 }}>Save</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+      )}
     </View>
   );
 };

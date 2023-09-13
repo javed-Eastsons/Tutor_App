@@ -45,8 +45,10 @@ const YourProfle = ({ props, route }) => {
   const { TutionStatus_Data } = useSelector((state) => state.TutorReducer);
   const { Login_Data } = useSelector((state) => state.TutorReducer);
   const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
+  const [Age, setAge] = useState(0);
+
   console.log(
-    SINGLE_USER,
+    //  SINGLE_USER.Extra_info[0],
     "SINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USER",
     Login_Data
   );
@@ -70,7 +72,12 @@ const YourProfle = ({ props, route }) => {
     } = route.params;
   }
 
-  console.log(GET_USER_ID, "chika");
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+    setAge(userDetail[0]?.Extra_info[0]?.age);
+  }, [SINGLE_USER, setAge]);
+
+  console.log(userDetail, "chika", Age);
   // console.log(PersonalInfo_Data, 'PersonalInfo_Data')
   // console.log(AcademicHistory_Data, 'AcademicHistory_Data')
   // console.log(Tutoring_Data, 'Tutoring_Data')
@@ -675,7 +682,7 @@ const YourProfle = ({ props, route }) => {
                   style={styles.infoWrapper}
                 >
                   <Text style={styles.infoWrapperText}>
-                    Enter Tutoring Details
+                    Enter Tutoring Detailsqqq
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -730,15 +737,15 @@ const YourProfle = ({ props, route }) => {
             </View>
           )}
         </View>
-        {SINGLE_USER == [] ? (
-          <TouchableOpacity
-            style={styles.RequsertButton}
-            // onPress={() => navigation.navigate('TutorLanding')}
-            onPress={() => saveprofile()}
-          >
-            <Text style={styles.ReqButtonText}>Done</Text>
-          </TouchableOpacity>
-        ) : (
+        {/* {Age == 0 ? ( */}
+        <TouchableOpacity
+          style={styles.RequsertButton}
+          // onPress={() => navigation.navigate('TutorLanding')}
+          onPress={() => saveprofile()}
+        >
+          <Text style={styles.ReqButtonText}>Done</Text>
+        </TouchableOpacity>
+        {/* ) : (
           <TouchableOpacity
             style={styles.RequsertButton}
             // onPress={() => navigation.navigate('TutorLanding')}
@@ -746,7 +753,7 @@ const YourProfle = ({ props, route }) => {
           >
             <Text style={styles.ReqButtonText}>Update</Text>
           </TouchableOpacity>
-        )}
+        )} */}
       </ScrollView>
     </View>
   );

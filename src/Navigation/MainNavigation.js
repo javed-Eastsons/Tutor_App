@@ -36,6 +36,7 @@ import { Provider } from "react-redux";
 import store from "../Redux/Store/index";
 import OTPScreen from "../screens/OTPScreen";
 import YourProfle from "../screens/YourProfile";
+import UpdateProfile from "../screens/UpdateProfile";
 import PersonalInfo from "../screens/PersonalInfo";
 import OurTutor from "../screens/OurTutor";
 import TutorSearchProfile from "../screens/TutorSearchProfile";
@@ -48,7 +49,7 @@ import BookingInformationConfirmation from "../screens/BookingInformationConfirm
 import MapScreen from "../screens/MapScreen";
 import AcademicInfo from "../screens/AcademicInfo";
 import HomeTution from "../screens/HomeTution";
-import TutoringDetail from "../screens/TutoringDetailA";
+import TutoringDetail from "../screens/TutoringDetail";
 import WordYou from "../screens/WordYou";
 import Messages from "../screens/Messages";
 import Tab3 from "../screens/Tab3";
@@ -124,6 +125,25 @@ function SignInScreen() {
         component={YourProfle}
         options={{
           title: "YourProfle",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <FirstStack.Screen
+        name="UpdateProfile"
+        component={UpdateProfile}
+        options={{
+          title: "UpdateProfile",
 
           headerStyle: {
             backgroundColor: "#e85b3d",
@@ -1359,6 +1379,25 @@ function FirstStacknavigation() {
       />
 
       <FirstStack.Screen
+        name="UpdateProfile"
+        component={UpdateProfile}
+        options={{
+          title: "UpdateProfile",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <FirstStack.Screen
         name="PersonalInfo"
         component={PersonalInfo}
         options={{
@@ -1478,7 +1517,24 @@ function TutorHomeStacknavigation() {
           },
         }}
       />
+      <FirstStack.Screen
+        name="UpdateProfile"
+        component={UpdateProfile}
+        options={{
+          title: "UpdateProfile",
 
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
       <TutorHomeStack.Screen
         name="TutorLanding"
         component={TutorLanding}
@@ -1754,6 +1810,25 @@ function TutorHomeStacknavigation4() {
         component={YourProfle}
         options={{
           title: "YourProfle",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <FirstStack.Screen
+        name="UpdateProfile"
+        component={UpdateProfile}
+        options={{
+          title: "UpdateProfile",
 
           headerStyle: {
             backgroundColor: "#e85b3d",

@@ -75,7 +75,8 @@ const BookingSummaryComponent = () => {
         Student_Detail,
         Tutor_Qualification,
         Login_Data.userid,
-        Postal_Code_Address
+        Postal_Code_Address,
+        navigation
       )
     );
   };

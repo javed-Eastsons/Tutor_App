@@ -6,6 +6,7 @@ import {
   View,
   Text,
   ScrollView,
+  ActivityIndicator,
   Image,
   Button,
   TouchableOpacity,
@@ -37,6 +38,7 @@ import {
 
 var selectArray = [];
 //var gradeArray = [];
+
 const TutoringDetail = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -57,14 +59,18 @@ const TutoringDetail = () => {
   const [userDetail, setUserDetail] = useState([]);
 
   const [grade, setGrade] = useState([]);
+  const [loader, setLoader] = useState(false);
   const [records, setRecords] = useState(selectArray);
   const [showEditModal, setShowEditModal] = useState(false);
 
   const [editId, setEditId] = useState(); // ID of the record you want to edit
+  console.log(selectArray, "Startttttttttttttttttttttttt");
+
+  console.log(records, "recordsrecordsrecordsrecordsrecords");
 
   // console.log(grade, "gradeJK");
   // console.log(gradeArray, "gradeArray");
-  // console.log(GRADE_LIST, "GRADE-HIM");
+  //console.log(GRADE_LIST, "GRADE->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
   // console.log(SUBJECT_LIST, "SUBJECT_LIST");
 
   const AddQualification = (val) => {
@@ -110,7 +116,7 @@ const TutoringDetail = () => {
     }
   };
 
-  console.log(selectArray, "selectArrayselectArrayselectArray");
+  //console.log(selectArray, "selectArrayselectArrayselectArray");
 
   const setGradeFun = (val) => {
     //   setP1('P1')
@@ -775,13 +781,14 @@ const TutoringDetail = () => {
   useEffect(() => {
     dispatch(getLevelList());
   }, []);
-  useEffect(() => {
-    dispatch(getGradeList(selectListTutor));
-  }, [selectListTutor]);
 
   useEffect(() => {
-    dispatch(getSubjectList(selectListTutor));
-  }, [selectListTutor]);
+    // dispatch(getGradeList(selectListTutor));
+  }, [setSelectListTutor]);
+
+  useEffect(() => {
+    // dispatch(getSubjectList(selectListTutor));
+  }, [setSelectListTutor]);
 
   useEffect(() => {
     dispatch(GetUserProfile(Login_Data.userid));
@@ -792,12 +799,16 @@ const TutoringDetail = () => {
   }, [SINGLE_USER]);
 
   useEffect(() => {
+    setLoader(true);
     setUserDetail(SINGLE_USER);
     setRecords(userDetail[0]?.tutoring_detail_arr);
     // setSchool1(userDetail[0]?.Extra_info[0]?.name_of_school);
     // setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
     // setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
     // setRecords(userDetail[0]?.history_academy_arr);
+    setTimeout(() => {
+      setLoader(false);
+    }, 4000);
   }, [SINGLE_USER]);
 
   const deleteRecord = (idToDelete) => {
@@ -807,6 +818,16 @@ const TutoringDetail = () => {
     );
     console.log(updatedRecords, "AAAAAAAAAAAA");
     setRecords(updatedRecords);
+  };
+
+  const selectLevelFunc = () => {
+    selectListTutor == "" ? (() => {})() : setLevelDetail();
+    dispatch(getGradeList(selectListTutor));
+    dispatch(getSubjectList(selectListTutor));
+    setLoader(true);
+    setTimeout(() => {
+      setLoader(false);
+    }, 4000);
   };
 
   return (
@@ -831,98 +852,115 @@ const TutoringDetail = () => {
           <Image source={require("../Assets/chat.png")} style={styles.icons} />
         </View>
       </View>
-
-      <TouchableOpacity
-        style={{
-          //borderWidth: 1,
-          // borderColor: "lightgrey",
-          height: hp(8),
-          marginTop: 10,
-          paddingHorizontal: wp(2),
-          width: wp(90),
-          marginLeft: wp(5),
-        }}
-      >
-        <Text style={{ color: "grey", fontSize: 14, paddingTop: hp(0.5) }}>
-          You can list your Tutoring Level, Subjects & Experience in this
-          section
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => setTutoring(true)}
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          marginLeft: wp(5),
-          marginTop: hp(2),
-        }}
-      >
-        <View
-          style={{
-            backgroundColor: "blue",
-            height: hp(5),
-            width: wp(10),
-            borderRadius: 4,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Text style={{ fontSize: 25, color: "#fff", fontWeight: "800" }}>
-            +
-          </Text>
+      {loader == true ? (
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <ActivityIndicator style={{ alignSelf: "center" }} size={"small"} />
         </View>
-        <Text
-          style={{
-            fontSize: 15,
-            color: "#2F5597",
-            fontWeight: "800",
-            marginLeft: wp(2),
-          }}
-        >
-          Add Tutoring Details
-        </Text>
-      </TouchableOpacity>
-
-      {console.log(records, "LLPPPPPPPPPPPPP")}
-
-      <ScrollView style={{ height: 300 }}>
-        {records &&
-          records.map((item) => (
+      ) : (
+        <View style={styles.container}>
+          <TouchableOpacity
+            style={{
+              //borderWidth: 1,
+              // borderColor: "lightgrey",
+              height: hp(8),
+              marginTop: 10,
+              paddingHorizontal: wp(2),
+              width: wp(90),
+              marginLeft: wp(5),
+            }}
+          >
+            <Text style={{ color: "grey", fontSize: 14, paddingTop: hp(0.5) }}>
+              You can list your Tutoring Level, Subjects & Experience in this
+              section
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setTutoring(true)}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginLeft: wp(5),
+              marginTop: hp(2),
+            }}
+          >
             <View
               style={{
-                justifyContent: "space-between",
-                backgroundColor: "red",
-                marginHorizontal: wp(5),
-                backgroundColor: "#fff",
-                elevation: 10,
-                paddingVertical: hp(1),
-                marginTop: hp(2),
+                backgroundColor: "#2F5597",
+                height: hp(5),
+                width: wp(10),
+                borderRadius: 4,
+                alignItems: "center",
+                justifyContent: "center",
               }}
-              key={item.tutoring_detail_id}
             >
-              {/* <Text style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}>
+              <Text style={{ fontSize: 25, color: "#fff", fontWeight: "800" }}>
+                +
+              </Text>
+            </View>
+            <Text
+              style={{
+                fontSize: 15,
+                color: "#2F5597",
+                fontWeight: "800",
+                marginLeft: wp(2),
+              }}
+            >
+              Add Tutoring Details
+            </Text>
+          </TouchableOpacity>
+
+          {console.log(records, "LLPPPPPPPPPPPPP")}
+
+          <ScrollView style={{ height: 300 }}>
+            {records &&
+              records.map((item) => (
+                <View
+                  style={{
+                    justifyContent: "space-between",
+                    backgroundColor: "red",
+                    marginHorizontal: wp(5),
+                    backgroundColor: "#fff",
+                    elevation: 10,
+                    paddingVertical: hp(1),
+                    marginTop: hp(2),
+                  }}
+                  key={item.tutoring_detail_id}
+                >
+                  {/* <Text style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}>
               {item.Id}
             </Text> */}
-              <View style={{ flexDirection: "row", width: wp(90) }}>
-                <View style={{ width: wp(80) }}>
-                  <Text
-                    style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}
-                  >
-                    {item.TutoringLevel}
-                  </Text>
-                  <Text
-                    style={{ marginLeft: wp(3), color: "#000", fontSize: 14 }}
-                  >
-                    {item.AdmissionLevel}
-                  </Text>
-                  <Text
-                    style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
-                  >
-                    {item.Tutoring_Grade + ","}
-                  </Text>
-                </View>
+                  <View style={{ flexDirection: "row", width: wp(90) }}>
+                    <View style={{ width: wp(80) }}>
+                      <Text
+                        style={{
+                          marginLeft: wp(3),
+                          color: "#000",
+                          fontSize: 14,
+                        }}
+                      >
+                        {item.TutoringLevel}
+                      </Text>
+                      <Text
+                        style={{
+                          marginLeft: wp(3),
+                          color: "#000",
+                          fontSize: 14,
+                        }}
+                      >
+                        {item.AdmissionLevel}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "#000",
+                          marginLeft: wp(3),
+                          fontSize: 14,
+                        }}
+                      >
+                        {item.Tutoring_Grade + ","}
+                      </Text>
+                    </View>
 
-                <TouchableOpacity
+                    {/* <TouchableOpacity
                   style={{
                     height: 40,
                     backgroundColor: "lightblue",
@@ -935,41 +973,49 @@ const TutoringDetail = () => {
                     source={require("../Assets/Edit.png")}
                     style={{ height: 20, width: 20 }}
                   />
-                </TouchableOpacity>
-              </View>
-              <View style={{ flexDirection: "row", width: wp(90) }}>
-                <View style={{ width: wp(80) }}>
-                  <Text
-                    style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
-                  >
-                    {item.Tutoring_Year} Years {item.Tutoring_Month} Months
-                  </Text>
-                  <Text
-                    style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}
-                  >
-                    {item.Tutoring_ALL_Subjects + ","}
-                  </Text>
+                </TouchableOpacity> */}
+                  </View>
+                  <View style={{ flexDirection: "row", width: wp(90) }}>
+                    <View style={{ width: wp(80) }}>
+                      <Text
+                        style={{
+                          color: "#000",
+                          marginLeft: wp(3),
+                          fontSize: 14,
+                        }}
+                      >
+                        {item.Tutoring_Year} Years {item.Tutoring_Month} Months
+                      </Text>
+                      <Text
+                        style={{
+                          color: "#000",
+                          marginLeft: wp(3),
+                          fontSize: 14,
+                        }}
+                      >
+                        {item.Tutoring_ALL_Subjects + ","}
+                      </Text>
+                    </View>
+                    <View>
+                      <TouchableOpacity
+                        onPress={() => deleteRecord(item.tutoring_detail_id)}
+                        style={{
+                          height: 40,
+                          backgroundColor: "lightblue",
+                          width: 40,
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Image source={require("../Assets/Deletes.png")} />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
                 </View>
-                <View>
-                  <TouchableOpacity
-                    onPress={() => deleteRecord(item.tutoring_detail_id)}
-                    style={{
-                      height: 40,
-                      backgroundColor: "lightblue",
-                      width: 40,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Image source={require("../Assets/Deletes.png")} />
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          ))}
-      </ScrollView>
+              ))}
+          </ScrollView>
 
-      {/* {selectListTutor ? (
+          {/* {selectListTutor ? (
         <TouchableOpacity
           style={{
             flexDirection: "row",
@@ -1034,7 +1080,7 @@ const TutoringDetail = () => {
         <View />
       )} */}
 
-      {/* 
+          {/* 
             <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginHorizontal: wp(5), backgroundColor: '#fff', elevation: 10, paddingVertical: hp(1), marginTop: hp(2) }}>
                 <View style={{ marginLeft: wp(3) }}>
                     <Text style={{ color: '#000', fontSize: 14, marginTop: -hp(2) }}>{'Secondary'}</Text>
@@ -1054,518 +1100,539 @@ const TutoringDetail = () => {
                 </View>
             </TouchableOpacity> */}
 
-      <View style={{ flex: 0.9 }}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={tutoring}
-          onRequestClose={() => {
-            setTutoring(false);
-          }}
-        >
-          <View style={styles.modalWrapper2}>
-            <View style={styles.modalWrapp}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginTop: hp(2),
-                  justifyContent: "space-between",
-                  marginHorizontal: wp(5),
-                }}
-              >
-                <TouchableOpacity
-                  onPress={() => setTutoring(false)}
-                  style={styles.crossImageWrapper}
-                >
-                  <Image
-                    source={require("../Assets/closeingray.png")}
-                    style={styles.crossImage}
-                  />
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  //  onPress={() => AddQualification(TutorLevel)}
-                  onPress={() =>
-                    selectListTutor == ""
-                      ? (() => {
-                          setTutoring(false);
-                        })()
-                      : setLevelDetail()
-                  }
-                  style={styles.tickWrapper}
-                >
-                  <Image
-                    source={require("../Assets/right.png")}
-                    style={styles.tickImage}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  marginBottom: 20,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
-                >
-                  Select Tutoring Level
-                </Text>
-              </View>
-
-              <FlatList
-                data={LEVEL_LIST?.Level_list}
-                numColumns={1}
-                keyExtractor={(item, index) => index}
-                // showsVerticalScrollIndicator={true}
-                renderItem={({ item, index }) => (
-                  <TouchableOpacity
-                    key={item.id}
-                    onPress={() => {
-                      setSelectListTutor(item.school_level_name),
-                        setGradeArray([]);
-                    }}
-                    //    onPress={() => setTutorLevel(item.label)}
-                    //  onPress={() => AddQualification(item.label)}
+          <View style={{ flex: 0.9 }}>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={tutoring}
+              onRequestClose={() => {
+                setTutoring(false);
+              }}
+            >
+              <View style={styles.modalWrapper2}>
+                <View style={styles.modalWrapp}>
+                  <View
                     style={{
-                      height: hp(4),
-                      alignItems: "center",
-                      width: wp(90),
-                      alignSelf: "center",
                       flexDirection: "row",
-                      backgroundColor:
-                        selectListTutor == item.school_level_name
-                          ? "#2F5597"
-                          : "#fff",
-                      // marginTop: hp(2),
+                      marginTop: hp(2),
+                      justifyContent: "space-between",
+                      marginHorizontal: wp(5),
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={() => setTutoring(false)}
+                      style={styles.crossImageWrapper}
+                    >
+                      <Image
+                        source={require("../Assets/closeingray.png")}
+                        style={styles.crossImage}
+                      />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      //  onPress={() => AddQualification(TutorLevel)}
+                      onPress={() => selectLevelFunc()}
+                      // onPress={() =>
+                      //   selectListTutor == ""
+                      //     ? (() => {
+                      //         setTutoring(false);
+                      //       })()
+                      //     : setLevelDetail()
+                      // }
+                      style={styles.tickWrapper}
+                    >
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View
+                    style={{
+                      marginBottom: 20,
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                   >
                     <Text
-                      style={{
-                        color:
-                          selectListTutor == item.school_level_name
-                            ? "#fff"
-                            : "#000",
-                        fontSize: 13,
-                        marginLeft: wp(4),
-                      }}
+                      style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
                     >
-                      {item.school_level_name}
+                      Select Tutoring Level
                     </Text>
-                  </TouchableOpacity>
-                )}
-              />
-            </View>
-          </View>
-        </Modal>
+                  </View>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={levelDetail}
-          onRequestClose={() => {
-            setLevelDetail(false);
-          }}
-        >
-          <View style={styles.modalWrapper2}>
-            <View style={styles.modalWrapp}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginTop: hp(2),
-                  justifyContent: "space-between",
-                  marginHorizontal: wp(5),
-                }}
-              >
-                <TouchableOpacity
-                  onPress={() => setLevelDetail(false)}
-                  style={styles.crossImageWrapper}
-                >
-                  <Image
-                    source={require("../Assets/closeingray.png")}
-                    style={styles.crossImage}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    setTutorSubject(true);
-                    setLevelDetail(false);
-                    setTutoring(false);
-                  }}
-                  style={styles.tickWrapper}
-                >
-                  <Image
-                    source={require("../Assets/right.png")}
-                    style={styles.tickImage}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={{ justifyContent: "center", alignItems: "center" }}>
-                <Text
-                  style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
-                >
-                  Select Level Details
-                </Text>
-              </View>
-
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginTop: hp(3),
-                  marginHorizontal: wp(5),
-                }}
-              >
-                <Text
-                  style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
-                >
-                  Select according to preference
-                </Text>
-
-                <TouchableOpacity
-                  onPress={() => SelectAllOption()}
-                  style={{
-                    borderWidth: 1,
-                    borderColor: "#2F5597",
-                    height: hp(5),
-                    width: wp(20),
-                    borderRadius: 5,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#2F5597",
-                      fontSize: 12,
-                      fontWeight: "800",
-                    }}
-                  >
-                    Select All
-                  </Text>
-                </TouchableOpacity>
-              </View>
-
-              <View
-                style={{
-                  marginHorizontal: wp(5),
-                  marginTop: hp(3),
-                  flexDirection: "row",
-                }}
-              >
-                {GRADE_LIST?.Grade_List
-                  ? GRADE_LIST?.Grade_List.map((item) => {
-                      return (
-                        <View
+                  <FlatList
+                    data={LEVEL_LIST?.Level_list}
+                    numColumns={1}
+                    keyExtractor={(item, index) => index}
+                    // showsVerticalScrollIndicator={true}
+                    renderItem={({ item, index }) => (
+                      <TouchableOpacity
+                        key={item.id}
+                        onPress={() => {
+                          setSelectListTutor(item.school_level_name),
+                            setGradeArray([]);
+                        }}
+                        //    onPress={() => setTutorLevel(item.label)}
+                        //  onPress={() => AddQualification(item.label)}
+                        style={{
+                          height: hp(4),
+                          alignItems: "center",
+                          width: wp(90),
+                          alignSelf: "center",
+                          flexDirection: "row",
+                          backgroundColor:
+                            selectListTutor == item.school_level_name
+                              ? "#2F5597"
+                              : "#fff",
+                          // marginTop: hp(2),
+                        }}
+                      >
+                        <Text
                           style={{
-                            width: wp(15),
-                            alignItems: "center",
-                            justifyContent: "center",
+                            color:
+                              selectListTutor == item.school_level_name
+                                ? "#fff"
+                                : "#000",
+                            fontSize: 13,
+                            marginLeft: wp(4),
                           }}
                         >
-                          <TouchableOpacity
-                            //  onPress={() => setP1("P1")}
-                            onPress={() => gradeData(item?.grade_name)}
-                            style={{
-                              height: hp(4),
-                              width: wp(8),
-                              borderWidth: 1,
-                              borderColor: "lightgrey",
-                              backgroundColor: gradeArray.some(
-                                (obj) =>
-                                  obj.hasOwnProperty("Grade") &&
-                                  obj["Grade"] === item.grade_name
+                          {item.school_level_name}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                  />
+                </View>
+              </View>
+            </Modal>
+
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={levelDetail}
+              onRequestClose={() => {
+                setLevelDetail(false);
+              }}
+            >
+              <View style={styles.modalWrapper2}>
+                <View style={styles.modalWrapp}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      marginTop: hp(2),
+                      justifyContent: "space-between",
+                      marginHorizontal: wp(5),
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={() => setLevelDetail(false)}
+                      style={styles.crossImageWrapper}
+                    >
+                      <Image
+                        source={require("../Assets/closeingray.png")}
+                        style={styles.crossImage}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setTutorSubject(true);
+                        setLevelDetail(false);
+                        setTutoring(false);
+                      }}
+                      style={styles.tickWrapper}
+                    >
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View
+                    style={{ justifyContent: "center", alignItems: "center" }}
+                  >
+                    <Text
+                      style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
+                    >
+                      Select Level Details
+                    </Text>
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginTop: hp(3),
+                      marginHorizontal: wp(5),
+                    }}
+                  >
+                    <Text
+                      style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
+                    >
+                      Select according to preference
+                    </Text>
+
+                    <TouchableOpacity
+                      onPress={() => SelectAllOption()}
+                      style={{
+                        borderWidth: 1,
+                        borderColor: "#2F5597",
+                        height: hp(5),
+                        width: wp(20),
+                        borderRadius: 5,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: "#2F5597",
+                          fontSize: 12,
+                          fontWeight: "800",
+                        }}
+                      >
+                        Select All
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  {loader == true ? (
+                    <View>
+                      <ActivityIndicator size="small" />
+                    </View>
+                  ) : (
+                    <View
+                      style={{
+                        marginHorizontal: wp(5),
+                        marginTop: hp(3),
+                        flexDirection: "row",
+                      }}
+                    >
+                      {GRADE_LIST?.Grade_List &&
+                        GRADE_LIST?.Grade_List.map((item) => {
+                          return (
+                            <View
+                              style={{
+                                width: wp(15),
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <TouchableOpacity
+                                //  onPress={() => setP1("P1")}
+                                onPress={() => gradeData(item?.grade_name)}
+                                style={{
+                                  height: hp(4),
+                                  width: wp(8),
+                                  borderWidth: 1,
+                                  borderColor: "lightgrey",
+                                  backgroundColor: gradeArray.some(
+                                    (obj) =>
+                                      obj.hasOwnProperty("Grade") &&
+                                      obj["Grade"] === item.grade_name
+                                  )
+                                    ? "#2F5597"
+                                    : "#fff",
+                                  // gradeArray.map((item) => item?.Grade) ==
+                                  // item?.grade_name
+                                  //   ? "#2F5597"
+                                  //   : "#fff",
+                                }}
+                              ></TouchableOpacity>
+                              <Text
+                                style={{
+                                  color: "grey",
+                                  fontSize: 14,
+                                  fontWeight: "800",
+                                }}
+                              >
+                                {item?.grade_name}
+                              </Text>
+                            </View>
+                          );
+                        })}
+                    </View>
+                  )}
+
+                  <View>
+                    <View style={{ marginTop: hp(2), marginLeft: wp(5) }}>
+                      <Text
+                        style={{
+                          color: "grey",
+                          fontSize: 13,
+                          fontWeight: "800",
+                        }}
+                      >
+                        Select Tutoring Experience
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={{ flexDirection: "row" }}>
+                    <View
+                      style={{
+                        position: "absolute",
+                        bottom: hp(5),
+                        left: wp(13),
+                        zIndex: 999,
+                        backgroundColor: "#fff",
+                      }}
+                    >
+                      <Text style={{ color: "#000" }}> Years </Text>
+                    </View>
+                    <View
+                      style={{
+                        borderWidth: 1,
+                        marginTop: hp(4),
+                        flexDirection: "row",
+                        alignItems: "center",
+                        borderColor: "lightgrey",
+                        width: wp(40),
+                        marginLeft: wp(10),
+                        height: hp(6),
+                        borderRadius: 4,
+                      }}
+                    >
+                      <RNPickerSelect
+                        onValueChange={(value) => setState(value)}
+                        //onValueChange={(value) => SelectYear(value)}
+                        items={state_list}
+                        value={state}
+                        placeholder={{}}
+                      >
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            width: wp(40),
+                            justifyContent: "space-between",
+                            paddingHorizontal: wp(4),
+                          }}
+                        >
+                          {state_list.map(
+                            (item) =>
+                              item.value === state && (
+                                <Text
+                                  key={item.value}
+                                  style={{ fontSize: 13, color: "#000" }}
+                                >
+                                  {item.label}
+                                </Text>
                               )
-                                ? "#2F5597"
-                                : "#fff",
-                              // gradeArray.map((item) => item?.Grade) ==
-                              // item?.grade_name
-                              //   ? "#2F5597"
-                              //   : "#fff",
-                            }}
-                          ></TouchableOpacity>
-                          <Text
-                            style={{
-                              color: "grey",
-                              fontSize: 14,
-                              fontWeight: "800",
-                            }}
-                          >
-                            {item?.grade_name}
-                          </Text>
+                          )}
+                          <Image
+                            source={require("../Assets/downbutton.png")}
+                            style={{ height: hp(3), width: wp(6) }}
+                          />
                         </View>
-                      );
-                    })
-                  : null}
-              </View>
-              <View>
-                <View style={{ marginTop: hp(2), marginLeft: wp(5) }}>
-                  <Text
-                    style={{ color: "grey", fontSize: 13, fontWeight: "800" }}
-                  >
-                    Select Tutoring Experience
-                  </Text>
-                </View>
-              </View>
-              <View style={{ flexDirection: "row" }}>
-                <View
-                  style={{
-                    position: "absolute",
-                    bottom: hp(5),
-                    left: wp(13),
-                    zIndex: 999,
-                    backgroundColor: "#fff",
-                  }}
-                >
-                  <Text style={{ color: "#000" }}> Years </Text>
-                </View>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    marginTop: hp(4),
-                    flexDirection: "row",
-                    alignItems: "center",
-                    borderColor: "lightgrey",
-                    width: wp(40),
-                    marginLeft: wp(10),
-                    height: hp(6),
-                    borderRadius: 4,
-                  }}
-                >
-                  <RNPickerSelect
-                    onValueChange={(value) => setState(value)}
-                    //onValueChange={(value) => SelectYear(value)}
-                    items={state_list}
-                    value={state}
-                    placeholder={{}}
-                  >
+                      </RNPickerSelect>
+                    </View>
                     <View
                       style={{
-                        flexDirection: "row",
-                        width: wp(40),
-                        justifyContent: "space-between",
-                        paddingHorizontal: wp(4),
+                        position: "absolute",
+                        bottom: hp(5),
+                        right: wp(25),
+                        zIndex: 999,
+                        backgroundColor: "#fff",
                       }}
                     >
-                      {state_list.map(
-                        (item) =>
-                          item.value === state && (
-                            <Text
-                              key={item.value}
-                              style={{ fontSize: 13, color: "#000" }}
-                            >
-                              {item.label}
-                            </Text>
-                          )
-                      )}
-                      <Image
-                        source={require("../Assets/downbutton.png")}
-                        style={{ height: hp(3), width: wp(6) }}
-                      />
+                      <Text style={{ color: "#000" }}> Months </Text>
                     </View>
-                  </RNPickerSelect>
-                </View>
-                <View
-                  style={{
-                    position: "absolute",
-                    bottom: hp(5),
-                    right: wp(25),
-                    zIndex: 999,
-                    backgroundColor: "#fff",
-                  }}
-                >
-                  <Text style={{ color: "#000" }}> Months </Text>
-                </View>
-                <View
-                  style={{
-                    borderWidth: 1,
-                    marginTop: hp(4),
-                    flexDirection: "row",
-                    alignItems: "center",
-                    borderColor: "lightgrey",
-                    width: wp(40),
-                    marginLeft: wp(3),
-                    height: hp(6),
-                    borderRadius: 4,
-                  }}
-                >
-                  <RNPickerSelect
-                    onValueChange={(value) => setState2(value)}
-                    //  onValueChange={(value) => SelectMonth(value)}
-                    items={state_list2}
-                    value={state2}
-                    placeholder={{}}
-                  >
                     <View
                       style={{
+                        borderWidth: 1,
+                        marginTop: hp(4),
                         flexDirection: "row",
+                        alignItems: "center",
+                        borderColor: "lightgrey",
                         width: wp(40),
-                        justifyContent: "space-between",
-                        paddingHorizontal: wp(4),
+                        marginLeft: wp(3),
+                        height: hp(6),
+                        borderRadius: 4,
                       }}
                     >
-                      {state_list2.map(
-                        (item) =>
-                          item.value === state2 && (
-                            <Text
-                              key={item.value}
-                              style={{ fontSize: 13, color: "#000" }}
-                            >
-                              {item.label}
-                            </Text>
-                          )
-                      )}
-                      <Image
-                        source={require("../Assets/downbutton.png")}
-                        style={{ height: hp(3), width: wp(6) }}
-                      />
+                      <RNPickerSelect
+                        onValueChange={(value) => setState2(value)}
+                        //  onValueChange={(value) => SelectMonth(value)}
+                        items={state_list2}
+                        value={state2}
+                        placeholder={{}}
+                      >
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            width: wp(40),
+                            justifyContent: "space-between",
+                            paddingHorizontal: wp(4),
+                          }}
+                        >
+                          {state_list2.map(
+                            (item) =>
+                              item.value === state2 && (
+                                <Text
+                                  key={item.value}
+                                  style={{ fontSize: 13, color: "#000" }}
+                                >
+                                  {item.label}
+                                </Text>
+                              )
+                          )}
+                          <Image
+                            source={require("../Assets/downbutton.png")}
+                            style={{ height: hp(3), width: wp(6) }}
+                          />
+                        </View>
+                      </RNPickerSelect>
                     </View>
-                  </RNPickerSelect>
+                  </View>
                 </View>
               </View>
-            </View>
-          </View>
-        </Modal>
+            </Modal>
 
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={tutorSubject}
-          onRequestClose={() => {
-            setTutorSubject(false);
-          }}
-        >
-          <View style={styles.modalWrapper2}>
-            <View style={[styles.modalWrapp, { height: hp(76) }]}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginTop: hp(2),
-                  justifyContent: "space-between",
-                  marginHorizontal: wp(5),
-                }}
-              >
-                <TouchableOpacity
-                  onPress={() => setTutorSubject(false)}
-                  style={styles.crossImageWrapper}
-                >
-                  <Image
-                    source={require("../Assets/closeingray.png")}
-                    style={styles.crossImage}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  //  onPress={() => setTutorSubject(false)}
-                  onPress={() => ALLDATA()}
-                  style={styles.tickWrapper}
-                >
-                  <Image
-                    source={require("../Assets/right.png")}
-                    style={styles.tickImage}
-                  />
-                </TouchableOpacity>
-              </View>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={tutorSubject}
+              onRequestClose={() => {
+                setTutorSubject(false);
+              }}
+            >
+              <View style={styles.modalWrapper2}>
+                <View style={[styles.modalWrapp, { height: hp(76) }]}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      marginTop: hp(2),
+                      justifyContent: "space-between",
+                      marginHorizontal: wp(5),
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={() => setTutorSubject(false)}
+                      style={styles.crossImageWrapper}
+                    >
+                      <Image
+                        source={require("../Assets/closeingray.png")}
+                        style={styles.crossImage}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      //  onPress={() => setTutorSubject(false)}
+                      onPress={() => ALLDATA()}
+                      style={styles.tickWrapper}
+                    >
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+                    </TouchableOpacity>
+                  </View>
 
-              <View style={{ justifyContent: "center", alignItems: "center" }}>
-                <Text
-                  style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
-                >
-                  Select Tutoring Subjects
-                </Text>
-              </View>
+                  <View
+                    style={{ justifyContent: "center", alignItems: "center" }}
+                  >
+                    <Text
+                      style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
+                    >
+                      Select Tutoring Subjects
+                    </Text>
+                  </View>
 
-              <View
-                style={{
-                  marginLeft: wp(5),
-                  marginTop: hp(2),
-                  marginBottom: hp(2),
-                }}
-              >
-                <Text
-                  style={{ color: "#000", fontSize: 20, fontWeight: "800" }}
-                >
-                  Select mutiple (if required)
-                </Text>
-              </View>
+                  <View
+                    style={{
+                      marginLeft: wp(5),
+                      marginTop: hp(2),
+                      marginBottom: hp(2),
+                    }}
+                  >
+                    <Text
+                      style={{ color: "#000", fontSize: 20, fontWeight: "800" }}
+                    >
+                      Select mutiple (if required)
+                    </Text>
+                  </View>
 
-              <View style={{ marginHorizontal: wp(5) }}>
-                <MultiSelect
-                  //   hideTags
-                  items={SUBJECT_LIST?.Subject_List}
-                  uniqueKey="subjects_name"
-                  //   ref={(component) => { this.multiSelect = component }}
-                  styleInputGroup={{
-                    width: wp(90),
-                    borderRadius: 8,
-                    borderWidth: 1,
-                    borderColor: "#000",
-                  }}
-                  styleItemsContainer={{
-                    marginTop: 20,
-                    height: wp(90),
-                    width: wp(90),
-                  }}
-                  onSelectedItemsChange={onSelectedItemsChange}
-                  selectedItems={selectedItems}
-                  selectText="Selected item"
-                  searchInputPlaceholderText="Search Items..."
-                  onChangeInput={(text) => console.log(text)}
-                  tagRemoveIconColor="blue"
-                  tagBorderColor="blue"
-                  tagTextColor="blue"
-                  selectedItemTextColor="blue"
-                  selectedItemIconColor="blue"
-                  itemTextColor="#000"
-                  displayKey="subjects_name"
-                  searchInputStyle={{ color: "#000", fontSize: 13 }}
-                  hideSubmitButton
-                  //  submitButtonColor="#000"
-                  //submitButtonText="Submit"
-                  //   removeSelected
-                />
-              </View>
+                  <View style={{ marginHorizontal: wp(5) }}>
+                    <MultiSelect
+                      //   hideTags
+                      items={SUBJECT_LIST?.Subject_List}
+                      uniqueKey="subjects_name"
+                      //   ref={(component) => { this.multiSelect = component }}
+                      styleInputGroup={{
+                        width: wp(90),
+                        borderRadius: 8,
+                        borderWidth: 1,
+                        borderColor: "#000",
+                      }}
+                      styleItemsContainer={{
+                        marginTop: 20,
+                        height: wp(90),
+                        width: wp(90),
+                      }}
+                      onSelectedItemsChange={onSelectedItemsChange}
+                      selectedItems={selectedItems}
+                      selectText="Selected item"
+                      searchInputPlaceholderText="Search Items..."
+                      onChangeInput={(text) => console.log(text)}
+                      tagRemoveIconColor="#2F5597"
+                      tagBorderColor="#2F5597"
+                      tagTextColor="#2F5597"
+                      selectedItemTextColor="#2F5597"
+                      selectedItemIconColor="#2F5597"
+                      itemTextColor="#000"
+                      displayKey="subjects_name"
+                      searchInputStyle={{ color: "#000", fontSize: 13 }}
+                      hideSubmitButton
+                      //  submitButtonColor="#000"
+                      //submitButtonText="Submit"
+                      //   removeSelected
+                    />
+                  </View>
 
-              {/* <View> */}
-              {/* {multiSelect.getSelectedItemsExt(selectedItems)}
+                  {/* <View> */}
+                  {/* {multiSelect.getSelectedItemsExt(selectedItems)}
         {/* </View>                */}
-            </View>
+                </View>
+              </View>
+            </Modal>
           </View>
-        </Modal>
-      </View>
-      <View
-        style={{ flex: 0.1, justifyContent: "flex-end", paddingBottom: hp(3) }}
-      >
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.circleArrow}
-        >
-          <Image
-            style={{ transform: [{ rotate: "180deg" }] }}
-            source={require("../Assets/circleArrow.png")}
-          />
-        </TouchableOpacity>
-        <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <TouchableOpacity
-            onPress={() => savedata()}
-            //     onPress = {() => navigation.navigate('YourProfle', {
-            // Tutorcomplete: 'Tutorccomplete'
-            // })}
-
+          <View
             style={{
-              backgroundColor: "#2F5597",
-              borderRadius: 25,
-              height: hp(6),
-              width: wp(60),
-              alignItems: "center",
-              justifyContent: "center",
+              flex: 0.1,
+              justifyContent: "flex-end",
+              paddingBottom: hp(3),
             }}
           >
-            <Text style={{ color: "#fff", fontSize: 14 }}>Save</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={styles.circleArrow}
+            >
+              <Image
+                style={{ transform: [{ rotate: "180deg" }] }}
+                source={require("../Assets/circleArrow.png")}
+              />
+            </TouchableOpacity>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <TouchableOpacity
+                onPress={() => savedata()}
+                //     onPress = {() => navigation.navigate('YourProfle', {
+                // Tutorcomplete: 'Tutorccomplete'
+                // })}
+
+                style={{
+                  backgroundColor: "#2F5597",
+                  borderRadius: 25,
+                  height: hp(6),
+                  width: wp(60),
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text style={{ color: "#fff", fontSize: 14 }}>Save</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
+      )}
     </View>
   );
 };

@@ -223,7 +223,7 @@ const StudentBooking = (props) => {
         </View>
         <View style={{ height: 40, width: "93%", alignSelf: "center" }}>
           <Text style={styles.BookText2}>
-            you can add multiple student's details.One at a time...
+            you can add multiple student's details.One at a time...PPPPPP
           </Text>
         </View>
         <View

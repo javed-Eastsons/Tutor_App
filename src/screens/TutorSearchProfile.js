@@ -237,10 +237,11 @@ const TutorSearchProfile = ({ props, route }) => {
           animation={isActive ? "bounceIn" : undefined}
           style={{ textAlign: "center", color: "skyblue" }}
         >
-          {section.Results &&
-            section.Results.map((item1, resultIndex) => (
+          {section.result &&
+            section.result.map((item1, resultIndex) => (
               <>
                 <View
+                  key={resultIndex}
                   style={{
                     flexDirection: "row",
                     marginBottom: 5,
@@ -254,7 +255,7 @@ const TutorSearchProfile = ({ props, route }) => {
                       fontSize: 14,
                     }}
                   >
-                    {item1?.Result_subject} {"  "}
+                    {item1?.subject} {"  "}
                   </Text>
 
                   <Text
@@ -264,7 +265,7 @@ const TutorSearchProfile = ({ props, route }) => {
                       fontSize: 14,
                     }}
                   >
-                    {item1?.Result_grade}
+                    {item1?.grade}
                   </Text>
                 </View>
               </>

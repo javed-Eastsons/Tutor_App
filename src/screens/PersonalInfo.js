@@ -28,6 +28,7 @@ import { editProfile } from "../Redux/Actions/Tutors";
 import { PersonalInfo_Data } from "../Redux/Actions/types";
 
 import { useEffect } from "react";
+import { ActivityIndicator } from "react-native-paper";
 
 const PersonalInfo = ({ route }) => {
   const navigation = useNavigation();
@@ -37,10 +38,10 @@ const PersonalInfo = ({ route }) => {
   const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
   const { Login_Data } = useSelector((state) => state.TutorReducer);
   const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
-  console.log(
-    SINGLE_USER,
-    "SINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USER"
-  );
+  // console.log(
+  //   SINGLE_USER,
+  //   "SINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USER"
+  // );
 
   console.log(GET_USER_ID, "Pika");
   const [pickerServices, setPickerServices] = useState(false);
@@ -52,22 +53,40 @@ const PersonalInfo = ({ route }) => {
   const [userDetail, setUserDetail] = useState([]);
   const [loader, setLoader] = useState(false);
 
-  const onChange = (event, selectedDate) => {
-    console.log("dddddddddddddddd");
-    const currentDate = selectedDate || date;
-    console.log("d..........>>>>>>");
+  // const onChange = (event, selectedDate) => {
+  //   console.log("selectedDateselectedDateselectedDate", selectedDate);
+  //   const currentDate = selectedDate || date;
+  //   console.log("d..........>>>>>>");
 
+  //   setShow(Platform.OS === "ios");
+  //   setDate(currentDate);
+  //   //  setDataShow()
+
+  //   console.log("LLLLLLLLLLLLLLLL", moment(currentDate).format("YYYY"));
+  //   console.log("LLLLLLLLLLLLLLLL", moment(date).format("YYYY"));
+  //   //   console.log('PPPPPPPPPPPPPP', date)
+  //   var yourage =
+  //     moment(date).format("YYYY") - moment(currentDate).format("YYYY");
+  //   console.log(yourage);
+  //   setAge(yourage);
+  // };
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
     setDate(currentDate);
-    //  setDataShow()
 
-    console.log("LLLLLLLLLLLLLLLL", moment(currentDate).format("YYYY"));
-    console.log("LLLLLLLLLLLLLLLL", moment(date).format("YYYY"));
-    //   console.log('PPPPPPPPPPPPPP', date)
-    var yourage =
-      moment(date).format("YYYY") - moment(currentDate).format("YYYY");
-    console.log(yourage);
-    setAge(yourage);
+    // Calculate age based on birth year
+    const birthYear = moment(currentDate).year();
+    const currentYear = moment().year();
+    const age = currentYear - birthYear;
+
+    console.log("Birth Year:", birthYear);
+    console.log("Current Year:", currentYear);
+    console.log("Age:", age);
+
+    // Set the age in your component's state
+    setAge(age);
   };
 
   const showMode = (currentMode) => {
@@ -75,6 +94,7 @@ const PersonalInfo = ({ route }) => {
   };
   const showDatepicker = () => {
     showMode("date");
+    setAge("");
   };
   console.log("!!!!!!!");
   const [nationality, setNationality] = useState([
@@ -166,13 +186,18 @@ const PersonalInfo = ({ route }) => {
   }, [SINGLE_USER]);
 
   useEffect(() => {
+    setLoader(true);
     setUserDetail(SINGLE_USER);
+
     setAge(userDetail[0]?.Extra_info[0]?.age);
     setMarkGender(userDetail[0]?.Extra_info[0]?.gender);
     setNational(userDetail[0]?.Extra_info[0]?.nationality);
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
   }, [SINGLE_USER, setAge]);
 
-  useEffect(() => {}, [setAge]);
+  // useEffect(() => {}, [setAge]);
 
   var date1 = moment(new Date()).format("MM-YYYY");
   var date2 = moment(date).format("YYYY");
@@ -213,6 +238,14 @@ const PersonalInfo = ({ route }) => {
     });
   };
 
+  // if (loader == true) {
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: "center" }}>
+  //       <ActivityIndicator style={{ alignSelf: "center" }} size={"small"} />
+  //     </View>
+  //   );
+  // }
+
   return (
     <View style={styles.container}>
       {/* <View style={{flex:0.9}}> */}
@@ -236,151 +269,158 @@ const PersonalInfo = ({ route }) => {
         </View>
       </View>
 
-      <View style={styles.moblieSec}>
-        <TouchableOpacity
-          style={[
-            styles.mobiletoch,
-            {
-              backgroundColor:
-                showemail == "Year of Birth" ? "#2F5597" : "lightgrey",
-            },
-          ]}
-          onPress={() => setShowEmail("Year of Birth")}
-        >
-          <Text
-            style={[
-              styles.ButtonText,
-              { color: showemail == "Year of Birth" ? "#fff" : "#000" },
-            ]}
-          >
-            Year of Birth
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.emailtoch,
-            {
-              backgroundColor: showemail == "Gender" ? "#2F5597" : "lightgrey",
-            },
-          ]}
-          onPress={() => setShowEmail("Gender")}
-        >
-          <Text
-            style={[
-              styles.ButtonText,
-              { color: showemail == "Gender" ? "#fff" : "#000" },
-            ]}
-          >
-            Gender
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.nationaltoch,
-            {
-              backgroundColor:
-                showemail == "Nationality" ? "#2F5597" : "lightgrey",
-            },
-          ]}
-          onPress={() => {
-            setShowEmail("Nationality");
-            // setPickerServices(true);
-          }}
-        >
-          <Text
-            style={[
-              styles.ButtonText,
-              { color: showemail == "Nationality" ? "#fff" : "#000" },
-            ]}
-          >
-            Nationality
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      {showemail == "Year of Birth" && (
-        <View style={{ flex: 1 }}>
-          <View style={{ flex: 0.9 }}>
-            {console.log(
-              moment(new Date()).format("YYYY"),
-              moment(date).format("YYYY")
-            )}
-
+      {loader == true ? (
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <ActivityIndicator style={{ alignSelf: "center" }} size={"small"} />
+        </View>
+      ) : (
+        <View style={styles.container}>
+          <View style={styles.moblieSec}>
             <TouchableOpacity
-              onPress={() => showDatepicker()}
-              style={{
-                borderWidth: 1,
-                alignItems: "center",
-                justifyContent: "space-between",
-                borderColor: "lightgrey",
-                height: hp(5),
-                width: wp(80),
-                marginTop: hp(2),
-                marginLeft: wp(5),
-                flexDirection: "row",
-              }}
+              style={[
+                styles.mobiletoch,
+                {
+                  backgroundColor:
+                    showemail == "Year of Birth" ? "#2F5597" : "lightgrey",
+                },
+              ]}
+              onPress={() => setShowEmail("Year of Birth")}
             >
-              <Text style={{ fontSize: 15, color: "#000", paddingLeft: wp(3) }}>
-                {moment(date).format("YYYY")}
-              </Text>
-
-              <View
-                style={{
-                  height: hp(5),
-                  width: wp(13),
-                  backgroundColor: "#2F5597",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
+              <Text
+                style={[
+                  styles.ButtonText,
+                  { color: showemail == "Year of Birth" ? "#fff" : "#000" },
+                ]}
               >
-                <Image
-                  source={require("../Assets/CalendarWhite.png")}
-                  style={{ height: hp(4), width: wp(6) }}
-                />
-              </View>
+                Year of Birth
+              </Text>
             </TouchableOpacity>
-
-            {show && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={new Date()}
-                mode="date"
-                display="default"
-                onChange={onChange}
-              />
-            )}
-
-            <View
-              style={{
-                marginTop: hp(10),
-                marginLeft: wp(5),
-                marginLeft: wp(15),
+            <TouchableOpacity
+              style={[
+                styles.emailtoch,
+                {
+                  backgroundColor:
+                    showemail == "Gender" ? "#2F5597" : "lightgrey",
+                },
+              ]}
+              onPress={() => setShowEmail("Gender")}
+            >
+              <Text
+                style={[
+                  styles.ButtonText,
+                  { color: showemail == "Gender" ? "#fff" : "#000" },
+                ]}
+              >
+                Gender
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.nationaltoch,
+                {
+                  backgroundColor:
+                    showemail == "Nationality" ? "#2F5597" : "lightgrey",
+                },
+              ]}
+              onPress={() => {
+                setShowEmail("Nationality");
+                // setPickerServices(true);
               }}
             >
-              <Text style={{ fontSize: 15, color: "#000" }}>
-                Your Age {Age}
-              </Text>
-
-              <TouchableOpacity
-                style={{
-                  borderWidth: 1,
-                  elevation: 1,
-                  marginTop: hp(1),
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  borderColor: "lightgrey",
-                  height: hp(6),
-                  width: wp(35),
-                  flexDirection: "row",
-                }}
+              <Text
+                style={[
+                  styles.ButtonText,
+                  { color: showemail == "Nationality" ? "#fff" : "#000" },
+                ]}
               >
-                {/* <TextInput 
+                Nationality
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {showemail == "Year of Birth" && (
+            <View style={{ flex: 1 }}>
+              <View style={{ flex: 0.9 }}>
+                {console.log(
+                  moment(new Date()).format("YYYY"),
+                  moment(date).format("YYYY")
+                )}
+
+                <TouchableOpacity
+                  onPress={() => showDatepicker()}
+                  style={{
+                    borderWidth: 1,
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    borderColor: "lightgrey",
+                    height: hp(5),
+                    width: wp(80),
+                    marginTop: hp(2),
+                    marginLeft: wp(5),
+                    flexDirection: "row",
+                  }}
+                >
+                  <Text
+                    style={{ fontSize: 15, color: "#000", paddingLeft: wp(3) }}
+                  >
+                    {moment(date).format("YYYY")}
+                  </Text>
+
+                  <View
+                    style={{
+                      height: hp(5),
+                      width: wp(13),
+                      backgroundColor: "#2F5597",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Image
+                      source={require("../Assets/CalendarWhite.png")}
+                      style={{ height: hp(4), width: wp(6) }}
+                    />
+                  </View>
+                </TouchableOpacity>
+
+                {show && (
+                  <DateTimePicker
+                    testID="dateTimePicker"
+                    value={new Date()}
+                    mode="date"
+                    display="default"
+                    onChange={onChange}
+                  />
+                )}
+
+                <View
+                  style={{
+                    marginTop: hp(10),
+                    marginLeft: wp(5),
+                    marginLeft: wp(15),
+                  }}
+                >
+                  <Text style={{ fontSize: 15, color: "#000" }}>Your Age</Text>
+
+                  <TouchableOpacity
+                    style={{
+                      borderWidth: 1,
+                      elevation: 1,
+                      marginTop: hp(1),
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      borderColor: "lightgrey",
+                      height: hp(6),
+                      width: wp(35),
+                      flexDirection: "row",
+                    }}
+                  >
+                    {/* <TextInput 
                           placeholder='2'
                           placeholderTextColor={'#000'}
                           style={{fontSize:13,color:'#000', paddingLeft:wp(4)}}
                          /> */}
-                {console.log("yourage", typeof Age, Age)}
-                <TextInput
+                    {console.log("yourage", typeof Age, Age)}
+                    {/* <TextInput
                   style={{
                     color: "#000",
                     fontSize: 14,
@@ -397,383 +437,401 @@ const PersonalInfo = ({ route }) => {
                   autoCapitalize="none"
                   value={Age}
                   // onChangeText={(text) => setAge(text)}
-                />
-                {/* <Text
-                  style={{ fontSize: 15, color: "#000", paddingLeft: wp(4) }}
-                >
-                  {Age}
-                </Text> */}
-                <View
-                  style={{
-                    height: hp(5),
-                    width: wp(13),
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Image
-                    source={require("../Assets/assests.png")}
-                    style={{ height: hp(4), width: wp(6) }}
-                  />
+                /> */}
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        color: "#000",
+                        paddingLeft: wp(4),
+                      }}
+                    >
+                      {Age}
+                    </Text>
+                    <View
+                      style={{
+                        height: hp(5),
+                        width: wp(13),
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Image
+                        source={require("../Assets/assests.png")}
+                        style={{ height: hp(4), width: wp(6) }}
+                      />
+                    </View>
+                  </TouchableOpacity>
                 </View>
-              </TouchableOpacity>
+              </View>
+              <View style={{ flex: 0.1, justifyContent: "flex-end" }}>
+                <TouchableOpacity style={styles.circleArrow}>
+                  <Image source={require("../Assets/circleArrow.png")} />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-          <View style={{ flex: 0.1, justifyContent: "flex-end" }}>
-            <TouchableOpacity style={styles.circleArrow}>
-              <Image source={require("../Assets/circleArrow.png")} />
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
-      {showemail == "Gender" && (
-        <View style={{ flex: 1 }}>
-          <View style={{ flex: 0.9 }}>
-            <Text style={{ fontSize: 20, padding: 10, color: "black" }}>
-              {markGender}
-            </Text>
-            <TouchableOpacity onPress={() => setMarkGender("Male")}>
-              <View
-                style={{
-                  backgroundColor: "white",
-                  height: hp(8),
-                  width: wp(16),
-                  borderRadius: 50,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginTop: hp(10),
-                  marginLeft: wp(15),
-                }}
-              >
-                <Image
-                  source={require("../Assets/Male.png")}
-                  style={{ height: hp(5), width: wp(10) }}
-                />
-              </View>
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: "grey",
-                  alignItems: "center",
-                  backgroundColor: markGender == "Male" ? "#2F5597" : "#fff",
-                  height: hp(4),
-                  width: wp(15),
-                  marginLeft: wp(3),
-                  marginTop: hp(3),
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 16,
-                    color: markGender == "Male" ? "#fff" : "grey",
-                  }}
-                >
-                  Male
+          )}
+          {showemail == "Gender" && (
+            <View style={{ flex: 1 }}>
+              <View style={{ flex: 0.9 }}>
+                <Text style={{ fontSize: 20, padding: 10, color: "black" }}>
+                  {markGender}
                 </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setMarkGender("Female")}>
-              <View
-                style={{ justifyContent: "flex-end", alignItems: "flex-end" }}
-              >
-                <View
-                  style={{
-                    borderWidth: 1,
-                    borderColor: "grey",
-                    alignItems: "center",
-                    backgroundColor:
-                      markGender == "Female" ? "#2F5597" : "#fff",
-                    height: hp(4),
-                    marginRight: wp(3),
-                    width: wp(19),
-                    marginLeft: wp(3),
-                    marginTop: hp(3),
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text
+                <TouchableOpacity onPress={() => setMarkGender("Male")}>
+                  <View
                     style={{
-                      color: markGender == "Female" ? "#fff" : "grey",
-                      fontSize: 16,
+                      backgroundColor: "white",
+                      height: hp(8),
+                      width: wp(16),
+                      borderRadius: 50,
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginTop: hp(10),
+                      marginLeft: wp(15),
                     }}
                   >
-                    Female
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    backgroundColor: "white",
-                    height: hp(8),
-                    marginRight: wp(20),
-                    width: wp(16),
-                    borderRadius: 10,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginTop: hp(3),
-                    marginLeft: wp(15),
-                  }}
-                >
-                  <Image
-                    source={require("../Assets/Female.png")}
-                    style={{ height: hp(5), width: wp(10) }}
-                  />
-                </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={{ flex: 0.1, justifyContent: "flex-end" }}>
-            <TouchableOpacity style={styles.circleArrow}>
-              <Image source={require("../Assets/circleArrow.png")} />
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
-      {showemail == "Nationality" && (
-        <>
-          <View style={{ flex: 0.9 }}>
-            <TouchableOpacity
-              onPress={() => setPickerServices(true)}
-              style={{
-                height: hp(6),
-                borderWidth: 1,
-                borderColor: "lightgrey",
-                marginLeft: wp(5),
-                alignItems: "center",
-                justifyContent: "space-between",
-                width: wp(90),
-                flexDirection: "row",
-                backgroundColor: "#fff",
-                marginTop: hp(2),
-              }}
-            >
-              <View
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                  flexDirection: "row",
-                }}
-              >
-                <Image
-                  source={selectflag}
-                  style={{ height: hp(3), width: wp(6), marginLeft: wp(5) }}
-                />
-                <Text
-                  style={{ color: "#000", fontSize: 13, marginLeft: wp(4) }}
-                >
-                  {national}
-                  {/* {selectnational} */}
-                </Text>
-              </View>
-              <View
-                style={{
-                  backgroundColor: "lightblue",
-                  height: hp(6),
-                  width: wp(15),
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Image
-                  source={require("../Assets/Pencil.png")}
-                  style={{ height: hp(3), width: wp(5) }}
-                />
-              </View>
-            </TouchableOpacity>
-          </View>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={pickerServices}
-            onRequestClose={() => {
-              setPickerServices(false);
-            }}
-          >
-            <View style={styles.modalWrapper2}>
-              <View style={styles.modalWrapp}>
-                <View style={styles.crossWRapper}>
-                  <TouchableOpacity
-                    onPress={() => setPickerServices(false)}
-                    style={styles.crossImageWrapper}
-                  >
                     <Image
-                      source={require("../Assets/closeingray.png")}
-                      style={styles.crossImage}
-                    />
-                  </TouchableOpacity>
-                  <View style={styles.tickWrapper}>
-                    <Image
-                      source={require("../Assets/right.png")}
-                      style={styles.tickImage}
+                      source={require("../Assets/Male.png")}
+                      style={{ height: hp(5), width: wp(10) }}
                     />
                   </View>
-                </View>
-                <View style={{ alignItems: "center" }}>
-                  <Text style={{ color: "grey", fontSize: 18 }}>
-                    Select Nationality
-                  </Text>
-                </View>
-                <View style={{ marginLeft: wp(5), marginTop: hp(2) }}>
-                  <Text
-                    style={{ color: "#000", fontSize: 18, fontWeight: "800" }}
-                  >
-                    Select One Option
-                  </Text>
-
                   <View
                     style={{
                       borderWidth: 1,
-                      borderColor: "#000",
-                      paddingHorizontal: wp(4),
+                      borderColor: "grey",
                       alignItems: "center",
-                      justifyContent: "space-between",
-                      height: hp(6),
-                      width: wp(90),
-                      borderRadius: 9,
-                      marginTop: hp(2),
-                      flexDirection: "row",
+                      backgroundColor:
+                        markGender == "Male" ? "#2F5597" : "#fff",
+                      height: hp(4),
+                      width: wp(15),
+                      marginLeft: wp(3),
+                      marginTop: hp(3),
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        color: markGender == "Male" ? "#fff" : "grey",
+                      }}
+                    >
+                      Male
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setMarkGender("Female")}>
+                  <View
+                    style={{
+                      justifyContent: "flex-end",
+                      alignItems: "flex-end",
                     }}
                   >
                     <View
                       style={{
+                        borderWidth: 1,
+                        borderColor: "grey",
+                        alignItems: "center",
+                        backgroundColor:
+                          markGender == "Female" ? "#2F5597" : "#fff",
+                        height: hp(4),
+                        marginRight: wp(3),
+                        width: wp(19),
+                        marginLeft: wp(3),
+                        marginTop: hp(3),
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: markGender == "Female" ? "#fff" : "grey",
+                          fontSize: 16,
+                        }}
+                      >
+                        Female
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        backgroundColor: "white",
+                        height: hp(8),
+                        marginRight: wp(20),
+                        width: wp(16),
+                        borderRadius: 10,
                         alignItems: "center",
                         justifyContent: "center",
-                        flexDirection: "row",
+                        marginTop: hp(3),
+                        marginLeft: wp(15),
                       }}
                     >
                       <Image
-                        source={require("../Assets/flag.png")}
-                        style={{ height: hp(2.5), width: wp(6) }}
-                      />
-
-                      <TextInput
-                        style={{
-                          color: "#000",
-                          fontSize: 14,
-                          fontWeight: "800",
-                          marginLeft: wp(3),
-                        }}
-                        underlineColorAndroid="rgba(0,0,0,0)"
-                        placeholder={"Enter the country"}
-                        keyboardType="default"
-                        returnKeyType="done"
-                        autoCapitalize="none"
-                        value={filterData}
-                        onChangeText={(text) => SearchFilterFunction(text)}
+                        source={require("../Assets/Female.png")}
+                        style={{ height: hp(5), width: wp(10) }}
                       />
                     </View>
-                    <TouchableOpacity>
-                      <Image
-                        source={require("../Assets/search.png")}
-                        style={{ height: hp(3), width: wp(6) }}
-                      />
-                    </TouchableOpacity>
                   </View>
-                </View>
+                </TouchableOpacity>
+              </View>
+              <View style={{ flex: 0.1, justifyContent: "flex-end" }}>
+                <TouchableOpacity style={styles.circleArrow}>
+                  <Image source={require("../Assets/circleArrow.png")} />
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+          {showemail == "Nationality" && (
+            <>
+              <View style={{ flex: 0.9 }}>
+                <TouchableOpacity
+                  onPress={() => setPickerServices(true)}
+                  style={{
+                    height: hp(6),
+                    borderWidth: 1,
+                    borderColor: "lightgrey",
+                    marginLeft: wp(5),
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    width: wp(90),
+                    flexDirection: "row",
+                    backgroundColor: "#fff",
+                    marginTop: hp(2),
+                  }}
+                >
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <Image
+                      source={selectflag}
+                      style={{ height: hp(3), width: wp(6), marginLeft: wp(5) }}
+                    />
+                    <Text
+                      style={{ color: "#000", fontSize: 13, marginLeft: wp(4) }}
+                    >
+                      {national}
+                      {/* {selectnational} */}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      backgroundColor: "lightblue",
+                      height: hp(6),
+                      width: wp(15),
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Image
+                      source={require("../Assets/Pencil.png")}
+                      style={{ height: hp(3), width: wp(5) }}
+                    />
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={pickerServices}
+                onRequestClose={() => {
+                  setPickerServices(false);
+                }}
+              >
+                <View style={styles.modalWrapper2}>
+                  <View style={styles.modalWrapp}>
+                    <View style={styles.crossWRapper}>
+                      <TouchableOpacity
+                        onPress={() => setPickerServices(false)}
+                        style={styles.crossImageWrapper}
+                      >
+                        <Image
+                          source={require("../Assets/closeingray.png")}
+                          style={styles.crossImage}
+                        />
+                      </TouchableOpacity>
+                      <View style={styles.tickWrapper}>
+                        <Image
+                          source={require("../Assets/right.png")}
+                          style={styles.tickImage}
+                        />
+                      </View>
+                    </View>
+                    <View style={{ alignItems: "center" }}>
+                      <Text style={{ color: "grey", fontSize: 18 }}>
+                        Select Nationality
+                      </Text>
+                    </View>
+                    <View style={{ marginLeft: wp(5), marginTop: hp(2) }}>
+                      <Text
+                        style={{
+                          color: "#000",
+                          fontSize: 18,
+                          fontWeight: "800",
+                        }}
+                      >
+                        Select One Option
+                      </Text>
 
-                {filterData.length > 0 ? (
-                  <View style={{ paddingBottom: hp(7) }}>
-                    <FlatList
-                      data={filterData}
-                      numColumns={1}
-                      keyExtractor={(item, index) => index}
-                      showsVerticalScrollIndicator={true}
-                      renderItem={({ item, index }) => (
-                        <TouchableOpacity
-                          onPress={() => {
-                            setSelectNational(item.country);
-                            setSelectFlag(item.countryFlag);
-                            setNational(item.country);
-                            setPickerServices(false);
-                          }}
+                      <View
+                        style={{
+                          borderWidth: 1,
+                          borderColor: "#000",
+                          paddingHorizontal: wp(4),
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          height: hp(6),
+                          width: wp(90),
+                          borderRadius: 9,
+                          marginTop: hp(2),
+                          flexDirection: "row",
+                        }}
+                      >
+                        <View
                           style={{
-                            height: hp(4.5),
                             alignItems: "center",
-                            width: wp(90),
+                            justifyContent: "center",
                             flexDirection: "row",
-                            backgroundColor:
-                              selectnational == item.country
-                                ? "#2F5597"
-                                : "#fff",
-                            marginTop: hp(2),
                           }}
                         >
                           <Image
-                            source={item.countryFlag}
-                            style={{
-                              height: hp(3),
-                              width: wp(6),
-                              marginLeft: wp(5),
-                            }}
+                            source={require("../Assets/flag.png")}
+                            style={{ height: hp(2.5), width: wp(6) }}
                           />
-                          <Text
-                            style={{
-                              color:
-                                selectnational == item.country
-                                  ? "#fff"
-                                  : "#000",
-                              fontSize: 13,
-                              marginLeft: wp(4),
-                            }}
-                          >
-                            {item.country}
-                          </Text>
-                        </TouchableOpacity>
-                      )}
-                    />
-                  </View>
-                ) : withoutfilter != filterData ? (
-                  <View
-                    style={{ justifyContent: "center", alignItems: "center" }}
-                  >
-                    <Text style={{ fontSize: 16 }}> No data found</Text>
-                  </View>
-                ) : null}
-              </View>
-            </View>
-          </Modal>
-          <View
-            style={{
-              flex: 0.1,
-              justifyContent: "flex-end",
-              marginBottom: hp(2),
-            }}
-          >
-            <TouchableOpacity
-              style={{
-                justifyContent: "flex-start",
-                paddingLeft: wp(4),
-                paddingBottom: hp(2),
-              }}
-            >
-              <Image source={require("../Assets/circleArrow.png")} />
-            </TouchableOpacity>
-            <View style={{ alignItems: "center" }}>
-              <TouchableOpacity
-                onPress={() => personalinfofun()}
-                //onPress={() => personalinfofun()}
-                // onPress={() => navigation.navigate('YourProfle', {
-                //     complete: 'complete'
-                // })}
 
+                          <TextInput
+                            style={{
+                              color: "#000",
+                              fontSize: 14,
+                              fontWeight: "800",
+                              marginLeft: wp(3),
+                            }}
+                            underlineColorAndroid="rgba(0,0,0,0)"
+                            placeholder={"Enter the country"}
+                            keyboardType="default"
+                            returnKeyType="done"
+                            autoCapitalize="none"
+                            value={filterData}
+                            onChangeText={(text) => SearchFilterFunction(text)}
+                          />
+                        </View>
+                        <TouchableOpacity>
+                          <Image
+                            source={require("../Assets/search.png")}
+                            style={{ height: hp(3), width: wp(6) }}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+
+                    {filterData.length > 0 ? (
+                      <View style={{ paddingBottom: hp(7) }}>
+                        <FlatList
+                          data={filterData}
+                          numColumns={1}
+                          keyExtractor={(item, index) => index}
+                          showsVerticalScrollIndicator={true}
+                          renderItem={({ item, index }) => (
+                            <TouchableOpacity
+                              onPress={() => {
+                                setSelectNational(item.country);
+                                setSelectFlag(item.countryFlag);
+                                setNational(item.country);
+                                setPickerServices(false);
+                              }}
+                              style={{
+                                height: hp(4.5),
+                                alignItems: "center",
+                                width: wp(90),
+                                flexDirection: "row",
+                                backgroundColor:
+                                  selectnational == item.country
+                                    ? "#2F5597"
+                                    : "#fff",
+                                marginTop: hp(2),
+                              }}
+                            >
+                              <Image
+                                source={item.countryFlag}
+                                style={{
+                                  height: hp(3),
+                                  width: wp(6),
+                                  marginLeft: wp(5),
+                                }}
+                              />
+                              <Text
+                                style={{
+                                  color:
+                                    selectnational == item.country
+                                      ? "#fff"
+                                      : "#000",
+                                  fontSize: 13,
+                                  marginLeft: wp(4),
+                                }}
+                              >
+                                {item.country}
+                              </Text>
+                            </TouchableOpacity>
+                          )}
+                        />
+                      </View>
+                    ) : withoutfilter != filterData ? (
+                      <View
+                        style={{
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Text style={{ fontSize: 16 }}> No data found</Text>
+                      </View>
+                    ) : null}
+                  </View>
+                </View>
+              </Modal>
+              <View
                 style={{
-                  backgroundColor: "#2F5597",
-                  borderRadius: 25,
-                  height: hp(6),
-                  width: wp(60),
-                  alignItems: "center",
-                  justifyContent: "center",
+                  flex: 0.1,
+                  justifyContent: "flex-end",
+                  marginBottom: hp(2),
                 }}
               >
-                <Text style={{ color: "#fff", fontSize: 14 }}>Save info</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </>
-      )}
+                <TouchableOpacity
+                  style={{
+                    justifyContent: "flex-start",
+                    paddingLeft: wp(4),
+                    paddingBottom: hp(2),
+                  }}
+                >
+                  <Image source={require("../Assets/circleArrow.png")} />
+                </TouchableOpacity>
+                <View style={{ alignItems: "center" }}>
+                  <TouchableOpacity
+                    onPress={() => personalinfofun()}
+                    //onPress={() => personalinfofun()}
+                    // onPress={() => navigation.navigate('YourProfle', {
+                    //     complete: 'complete'
+                    // })}
 
+                    style={{
+                      backgroundColor: "#2F5597",
+                      borderRadius: 25,
+                      height: hp(6),
+                      width: wp(60),
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text style={{ color: "#fff", fontSize: 14 }}>
+                      Save info
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </>
+          )}
+        </View>
+      )}
       {/* </View> */}
       {/* <TouchableOpacity style={styles.circleArrow}>
                     <Image source={require('../Assets/circleArrow.png')} />

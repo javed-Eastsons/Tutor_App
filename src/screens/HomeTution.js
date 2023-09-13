@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View,
   Text,
+  ActivityIndicator,
   ScrollView,
   Image,
   Button,
@@ -37,7 +38,7 @@ const HomeTution = () => {
   const [FirstName, setFirstName] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [mapData, setMapData] = useState(0);
-
+  const [loader, setLoader] = useState(false);
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
 
@@ -147,13 +148,17 @@ const HomeTution = () => {
   }, [SINGLE_USER]);
 
   useEffect(() => {
+    setLoader(true);
     setUserDetail(SINGLE_USER);
     setFirstName(userDetail[0]?.Extra_info[0]?.postal_code);
     setAddress(userDetail[0]?.Extra_info[0]?.location);
     setLatitude(userDetail[0]?.Extra_info[0]?.lettitude);
     setLongitude(userDetail[0]?.Extra_info[0]?.longitude);
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
     // setRecords(userDetail[0]?.history_academy_arr);
-  }, [SINGLE_USER, setFirstName]);
+  }, [SINGLE_USER]);
   // console.log(
   //   typeof slideStartingValue,
   //   "userDetail[0]?.Extra_info[0]?.travel_distance"
@@ -199,174 +204,186 @@ const HomeTution = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.tutorWrapper}>
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <View>
-              <Text style={styles.tutorText}>Your Postal Code</Text>
-              <View style={styles.inputWrapper}>
-                <TextInput
-                  onChangeText={(text) => {
-                    setFirstName(text);
-                  }}
-                  value={FirstName}
-                  //  placeholder="510208"
-                  placeholderTextColor={"#000"}
-                  keyboardType="phone-pad"
-                  style={{ color: "#000", paddingLeft: wp(2), width: wp(28) }}
-                />
+      {loader == true ? (
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <ActivityIndicator style={{ alignSelf: "center" }} size={"small"} />
+        </View>
+      ) : (
+        <ScrollView>
+          <View style={styles.tutorWrapper}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <View>
+                <Text style={styles.tutorText}>Your Postal Code</Text>
+                <View style={styles.inputWrapper}>
+                  <TextInput
+                    onChangeText={(text) => {
+                      setFirstName(text);
+                    }}
+                    value={FirstName}
+                    //  placeholder="510208"
+                    placeholderTextColor={"#000"}
+                    keyboardType="phone-pad"
+                    style={{ color: "#000", paddingLeft: wp(2), width: wp(28) }}
+                  />
+                  <TouchableOpacity
+                    onPress={() => geocodinApi()}
+                    style={{
+                      backgroundColor: "#2F5597",
+                      width: wp(8),
+                      height: hp(4),
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: 4,
+                    }}
+                  >
+                    <Text style={{ color: "#fff", fontSize: 14 }}>Go</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              {address ? (
                 <TouchableOpacity
-                  onPress={() => geocodinApi()}
-                  style={{
-                    backgroundColor: "#2F5597",
-                    width: wp(8),
-                    height: hp(4),
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: 4,
-                  }}
+                  onPress={() => GetPostDetail()}
+                  //onPress={() => navigation.navigate("YourProfle")}
+                  style={styles.tickWrapper}
                 >
-                  <Text style={{ color: "#fff", fontSize: 14 }}>Go</Text>
+                  <Image
+                    source={require("../Assets/right.png")}
+                    style={styles.tickImage}
+                  />
                 </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("YourProfle")}
+                  style={styles.crossImageWrapper}
+                >
+                  <Image
+                    source={require("../Assets/closeingray.png")}
+                    style={styles.crossImage}
+                  />
+                </TouchableOpacity>
+              )}
+            </View>
+
+            <View style={styles.forwardArrowWrapper}>
+              <Text style={styles.forwardArrowTextWrapper}>
+                {/* {mapData?.formatted_address} */}
+                {address}
+              </Text>
+            </View>
+          </View>
+          <View></View>
+          {address != "" ? (
+            <View style={{}}>
+              <MapView
+                defaultZoom={20}
+                defaultCenter={30}
+                ref={mapRef}
+                style={styles.map}
+                zoomEnabled={true}
+                onRegionChangeComplete={onRegionCHange}
+                onMapReady={() => {
+                  setstate({ marginBottom: 0 });
+                }}
+                zoomControlEnabled={true}
+                showsUserLocation={true}
+                showsMyLocationButton={true}
+                userInterfaceStyle="dark"
+                initialRegion={{
+                  latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
+                  longitude: mapData
+                    ? mapData?.geometry?.location?.lng
+                    : 77.3812,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                }}
+                // mapType={'standard'}
+              >
+                <Circle
+                  center={{
+                    latitude: mapData
+                      ? mapData?.geometry?.location?.lat
+                      : 28.621,
+                    longitude: mapData
+                      ? mapData?.geometry?.location?.lng
+                      : 77.3812,
+                  }}
+                  radius={slideStartingValue.toFixed(0) * 80}
+                  // radius={slideStartingValue * 80}
+                  fillColor="rgba(0, 0, 255, 0.1)"
+                  strokeColor="blue"
+                  strokeWidth={1}
+                />
+                <Marker
+                  coordinate={{
+                    latitude: mapData
+                      ? mapData?.geometry?.location?.lat
+                      : 28.621,
+                    longitude: mapData
+                      ? mapData?.geometry?.location?.lng
+                      : 77.3812,
+                  }}
+                  onDragEnd={(e) =>
+                    this.setState({ x: e.nativeEvent.coordinate })
+                  }
+                />
+              </MapView>
+
+              <Text
+                style={{
+                  width: wp(90),
+                  textAlign: "center",
+
+                  marginLeft: wp(5),
+                  marginTop: hp(1),
+                  fontSize: 12,
+                }}
+              >
+                Select the furthest distance you are willing to travel from your
+                location for home tuition{" "}
+              </Text>
+              <Slider
+                style={{
+                  width: wp(90),
+                  height: 40,
+                  alignSelf: "center",
+                  marginTop: 10,
+                }}
+                onSlidingComplete={
+                  (value) => setSlideStartingValue(value)
+                  // setSlideStartingCount((prev) => prev + 1);
+                }
+                minimumValue={1}
+                value={25}
+                maximumValue={50}
+                minimumTrackTintColor="#000000"
+                maximumT
+                rackTintColor="#000000"
+              />
+              <View
+                style={{
+                  width: wp(90),
+                  textAlign: "center",
+                  marginLeft: wp(5),
+                  flexDirection: "row",
+                  fontSize: 12,
+                }}
+              >
+                <Text style={{ width: wp(30) }}>100m</Text>
+                <Text style={{ width: wp(30), textAlign: "center" }}>
+                  {/* {slideStartingValue.toFixed(0)}km */}
+                  {slideStartingValue.toFixed(0)}km
+                </Text>
+                <Text style={{ width: wp(30), textAlign: "right" }}>50km</Text>
               </View>
             </View>
-            {address ? (
-              <TouchableOpacity
-                onPress={() => GetPostDetail()}
-                //onPress={() => navigation.navigate("YourProfle")}
-                style={styles.tickWrapper}
-              >
-                <Image
-                  source={require("../Assets/right.png")}
-                  style={styles.tickImage}
-                />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                onPress={() => navigation.navigate("YourProfle")}
-                style={styles.crossImageWrapper}
-              >
-                <Image
-                  source={require("../Assets/closeingray.png")}
-                  style={styles.crossImage}
-                />
-              </TouchableOpacity>
-            )}
-          </View>
-
-          <View style={styles.forwardArrowWrapper}>
-            <Text style={styles.forwardArrowTextWrapper}>
-              {/* {mapData?.formatted_address} */}
-              {address}
-            </Text>
-          </View>
-        </View>
-        <View></View>
-        {address != "" ? (
-          <View style={{}}>
-            <MapView
-              defaultZoom={20}
-              defaultCenter={30}
-              ref={mapRef}
-              style={styles.map}
-              zoomEnabled={true}
-              onRegionChangeComplete={onRegionCHange}
-              onMapReady={() => {
-                setstate({ marginBottom: 0 });
-              }}
-              zoomControlEnabled={true}
-              showsUserLocation={true}
-              showsMyLocationButton={true}
-              userInterfaceStyle="dark"
-              initialRegion={{
-                latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
-                longitude: mapData ? mapData?.geometry?.location?.lng : 77.3812,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }}
-              // mapType={'standard'}
-            >
-              <Circle
-                center={{
-                  latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
-                  longitude: mapData
-                    ? mapData?.geometry?.location?.lng
-                    : 77.3812,
-                }}
-                radius={slideStartingValue.toFixed(0) * 80}
-                // radius={slideStartingValue * 80}
-                fillColor="rgba(0, 0, 255, 0.1)"
-                strokeColor="blue"
-                strokeWidth={1}
-              />
-              <Marker
-                coordinate={{
-                  latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
-                  longitude: mapData
-                    ? mapData?.geometry?.location?.lng
-                    : 77.3812,
-                }}
-                onDragEnd={(e) =>
-                  this.setState({ x: e.nativeEvent.coordinate })
-                }
-              />
-            </MapView>
-
-            <Text
-              style={{
-                width: wp(90),
-                textAlign: "center",
-
-                marginLeft: wp(5),
-                marginTop: hp(1),
-                fontSize: 12,
-              }}
-            >
-              Select the furthest distance you are willing to travel from your
-              location for home tuition{" "}
-            </Text>
-            <Slider
-              style={{
-                width: wp(90),
-                height: 40,
-                alignSelf: "center",
-                marginTop: 10,
-              }}
-              onSlidingComplete={
-                (value) => setSlideStartingValue(value)
-                // setSlideStartingCount((prev) => prev + 1);
-              }
-              minimumValue={1}
-              value={25}
-              maximumValue={50}
-              minimumTrackTintColor="#000000"
-              maximumT
-              rackTintColor="#000000"
-            />
-            <View
-              style={{
-                width: wp(90),
-                textAlign: "center",
-                marginLeft: wp(5),
-                flexDirection: "row",
-                fontSize: 12,
-              }}
-            >
-              <Text style={{ width: wp(30) }}>100m</Text>
-              <Text style={{ width: wp(30), textAlign: "center" }}>
-                {/* {slideStartingValue.toFixed(0)}km */}
-                {slideStartingValue.toFixed(0)}km
-              </Text>
-              <Text style={{ width: wp(30), textAlign: "right" }}>50km</Text>
-            </View>
-          </View>
-        ) : (
-          <View />
-        )}
-        <View style={{ height: wp(10) }}></View>
-      </ScrollView>
+          ) : (
+            <View />
+          )}
+          <View style={{ height: wp(10) }}></View>
+        </ScrollView>
+      )}
       {/* <Text>Starts: Value: {slideStartingValue.toFixed(0)}</Text> */}
     </View>
   );

@@ -147,11 +147,11 @@ const ClientLanding = () => {
       src: require("../Assets/newFavIcon.png"),
       Url: "MyFav",
     },
-    {
-      name: "Payments",
-      src: require("../Assets/PayN.png"),
-      Url: "",
-    },
+    // {
+    //   name: "Payments",
+    //   src: require("../Assets/PayN.png"),
+    //   Url: "",
+    // },
   ];
 
   useEffect(() => {}, []);

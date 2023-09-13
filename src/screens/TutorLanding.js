@@ -33,7 +33,7 @@ const TutorLanding = () => {
       Url: "MyBookingTutor",
     },
     {
-      name: "My Posts",
+      name: "My Applied",
       src: require("../Assets/newPostIcon.png"),
       Url: "",
     },
@@ -47,11 +47,11 @@ const TutorLanding = () => {
       src: require("../Assets/newFavIcon.png"),
       Url: "MyFav",
     },
-    {
-      name: "Payments",
-      src: require("../Assets/PayN.png"),
-      Url: "",
-    },
+    // {
+    //   name: "Payments",
+    //   src: require("../Assets/PayN.png"),
+    //   Url: "",
+    // },
   ];
   const toggleSwitch = () => {
     MoveToClient();
@@ -158,7 +158,8 @@ const TutorLanding = () => {
               Keep your profile {"\n"}current
             </Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate("Auth2")}
+              // onPress={() => navigation.navigate("Auth2")}
+              onPress={() => navigation.navigate("UpdateProfile")}
               style={styles.SearchButton}
             >
               <Text

@@ -122,18 +122,16 @@ const MyPosts = () => {
         <FlatList
           // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
           scrollEnabled={true}
-          data={Tutor}
+          data={Tutor.reverse()}
           keyExtractor={(item, index) => index}
           showsVerticalScrollIndicator={false}
           //renderItem={renderItem}
 
           renderItem={({ item, index }) => (
-            <View style={{ marginTop: 10 }}>
+            <View style={{}}>
               <TouchableOpacity style={styles.List}>
-                <View style={{ height: 100, width: "100%", marginLeft: 10 }}>
-                  <View
-                    style={{ height: 20, width: "70%", flexDirection: "row" }}
-                  >
+                <View style={{ width: "100%", marginLeft: 10 }}>
+                  <View style={{ width: "70%", flexDirection: "row" }}>
                     <Text style={styles.LIstText}>
                       Post ID {item.student_post_requirements_id}
                     </Text>
@@ -455,7 +453,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     width: wp(90),
-    height: hp(15),
+    //  height: hp(15),
     margin: 20,
     alignSelf: "center",
     shadowColor: "grey",

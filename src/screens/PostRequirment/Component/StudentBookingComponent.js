@@ -265,7 +265,7 @@ const StudentBookingComponent = (props) => {
   }, [value]);
   return (
     // <View style={styles.container}>
-    <SafeAreaView style={{ flex: 1, marginHorizontal: 10 }}>
+    <View style={{ flex: 1, marginHorizontal: 10 }}>
       <View style={[styles.Bookcard, styles.BookshadowProp]}>
         <View
           style={{
@@ -419,7 +419,7 @@ const StudentBookingComponent = (props) => {
                 }}
               >
                 <View style={styles.DetailContainer}>
-                  <View style={{ height: 100, width: "30%" }}>
+                  <View style={{ height: 150, width: "30%" }}>
                     <Text
                       style={{
                         marginTop: 10,
@@ -458,7 +458,7 @@ const StudentBookingComponent = (props) => {
                 </View>
 
                 <View style={styles.DetailContainer}>
-                  <View style={{ height: 100, width: "30%" }}>
+                  <View style={{ height: 150, width: "30%" }}>
                     <Text
                       style={{
                         marginTop: 10,
@@ -540,11 +540,11 @@ const StudentBookingComponent = (props) => {
                       onChangeInput={(text) =>
                         console.log("SSSSSSSSSSSSSS", text)
                       }
-                      tagRemoveIconColor="#CCC"
-                      tagBorderColor="#CCC"
-                      tagTextColor="#000"
+                      tagRemoveIconColor="#2F5597"
+                      tagBorderColor="#2F5597"
+                      tagTextColor="#2F5597"
                       styleTextTag={{ fontSize: 12 }}
-                      selectedItemTextColor="red"
+                      selectedItemTextColor="#2F5597"
                       selectedItemIconColor="#CCC"
                       itemTextColor="#000"
                       itemFontSize={12}
@@ -552,11 +552,14 @@ const StudentBookingComponent = (props) => {
                       displayKey="subjects_name"
                       searchInputStyle={{ color: "#CCC", fontSize: 12 }}
                       styleRowList={{ width: "90%" }}
+                      fixedHeight={true}
                       // submitButtonColor="#000"
                       //submitButtonText="Submit"
                       styleDropdownMenu={{ backgroundColor: "red" }}
                       hideSubmitButton
-                      styleItemsContainer={{}}
+                      styleItemsContainer={{
+                        height: 100,
+                      }}
                     />
                     {/* </View> */}
                   </View>
@@ -592,7 +595,7 @@ const StudentBookingComponent = (props) => {
           <Image source={require("../../../Assets/circleArrow.png")} />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
     // </View>
   );
 };
