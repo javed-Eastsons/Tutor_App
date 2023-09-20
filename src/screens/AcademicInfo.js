@@ -30,7 +30,7 @@ import { editProfile } from "../Redux/Actions/Tutors";
 import { AcademicHistory_Data } from "../Redux/Actions/types";
 var selectArray = [];
 
-const AcademicInfo = () => {
+const AcademicInfo = ({ route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const fArr = [];
@@ -235,6 +235,7 @@ const AcademicInfo = () => {
       gradYear,
       selectArray
     );
+    console.log(route.params.RouteFrom);
     // dispatch(editProfile(selectedCourse,school,grade,subject,courses, GET_USER_ID));
     let obj = {
       qualification: qualification,
@@ -252,7 +253,11 @@ const AcademicInfo = () => {
       payload: obj,
     });
 
-    navigation.navigate("YourProfle");
+    if (route.params.RouteFrom == "Update") {
+      navigation.navigate("UpdateProfile");
+    } else {
+      navigation.navigate("YourProfle");
+    }
   };
 
   const deleteRecord = (idToDelete) => {

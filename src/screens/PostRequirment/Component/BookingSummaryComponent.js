@@ -63,8 +63,8 @@ const BookingSummaryComponent = () => {
     setCurrentTab(selectedval);
   };
 
-  console.log(Student_Detail, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
+  //console.log(Student_Detail, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+  console.log(Tution_Type, "Tution_TypeTution_TypeTution_TypeTution_Type");
   const PostReqData = () => {
     console.log(Login_Data.userid, "LLLLLLLLLLLLLLLLLLL");
 

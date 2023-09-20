@@ -31,6 +31,7 @@ import {
   GetfilterSubject,
   GetfilterQualification,
   GetQuickData,
+  GetFilterBySubjects,
 } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
 import RadioGroup from "react-native-radio-buttons-group";
@@ -42,6 +43,7 @@ import {
   getSubjectList,
 } from "../Redux/Actions/Tutors";
 import { Dropdown } from "react-native-element-dropdown";
+import { Loader } from "../common/Loader";
 
 var selectArray = [];
 var selectFilter = [];
@@ -52,9 +54,12 @@ const OurTutor = ({ props, route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [Tutor, setTutor] = useState([]);
+  const [loader, setLoader] = useState(false);
+  const [dataFrom, setDataFrom] = useState("Postal");
 
   const [Primary, setPrimary] = useState("Primary");
   const [selectedlevels, setSelectedLevels] = useState([]);
+  const [subjectList, setSubjectList] = useState([]);
   const [Secondary, setSecondary] = useState("Secondary");
   const [JCPre, setJCPre] = useState("JC");
   const [IB, setIB] = useState("IB");
@@ -75,6 +80,9 @@ const OurTutor = ({ props, route }) => {
   const { LEVEL_LIST } = useSelector((state) => state.TutorReducer);
   const { SUBJECT_LIST } = useSelector((state) => state.TutorReducer);
   const { GRADE_LIST } = useSelector((state) => state.TutorReducer);
+  const { Tution_Type } = useSelector((state) => state.TutorReducer);
+
+  //console.log(Tution_Type, "Tution_TypeTution_TypeTution_TypeTution_Type");
   // console.log(
   //   "🚀 ~ file: OurTutor.js ~ line 62 ~ OurTutor ~ GET_QUICK_DATA",
   //   GET_QUICK_DATA
@@ -83,7 +91,10 @@ const OurTutor = ({ props, route }) => {
   //   GET_POSTAL_DATA,
   //   "GET_POSTAL_DATAGET_POSTAL_DATAGET_POSTAL_DATAGET_POSTAL_DATA"
   // );
-  // console.log("!!!!!!", GET_FILTER_DATA);
+  console.log(
+    "!GET_FILTER_DATAGET_FILTER_DATAGET_FILTER_DATAGET_FILTER_DATA!",
+    GET_FILTER_DATA
+  );
   const { GET_ALLTUTORS } = useSelector((state) => state.TutorReducer);
 
   // console.log("All Tutor", GET_ALLTUTORS);
@@ -96,7 +107,7 @@ const OurTutor = ({ props, route }) => {
   const [SelectedStream, setSelectedStream] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState([]);
   const [selected, setSelected] = useState([]);
-  const [allTutor, setAllTutor] = useState([]);
+
   const [selectListTutor, setSelectListTutor] = useState("");
 
   const renderList = ({ item, index }) => {
@@ -105,22 +116,24 @@ const OurTutor = ({ props, route }) => {
     return <TouchableOpacity></TouchableOpacity>;
   };
 
+  useEffect(() => {
+    dispatch(getLevelList());
+  }, []);
+  useEffect(() => {
+    dispatch(getGradeList(selectListTutor));
+  }, [selectListTutor]);
+
+  useEffect(() => {
+    dispatch(getSubjectList(selectListTutor));
+  }, [selectListTutor]);
+
   const onSelectedItemsChange = (selectedItemsnationality) => {
     // Set Selected Items
     setSelectedItems(selectedItemsnationality);
     createnational(selectedItemsnationality);
     //console.log('Nationality', selectedItems)
   };
-  useEffect(() => {
-    dispatch(GetAllTutors());
-    setAllTutor(GET_ALLTUTORS);
 
-    // setTutor(GET_ALLTUTORS)
-  }, []);
-  useEffect(() => {
-    setAllTutor(GET_ALLTUTORS);
-    // setTutor(GET_ALLTUTORS)
-  }, [GET_ALLTUTORS]);
   const createnational = (data) => {
     console.log(data, ":::::::::::::::::::::::::");
     if (data.length == 0) {
@@ -495,7 +508,7 @@ const OurTutor = ({ props, route }) => {
 
   const [userdata, setUserdata] = useState([]);
   const [postaldata, setPostaldata] = useState([]);
-  const [quickdata, setQuickdata] = useState([]);
+  const [filterData, setFilterData] = useState([]);
 
   // console.log(allTutor, "himlocal");
   // const [selectedSubject, setSelectedSubject] = useState('');
@@ -505,57 +518,12 @@ const OurTutor = ({ props, route }) => {
 
   const [selctedSort, setSelectedSort] = useState("");
 
-  const [state, setState] = useState("Select One Option");
-  const state_list = [
-    // { label: 'Select One Option', value: 'Select One Option' },
-    { label: "Pre-School", value: "Pre-School" },
-    { label: "Primary", value: "Primary" },
-    { label: "Secondary", value: "Secondary" },
-    { label: "AEIS", value: "AEIS" },
-    { label: "JC/Pre-U", value: "JC/Pre-U" },
-    { label: "IB (Diploma)", value: "IB (Diploma)" },
-    {
-      label: "International School (Grade 1 to 6)",
-      value: "International School (Grade 1 to 6)",
-    },
-    {
-      label: "International School (Grade 7 to 10)",
-      value: "International School (Grade 7 to 10)",
-    },
-    {
-      label: "International School (Grade 11, 12, 13)",
-      value: "International School (Grade 11, 12, 13)",
-    },
-    { label: "ITE", value: "ITE" },
-    { label: "Polytechnic", value: "Polytechnic" },
-    { label: "University", value: "University" },
-    { label: "Entrance Exams", value: "Entrance Exams" },
-    { label: "Foreign Languages", value: "Foreign Languages" },
-    { label: "Music", value: "Music" },
-    { label: "Computing", value: "Computing" },
-  ];
-
-  const grade_list = [
-    // { label: 'Select One Option', value: 'Select One Option' },
-    { label: "P1", value: "P1" },
-    { label: "P2", value: "P2" },
-    { label: "P3", value: "P3" },
-  ];
-
   const Stream_list = [
     // { label: 'Select One Option', value: 'Select One Option' },
     { label: "IP", value: "IP" },
     { label: "NT", value: "NT" },
   ];
 
-  const subject_list = [
-    // { label: 'Select One Option', value: 'Select One Option' },
-    { label: "English", value: "English" },
-    { label: "Business Studies", value: "Business Studies" },
-    { label: "Math", value: "Math" },
-  ];
-
-  const [state2, setState2] = useState("Select one or more");
   const state_list2 = [
     { label: "Select one or more", value: "Select one or more" },
     { label: "A Level", value: "A Level" },
@@ -567,35 +535,31 @@ const OurTutor = ({ props, route }) => {
     { label: "Current School Teacher", value: "Current School Teacher" },
   ];
 
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
-  const [toggleCheckBox2, setToggleCheckBox2] = useState(false);
-  const [toggleCheckBox3, setToggleCheckBox3] = useState(false);
-  const [toggleCheckBox4, setToggleCheckBox4] = useState(false);
-
-  const [genderData, setGenderData] = useState([
-    {
-      id: 1,
-      gender: "Female",
-    },
-    {
-      id: 2,
-      gender: "Male",
-    },
-  ]);
-
   useEffect(() => {
-    console.log("!!!!!!! ", GET_FILTER_DATA);
-    // dispatch(GetAllTutors())
-    setUserdata(GET_FILTER_DATA);
     setPostaldata(GET_POSTAL_DATA);
-    // console.log("🚀 ~ file: OurTutor.js ~ line 506 ~ useEffect ~ GET_POSTAL_DATA", GET_POSTAL_DATA)
   }, []);
 
   useEffect(() => {
-    setUserdata(GET_FILTER_DATA);
+    // setUserdata(GET_FILTER_DATA);
     setPostaldata(GET_POSTAL_DATA);
-    setQuickdata(GET_QUICK_DATA);
-  }, [GET_FILTER_DATA, GET_POSTAL_DATA, GET_QUICK_DATA]);
+  }, [GET_POSTAL_DATA, postaldata]);
+
+  useEffect(() => {
+    setLoader(true);
+    updateFilter();
+    setFilterData(GET_FILTER_DATA);
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+  }, [subjectList, selectedlevels]);
+
+  useEffect(() => {
+    setFilterData(GET_FILTER_DATA);
+  }, []);
+
+  useEffect(() => {
+    setFilterData(GET_FILTER_DATA);
+  }, [filterData, GET_FILTER_DATA]);
 
   const setPrimaryFun = () => {
     if (Primary == "") {
@@ -966,17 +930,6 @@ const OurTutor = ({ props, route }) => {
     console.log("aaaaaaaaaaa", selectArray);
   };
 
-  useEffect(() => {
-    dispatch(getLevelList());
-  }, []);
-  useEffect(() => {
-    dispatch(getGradeList(selectListTutor));
-  }, [selectListTutor]);
-
-  useEffect(() => {
-    dispatch(getSubjectList(selectListTutor));
-  }, [selectListTutor]);
-
   const FetchDetail = (time) => {
     let picker = selectedlevels;
     if (picker.includes(time)) {
@@ -989,11 +942,39 @@ const OurTutor = ({ props, route }) => {
 
     // Update the state with the modified picker array
     setSelectedLevels([...picker]); // Create a new array to trigger a state update
-
+    setDataFrom("Filter");
+    updateFilter();
     // Perform any other necessary actions, such as updating the date
   };
 
   console.log(selectedlevels, "selectedselectedselectedselected");
+
+  const AddSubjects = (time) => {
+    console.log(time, "IIIIIIIIIIIIIIIIIII");
+    let picker = subjectList;
+    if (picker.includes(time)) {
+      // Remove the time from the array if it already exists
+      picker = picker.filter((item) => item !== time);
+    } else {
+      // Add the time to the array if it doesn't exist
+      picker.push(time);
+    }
+
+    // Update the state with the modified picker array
+    setSubjectList([...picker]); // Create a new array to trigger a state update
+    setDataFrom("Filter");
+    updateFilter();
+
+    // Perform any other necessary actions, such as updating the date
+  };
+
+  console.log(subjectList, "subjectListsubjectListsubjectList");
+
+  const updateFilter = () => {
+    dispatch(
+      GetFilterBySubjects(selectedlevels, Tution_Type.Postal_Code, subjectList)
+    );
+  };
 
   return (
     <>
@@ -1016,6 +997,7 @@ const OurTutor = ({ props, route }) => {
             </Text> */}
         {/*  </TouchableOpacity> */}
         {/* </View> */}
+        <Loader flag={loader} />
         <View style={styles.Headers}>
           <View style={styles.HeadLeft}>
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -1096,85 +1078,156 @@ const OurTutor = ({ props, route }) => {
             style={[
               styles.subjectsWrapper,
               {
-                backgroundColor: Primary == "Primary" ? "#fff" : "#2F5597",
+                backgroundColor: selectedlevels.some((obj) => {
+                  return obj.includes("Primary");
+                })
+                  ? "#2F5597"
+                  : "#fff",
+                //  backgroundColor: Primary == "Primary" ? "#fff" : "#2F5597",
               },
             ]}
-            onPress={() => {
+            onPress={() =>
               //  dispatch(GetQuickData());
-              FetchDetail("Primary");
-            }}
+              FetchDetail("Primary")
+            }
           >
             {/* // onPress={() => setPrimaryFun()} style={[styles.subjectsWrapper, { backgroundColor: Primary == 'Primary' ? '#fff' : '#2F5597' }]} */}
             <Text
               style={[
                 styles.subjectText,
-                { color: Primary == "Primary" ? "#2F5597" : "#fff" },
+                {
+                  color: selectedlevels.some((obj) => {
+                    return obj.includes("Primary");
+                  })
+                    ? "#fff"
+                    : "#2F5597",
+                },
               ]}
             >
               Primary
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => setSeconadyFun()}
+            // onPress={() => setSeconadyFun()}
+            onPress={() => {
+              FetchDetail("Secondary");
+            }}
             style={[
               styles.subjectsWrapper,
               {
-                backgroundColor: Secondary == "Secondary" ? "#fff" : "#2F5597",
+                backgroundColor: selectedlevels.some((obj) => {
+                  return obj.includes("Secondary");
+                })
+                  ? "#2F5597"
+                  : "#fff",
               },
             ]}
           >
             <Text
               style={[
                 styles.subjectText,
-                { color: Secondary == "Secondary" ? "#2F5597" : "#fff" },
+                {
+                  color: selectedlevels.some((obj) => {
+                    return obj.includes("Secondary");
+                  })
+                    ? "#fff"
+                    : "#2F5597",
+                },
               ]}
             >
               Secondary
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => setJCFun()}
+            //   onPress={() => setJCFun()}
+            onPress={() => {
+              FetchDetail("JC/Pre-U");
+            }}
             style={[
               styles.subjectsWrapper,
-              { backgroundColor: JCPre == "JC" ? "#fff" : "#2F5597" },
+              {
+                backgroundColor: selectedlevels.some((obj) => {
+                  return obj.includes("JC/Pre-U");
+                })
+                  ? "#2F5597"
+                  : "#fff",
+              },
             ]}
           >
             <Text
               style={[
                 styles.subjectText,
-                { color: JCPre == "JC" ? "#2F5597" : "#fff" },
+                {
+                  color: selectedlevels.some((obj) => {
+                    return obj.includes("JC/Pre-U");
+                  })
+                    ? "#fff"
+                    : "#2F5597",
+                },
               ]}
             >
               JC/Pre-U
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => setIBFun()}
+            onPress={() => {
+              FetchDetail("IB (Diploma)");
+            }}
+            // onPress={() => setIBFun()}
             style={[
               styles.subjectsWrapper,
-              { backgroundColor: IB == "IB" ? "#fff" : "#2F5597" },
+              {
+                backgroundColor: selectedlevels.some((obj) => {
+                  return obj.includes("IB (Diploma)");
+                })
+                  ? "#2F5597"
+                  : "#fff",
+              },
             ]}
           >
             <Text
               style={[
                 styles.subjectText,
-                { color: IB == "IB" ? "#2F5597" : "#fff" },
+                {
+                  color: selectedlevels.some((obj) => {
+                    return obj.includes("IB (Diploma)");
+                  })
+                    ? "#fff"
+                    : "#2F5597",
+                },
               ]}
             >
               IB (Diploma)
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => setAEISFun()}
+            // onPress={() => setAEISFun()}
+            onPress={() => {
+              FetchDetail("AEIS");
+            }}
             style={[
               styles.subjectsWrapper,
-              { backgroundColor: AEIS == "AEIS" ? "#fff" : "#2F5597" },
+
+              {
+                backgroundColor: selectedlevels.some((obj) => {
+                  return obj.includes("AEIS");
+                })
+                  ? "#2F5597"
+                  : "#fff",
+                // backgroundColor: AEIS == "AEIS" ? "#fff" : "#2F5597"
+              },
             ]}
           >
             <Text
               style={[
                 styles.subjectText,
-                { color: AEIS == "AEIS" ? "#2F5597" : "#fff" },
+                {
+                  color: selectedlevels.some((obj) => {
+                    return obj.includes("AEIS");
+                  })
+                    ? "#fff"
+                    : "#2F5597",
+                },
               ]}
             >
               AEIS
@@ -1190,82 +1243,143 @@ const OurTutor = ({ props, route }) => {
           }}
         >
           <TouchableOpacity
-            onPress={() => setEnglishFun()}
-            style={[
-              styles.subjectsWrapper,
-              { backgroundColor: English == "English" ? "#fff" : "#2F5597" },
-            ]}
-          >
-            <Text
-              style={[
-                styles.subjectText,
-                { color: English == "English" ? "#2F5597" : "#fff" },
-              ]}
-            >
-              English
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setMathFun()}
-            style={[
-              styles.subjectsWrapper,
-              { backgroundColor: Math == "Math" ? "#2F5597" : "#fff" },
-            ]}
-          >
-            <Text
-              style={[
-                styles.subjectText,
-                { color: Math == "Math" ? "#fff" : "#2F5597" },
-              ]}
-            >
-              Math
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setScienceFun()}
-            style={[
-              styles.subjectsWrapper,
-              { backgroundColor: Science == "Science" ? "#fff" : "#2F5597" },
-            ]}
-          >
-            <Text
-              style={[
-                styles.subjectText,
-                { color: Science == "Science" ? "#2F5597" : "#fff" },
-              ]}
-            >
-              Science
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setChineseFun()}
-            style={[
-              styles.subjectsWrapper,
-              { backgroundColor: Chinese == "Chinese" ? "#fff" : "#2F5597" },
-            ]}
-          >
-            <Text
-              style={[
-                styles.subjectText,
-                { color: Chinese == "Chinese" ? "#2F5597" : "#fff" },
-              ]}
-            >
-              Chinese
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setEconimicsFun()}
+            AddSubjects
+            // onPress={() => setEnglishFun()}
+            onPress={() => AddSubjects("English")}
             style={[
               styles.subjectsWrapper,
               {
-                backgroundColor: Economics == "Economics" ? "#fff" : "#2F5597",
+                backgroundColor: subjectList.some((obj) => {
+                  return obj.includes("English");
+                })
+                  ? "#2F5597"
+                  : "#fff",
               },
             ]}
           >
             <Text
               style={[
                 styles.subjectText,
-                { color: Economics == "Economics" ? "#2F5597" : "#fff" },
+                {
+                  color: subjectList.some((obj) => {
+                    return obj.includes("English");
+                  })
+                    ? "#fff"
+                    : "#2F5597",
+                },
+              ]}
+            >
+              English
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            // onPress={() => setMathFun()}
+            onPress={() => AddSubjects("Math")}
+            style={[
+              styles.subjectsWrapper,
+              {
+                backgroundColor: subjectList.some((obj) => {
+                  return obj.includes("Math");
+                })
+                  ? "#2F5597"
+                  : "#fff",
+              },
+            ]}
+          >
+            <Text
+              style={[
+                styles.subjectText,
+                {
+                  color: subjectList.some((obj) => {
+                    return obj.includes("Math");
+                  })
+                    ? "#fff"
+                    : "#2F5597",
+                },
+              ]}
+            >
+              Math
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => AddSubjects("Science")}
+            style={[
+              styles.subjectsWrapper,
+              {
+                backgroundColor: subjectList.some((obj) => {
+                  return obj.includes("Science");
+                })
+                  ? "#2F5597"
+                  : "#fff",
+              },
+            ]}
+          >
+            <Text
+              style={[
+                styles.subjectText,
+                {
+                  color: subjectList.some((obj) => {
+                    return obj.includes("Science");
+                  })
+                    ? "#fff"
+                    : "#2F5597",
+                },
+              ]}
+            >
+              Science
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => AddSubjects("Chinese")}
+            style={[
+              styles.subjectsWrapper,
+              {
+                backgroundColor: subjectList.some((obj) => {
+                  return obj.includes("Chinese");
+                })
+                  ? "#2F5597"
+                  : "#fff",
+              },
+            ]}
+          >
+            <Text
+              style={[
+                styles.subjectText,
+                {
+                  color: subjectList.some((obj) => {
+                    return obj.includes("Chinese");
+                  })
+                    ? "#fff"
+                    : "#2F5597",
+                },
+              ]}
+            >
+              Chinese
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => AddSubjects("Economics")}
+            style={[
+              styles.subjectsWrapper,
+              {
+                backgroundColor: subjectList.some((obj) => {
+                  return obj.includes("Economics");
+                })
+                  ? "#2F5597"
+                  : "#fff",
+              },
+            ]}
+          >
+            <Text
+              style={[
+                styles.subjectText,
+                {
+                  color: subjectList.some((obj) => {
+                    return obj.includes("Economics");
+                  })
+                    ? "#fff"
+                    : "#2F5597",
+                },
               ]}
             >
               Economics
@@ -1322,20 +1436,33 @@ const OurTutor = ({ props, route }) => {
                 source={require("../Assets/filterIcon.png")}
                 style={styles.filterImage}
               />
+
               <Text style={styles.filterText}>Filter</Text>
             </TouchableOpacity>
           </View>
         </View>
 
         {/* {GET_FILTER_DATA.length > 0 ? ( */}
-        <FlatList
-          data={postaldata}
-          numColumns={1}
-          keyExtractor={(item, index) => index}
-          renderItem={({ item, index }) => {
-            return <ItemBox data={item} index={index} props />;
-          }}
-        />
+        {dataFrom == "Postal" ? (
+          <FlatList
+            data={postaldata}
+            numColumns={1}
+            keyExtractor={(item, index) => index}
+            renderItem={({ item, index }) => {
+              return <ItemBox data={item} index={index} props />;
+            }}
+          />
+        ) : (
+          <FlatList
+            data={filterData}
+            numColumns={1}
+            keyExtractor={(item, index) => index}
+            renderItem={({ item, index }) => {
+              return <ItemBox data={item} index={index} props />;
+            }}
+          />
+        )}
+
         {/* ) : (
           <FlatList
             data={allTutor}

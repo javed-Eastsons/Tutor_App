@@ -39,7 +39,10 @@ import { Tutor_Detail } from "../Redux/Actions/types";
 import * as Animatable from "react-native-animatable";
 import Collapsible from "react-native-collapsible";
 import Accordion from "react-native-collapsible/Accordion";
-import { singleUserDetails } from "../Redux/Actions/Tutors";
+import {
+  singleUserDetails,
+  FavouriteTutorByStudent,
+} from "../Redux/Actions/Tutors";
 
 const TutorSearchProfile = ({ props, route }) => {
   const navigation = useNavigation();
@@ -49,15 +52,48 @@ const TutorSearchProfile = ({ props, route }) => {
   const dispatch = useDispatch();
   const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { SINGLE_USER_DETAILS } = useSelector((state) => state.TutorReducer);
-  console.log(
-    SINGLE_USER_DETAILS[0]?.tutoring_detail_arr.map(
-      (item) => item?.TutoringLevel
-    ),
-    "SINGLE_USER_DETAILS"
-  );
-  console.log(data, "GET_POSTAL_DATAGET_POSTAL_DATAGET_POSTAL_DATA");
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
+  console.log(Login_Data, "Login_DataLogin_DataLogin_Data");
+  // console.log(
+  //   SINGLE_USER_DETAILS[0]?.tutoring_detail_arr.map(
+  //     (item) => item?.TutoringLevel
+  //   ),
+  //   "SINGLE_USER_DETAILS"
+  // );
+
   const [activeSections, setActiveSections] = useState([]);
   const [activeSectionsSch, setActiveSectionsSch] = useState([]);
+  const { Tution_Type } = useSelector((state) => state.TutorReducer);
+  const [isBookmarked, setIsBookmarked] = useState(data.favourite_status);
+  console.log(isBookmarked, "LLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+  const toggleBookmark = () => {
+    setIsBookmarked(!isBookmarked);
+    if (data.favourite_status == "true") {
+      dispatch(
+        FavouriteTutorByStudent(Login_Data.userid, data.user_id, "false")
+      );
+    } else {
+      dispatch(
+        FavouriteTutorByStudent(Login_Data.userid, data.user_id, "true")
+      );
+    }
+  };
+
+  // const updateFilter = (isBookmarked) => {
+  //   console.log(isBookmarked, "isBookmarkedisBookmarkedisBookmarked");
+
+  //   dispatch(
+  //     FavouriteTutorByStudent(Login_Data.userid, data.user_id, isBookmarked)
+  //   );
+
+  //   // dispatch(FavouriteTutorByStudent(Login_Data.userid, data.user_id, true));
+
+  //   // dispatch(
+  //   //   FavouriteTutorByStudent(Login_Data.userid, data.user_id, isBookmarked)
+  //   // );
+  // };
+
+  //console.log(Tution_Type, "Tution_TypeTution_TypeTution_TypeTution_Type");
 
   // Collapsed condition for the single collapsible
   const [collapsed, setCollapsed] = useState(true);
@@ -73,6 +109,7 @@ const TutorSearchProfile = ({ props, route }) => {
   useEffect(() => {
     dispatch(singleUserDetails(data.user_id));
   }, []);
+
   const setSections = (sections) => {
     //setting up a active section state
     setActiveSections(sections.includes(undefined) ? [] : sections);
@@ -323,6 +360,11 @@ const TutorSearchProfile = ({ props, route }) => {
     // }
   };
 
+  // const GetFavTutor = () => {
+  //   toggleBookmark();
+  //   //dispatch(FavouriteTutorByStudent(data.user_id, Login_Data.userid));
+  // };
+
   const GotoBook = () => {
     let obj = {
       tutorid: data?.user_id,
@@ -470,12 +512,24 @@ const TutorSearchProfile = ({ props, route }) => {
           alignItems: "center",
         }}
       >
-        <View style={styles.FavBooKChat}>
+        <TouchableOpacity style={styles.FavBooKChat} onPress={toggleBookmark}>
+          {console.log(!isBookmarked, "OOOOOOOOOOOOOOOOOOOOO")}
+          {/* {isBookmarked == "true" ? ( */}
           <Image
-            source={require("../Assets/heart.png")}
+            source={
+              isBookmarked
+                ? require("../Assets/heart.png")
+                : require("../Assets/Health.png")
+            }
             style={styles.Bookicons}
           />
-        </View>
+          {/* // ) : (
+          //   <Image
+          //     source={require("../Assets/Health.png")}
+          //     style={styles.Bookicons}
+          //   />
+          // )} */}
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => GotoBook()} style={styles.FavBooKChat}>
           <Image
             source={require("../Assets/people.png")}
@@ -510,9 +564,14 @@ const TutorSearchProfile = ({ props, route }) => {
           marginLeft: 10,
         }}
       >
-        <View style={styles.FavBooKChatContainer}>
-          <Text style={{ alignSelf: "center", color: "grey" }}>Favourite</Text>
-        </View>
+        <TouchableOpacity
+          style={styles.FavBooKChatContainer}
+          onpress={() => GetFavTutor()}
+        >
+          <Text style={{ alignSelf: "center", color: "grey" }}>
+            {isBookmarked ? "My Fav" : "Favourite"}
+          </Text>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => GotoBook()}
           style={styles.FavBooKChatContainer}

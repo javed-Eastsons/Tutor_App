@@ -216,6 +216,8 @@ const PersonalInfo = ({ route }) => {
   //            + Difference_In_Days);
 
   const personalinfofun = () => {
+    console.log(route.params.RouteFrom);
+
     console.log(Age, markGender, selectnational, "????????????????");
     let obj = {
       Age: Age,
@@ -230,12 +232,21 @@ const PersonalInfo = ({ route }) => {
 
     // dispatch(editProfile(Age, markGender,selectnational, GET_USER_ID));
 
-    navigation.navigate("YourProfle", {
-      Age: Age,
-      markGender: markGender,
-      selectnational: selectnational,
-      GET_USER_ID: GET_USER_ID,
-    });
+    if (route.params.RouteFrom == "Update") {
+      navigation.navigate("UpdateProfile", {
+        Age: Age,
+        markGender: markGender,
+        selectnational: selectnational,
+        GET_USER_ID: GET_USER_ID,
+      });
+    } else {
+      navigation.navigate("YourProfle", {
+        Age: Age,
+        markGender: markGender,
+        selectnational: selectnational,
+        GET_USER_ID: GET_USER_ID,
+      });
+    }
   };
 
   // if (loader == true) {

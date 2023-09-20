@@ -161,8 +161,9 @@ const BookingInformationConfirmation = () => {
                 padding: 10,
               }}
             >
-              <Text style={styles.BookText1}>{Tution_Type.tuition_type}</Text>
+              <Text style={styles.BookText1}>{Tution_Type.TutionType}</Text>
             </View>
+
             <View
               style={{
                 height: 40,
@@ -186,7 +187,9 @@ const BookingInformationConfirmation = () => {
                 alignItems: "center",
               }}
             >
-              <Text style={styles.PostalText}>Postal Code Edit Here</Text>
+              <Text style={styles.PostalText}>{Tution_Type.Postal_Code}</Text>
+              {/* <Text style={styles.PostalText}>{Tution_Type.PostAddress}</Text> */}
+              {/* <Text style={styles.PostalText}>Postal Code Edit Here</Text> */}
             </View>
             <TouchableOpacity
               style={{
@@ -735,7 +738,7 @@ const styles = StyleSheet.create({
   BookText1: {
     fontSize: 15,
     color: "grey",
-    fontFamily: "Poppins-SemiBold",
+    fontFamily: "Poppins-Regular",
   },
   PostalText: {
     // fontSize: 14,

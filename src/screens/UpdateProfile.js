@@ -393,7 +393,11 @@ const UpdateProfile = ({ props, route }) => {
                 </Text>
 
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("PersonalInfo")}
+                  onPress={() =>
+                    navigation.navigate("PersonalInfo", {
+                      RouteFrom: "Update",
+                    })
+                  }
                   style={styles.infoWrapper}
                 >
                   <Text style={styles.infoWrapperText}>
@@ -435,7 +439,11 @@ const UpdateProfile = ({ props, route }) => {
                 </Text>
 
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("AcademicInfo")}
+                  onPress={() =>
+                    navigation.navigate("AcademicInfo", {
+                      RouteFrom: "Update",
+                    })
+                  }
                   style={styles.infoWrapper}
                 >
                   <Text style={styles.infoWrapperText}>
@@ -567,7 +575,11 @@ const UpdateProfile = ({ props, route }) => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => navigation.navigate("HomeTution")}
+                onPress={() =>
+                  navigation.navigate("HomeTution", {
+                    RouteFrom: "Update",
+                  })
+                }
                 style={{
                   height: hp(20),
                   marginTop: hp(2),
@@ -671,7 +683,11 @@ const UpdateProfile = ({ props, route }) => {
                 </Text>
 
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("TutoringDetail")}
+                  onPress={() =>
+                    navigation.navigate("TutoringDetail", {
+                      RouteFrom: "Update",
+                    })
+                  }
                   style={styles.infoWrapper}
                 >
                   <Text style={styles.infoWrapperText}>
@@ -721,7 +737,11 @@ const UpdateProfile = ({ props, route }) => {
                 </Text>
 
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("WordYou")}
+                  onPress={() =>
+                    navigation.navigate("WordYou", {
+                      RouteFrom: "Update",
+                    })
+                  }
                   style={styles.infoWrapper}
                 >
                   <Text style={styles.infoWrapperText}>A Word from Yous</Text>

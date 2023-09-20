@@ -382,8 +382,9 @@ export const BookTutor = (
 
       body: JSON.stringify({
         student_id: Login_Data?.userid,
-
-        student_tution_type: Tution_Type.tuition_type,
+        postal_code: Tution_Type.Postal_Code,
+        postal_address: Tution_Type.PostAddress,
+        student_tution_type: Tution_Type.TutionType,
         tutor_id: Tutor_Detail?.tutorid,
         tutor_duration_weeks: Tutor_Qualification.frequency,
         tutor_duration_hours: Tutor_Qualification.duration,

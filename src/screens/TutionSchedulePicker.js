@@ -565,7 +565,7 @@ const TutionSchedulePicker = ({}) => {
           style={{
             height: 40,
             width: 60,
-            backgroundColor: selectedwed.some((obj) => {
+            backgroundColor: selectedWed.some((obj) => {
               return obj.includes(item.item);
             })
               ? "#2F5597"
@@ -587,7 +587,7 @@ const TutionSchedulePicker = ({}) => {
           <Text
             style={{
               fontSize: 12,
-              color: selectedwed.some((obj) => {
+              color: selectedWed.some((obj) => {
                 return obj.includes(item.item);
               })
                 ? "#fff"

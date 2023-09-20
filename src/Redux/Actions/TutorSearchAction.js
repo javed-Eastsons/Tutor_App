@@ -40,7 +40,7 @@ export const GetfilterQualification = (
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("PPPPPPPPPPPPPPPPPPPPPPP", responseJson);
+        // console.log("PPPPPPPPPPPPPPPPPPPPPPP", responseJson);
         //   Alert.alert(responseJson.message)
         if (responseJson.Status == true) {
           console.log("ww", responseJson.Tutor_Search_Data);
@@ -54,6 +54,63 @@ export const GetfilterQualification = (
         } else if (responseJson.Status == false) {
           console.log("AAa", responseJson.Message);
           Alert.alert(responseJson.Message);
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+  };
+};
+
+export const GetFilterBySubjects = (
+  Level,
+  PostalCode,
+  Subjects,
+
+  navigation
+) => {
+  let data = {
+    postal_code: PostalCode,
+    TutoringLevel: Level,
+    subjects: Subjects,
+  };
+  // console.log("mainarraymainarraymainarraymainarray", data);
+
+  return (dispatch, getState) => {
+    axios.defaults.baseURL = "https://refuel.site";
+    const url1 =
+      axios.defaults.baseURL +
+      "/projects/tutorapp/APIs/FilterData/TutorFilterData.php";
+
+    console.log(url1);
+    return fetch(url1, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": authtoken,
+      }),
+
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        // console.log("PPPPPPPPPPPPPPPPPPPPPPP", responseJson);
+        //   Alert.alert(responseJson.message)
+        if (responseJson.status == true) {
+          // console.log("ww", responseJson.Filter_Data_Records);
+          // Alert.alert(responseJson.message)
+          dispatch({
+            type: GET_FILTER_DATA,
+            FILTER_DATA: responseJson.Filter_Data_Records,
+          });
+
+          // navigation.navigate('OurTutor')
+        } else if (responseJson.status == false) {
+          console.log("AAa", responseJson.message);
+          dispatch({
+            type: GET_FILTER_DATA,
+            FILTER_DATA: [],
+          });
+          Alert.alert(responseJson.message);
         }
       })
       .catch((error) => console.log("LLLLLLLLL", error.message));
@@ -114,7 +171,7 @@ export const GetfilterSubject = (
 };
 
 export const GetResultAfterPostcode = (postalcode, navigation) => {
-  console.log(postalcode);
+  //console.log(postalcode);
   return (dispatch, getState) => {
     axios.defaults.baseURL = "https://refuel.site";
     const url1 =
@@ -124,7 +181,7 @@ export const GetResultAfterPostcode = (postalcode, navigation) => {
     formData.append("tuition_type", "Home Tuition");
     formData.append("postal_code", postalcode);
 
-    console.log("FORMDATAAAAA", formData);
+    //console.log("FORMDATAAAAA", formData);
 
     return fetch(url1, {
       method: "POST",
@@ -138,13 +195,13 @@ export const GetResultAfterPostcode = (postalcode, navigation) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
+        // console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
 
         if (responseJson.status == true) {
-          console.log(
-            "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
-            responseJson.message
-          );
+          // console.log(
+          //   "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+          //   responseJson.message
+          // );
           // Alert.alert(responseJson.message)
           dispatch({
             type: GET_POSTAL_DATA,
@@ -156,7 +213,7 @@ export const GetResultAfterPostcode = (postalcode, navigation) => {
             tuition_type: "Home Tuition",
           });
         } else if (responseJson.status == false) {
-          console.log("AAa", responseJson.message);
+          //  console.log("AAa", responseJson.message);
           Alert.alert(responseJson.message);
           // dispatch({
 

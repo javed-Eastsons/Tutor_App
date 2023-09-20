@@ -30,7 +30,7 @@ import { Tution_Type, Postal_Code_Address } from "../Redux/Actions/types";
 import { GetUserProfile } from "../Redux/Actions/Tutors";
 import Slider from "@react-native-community/slider";
 
-const HomeTution = () => {
+const HomeTution = ({ route }) => {
   const circleCenter = { latitude: 37.78825, longitude: -122.4324 };
   const circleRadius = 1000; // in meters
   const mapRef = useRef(null);
@@ -194,7 +194,11 @@ const HomeTution = () => {
     });
 
     console.log(obj, "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
-    navigation.navigate("YourProfle");
+    if (route.params.RouteFrom == "Update") {
+      navigation.navigate("UpdateProfile");
+    } else {
+      navigation.navigate("YourProfle");
+    }
   };
 
   // if(mapData){
@@ -255,7 +259,13 @@ const HomeTution = () => {
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("YourProfle")}
+                  onPress={() =>
+                    navigation.navigate(
+                      route.params.RouteFrom == "Update"
+                        ? "UpdateProfile"
+                        : "YourProfle"
+                    )
+                  }
                   style={styles.crossImageWrapper}
                 >
                   <Image

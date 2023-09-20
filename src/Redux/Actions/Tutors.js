@@ -740,6 +740,44 @@ export const offerDateTime = (
   };
 };
 
+export const FavouriteTutorByStudent = (loginuser, tutorid, val) => {
+  return (dispatch, getState) => {
+    const url =
+      "https://refuel.site/projects/tutorapp/APIs/FavouriteTutorByStudent/FavouriteTutorByStudent.php";
+
+    let data = new FormData();
+    data.append("logged_in_student_id", loginuser);
+    data.append("tutor_id", tutorid);
+    data.append("favourite_status", val);
+
+    console.log(
+      data,
+      "formdataformdataformdataformdataformdataformdataformdataformdataformdataformdataformdataformdataformdataformdataformdataformdata"
+    );
+    return fetch(url, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("responseJson", responseJson);
+        if (responseJson.status == true) {
+          Alert.alert(responseJson.message);
+          // navigation.navigate("Auth4");
+        } else if (responseJson.status == false) {
+          Alert.alert("Record not inserted");
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+  };
+};
+
 export const ConfirmofferDateTime = (tutorBookingProcessId, student_id) => {
   return (dispatch, getState) => {
     const url =

@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editProfile, GetUserProfile } from "../Redux/Actions/Tutors";
 import { TutionStatus_Data } from "../Redux/Actions/types";
 
-const WordYou = () => {
+const WordYou = ({ route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
@@ -71,7 +71,12 @@ const WordYou = () => {
       type: TutionStatus_Data,
       payload: obj,
     });
-    navigation.navigate("YourProfle");
+
+    if (route.params.RouteFrom == "Update") {
+      navigation.navigate("UpdateProfile");
+    } else {
+      navigation.navigate("YourProfle");
+    }
 
     console.log("LLLLLLLLLLLLLLLLLLL", mark, yourdata);
   };

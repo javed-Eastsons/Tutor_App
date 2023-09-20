@@ -25,6 +25,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../common/Loader";
+import { Tution_Type, Postal_Code_Address } from "../Redux/Actions/types";
 import axios from "axios";
 const TutorSearch = () => {
   const navigation = useNavigation();
@@ -36,18 +37,28 @@ const TutorSearch = () => {
   const [address, setAddress] = useState("");
 
   const presspostalcode = () => {
-    console.log("cdddddddddddddd");
+    console.log("cdddddddddddddd", address, postalcode);
 
     if (postalcode == "") {
       console.log("Inside IFFFF");
       Alert.alert("Enter postal code");
     } else {
+      let obj = {
+        Postal_Code: postalcode,
+        TutionType: "Home Tuition",
+        PostAddress: address,
+      };
+
+      dispatch({
+        type: Tution_Type,
+        payload: obj,
+      });
       console.log("Inside ELSEEEEEEEEEE");
       setLoader(true);
+      dispatch(GetResultAfterPostcode(postalcode, navigation))
+        .then((res) => setLoader(false))
+        .finally(() => setLoader(false));
       setTimeout(() => {
-        dispatch(GetResultAfterPostcode(postalcode, navigation))
-          .then((res) => setLoader(false))
-          .finally(() => setLoader(false));
         setLoader(false);
       }, 2000);
     }
@@ -121,9 +132,9 @@ const TutorSearch = () => {
   const forwardArrowFunc = () => {
     console.log("QQQQQQQQQQQQQQQQQQQQQQ");
     setLoader(true);
+    geocodinApi();
+    setForwardArrow(true);
     setTimeout(() => {
-      geocodinApi();
-      setForwardArrow(true);
       setLoader(false);
     }, 2000);
   };
@@ -267,6 +278,7 @@ const TutorSearch = () => {
                 <View style={styles.bicons}>
                   <Image source={require("../Assets/helptutIcon.png")} />
                 </View>
+
                 <Text
                   style={{
                     textAlign: "center",
@@ -280,6 +292,7 @@ const TutorSearch = () => {
                 >
                   Homework{"\n"}Help
                 </Text>
+
                 <View
                   style={{
                     alignSelf: "center",
@@ -309,6 +322,7 @@ const TutorSearch = () => {
                     keyboardType="phone-pad"
                     style={{ color: "#000", paddingLeft: wp(2), width: wp(28) }}
                   />
+
                   <TouchableOpacity onPress={() => forwardArrowFunc()}>
                     <Image
                       source={require("../Assets/rightArrowCode.png")}
@@ -508,7 +522,7 @@ const styles = StyleSheet.create({
     width: wp(50),
     alignSelf: "center",
     justifyContent: "center",
-    height: hp(5),
+    // height: hp(5),
     marginTop: hp(2),
   },
   forwardArrowTextWrapper: {

@@ -39,7 +39,7 @@ import {
 var selectArray = [];
 //var gradeArray = [];
 
-const TutoringDetail = () => {
+const TutoringDetail = ({ route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
@@ -60,6 +60,7 @@ const TutoringDetail = () => {
 
   const [grade, setGrade] = useState([]);
   const [loader, setLoader] = useState(false);
+  const [loader1, setLoader1] = useState(false);
   const [records, setRecords] = useState(selectArray);
   const [showEditModal, setShowEditModal] = useState(false);
 
@@ -702,13 +703,23 @@ const TutoringDetail = () => {
       payload: obj,
     });
 
-    navigation.navigate("YourProfle", {
-      selectListTutor: selectListTutor,
-      state: state,
-      state2: state2,
-      selectArray: selectArray,
-      GET_USER_ID: GET_USER_ID,
-    });
+    if (route.params.RouteFrom == "Update") {
+      navigation.navigate("UpdateProfile", {
+        selectListTutor: selectListTutor,
+        state: state,
+        state2: state2,
+        selectArray: selectArray,
+        GET_USER_ID: GET_USER_ID,
+      });
+    } else {
+      navigation.navigate("YourProfle", {
+        selectListTutor: selectListTutor,
+        state: state,
+        state2: state2,
+        selectArray: selectArray,
+        GET_USER_ID: GET_USER_ID,
+      });
+    }
   };
 
   const [multiSelect, setmultiSelect] = useState("");
@@ -808,7 +819,7 @@ const TutoringDetail = () => {
     // setRecords(userDetail[0]?.history_academy_arr);
     setTimeout(() => {
       setLoader(false);
-    }, 4000);
+    }, 2000);
   }, [SINGLE_USER]);
 
   const deleteRecord = (idToDelete) => {
@@ -824,9 +835,9 @@ const TutoringDetail = () => {
     selectListTutor == "" ? (() => {})() : setLevelDetail();
     dispatch(getGradeList(selectListTutor));
     dispatch(getSubjectList(selectListTutor));
-    setLoader(true);
+    setLoader1(true);
     setTimeout(() => {
-      setLoader(false);
+      setLoader1(false);
     }, 4000);
   };
 
@@ -1297,7 +1308,7 @@ const TutoringDetail = () => {
                     </TouchableOpacity>
                   </View>
 
-                  {loader == true ? (
+                  {loader1 == true ? (
                     <View>
                       <ActivityIndicator size="small" />
                     </View>

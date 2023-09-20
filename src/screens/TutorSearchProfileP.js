@@ -188,6 +188,7 @@ const TutorSearchProfile = ({ props, route }) => {
             <Text style={styles.infoText}>{data.age}</Text>
             <Text style={styles.infoText1}>Age</Text>
           </View>
+
           <View style={styles.line}></View>
           <View style={styles.infoContainer}>
             <Text style={styles.infoText}>{data.gender}</Text>
@@ -227,24 +228,26 @@ const TutorSearchProfile = ({ props, route }) => {
           alignItems: "center",
         }}
       >
-        <View style={styles.FavBooKChat}>
+        <TouchableOpacity style={styles.FavBooKChat}>
           <Image
             source={require("../Assets/heart.png")}
             style={styles.Bookicons}
           />
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => GotoBook()} style={styles.FavBooKChat}>
           <Image
             source={require("../Assets/people.png")}
             style={styles.Bookicons}
           />
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.FavBooKChat}>
           <Image
             source={require("../Assets/Bookchat.png")}
             style={styles.Bookicons}
           />
         </TouchableOpacity>
+
         {/* <View style={{ height: 30, width: 50, position: "absolute", right: 10 }}>
                     <Image source={require('../Assets/location.png')}
                         style={styles.Locationicons}
@@ -267,9 +270,9 @@ const TutorSearchProfile = ({ props, route }) => {
           marginLeft: 10,
         }}
       >
-        <View style={styles.FavBooKChatContainer}>
+        <TouchableOpacity style={styles.FavBooKChatContainer}>
           <Text style={{ alignSelf: "center", color: "grey" }}>Favourite</Text>
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => GotoBook()}
           style={styles.FavBooKChatContainer}

@@ -38,7 +38,6 @@ import StarRating from "react-native-star-rating";
 import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { Dropdown } from "react-native-element-dropdown";
 import { Tutor_Qualification } from "../Redux/Actions/types";
-import { RadioButton } from "react-native-paper";
 
 var selectArray = [];
 var selectFilter = [];
@@ -49,7 +48,6 @@ const TutorQualification = ({ route }) => {
   const [userdata, setUserdata] = useState([]);
   const [postaldata, setPostaldata] = useState([]);
   const [selectedlevel, setSelectedlevel] = useState([]);
-  const [valueR, setValueR] = useState("");
   const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer);
   const [offerAmount, setofferAmount] = useState("");
@@ -79,11 +77,10 @@ const TutorQualification = ({ route }) => {
 
   const onPressRadioButton = (radioButtonsArray) => {
     console.log("PKKKKKKKKKKKKKKK", radioButtonsArray);
-    var selection = radioButtonsArray;
+    var selection = radioButtonsArray[0].selected;
     // setRadioButtons(radioButtonsArray);
     console.log("PK+++++++++++++++++++++K", selection);
-    setValueR(radioButtonsArray);
-    if (selection == "first") {
+    if (selection == true) {
       setFeeOffer("Non Negotiable");
     } else {
       setFeeOffer("Negotiable");
@@ -338,7 +335,6 @@ const TutorQualification = ({ route }) => {
               }}
             />
           </View>
-
           <View style={[styles.cardFrequency, styles.shadowPropFrequency]}>
             <Text style={styles.BookText1}>Frequency & Duration</Text>
             <View style={{ position: "absolute", right: 10 }}>
@@ -351,7 +347,7 @@ const TutorQualification = ({ route }) => {
               style={{
                 height: 40,
                 width: "100%",
-                marginTop: 0,
+                marginTop: 15,
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
@@ -435,35 +431,8 @@ const TutorQualification = ({ route }) => {
                 style={styles.TypeImage}
               />
             </View>
-            <RadioButton.Group
-              onValueChange={onPressRadioButton}
-              value={valueR}
-            >
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  paddingHorizontal: 20,
-                  marginTop: 20,
-                }}
-              >
-                <View style={[styles.radioBtn, { marginRight: 10 }]}>
-                  <Text style={{ color: "#fff", marginTop: 7 }}>
-                    Place Offer
-                  </Text>
-                  <RadioButton value="first" color="#fff" />
-                </View>
-                <View style={styles.radioBtn}>
-                  <Text style={{ color: "#fff", marginTop: 7 }}>
-                    Negotiable
-                  </Text>
-                  <RadioButton value="second" color="#fff" />
-                </View>
-              </View>
-            </RadioButton.Group>
 
-            {/* <View
+            <View
               style={{
                 height: 40,
                 width: "100%",
@@ -478,67 +447,61 @@ const TutorQualification = ({ route }) => {
                 onPress={onPressRadioButton}
                 layout="row"
               />
-            </View> */}
+            </View>
             {/* {feeOffer == "Place Offer" ? ( */}
-            {valueR ? (
-              <View
+            <View
+              style={{
+                flexDirection: "row",
+                height: 50,
+                borderWidth: 0.5,
+                // backgroundColor: "#2F5597",
+                // marginTop: wp(5),
+                justifyContent: "center",
+              }}
+            >
+              <Text
                 style={{
-                  flexDirection: "row",
-                  height: 35,
-                  borderWidth: 0.5,
+                  color: "#000",
+                  fontSize: 16,
+                  fontWeight: "600",
                   alignSelf: "center",
-                  // backgroundColor: "#2F5597",
-                  // marginTop: wp(5),
-                  width: "50%",
-                  justifyContent: "center",
-                  borderRadius: 10,
                 }}
               >
-                <Text
-                  style={{
-                    color: "#000",
-                    fontSize: 16,
-                    fontWeight: "600",
-                    alignSelf: "center",
-                  }}
-                >
-                  SGD
-                </Text>
+                SGD
+              </Text>
 
-                <TextInput
-                  style={{
-                    height: 35,
-                    backgroundColor: "lightgrey",
-                    width: 60,
-                    color: "#000",
-                    fontSize: 18,
-                    marginRight: 4,
-                    marginLeft: 4,
-                    fontWeight: "500",
-                    justifyContent: "center",
-                    paddingTop: 5,
-                    justifyContent: "center",
-                    paddingLeft: 10,
-                  }}
-                  keyboardType="numeric"
-                  value={offerAmount}
-                  onChangeText={(text) => setofferAmount(text)}
-                  placeholderTextColor="#fff"
-                  placeholder="0.00"
-                />
-                <Text
-                  style={{
-                    color: "#000",
-                    fontSize: 16,
-                    fontWeight: "600",
-                    alignSelf: "center",
-                  }}
-                >
-                  / hour
-                </Text>
-              </View>
-            ) : null}
-
+              <TextInput
+                style={{
+                  height: 50,
+                  backgroundColor: "lightgrey",
+                  width: 60,
+                  color: "#000",
+                  fontSize: 18,
+                  marginRight: 4,
+                  marginLeft: 4,
+                  fontWeight: "500",
+                  justifyContent: "center",
+                  paddingTop: 5,
+                  justifyContent: "center",
+                  paddingLeft: 10,
+                }}
+                keyboardType="numeric"
+                value={offerAmount}
+                onChangeText={(text) => setofferAmount(text)}
+                placeholderTextColor="#fff"
+                placeholder="0.00"
+              />
+              <Text
+                style={{
+                  color: "#000",
+                  fontSize: 16,
+                  fontWeight: "600",
+                  alignSelf: "center",
+                }}
+              >
+                / hour
+              </Text>
+            </View>
             {/* ) : (
               <View />
             )} */}
@@ -684,7 +647,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "black",
     alignSelf: "center",
-    fontFamily: "Poppins-SemiBold",
+    fontWeight: "700",
   },
   Bookcard: {
     height: "60%",
@@ -692,7 +655,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5F5F5",
     alignSelf: "center",
     // borderRadius: 2,
-    // borderWidth: 0.2,
+    borderWidth: 0.2,
     marginTop: 10,
     marginBottom: 10,
     // justifyContent:"center",
@@ -706,8 +669,10 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
   },
   BookText1: {
+    fontSize: 15,
+    color: "white",
+    fontWeight: "bold",
     color: "grey",
-    fontFamily: "Poppins-SemiBold",
   },
   TypeImage: {
     width: 40,
@@ -728,6 +693,7 @@ const styles = StyleSheet.create({
     height: 150,
     width: "100%",
     alignSelf: "center",
+
     backgroundColor: "white",
   },
   dropdown: {
@@ -792,21 +758,8 @@ const styles = StyleSheet.create({
   },
   BookText5: {
     fontSize: 15,
-    color: "#ffff",
-    fontFamily: "Poppins-SemiBold",
-  },
-  infoText: {
-    // fontSize: 15,
-    color: "black",
-    fontFamily: "Poppins-Regular",
-  },
-  radioBtn: {
-    display: "flex",
-    flexDirection: "row",
-    borderRadius: 18,
-    paddingHorizontal: 20,
-    elevation: 2,
-    marginBottom: 5,
-    backgroundColor: "#2F5597",
+    color: "white",
+    fontWeight: "bold",
+    color: "grey",
   },
 });

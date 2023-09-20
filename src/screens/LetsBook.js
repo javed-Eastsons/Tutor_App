@@ -38,6 +38,8 @@ import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { Dropdown } from "react-native-element-dropdown";
 import { Tution_Type } from "../Redux/Actions/types";
 
+console.log(Tution_Type, "Tution_TypeTution_TypeTution_TypeTution_Type");
+
 const LetsBook = ({ route, navigation }) => {
   //const navigation = useNavigation();
   const [tuition_type, setTuitionType] = useState(null);
@@ -62,16 +64,6 @@ const LetsBook = ({ route, navigation }) => {
   //     return null;
   //   };
   const GoTONext = () => {
-    console.log("Tuition Type>>>:", tuition_type);
-    let obj = {
-      tuition_type: tuition_type,
-    };
-
-    dispatch({
-      type: Tution_Type,
-      payload: obj,
-    });
-
     navigation.navigate("StudentBookingInfo", {
       data: data,
     });
@@ -188,7 +180,7 @@ const LetsBook = ({ route, navigation }) => {
                 setIsFocus(false);
               }}
             />
-            {console.log("Tution TYpe=" + tuition_type)}
+            {/* // {console.log("Tution TYpe=" + tuition_type)} */}
           </View>
         </View>
         <View

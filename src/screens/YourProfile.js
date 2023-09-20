@@ -400,7 +400,11 @@ const YourProfle = ({ props, route }) => {
                 </Text>
 
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("PersonalInfo")}
+                  onPress={() =>
+                    navigation.navigate("PersonalInfo", {
+                      RouteFrom: "Create",
+                    })
+                  }
                   style={styles.infoWrapper}
                 >
                   <Text style={styles.infoWrapperText}>
@@ -442,7 +446,11 @@ const YourProfle = ({ props, route }) => {
                 </Text>
 
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("AcademicInfo")}
+                  onPress={() =>
+                    navigation.navigate("AcademicInfo", {
+                      RouteFrom: "Create",
+                    })
+                  }
                   style={styles.infoWrapper}
                 >
                   <Text style={styles.infoWrapperText}>
@@ -574,7 +582,11 @@ const YourProfle = ({ props, route }) => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                onPress={() => navigation.navigate("HomeTution")}
+                onPress={() =>
+                  navigation.navigate("HomeTution", {
+                    RouteFrom: "Create",
+                  })
+                }
                 style={{
                   height: hp(20),
                   marginTop: hp(2),
@@ -609,7 +621,11 @@ const YourProfle = ({ props, route }) => {
                 </Text>
 
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("HomeTution")}
+                  onPress={() =>
+                    navigation.navigate("HomeTution", {
+                      RouteFrom: "Create",
+                    })
+                  }
                   style={{
                     height: hp(4),
                     width: wp(8),
@@ -678,7 +694,11 @@ const YourProfle = ({ props, route }) => {
                 </Text>
 
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("TutoringDetail")}
+                  onPress={() =>
+                    navigation.navigate("TutoringDetail", {
+                      RouteFrom: "Create",
+                    })
+                  }
                   style={styles.infoWrapper}
                 >
                   <Text style={styles.infoWrapperText}>
@@ -728,7 +748,11 @@ const YourProfle = ({ props, route }) => {
                 </Text>
 
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("WordYou")}
+                  onPress={() =>
+                    navigation.navigate("WordYou", {
+                      RouteFrom: "Create",
+                    })
+                  }
                   style={styles.infoWrapper}
                 >
                   <Text style={styles.infoWrapperText}>A Word from Yous</Text>
