@@ -349,24 +349,25 @@ export const BookTutor = (
     //   currentDate
   );
 
-  // let Booking = {
-  //   student_id: Login_Data?.userid,
-  //   student_level: Student_Detail.Level,
-  //   student_grade: Student_Detail.Grade,
-  //   student_tution_type: Tution_Type.tuition_type,
-  //   tutor_id: Tutor_Detail?.tutorid,
-  //   tutor_duration_weeks: Tutor_Qualification.frequency,
-  //   tutor_duration_hours: Tutor_Qualification.duration,
-  //   tutor_tution_fees: Tutor_Qualification.FeeOffer,
-  //   tutor_tution_schedule_time: "12:30",
-  //   tutor_tution_offer_amount_type: Tutor_Qualification.feetype,
-  //   tutor_tution_offer_amount: Tutor_Qualification.FeeOffer,
-  //   booked_date: currentDate,
-  //   Subjects: Student_Detail.Subjects,
-  //   Qualifications: Tutor_Qualification.TutorQualification,
-  //   Tutor_schedules: Tutor_Schedule.Tutor_schedules,
-  //   Slots_time: Tutor_Schedule.tutor_schedule_time,
-  // };
+  let Booking = {
+    student_id: Login_Data?.userid,
+    postal_code: Tution_Type.Postal_Code,
+    postal_address: Tution_Type.PostAddress,
+    student_tution_type: Tution_Type.TutionType,
+    tutor_id: Tutor_Detail?.tutorid,
+    tutor_duration_weeks: Tutor_Qualification.frequency,
+    tutor_duration_hours: Tutor_Qualification.duration,
+    tutor_tution_fees: Tutor_Qualification.FeeOffer,
+    tutor_tution_schedule_time: "12:30",
+    tutor_tution_offer_amount_type: Tutor_Qualification.feetype,
+    tutor_tution_offer_amount: Tutor_Qualification.FeeOffer,
+    booked_date: currentDate,
+    Student_Level_Grade_Subjects: Student_Detail.Student_Data,
+    Qualifications: Tutor_Qualification.TutorQualification,
+    Tutor_Schedules_Slot_Time: Tutor_Schedule.Tutor_schedules,
+  };
+
+  console.log(Booking, "BookingBookingBookingBooking");
 
   return (dispatch, getState) => {
     // axios.defaults.baseURL = "https://refuel.site";
@@ -401,7 +402,7 @@ export const BookTutor = (
       .then((response) => response.json())
       .then((responseJson) => {
         //  console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBB", Booking);
-        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
+        //  console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
         //   Alert.alert(responseJson.message)
         if (responseJson.status == true) {
           console.log("ww", responseJson.message);

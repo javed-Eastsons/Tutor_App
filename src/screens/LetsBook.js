@@ -207,6 +207,7 @@ const LetsBook = ({ route, navigation }) => {
           >
             <Text style={styles.BookText}>Cancel</Text>
           </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => GoTONext()}
             style={{

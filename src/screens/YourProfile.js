@@ -53,6 +53,8 @@ const YourProfle = ({ props, route }) => {
     Login_Data
   );
 
+  console.log(route.params, "pers");
+
   if (route.params) {
     const {
       Age,

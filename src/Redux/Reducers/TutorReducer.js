@@ -20,6 +20,7 @@ import {
   LEVEL_LIST,
   GRADE_LIST,
   SUBJECT_LIST,
+  ALL_FAV_TUTORS,
   SINGLE_USER,
 } from "../Actions/types";
 
@@ -46,6 +47,7 @@ const initialstate = {
   SINGLE_USER: [],
   SUBJECT_LIST: "",
   SINGLE_USER_DETAILS: "",
+  ALL_FAV_TUTORS: [],
 };
 
 const TutorReducer = (state = initialstate, action) => {
@@ -97,6 +99,8 @@ const TutorReducer = (state = initialstate, action) => {
       return { ...state, SINGLE_USER: action.payload };
     case SINGLE_USER_DETAILS:
       return { ...state, SINGLE_USER_DETAILS: action.payload };
+    case ALL_FAV_TUTORS:
+      return { ...state, ALL_FAV_TUTORS: action.payload };
   }
 
   return state;

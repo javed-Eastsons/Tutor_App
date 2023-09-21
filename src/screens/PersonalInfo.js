@@ -154,7 +154,7 @@ const PersonalInfo = ({ route }) => {
   const [national, setNational] = useState("");
   const [filterData, setFilterData] = useState([]);
   const [withoutfilter, setWithoutFilter] = useState("");
-
+  const [persSave, setPersSave] = useState(false);
   const SearchFilterFunction = (text) => {
     const searchWord = text;
     const newFilter = nationality.filter((value) => {
@@ -245,6 +245,7 @@ const PersonalInfo = ({ route }) => {
         markGender: markGender,
         selectnational: selectnational,
         GET_USER_ID: GET_USER_ID,
+        persSave: persSave,
       });
     }
   };
@@ -818,7 +819,10 @@ const PersonalInfo = ({ route }) => {
                 </TouchableOpacity>
                 <View style={{ alignItems: "center" }}>
                   <TouchableOpacity
-                    onPress={() => personalinfofun()}
+                    onPress={() => {
+                      setPersSave(true);
+                      personalinfofun();
+                    }}
                     //onPress={() => personalinfofun()}
                     // onPress={() => navigation.navigate('YourProfle', {
                     //     complete: 'complete'

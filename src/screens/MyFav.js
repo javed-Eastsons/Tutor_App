@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
+  ActivityIndicator,
   View,
   Text,
   ScrollView,
@@ -20,21 +21,26 @@ import {
 } from "react-native-responsive-screen";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
-import { GetAllTutors } from "../Redux/Actions/Tutors";
+import { GetAllFavTutor } from "../Redux/Actions/Tutors";
 import { useDispatch, useSelector } from "react-redux";
 import StarRating from "react-native-star-rating";
 
 const MyFav = () => {
   const [strCount, setStrCount] = useState(1);
   const [isExpandModalVisible, setExpandModalVisible] = useState(false);
+  const [loader, setLoader] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
   const dispatch = useDispatch();
-  const { GET_ALLTUTORS } = useSelector((state) => state.TutorReducer);
+  const { ALL_FAV_TUTORS } = useSelector((state) => state.TutorReducer);
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
   const navigation = useNavigation();
 
   const [Tutor, setTutor] = useState([]);
 
-  // console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP', Tutor);
+  console.log(
+    ALL_FAV_TUTORS,
+    "ALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORS"
+  );
 
   const toggleModal = () => {
     console.log("sddddddddd");
@@ -47,13 +53,19 @@ const MyFav = () => {
   };
 
   useEffect(() => {
-    dispatch(GetAllTutors());
-    // setTutor(GET_ALLTUTORS)
+    dispatch(GetAllFavTutor(Login_Data.userid));
   }, []);
 
   useEffect(() => {
-    setTutor(GET_ALLTUTORS);
-  }, [GET_ALLTUTORS]);
+    setLoader(true);
+    setTutor(ALL_FAV_TUTORS);
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+  }, [ALL_FAV_TUTORS, Tutor]);
+
+  useEffect(() => {}, [ALL_FAV_TUTORS, Tutor]);
+
   console.log("tutors", Tutor);
 
   return (
@@ -78,7 +90,7 @@ const MyFav = () => {
         </View>
       </View>
 
-      <ScrollView>
+      <View>
         <View style={styles.SearchContainer}>
           <Text
             style={{
@@ -92,209 +104,225 @@ const MyFav = () => {
           </Text>
         </View>
 
-        <FlatList
-          // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
-          scrollEnabled={true}
-          data={Tutor}
-          keyExtractor={(item, index) => index}
-          showsVerticalScrollIndicator={false}
-          //renderItem={renderItem}
+        {loader == true ? (
+          <View style={{ flex: 1, justifyContent: "center" }}>
+            <ActivityIndicator style={{ alignSelf: "center" }} size={"small"} />
+          </View>
+        ) : (
+          <FlatList
+            // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
+            scrollEnabled={true}
+            data={Tutor}
+            keyExtractor={(item, index) => index}
+            //  showsVerticalScrollIndicator={false}
+            //renderItem={renderItem}
 
-          renderItem={({ item, index }) => (
-            <View style={{ marginTop: 10 }}>
-              <TouchableOpacity style={styles.List}>
-                <Image
-                  source={{
-                    uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item.profile_image}`,
-                  }}
-                  style={styles.usericons}
-                />
+            renderItem={({ item, index }) => (
+              <View style={{ marginTop: 10 }}>
+                <TouchableOpacity style={styles.List}>
+                  <Image
+                    source={{
+                      uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item.profile_image}`,
+                    }}
+                    style={styles.usericons}
+                  />
 
-                <View style={{ height: 60, width: "70%", marginLeft: 10 }}>
-                  <View
-                    style={{ height: 20, width: "70%", flexDirection: "row" }}
-                  >
-                    <Text style={styles.LIstText}>{item.tutor_code}</Text>
-                    <Image
-                      source={{
-                        uri: `https://refuel.site/projects/tutorapp/flags-medium/ao.png`,
-                      }}
-                      style={styles.Flagicons}
-                    />
-                    {/* <Text style={styles.LIstText}>{item.nationality}</Text> */}
-                    {/* <View style={{backgroundColor:"red",height:20,width:30}}>
+                  <View style={{ height: 60, width: "70%", marginLeft: 10 }}>
+                    <View
+                      style={{ height: 20, width: "70%", flexDirection: "row" }}
+                    >
+                      <Text style={styles.LIstText}>{item.tutor_code}</Text>
+                      <Image
+                        source={{
+                          uri: `https://refuel.site/projects/tutorapp/flags-medium/ao.png`,
+                        }}
+                        style={styles.Flagicons}
+                      />
+                      {/* <Text style={styles.LIstText}>{item.nationality}</Text> */}
+                      {/* <View style={{backgroundColor:"red",height:20,width:30}}>
                                     <Image source={require('../Assets/Expand.png')}
                                  style={{height:20,width:20,}}
                                   />
                                     </View> */}
-                  </View>
-                  <View
-                    style={{
-                      height: 20,
-                      width: "70%",
-                      backgroundColor: "white",
-                    }}
-                  >
-                    <Text style={styles.LIstText}>{item.qualification}</Text>
-                  </View>
-                  <View style={{ width: 40, marginLeft: 5 }}>
-                    <StarRating
-                      fullStarColor="orange"
-                      disabled={false}
-                      maxStars={5}
-                      rating={item.Average_rating}
-                      starSize={15}
-                      // selectedStar={(rating) => setStrCount(rating)}
-                    />
-                  </View>
+                    </View>
+                    <View
+                      style={{
+                        height: 20,
+                        width: "70%",
+                        backgroundColor: "white",
+                      }}
+                    >
+                      <Text style={styles.LIstText}>{item.qualification}</Text>
+                    </View>
+                    <View style={{ width: 40, marginLeft: 5 }}>
+                      <StarRating
+                        fullStarColor="orange"
+                        disabled={false}
+                        maxStars={5}
+                        rating={item.Average_rating}
+                        starSize={15}
+                        // selectedStar={(rating) => setStrCount(rating)}
+                      />
+                    </View>
 
-                  <View
-                    style={{ height: 20, width: "100%", flexDirection: "row" }}
-                  >
-                    <Text style={styles.LIstText1}>
-                      {item.personal_statement}...
-                    </Text>
-                    <TouchableOpacity>
-                      <Text style={{ color: "#2F5597" }}>ReadMore</Text>
-                    </TouchableOpacity>
+                    <View
+                      style={{
+                        height: 20,
+                        width: "100%",
+                        flexDirection: "row",
+                      }}
+                    >
+                      <Text style={styles.LIstText1}>
+                        {item.personal_statement}...
+                      </Text>
+                      <TouchableOpacity>
+                        <Text style={{ color: "#2F5597" }}>ReadMore</Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={expandToggleModal}
-                style={{
-                  height: 20,
-                  width: 30,
-                  position: "absolute",
-                  right: 10,
-                  marginTop: 30,
-                }}
-              >
-                <Image
-                  source={require("../Assets/Expand.png")}
-                  style={{ height: 20, width: 20 }}
-                />
-              </TouchableOpacity>
-              <Modal
-                isVisible={isExpandModalVisible}
-                onBackdropPress={() => setExpandModalVisible(false)}
-              >
-                <View style={styles.ExpandBlueContainer}>
-                  <Text style={styles.BlueText}>Tutor Info</Text>
-                </View>
-
-                <View
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={expandToggleModal}
                   style={{
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
-                    alignSelf: "center",
+                    height: 20,
+                    width: 30,
                     position: "absolute",
-                    bottom: 0,
-                    height: hp(70),
-                    width: wp(95),
-                    backgroundColor: "#fff",
+                    right: 10,
+                    marginTop: 30,
                   }}
                 >
-                  <TouchableOpacity style={styles.List}>
-                    <Image
-                      source={{
-                        uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item.profile_image}`,
-                      }}
-                      style={styles.usericons}
-                    />
+                  <Image
+                    source={require("../Assets/Expand.png")}
+                    style={{ height: 20, width: 20 }}
+                  />
+                </TouchableOpacity>
+                <Modal
+                  isVisible={isExpandModalVisible}
+                  onBackdropPress={() => setExpandModalVisible(false)}
+                >
+                  <View style={styles.ExpandBlueContainer}>
+                    <Text style={styles.BlueText}>Tutor Info</Text>
+                  </View>
 
-                    <View style={{ height: 60, width: "100%", marginLeft: 10 }}>
-                      <View
-                        style={{
-                          height: 20,
-                          width: "50%",
-                          flexDirection: "row",
+                  <View
+                    style={{
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
+                      alignSelf: "center",
+                      position: "absolute",
+                      bottom: 0,
+                      height: hp(70),
+                      width: wp(95),
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <TouchableOpacity style={styles.List}>
+                      <Image
+                        source={{
+                          uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item.profile_image}`,
                         }}
+                        style={styles.usericons}
+                      />
+
+                      <View
+                        style={{ height: 60, width: "100%", marginLeft: 10 }}
                       >
-                        <Text style={styles.LIstText}>{item.first_name}</Text>
-                        <Text style={styles.LIstText}>{item.nationality}</Text>
-                        {/* <View style={{backgroundColor:"red",height:20,width:30}}>
+                        <View
+                          style={{
+                            height: 20,
+                            width: "50%",
+                            flexDirection: "row",
+                          }}
+                        >
+                          <Text style={styles.LIstText}>{item.first_name}</Text>
+                          <Text style={styles.LIstText}>
+                            {item.nationality}
+                          </Text>
+                          {/* <View style={{backgroundColor:"red",height:20,width:30}}>
                                     <Image source={require('../Assets/Expand.png')}
                                  style={{height:20,width:20,}}
                                   />
                                     </View> */}
-                      </View>
-                      <View
-                        style={{
-                          height: 20,
-                          width: "50%",
-                          backgroundColor: "white",
-                        }}
-                      >
-                        <Text style={styles.LIstText}>
-                          {item.qualification}
+                        </View>
+                        <View
+                          style={{
+                            height: 20,
+                            width: "50%",
+                            backgroundColor: "white",
+                          }}
+                        >
+                          <Text style={styles.LIstText}>
+                            {item.qualification}
+                          </Text>
+                        </View>
+                        <View style={{ width: 40, marginLeft: 5 }}>
+                          <StarRating
+                            fullStarColor="orange"
+                            disabled={false}
+                            maxStars={5}
+                            rating={item.Average_rating}
+                            starSize={15}
+                            // selectedStar={(rating) => setStrCount(rating)}
+                          />
+                        </View>
+                        <Text style={styles.LIstText2}>
+                          Email: {item.email}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          First Name: {item.first_name}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          Last Name: {item.last_name}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          Mobile: {item.mobile}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          Address: {item.address1}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          Nationality: {item.nationality}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          School Name: {item.name_of_school}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          Tutor Status: {item.tutor_status}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          Tutor Type: {item.tuition_type}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          Location: {item.location}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          Pin Code: {item.postal_code}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          Travel Distance: {item.travel_distance}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          Experience: {item.tutor_tutoring_experience_years}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          Tutor Code: {item.tutor_code}
                         </Text>
                       </View>
-                      <View style={{ width: 40, marginLeft: 5 }}>
-                        <StarRating
-                          fullStarColor="orange"
-                          disabled={false}
-                          maxStars={5}
-                          rating={item.Average_rating}
-                          starSize={15}
-                          // selectedStar={(rating) => setStrCount(rating)}
-                        />
-                      </View>
-                      <Text style={styles.LIstText2}>Email: {item.email}</Text>
-                      <Text style={styles.LIstText2}>
-                        First Name: {item.first_name}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        Last Name: {item.last_name}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        Mobile: {item.mobile}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        Address: {item.address1}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        Nationality: {item.nationality}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        School Name: {item.name_of_school}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        Tutor Status: {item.tutor_status}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        Tutor Type: {item.tuition_type}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        Location: {item.location}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        Pin Code: {item.postal_code}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        Travel Distance: {item.travel_distance}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        Experience: {item.tutor_tutoring_experience_years}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        Tutor Code: {item.tutor_code}
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              </Modal>
-              {/* <View style={{ height: 20, width: "100%", marginHorizontal: 20, flexDirection: "row" }}>
+                    </TouchableOpacity>
+                  </View>
+                </Modal>
+                {/* <View style={{ height: 20, width: "100%", marginHorizontal: 20, flexDirection: "row" }}>
                                 <Text style={styles.LIstText1}>{item.personal_statement}...</Text>
                                 <TouchableOpacity>
                                     <Text style={{ color: "#2F5597" }}>ReadMore</Text>
 
                                 </TouchableOpacity>
                             </View> */}
-            </View>
-          )}
-        />
-      </ScrollView>
+              </View>
+            )}
+          />
+        )}
+      </View>
       <Modal
         isVisible={isModalVisible}
         onBackdropPress={() => setModalVisible(false)}

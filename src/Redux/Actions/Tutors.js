@@ -11,6 +11,7 @@ import {
   SINGLE_USER_DETAILS,
   SUBJECT_LIST,
   SINGLE_USER,
+  ALL_FAV_TUTORS,
 } from "./types";
 import AsyncStorage from "@react-native-community/async-storage";
 import axios, * as others from "axios";
@@ -212,6 +213,44 @@ export const AllPostsByClient = (Login_Data, navigation) => {
           dispatch({
             type: ALL_POSTS_BY_CLIENT,
             payload: responseJson.output,
+          });
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const GetAllFavTutor = (studentId) => {
+  return async (dispatch, getState) => {
+    const url1 =
+      "https://refuel.site/projects/tutorapp/APIs/FavouriteTutorList/FavouriteTutorList.php?logged_in_student_id=" +
+      studentId;
+
+    console.log(url1, "IIIIIIIIIIIIIIIIII");
+
+    await fetch(url1, {
+      method: "GET",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": authtoken,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(
+          "ALL_FAVTUTORSALL_FAVTUTORSALL_FAVTUTORS",
+          responseJson.Tutor_Favourite_List
+        );
+        if (responseJson.status == true) {
+          dispatch({
+            type: ALL_FAV_TUTORS,
+            payload: responseJson.Tutor_Favourite_List,
+          });
+        } else if (responseJson.status == false) {
+          dispatch({
+            type: ALL_FAV_TUTORS,
+            payload: responseJson.message,
           });
         }
       })
