@@ -223,6 +223,7 @@ const PersonalInfo = ({ route }) => {
       Age: Age,
       markGender: markGender,
       selectnational: selectnational,
+      persSave: persSave,
     };
 
     dispatch({

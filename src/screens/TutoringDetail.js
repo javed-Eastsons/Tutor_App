@@ -63,7 +63,7 @@ const TutoringDetail = ({ route }) => {
   const [loader1, setLoader1] = useState(false);
   const [records, setRecords] = useState(selectArray);
   const [showEditModal, setShowEditModal] = useState(false);
-
+  const [tutSave, setTutSave] = useState(false);
   const [editId, setEditId] = useState(); // ID of the record you want to edit
   console.log(selectArray, "Startttttttttttttttttttttttt");
 
@@ -690,13 +690,14 @@ const TutoringDetail = ({ route }) => {
   const savedata = () => {
     // dispatch(editProfile(selectListTutor,state,state2,selectArray, GET_USER_ID));
     console.log(selectListTutor, state, state2, selectArray, GET_USER_ID);
-
+    setTutSave(true);
     let obj = {
       selectListTutor: selectListTutor,
       state: state,
       state2: state2,
       selectArray: selectArray,
       GET_USER_ID: GET_USER_ID,
+      tutSave: tutSave,
     };
     dispatch({
       type: Tutoring_Data,

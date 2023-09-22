@@ -46,14 +46,12 @@ const YourProfle = ({ props, route }) => {
   const { Login_Data } = useSelector((state) => state.TutorReducer);
   const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
   const [Age, setAge] = useState(0);
-
+  const [showPers, setShowPers] = useState(false);
   console.log(
     //  SINGLE_USER.Extra_info[0],
     "SINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USER",
     Login_Data
   );
-
-  console.log(route.params, "pers");
 
   if (route.params) {
     const {
@@ -264,7 +262,7 @@ const YourProfle = ({ props, route }) => {
 
   // console.log('route?.params?.complete', route?.params?.complete)
   // console.log('route?.params?.Academiccomplete', route?.params?.Academiccomplete)
-
+  console.log(PersonalInfo_Data, "PersonalInfo_Data");
   const UpdateProfile = () => {
     console.log(
       Tution_Type,
@@ -395,25 +393,35 @@ const YourProfle = ({ props, route }) => {
                   style={styles.posticons}
                 />
               </View>
-              <View>
+              <TouchableOpacity onPress={setShowPers(true)}>
                 <Text style={styles.postText}>Personal Information</Text>
                 <Text style={styles.postSemiText}>
                   First, let’s get some information about yourself
                 </Text>
 
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("PersonalInfo", {
-                      RouteFrom: "Create",
-                    })
-                  }
-                  style={styles.infoWrapper}
-                >
-                  <Text style={styles.infoWrapperText}>
-                    Enter Personal Information
-                  </Text>
-                </TouchableOpacity>
-              </View>
+             
+                {PersonalInfo_Data.persSave == false ? (
+                  <View style={styles.tickWrapper}>
+                    <Image
+                      source={require("../Assets/right.png")}
+                      style={styles.tickImage}
+                    />
+                  </View>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("PersonalInfo", {
+                        RouteFrom: "Create",
+                      })
+                    }
+                    style={styles.infoWrapper}
+                  >
+                    <Text style={styles.infoWrapperText}>
+                      Enter Personal Information
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </TouchableOpacity>
             </View>
           )}
 
@@ -446,19 +454,27 @@ const YourProfle = ({ props, route }) => {
                 <Text style={styles.postSemiText}>
                   Now we need to know something about your academic background
                 </Text>
-
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("AcademicInfo", {
-                      RouteFrom: "Create",
-                    })
-                  }
-                  style={styles.infoWrapper}
-                >
-                  <Text style={styles.infoWrapperText}>
-                    Enter Academic History
-                  </Text>
-                </TouchableOpacity>
+                {AcademicHistory_Data.acadSave == false ? (
+                  <View style={styles.tickWrapper}>
+                    <Image
+                      source={require("../Assets/right.png")}
+                      style={styles.tickImage}
+                    />
+                  </View>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("AcademicInfo", {
+                        RouteFrom: "Create",
+                      })
+                    }
+                    style={styles.infoWrapper}
+                  >
+                    <Text style={styles.infoWrapperText}>
+                      Enter Academic History
+                    </Text>
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
           )}
@@ -694,19 +710,27 @@ const YourProfle = ({ props, route }) => {
                   Share the subjects you would like to tutor & your tutoring
                   experience
                 </Text>
-
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("TutoringDetail", {
-                      RouteFrom: "Create",
-                    })
-                  }
-                  style={styles.infoWrapper}
-                >
-                  <Text style={styles.infoWrapperText}>
-                    Enter Tutoring Detailsqqq
-                  </Text>
-                </TouchableOpacity>
+                {TutionStatus_Data.tutSave == false ? (
+                  <View style={styles.tickWrapper}>
+                    <Image
+                      source={require("../Assets/right.png")}
+                      style={styles.tickImage}
+                    />
+                  </View>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("TutoringDetail", {
+                        RouteFrom: "Create",
+                      })
+                    }
+                    style={styles.infoWrapper}
+                  >
+                    <Text style={styles.infoWrapperText}>
+                      Enter Tutoring Details
+                    </Text>
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
           )}
@@ -748,17 +772,25 @@ const YourProfle = ({ props, route }) => {
                 <Text style={styles.postSemiText}>
                   A little more & you have completed your profile
                 </Text>
-
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("WordYou", {
-                      RouteFrom: "Create",
-                    })
-                  }
-                  style={styles.infoWrapper}
-                >
-                  <Text style={styles.infoWrapperText}>A Word from Yous</Text>
-                </TouchableOpacity>
+                {TutionStatus_Data.wordSave == false ? (
+                  <View style={styles.tickWrapper}>
+                    <Image
+                      source={require("../Assets/right.png")}
+                      style={styles.tickImage}
+                    />
+                  </View>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("WordYou", {
+                        RouteFrom: "Create",
+                      })
+                    }
+                    style={styles.infoWrapper}
+                  >
+                    <Text style={styles.infoWrapperText}>A Word from You</Text>
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
           )}
@@ -1037,5 +1069,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "flex-end",
+  },
+  tickImage: { height: 20, width: 20 },
+  tickWrapper: {
+    backgroundColor: "green",
+    height: hp(5),
+    width: wp(10),
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 100,
   },
 });

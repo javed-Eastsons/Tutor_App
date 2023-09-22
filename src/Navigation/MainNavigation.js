@@ -43,7 +43,7 @@ import TutorSearchProfile from "../screens/TutorSearchProfile";
 import LetsBook from "../screens/LetsBook";
 import StudentBookingInfo from "../screens/StudentBookingInfo";
 import StudentBookingDetails from "../screens/StudentBookingDetails";
-import TutorQualification from "../screens/TutorQualification";
+import TutorQualification from "../screens/TutorQualificationA";
 import TutionSchedulePicker from "../screens/TutionSchedulePicker";
 import BookingInformationConfirmation from "../screens/BookingInformationConfirmation";
 import MapScreen from "../screens/MapScreen";

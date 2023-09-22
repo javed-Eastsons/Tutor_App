@@ -37,6 +37,8 @@ const WordYou = ({ route }) => {
   const [mark, setmark] = useState("");
   const [userDetail, setUserDetail] = useState([]);
   const [yourdata, setYourdata] = useState("");
+  const [wordSave, setWordSave] = useState(false);
+
   console.log("LLLLLLLLLLLLLLLLLLL", mark, yourdata);
 
   useEffect(() => {
@@ -62,9 +64,12 @@ const WordYou = ({ route }) => {
 
   const savedata = () => {
     // dispatch(editProfile(mark, GET_USER_ID));
+
+    setWordSave(true);
     let obj = {
       WorkAs: mark,
       statement: yourdata,
+      wordSave: wordSave,
     };
 
     dispatch({

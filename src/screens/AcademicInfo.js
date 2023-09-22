@@ -45,6 +45,7 @@ const AcademicInfo = ({ route }) => {
   const [selectQualification, setselectQualification] = useState(false);
   const [details, setDetails] = useState(false);
   const [detailsE, setDetailsE] = useState(false);
+  const [acadSave, setAcadSave] = useState(false);
 
   const [show, setShow] = useState(false);
   const [sections, setSections] = useState([]);
@@ -226,6 +227,7 @@ const AcademicInfo = ({ route }) => {
   console.log(detailNo, "detailN0");
 
   const saveacademicinfo = () => {
+    setAcadSave(true);
     console.log(
       "LLLLLL",
       qualification,
@@ -247,6 +249,7 @@ const AcademicInfo = ({ route }) => {
       gra_year: gradYear,
       History: selectArray,
       GET_USER_ID: GET_USER_ID,
+      acadSave: acadSave,
     };
     dispatch({
       type: AcademicHistory_Data,
