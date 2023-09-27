@@ -124,6 +124,7 @@ const TutorAcceptCancel = ({ route }) => {
           route.params.BookingId,
           Offerstatus,
           All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount_type,
+          route.params.tutorId,
           navigation
         )
       );
@@ -226,7 +227,7 @@ const TutorAcceptCancel = ({ route }) => {
               {sendOffer == 0 ? (
                 <Text style={styles.BookText2}>
                   Please offer the Tutor a fee.If fee is Non-negotiable,tutor
-                  can only accept or cancel this booking
+                  can only accept or cancel this bookingwwww
                 </Text>
               ) : (
                 <Text style={styles.BookText2}>

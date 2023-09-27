@@ -327,7 +327,8 @@ const MakeOffer = ({ route }) => {
                   fontFamily: "Poppins-Light",
                 }}
               >
-                {route?.params?.fees}
+                {route?.params?.fees || Tutor_Qualification.FeeOffer}
+                {/* {Tutor_Qualification.FeeOffer} */}
               </Text>
               {/* <TextInput
                 style={{

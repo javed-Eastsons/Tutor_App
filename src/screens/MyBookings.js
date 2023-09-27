@@ -1101,17 +1101,18 @@ const MyBookings = ({ props, route }) => {
                           }}
                         >
                           <View style={{}}>
-                            <Text
-                              style={{
-                                color: "#000",
-
-                                fontSize: 12,
-                                fontFamily: "Poppins-Light",
-                              }}
-                            >
-                              {item.student_level}
-                            </Text>
-
+                            <View>
+                              {item.tutor_qualification &&
+                                item.tutor_qualification.map((item) => {
+                                  return (
+                                    <View>
+                                      <Text key={item} style={{ fontSize: 10 }}>
+                                        {item.Tutor_Qualification}
+                                      </Text>
+                                    </View>
+                                  );
+                                })}
+                            </View>
                             <StarRating
                               fullStarColor="orange"
                               disabled={false}
@@ -1139,9 +1140,11 @@ const MyBookings = ({ props, route }) => {
                       style={{
                         textAlign: "center",
                         fontFamily: "Poppins-Regular",
+                        width: wp(70),
+                        fontSize: 12,
                       }}
                     >
-                      404 Chua Chu Kang Avenue 4
+                      {item.postal_address}
                     </Text>
                     <Image
                       source={require("../Assets/Map.jpeg")}

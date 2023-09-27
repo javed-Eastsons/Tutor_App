@@ -122,6 +122,7 @@ export const OfferStatus = (
   bookingId,
   offerstatus,
   OfferType,
+  tutorId,
   obj,
   navigation
 ) => {
@@ -135,7 +136,8 @@ export const OfferStatus = (
     formData.append("tutor_booking_process_id", bookingId);
     formData.append("offer_status", offerstatus);
     formData.append("tutor_tution_offer_amount_type", OfferType);
-
+    formData.append("user_id_to_send_notification", tutorId);
+    console.log(url1, "PPPPPPPPPPPPPPPPPPPPPPPP");
     return fetch(url1, {
       method: "POST",
       headers: new Headers({
@@ -173,8 +175,13 @@ export const OfferStatus = (
   };
 };
 
-export const BookingStatus = (bookingId, bookingstatus, navigation) => {
-  console.log(bookingId, bookingstatus);
+export const BookingStatus = (
+  bookingId,
+  bookingstatus,
+  TutorID,
+  navigation
+) => {
+  console.log(bookingId, bookingstatus, TutorID);
   return (dispatch, getState) => {
     //const login = await getApiKey();
     //let data = JSON.parse(login);
@@ -187,6 +194,7 @@ export const BookingStatus = (bookingId, bookingstatus, navigation) => {
     var formData = new FormData();
     formData.append("tutor_booking_process_id", bookingId);
     formData.append("tutor_booking_status", bookingstatus);
+    formData.append("user_id_to_send_notification", TutorID);
 
     return fetch(url1, {
       method: "POST",
@@ -234,7 +242,7 @@ export const GetBookedTutorDetail = (bookingData, navigation) => {
       "&tutor_booking_process_id=" +
       bookingData?.BookingId;
 
-    // console.log(url1, "Studenttttttttttttttttttttttttttt1");
+    console.log(url1, "Studenttttttttttttttttttttttttttt1");
 
     await fetch(url1, {
       method: "GET",

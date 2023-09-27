@@ -19,13 +19,14 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { useDispatch, useSelector } from "react-redux";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Shadow } from "react-native-shadow-2";
 
 const TutorLanding = () => {
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
-
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
   const cardsData = [
     {
       name: "My Bookings",
@@ -55,7 +56,6 @@ const TutorLanding = () => {
   ];
   const toggleSwitch = () => {
     MoveToClient();
-
     setIsEnabled((previousState) => !previousState);
     navigation.navigate("ClientLanding");
     setIsEnabled(false);
@@ -189,7 +189,7 @@ const TutorLanding = () => {
               Find your students here
             </Text>
             <TouchableOpacity
-              // onPress={() => navigation.navigate('Auth2')}
+              onPress={() => navigation.navigate("CheckIn")}
               style={styles.CheckinButton}
             >
               <Text

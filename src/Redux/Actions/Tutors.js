@@ -11,6 +11,7 @@ import {
   SINGLE_USER_DETAILS,
   SUBJECT_LIST,
   SINGLE_USER,
+  VIEW_ASSIGNMENT,
   ALL_FAV_TUTORS,
 } from "./types";
 import AsyncStorage from "@react-native-community/async-storage";
@@ -220,6 +221,41 @@ export const AllPostsByClient = (Login_Data, navigation) => {
   };
 };
 
+export const ViewAssignment = (Login_Data, navigation) => {
+  console.log(Login_Data);
+  return async (dispatch, getState) => {
+    const url1 =
+      "https://refuel.site/projects/tutorapp/APIs/TutorList/ViewAssignment.php?postal_code=" +
+      Login_Data.postcode;
+    console.log(url1, "POSTSTSTTSTSTSTSTSTSTSTSTSTCODEEEEEE");
+    await fetch(url1, {
+      method: "GET",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": authtoken,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.output);
+        if (responseJson.status == true) {
+          dispatch({
+            type: VIEW_ASSIGNMENT,
+            payload: responseJson.output,
+          });
+        } else if (responseJson.status == false) {
+          dispatch({
+            type: VIEW_ASSIGNMENT,
+            payload: responseJson.message,
+          });
+          Alert.alert(responseJson.message);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
 export const GetAllFavTutor = (studentId) => {
   return async (dispatch, getState) => {
     const url1 =
@@ -391,12 +427,14 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
           await AsyncStorage.setItem("token", responseJson.Access_Token);
           await AsyncStorage.setItem("user_type", responseJson.user_type);
           await AsyncStorage.setItem("user_id", responseJson.user_id);
+          await AsyncStorage.setItem("postcode", responseJson.postal_code);
 
           console.log("Educator succesfull login");
 
           let obj = {
             userid: responseJson.user_id,
             userType: responseJson.user_type,
+            postcode: responseJson.postal_code,
           };
           dispatch({
             type: Login_Data,
@@ -413,6 +451,7 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
           let obj = {
             userid: responseJson.user_id,
             userType: responseJson.user_type,
+            postcode: responseJson.postal_code,
           };
           dispatch({
             type: Login_Data,

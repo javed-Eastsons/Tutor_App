@@ -933,6 +933,7 @@ const MyBookingTutor = ({ props, route }) => {
     ) {
       navigation.navigate("TutorAcceptCancel", {
         BookingId: BookingId,
+        tutorId: tutorID,
       });
     } else if (
       stDate == "" &&
@@ -952,6 +953,7 @@ const MyBookingTutor = ({ props, route }) => {
     ) {
       navigation.navigate("TutorAcceptNegotiate", {
         BookingId: BookingId,
+        tutorId: tutorID,
       });
     } else if (
       stDate != "" &&
@@ -972,6 +974,7 @@ const MyBookingTutor = ({ props, route }) => {
     ) {
       navigation.navigate("TutorStartDT", {
         BookingId: BookingId,
+        tutorId: tutorID,
       });
     }
   };
@@ -991,7 +994,10 @@ const MyBookingTutor = ({ props, route }) => {
     });
 
     dispatch(GetBookedTutorDetail(obj, navigation));
-    navigation.navigate("TutorBookingConfirmation", { bookingID: BId });
+    navigation.navigate("TutorBookingConfirmation", {
+      bookingID: BId,
+      TutorId: Tutid,
+    });
   };
 
   if (loader) {
@@ -1040,6 +1046,7 @@ const MyBookingTutor = ({ props, route }) => {
               <Text style={styles.Text1}>My Booking</Text>
             </View>
           </View>
+
           <View
             style={{
               flexDirection: "row",
@@ -1159,7 +1166,7 @@ const MyBookingTutor = ({ props, route }) => {
                           source={require("../../Assets/user.png")}
                           style={styles.leftImage}
                         />
-                        <View style={{ alignItems: "center" }}>
+                        <View style={{ alignItems: "center", paddingTop: 10 }}>
                           <StarRating
                             fullStarColor="orange"
                             disabled={false}
@@ -1178,42 +1185,12 @@ const MyBookingTutor = ({ props, route }) => {
                           <View style={styles.wrraper}>
                             <Text style={styles.HomeTextWrapper}>
                               {item.student_tution_type}
-                              {item.tutor_booking_process_id}
                             </Text>
                           </View>
-                          <View
-                            style={{
-                              flexDirection: "row",
-                              justifyContent: "space-between",
-                              height: 20,
-                              width: "100%",
-                              marginLeft: 10,
-                            }}
-                          >
-                            <View style={{}}>
-                              <Text
-                                style={{
-                                  color: "#000",
-                                  fontWeight: "500",
-                                  fontSize: 12,
-                                }}
-                              >
-                                {item.student_id}
-                                {item.tutor_tution_offer_amount}
-                                {item.tutor_tution_offer_amount_type}
-                                {item.tutor_booking_status}
-                              </Text>
-                              <Text
-                                style={{
-                                  color: "#000",
-                                  fontWeight: "500",
-                                  fontSize: 12,
-                                }}
-                              >
-                                {"Offer Price "}
-                                {item.tutor_tution_fees}
-                              </Text>
-                            </View>
+                          <View style={styles.wrraper}>
+                            <Text style={styles.HomeTextWrapper1}>
+                              {item.postal_address}
+                            </Text>
                           </View>
                         </View>
                       </View>
@@ -2187,11 +2164,7 @@ const styles = StyleSheet.create({
     width: wp(100),
     // marginBottom: hp(1),
     alignSelf: "center",
-    // marginLeft: wp(5),
-    //elevation: 5,
-    // paddingVertical: hp(1),
-    //borderRadius: 4,
-    // marginTop: hp(1),
+    height: hp(12),
     backgroundColor: "#ADD8E6",
   },
 
@@ -2220,10 +2193,7 @@ const styles = StyleSheet.create({
     //  backgroundColor:'red'
   },
   wrraper: {
-    flexDirection: "row",
     alignItems: "center",
-    height: 20,
-    width: "90%",
     marginLeft: 10,
     marginTop: 10,
   },
@@ -2245,8 +2215,14 @@ const styles = StyleSheet.create({
   },
   HomeTextWrapper: {
     color: "#000",
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: "800",
+    textAlign: "center",
+  },
+  HomeTextWrapper1: {
+    color: "#000",
+    fontSize: 12,
+
     textAlign: "center",
   },
   userIdWrapper: {

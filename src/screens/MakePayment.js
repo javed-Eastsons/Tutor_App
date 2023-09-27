@@ -48,10 +48,8 @@ const MakePayment = ({ route }) => {
   const [offerAmount, setofferAmount] = useState(0);
   const [selectedlevel, setSelectedlevel] = useState([]);
   const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
-  const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer); 
-  const { All_Booked_Tutor } = useSelector(
-    (state) => state.TutorBooingReducer
-  );
+  const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer);
+  const { All_Booked_Tutor } = useSelector((state) => state.TutorBooingReducer);
 
   console.log(
     All_Booked_Tutor,
@@ -239,18 +237,12 @@ const MakePayment = ({ route }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
-          <Image
-            source={require("../Assets/bell.png")}
-            style={styles.icons}
-          />
+          <Image source={require("../Assets/bell.png")} style={styles.icons} />
           <Image
             source={require("../Assets/search.png")}
             style={styles.icons}
           />
-          <Image
-            source={require("../Assets/chat.png")}
-            style={styles.icons}
-          />
+          <Image source={require("../Assets/chat.png")} style={styles.icons} />
         </View>
       </View>
       <View style={styles.HeaderContainer}>
@@ -444,24 +436,23 @@ const MakePayment = ({ route }) => {
             <Text style={styles.BookText5}>Cancel Booking</Text>
           </TouchableOpacity>
 
-         
-            <TouchableOpacity
-              //   onPress={
-              //     () => AcceptOffer()
-              //     // navigation.navigate('')
-              //   }
-              style={{
-                height: "100%",
-                width: "50%",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#F6BE00",
+          <TouchableOpacity
+            //   onPress={
+            //     () => AcceptOffer()
+            //     // navigation.navigate('')
+            //   }
+            style={{
+              height: "100%",
+              width: "50%",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#F6BE00",
 
-                borderRadius: 3,
-              }}
-            >
-              <Text style={styles.infoText1}>Pay</Text>
-            </TouchableOpacity>
+              borderRadius: 3,
+            }}
+          >
+            <Text style={styles.infoText1}>Pay</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>

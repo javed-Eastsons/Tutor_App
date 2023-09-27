@@ -425,7 +425,7 @@ const BookingSummaryComponent = () => {
                    Student ID: {student.Id}
                  </Text> */}
                   <Text style={styles.Information}>
-                    {Tutor_Qualification.FeeOffer}
+                    SGD {Tutor_Qualification.FeeOffer}
                   </Text>
                   <Text style={styles.Information}>
                     {Tutor_Qualification.feetype}

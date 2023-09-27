@@ -88,6 +88,7 @@ import HelpSupport from "../screens/HelpSupport";
 import Faq from "../screens/Faq";
 import TermsConditions from "../screens/TermsConditions";
 import PrivacyPolicy from "../screens/PrivacyPolicy";
+import CheckIn from "../screens/CheckIn";
 
 const SignStack = createStackNavigator();
 
@@ -1646,6 +1647,25 @@ function TutorHomeStacknavigation() {
           },
         }}
       />
+
+      <TutorHomeStack.Screen
+        name="CheckIn"
+        component={CheckIn}
+        options={{
+          title: "CheckIn",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
       <TutorHomeStack.Screen
         name="TutorStartDT"
         component={TutorStartDT}
@@ -1829,6 +1849,24 @@ function TutorHomeStacknavigation4() {
         component={UpdateProfile}
         options={{
           title: "UpdateProfile",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <TutorHomeStack.Screen
+        name="CheckIn"
+        component={CheckIn}
+        options={{
+          title: "CheckIn",
 
           headerStyle: {
             backgroundColor: "#e85b3d",
