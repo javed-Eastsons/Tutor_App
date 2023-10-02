@@ -91,10 +91,10 @@ const OurTutor = ({ props, route }) => {
   //   GET_POSTAL_DATA,
   //   "GET_POSTAL_DATAGET_POSTAL_DATAGET_POSTAL_DATAGET_POSTAL_DATA"
   // );
-  console.log(
-    "!GET_FILTER_DATAGET_FILTER_DATAGET_FILTER_DATAGET_FILTER_DATA!",
-    GET_FILTER_DATA
-  );
+  // console.log(
+  //   "!GET_FILTER_DATAGET_FILTER_DATAGET_FILTER_DATAGET_FILTER_DATA!",
+  //   GET_FILTER_DATA
+  // );
   const { GET_ALLTUTORS } = useSelector((state) => state.TutorReducer);
 
   // console.log("All Tutor", GET_ALLTUTORS);
@@ -2372,15 +2372,16 @@ const styles = StyleSheet.create({
   LittlRight: {
     height: hp(15),
     width: wp(40),
-    justifyContent: "center",
+    justifyContent: "flex-end",
     //  backgroundColor: "yellow",
     alignItems: "center",
     flexDirection: "row",
   },
+
   rightImageWrapper: {
     backgroundColor: "#fff",
-    height: hp(6),
-    width: wp(12),
+    height: 30,
+    width: 30,
     elevation: 5,
     borderRadius: 4,
     alignItems: "center",
@@ -2389,19 +2390,18 @@ const styles = StyleSheet.create({
 
   rightSecondImageWrapper: {
     backgroundColor: "#fff",
-    height: hp(6),
+    height: 30,
     marginLeft: wp(2),
-    width: wp(12),
+    width: 30,
     elevation: 5,
     borderRadius: 4,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "",
   },
 
   logoicon: {
-    height: hp(5),
-    width: wp(10),
+    height: 25,
+    width: 25,
   },
 
   Headers: {

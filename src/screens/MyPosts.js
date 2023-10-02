@@ -23,6 +23,7 @@ import Modal from "react-native-modal";
 import { GetPostDetail, AllPostsByClient } from "../Redux/Actions/Tutors";
 import { useDispatch, useSelector } from "react-redux";
 import StarRating from "react-native-star-rating";
+import { Loader } from "../common/Loader";
 
 const MyPosts = () => {
   const [strCount, setStrCount] = useState(1);
@@ -41,6 +42,7 @@ const MyPosts = () => {
   const [postAdd, setPostalAdd] = useState([]);
   const [Fee, setFee] = useState([]);
   const [OfferType, setOfferType] = useState([]);
+  const [loader, setLoader] = useState(false);
 
   const toggleModal = () => {
     console.log("sddddddddd");
@@ -79,12 +81,17 @@ const MyPosts = () => {
   }, []);
 
   useEffect(() => {
+    setLoader(true);
     setTutor(ALL_POSTS_BY_CLIENT);
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
   }, [ALL_POSTS_BY_CLIENT, POST_DETAIL]);
   console.log("tutors", Tutor);
 
   return (
     <View style={styles.container}>
+      <Loader flag={loader} />
       <View style={styles.Headers}>
         <View style={styles.HeadLeft}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>

@@ -39,6 +39,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import CheckBox from "@react-native-community/checkbox";
 import { GetBookedTutorDetail } from "../../Redux/Actions/TutorBooking";
 import { BookingStatus } from "../../Redux/Actions/TutorBooking";
+import { Loader } from "../../common/Loader";
 
 const BookingInformationConfirmation = ({ route }) => {
   const navigation = useNavigation();
@@ -53,7 +54,7 @@ const BookingInformationConfirmation = ({ route }) => {
   const { All_Booked_Tutor_Detail } = useSelector(
     (state) => state.TutorBooingReducer
   );
-
+  const [loader, setLoader] = useState(false);
   // console.log(
   //   All_Booked_Tutor_Detail,
   //   "All_Booked_Tutor_DetailAll_Booked_Tutor_DetailAll_Booked_Tutor_DetailAll_Booked_Tutor_Detail"
@@ -94,6 +95,7 @@ const BookingInformationConfirmation = ({ route }) => {
   }, [All_Booked_Tutor_Detail]);
 
   const BookTutorProcess = (status) => {
+    setLoader(true);
     console.log(
       status,
       route.params.bookingID,
@@ -108,6 +110,9 @@ const BookingInformationConfirmation = ({ route }) => {
         navigation
       )
     );
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
     //navigation.navigate("TutorAcceptCancel");
     // dispatch(
     //   BookTutor(
@@ -124,6 +129,7 @@ const BookingInformationConfirmation = ({ route }) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <Loader flag={loader} />
       <View style={styles.Headers}>
         <View style={styles.HeadLeft}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>

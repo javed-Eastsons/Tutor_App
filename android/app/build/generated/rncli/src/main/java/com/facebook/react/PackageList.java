@@ -49,6 +49,8 @@ import com.swmansion.rnscreens.RNScreensPackage;
 import com.horcrux.svg.SvgPackage;
 // react-native-video
 import com.brentvatne.react.ReactVideoPackage;
+// react-native-webview
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 
 public class PackageList {
   private Application application;
@@ -112,7 +114,8 @@ public class PackageList {
       new SafeAreaContextPackage(),
       new RNScreensPackage(),
       new SvgPackage(),
-      new ReactVideoPackage()
+      new ReactVideoPackage(),
+      new RNCWebViewPackage()
     ));
   }
 }

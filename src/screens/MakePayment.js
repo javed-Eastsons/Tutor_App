@@ -36,6 +36,7 @@ import CalendarPicker from "react-native-calendar-picker";
 import moment from "moment";
 import CountDown from "react-native-countdown-component";
 import { offerDateTime } from "../Redux/Actions/Tutors";
+import CountdownTimer from "./TutorBooking/Component/CountdownTimer";
 
 var selectArray = [];
 var selectFilter = [];
@@ -49,10 +50,12 @@ const MakePayment = ({ route }) => {
   const [selectedlevel, setSelectedlevel] = useState([]);
   const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { GET_FILTER_DATA } = useSelector((state) => state.TutorsearchReducer);
+  const { All_Booked_Student } = useSelector(
+    (state) => state.TutorBooingReducer
+  );
   const { All_Booked_Tutor } = useSelector((state) => state.TutorBooingReducer);
-
   console.log(
-    All_Booked_Tutor,
+    All_Booked_Student,
     "All_Booked_StudentAll_Booked_StudentAll_Booked_Student"
   );
 
@@ -305,7 +308,7 @@ const MakePayment = ({ route }) => {
 
         {/* timer start */}
         <View style={{ marginTop: 10, marginBottom: 10 }}>
-          <CountDown
+          {/* <CountDown
             until={86400}
             //duration of countdown in seconds
             timetoShow={("H", "M", "S")}
@@ -314,10 +317,11 @@ const MakePayment = ({ route }) => {
             digitStyle={{ backgroundColor: "#000" }}
             digitTxtStyle={{ color: "#fff" }}
             //on Finish call
-            // onPress={() => alert("hello")}
+            onPress={() => alert("hello")}
             //on Press call
             size={20}
-          />
+          /> */}
+          <CountdownTimer initialSeconds={86400} />
         </View>
 
         {/* timer end */}
@@ -437,6 +441,7 @@ const MakePayment = ({ route }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
+            onPress={() => navigation.navigate("Checkout")}
             //   onPress={
             //     () => AcceptOffer()
             //     // navigation.navigate('')

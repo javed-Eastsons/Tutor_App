@@ -25,15 +25,18 @@ import { RNCamera, FaceDetector } from "react-native-camera";
 import { launchImageLibrary, launchCamera } from "react-native-image-picker";
 import { request, check, PERMISSIONS, RESULTS } from "react-native-permissions";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   editProfile,
   saveProfile,
   GetUserProfile,
 } from "../Redux/Actions/Tutors";
 
+import { Loader } from "../common/Loader";
+
 const UpdateProfile = ({ props, route }) => {
-  const [imageSource, setImageSource] = useState(null);
-  const [imageSource1, setImageSource1] = useState(null);
+  const [imageSource, setImageSource] = useState("");
+  const [imageSource1, setImageSource1] = useState("");
   const [userDetail, setUserDetail] = useState([]);
   const [newImg, setNewImg] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
@@ -45,10 +48,12 @@ const UpdateProfile = ({ props, route }) => {
   const { TutionStatus_Data } = useSelector((state) => state.TutorReducer);
   const { Login_Data } = useSelector((state) => state.TutorReducer);
   const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
+  const [loader, setLoader] = useState(false);
+
   console.log(
     // SINGLE_USER,
     "SINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USER",
-    Login_Data
+    Login_Data.profilepic
   );
 
   if (route.params) {
@@ -194,10 +199,11 @@ const UpdateProfile = ({ props, route }) => {
     </TouchableOpacity>
   );
 
-  useEffect(async () => {
-    const img = await AsyncStorage.getItem("profileImage");
-    setNewImg(img);
-  }, []);
+  // useEffect(async () => {
+  //   const img = await AsyncStorage.getItem("profileImage");
+  //   setNewImg(img);
+  // }, []);
+
   let options = {
     title: "You can choose one image",
     maxWidth: 256,
@@ -208,53 +214,31 @@ const UpdateProfile = ({ props, route }) => {
   };
 
   useEffect(() => {
+    setLoader(true);
+    setImageSource1(
+      "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
+        Login_Data.profilepic
+    );
     dispatch(GetUserProfile(Login_Data.userid));
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
   }, []);
 
   useEffect(() => {
     setUserDetail(SINGLE_USER);
   }, [SINGLE_USER]);
 
-  useEffect(
-    () => {
-      setUserDetail(SINGLE_USER);
-      setImageSource1(
-        "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
-          userDetail[0]?.Extra_info[0]?.profile_image
-      );
-    },
-    [SINGLE_USER],
-    setImageSource1
-  );
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+  }, [SINGLE_USER]);
 
-  useEffect(
-    () => {
-      setImageSource1(
-        "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
-          userDetail[0]?.Extra_info[0]?.profile_image
-      );
-    },
-    [SINGLE_USER],
-    setImageSource1
-  );
-
-  console.log(
-    // imageSource,
-    "LLLLLLLLLLLLLLLLLLLLLLLL",
-    userDetail[0]?.Extra_info[0]?.profile_image
-    //imageSource1
-  );
-  // console.log('route.params', route.params)
-  // const[Personal, setPersonal] = useState('');
-  // const[Academic, setAcademic] = useState('');
-
-  // useEffect(() => {
-  //     setPersonal(route?.params?.complete)
-  //     setAcademic(route?.params?.Academiccomplete)
-  // },[Personal, Academic])
-
-  // console.log('route?.params?.complete', route?.params?.complete)
-  // console.log('route?.params?.Academiccomplete', route?.params?.Academiccomplete)
+  useEffect(() => {
+    setImageSource1(
+      "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
+        Login_Data.profilepic
+    );
+  }, []);
 
   const EditProfile = () => {
     console.log(
@@ -263,6 +247,7 @@ const UpdateProfile = ({ props, route }) => {
       PersonalInfo_Data
     );
     setBtnP(true);
+
     dispatch(
       editProfile(
         Login_Data,
@@ -309,6 +294,7 @@ const UpdateProfile = ({ props, route }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
+      <Loader flag={loader} />
       <View style={styles.Headers}>
         <View style={styles.HeadLeft}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -350,17 +336,20 @@ const UpdateProfile = ({ props, route }) => {
           }}
           onPress={() => setShowPopup(true)}
         >
-          <Image
-            source={{ uri: imageSource1 }}
-            style={{
-              width: 100,
-              height: 100,
-              borderRadius: 50,
-              backgroundColor: "grey",
-            }}
-          />
+          {imageSource1 == "" ? (
+            <Image
+              source={require("../Assets/mailuser.png")}
+              style={styles.usericons}
+            />
+          ) : (
+            <Image
+              source={{
+                uri: imageSource1,
+              }}
+              style={styles.usericons}
+            />
+          )}
         </TouchableOpacity>
-
         <View style={styles.postContainer}>
           {route?.params?.complete === "complete" ? (
             <TouchableOpacity
@@ -750,7 +739,6 @@ const UpdateProfile = ({ props, route }) => {
             </View>
           )}
         </View>
-
         <TouchableOpacity
           style={styles.RequsertButton}
           // onPress={() => navigation.navigate('TutorLanding')}
@@ -897,8 +885,9 @@ const styles = StyleSheet.create({
     //justifyContent: "center"
   },
   usericons: {
-    height: 50,
-    width: 50,
+    height: 100,
+    width: 100,
+    borderRadius: 50,
   },
   searchicons: {
     height: 50,

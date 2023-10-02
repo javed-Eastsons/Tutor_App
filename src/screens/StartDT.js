@@ -41,6 +41,7 @@ import CalendarPicker from "react-native-calendar-picker";
 import moment from "moment";
 import CountDown from "react-native-countdown-component";
 import { offerDateTime, ConfirmofferDateTime } from "../Redux/Actions/Tutors";
+import { Loader } from "../common/Loader";
 
 var selectArray = [];
 var selectFilter = [];
@@ -57,6 +58,8 @@ const StartDT = ({ route }) => {
   const { All_Booked_Tutor } = useSelector((state) => state.TutorBooingReducer);
   const [isFocus, setIsFocus] = useState(false);
   const [isConfirm, setIsConfirm] = useState(false);
+  const [currentTimeDate, setcurrentTimeDate] = useState(false);
+  const [nextButton, setNextButton] = useState(false);
   const data1 = [
     { label: "Negotiable", value: "1" },
     { label: "Non-Negotiable", value: "2" },
@@ -70,6 +73,7 @@ const StartDT = ({ route }) => {
   const [value, setValue] = useState("Negotiable");
   const [sendOffer, setSendOffer] = useState(0);
   const [selectedStartDate, setSelectedStartDate] = useState();
+  const [loader, setLoader] = useState(false);
   console.log(All_Booked_Tutor[0], "jkkkk");
 
   const onDateChange = (date) => {
@@ -139,6 +143,11 @@ const StartDT = ({ route }) => {
     selectFilter = Ex_array;
   };
 
+  const showselectedTimeDate = () => {
+    setcurrentTimeDate(true);
+    setNextButton(true);
+  };
+
   const SendRequest = (val) => {
     setSendOffer(val);
 
@@ -157,6 +166,7 @@ const StartDT = ({ route }) => {
     }
   };
   const dateTimeOffer = () => {
+    setLoader(true);
     const Time = time.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
@@ -173,14 +183,22 @@ const StartDT = ({ route }) => {
         Date
       )
     );
+    setNextButton(false);
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
   };
   const confirmdateTimeOffer = () => {
+    setLoader(true);
     dispatch(
       ConfirmofferDateTime(
         route?.params?.tutorBookingProcessId,
         route?.params?.student_id
       )
     );
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
   };
   const createlevel = (data) => {
     console.log(data, ":::::::::::::::::::::::::");
@@ -218,8 +236,10 @@ const StartDT = ({ route }) => {
 
   const student_offer_date = All_Booked_Tutor[0]?.student_offer_date;
   const student_offer_time = All_Booked_Tutor[0]?.student_offer_time;
+  console.log(student_offer_date, student_offer_time, "PPPPPPPPPPPPPPPPPPPPP");
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <Loader flag={loader} />
       <View style={styles.Headers}>
         <View style={styles.HeadLeft}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -331,23 +351,27 @@ const StartDT = ({ route }) => {
               }}
             >
               <View style={{ width: "70%" }}>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    color: "#000",
-                    marginBottom: 20,
-                    width: "100%",
-                  }}
-                >
-                  {time.toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </Text>
+                <TouchableOpacity onPress={showTimePicker}>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      color: "#000",
+                      marginBottom: 20,
+                      width: "100%",
+                    }}
+                  >
+                    {time.toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </Text>
+                </TouchableOpacity>
+
                 <Button
                   title="Select"
                   color="#2F5597"
-                  onPress={showTimePicker}
+                  //onPress={showTimePicker}
+                  onPress={() => showselectedTimeDate()}
                 />
               </View>
             </View>
@@ -455,6 +479,55 @@ const StartDT = ({ route }) => {
           <View></View>
         )}
 
+        {currentTimeDate == true ? (
+          <View
+            style={{
+              marginTop: wp(15),
+              height: wp(12),
+              backgroundColor: "#2F5597",
+              borderColor: "#2F5597",
+              borderWidth: 1,
+              flexDirection: "row",
+              marginBottom: 7,
+              width: wp(100),
+            }}
+          >
+            <Text
+              style={{
+                width: wp(40),
+                backgroundColor: "#2F5597",
+                color: "#fff",
+                fontSize: 12,
+                fontWeight: "500",
+                margin: 10,
+              }}
+            >
+              Your Start Date/Time
+            </Text>
+            <View
+              style={{
+                width: wp(60),
+                height: wp(8),
+                alignSelf: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ color: "#fff", fontSize: 12, fontWeight: "500" }}>
+                {" "}
+                {moment(selectedStartDate, "MM-DD-YYYY").format(
+                  "ddd,DD MMM YYYY"
+                )}{" "}
+                {time.toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </Text>
+            </View>
+          </View>
+        ) : (
+          <View />
+        )}
+
         {All_Booked_Tutor[0]?.tutor_offer_date &&
         All_Booked_Tutor[0]?.tutor_offer_time ? (
           <View
@@ -557,9 +630,10 @@ const StartDT = ({ route }) => {
                 }
               }}
               disabled={
-                !selectedStartDate ||
+                nextButton == true ||
                 (All_Booked_Tutor[0]?.offer_status === "Accept" &&
-                  All_Booked_Tutor[0]?.student_offer_date != "")
+                  All_Booked_Tutor[0]?.student_offer_date != "" &&
+                  All_Booked_Tutor[0]?.tutor_accept_date_time_status != "")
                   ? false
                   : true
               }
@@ -568,18 +642,22 @@ const StartDT = ({ route }) => {
                 justifyContent: "center",
                 alignItems: "center",
                 backgroundColor:
-                  //   !selectedStartDate ||
-                  All_Booked_Tutor[0]?.offer_status === "Accept" &&
-                  All_Booked_Tutor[0]?.student_offer_date != ""
+                  nextButton == true ||
+                  (All_Booked_Tutor[0]?.offer_status === "Accept" &&
+                    All_Booked_Tutor[0]?.student_offer_date != "" &&
+                    All_Booked_Tutor[0]?.tutor_accept_date_time_status != "")
                     ? "#F6BE00"
                     : "#fff",
                 borderRadius: 3,
               }}
             >
               <Text style={styles.infoText1}>
-                {All_Booked_Tutor[0]?.offer_status === "Accept" &&
-                All_Booked_Tutor[0]?.student_offer_date === "" &&
-                All_Booked_Tutor[0]?.student_offer_time === ""
+                {(All_Booked_Tutor[0]?.offer_status === "Accept" &&
+                  All_Booked_Tutor[0]?.student_offer_date == "") ||
+                (All_Booked_Tutor[0]?.student_offer_date != "" &&
+                  All_Booked_Tutor[0]?.student_offer_time == "") ||
+                (All_Booked_Tutor[0]?.student_offer_time != "" &&
+                  All_Booked_Tutor[0]?.tutor_accept_date_time_status == "")
                   ? "Next"
                   : "Confirm"}
               </Text>

@@ -25,9 +25,11 @@ import {
   GetPostDetail,
   AllPostsByClient,
   ViewAssignment,
+  FavouriteAssignment,
 } from "../Redux/Actions/Tutors";
 import { useDispatch, useSelector } from "react-redux";
 import StarRating from "react-native-star-rating";
+import { Loader } from "../common/Loader";
 
 const CheckIn = () => {
   const [strCount, setStrCount] = useState(1);
@@ -39,7 +41,7 @@ const CheckIn = () => {
   const { POST_DETAIL } = useSelector((state) => state.TutorReducer);
   const navigation = useNavigation();
   const { Login_Data } = useSelector((state) => state.TutorReducer);
-  console.log(Login_Data, "POSTSSSSSSSSSSS");
+
   const [assignment, setAssignment] = useState([]);
   const [postCode, setPostalCode] = useState([]);
   const [tuitionType, setTuitionType] = useState([]);
@@ -48,15 +50,20 @@ const CheckIn = () => {
   const [OfferType, setOfferType] = useState([]);
   const [selectedlevels, setSelectedLevels] = useState([]);
 
-  console.log(
-    VIEW_ASSIGNMENT,
-    "VIEW_ASSIGNMENTVIEW_ASSIGNMENTVIEW_ASSIGNMENTVIEW_ASSIGNMENT"
-  );
-  const toggleModal = () => {
-    console.log("sddddddddd");
-    setModalVisible(!isModalVisible);
-  };
+  const [isBookmarked, setIsBookmarked] = useState(true);
+  const [loader, setLoader] = useState(false);
 
+  const toggleBookmark = (postid) => {
+    setIsBookmarked(!isBookmarked);
+
+    console.log(Login_Data.userid, postid, isBookmarked, "LLLL");
+    setLoader(true);
+    dispatch(FavouriteAssignment(Login_Data.userid, postid, isBookmarked));
+    setTimeout(() => {
+      dispatch(ViewAssignment(Login_Data, navigation));
+      setLoader(false);
+    }, 2000);
+  };
   const FetchDetail = (time) => {
     let picker = selectedlevels;
     if (picker.includes(time)) {
@@ -72,8 +79,6 @@ const CheckIn = () => {
 
     // Perform any other necessary actions, such as updating the date
   };
-
-  console.log(selectedlevels, "selectedselectedselectedselected");
 
   const expandToggleModal = (
     PostID,
@@ -107,13 +112,16 @@ const CheckIn = () => {
   }, []);
 
   useEffect(() => {
+    setLoader(true);
     setAssignment(VIEW_ASSIGNMENT);
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
   }, [VIEW_ASSIGNMENT]);
-
-  console.log("assignmentassignmentassignment", assignment);
 
   return (
     <View style={styles.container}>
+      <Loader flag={loader} />
       <View style={styles.Headers}>
         <View style={styles.HeadLeft}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -369,6 +377,7 @@ const CheckIn = () => {
                       Post ID {item.student_post_requirements_id}
                     </Text> */}
                   </View>
+
                   <View
                     style={
                       {
@@ -395,6 +404,7 @@ const CheckIn = () => {
                                   </Text>
                                 </Text>
                               </View>
+
                               <View>
                                 <Text style={{ color: "#000", fontSize: 12 }}>
                                   {/* {" "}
@@ -404,6 +414,7 @@ const CheckIn = () => {
                                   </Text>
                                 </Text>
                               </View>
+
                               <View style={{ marginBottom: 5 }}>
                                 <Text style={{ color: "#000", fontSize: 12 }}>
                                   {/* {" "}
@@ -417,15 +428,60 @@ const CheckIn = () => {
                           );
                         })}
                     </View>
-                    <View style={{ width: "70%", flexDirection: "row" }}>
-                      <Text style={styles.LIstText}>
+                    <View
+                      style={{
+                        width: "78%",
+                        flexDirection: "row",
+                        paddingBottom: 10,
+                      }}
+                    >
+                      <Text numberOfLines={1} style={styles.LIstText}>
                         {item.student_postal_address}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "#000",
+                          fontSize: 12,
+                          marginLeft: 15,
+                        }}
+                      >
+                        {/* {" "}
+                                  Subjects :{" "} */}
+                        <Text key={item} style={{ fontSize: 10 }}>
+                          {item.booked_date}
+                        </Text>
                       </Text>
                     </View>
                   </View>
                   <View></View>
                 </View>
               </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() =>
+                  toggleBookmark(item.student_post_requirements_id)
+                }
+                style={{
+                  height: 20,
+                  width: 30,
+                  position: "absolute",
+                  right: 50,
+                  marginTop: 50,
+                }}
+              >
+                {!isBookmarked ? (
+                  <Image
+                    source={require("../Assets/fav_Assign.png")}
+                    style={{ height: 20, width: 20 }}
+                  />
+                ) : (
+                  <Image
+                    source={require("../Assets/Assign_UnFav.png")}
+                    style={{ height: 20, width: 20 }}
+                  />
+                )}
+              </TouchableOpacity>
+
               <TouchableOpacity
                 onPress={() =>
                   expandToggleModal(
@@ -450,6 +506,7 @@ const CheckIn = () => {
                   style={{ height: 20, width: 20 }}
                 />
               </TouchableOpacity>
+
               <Modal
                 isVisible={isExpandModalVisible}
                 onBackdropPress={() => setExpandModalVisible(false)}
@@ -707,7 +764,6 @@ const styles = StyleSheet.create({
     margin: 20,
     alignSelf: "center",
     shadowColor: "grey",
-
     elevation: 15,
     shadowOffset: { width: 8, height: 10 },
   },
@@ -799,6 +855,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: "Poppins-Light",
   },
+
   SliderContainer: {
     marginTop: 15,
     marginBottom: 15,

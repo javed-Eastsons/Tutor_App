@@ -12,6 +12,7 @@ import {
   SUBJECT_LIST,
   SINGLE_USER,
   VIEW_ASSIGNMENT,
+  FAV_ASSIGNMENT,
   ALL_FAV_TUTORS,
 } from "./types";
 import AsyncStorage from "@react-native-community/async-storage";
@@ -227,7 +228,7 @@ export const ViewAssignment = (Login_Data, navigation) => {
     const url1 =
       "https://refuel.site/projects/tutorapp/APIs/TutorList/ViewAssignment.php?postal_code=" +
       Login_Data.postcode;
-    console.log(url1, "POSTSTSTTSTSTSTSTSTSTSTSTSTCODEEEEEE");
+    // console.log(url1, "POSTSTSTTSTSTSTSTSTSTSTSTSTCODEEEEEE");
     await fetch(url1, {
       method: "GET",
       headers: new Headers({
@@ -238,7 +239,7 @@ export const ViewAssignment = (Login_Data, navigation) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.output);
+        // console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.output);
         if (responseJson.status == true) {
           dispatch({
             type: VIEW_ASSIGNMENT,
@@ -247,6 +248,41 @@ export const ViewAssignment = (Login_Data, navigation) => {
         } else if (responseJson.status == false) {
           dispatch({
             type: VIEW_ASSIGNMENT,
+            payload: responseJson.message,
+          });
+          Alert.alert(responseJson.message);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const FavAssignment = (Login_Data, navigation) => {
+  console.log(Login_Data);
+  return async (dispatch, getState) => {
+    const url1 =
+      "https://refuel.site/projects/tutorapp/APIs/TutorList/ViewFavouriteAssignment.php?postal_code=" +
+      Login_Data.postcode;
+    // console.log(url1, "POSTSTSTTSTSTSTSTSTSTSTSTSTCODEEEEEE");
+    await fetch(url1, {
+      method: "GET",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": authtoken,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        // console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.output);
+        if (responseJson.status == true) {
+          dispatch({
+            type: FAV_ASSIGNMENT,
+            payload: responseJson.output,
+          });
+        } else if (responseJson.status == false) {
+          dispatch({
+            type: FAV_ASSIGNMENT,
             payload: responseJson.message,
           });
           Alert.alert(responseJson.message);
@@ -314,7 +350,7 @@ export const GetAllTutors = () => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.Message);
+        // console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.Message);
         if (responseJson.status == true) {
           dispatch({
             type: ALL_TUTORS,
@@ -368,7 +404,7 @@ export const RegisterUser = (
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        // console.log('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF', responseJson.message)
+        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.message);
         //   Alert.alert(responseJson.message)
         if (responseJson.status == true) {
           console.log("ww", responseJson.message);
@@ -379,7 +415,7 @@ export const RegisterUser = (
           });
         } else if (responseJson.status == false) {
           console.log("AAa", responseJson.message);
-          // Alert.alert(responseJson.message)
+          Alert.alert(responseJson.message);
           dispatch({
             type: REGISTER_MSG,
             REG_MSG: responseJson.message,
@@ -428,6 +464,7 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
           await AsyncStorage.setItem("user_type", responseJson.user_type);
           await AsyncStorage.setItem("user_id", responseJson.user_id);
           await AsyncStorage.setItem("postcode", responseJson.postal_code);
+          await AsyncStorage.setItem("profilepic", responseJson.profile_image);
 
           console.log("Educator succesfull login");
 
@@ -435,6 +472,7 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
             userid: responseJson.user_id,
             userType: responseJson.user_type,
             postcode: responseJson.postal_code,
+            profilepic: responseJson.profile_image,
           };
           dispatch({
             type: Login_Data,
@@ -452,6 +490,7 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
             userid: responseJson.user_id,
             userType: responseJson.user_type,
             postcode: responseJson.postal_code,
+            profilepic: responseJson.profile_image,
           };
           dispatch({
             type: Login_Data,
@@ -736,10 +775,29 @@ export const saveProfile = (
     axios
       .request(config)
       // .then((response) => response.json())
-      .then((responseJson) => {
+      .then(async (responseJson) => {
         console.log(JSON.stringify(responseJson.data), "respone");
         if (responseJson.data.status == true) {
+          await AsyncStorage.setItem("user_type", responseJson.data.user_type);
+          await AsyncStorage.setItem("user_id", responseJson.data.user_id);
+          await AsyncStorage.setItem("postcode", responseJson.data.postal_code);
+          await AsyncStorage.setItem(
+            "profilepic",
+            responseJson.data.profile_image
+          );
+
+          let obj = {
+            userid: responseJson.data.user_id,
+            userType: responseJson.data.user_type,
+            postcode: responseJson.data.postal_code,
+            profilepic: responseJson.data.profile_image,
+          };
+          dispatch({
+            type: Login_Data,
+            payload: obj,
+          });
           Alert.alert(responseJson.data.message);
+          // console.log(responseJson.data);
           navigation.navigate("Auth4");
         } else if (responseJson.data.status == false) {
           Alert.alert("Record not inserted");
@@ -818,7 +876,47 @@ export const offerDateTime = (
   };
 };
 
+export const FavouriteAssignment = (loginuser, postId, Fav, val) => {
+  console.log(loginuser, postId, Fav);
+  return (dispatch, getState) => {
+    const url =
+      "https://refuel.site/projects/tutorapp/APIs/TutorFavouriteAssignment/TutorFavouriteAssignment.php";
+
+    let data = new FormData();
+    data.append("tutor_login_id", loginuser);
+    data.append("student_post_requirements_id", postId);
+    data.append("favourite", Fav);
+
+    console.log(
+      data,
+      "formdataformdataformdataformdataformdataformdataformdataformdataformdataformdataformdataformdataformdataformdataformdataformdata"
+    );
+    return fetch(url, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("responseJson", responseJson);
+        if (responseJson.status == true) {
+          Alert.alert(responseJson.message);
+          // navigation.navigate("Auth4");
+        } else if (responseJson.status == false) {
+          Alert.alert("Record not inserted");
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+  };
+};
+
 export const FavouriteTutorByStudent = (loginuser, tutorid, val) => {
+  console.log(loginuser, tutorid, val);
   return (dispatch, getState) => {
     const url =
       "https://refuel.site/projects/tutorapp/APIs/FavouriteTutorByStudent/FavouriteTutorByStudent.php";
@@ -1030,7 +1128,7 @@ export const studentPostRequirement = (
           ? "Non Negotiable"
           : "Negotiable",
       tutor_tution_offer_amount: Tutor_Qualification?.FeeOffer,
-      booked_date: "17-07-2023",
+      // booked_date: "17-07-2023",
 
       Qualifications: Tutor_Qualification?.TutorQualification,
 

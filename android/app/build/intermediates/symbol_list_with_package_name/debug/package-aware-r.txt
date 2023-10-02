@@ -1620,6 +1620,7 @@ drawable spinner_dropdown_background
 drawable src_assets_academic
 drawable src_assets_afternoon
 drawable src_assets_assests
+drawable src_assets_assign_unfav
 drawable src_assets_back
 drawable src_assets_backgrey
 drawable src_assets_baricon
@@ -1649,6 +1650,7 @@ drawable src_assets_educator_icon
 drawable src_assets_evening
 drawable src_assets_exam
 drawable src_assets_expand
+drawable src_assets_fav_assign
 drawable src_assets_favourite
 drawable src_assets_fb
 drawable src_assets_female
@@ -1700,6 +1702,7 @@ drawable src_assets_philippines
 drawable src_assets_plus
 drawable src_assets_postrequire
 drawable src_assets_privacy
+drawable src_assets_profileimg
 drawable src_assets_promotion
 drawable src_assets_qricon
 drawable src_assets_qualification
@@ -3229,6 +3232,7 @@ styleable ViewBackgroundHelper android_background backgroundTint backgroundTintM
 styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_layout android_inflatedId
 styleable scaleStyle scalableType
+xml file_provider_paths
 xml imagepicker_provider_paths
 xml rn_dev_preferences
 xml standalone_badge

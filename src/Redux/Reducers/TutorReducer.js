@@ -22,6 +22,7 @@ import {
   SUBJECT_LIST,
   ALL_FAV_TUTORS,
   VIEW_ASSIGNMENT,
+  FAV_ASSIGNMENT,
   SINGLE_USER,
 } from "../Actions/types";
 
@@ -44,6 +45,7 @@ const initialstate = {
   Postal_Code_Address: "",
   ALL_POSTS_BY_CLIENT: [],
   VIEW_ASSIGNMENT: [],
+  FAV_ASSIGNMENT: [],
   LEVEL_LIST: "",
   GRADE_LIST: "",
   SINGLE_USER: [],
@@ -53,7 +55,7 @@ const initialstate = {
 };
 
 const TutorReducer = (state = initialstate, action) => {
-  console.log("Studenttttt", action.payload);
+  //  console.log("Studenttttt", action.payload);
   switch (action.type) {
     case ALL_TUTORS:
       return { ...state, GET_ALLTUTORS: action.ALLTUTORS };
@@ -91,6 +93,8 @@ const TutorReducer = (state = initialstate, action) => {
       return { ...state, ALL_POSTS_BY_CLIENT: action.payload };
     case VIEW_ASSIGNMENT:
       return { ...state, VIEW_ASSIGNMENT: action.payload };
+    case FAV_ASSIGNMENT:
+      return { ...state, FAV_ASSIGNMENT: action.payload };
     case POST_DETAIL:
       return { ...state, POST_DETAIL: action.payload };
     case LEVEL_LIST:

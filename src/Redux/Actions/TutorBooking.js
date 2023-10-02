@@ -45,7 +45,7 @@ export const AcceptFinalOffer = (TutId, BookingId, OfferStatus, navigation) => {
         //   Alert.alert(responseJson.message)
         if (responseJson.status == true) {
           console.log("ww", responseJson.message);
-          //  navigation.navigate("TutorAcceptCancel");
+          navigation.navigate("MyBookingTutor");
           Alert.alert(responseJson.message);
           // dispatch({
           //   type: REGISTER_MSG,
@@ -137,7 +137,7 @@ export const OfferStatus = (
     formData.append("offer_status", offerstatus);
     formData.append("tutor_tution_offer_amount_type", OfferType);
     formData.append("user_id_to_send_notification", tutorId);
-    console.log(url1, "PPPPPPPPPPPPPPPPPPPPPPPP");
+    //  console.log(url1, "PPPPPPPPPPPPPPPPPPPPPPPP");
     return fetch(url1, {
       method: "POST",
       headers: new Headers({
@@ -150,7 +150,7 @@ export const OfferStatus = (
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("OFFERRRRRRRRRRRRRRRRRRRRRRRR", responseJson.message);
+        //  console.log("OFFERRRRRRRRRRRRRRRRRRRRRRRR", responseJson.message);
         // Alert.alert(responseJson.message);
         if (responseJson.status == true) {
           dispatch(GetBookedTutorDetail(obj));
@@ -211,6 +211,7 @@ export const BookingStatus = (
         console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
         //   Alert.alert(responseJson.message)
         if (responseJson.status == true) {
+          // navigation.navigate("TutorAcceptCancel");
           navigation.navigate("MyBookingTutor");
           console.log("ww", responseJson.message);
 
@@ -254,7 +255,7 @@ export const GetBookedTutorDetail = (bookingData, navigation) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.output);
+        //  console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.output);
         if (responseJson.status == true) {
           dispatch({
             type: All_Booked_Tutor_Detail,
@@ -324,7 +325,7 @@ export const GetBookedStudentList = (Login_Data, navigation) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.output);
+        //console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.output);
         if (responseJson.status == true) {
           dispatch({
             type: All_Booked_Student,

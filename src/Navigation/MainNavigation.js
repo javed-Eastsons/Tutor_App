@@ -89,6 +89,8 @@ import Faq from "../screens/Faq";
 import TermsConditions from "../screens/TermsConditions";
 import PrivacyPolicy from "../screens/PrivacyPolicy";
 import CheckIn from "../screens/CheckIn";
+import MyApplied from "../screens/MyApplied";
+import Checkout from "../screens/Checkout";
 
 const SignStack = createStackNavigator();
 
@@ -853,6 +855,24 @@ function SecondStacknavigation() {
         component={MakePayment}
         options={{
           title: "AuthCheck",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="Checkout"
+        component={Checkout}
+        options={{
+          title: "Checkout",
           headerShown: false,
           headerStyle: {
             backgroundColor: "#e85b3d",
@@ -1667,6 +1687,24 @@ function TutorHomeStacknavigation() {
         }}
       />
       <TutorHomeStack.Screen
+        name="MyApplied"
+        component={MyApplied}
+        options={{
+          title: "MyApplied",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <TutorHomeStack.Screen
         name="TutorStartDT"
         component={TutorStartDT}
         options={{
@@ -1867,6 +1905,24 @@ function TutorHomeStacknavigation4() {
         component={CheckIn}
         options={{
           title: "CheckIn",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <TutorHomeStack.Screen
+        name="MyApplied"
+        component={MyApplied}
+        options={{
+          title: "MyApplied",
 
           headerStyle: {
             backgroundColor: "#e85b3d",

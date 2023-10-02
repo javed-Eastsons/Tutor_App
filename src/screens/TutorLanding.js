@@ -27,27 +27,33 @@ const TutorLanding = () => {
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
   const { Login_Data } = useSelector((state) => state.TutorReducer);
+  console.log(Login_Data, "Login_DataLogin_DataLogin_Data");
+
   const cardsData = [
     {
       name: "My Bookings",
       src: require("../Assets/Booking.png"),
       Url: "MyBookingTutor",
     },
+
     {
       name: "My Applied",
       src: require("../Assets/newPostIcon.png"),
-      Url: "",
+      Url: "MyApplied",
     },
+
     {
       name: "Upcomings",
       src: require("../Assets/Upcoming.png"),
       Url: "",
     },
+
     {
       name: "My Faves",
       src: require("../Assets/newFavIcon.png"),
       Url: "MyFav",
     },
+
     // {
     //   name: "Payments",
     //   src: require("../Assets/PayN.png"),
@@ -76,6 +82,7 @@ const TutorLanding = () => {
             />
           </TouchableOpacity>
         </View>
+
         <View style={styles.HeadRight}>
           <Image source={require("../Assets/bell.png")} style={styles.icons} />
           <Image
@@ -89,10 +96,22 @@ const TutorLanding = () => {
       <ScrollView>
         <View style={styles.usercontainer}>
           <View style={styles.UserLeft}>
-            <Image
-              source={require("../Assets/mailuser.png")}
-              style={styles.usericons}
-            />
+            {Login_Data.profilepic == "" ? (
+              <Image
+                source={require("../Assets/mailuser.png")}
+                style={styles.usericons}
+              />
+            ) : (
+              <Image
+                source={{
+                  uri:
+                    "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
+                    Login_Data.profilepic,
+                }}
+                style={styles.usericons}
+              />
+            )}
+
             <View style={{ flexDirection: "row" }}>
               <Image
                 source={require("../Assets/start.png")}
@@ -112,10 +131,12 @@ const TutorLanding = () => {
               />
             </View>
           </View>
+
           <View style={styles.UserRight}>
             <Text style={{ color: "#000", fontFamily: "Poppins-Light" }}>
               {console.log(isEnabled)}I want to be a Student...
             </Text>
+
             <Switch
               trackColor={{ false: "#767577", true: "#81b0ff" }}
               thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
@@ -441,6 +462,9 @@ const styles = StyleSheet.create({
   usericons: {
     height: 50,
     width: 50,
+    borderRadius: 50,
+    marginLeft: 10,
+    //alignSelf: "center",
   },
   searchicons: {
     height: 50,
@@ -504,6 +528,7 @@ const styles = StyleSheet.create({
   UserLeft: {
     width: wp(35),
     height: hp(10),
+    justifyContent: "center",
   },
 
   toggleicons: {

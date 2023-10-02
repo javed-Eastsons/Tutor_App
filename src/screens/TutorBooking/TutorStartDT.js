@@ -34,8 +34,10 @@ import { AcceptFinalOffer } from "../../Redux/Actions/TutorBooking";
 import { Dropdown } from "react-native-element-dropdown";
 import CalendarPicker from "react-native-calendar-picker";
 import moment from "moment";
+import { Loader } from "../../common/Loader";
 
 import { offerDateTime, TutorofferDateTime } from "../../Redux/Actions/Tutors";
+import { stopClock } from "react-native-reanimated";
 
 var selectArray = [];
 var selectFilter = [];
@@ -213,6 +215,7 @@ const TutorStartDT = ({ route }) => {
   };
 
   const AcceptOffer = () => {
+    setLoader(true);
     console.log(
       "Accepttttttttttttttt",
       All_Booked_Tutor_Detail[0]?.tutor_id,
@@ -228,6 +231,9 @@ const TutorStartDT = ({ route }) => {
         navigation
       )
     );
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
   };
   const createlevel = (data) => {
     console.log(data, ":::::::::::::::::::::::::");
@@ -254,17 +260,22 @@ const TutorStartDT = ({ route }) => {
   console.log(offerAmount, "ADAWDQWD");
   useEffect(() => {
     // console.log(route.params.postalcode, route.params.tuition_type)
+    setLoader(true);
     // dispatch(GetAllTutors())
     setUserdata(GET_FILTER_DATA);
     setPostaldata(GET_POSTAL_DATA);
-    console.log(
-      "🚀 ~ file: OurTutor.js ~ line 506 ~ useEffect ~ GET_POSTAL_DATA",
-      GET_POSTAL_DATA
-    );
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+    // console.log(
+    //   "🚀 ~ file: OurTutor.js ~ line 506 ~ useEffect ~ GET_POSTAL_DATA",
+    //   GET_POSTAL_DATA
+    // );
   }, [offerAmount]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <Loader flag={loader} />
       <View style={styles.Headers}>
         <View style={styles.HeadLeft}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -321,7 +332,7 @@ const TutorStartDT = ({ route }) => {
         </View>
       </View>
       <View style={[styles.cardLeft, styles.shadowPropLeft]}>
-        <Text style={styles.infoText1}>Step 3 of 5: Start Date & Time hhh</Text>
+        <Text style={styles.infoText1}>Step 3 of 5: Start Date & Time</Text>
       </View>
       {All_Booked_Tutor_Detail[0]?.student_offer_date == "Accept" &&
       All_Booked_Tutor_Detail[0]?.tutor_accept_date_time_status == "" ? (
@@ -363,7 +374,13 @@ const TutorStartDT = ({ route }) => {
           </Text>
         </View>
       ) : (
-        <Text>Next Starting point</Text>
+        <Text style={styles.BookText1}>
+          Message:
+          <Text style={styles.BookText2}>
+            Below is the client's proposal.You may select to change or accept to
+            finalize the booking process
+          </Text>
+        </Text>
       )}
 
       <View style={[styles.Bookcard, styles.BookshadowProp]}>
@@ -675,7 +692,23 @@ const TutorStartDT = ({ route }) => {
                 <Text style={styles.infoText1}>Next</Text>
               </TouchableOpacity>
             ) : (
-              <Text>Next Starting point</Text>
+              <Text
+                style={[
+                  styles.infoText1,
+                  {
+                    height: "100%",
+                    width: "50%",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignSelf: "center",
+                    backgroundColor: "#fff",
+
+                    borderRadius: 3,
+                  },
+                ]}
+              >
+                Next
+              </Text>
             )
           ) : All_Booked_Tutor_Detail[0]?.tutor_offer_date != "" &&
             All_Booked_Tutor_Detail[0]?.tutor_offer_time != "" ? (

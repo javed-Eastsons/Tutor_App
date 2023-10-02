@@ -32,6 +32,7 @@ const SplashScreen = ({ navigation }) => {
     let userType = await AsyncStorage.getItem("user_type");
     let userID = await AsyncStorage.getItem("user_id");
     let postcode = await AsyncStorage.getItem("postcode");
+    let profilepic = await AsyncStorage.getItem("profilepic");
 
     setTimeout(function async() {
       console.log(token, "SplashScreen", userType, "USerType", userID);
@@ -41,6 +42,7 @@ const SplashScreen = ({ navigation }) => {
           userid: userID,
           userType: userType,
           postcode: postcode,
+          profilepic: profilepic,
         };
 
         console.log(obj, "AAAAAAAAAAAAAAaa");
@@ -54,6 +56,7 @@ const SplashScreen = ({ navigation }) => {
           userid: userID,
           userType: userType,
           postcode: postcode,
+          profilepic: profilepic,
         };
 
         console.log(obj, "BBBBBBBBBBBBBB");

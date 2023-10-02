@@ -47,12 +47,16 @@ const YourProfle = ({ props, route }) => {
   const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
   const [Age, setAge] = useState(0);
   const [showPers, setShowPers] = useState(false);
+  const [showAcad, setShowAcad] = useState(false);
+  const [showTut, setShowTut] = useState(false);
+  const [showWord, setShowWord] = useState(false);
+
   console.log(
     //  SINGLE_USER.Extra_info[0],
     "SINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USER",
     Login_Data
   );
-
+  console.log(showPers, "showpers");
   if (route.params) {
     const {
       Age,
@@ -393,21 +397,17 @@ const YourProfle = ({ props, route }) => {
                   style={styles.posticons}
                 />
               </View>
-              <TouchableOpacity onPress={setShowPers(true)}>
+              <TouchableOpacity
+                onPress={() => {
+                  setShowPers(true);
+                }}
+              >
                 <Text style={styles.postText}>Personal Information</Text>
                 <Text style={styles.postSemiText}>
                   First, let’s get some information about yourself
                 </Text>
-
-             
-                {PersonalInfo_Data.persSave == false ? (
-                  <View style={styles.tickWrapper}>
-                    <Image
-                      source={require("../Assets/right.png")}
-                      style={styles.tickImage}
-                    />
-                  </View>
-                ) : (
+                <View style={{ flexDirection: "row" }}>
+                  {/* {showPers == true ? ( */}
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("PersonalInfo", {
@@ -420,7 +420,29 @@ const YourProfle = ({ props, route }) => {
                       Enter Personal Information
                     </Text>
                   </TouchableOpacity>
-                )}
+                  {/* // ) : null} */}
+                  {/* {PersonalInfo_Data.persSave == false ? ( */}
+                  {/* <View style={styles.tickWrapper}>
+                    <Image
+                      source={require("../Assets/right.png")}
+                      style={styles.tickImage}
+                    />
+                  </View> */}
+                  {/* // ) : ( */}
+                  {/* <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("PersonalInfo", {
+                        RouteFrom: "Create",
+                      })
+                    }
+                    style={styles.infoWrapper}
+                  >
+                    <Text style={styles.infoWrapperText}>
+                      Enter Personal Information
+                    </Text>
+                  </TouchableOpacity> */}
+                  {/* // )} */}
+                </View>
               </TouchableOpacity>
             </View>
           )}
@@ -449,19 +471,17 @@ const YourProfle = ({ props, route }) => {
                   style={styles.posticons}
                 />
               </View>
-              <View>
+              <TouchableOpacity
+                onPress={() => {
+                  setShowAcad(true);
+                }}
+              >
                 <Text style={styles.postText}>Academic History</Text>
                 <Text style={styles.postSemiText}>
                   Now we need to know something about your academic background
                 </Text>
-                {AcademicHistory_Data.acadSave == false ? (
-                  <View style={styles.tickWrapper}>
-                    <Image
-                      source={require("../Assets/right.png")}
-                      style={styles.tickImage}
-                    />
-                  </View>
-                ) : (
+                <View style={{ flexDirection: "row" }}>
+                  {/* {showAcad == true ? ( */}
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("AcademicInfo", {
@@ -474,8 +494,30 @@ const YourProfle = ({ props, route }) => {
                       Enter Academic History
                     </Text>
                   </TouchableOpacity>
-                )}
-              </View>
+                  {/* ) : null} */}
+                  {/* {AcademicHistory_Data.acadSave == false ? (
+                    <View style={styles.tickWrapper}>
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+                    </View>
+                  ) : (
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate("AcademicInfo", {
+                          RouteFrom: "Create",
+                        })
+                      }
+                      style={styles.infoWrapper}
+                    >
+                      <Text style={styles.infoWrapperText}>
+                        Enter Academic History
+                      </Text>
+                    </TouchableOpacity>
+                  )} */}
+                </View>
+              </TouchableOpacity>
             </View>
           )}
           {/* <View style={styles.postLeft}>
@@ -702,7 +744,11 @@ const YourProfle = ({ props, route }) => {
                   style={styles.posticons}
                 />
               </View>
-              <View>
+              <TouchableOpacity
+                onPress={() => {
+                  setShowTut(true);
+                }}
+              >
                 <Text style={styles.postText}>
                   Tutoring Level, Subjects & Experience
                 </Text>
@@ -710,14 +756,9 @@ const YourProfle = ({ props, route }) => {
                   Share the subjects you would like to tutor & your tutoring
                   experience
                 </Text>
-                {TutionStatus_Data.tutSave == false ? (
-                  <View style={styles.tickWrapper}>
-                    <Image
-                      source={require("../Assets/right.png")}
-                      style={styles.tickImage}
-                    />
-                  </View>
-                ) : (
+
+                <View style={{ flexDirection: "row" }}>
+                  {/* {showTut == true ? ( */}
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("TutoringDetail", {
@@ -730,8 +771,30 @@ const YourProfle = ({ props, route }) => {
                       Enter Tutoring Details
                     </Text>
                   </TouchableOpacity>
-                )}
-              </View>
+                  {/* ) : null} */}
+                  {/* {TutionStatus_Data.tutSave == false ? (
+                    <View style={styles.tickWrapper}>
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+                    </View>
+                  ) : ( */}
+                  {/* <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("TutoringDetail", {
+                        RouteFrom: "Create",
+                      })
+                    }
+                    style={styles.infoWrapper}
+                  >
+                    <Text style={styles.infoWrapperText}>
+                      Enter Tutoring Details
+                    </Text>
+                  </TouchableOpacity> */}
+                  {/* )} */}
+                </View>
+              </TouchableOpacity>
             </View>
           )}
 
@@ -767,19 +830,39 @@ const YourProfle = ({ props, route }) => {
                   style={styles.posticons}
                 />
               </View>
-              <View>
+              <TouchableOpacity
+                onPress={() => {
+                  setShowWord(true);
+                }}
+              >
                 <Text style={styles.postText}>A Word from You</Text>
                 <Text style={styles.postSemiText}>
                   A little more & you have completed your profile
                 </Text>
-                {TutionStatus_Data.wordSave == false ? (
-                  <View style={styles.tickWrapper}>
-                    <Image
-                      source={require("../Assets/right.png")}
-                      style={styles.tickImage}
-                    />
-                  </View>
-                ) : (
+
+                <View style={{ flexDirection: "row" }}>
+                  {/* {showWord == true ? (
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate("WordYou", {
+                          RouteFrom: "Create",
+                        })
+                      }
+                      style={styles.infoWrapper}
+                    >
+                      <Text style={styles.infoWrapperText}>
+                        A Word from You
+                      </Text>
+                    </TouchableOpacity>
+                  ) : null} */}
+                  {/* {TutionStatus_Data.wordSave == false ? (
+                    <View style={styles.tickWrapper}>
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+                    </View>
+                  ) : ( */}
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("WordYou", {
@@ -790,8 +873,9 @@ const YourProfle = ({ props, route }) => {
                   >
                     <Text style={styles.infoWrapperText}>A Word from You</Text>
                   </TouchableOpacity>
-                )}
-              </View>
+                  {/* )} */}
+                </View>
+              </TouchableOpacity>
             </View>
           )}
         </View>
@@ -1070,14 +1154,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
   },
-  tickImage: { height: 20, width: 20 },
+  tickImage: { height: 15, width: 15 },
   tickWrapper: {
     backgroundColor: "green",
-    height: hp(5),
-    width: wp(10),
-    borderRadius: 50,
+    height: hp(3),
+    width: wp(6),
+    borderRadius: 60,
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: 100,
+    position: "absolute",
+    right: 5,
+    bottom: 1,
   },
 });

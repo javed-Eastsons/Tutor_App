@@ -53,32 +53,17 @@ const Register = ({ route }) => {
   const [loader, setLoader] = useState(false);
   const [value, setValue] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
-  const [imageSource, setImageSource] = useState(null);
+  const [imageSource, setImageSource] = useState("");
 
-  const [imageSource1, setImageSource1] = useState(null);
+  const [imageSource1, setImageSource1] = useState("");
   const [newImg, setNewImg] = useState(null);
 
   const { Registermsg } = useSelector((state) => state.TutorReducer);
   const { otpmsgs } = useSelector((state) => state.TutorReducer);
 
-  // console.log('LLLLLLLLLLLLLLLLLLLLLL', Registermsg)
-  //   console.log('SSSSSSSSSSSSSSSSSSSSSSS', otpmsgs)
-
-  // useEffect(() => {
-
-  //     console.log(route.params.codeadd);
-  //     if (route.params.codeadd == 'yes') {
-  //         setModalVisible(true)
-  //         // toggleModal()
-  //     }
-  //     else {
-  //         setModalVisible(false)
-  //     }
-
-  // }, [])
-
   useEffect(() => {
     setLoader(true);
+    setImageSource1("");
     setTimeout(() => {
       setLoader(false);
     }, 2000);
@@ -182,10 +167,16 @@ const Register = ({ route }) => {
       setLoader(false);
     }, 3000);
   };
-  useEffect(async () => {
+
+  // useEffect(() => {
+  //   Get_Image();
+  // }, []);
+
+  const Get_Image = async () => {
     const img = await AsyncStorage.getItem("profileImage");
     setNewImg(img);
-  }, []);
+  };
+
   let options = {
     title: "You can choose one image",
     maxWidth: 256,
@@ -255,6 +246,7 @@ const Register = ({ route }) => {
     setImageSource(base64result);
     setImageSource1(dataUrl);
   });
+
   const showSelectionPopup = () => (
     <TouchableOpacity
       onPress={() => setShowPopup(false)}
@@ -334,15 +326,28 @@ const Register = ({ route }) => {
           }}
           onPress={() => setShowPopup(true)}
         >
-          <Image
-            source={{ uri: imageSource1 }}
-            style={{
-              width: 100,
-              height: 100,
-              borderRadius: 50,
-              backgroundColor: "grey",
-            }}
-          />
+          {/* {console.log(imageSource1, "LLLLLLLLLLLLLLLLLLLLLLL")} */}
+          {imageSource1 == "" ? (
+            <Image
+              source={require("../Assets/profileImg.png")}
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50,
+                backgroundColor: "grey",
+              }}
+            />
+          ) : (
+            <Image
+              source={{ uri: imageSource1 }}
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50,
+                backgroundColor: "grey",
+              }}
+            />
+          )}
         </TouchableOpacity>
 
         {/* <View style={styles.ImageSec}>

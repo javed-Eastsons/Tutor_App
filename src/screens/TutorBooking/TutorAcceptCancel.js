@@ -45,6 +45,7 @@ import moment from "moment";
 import { OfferStatus } from "../../Redux/Actions/TutorBooking";
 var selectArray = [];
 var selectFilter = [];
+import { Loader } from "../../common/Loader";
 
 const TutorAcceptCancel = ({ route }) => {
   const navigation = useNavigation();
@@ -118,284 +119,284 @@ const TutorAcceptCancel = ({ route }) => {
       tutorId: All_Booked_Tutor_Detail[0]?.tutor_id,
       BookingId: route.params.BookingId,
     };
+
+    dispatch(
+      OfferStatus(
+        route.params.BookingId,
+        Offerstatus,
+        All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount_type,
+        route.params.tutorId,
+        navigation
+      )
+    );
+    dispatch(GetBookedTutorDetail(obj, navigation));
     setTimeout(() => {
-      dispatch(
-        OfferStatus(
-          route.params.BookingId,
-          Offerstatus,
-          All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount_type,
-          route.params.tutorId,
-          navigation
-        )
-      );
-
-      dispatch(GetBookedTutorDetail(obj, navigation));
-
       setLoader(false);
-    }, 5000);
+    }, 2000);
   };
 
-  if (loader) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator
-          size="large"
-          style={{
-            alignSelf: "center",
-          }}
-        />
+  // if (loader) {
+  //   return (
+  //     <View style={styles.container}>
+  //       <ActivityIndicator
+  //         size="large"
+  //         style={{
+  //           alignSelf: "center",
+  //         }}
+  //       />
+  //     </View>
+  //   );
+  // } else {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <Loader flag={loader} />
+      <View style={styles.Headers}>
+        <View style={styles.HeadLeft}>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <Image
+              source={require("../../Assets/baricon.png")}
+              style={styles.icons}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.HeadRight}>
+          <Image
+            source={require("../../Assets/bell.png")}
+            style={styles.icons}
+          />
+          <Image
+            source={require("../../Assets/search.png")}
+            style={styles.icons}
+          />
+          <Image
+            source={require("../../Assets/chat.png")}
+            style={styles.icons}
+          />
+        </View>
       </View>
-    );
-  } else {
-    return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.Headers}>
-          <View style={styles.HeadLeft}>
-            <TouchableOpacity onPress={() => navigation.openDrawer()}>
-              <Image
-                source={require("../../Assets/baricon.png")}
-                style={styles.icons}
-              />
-            </TouchableOpacity>
+      <View style={styles.HeaderContainer}>
+        <Text style={styles.HeaderText}>Let's Book!</Text>
+      </View>
+      <View style={styles.Container}>
+        <View style={styles.LeftImageContainer}>
+          <Image
+            source={require("../../Assets/user.png")}
+            style={styles.leftImage}
+          />
+        </View>
+        <View style={styles.UserInfoContainer}>
+          <View style={styles.UserInfoContainer1}>
+            <Text style={styles.infoText}>Hello</Text>
           </View>
-          <View style={styles.HeadRight}>
-            <Image
-              source={require("../../Assets/bell.png")}
-              style={styles.icons}
-            />
-            <Image
-              source={require("../../Assets/search.png")}
-              style={styles.icons}
-            />
-            <Image
-              source={require("../../Assets/chat.png")}
-              style={styles.icons}
-            />
+          <View style={{ height: 30, width: 200 }}>
+            <Text style={styles.infoText}>University Undergraguate</Text>
           </View>
         </View>
-        <View style={styles.HeaderContainer}>
-          <Text style={styles.HeaderText}>Let's Book!</Text>
+      </View>
+      <View style={styles.RatingContainer}>
+        <View style={{ width: 40, marginLeft: 5 }}>
+          <StarRating
+            fullStarColor="orange"
+            disabled={false}
+            maxStars={5}
+            // rating={item.Average_rating}
+            starSize={15}
+            // selectedStar={(rating) => setStrCount(rating)}
+          />
         </View>
-        <View style={styles.Container}>
-          <View style={styles.LeftImageContainer}>
-            <Image
-              source={require("../../Assets/user.png")}
-              style={styles.leftImage}
-            />
-          </View>
-          <View style={styles.UserInfoContainer}>
-            <View style={styles.UserInfoContainer1}>
-              <Text style={styles.infoText}>Hello</Text>
-            </View>
-            <View style={{ height: 30, width: 200 }}>
-              <Text style={styles.infoText}>University Undergraguate</Text>
-            </View>
-          </View>
-        </View>
-        <View style={styles.RatingContainer}>
-          <View style={{ width: 40, marginLeft: 5 }}>
-            <StarRating
-              fullStarColor="orange"
-              disabled={false}
-              maxStars={5}
-              // rating={item.Average_rating}
-              starSize={15}
-              // selectedStar={(rating) => setStrCount(rating)}
-            />
-          </View>
-        </View>
-        <View style={[styles.cardLeft, styles.shadowPropLeft]}>
-          <Text style={styles.infoText1}>
-            Step 2 of 5: Tution Fee Confirmation
+      </View>
+      <View style={[styles.cardLeft, styles.shadowPropLeft]}>
+        <Text style={styles.infoText1}>
+          Step 2 of 5: Tution Fee Confirmation
+        </Text>
+      </View>
+      <View style={[styles.Bookcard, styles.BookshadowProp]}>
+        <View
+          style={{
+            height: 90,
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#F2F2F2",
+            paddingLeft: 5,
+            paddingRight: 5,
+            // flexDirection: 'row',
+          }}
+        >
+          <Text style={styles.BookText1}>
+            Message:
+            {sendOffer == 0 ? (
+              <Text style={styles.BookText2}>
+                Please offer the Tutor a fee.If fee is Non-negotiable,tutor can
+                only accept or cancel this bookingwwww
+              </Text>
+            ) : (
+              <Text style={styles.BookText2}>
+                You have place an offer.Tutor will be informed.you will be
+                recieve an app notification when the tutor has responded
+              </Text>
+            )}
           </Text>
         </View>
-        <View style={[styles.Bookcard, styles.BookshadowProp]}>
+
+        <ScrollView style={{ marginBottom: 20 }}>
           <View
             style={{
-              height: 90,
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#F2F2F2",
-              paddingLeft: 5,
-              paddingRight: 5,
-              // flexDirection: 'row',
+              height: wp(50),
+              width: wp(40),
+              backgroundColor: "#fff",
+              borderRadius: 20,
+              margin: 20,
+              elevation: 10,
             }}
           >
-            <Text style={styles.BookText1}>
-              Message:
-              {sendOffer == 0 ? (
-                <Text style={styles.BookText2}>
-                  Please offer the Tutor a fee.If fee is Non-negotiable,tutor
-                  can only accept or cancel this bookingwwww
-                </Text>
-              ) : (
-                <Text style={styles.BookText2}>
-                  You have place an offer.Tutor will be informed.you will be
-                  recieve an app notification when the tutor has responded
-                </Text>
-              )}
-            </Text>
-          </View>
-
-          <ScrollView style={{ marginBottom: 20 }}>
-            <View
+            <Image
+              source={require("../../Assets/Dollar.png")}
+              style={styles.Dollaricons}
+            />
+            <Text
               style={{
-                height: wp(50),
-                width: wp(40),
-                backgroundColor: "#fff",
-                borderRadius: 20,
-                margin: 20,
-                elevation: 10,
+                fontSize: 22,
+                textAlign: "center",
+                fontWeight: "700",
+                color: "#2F5597",
               }}
             >
-              <Image
-                source={require("../../Assets/Dollar.png")}
-                style={styles.Dollaricons}
-              />
+              Client's Offer
+            </Text>
+
+            <View
+              style={{
+                flexDirection: "row",
+                height: 50,
+                backgroundColor: "#2F5597",
+                marginTop: wp(5),
+                justifyContent: "center",
+              }}
+            >
               <Text
                 style={{
-                  fontSize: 22,
-                  textAlign: "center",
-                  fontWeight: "700",
-                  color: "#2F5597",
+                  color: "#fff",
+                  fontSize: 16,
+                  fontWeight: "600",
+                  alignSelf: "center",
                 }}
               >
-                Client's Offer
+                SGD {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount}
               </Text>
 
-              <View
-                style={{
-                  flexDirection: "row",
-                  height: 50,
-                  backgroundColor: "#2F5597",
-                  marginTop: wp(5),
-                  justifyContent: "center",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#fff",
-                    fontSize: 16,
-                    fontWeight: "600",
-                    alignSelf: "center",
-                  }}
-                >
-                  SGD {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount}
-                </Text>
-
-                <Text
-                  style={{
-                    color: "#fff",
-                    fontSize: 16,
-                    fontWeight: "600",
-                    alignSelf: "center",
-                  }}
-                >
-                  / hour
-                </Text>
-              </View>
-
               <Text
                 style={{
-                  textAlign: "center",
-                  color: "#2F5597",
-                  fontSize: 14,
-                  marginTop: wp(3),
+                  color: "#fff",
+                  fontSize: 16,
+                  fontWeight: "600",
+                  alignSelf: "center",
                 }}
               >
-                {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount_type}
+                / hour
               </Text>
             </View>
-            {All_Booked_Tutor_Detail[0]?.offer_status == "Accept" ? (
-              <View
+
+            <Text
+              style={{
+                textAlign: "center",
+                color: "#2F5597",
+                fontSize: 14,
+                marginTop: wp(3),
+              }}
+            >
+              {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount_type}
+            </Text>
+          </View>
+          {All_Booked_Tutor_Detail[0]?.offer_status == "Accept" ? (
+            <View
+              style={{
+                marginTop: wp(5),
+                backgroundColor: "#2F5597",
+                height: wp(12),
+                borderColor: "#2F5597",
+                borderWidth: 1,
+                flexDirection: "row",
+              }}
+            >
+              <Text
                 style={{
-                  marginTop: wp(5),
-                  backgroundColor: "#2F5597",
-                  height: wp(12),
-                  borderColor: "#2F5597",
-                  borderWidth: 1,
-                  flexDirection: "row",
+                  width: wp(90),
+                  color: "#fff",
+                  fontSize: 16,
+                  fontWeight: "500",
+                  margin: 10,
+                  textAlign: "center",
                 }}
               >
-                <Text
-                  style={{
-                    width: wp(90),
-                    color: "#fff",
-                    fontSize: 16,
-                    fontWeight: "500",
-                    margin: 10,
-                    textAlign: "center",
-                  }}
-                >
-                  Agreed Fee is SGD{" "}
-                  {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount} /hour
-                </Text>
-              </View>
-            ) : (
-              <View />
-            )}
-          </ScrollView>
-          <View
+                Agreed Fee is SGD{" "}
+                {All_Booked_Tutor_Detail[0]?.tutor_tution_offer_amount} /hour
+              </Text>
+            </View>
+          ) : (
+            <View />
+          )}
+        </ScrollView>
+        <View
+          style={{
+            height: "10%",
+            width: "100%",
+            position: "absolute",
+            bottom: -25,
+            flexDirection: "row",
+            alignSelf: "center",
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => TutorAcceptCancel("Cancel")}
             style={{
-              height: "10%",
-              width: "100%",
-              position: "absolute",
-              bottom: -25,
-              flexDirection: "row",
-              alignSelf: "center",
+              height: "100%",
+              width: "50%",
+              backgroundColor: "#C0C0C0",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 3,
             }}
           >
+            <Text style={styles.BookText5}>Cancel Booking</Text>
+          </TouchableOpacity>
+
+          {All_Booked_Tutor_Detail[0]?.offer_status == "Accept" ? (
             <TouchableOpacity
-              onPress={() => TutorAcceptCancel("Cancel")}
+              // onPress={() => TutorAcceptCancel("Accept")}
+              //  onPress={() => navigation.navigate("MakeOffer")}
               style={{
                 height: "100%",
                 width: "50%",
-                backgroundColor: "#C0C0C0",
                 justifyContent: "center",
                 alignItems: "center",
+                backgroundColor: "#fff",
                 borderRadius: 3,
               }}
             >
-              <Text style={styles.BookText5}>Cancel Booking</Text>
+              <Text style={styles.infoText1}>Next</Text>
             </TouchableOpacity>
-
-            {All_Booked_Tutor_Detail[0]?.offer_status == "Accept" ? (
-              <TouchableOpacity
-                // onPress={() => TutorAcceptCancel("Accept")}
-                //  onPress={() => navigation.navigate("MakeOffer")}
-                style={{
-                  height: "100%",
-                  width: "50%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "#fff",
-                  borderRadius: 3,
-                }}
-              >
-                <Text style={styles.infoText1}>Next</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                onPress={() => TutorAcceptCancel("Accept")}
-                //  onPress={() => navigation.navigate("MakeOffer")}
-                style={{
-                  height: "100%",
-                  width: "50%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "#F6BE00",
-                  borderRadius: 3,
-                }}
-              >
-                <Text style={styles.infoText1}>Accept</Text>
-              </TouchableOpacity>
-            )}
-          </View>
+          ) : (
+            <TouchableOpacity
+              onPress={() => TutorAcceptCancel("Accept")}
+              //  onPress={() => navigation.navigate("MakeOffer")}
+              style={{
+                height: "100%",
+                width: "50%",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#F6BE00",
+                borderRadius: 3,
+              }}
+            >
+              <Text style={styles.infoText1}>Accept</Text>
+            </TouchableOpacity>
+          )}
         </View>
-      </SafeAreaView>
-    );
-  }
+      </View>
+    </SafeAreaView>
+  );
+  // }
 };
 export default TutorAcceptCancel;
 const styles = StyleSheet.create({

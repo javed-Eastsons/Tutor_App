@@ -42,6 +42,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import MultiSelect from "react-native-multiple-select";
 import StarRating from "react-native-star-rating";
 import ReadMore from "react-native-read-more-text";
+import { Loader } from "../common/Loader";
 
 var selectArray = [];
 var selectFilter = [];
@@ -85,6 +86,7 @@ const MyBookings = ({ props, route }) => {
   const [SelectedStream, setSelectedStream] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState([]);
   const [selected, setSelected] = useState([]);
+  const [loader, setLoader] = useState(false);
 
   const renderList = ({ item, index }) => {
     const { id, Tutoring_Level, Tutoring_Subjects } = item;
@@ -515,8 +517,13 @@ const MyBookings = ({ props, route }) => {
     setPostaldata(GET_POSTAL_DATA);
     setQuickdata(GET_QUICK_DATA);
   }, [GET_FILTER_DATA, GET_POSTAL_DATA, GET_QUICK_DATA]);
+
   useEffect(() => {
+    setLoader(true);
     setAllBookedTutor(All_Booked_Tutor);
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
   }, [All_Booked_Tutor]);
 
   const setPrimaryFun = () => {
@@ -882,6 +889,7 @@ const MyBookings = ({ props, route }) => {
   return (
     <>
       <View style={styles.container}>
+        <Loader flag={loader} />
         <View style={styles.Headers}>
           <View style={styles.HeadLeft}>
             <TouchableOpacity onPress={() => navigation.openDrawer()}>

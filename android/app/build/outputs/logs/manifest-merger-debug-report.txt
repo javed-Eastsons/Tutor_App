@@ -26,6 +26,7 @@ MERGED from [:react-native-safe-area-context] C:\Prince\Tutor_New\lets-try\node_
 MERGED from [:react-native-screens] C:\Prince\Tutor_New\lets-try\node_modules\react-native-screens\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-svg] C:\Prince\Tutor_New\lets-try\node_modules\react-native-svg\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-video] C:\Prince\Tutor_New\lets-try\node_modules\react-native-video\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-webview] C:\Prince\Tutor_New\lets-try\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-21:12
 MERGED from [com.facebook.react:react-android:0.71.1] C:\Users\DELL\.gradle\caches\transforms-3\ffb538d3df82eda3a5fb1cf73e970095\transformed\jetified-react-android-0.71.1-debug\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\DELL\.gradle\caches\transforms-3\519dab51d8d920ca26ec43ebf1cc41dd\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.facebook.react:hermes-android:0.71.1] C:\Users\DELL\.gradle\caches\transforms-3\e317bec44779e3ddf676750a441aa38e\transformed\jetified-hermes-android-0.71.1-debug\AndroidManifest.xml:2:1-9:12
@@ -90,6 +91,7 @@ MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\DELL\.gradle\cac
 MERGED from [androidx.core:core-ktx:1.6.0] C:\Users\DELL\.gradle\caches\transforms-3\5ed8aabedc6a0ec5f2174ca71f0cc935\transformed\jetified-core-ktx-1.6.0\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.exifinterface:exifinterface:1.3.3] C:\Users\DELL\.gradle\caches\transforms-3\13d7ea6ac303755c6d0449bca7ef446e\transformed\exifinterface-1.3.3\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\DELL\.gradle\caches\transforms-3\165cce60bc265d08242cdaf0ec886b72\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.webkit:webkit:1.4.0] C:\Users\DELL\.gradle\caches\transforms-3\3f14b9685a046808d0a438671ce19b18\transformed\webkit-1.4.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.sqlite:sqlite:2.1.0] C:\Users\DELL\.gradle\caches\transforms-3\a2e80e3a96836f72ce4583c0ca9cf658\transformed\sqlite-2.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\DELL\.gradle\caches\transforms-3\516c8d07726e247b23394f1ab0474977\transformed\drawerlayout-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\DELL\.gradle\caches\transforms-3\4de1a2fb1bf2b1f238ece618b41e50d0\transformed\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
@@ -167,6 +169,8 @@ MERGED from [:react-native-firebase_app] C:\Prince\Tutor_New\lets-try\node_modul
 MERGED from [:react-native-firebase_app] C:\Prince\Tutor_New\lets-try\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-30:19
 MERGED from [:react-native-image-picker] C:\Prince\Tutor_New\lets-try\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
 MERGED from [:react-native-image-picker] C:\Prince\Tutor_New\lets-try\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
+MERGED from [:react-native-webview] C:\Prince\Tutor_New\lets-try\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
+MERGED from [:react-native-webview] C:\Prince\Tutor_New\lets-try\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-19:19
 MERGED from [com.facebook.react:react-android:0.71.1] C:\Users\DELL\.gradle\caches\transforms-3\ffb538d3df82eda3a5fb1cf73e970095\transformed\jetified-react-android-0.71.1-debug\AndroidManifest.xml:9:5-20
 MERGED from [com.facebook.react:react-android:0.71.1] C:\Users\DELL\.gradle\caches\transforms-3\ffb538d3df82eda3a5fb1cf73e970095\transformed\jetified-react-android-0.71.1-debug\AndroidManifest.xml:9:5-20
 MERGED from [com.facebook.soloader:soloader:0.10.4] C:\Users\DELL\.gradle\caches\transforms-3\e76b70ee1f49606866507265ff0fd068\transformed\jetified-soloader-0.10.4\AndroidManifest.xml:11:5-20
@@ -323,6 +327,8 @@ MERGED from [:react-native-svg] C:\Prince\Tutor_New\lets-try\node_modules\react-
 MERGED from [:react-native-svg] C:\Prince\Tutor_New\lets-try\node_modules\react-native-svg\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-video] C:\Prince\Tutor_New\lets-try\node_modules\react-native-video\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-video] C:\Prince\Tutor_New\lets-try\node_modules\react-native-video\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-webview] C:\Prince\Tutor_New\lets-try\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-webview] C:\Prince\Tutor_New\lets-try\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.react:react-android:0.71.1] C:\Users\DELL\.gradle\caches\transforms-3\ffb538d3df82eda3a5fb1cf73e970095\transformed\jetified-react-android-0.71.1-debug\AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.react:react-android:0.71.1] C:\Users\DELL\.gradle\caches\transforms-3\ffb538d3df82eda3a5fb1cf73e970095\transformed\jetified-react-android-0.71.1-debug\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\DELL\.gradle\caches\transforms-3\519dab51d8d920ca26ec43ebf1cc41dd\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
@@ -451,6 +457,8 @@ MERGED from [androidx.exifinterface:exifinterface:1.3.3] C:\Users\DELL\.gradle\c
 MERGED from [androidx.exifinterface:exifinterface:1.3.3] C:\Users\DELL\.gradle\caches\transforms-3\13d7ea6ac303755c6d0449bca7ef446e\transformed\exifinterface-1.3.3\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\DELL\.gradle\caches\transforms-3\165cce60bc265d08242cdaf0ec886b72\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\DELL\.gradle\caches\transforms-3\165cce60bc265d08242cdaf0ec886b72\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.webkit:webkit:1.4.0] C:\Users\DELL\.gradle\caches\transforms-3\3f14b9685a046808d0a438671ce19b18\transformed\webkit-1.4.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.webkit:webkit:1.4.0] C:\Users\DELL\.gradle\caches\transforms-3\3f14b9685a046808d0a438671ce19b18\transformed\webkit-1.4.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.sqlite:sqlite:2.1.0] C:\Users\DELL\.gradle\caches\transforms-3\a2e80e3a96836f72ce4583c0ca9cf658\transformed\sqlite-2.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.sqlite:sqlite:2.1.0] C:\Users\DELL\.gradle\caches\transforms-3\a2e80e3a96836f72ce4583c0ca9cf658\transformed\sqlite-2.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\DELL\.gradle\caches\transforms-3\516c8d07726e247b23394f1ab0474977\transformed\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
@@ -667,6 +675,16 @@ ADDED from [:react-native-image-picker] C:\Prince\Tutor_New\lets-try\node_module
 		ADDED from [:react-native-image-picker] C:\Prince\Tutor_New\lets-try\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-67
 	android:name
 		ADDED from [:react-native-image-picker] C:\Prince\Tutor_New\lets-try\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
+provider#com.reactnativecommunity.webview.RNCWebViewFileProvider
+ADDED from [:react-native-webview] C:\Prince\Tutor_New\lets-try\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
+	android:grantUriPermissions
+		ADDED from [:react-native-webview] C:\Prince\Tutor_New\lets-try\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
+	android:authorities
+		ADDED from [:react-native-webview] C:\Prince\Tutor_New\lets-try\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-64
+	android:exported
+		ADDED from [:react-native-webview] C:\Prince\Tutor_New\lets-try\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
+	android:name
+		ADDED from [:react-native-webview] C:\Prince\Tutor_New\lets-try\node_modules\react-native-webview\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-83
 uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
 ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\DELL\.gradle\caches\transforms-3\2961f2f064cd440be0353635a8b159b7\transformed\work-runtime-2.7.1\AndroidManifest.xml:27:5-81
 	android:name

@@ -14,6 +14,7 @@ import messaging from "@react-native-firebase/messaging";
 LogBox.ignoreLogs([
   "ViewPropTypes will be removed",
   "ColorPropType will be removed",
+  " Network request failed",
 ]);
 global.__reanimatedWorkletInit = () => {};
 

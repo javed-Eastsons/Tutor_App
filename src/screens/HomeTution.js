@@ -292,7 +292,7 @@ const HomeTution = ({ route }) => {
                 ref={mapRef}
                 style={styles.map}
                 zoomEnabled={true}
-                onRegionChangeComplete={onRegionCHange}
+                //   onRegionChangeComplete={onRegionCHange}
                 onMapReady={() => {
                   setstate({ marginBottom: 0 });
                 }}

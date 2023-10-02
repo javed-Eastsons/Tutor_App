@@ -43,10 +43,12 @@ import {
   singleUserDetails,
   FavouriteTutorByStudent,
 } from "../Redux/Actions/Tutors";
+import { Loader } from "../common/Loader";
 
 const TutorSearchProfile = ({ props, route }) => {
   const navigation = useNavigation();
   const [showwhat, setshowwhat] = React.useState("Experience");
+  const [loader, setLoader] = useState(false);
   // const [collapsed, setCollapsed] = useState(true);
   const data = route.params.data;
   const dispatch = useDispatch();
@@ -65,18 +67,32 @@ const TutorSearchProfile = ({ props, route }) => {
   const [activeSectionsSch, setActiveSectionsSch] = useState([]);
   const { Tution_Type } = useSelector((state) => state.TutorReducer);
   const [isBookmarked, setIsBookmarked] = useState(data.favourite_status);
-  console.log(isBookmarked, "LLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+  console.log(
+    isBookmarked,
+    "LLLLLLLLLLLLLLLLLLLLLLLLLLLL",
+    data.favourite_status
+  );
+
   const toggleBookmark = () => {
-    setIsBookmarked(!isBookmarked);
-    if (data.favourite_status == "true") {
+    //  setIsBookmarked(!isBookmarked);
+
+    console.log(data.favourite_status, "PPPPPPPPPPPPPPPPPPPP");
+    setLoader(true);
+    if (data.favourite_status == "True") {
+      console.log("TTTTTTTT");
       dispatch(
-        FavouriteTutorByStudent(Login_Data.userid, data.user_id, "false")
+        FavouriteTutorByStudent(Login_Data.userid, data.user_id, "False")
       );
     } else {
+      console.log("FFFFF");
       dispatch(
-        FavouriteTutorByStudent(Login_Data.userid, data.user_id, "true")
+        FavouriteTutorByStudent(Login_Data.userid, data.user_id, "True")
       );
     }
+
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
   };
 
   // const updateFilter = (isBookmarked) => {
@@ -375,13 +391,17 @@ const TutorSearchProfile = ({ props, route }) => {
       payload: obj,
     });
     console.log(obj, "AAAAAAAAAAAAAAAAAAAAAAAAA");
-    navigation.navigate("LetsBook", {
+    // navigation.navigate("LetsBook", {
+    //   data: data,
+    // });
+    navigation.navigate("StudentBookingInfo", {
       data: data,
     });
   };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+      <Loader flag={loader} />
       <View style={styles.Headers}>
         <View style={styles.HeadLeft}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -517,7 +537,7 @@ const TutorSearchProfile = ({ props, route }) => {
           {/* {isBookmarked == "true" ? ( */}
           <Image
             source={
-              isBookmarked
+              isBookmarked == "True"
                 ? require("../Assets/heart.png")
                 : require("../Assets/Health.png")
             }
@@ -569,7 +589,7 @@ const TutorSearchProfile = ({ props, route }) => {
           onpress={() => GetFavTutor()}
         >
           <Text style={{ alignSelf: "center", color: "grey" }}>
-            {isBookmarked ? "My Fav" : "Favourite"}
+            {isBookmarked == "True" ? "My Fav" : "Favourite"}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

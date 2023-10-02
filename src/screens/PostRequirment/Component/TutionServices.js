@@ -125,12 +125,18 @@ const TuitionServices = () => {
     }
   };
   const forwardArrowFunc = () => {
+    setLoader(true);
     geocodinApi();
+
     setForwardArrow(true);
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
   };
 
   return (
     <View style={styles.container}>
+      <Loader flag={loader} />
       <View style={styles.blueContiner}>
         <Text style={{ color: "#fff", fontSize: 20, padding: 10 }}>
           Select Tuition Service

@@ -104,6 +104,10 @@
         "source": "com.tutor.app-main-8:/drawable-mdpi/src_assets_tryit.png"
     },
     {
+        "merged": "com.tutor.app-merged_res-6:/drawable-mdpi_src_assets_fav_assign.png.flat",
+        "source": "com.tutor.app-main-8:/drawable-mdpi/src_assets_fav_assign.png"
+    },
+    {
         "merged": "com.tutor.app-merged_res-6:/mipmap-hdpi_ic_launcher.png.flat",
         "source": "com.tutor.app-main-8:/mipmap-hdpi/ic_launcher.png"
     },
@@ -342,6 +346,10 @@
     {
         "merged": "com.tutor.app-merged_res-6:/drawable-hdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
         "source": "com.tutor.app-main-8:/drawable-hdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-6:/drawable-mdpi_src_assets_assign_unfav.png.flat",
+        "source": "com.tutor.app-main-8:/drawable-mdpi/src_assets_assign_unfav.png"
     },
     {
         "merged": "com.tutor.app-merged_res-6:/raw_src_assets_four.mp4.flat",
@@ -614,6 +622,10 @@
     {
         "merged": "com.tutor.app-merged_res-6:/drawable-mdpi_src_assets_edit.png.flat",
         "source": "com.tutor.app-main-8:/drawable-mdpi/src_assets_edit.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-6:/drawable-mdpi_src_assets_profileimg.png.flat",
+        "source": "com.tutor.app-main-8:/drawable-mdpi/src_assets_profileimg.png"
     },
     {
         "merged": "com.tutor.app-merged_res-6:/drawable-mdpi_src_assets_myactivities.png.flat",

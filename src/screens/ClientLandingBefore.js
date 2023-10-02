@@ -45,7 +45,7 @@ const ClientLandingBefore = () => {
 
   const [Tutor, setTutor] = useState([]);
 
-  console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP", Tutor);
+  // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP", Tutor);
 
   const toggleModal = () => {
     console.log("sddddddddd");
@@ -83,7 +83,7 @@ const ClientLandingBefore = () => {
       setLoader(false);
     }, 2000);
   }, [GET_ALLTUTORS]);
-  console.log("tutors", Tutor);
+  // console.log("tutors", Tutor);
 
   return (
     <View style={styles.container}>
