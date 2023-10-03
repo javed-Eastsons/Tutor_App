@@ -30,6 +30,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import StarRating from "react-native-star-rating";
 import { Loader } from "../common/Loader";
+import { GetFilterAssignment } from "../Redux/Actions/TutorSearchAction";
 
 const CheckIn = () => {
   const [strCount, setStrCount] = useState(1);
@@ -49,9 +50,18 @@ const CheckIn = () => {
   const [Fee, setFee] = useState([]);
   const [OfferType, setOfferType] = useState([]);
   const [selectedlevels, setSelectedLevels] = useState([]);
-
+  const [filterData, setFilterData] = useState([]);
   const [isBookmarked, setIsBookmarked] = useState(true);
   const [loader, setLoader] = useState(false);
+  const [dataFrom, setDataFrom] = useState("Postal");
+  const { GET_FILTER_ASSIGNMENT } = useSelector(
+    (state) => state.TutorsearchReducer
+  );
+
+  // console.log(
+  //   GET_FILTER_ASSIGNMENT,
+  //   "GET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENT"
+  // );
 
   const toggleBookmark = (postid) => {
     setIsBookmarked(!isBookmarked);
@@ -63,21 +73,6 @@ const CheckIn = () => {
       dispatch(ViewAssignment(Login_Data, navigation));
       setLoader(false);
     }, 2000);
-  };
-  const FetchDetail = (time) => {
-    let picker = selectedlevels;
-    if (picker.includes(time)) {
-      // Remove the time from the array if it already exists
-      picker = picker.filter((item) => item !== time);
-    } else {
-      // Add the time to the array if it doesn't exist
-      picker.push(time);
-    }
-
-    // Update the state with the modified picker array
-    setSelectedLevels([...picker]); // Create a new array to trigger a state update
-
-    // Perform any other necessary actions, such as updating the date
   };
 
   const expandToggleModal = (
@@ -119,6 +114,58 @@ const CheckIn = () => {
     }, 2000);
   }, [VIEW_ASSIGNMENT]);
 
+  useEffect(() => {
+    setLoader(true);
+    updateFilter();
+    setFilterData(GET_FILTER_ASSIGNMENT);
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+  }, [selectedlevels]);
+
+  useEffect(() => {
+    setFilterData(GET_FILTER_ASSIGNMENT);
+  }, []);
+
+  useEffect(() => {
+    setFilterData(GET_FILTER_ASSIGNMENT);
+  }, [filterData, GET_FILTER_ASSIGNMENT]);
+
+  const FetchDetail = (time) => {
+    let picker = selectedlevels;
+    if (picker.includes(time)) {
+      // Remove the time from the array if it already exists
+      picker = picker.filter((item) => item !== time);
+    } else {
+      // Add the time to the array if it doesn't exist
+      picker.push(time);
+    }
+
+    // Update the state with the modified picker array
+    setSelectedLevels([...picker]); // Create a new array to trigger a state update
+    setDataFrom("Filter");
+    updateFilter();
+    // Perform any other necessary actions, such as updating the date
+  };
+
+  const updateFilter = () => {
+    console.log(
+      selectedlevels,
+      "selectedlevelsselectedlevelsselectedlevelsselectedlevels"
+    );
+    setLoader(true);
+    if (selectedlevels.length === 0) {
+      setDataFrom("Postal");
+
+      dispatch(ViewAssignment(Login_Data, navigation));
+      setAssignment(VIEW_ASSIGNMENT);
+    } else {
+      setDataFrom("Filter");
+      dispatch(GetFilterAssignment(selectedlevels));
+    }
+  };
+
+  console.log(dataFrom, "dataFromdataFromdataFromdataFromdataFromdataFrom");
   return (
     <View style={styles.container}>
       <Loader flag={loader} />
@@ -333,241 +380,248 @@ const CheckIn = () => {
             </Text>
           </TouchableOpacity> */}
         </View>
+        {dataFrom == "Postal" ? (
+          <FlatList
+            // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
+            scrollEnabled={true}
+            data={assignment}
+            keyExtractor={(item, index) => index}
+            showsVerticalScrollIndicator={false}
+            //renderItem={renderItem}
 
-        <FlatList
-          // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
-          scrollEnabled={true}
-          data={assignment}
-          keyExtractor={(item, index) => index}
-          showsVerticalScrollIndicator={false}
-          //renderItem={renderItem}
+            renderItem={({ item, index }) => (
+              <View key={item.student_post_requirements_id} style={{}}>
+                <TouchableOpacity style={styles.List}>
+                  <View
+                    style={{
+                      width: "22%",
+                      marginLeft: 5,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Image
+                      source={require("../Assets/user.png")}
+                      style={{
+                        height: 50,
+                        width: 50,
+                        marginBottom: 5,
+                        alignSelf: "center",
+                      }}
+                    />
+                    <StarRating
+                      fullStarColor="orange"
+                      disabled={false}
+                      maxStars={5}
+                      rating={4}
+                      starSize={13}
+                      // selectedStar={(rating) => setStrCount(rating)}
+                    />
+                  </View>
 
-          renderItem={({ item, index }) => (
-            <View style={{}}>
-              <TouchableOpacity style={styles.List}>
-                <View
+                  <View style={{ width: "75%", marginLeft: 10 }}>
+                    <View style={{ width: "70%", flexDirection: "row" }}>
+                      {/* <Text style={styles.LIstText}>
+                      Post ID {item.student_post_requirements_id}
+                    </Text> */}
+                    </View>
+
+                    <View
+                      style={
+                        {
+                          // height: 20,
+                          //width: "70%",
+                          //backgroundColor: "white",
+                        }
+                      }
+                    >
+                      <View>
+                        {item.student_level_grade_subjects &&
+                          item.student_level_grade_subjects.map((item) => {
+                            return (
+                              <View>
+                                <View>
+                                  <Text style={{ color: "#000", fontSize: 12 }}>
+                                    {/* {" "}
+                                  Level :{" "} */}
+                                    <Text
+                                      key={item}
+                                      style={{
+                                        fontSize: 12,
+                                        fontWeight: "700",
+                                      }}
+                                    >
+                                      {item.Level}
+                                    </Text>
+                                  </Text>
+                                </View>
+
+                                <View>
+                                  <Text style={{ color: "#000", fontSize: 12 }}>
+                                    {/* {" "}
+                                  Level :{" "} */}
+                                    <Text key={item} style={{ fontSize: 10 }}>
+                                      {item.Grade}
+                                    </Text>
+                                  </Text>
+                                </View>
+
+                                <View style={{ marginBottom: 5 }}>
+                                  <Text style={{ color: "#000", fontSize: 12 }}>
+                                    {/* {" "}
+                                  Subjects :{" "} */}
+                                    <Text key={item} style={{ fontSize: 10 }}>
+                                      {item.ALL_Subjects}
+                                    </Text>
+                                  </Text>
+                                </View>
+                              </View>
+                            );
+                          })}
+                      </View>
+                      <View
+                        style={{
+                          width: "78%",
+                          flexDirection: "row",
+                          paddingBottom: 10,
+                        }}
+                      >
+                        <Text numberOfLines={1} style={styles.LIstText}>
+                          {item.student_postal_address}
+                        </Text>
+                        <Text
+                          style={{
+                            color: "#000",
+                            fontSize: 12,
+                            marginLeft: 15,
+                          }}
+                        >
+                          {/* {" "}
+                                  Subjects :{" "} */}
+                          <Text key={item} style={{ fontSize: 10 }}>
+                            {item.booked_date}
+                          </Text>
+                        </Text>
+                      </View>
+                    </View>
+                    <View></View>
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() =>
+                    toggleBookmark(item.student_post_requirements_id)
+                  }
                   style={{
-                    width: "22%",
-                    marginLeft: 5,
-                    justifyContent: "center",
+                    height: 20,
+                    width: 30,
+                    position: "absolute",
+                    right: 50,
+                    marginTop: 50,
+                  }}
+                >
+                  {!isBookmarked ? (
+                    <Image
+                      source={require("../Assets/fav_Assign.png")}
+                      style={{ height: 20, width: 20 }}
+                    />
+                  ) : (
+                    <Image
+                      source={require("../Assets/Assign_UnFav.png")}
+                      style={{ height: 20, width: 20 }}
+                    />
+                  )}
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() =>
+                    expandToggleModal(
+                      item.student_post_requirements_id,
+                      item.student_tution_type,
+                      item.student_postal_code,
+                      item.student_postal_address,
+                      item.tutor_tution_fees,
+                      item.tutor_tution_offer_amount_type
+                    )
+                  }
+                  style={{
+                    height: 20,
+                    width: 30,
+                    position: "absolute",
+                    right: 20,
+                    marginTop: 50,
                   }}
                 >
                   <Image
-                    source={require("../Assets/user.png")}
-                    style={{
-                      height: 50,
-                      width: 50,
-                      marginBottom: 5,
-                      alignSelf: "center",
-                    }}
+                    source={require("../Assets/Expand.png")}
+                    style={{ height: 20, width: 20 }}
                   />
-                  <StarRating
-                    fullStarColor="orange"
-                    disabled={false}
-                    maxStars={5}
-                    rating={4}
-                    starSize={13}
-                    // selectedStar={(rating) => setStrCount(rating)}
-                  />
-                </View>
+                </TouchableOpacity>
 
-                <View style={{ width: "75%", marginLeft: 10 }}>
-                  <View style={{ width: "70%", flexDirection: "row" }}>
-                    {/* <Text style={styles.LIstText}>
-                      Post ID {item.student_post_requirements_id}
-                    </Text> */}
+                <Modal
+                  isVisible={isExpandModalVisible}
+                  onBackdropPress={() => setExpandModalVisible(false)}
+                >
+                  <View style={styles.ExpandBlueContainer}>
+                    <Text style={styles.BlueText}>Post Detail</Text>
                   </View>
 
                   <View
-                    style={
-                      {
-                        // height: 20,
-                        //width: "70%",
-                        //backgroundColor: "white",
-                      }
-                    }
+                    style={{
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
+                      alignSelf: "center",
+                      position: "absolute",
+                      bottom: 0,
+                      height: hp(70),
+                      width: wp(95),
+                      backgroundColor: "#fff",
+                    }}
                   >
-                    <View>
-                      {item.student_level_grade_subjects &&
-                        item.student_level_grade_subjects.map((item) => {
-                          return (
-                            <View>
-                              <View>
-                                <Text style={{ color: "#000", fontSize: 12 }}>
-                                  {/* {" "}
-                                  Level :{" "} */}
-                                  <Text
-                                    key={item}
-                                    style={{ fontSize: 12, fontWeight: "700" }}
-                                  >
-                                    {item.Level}
-                                  </Text>
-                                </Text>
-                              </View>
-
-                              <View>
-                                <Text style={{ color: "#000", fontSize: 12 }}>
-                                  {/* {" "}
-                                  Level :{" "} */}
-                                  <Text key={item} style={{ fontSize: 10 }}>
-                                    {item.Grade}
-                                  </Text>
-                                </Text>
-                              </View>
-
-                              <View style={{ marginBottom: 5 }}>
-                                <Text style={{ color: "#000", fontSize: 12 }}>
-                                  {/* {" "}
-                                  Subjects :{" "} */}
-                                  <Text key={item} style={{ fontSize: 10 }}>
-                                    {item.ALL_Subjects}
-                                  </Text>
-                                </Text>
-                              </View>
-                            </View>
-                          );
-                        })}
-                    </View>
-                    <View
-                      style={{
-                        width: "78%",
-                        flexDirection: "row",
-                        paddingBottom: 10,
-                      }}
-                    >
-                      <Text numberOfLines={1} style={styles.LIstText}>
-                        {item.student_postal_address}
-                      </Text>
-                      <Text
-                        style={{
-                          color: "#000",
-                          fontSize: 12,
-                          marginLeft: 15,
-                        }}
-                      >
-                        {/* {" "}
-                                  Subjects :{" "} */}
-                        <Text key={item} style={{ fontSize: 10 }}>
-                          {item.booked_date}
-                        </Text>
-                      </Text>
-                    </View>
-                  </View>
-                  <View></View>
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() =>
-                  toggleBookmark(item.student_post_requirements_id)
-                }
-                style={{
-                  height: 20,
-                  width: 30,
-                  position: "absolute",
-                  right: 50,
-                  marginTop: 50,
-                }}
-              >
-                {!isBookmarked ? (
-                  <Image
-                    source={require("../Assets/fav_Assign.png")}
-                    style={{ height: 20, width: 20 }}
-                  />
-                ) : (
-                  <Image
-                    source={require("../Assets/Assign_UnFav.png")}
-                    style={{ height: 20, width: 20 }}
-                  />
-                )}
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() =>
-                  expandToggleModal(
-                    item.student_post_requirements_id,
-                    item.student_tution_type,
-                    item.student_postal_code,
-                    item.student_postal_address,
-                    item.tutor_tution_fees,
-                    item.tutor_tution_offer_amount_type
-                  )
-                }
-                style={{
-                  height: 20,
-                  width: 30,
-                  position: "absolute",
-                  right: 20,
-                  marginTop: 50,
-                }}
-              >
-                <Image
-                  source={require("../Assets/Expand.png")}
-                  style={{ height: 20, width: 20 }}
-                />
-              </TouchableOpacity>
-
-              <Modal
-                isVisible={isExpandModalVisible}
-                onBackdropPress={() => setExpandModalVisible(false)}
-              >
-                <View style={styles.ExpandBlueContainer}>
-                  <Text style={styles.BlueText}>Post Detail</Text>
-                </View>
-
-                <View
-                  style={{
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
-                    alignSelf: "center",
-                    position: "absolute",
-                    bottom: 0,
-                    height: hp(70),
-                    width: wp(95),
-                    backgroundColor: "#fff",
-                  }}
-                >
-                  <TouchableOpacity style={styles.List}>
-                    <View style={{ height: 60, width: "100%", marginLeft: 10 }}>
+                    <TouchableOpacity style={styles.List}>
                       <View
-                        style={{
-                          height: 20,
-                          width: "50%",
-                          flexDirection: "row",
-                        }}
+                        style={{ height: 60, width: "100%", marginLeft: 10 }}
                       >
-                        <Text style={styles.LIstText}>
-                          Post ID:{item.student_post_requirements_id}
-                        </Text>
-                      </View>
+                        <View
+                          style={{
+                            height: 20,
+                            width: "50%",
+                            flexDirection: "row",
+                          }}
+                        >
+                          <Text style={styles.LIstText}>
+                            Post ID:{item.student_post_requirements_id}
+                          </Text>
+                        </View>
 
-                      {/* <Text style={styles.LIstText2}>
+                        {/* <Text style={styles.LIstText2}>
                         Student Grade: {item.student_grade}
                       </Text>
                       <Text style={styles.LIstText2}>
                         Student level: {item.student_level}
                       </Text> */}
-                      <Text style={styles.LIstText2}>
-                        Tuition Type: {tuitionType}
-                      </Text>
-                      <Text style={styles.LIstText2}>PostCode: {postCode}</Text>
-                      <View style={{ marginTop: 20 }}></View>
-                      <Text style={styles.LIstText2}>
-                        Street Address: {postAdd}
-                      </Text>
-                      {/* <Text style={styles.LIstText2}>
+                        <Text style={styles.LIstText2}>
+                          Tuition Type: {tuitionType}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          PostCode: {postCode}
+                        </Text>
+                        <View style={{ marginTop: 20 }}></View>
+                        <Text style={styles.LIstText2}>
+                          Street Address: {postAdd}
+                        </Text>
+                        {/* <Text style={styles.LIstText2}>
                         Duration: {item.tutor_duration_weeks}
                       </Text> */}
-                      {/* <Text style={styles.LIstText2}>
+                        {/* <Text style={styles.LIstText2}>
                         Hours: {item.tutor_duration_hours}
                       </Text> */}
-                      <Text style={styles.LIstText2}>
-                        Fee Detail: {OfferType}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        Offer Amount: SGD {Fee} per hour
-                      </Text>
-                      {/* <Text style={styles.LIstText2}>
+                        <Text style={styles.LIstText2}>
+                          Fee Detail: {OfferType}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          Offer Amount: SGD {Fee} per hour
+                        </Text>
+                        {/* <Text style={styles.LIstText2}>
                         Subjects:{" "}
                         {ALL_POSTS_BY_CLIENT[0]?.student_subjects &&
                           ALL_POSTS_BY_CLIENT[0]?.student_subjects.map(
@@ -580,7 +634,7 @@ const CheckIn = () => {
                             }
                           )}
                       </Text> */}
-                      {/* <Text style={styles.LIstText2}>
+                        {/* <Text style={styles.LIstText2}>
                         Tutor Qualification:{" "}
                         {ALL_POSTS_BY_CLIENT[0]?.tutor_qualification &&
                           ALL_POSTS_BY_CLIENT[0]?.tutor_qualification.map(
@@ -593,7 +647,7 @@ const CheckIn = () => {
                             }
                           )}
                       </Text> */}
-                      {/* <Text style={styles.LIstText2}>
+                        {/* <Text style={styles.LIstText2}>
                         Schedule Day:{" "}
                         {ALL_POSTS_BY_CLIENT[0]?.tutor_schedule &&
                           ALL_POSTS_BY_CLIENT[0]?.tutor_schedule.map((item) => {
@@ -604,7 +658,7 @@ const CheckIn = () => {
                             );
                           })}
                       </Text> */}
-                      {/* <Text style={styles.LIstText2}>
+                        {/* <Text style={styles.LIstText2}>
                         Schedule Time:{" "}
                         {ALL_POSTS_BY_CLIENT[0]?.Tutor_slot_time &&
                           ALL_POSTS_BY_CLIENT[0]?.Tutor_slot_time.map(
@@ -617,13 +671,308 @@ const CheckIn = () => {
                             }
                           )}
                       </Text> */}
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </Modal>
+              </View>
+            )}
+          />
+        ) : (
+          <FlatList
+            scrollEnabled={true}
+            data={filterData}
+            keyExtractor={(item, index) => index}
+            renderItem={({ item, index }) => (
+              <View key={item.student_post_requirements_id} style={{}}>
+                <TouchableOpacity style={styles.List}>
+                  <View
+                    style={{
+                      width: "22%",
+                      marginLeft: 5,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Image
+                      source={require("../Assets/user.png")}
+                      style={{
+                        height: 50,
+                        width: 50,
+                        marginBottom: 5,
+                        alignSelf: "center",
+                      }}
+                    />
+                    <StarRating
+                      fullStarColor="orange"
+                      disabled={false}
+                      maxStars={5}
+                      rating={4}
+                      starSize={13}
+                      // selectedStar={(rating) => setStrCount(rating)}
+                    />
+                  </View>
+
+                  <View style={{ width: "75%", marginLeft: 10 }}>
+                    <View style={{ width: "70%", flexDirection: "row" }}>
+                      {/* <Text style={styles.LIstText}>
+                      Post ID {item.student_post_requirements_id}
+                    </Text> */}
                     </View>
-                  </TouchableOpacity>
-                </View>
-              </Modal>
-            </View>
-          )}
-        />
+
+                    <View
+                      style={
+                        {
+                          // height: 20,
+                          //width: "70%",
+                          //backgroundColor: "white",
+                        }
+                      }
+                    >
+                      <View>
+                        {item.student_level_grade_subjects &&
+                          item.student_level_grade_subjects.map((item) => {
+                            return (
+                              <View>
+                                <View>
+                                  <Text style={{ color: "#000", fontSize: 12 }}>
+                                    {/* {" "}
+                                  Level :{" "} */}
+                                    <Text
+                                      key={item}
+                                      style={{
+                                        fontSize: 12,
+                                        fontWeight: "700",
+                                      }}
+                                    >
+                                      {item.Level}
+                                    </Text>
+                                  </Text>
+                                </View>
+
+                                <View>
+                                  <Text style={{ color: "#000", fontSize: 12 }}>
+                                    {/* {" "}
+                                  Level :{" "} */}
+                                    <Text key={item} style={{ fontSize: 10 }}>
+                                      {item.Grade}
+                                    </Text>
+                                  </Text>
+                                </View>
+
+                                <View style={{ marginBottom: 5 }}>
+                                  <Text style={{ color: "#000", fontSize: 12 }}>
+                                    {/* {" "}
+                                  Subjects :{" "} */}
+                                    <Text key={item} style={{ fontSize: 10 }}>
+                                      {item.ALL_Subjects}
+                                    </Text>
+                                  </Text>
+                                </View>
+                              </View>
+                            );
+                          })}
+                      </View>
+                      <View
+                        style={{
+                          width: "78%",
+                          flexDirection: "row",
+                          paddingBottom: 10,
+                        }}
+                      >
+                        <Text numberOfLines={1} style={styles.LIstText}>
+                          {item.student_postal_address}
+                        </Text>
+                        <Text
+                          style={{
+                            color: "#000",
+                            fontSize: 12,
+                            marginLeft: 15,
+                          }}
+                        >
+                          {/* {" "}
+                                  Subjects :{" "} */}
+                          <Text key={item} style={{ fontSize: 10 }}>
+                            {item.booked_date}
+                          </Text>
+                        </Text>
+                      </View>
+                    </View>
+                    <View></View>
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() =>
+                    toggleBookmark(item.student_post_requirements_id)
+                  }
+                  style={{
+                    height: 20,
+                    width: 30,
+                    position: "absolute",
+                    right: 50,
+                    marginTop: 50,
+                  }}
+                >
+                  {!isBookmarked ? (
+                    <Image
+                      source={require("../Assets/fav_Assign.png")}
+                      style={{ height: 20, width: 20 }}
+                    />
+                  ) : (
+                    <Image
+                      source={require("../Assets/Assign_UnFav.png")}
+                      style={{ height: 20, width: 20 }}
+                    />
+                  )}
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() =>
+                    expandToggleModal(
+                      item.student_post_requirements_id,
+                      item.student_tution_type,
+                      item.student_postal_code,
+                      item.student_postal_address,
+                      item.tutor_tution_fees,
+                      item.tutor_tution_offer_amount_type
+                    )
+                  }
+                  style={{
+                    height: 20,
+                    width: 30,
+                    position: "absolute",
+                    right: 20,
+                    marginTop: 50,
+                  }}
+                >
+                  <Image
+                    source={require("../Assets/Expand.png")}
+                    style={{ height: 20, width: 20 }}
+                  />
+                </TouchableOpacity>
+
+                <Modal
+                  isVisible={isExpandModalVisible}
+                  onBackdropPress={() => setExpandModalVisible(false)}
+                >
+                  <View style={styles.ExpandBlueContainer}>
+                    <Text style={styles.BlueText}>Post Detail</Text>
+                  </View>
+
+                  <View
+                    style={{
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
+                      alignSelf: "center",
+                      position: "absolute",
+                      bottom: 0,
+                      height: hp(70),
+                      width: wp(95),
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <TouchableOpacity style={styles.List}>
+                      <View
+                        style={{ height: 60, width: "100%", marginLeft: 10 }}
+                      >
+                        <View
+                          style={{
+                            height: 20,
+                            width: "50%",
+                            flexDirection: "row",
+                          }}
+                        >
+                          <Text style={styles.LIstText}>
+                            Post ID:{item.student_post_requirements_id}
+                          </Text>
+                        </View>
+
+                        {/* <Text style={styles.LIstText2}>
+                        Student Grade: {item.student_grade}
+                      </Text>
+                      <Text style={styles.LIstText2}>
+                        Student level: {item.student_level}
+                      </Text> */}
+                        <Text style={styles.LIstText2}>
+                          Tuition Type: {tuitionType}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          PostCode: {postCode}
+                        </Text>
+                        <View style={{ marginTop: 20 }}></View>
+                        <Text style={styles.LIstText2}>
+                          Street Address: {postAdd}
+                        </Text>
+                        {/* <Text style={styles.LIstText2}>
+                        Duration: {item.tutor_duration_weeks}
+                      </Text> */}
+                        {/* <Text style={styles.LIstText2}>
+                        Hours: {item.tutor_duration_hours}
+                      </Text> */}
+                        <Text style={styles.LIstText2}>
+                          Fee Detail: {OfferType}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          Offer Amount: SGD {Fee} per hour
+                        </Text>
+                        {/* <Text style={styles.LIstText2}>
+                        Subjects:{" "}
+                        {ALL_POSTS_BY_CLIENT[0]?.student_subjects &&
+                          ALL_POSTS_BY_CLIENT[0]?.student_subjects.map(
+                            (item) => {
+                              return (
+                                <Text key={item} style={styles.Information}>
+                                  {item.Student_Subjects}
+                                </Text>
+                              );
+                            }
+                          )}
+                      </Text> */}
+                        {/* <Text style={styles.LIstText2}>
+                        Tutor Qualification:{" "}
+                        {ALL_POSTS_BY_CLIENT[0]?.tutor_qualification &&
+                          ALL_POSTS_BY_CLIENT[0]?.tutor_qualification.map(
+                            (item) => {
+                              return (
+                                <Text key={item} style={styles.Information}>
+                                  {item.Tutor_Qualification}
+                                </Text>
+                              );
+                            }
+                          )}
+                      </Text> */}
+                        {/* <Text style={styles.LIstText2}>
+                        Schedule Day:{" "}
+                        {ALL_POSTS_BY_CLIENT[0]?.tutor_schedule &&
+                          ALL_POSTS_BY_CLIENT[0]?.tutor_schedule.map((item) => {
+                            return (
+                              <Text key={item} style={styles.Information}>
+                                {item.tutor_schedule}
+                              </Text>
+                            );
+                          })}
+                      </Text> */}
+                        {/* <Text style={styles.LIstText2}>
+                        Schedule Time:{" "}
+                        {ALL_POSTS_BY_CLIENT[0]?.Tutor_slot_time &&
+                          ALL_POSTS_BY_CLIENT[0]?.Tutor_slot_time.map(
+                            (item) => {
+                              return (
+                                <Text key={item} style={styles.Information}>
+                                  {item.tutor_slot_time}
+                                </Text>
+                              );
+                            }
+                          )}
+                      </Text> */}
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </Modal>
+              </View>
+            )}
+          />
+        )}
       </ScrollView>
       <Modal
         isVisible={isModalVisible}

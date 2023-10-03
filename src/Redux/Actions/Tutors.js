@@ -457,6 +457,7 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
         console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
 
         if (
+          responseJson &&
           responseJson.Status == true &&
           responseJson.user_type == "I am an Educator"
         ) {
@@ -478,6 +479,7 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
             type: Login_Data,
             payload: obj,
           });
+
           navigation.replace("Auth4");
         } else if (
           responseJson.Status == true &&

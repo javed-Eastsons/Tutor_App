@@ -1,4 +1,9 @@
-import { GET_POSTAL_DATA, GET_FILTER_DATA, GET_QUICK_DATA } from "./types";
+import {
+  GET_POSTAL_DATA,
+  GET_FILTER_DATA,
+  GET_QUICK_DATA,
+  GET_FILTER_ASSIGNMENT,
+} from "./types";
 import AsyncStorage from "@react-native-community/async-storage";
 import axios, * as others from "axios";
 import { Alert } from "react-native";
@@ -109,6 +114,59 @@ export const GetFilterBySubjects = (
           dispatch({
             type: GET_FILTER_DATA,
             FILTER_DATA: [],
+          });
+          Alert.alert(responseJson.message);
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+  };
+};
+
+export const GetFilterAssignment = (
+  Level,
+
+  navigation
+) => {
+  let data = {
+    Levels_search: Level,
+  };
+  // console.log("mainarraymainarraymainarraymainarray", data);
+
+  return (dispatch, getState) => {
+    axios.defaults.baseURL = "https://refuel.site";
+    const url1 =
+      axios.defaults.baseURL +
+      "/projects/tutorapp/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php";
+
+    console.log(url1);
+    return fetch(url1, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": authtoken,
+      }),
+
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("PPPPPPPPPPPPPPPPPPPPPPP", responseJson);
+        //   Alert.alert(responseJson.message)
+        if (responseJson.Status == true) {
+          // console.log("ww", responseJson.Filter_Data_Records);
+          // Alert.alert(responseJson.message)
+          dispatch({
+            type: GET_FILTER_ASSIGNMENT,
+            paload: responseJson.Filter_Data,
+          });
+
+          // navigation.navigate('OurTutor')
+        } else if (responseJson.Status == false) {
+          console.log("AAa", responseJson.message);
+          dispatch({
+            type: GET_FILTER_ASSIGNMENT,
+            paload: responseJson.Filter_Data,
           });
           Alert.alert(responseJson.message);
         }
