@@ -73,10 +73,11 @@ const CheckIn = () => {
     console.log(selectedval);
     setCurrentTab(selectedval);
   };
-  console.log(
-    GET_FILTER_ASSIGNMENT,
-    "GET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENT"
-  );
+
+  // console.log(
+  //   GET_FILTER_ASSIGNMENT,
+  //   "GET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENT"
+  // );
 
   const toggleBookmark = (postid, fav) => {
     console.log(Login_Data.userid, postid, fav, "LLLLLLLLLLLLLLLLLLLLLLLL");
