@@ -26,6 +26,9 @@ import { useDispatch, useSelector } from "react-redux";
 const ItemBox = (props) => {
   //  console.log("Props.data", props.data);
   const navigation = useNavigation();
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
+
+  console.log(Login_Data, "Login_DataLogin_DataLogin_DataLogin_Data");
 
   const leftSwipe = (progress, dragX) => {
     const scale = dragX.interpolate({
@@ -106,6 +109,17 @@ const ItemBox = (props) => {
     );
   };
 
+  const MOveToNext = () => {
+    console.log(Login_Data, "KKK");
+    if (Login_Data === "") {
+      navigation.navigate("Register");
+    } else {
+      navigation.navigate("TutorSearchProfile", {
+        data: props.data,
+      });
+    }
+  };
+
   const _handleTextReady = () => {
     // ...
   };
@@ -125,11 +139,7 @@ const ItemBox = (props) => {
         {/* {Tutor && Tutor.map((item) => { */}
 
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("TutorSearchProfile", {
-              data: props.data,
-            })
-          }
+          onPress={() => MOveToNext()}
           style={styles.widthWrapper}
         >
           {/* {console.log('tutor', item.first_name)} */}

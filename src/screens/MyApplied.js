@@ -5,12 +5,12 @@ import {
   StyleSheet,
   View,
   Text,
-  ScrollView,
   Image,
   Button,
   FlatList,
   TouchableOpacity,
 } from "react-native";
+import { ScrollView } from "react-native-virtualized-view";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { TextInput } from "react-native-gesture-handler";
 // import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -469,7 +469,7 @@ const MyApplied = () => {
                   marginTop: 50,
                 }}
               >
-                {item.assigned_favourite_by_tutor == "true" ? (
+                {item.Favourite == "true" ? (
                   <Image
                     source={require("../Assets/fav_Assign.png")}
                     style={{ height: 20, width: 20 }}

@@ -76,6 +76,11 @@ const DrawerTwo = ({ navigation }) => {
       <TouchableOpacity
         onPress={() => {
           AsyncStorage.clear();
+          let obj = "";
+          dispatch({
+            type: Login_Data,
+            payload: obj,
+          });
           navigation.replace("home");
         }}
         style={styles.MenuLIstContainer}

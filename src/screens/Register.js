@@ -547,7 +547,11 @@ const Register = ({ route }) => {
               />
             </View>
             <TouchableOpacity
-              style={styles.RequsertButton}
+              disabled={!enable}
+              style={[
+                styles.RequsertButton,
+                { backgroundColor: enable ? "#2F5597" : "#bdc2dc" },
+              ]}
               //onPress={() => navigation.navigate('OTPScreen')}
               onPress={() => VerifytoggleModal()}
             >
@@ -978,7 +982,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   RequsertButton: {
-    backgroundColor: "#2F5597",
     height: hp(7),
     borderRadius: 50,
     marginTop: 15,

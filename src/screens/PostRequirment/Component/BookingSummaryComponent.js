@@ -250,7 +250,7 @@ const BookingSummaryComponent = () => {
         </View>
 
         <ScrollView nestedScrollEnabled={true}>
-          <View style={{ paddingBottom: 10, height: "55%" }}>
+          <View style={{ paddingBottom: 10 }}>
             {currentTab == "tutiontype" ? (
               // <View
               //   style={{
@@ -264,8 +264,7 @@ const BookingSummaryComponent = () => {
                 <View
                   // key={item.Id}
                   style={{
-                    height: 90,
-                    width: "100%",
+                    width: wp(100),
                     flexDirection: "row",
                     marginBottom: 15,
                     elevation: 2,
@@ -277,8 +276,7 @@ const BookingSummaryComponent = () => {
                 >
                   <View
                     style={{
-                      height: 90,
-                      width: "10%",
+                      width: wp(10),
                       backgroundColor: "purple",
                       elevation: 3,
                     }}
@@ -289,65 +287,106 @@ const BookingSummaryComponent = () => {
                     style={{
                       marginBottom: 10,
                       padding: 10,
+                      width: wp(70),
                       backgroundColor: "#fff",
                     }}
                   >
-                    {/* <Text style={styles.Information}>
-                   Student ID: {student.Id}
-                 </Text> */}
                     <Text style={styles.Information}>{student.Grade}</Text>
                     <Text style={styles.Information}>{student.Level}</Text>
                     <Text style={styles.Information}>
                       {student.ALL_Subjects.join(", ")}
                     </Text>
                   </View>
+                  {/* <View style={{ height: 80, width: wp(10) }}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("StudentBooking")}
+                      // onPress={()
+                      //   handleEdit(
+                      //     item.Id,
+                      //     item.Level,
+                      //     item.Grade,
+                      //     item.ALL_Subjects
+                      //   )
+                      // }
+                      style={{
+                        height: 40,
+                        width: "100%",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Image
+                        source={require("../../../Assets/Edit.png")}
+                        style={{ height: 20, width: 20 }}
+                      />
+                    </TouchableOpacity>
+                    {/* <TouchableOpacity
+                    onPress={() => deleteRecord(item.Id)}
+                    style={{
+                      height: 40,
+                      width: "100%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Image source={require("../Assets/Deletes.png")} />
+                  </TouchableOpacity> 
+                  </View> */}
                 </View>
               ))
             ) : currentTab == "qualification" ? (
-              Tutor_Qualification.TutorQualification &&
-              Tutor_Qualification.TutorQualification.map((item) => (
+              <View
+                // key={item.Id}
+                style={{
+                  width: wp(100),
+                  flexDirection: "row",
+
+                  elevation: 2,
+                  backgroundColor: "#fff",
+                  borderBottomColor: "#000",
+                  borderBottomWidth: 1.1,
+                  borderStyle: "dashed",
+                }}
+              >
                 <View
-                  // key={item.Id}
                   style={{
-                    height: 90,
-                    width: "100%",
-                    flexDirection: "row",
-                    marginBottom: 15,
-                    elevation: 2,
+                    width: wp(10),
+                    backgroundColor: "purple",
+                    elevation: 3,
+                  }}
+                />
+                <View
+                  style={{
                     backgroundColor: "#fff",
-                    borderBottomColor: "#000",
-                    borderBottomWidth: 1.1,
-                    borderStyle: "dashed",
+                    justifyContent: "center",
+                    paddingBottom: 20,
+                    paddingTop: 20,
+                    width: wp(60),
                   }}
                 >
-                  <View
-                    style={{
-                      height: 90,
-                      width: "10%",
-                      backgroundColor: "purple",
-                      elevation: 3,
-                    }}
-                  />
-
-                  <View
-                    style={{
-                      marginBottom: 10,
-                      padding: 10,
-                      backgroundColor: "#fff",
-                    }}
-                  >
-                    {/* <Text style={styles.Information}>
-                   Student ID: {student.Id}
-                 </Text> */}
-                    <Text
-                      key={item}
-                      style={[styles.Information, { marginTop: 20 }]}
-                    >
+                  {Tutor_Qualification.TutorQualification.map((item, index) => (
+                    <Text key={index} style={[styles.Information]}>
                       {item.qualification}
                     </Text>
-                  </View>
+                  ))}
                 </View>
-              ))
+                {/* <View>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("TutorQualification")}
+                  style={{
+                    height: 30,
+                    width: wp(30),
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Image
+                    source={require("../Assets/Edit.png")}
+                    style={{ height: 20, width: 20, position: "absolute" }}
+                  />
+                </TouchableOpacity>
+              </View> */}
+              </View>
             ) : currentTab == "duration" ? (
               <View
                 // key={item.Id}
@@ -540,6 +579,7 @@ const BookingSummaryComponent = () => {
               ))
             )}
           </View>
+          <View style={{ height: wp(10) }}></View>
         </ScrollView>
 
         <View
@@ -595,8 +635,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   Information: {
+    fontSize: 12,
     color: "black",
     fontFamily: "Poppins-Regular",
+    marginLeft: 10,
   },
   HeadRight: {
     width: wp(45),

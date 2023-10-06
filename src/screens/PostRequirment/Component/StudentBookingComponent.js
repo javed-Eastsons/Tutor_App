@@ -5,6 +5,7 @@ import {
   StyleSheet,
   View,
   Text,
+  Modal,
   KeyboardAvoidingView,
   ScrollView,
   Image,
@@ -81,6 +82,8 @@ const StudentBookingComponent = (props) => {
   const [moredetail, setMoreDetail] = useState("showSection");
   const [selectedlevel, setSelectedlevel] = useState([]);
   const [records, setRecords] = useState(selectArray);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editId, setEditId] = useState();
 
   const [count, setCount] = useState(0);
   const navigation = useNavigation();
@@ -263,6 +266,35 @@ const StudentBookingComponent = (props) => {
   useEffect(() => {
     dispatch(getSubjectList(value));
   }, [value]);
+
+  const handleEdit = (idToEdit, level, grade, subject) => {
+    console.log(idToEdit, level, grade, subject, "LLLLLLLLLLLLLLLL");
+    setValue(level);
+    setValue2(grade);
+    setEditId(idToEdit);
+    setSelectedlevel(subject);
+    setShowEditModal(true);
+  };
+
+  const UpdateRecord = () => {
+    console.log(editId);
+    const newData = records.map((record) => {
+      if (record.Id === editId) {
+        return {
+          ...record,
+          Level: value,
+          Grade: value2,
+          ALL_Subjects: selectedlevel,
+          // You can update other fields here as well
+        };
+      }
+      return record;
+    });
+
+    setRecords(newData);
+    console.log(newData, "newDatanewDatanewDatanewDatanewData");
+    setShowEditModal(false);
+  };
   return (
     // <View style={styles.container}>
     <View style={{ flex: 1, marginHorizontal: 10 }}>
@@ -302,7 +334,6 @@ const StudentBookingComponent = (props) => {
                 <View
                   key={item.Id}
                   style={{
-                    height: 90,
                     width: "100%",
                     // paddingHorizontal: 10,
                     flexDirection: "row",
@@ -313,7 +344,6 @@ const StudentBookingComponent = (props) => {
                 >
                   <View
                     style={{
-                      height: 90,
                       width: "10%",
                       backgroundColor: "purple",
                       elevation: 3,
@@ -351,6 +381,14 @@ const StudentBookingComponent = (props) => {
                   </View>
                   <View style={{ height: 80, width: "10%" }}>
                     <TouchableOpacity
+                      onPress={() =>
+                        handleEdit(
+                          item.Id,
+                          item.Level,
+                          item.Grade,
+                          item.ALL_Subjects
+                        )
+                      }
                       style={{
                         height: 40,
                         width: "100%",
@@ -419,7 +457,7 @@ const StudentBookingComponent = (props) => {
                 }}
               >
                 <View style={styles.DetailContainer}>
-                  <View style={{ height: 150, width: "30%" }}>
+                  <View style={{ width: "30%" }}>
                     <Text
                       style={{
                         marginTop: 10,
@@ -458,7 +496,7 @@ const StudentBookingComponent = (props) => {
                 </View>
 
                 <View style={styles.DetailContainer}>
-                  <View style={{ height: 150, width: "30%" }}>
+                  <View style={{ width: "30%" }}>
                     <Text
                       style={{
                         marginTop: 10,
@@ -496,7 +534,7 @@ const StudentBookingComponent = (props) => {
                   </View>
                 </View>
 
-                <View style={styles.DetailContainer}>
+                <View style={[styles.DetailContainer]}>
                   <View style={{ height: 100, width: "30%" }}>
                     <Text
                       style={{
@@ -510,26 +548,6 @@ const StudentBookingComponent = (props) => {
                     </Text>
                   </View>
                   <View style={styles.SelectMoreContainer}>
-                    {/* <Dropdown
-              style={[styles.dropdown, isFocus1 && { borderColor: "black" }]}
-              placeholderStyle={{ fontSize: 12 }}
-              selectedTextStyle={styles.selectedTextStyle}
-              iconStyle={styles.iconStyle}
-              itemTextStyle={{ color: "grey", fontSize: 12 }}
-              data={subjects}
-              labelField="label1"
-              valueField="value1"
-              allowFontScaling={false}
-              placeholder={!isFocus1 ? " " : "..."}
-              value={value1}
-              onFocus={() => setIsFocus1(true)}
-              onBlur={() => setIsFocus1(false)}
-              onChange={(item) => {
-                setValue1(item.value1);
-                setIsFocus1(false);
-              }}
-            /> */}
-                    {/* <View style={styles.SelectMoreContainer}> */}
                     <MultiSelect
                       items={SUBJECT_LIST?.Subject_List}
                       uniqueKey="subjects_name"
@@ -545,7 +563,7 @@ const StudentBookingComponent = (props) => {
                       tagTextColor="#2F5597"
                       styleTextTag={{ fontSize: 12 }}
                       selectedItemTextColor="#2F5597"
-                      selectedItemIconColor="#CCC"
+                      selectedItemIconColor="#2F5597"
                       itemTextColor="#000"
                       itemFontSize={12}
                       fontSize={14}
@@ -595,6 +613,213 @@ const StudentBookingComponent = (props) => {
           <Image source={require("../../../Assets/circleArrow.png")} />
         </TouchableOpacity>
       </View>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showEditModal}
+        onRequestClose={() => {
+          setShowEditModal(false);
+        }}
+      >
+        <View style={styles.modalWrapper2}>
+          <View style={styles.modalWrapp}>
+            <View
+              style={{
+                marginTop: 20,
+                width: "100%",
+                padding: 10,
+                backgroundColor: "white",
+              }}
+            >
+              <View style={styles.DetailContainer}>
+                <View style={{ width: "30%" }}>
+                  <Text
+                    style={{ color: "black", fontFamily: "Poppins-Regular" }}
+                  >
+                    Level :
+                  </Text>
+                </View>
+                <View style={{ width: "100%" }}>
+                  <Dropdown
+                    style={[
+                      styles.dropdown,
+                      isFocus && { borderColor: "black" },
+                    ]}
+                    placeholderStyle={{ fontSize: 12 }}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    iconStyle={styles.iconStyle}
+                    itemTextStyle={{ color: "grey", fontSize: 12 }}
+                    data={LEVEL_LIST?.Level_list}
+                    labelField="school_level_name"
+                    valueField="school_level_name"
+                    allowFontScaling={false}
+                    placeholder={!isFocus ? " " : "..."}
+                    value={value}
+                    onFocus={() => setIsFocus(true)}
+                    onBlur={() => setIsFocus(false)}
+                    onChange={(item) => {
+                      setValue(item.school_level_name);
+                      setIsFocus(false);
+                    }}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.DetailContainer}>
+                <View style={{ width: "30%" }}>
+                  <Text
+                    style={{
+                      marginTop: 10,
+                      fontFamily: "Poppins-Regular",
+                      color: "black",
+                    }}
+                  >
+                    Grade :
+                  </Text>
+                </View>
+                <View style={{ width: "100%" }}>
+                  <Dropdown
+                    style={[
+                      styles.dropdown,
+                      isFocus2 && { borderColor: "black" },
+                    ]}
+                    placeholderStyle={{ fontSize: 12 }}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    iconStyle={styles.iconStyle}
+                    itemTextStyle={{ color: "grey", fontSize: 12 }}
+                    data={GRADE_LIST?.Grade_List}
+                    labelField="grade_name"
+                    valueField="grade_name"
+                    allowFontScaling={false}
+                    placeholder={!isFocus2 ? " " : "..."}
+                    value={value2}
+                    onFocus={() => setIsFocus2(true)}
+                    onBlur={() => setIsFocus2(false)}
+                    onChange={(item) => {
+                      setValue2(item.grade_name);
+                      setIsFocus2(false);
+                    }}
+                  />
+                </View>
+              </View>
+
+              <View style={[styles.DetailContainer]}>
+                <View style={{ height: 100, width: "30%" }}>
+                  <Text
+                    style={{
+                      marginTop: 10,
+                      fontFamily: "Poppins-Regular",
+                      color: "black",
+                    }}
+                  >
+                    Subjects :
+                  </Text>
+                </View>
+                <View style={styles.SelectMoreContainer}>
+                  {/* <Dropdown
+                    style={[styles.dropdown, isFocus1 && { borderColor: "black" }]}
+                    placeholderStyle={{ fontSize: 12 }}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    iconStyle={styles.iconStyle}
+                    itemTextStyle={{ color: "grey", fontSize: 12 }}
+                    data={subjects}
+                    labelField="label1"
+                    valueField="value1"
+                    allowFontScaling={false}
+                    placeholder={!isFocus1 ? " " : "..."}
+                    value={value1}
+                    onFocus={() => setIsFocus1(true)}
+                    onBlur={() => setIsFocus1(false)}
+                    onChange={(item) => {
+                      setValue1(item.value1);
+                      setIsFocus1(false);
+                    }}
+                  /> */}
+                  {/* <View style={styles.SelectMoreContainer}> */}
+                  <MultiSelect
+                    items={SUBJECT_LIST?.Subject_List}
+                    uniqueKey="subjects_name"
+                    onSelectedItemsChange={onSelectedlevel}
+                    selectedItems={selectedlevel}
+                    //  selectText="Select one or more"
+                    searchInputPlaceholderText="Search Items..."
+                    onChangeInput={(text) =>
+                      console.log("SSSSSSSSSSSSSS", text)
+                    }
+                    tagRemoveIconColor="#2F5597"
+                    tagBorderColor="#2F5597"
+                    tagTextColor="#2F5597"
+                    styleTextTag={{ fontSize: 12 }}
+                    selectedItemTextColor="#2F5597"
+                    selectedItemIconColor="#2F5597"
+                    itemTextColor="#000"
+                    itemFontSize={12}
+                    fontSize={14}
+                    displayKey="subjects_name"
+                    searchInputStyle={{ color: "#CCC", fontSize: 12 }}
+                    styleRowList={{ width: "90%" }}
+                    // submitButtonColor="#000"
+                    //submitButtonText="Submit"
+                    styleDropdownMenu={{ backgroundColor: "red" }}
+                    hideSubmitButton
+                    styleItemsContainer={{}}
+                  />
+                  {/* </View> */}
+                </View>
+              </View>
+              <View
+                style={{
+                  bottom: -100,
+                  flexDirection: "row",
+                  position: "absolute",
+                  width: wp(90),
+                  justifyContent: "center",
+                  alignSelf: "center",
+                }}
+              >
+                <TouchableOpacity
+                  //  onPress={() => ClickOnDone()}
+                  onPress={() => setShowEditModal(false)}
+                  style={{
+                    height: 35,
+                    width: wp(30),
+                    backgroundColor: "#F6BE00",
+
+                    justifyContent: "center",
+                    alignItems: "center",
+                    alignSelf: "center",
+                    borderRadius: 10,
+
+                    //   right: -230,
+                  }}
+                >
+                  <Text style={styles.ButtonText}>Cancel</Text>
+                </TouchableOpacity>
+                <View style={{ width: wp(10) }}></View>
+                <TouchableOpacity
+                  //  onPress={() => ClickOnDone()}
+                  onPress={() => UpdateRecord()}
+                  style={{
+                    height: 35,
+                    width: wp(30),
+                    backgroundColor: "#F6BE00",
+
+                    justifyContent: "center",
+                    alignItems: "center",
+                    alignSelf: "center",
+                    borderRadius: 10,
+
+                    //   right: -230,
+                  }}
+                >
+                  <Text style={styles.ButtonText}>Update</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
     // </View>
   );
@@ -610,13 +835,20 @@ const styles = StyleSheet.create({
     // backgroundColor: 'pink',
     // padding: 10,
   },
+  modalWrapper2: {
+    flex: 1,
+    backgroundColor: "#00000040",
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  modalWrapp: { height: hp(48), width: wp(100), backgroundColor: "#fff" },
   selectedTextStyle: {
     fontSize: 12,
     color: "#000",
   },
   DetailContainer: {
     flexDirection: "row",
-    height: "20%",
+    //  height: "20%",
     width: "100%",
   },
   circleArrow: {
@@ -753,6 +985,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 10,
     fontFamily: "Poppons-Regular",
+    fontSize: 12,
   },
   InfoImage: {},
   BookText: {

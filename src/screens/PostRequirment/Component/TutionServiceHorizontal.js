@@ -39,7 +39,14 @@ const TuitionServicesHorizontal = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.blueContiner}>
-        <Text style={{ color: "#fff", fontSize: 20, padding: 10,fontFamily:'Poppins-SemiBold' }}>
+        <Text
+          style={{
+            color: "#fff",
+            fontSize: 20,
+            padding: 10,
+            fontFamily: "Poppins-SemiBold",
+          }}
+        >
           Select Tuition Service
         </Text>
       </View>
@@ -58,7 +65,7 @@ const TuitionServicesHorizontal = (props) => {
                 paddingTop: 10,
                 color: "#000",
                 paddingBottom: 10,
-                fontFamily:'Poppins-SemiBold'
+                fontFamily: "Poppins-SemiBold",
               }}
             >
               Home Tution

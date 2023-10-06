@@ -192,10 +192,21 @@ const ClientLanding = () => {
       <ScrollView>
         <View style={styles.usercontainer}>
           <View style={styles.UserLeft}>
-            <Image
-              source={require("../Assets/user.png")}
-              style={styles.usericons}
-            />
+            {Login_Data.profilepic == "" || Login_Data.profilepic == null ? (
+              <Image
+                source={require("../Assets/mailuser.png")}
+                style={styles.usericons}
+              />
+            ) : (
+              <Image
+                source={{
+                  uri:
+                    "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
+                    Login_Data.profilepic,
+                }}
+                style={styles.usericons}
+              />
+            )}
             <View style={{ flexDirection: "row" }}>
               <Image
                 source={require("../Assets/start.png")}

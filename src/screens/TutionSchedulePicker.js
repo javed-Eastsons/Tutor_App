@@ -84,6 +84,8 @@ const TutionSchedulePicker = ({}) => {
   const [date, setDate] = useState("");
   const [isExpandModalVisible, setExpandModalVisible] = useState(false);
   const { Tutor_Qualification } = useSelector((state) => state.TutorReducer);
+  const { Tutor_Schedule } = useSelector((state) => state.TutorReducer);
+  console.log(Tutor_Schedule, "Tutor_ScheduleTutor_ScheduleTutor_Schedule");
 
   const dispatch = useDispatch();
   // console.log(
@@ -125,6 +127,8 @@ const TutionSchedulePicker = ({}) => {
   };
 
   console.log(selected, "selectedMonselectedMon");
+
+  handleTimeSlot = (time) => {};
 
   const handlerTue = (time) => {
     console.log("Selected Tue Timeee", time);
@@ -409,7 +413,7 @@ const TutionSchedulePicker = ({}) => {
 
     Picker = Ex_array;
   };
-  console.log("@@@", handler);
+  // console.log("@@@", handler);
 
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
@@ -978,6 +982,8 @@ const TutionSchedulePicker = ({}) => {
           </View>
         </View> */}
 
+        {console.log(time, "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")}
+
         {selectedDay == "Mon" ? (
           <View
             style={{
@@ -1006,12 +1012,22 @@ const TutionSchedulePicker = ({}) => {
                     height: 40,
                     width: "70%",
                     justifyContent: "center",
-                    //  backgroundColor: time == "morning" ? "#2F5597" : ,
+                    borderRadius: 5,
+                    backgroundColor: time == morning ? "#2F5597" : "#fff",
 
                     alignItems: "center",
                   }}
                 >
-                  <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
+                  <Text
+                    style={[
+                      styles.MorningText,
+                      {
+                        color: time == morning ? "#fff" : "black",
+                      },
+                    ]}
+                  >
+                    12 AM to 5:59 AM
+                  </Text>
                 </TouchableOpacity>
               </TouchableOpacity>
 
@@ -1032,11 +1048,23 @@ const TutionSchedulePicker = ({}) => {
                   style={{
                     height: 40,
                     width: "70%",
+                    borderRadius: 5,
                     justifyContent: "center",
+                    backgroundColor: time == Afternoon ? "#2F5597" : "#fff",
+
                     alignItems: "center",
                   }}
                 >
-                  <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                  <Text
+                    style={[
+                      styles.MorningText,
+                      {
+                        color: time == Afternoon ? "#fff" : "black",
+                      },
+                    ]}
+                  >
+                    6 AM to 11:59 AM
+                  </Text>
                 </TouchableOpacity>
               </View>
 
@@ -1057,11 +1085,24 @@ const TutionSchedulePicker = ({}) => {
                   style={{
                     height: 40,
                     width: "70%",
+                    borderRadius: 5,
                     justifyContent: "center",
+                    backgroundColor: time == Evening ? "#2F5597" : "#fff",
+
                     alignItems: "center",
                   }}
                 >
-                  <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
+                  <Text
+                    style={[
+                      styles.MorningText,
+                      {
+                        color: time == Evening ? "#fff" : "black",
+                      },
+                    ]}
+                  >
+                    {" "}
+                    12 PM to 5:59 PM
+                  </Text>
                 </TouchableOpacity>
               </View>
 
@@ -1082,11 +1123,23 @@ const TutionSchedulePicker = ({}) => {
                   style={{
                     height: 40,
                     width: "70%",
+                    borderRadius: 5,
                     justifyContent: "center",
+                    backgroundColor: time == Night ? "#2F5597" : "#fff",
+
                     alignItems: "center",
                   }}
                 >
-                  <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                  <Text
+                    style={[
+                      styles.MorningText,
+                      {
+                        color: time == Night ? "#fff" : "black",
+                      },
+                    ]}
+                  >
+                    6 PM to 11:59 PM
+                  </Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -1130,13 +1183,23 @@ const TutionSchedulePicker = ({}) => {
                     style={{
                       height: 40,
                       width: "70%",
+                      borderRadius: 5,
                       justifyContent: "center",
-                      //  backgroundColor: time == "morning" ? "#2F5597" : ,
+                      backgroundColor: time == morning1 ? "#2F5597" : "#fff",
 
                       alignItems: "center",
                     }}
                   >
-                    <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == morning1 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      12 AM to 5:59 AM
+                    </Text>
                   </TouchableOpacity>
                 </TouchableOpacity>
 
@@ -1157,11 +1220,23 @@ const TutionSchedulePicker = ({}) => {
                     style={{
                       height: 40,
                       width: "70%",
+                      borderRadius: 5,
                       justifyContent: "center",
+                      backgroundColor: time == Afternoon1 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Afternoon1 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      6 AM to 11:59 AM
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
@@ -1182,11 +1257,23 @@ const TutionSchedulePicker = ({}) => {
                     style={{
                       height: 40,
                       width: "70%",
+                      borderRadius: 5,
                       justifyContent: "center",
+                      backgroundColor: time == Evening1 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Evening1 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      12 PM to 5:59 PM
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
@@ -1207,11 +1294,23 @@ const TutionSchedulePicker = ({}) => {
                     style={{
                       height: 40,
                       width: "70%",
+                      borderRadius: 5,
                       justifyContent: "center",
+                      backgroundColor: time == Night1 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Night1 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      6 PM to 11:59 PM
+                    </Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -1257,12 +1356,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
-                      //  backgroundColor: time == "morning" ? "#2F5597" : ,
+                      backgroundColor: time == morning2 ? "#2F5597" : "#fff",
 
                       alignItems: "center",
                     }}
                   >
-                    <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == morning2 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      12 AM to 5:59 AM
+                    </Text>
                   </TouchableOpacity>
                 </TouchableOpacity>
 
@@ -1284,10 +1392,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Afternoon2 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Afternoon2 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      6 AM to 11:59 AM
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
@@ -1309,10 +1428,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Evening2 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Evening2 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      12 PM to 5:59 PM
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
@@ -1334,10 +1464,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Night2 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Night2 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      6 PM to 11:59 PM
+                    </Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -1383,12 +1524,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
-                      //  backgroundColor: time == "morning" ? "#2F5597" : ,
+                      backgroundColor: time == morning3 ? "#2F5597" : "#fff",
 
                       alignItems: "center",
                     }}
                   >
-                    <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == morning3 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      12 AM to 5:59 AM
+                    </Text>
                   </TouchableOpacity>
                 </TouchableOpacity>
 
@@ -1410,10 +1560,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Afternoon3 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Afternoon3 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      6 AM to 11:59 AM
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
@@ -1435,10 +1596,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Evening3 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Evening3 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      12 PM to 5:59 PM
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
@@ -1460,10 +1632,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Night3 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Night3 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      6 PM to 11:59 PM
+                    </Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -1509,12 +1692,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
-                      //  backgroundColor: time == "morning" ? "#2F5597" : ,
+                      backgroundColor: time == morning4 ? "#2F5597" : "#fff",
 
                       alignItems: "center",
                     }}
                   >
-                    <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == morning4 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      12 AM to 5:59 AM
+                    </Text>
                   </TouchableOpacity>
                 </TouchableOpacity>
 
@@ -1536,10 +1728,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Afternoon4 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Afternoon4 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      6 AM to 11:59 AM
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
@@ -1561,10 +1764,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Evening4 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Evening4 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      12 PM to 5:59 PM
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
@@ -1586,10 +1800,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Night4 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Night4 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      6 PM to 11:59 PM
+                    </Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -1635,12 +1860,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
-                      //  backgroundColor: time == "morning" ? "#2F5597" : ,
+                      backgroundColor: time == morning5 ? "#2F5597" : "#fff",
 
                       alignItems: "center",
                     }}
                   >
-                    <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == morning5 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      12 AM to 5:59 AM
+                    </Text>
                   </TouchableOpacity>
                 </TouchableOpacity>
 
@@ -1662,10 +1896,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Afternoon5 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Afternoon5 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      6 AM to 11:59 AM
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
@@ -1687,10 +1932,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Evening5 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Evening5 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      12 PM to 5:59 PM
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
@@ -1712,10 +1968,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Night5 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Night5 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      6 PM to 11:59 PM
+                    </Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -1761,12 +2028,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
-                      //  backgroundColor: time == "morning" ? "#2F5597" : ,
+                      backgroundColor: time == morning6 ? "#2F5597" : "#fff",
 
                       alignItems: "center",
                     }}
                   >
-                    <Text style={[styles.MorningText]}>12 AM to 5:59 AM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == morning6 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      12 AM to 5:59 AM
+                    </Text>
                   </TouchableOpacity>
                 </TouchableOpacity>
 
@@ -1788,10 +2064,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Afternoon6 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>6 AM to 11:59 AM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Afternoon6 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      6 AM to 11:59 AM
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
@@ -1813,10 +2100,21 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Evening6 ? "#2F5597" : "#fff",
+
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>12 PM to 5:59 PM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Evening6 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      12 PM to 5:59 PM
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
@@ -1838,10 +2136,20 @@ const TutionSchedulePicker = ({}) => {
                       height: 40,
                       width: "70%",
                       justifyContent: "center",
+                      backgroundColor: time == Night6 ? "#2F5597" : "#fff",
                       alignItems: "center",
                     }}
                   >
-                    <Text style={styles.MorningText}>6 PM to 11:59 PM</Text>
+                    <Text
+                      style={[
+                        styles.MorningText,
+                        {
+                          color: time == Night6 ? "#fff" : "black",
+                        },
+                      ]}
+                    >
+                      6 PM to 11:59 PM
+                    </Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -2042,6 +2350,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.2,
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
     borderRadius: 10,
     marginTop: 5,
   },
@@ -2088,8 +2397,8 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   MorningText: {
-    fontSize: 12,
-    color: "black",
+    fontSize: 10,
+
     // fontWeight: "bold",
   },
 

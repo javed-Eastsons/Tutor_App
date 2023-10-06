@@ -51,7 +51,7 @@ const TutorLanding = () => {
     {
       name: "My Faves",
       src: require("../Assets/newFavIcon.png"),
-      Url: "MyFav",
+      Url: "MyFavAssignment",
     },
 
     // {

@@ -91,6 +91,9 @@ import PrivacyPolicy from "../screens/PrivacyPolicy";
 import CheckIn from "../screens/CheckIn";
 import MyApplied from "../screens/MyApplied";
 import Checkout from "../screens/Checkout";
+import OnlineTuition from "../screens/OnlineTuition";
+import HomeworkHelp from "../screens/HomeworkHelp";
+import MyFavAssignment from "../screens/MyFavAssignment";
 
 const SignStack = createStackNavigator();
 
@@ -393,6 +396,93 @@ function SignInScreen() {
             backgroundColor: "#e85b3d",
           },
 
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="TutorSearch"
+        component={TutorSearch}
+        options={{
+          title: "TutorSearch",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="OnlineTuition"
+        component={OnlineTuition}
+        options={{
+          title: "OnlineTuition",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="HomeworkHelp"
+        component={HomeworkHelp}
+        options={{
+          title: "HomeworkHelp",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="OurTutor"
+        component={OurTutor}
+        options={{
+          title: "OurTutor",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <TutorHomeStack.Screen
+        name="CheckIn"
+        component={CheckIn}
+        options={{
+          title: "CheckIn",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
           headerTintColor: "#fff",
           headerTitleAlign: "center",
           headerTitleStyle: {
@@ -1101,6 +1191,40 @@ function SecondStacknavigation() {
           },
         }}
       />
+      <SecondStack.Screen
+        name="OnlineTuition"
+        component={OnlineTuition}
+        options={{
+          title: "OnlineTuition",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="HomeworkHelp"
+        component={HomeworkHelp}
+        options={{
+          title: "HomeworkHelp",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
 
       <SecondStack.Screen
         name="PostReqHome"
@@ -1399,6 +1523,42 @@ function FirstStacknavigation() {
         }}
       />
 
+      <FirstStack.Screen
+        name="OnlineTuition"
+        component={OnlineTuition}
+        options={{
+          title: "OnlineTuition",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <FirstStack.Screen
+        name="HomeworkHelp"
+        component={HomeworkHelp}
+        options={{
+          title: "HomeworkHelp",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
       <FirstStack.Screen
         name="UpdateProfile"
         component={UpdateProfile}
@@ -1705,6 +1865,24 @@ function TutorHomeStacknavigation() {
         }}
       />
       <TutorHomeStack.Screen
+        name="MyFavAssignment"
+        component={MyFavAssignment}
+        options={{
+          title: "MyFavAssignment",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <TutorHomeStack.Screen
         name="TutorStartDT"
         component={TutorStartDT}
         options={{
@@ -1923,6 +2101,24 @@ function TutorHomeStacknavigation4() {
         component={MyApplied}
         options={{
           title: "MyApplied",
+
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <TutorHomeStack.Screen
+        name="MyFavAssignment"
+        component={MyFavAssignment}
+        options={{
+          title: "MyFavAssignment",
 
           headerStyle: {
             backgroundColor: "#e85b3d",

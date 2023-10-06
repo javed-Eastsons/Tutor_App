@@ -96,11 +96,11 @@ const TutorQualificationComponent = (props) => {
     {
       label: "University Undergraduate",
       value: "University Undergraduate",
-      id: 3,
+      id: 4,
     },
-    { label: "University Graduate", value: "University Graduate", id: 4 },
-    { label: "Ex School Teacher", value: "Ex School Teacher", id: 5 },
-    { label: "Current School Teacher", value: "Current School Teacher", id: 6 },
+    { label: "University Graduate", value: "University Graduate", id: 5 },
+    { label: "Ex School Teacher", value: "Ex School Teacher", id: 6 },
+    { label: "Current School Teacher", value: "Current School Teacher", id: 7 },
   ];
   const frequency = [
     // { label: 'Select One Option', value: 'Select One Option' },
@@ -251,12 +251,14 @@ const TutorQualificationComponent = (props) => {
             selectText="Select one or more"
             // searchInputPlaceholderText="Search Items..."
             onChangeInput={(text) => console.log("SSSSSSSSSSSSSS", text)}
-            tagRemoveIconColor="#CCC"
-            tagBorderColor="#CCC"
-            tagTextColor="#CCC"
-            selectedItemTextColor="#CCC"
-            selectedItemIconColor="#CCC"
+            tagRemoveIconColor="#2F5597"
+            tagBorderColor="#2F5597"
+            tagTextColor="#2F5597"
+            selectedItemTextColor="#2F5597"
+            fontSize={12}
+            selectedItemIconColor="#2F5597"
             itemTextColor="#000"
+            itemFontSize={12}
             displayKey="label"
             searchInputStyle={{ color: "#CCC" }}
             styleRowList={{ width: "90%", borderRadius: 20 }}

@@ -51,7 +51,10 @@ const Drawer = ({ navigation }) => {
 
         <View style={styles.MenuLIstContainer}>
           <View style={styles.MenuLIst}>
-            <Image source={require("../Assets/bell.png")} style={styles.icons} />
+            <Image
+              source={require("../Assets/bell.png")}
+              style={styles.icons}
+            />
             <Text style={styles.MenuHead}>Angel's Dashboard</Text>
           </View>
           <View style={styles.menusublist}>
@@ -62,29 +65,41 @@ const Drawer = ({ navigation }) => {
             <Text style={styles.subText}>Make Payment</Text>
           </View>
         </View>
-        <TouchableOpacity onPress={() => {
-          navigation.navigate("HelpSupport");
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("HelpSupport");
+          }}
+        >
           <View style={styles.MenuLIstContainer}>
             <View style={styles.MenuLIst}>
-              <Image source={require("../Assets/Help.png")} style={styles.icons} />
+              <Image
+                source={require("../Assets/Help.png")}
+                style={styles.icons}
+              />
               <Text style={styles.MenuHead}>Help & Support</Text>
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {
-          navigation.navigate("Faq");
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Faq");
+          }}
+        >
           <View style={styles.MenuLIstContainer}>
             <View style={styles.MenuLIst}>
-              <Image source={require("../Assets/bell.png")} style={styles.icons} />
+              <Image
+                source={require("../Assets/bell.png")}
+                style={styles.icons}
+              />
               <Text style={styles.MenuHead}>FAQ</Text>
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {
-          navigation.navigate("TermsConditions");
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("TermsConditions");
+          }}
+        >
           <View style={styles.MenuLIstContainer}>
             <View style={styles.MenuLIst}>
               <Image
@@ -95,9 +110,11 @@ const Drawer = ({ navigation }) => {
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {
-          navigation.navigate("PrivacyPolicy");
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("PrivacyPolicy");
+          }}
+        >
           <View style={styles.MenuLIstContainer}>
             <View style={styles.MenuLIst}>
               <Image
@@ -111,6 +128,11 @@ const Drawer = ({ navigation }) => {
         <TouchableOpacity
           onPress={() => {
             AsyncStorage.clear();
+            let obj = "";
+            dispatch({
+              type: Login_Data,
+              payload: obj,
+            });
             navigation.replace("home");
           }}
           style={styles.MenuLIstContainer}
@@ -148,7 +170,7 @@ const styles = StyleSheet.create({
   },
   subText: {
     color: "#fff",
-    fontFamily: 'Poppins-Light'
+    fontFamily: "Poppins-Light",
   },
   logoicons: {
     height: 80,
@@ -166,7 +188,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontStyle: "italic",
     fontSize: 18,
-    fontFamily: 'Poppins-Regular'
+    fontFamily: "Poppins-Regular",
   },
   MenuLIst: {
     flexDirection: "row",
@@ -180,6 +202,6 @@ const styles = StyleSheet.create({
     padding: 5,
     fontSize: 16,
     color: "yellow",
-    fontFamily: 'Poppins-SemiBold'
+    fontFamily: "Poppins-SemiBold",
   },
 });

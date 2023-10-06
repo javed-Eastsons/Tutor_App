@@ -406,50 +406,43 @@ const BookingInformationConfirmation = ({ route }) => {
               )
             )
           ) : currentTab == "qualification" ? (
-            All_Booked_Tutor_Detail[0].tutor_qualification &&
-            All_Booked_Tutor_Detail[0].tutor_qualification.map((item) => (
+            <View
+              // key={item.Id}
+              style={{
+                width: "100%",
+                flexDirection: "row",
+                marginBottom: 15,
+                elevation: 2,
+                backgroundColor: "#fff",
+                borderBottomColor: "#000",
+                borderBottomWidth: 1.1,
+                borderStyle: "dashed",
+              }}
+            >
               <View
-                // key={item.Id}
                 style={{
-                  height: 90,
-                  width: "100%",
-                  flexDirection: "row",
-                  marginBottom: 15,
-                  elevation: 2,
+                  width: "10%",
+                  backgroundColor: "purple",
+                  elevation: 3,
+                }}
+              />
+
+              <View
+                style={{
+                  marginBottom: 10,
+                  padding: 10,
                   backgroundColor: "#fff",
-                  borderBottomColor: "#000",
-                  borderBottomWidth: 1.1,
-                  borderStyle: "dashed",
                 }}
               >
-                <View
-                  style={{
-                    height: 90,
-                    width: "10%",
-                    backgroundColor: "purple",
-                    elevation: 3,
-                  }}
-                />
-
-                <View
-                  style={{
-                    marginBottom: 10,
-                    padding: 10,
-                    backgroundColor: "#fff",
-                  }}
-                >
-                  {/* <Text style={styles.Information}>
-                   Student ID: {student.Id}
-                 </Text> */}
-                  <Text
-                    key={item}
-                    style={[styles.Information, { marginTop: 20 }]}
-                  >
-                    {item.Tutor_Qualification}
-                  </Text>
-                </View>
+                {All_Booked_Tutor_Detail[0].tutor_qualification.map(
+                  (item, index) => (
+                    <Text key={index} style={[styles.Information, {}]}>
+                      {item.Tutor_Qualification}
+                    </Text>
+                  )
+                )}
               </View>
-            ))
+            </View>
           ) : currentTab == "duration" ? (
             <View
               // key={item.Id}
@@ -654,7 +647,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   Information: {
-    fontSize: 15,
+    fontSize: 12,
     color: "black",
     fontWeight: "500",
 

@@ -40,7 +40,8 @@ const MyFav = () => {
 
   console.log(
     ALL_FAV_TUTORS,
-    "ALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORS"
+    "ALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORS",
+    Login_Data
   );
 
   const toggleModal = () => {
@@ -99,11 +100,11 @@ const MyFav = () => {
             style={{
               color: "#2F5597",
               fontWeight: "700",
-              fontSize: 16,
+              fontSize: 20,
               marginTop: 15,
             }}
           >
-            My Favs
+            My Faves
           </Text>
         </View>
         {/* 
@@ -121,76 +122,98 @@ const MyFav = () => {
           //renderItem={renderItem}
 
           renderItem={({ item, index }) => (
-            <View style={{ marginTop: 10 }}>
-              <TouchableOpacity style={styles.List}>
-                <Image
-                  source={{
-                    uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item.profile_image}`,
-                  }}
-                  style={styles.usericons}
-                />
-
-                <View style={{ height: 60, width: "70%", marginLeft: 10 }}>
-                  <View
-                    style={{ height: 20, width: "70%", flexDirection: "row" }}
-                  >
-                    <Text style={styles.LIstText}>{item.tutor_code}</Text>
+            <View
+              style={{
+                marginTop: 10,
+                marginBottom: 10,
+              }}
+            >
+              <TouchableOpacity
+                style={[
+                  styles.List,
+                  { backgroundColor: index % 2 == 0 ? "#f2f2f2" : "#FFFFFF" },
+                ]}
+              >
+                <View style={styles.List1}>
+                  {Login_Data.profilepic == "" ||
+                  Login_Data.profilepic == null ? (
+                    <Image
+                      source={require("../Assets/user.png")}
+                      style={styles.usericons}
+                    />
+                  ) : (
                     <Image
                       source={{
-                        uri: `https://refuel.site/projects/tutorapp/flags-medium/ao.png`,
+                        uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item.profile_image}`,
                       }}
-                      style={styles.Flagicons}
+                      style={styles.usericons}
                     />
-                    {/* <Text style={styles.LIstText}>{item.nationality}</Text> */}
-                    {/* <View style={{backgroundColor:"red",height:20,width:30}}>
+                  )}
+
+                  <View style={{ height: 60, width: "70%", marginLeft: 10 }}>
+                    <View
+                      style={{ height: 20, width: "70%", flexDirection: "row" }}
+                    >
+                      <Text style={styles.LIstText}>{item.tutor_code}</Text>
+                      <Image
+                        source={{
+                          uri: `https://refuel.site/projects/tutorapp/flags-medium/ao.png`,
+                        }}
+                        style={styles.Flagicons}
+                      />
+                      {/* <Text style={styles.LIstText}>{item.nationality}</Text> */}
+                      {/* <View style={{backgroundColor:"red",height:20,width:30}}>
                                     <Image source={require('../Assets/Expand.png')}
                                  style={{height:20,width:20,}}
                                   />
                                     </View> */}
-                  </View>
-                  <View
-                    style={{
-                      height: 20,
-                      width: "70%",
-                      backgroundColor: "white",
-                    }}
-                  >
-                    <Text style={styles.LIstText}>{item.qualification}</Text>
-                  </View>
-                  <View style={{ width: 40, marginLeft: 5 }}>
-                    <StarRating
-                      fullStarColor="orange"
-                      disabled={false}
-                      maxStars={5}
-                      rating={item.Average_rating}
-                      starSize={15}
-                      // selectedStar={(rating) => setStrCount(rating)}
-                    />
-                  </View>
-
-                  <View
-                    style={{
-                      height: 20,
-                      width: "100%",
-                      flexDirection: "row",
-                    }}
-                  >
-                    <Text style={styles.LIstText1}>
-                      {item.personal_statement}...
-                    </Text>
-                    <TouchableOpacity>
-                      <Text style={{ color: "#2F5597" }}>ReadMore</Text>
-                    </TouchableOpacity>
+                    </View>
+                    <View
+                      style={{
+                        height: 20,
+                        width: "70%",
+                      }}
+                    >
+                      <Text style={styles.LIstText}>{item.qualification}</Text>
+                    </View>
+                    <View style={{ width: 40, margin: 3 }}>
+                      <StarRating
+                        fullStarColor="orange"
+                        disabled={false}
+                        maxStars={5}
+                        // rating={item.Average_rating}
+                        rating={4}
+                        starSize={14}
+                        // selectedStar={(rating) => setStrCount(rating)}
+                      />
+                    </View>
                   </View>
                 </View>
+
+                <View
+                  style={{
+                    width: "100%",
+                    flexDirection: "row",
+                  }}
+                >
+                  <Text style={styles.LIstText1}>
+                    {item.personal_statement}...
+                  </Text>
+                  <TouchableOpacity>
+                    <Text style={[styles.LIstText1, { color: "#2F5597" }]}>
+                      ReadMore
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </TouchableOpacity>
-              <TouchableOpacity
+
+              {/* <TouchableOpacity
                 onPress={expandToggleModal}
                 style={{
                   height: 20,
                   width: 30,
                   position: "absolute",
-                  right: 10,
+                  right: 20,
                   marginTop: 30,
                 }}
               >
@@ -198,7 +221,7 @@ const MyFav = () => {
                   source={require("../Assets/Expand.png")}
                   style={{ height: 20, width: 20 }}
                 />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <Modal
                 isVisible={isExpandModalVisible}
                 onBackdropPress={() => setExpandModalVisible(false)}
@@ -449,18 +472,34 @@ const styles = StyleSheet.create({
 
   List: {
     padding: 10,
-    flexDirection: "row",
+    //   flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "red",
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: wp(90),
-    height: hp(15),
+
+    //  backgroundColor: "white",
+    justifyContent: "center",
+    width: wp(100),
+    height: wp(30),
     alignSelf: "center",
     shadowColor: "grey",
     // borderWidth:1,
-    elevation: 10,
+    // elevation: 10,
     shadowOffset: { width: 8, height: 10 },
+  },
+
+  List1: {
+    padding: 10,
+    flexDirection: "row",
+    alignItems: "center",
+
+    // backgroundColor: "white",
+    borderRadius: 10,
+    width: wp(90),
+    height: wp(15),
+    alignSelf: "center",
+    // shadowColor: "grey",
+    // borderWidth:1,
+    // elevation: 10,
+    // shadowOffset: { width: 8, height: 10 },
   },
   Boxone: {
     height: hp(15),
@@ -477,10 +516,11 @@ const styles = StyleSheet.create({
   },
   LIstText: {
     marginLeft: 5,
-    fontSize: 14,
-    fontWeight: "700",
+    fontSize: 12,
+    fontWeight: "500",
     color: "black",
   },
+
   LIstText2: {
     marginLeft: 5,
     fontSize: 14,
@@ -708,7 +748,9 @@ const styles = StyleSheet.create({
   },
   LIstText1: {
     marginLeft: 5,
-    fontSize: 15,
+    fontSize: 12,
+    paddingTop: 10,
+    fontStyle: "italic",
     color: "grey",
     // fontWeight: '700'
   },

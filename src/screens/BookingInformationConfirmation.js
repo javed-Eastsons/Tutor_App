@@ -38,6 +38,7 @@ import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { Dropdown } from "react-native-element-dropdown";
 import CheckBox from "@react-native-community/checkbox";
 import { BookTutor } from "../Redux/Actions/TutorBooking";
+import { indigo100 } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 
 const BookingInformationConfirmation = () => {
   const navigation = useNavigation();
@@ -57,21 +58,22 @@ const BookingInformationConfirmation = () => {
   const [currentTab, setCurrentTab] = useState("tutiontype");
 
   const SelectTab = (selectedval) => {
+    console.log(selectedval);
     setCurrentTab(selectedval);
   };
   console.log(currentTab, "currentTab");
-  console.log(
-    Tutor_Schedule,
-    "Tutor_ScheduleTutor_ScheduleTutor_ScheduleTutor_Schedule",
-    Tution_Type,
-    "Tution_Type",
-    Student_Detail,
-    "Student_Detail",
-    Tutor_Qualification,
-    "Tutor_Qualification",
-    Tutor_Detail,
-    "Tutor_Detail"
-  );
+  // console.log(
+  //   Tutor_Schedule,
+  //   "Tutor_ScheduleTutor_ScheduleTutor_ScheduleTutor_Schedule",
+  //   Tution_Type,
+  //   "Tution_Type",
+  //   Student_Detail,
+  //   "Student_Detail",
+  //   Tutor_Qualification,
+  //   "Tutor_Qualification",
+  //   Tutor_Detail,
+  //   "Tutor_Detail"
+  // );
 
   const BookTutorProcess = () => {
     dispatch(
@@ -163,7 +165,6 @@ const BookingInformationConfirmation = () => {
             >
               <Text style={styles.BookText1}>{Tution_Type.TutionType}</Text>
             </View>
-
             <View
               style={{
                 height: 40,
@@ -302,7 +303,7 @@ const BookingInformationConfirmation = () => {
                   // key={item.Id}
                   style={{
                     height: 90,
-                    width: "100%",
+                    width: wp(100),
                     flexDirection: "row",
                     marginBottom: 15,
                     elevation: 2,
@@ -315,7 +316,7 @@ const BookingInformationConfirmation = () => {
                   <View
                     style={{
                       height: 90,
-                      width: "10%",
+                      width: wp(10),
                       backgroundColor: "purple",
                       elevation: 3,
                     }}
@@ -326,71 +327,112 @@ const BookingInformationConfirmation = () => {
                     style={{
                       marginBottom: 10,
                       padding: 10,
+                      width: wp(70),
                       backgroundColor: "#fff",
                     }}
                   >
-                    {/* <Text style={styles.Information}>
-                   Student ID: {student.Id}
-                 </Text> */}
                     <Text style={styles.Information}>{student.Grade}</Text>
                     <Text style={styles.Information}>{student.Level}</Text>
                     <Text style={styles.Information}>
                       {student.ALL_Subjects.join(", ")}
                     </Text>
                   </View>
-                </View>
-              ))
-            ) : currentTab == "qualification" ? (
-              Tutor_Qualification.TutorQualification &&
-              Tutor_Qualification.TutorQualification.map((item) => (
-                <View
-                  // key={item.Id}
-                  style={{
-                    height: 90,
-                    width: "100%",
-                    flexDirection: "row",
-                    marginBottom: 15,
-                    elevation: 2,
-                    backgroundColor: "#fff",
-                    borderBottomColor: "#000",
-                    borderBottomWidth: 1.1,
-                    borderStyle: "dashed",
-                  }}
-                >
-                  <View
-                    style={{
-                      height: 90,
-                      width: "10%",
-                      backgroundColor: "purple",
-                      elevation: 3,
-                    }}
-                  />
-
-                  <View
-                    style={{
-                      marginBottom: 10,
-                      padding: 10,
-                      backgroundColor: "#fff",
-                    }}
-                  >
-                    {/* <Text style={styles.Information}>
-                   Student ID: {student.Id}
-                 </Text> */}
-                    <Text
-                      key={item}
-                      style={[styles.Information, { marginTop: 20 }]}
+                  <View style={{ height: 80, width: wp(10) }}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("StudentBookingInfo")}
+                      // onPress={()
+                      //   handleEdit(
+                      //     item.Id,
+                      //     item.Level,
+                      //     item.Grade,
+                      //     item.ALL_Subjects
+                      //   )
+                      // }
+                      style={{
+                        height: 40,
+                        width: "100%",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
                     >
-                      {item.qualification}
-                    </Text>
+                      <Image
+                        source={require("../Assets/Edit.png")}
+                        style={{ height: 20, width: 20 }}
+                      />
+                    </TouchableOpacity>
+                    {/* <TouchableOpacity
+                      onPress={() => deleteRecord(item.Id)}
+                      style={{
+                        height: 40,
+                        width: "100%",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Image source={require("../Assets/Deletes.png")} />
+                    </TouchableOpacity> */}
                   </View>
                 </View>
               ))
+            ) : currentTab == "qualification" ? (
+              <View
+                // key={item.Id}
+                style={{
+                  width: wp(100),
+                  flexDirection: "row",
+
+                  elevation: 2,
+                  backgroundColor: "#fff",
+                  borderBottomColor: "#000",
+                  borderBottomWidth: 1.1,
+                  borderStyle: "dashed",
+                }}
+              >
+                <View
+                  style={{
+                    width: wp(10),
+                    backgroundColor: "purple",
+                    elevation: 3,
+                  }}
+                />
+                <View
+                  style={{
+                    backgroundColor: "#fff",
+                    justifyContent: "center",
+                    paddingBottom: 10,
+                    paddingTop: 10,
+                    width: wp(60),
+                  }}
+                >
+                  {Tutor_Qualification.TutorQualification.map((item, index) => (
+                    <Text key={index} style={[styles.Information]}>
+                      {item.qualification}
+                    </Text>
+                  ))}
+                </View>
+                <View>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("TutorQualification")}
+                    style={{
+                      height: 30,
+                      width: wp(30),
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Image
+                      source={require("../Assets/Edit.png")}
+                      style={{ height: 20, width: 20, position: "absolute" }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
             ) : currentTab == "duration" ? (
               <View
                 // key={item.Id}
                 style={{
                   height: 90,
-                  width: "100%",
+                  width: wp(100),
                   flexDirection: "row",
                   marginBottom: 15,
                   elevation: 2,
@@ -403,7 +445,7 @@ const BookingInformationConfirmation = () => {
                 <View
                   style={{
                     height: 90,
-                    width: "10%",
+                    width: wp(10),
                     backgroundColor: "purple",
                     elevation: 3,
                   }}
@@ -413,6 +455,7 @@ const BookingInformationConfirmation = () => {
                   style={{
                     marginBottom: 10,
                     padding: 10,
+                    width: wp(60),
                     backgroundColor: "#fff",
                   }}
                 >
@@ -426,13 +469,29 @@ const BookingInformationConfirmation = () => {
                     {Tutor_Qualification.frequency}
                   </Text>
                 </View>
+                <View>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("TutorQualification")}
+                    style={{
+                      height: 30,
+                      width: wp(30),
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Image
+                      source={require("../Assets/Edit.png")}
+                      style={{ height: 20, width: 20, position: "absolute" }}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
             ) : currentTab == "doller" ? (
               <View
                 // key={item.Id}
                 style={{
                   height: 90,
-                  width: "100%",
+                  width: wp(100),
                   flexDirection: "row",
                   marginBottom: 15,
                   elevation: 2,
@@ -445,7 +504,7 @@ const BookingInformationConfirmation = () => {
                 <View
                   style={{
                     height: 90,
-                    width: "10%",
+                    width: wp(10),
                     backgroundColor: "purple",
                     elevation: 3,
                   }}
@@ -455,6 +514,7 @@ const BookingInformationConfirmation = () => {
                   style={{
                     marginBottom: 10,
                     padding: 10,
+                    width: wp(60),
                     backgroundColor: "#fff",
                   }}
                 >
@@ -462,11 +522,27 @@ const BookingInformationConfirmation = () => {
                    Student ID: {student.Id}
                  </Text> */}
                   <Text style={styles.Information}>
-                    {Tutor_Qualification.FeeOffer}
+                    SGD {Tutor_Qualification.FeeOffer}.00
                   </Text>
                   <Text style={styles.Information}>
                     {Tutor_Qualification.feetype}
                   </Text>
+                </View>
+                <View>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("TutorQualification")}
+                    style={{
+                      height: 30,
+                      width: wp(30),
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Image
+                      source={require("../Assets/Edit.png")}
+                      style={{ height: 20, width: 20, position: "absolute" }}
+                    />
+                  </TouchableOpacity>
                 </View>
               </View>
             ) : (
@@ -554,6 +630,7 @@ const BookingInformationConfirmation = () => {
                     style={{
                       marginBottom: 10,
                       padding: 10,
+                      width: wp(60),
                       backgroundColor: "#fff",
                     }}
                   >
@@ -571,6 +648,24 @@ const BookingInformationConfirmation = () => {
                       </Text>
                     </View>
                     {/* ))} */}
+                  </View>
+                  <View>
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate("TutionSchedulePicker")
+                      }
+                      style={{
+                        height: 30,
+                        width: wp(30),
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Image
+                        source={require("../Assets/Edit.png")}
+                        style={{ height: 20, width: 20, position: "absolute" }}
+                      />
+                    </TouchableOpacity>
                   </View>
                 </View>
               ))
@@ -641,7 +736,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   Information: {
-    // fontSize: 15,
+    fontSize: 12,
     color: "black",
     fontFamily: "Poppins-Regular",
     marginLeft: 10,

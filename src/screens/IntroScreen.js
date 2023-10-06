@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   SafeAreaView,
@@ -20,7 +20,7 @@ import {
 import VideoPlayer from "react-native-video-player";
 import AsyncStorage from "@react-native-community/async-storage";
 import ProgressCircle from "react-native-progress-circle";
-
+import { useDispatch, useSelector } from "react-redux";
 const slides = [
   {
     key: 1,
@@ -72,6 +72,11 @@ const IntroScreen = () => {
   const [showRealApp, setShowRealApp] = useState(false);
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(true);
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
+
+  console.log(Login_Data, "Login_DataLogin_DataLogin_DataLogin_Data");
+
+  useEffect(() => {}, []);
 
   const onDone = async () => {
     //  setShowRealApp(true);

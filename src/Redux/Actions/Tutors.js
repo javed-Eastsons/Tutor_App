@@ -226,9 +226,9 @@ export const ViewAssignment = (Login_Data, navigation) => {
   console.log(Login_Data);
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorList/ViewAssignment.php?postal_code=" +
-      Login_Data.postcode;
-    // console.log(url1, "POSTSTSTTSTSTSTSTSTSTSTSTSTCODEEEEEE");
+      "https://refuel.site/projects/tutorapp/APIs/TutorList/ViewAssignment.php?tutor_login_id=" +
+      Login_Data.userid;
+    console.log(url1, "POSTSTSTTSTSTSTSTSTSTSTSTSTCODEEEEEE");
     await fetch(url1, {
       method: "GET",
       headers: new Headers({
@@ -261,8 +261,8 @@ export const FavAssignment = (Login_Data, navigation) => {
   console.log(Login_Data);
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorList/ViewFavouriteAssignment.php?postal_code=" +
-      Login_Data.postcode;
+      "https://refuel.site/projects/tutorapp/APIs/TutorList/ViewMyFavouriteAssignment.php?tutor_login_id=" +
+      Login_Data.userid;
     // console.log(url1, "POSTSTSTTSTSTSTSTSTSTSTSTSTCODEEEEEE");
     await fetch(url1, {
       method: "GET",

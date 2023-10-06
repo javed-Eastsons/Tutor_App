@@ -99,11 +99,11 @@ const TutorQualification = ({ route }) => {
     {
       label: "University Undergraduate",
       value: "University Undergraduate",
-      id: 3,
+      id: 4,
     },
-    { label: "University Graduate", value: "University Graduate", id: 4 },
-    { label: "Ex School Teacher", value: "Ex School Teacher", id: 5 },
-    { label: "Current School Teacher", value: "Current School Teacher", id: 6 },
+    { label: "University Graduate", value: "University Graduate", id: 5 },
+    { label: "Ex School Teacher", value: "Ex School Teacher", id: 6 },
+    { label: "Current School Teacher", value: "Current School Teacher", id: 7 },
   ];
   const frequency = [
     // { label: 'Select One Option', value: 'Select One Option' },
@@ -324,6 +324,7 @@ const TutorQualification = ({ route }) => {
               selectedItemTextColor="#2F5597"
               fontSize={12}
               selectedItemIconColor="#2F5597"
+              select
               itemTextColor="#000"
               itemFontSize={12}
               displayKey="label"
@@ -550,6 +551,7 @@ const TutorQualification = ({ route }) => {
               width: "100%",
               //position: "absolute",
               // bottom: 5,
+              justifyContent: "space-between",
               flexDirection: "row",
               alignSelf: "center",
             }}
@@ -558,7 +560,7 @@ const TutorQualification = ({ route }) => {
               onPress={() => navigation.navigate("")}
               style={{
                 height: "100%",
-                width: "50%",
+                width: "48%",
                 backgroundColor: "#C0C0C0",
                 justifyContent: "center",
                 alignItems: "center",
@@ -574,7 +576,7 @@ const TutorQualification = ({ route }) => {
               }
               style={{
                 height: "100%",
-                width: "50%",
+                width: "48%",
                 justifyContent: "center",
                 alignItems: "center",
                 backgroundColor: "#F6BE00",

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -37,17 +37,22 @@ import StarRating from "react-native-star-rating";
 import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
 import { Dropdown } from "react-native-element-dropdown";
 import { Student_Detail } from "../Redux/Actions/types";
-import { getLevelList,getGradeList,getSubjectList } from "../Redux/Actions/Tutors";
+import {
+  getLevelList,
+  getGradeList,
+  getSubjectList,
+} from "../Redux/Actions/Tutors";
+import { Loader } from "../common/Loader";
 
 var selectArray = [];
 var selectFilter = [];
 
 const StudentBookingInfo = ({ route }) => {
-  const data = route.params.data;
-  console.log(
-    "🚀 ~ file: StudentBookingInfo.js ~ line 37 ~ StudentBookingInfo ~ data",
-    data
-  );
+  // const data = route.params.data;
+  // console.log(
+  //   "🚀 ~ file: StudentBookingInfo.js ~ line 37 ~ StudentBookingInfo ~ data",
+  //   data
+  // );
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [value, setValue] = useState(null);
@@ -63,14 +68,16 @@ const StudentBookingInfo = ({ route }) => {
   const [isFocus2, setIsFocus2] = useState(false);
   const [selectedlevel, setSelectedlevel] = useState([]);
   const [moredetail, setMoreDetail] = useState("showSection");
-
+  const [loader, setLoader] = useState(false);
   const [records, setRecords] = useState(selectArray);
   const { LEVEL_LIST } = useSelector((state) => state.TutorReducer);
-  const {SUBJECT_LIST}= useSelector((state) => state.TutorReducer);
+  const { SUBJECT_LIST } = useSelector((state) => state.TutorReducer);
 
   const { GRADE_LIST } = useSelector((state) => state.TutorReducer);
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editId, setEditId] = useState();
   const { Tution_Type } = useSelector((state) => state.TutorReducer);
   const data1 = [
     { label: "Pre-School", value: "Pre-School" },
@@ -262,22 +269,51 @@ const StudentBookingInfo = ({ route }) => {
   };
   useEffect(() => {
     dispatch(getLevelList());
-   
   }, []);
-  useEffect(() => {
-   
-      dispatch(getGradeList(value));
 
+  useEffect(() => {
+    dispatch(getGradeList(value));
   }, [value]);
-  useEffect(() => {
 
+  useEffect(() => {
+    setLoader(true);
     dispatch(getSubjectList(value));
-
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
   }, [value]);
 
+  const handleEdit = (idToEdit, level, grade, subject) => {
+    console.log(idToEdit, level, grade, subject, "LLLLLLLLLLLLLLLL");
+    setValue(level);
+    setValue2(grade);
+    setEditId(idToEdit);
+    setSelectedlevel(subject);
+    setShowEditModal(true);
+  };
 
+  const UpdateRecord = () => {
+    console.log(editId);
+    const newData = records.map((record) => {
+      if (record.Id === editId) {
+        return {
+          ...record,
+          Level: value,
+          Grade: value2,
+          ALL_Subjects: selectedlevel,
+          // You can update other fields here as well
+        };
+      }
+      return record;
+    });
+
+    setRecords(newData);
+    console.log(newData, "newDatanewDatanewDatanewDatanewData");
+    setShowEditModal(false);
+  };
   return (
     <SafeAreaView style={{ flex: 1, marginHorizontal: 10 }}>
+      <Loader flag={loader} />
       <View style={styles.Headers}>
         <View style={styles.HeadLeft}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -298,7 +334,9 @@ const StudentBookingInfo = ({ route }) => {
         </View>
       </View>
       <View style={{ height: 30, width: "90%", alignSelf: "center" }}>
-        <Text style={{ fontSize: 20, color: "#2F5597", fontFamily:'Poppins-Bold'}}>
+        <Text
+          style={{ fontSize: 20, color: "#2F5597", fontFamily: "Poppins-Bold" }}
+        >
           Let's Book!
         </Text>
       </View>
@@ -326,10 +364,10 @@ const StudentBookingInfo = ({ route }) => {
         </View>
         <View style={{ height: 60, width: 200 }}>
           <View style={{ height: 30, width: 200 }}>
-            <Text style={styles.infoText}>{data.tutor_code}</Text>
+            {/* <Text style={styles.infoText}>{data.tutor_code}</Text> */}
           </View>
           <View style={{ height: 30, width: 200 }}>
-            <Text style={styles.infoText}>{data.name_of_school}</Text>
+            {/* <Text style={styles.infoText}>{data.name_of_school}</Text> */}
           </View>
         </View>
       </View>
@@ -339,7 +377,7 @@ const StudentBookingInfo = ({ route }) => {
             fullStarColor="orange"
             disabled={false}
             maxStars={5}
-            rating={data.Average_Rating}
+            // rating={data.Average_Rating}
             starSize={15}
             // selectedStar={(rating) => setStrCount(rating)}
           />
@@ -359,7 +397,7 @@ const StudentBookingInfo = ({ route }) => {
             flexDirection: "row",
           }}
         >
-          <Text style={styles.BookText1}>Student's Detailsdfff</Text>
+          <Text style={styles.BookText1}>Student's Details</Text>
           <View style={{ position: "absolute", right: 10 }}>
             <Image
               source={require("../Assets/TutionType.png")}
@@ -367,16 +405,18 @@ const StudentBookingInfo = ({ route }) => {
             />
           </View>
         </View>
-        <View style={{ height: 20, width: "93%", alignSelf: "center" }}>
+        <View style={{ width: "93%", alignSelf: "center" }}>
           <Text style={styles.BookText2}>
             you can add multiple student's details.One at a time...
           </Text>
         </View>
         <ScrollView
           style={{
-            height: "90%",
+            //  height: "90%",
+
             width: "100%",
             padding: 10,
+            marginBottom: hp(5),
             backgroundColor: "white",
           }}
         >
@@ -385,19 +425,22 @@ const StudentBookingInfo = ({ route }) => {
               <View
                 key={item.Id}
                 style={{
-                  height: 90,
                   width: "100%",
                   // paddingHorizontal: 10,
                   flexDirection: "row",
                   marginBottom: 15,
-                  elevation:2,
+                  elevation: 2,
                   backgroundColor: "#fff",
                 }}
               >
-                <View style={{ height: 90, width: "10%",backgroundColor:'purple',elevation:3 }}>
-
-                </View >
-                <View style={{ height: 100, width: "80%" }}>
+                <View
+                  style={{
+                    width: "10%",
+                    backgroundColor: "purple",
+                    elevation: 3,
+                  }}
+                ></View>
+                <View style={{ width: "80%" }}>
                   <Text style={styles.Information}>{item.Level}</Text>
                   <Text style={styles.Information}>{item.Grade}</Text>
                   <Text style={styles.Information}>
@@ -429,6 +472,14 @@ const StudentBookingInfo = ({ route }) => {
                 </View>
                 <View style={{ height: 80, width: "10%" }}>
                   <TouchableOpacity
+                    onPress={() =>
+                      handleEdit(
+                        item.Id,
+                        item.Level,
+                        item.Grade,
+                        item.ALL_Subjects
+                      )
+                    }
                     style={{
                       height: 40,
                       width: "100%",
@@ -497,13 +548,15 @@ const StudentBookingInfo = ({ route }) => {
               }}
             >
               <View style={styles.DetailContainer}>
-                <View style={{ height: 100, width: "30%" }}>
-                  <Text style={{  color: "black",fontFamily:'Poppins-Regular' }}>
+                <View style={{ width: "30%" }}>
+                  <Text
+                    style={{ color: "black", fontFamily: "Poppins-Regular" }}
+                  >
                     Level :
                   </Text>
                 </View>
                 <View style={{ width: "100%" }}>
-                <Dropdown
+                  <Dropdown
                     style={[
                       styles.dropdown,
                       isFocus && { borderColor: "black" },
@@ -529,8 +582,14 @@ const StudentBookingInfo = ({ route }) => {
               </View>
 
               <View style={styles.DetailContainer}>
-                <View style={{ height: 100, width: "30%" }}>
-                  <Text style={{ marginTop: 10,fontFamily:'Poppins-Regular', color: "black" }}>
+                <View style={{ width: "30%" }}>
+                  <Text
+                    style={{
+                      marginTop: 10,
+                      fontFamily: "Poppins-Regular",
+                      color: "black",
+                    }}
+                  >
                     Grade :
                   </Text>
                 </View>
@@ -562,12 +621,249 @@ const StudentBookingInfo = ({ route }) => {
 
               <View style={styles.DetailContainer}>
                 <View style={{ height: 100, width: "30%" }}>
-                  <Text style={{ marginTop: 10, fontFamily:'Poppins-Regular', color: "black" }}>
+                  <Text
+                    style={{
+                      marginTop: 10,
+                      fontFamily: "Poppins-Regular",
+                      color: "black",
+                    }}
+                  >
                     Subjects :
                   </Text>
                 </View>
                 <View style={styles.SelectMoreContainer}>
-                                  {/* <Dropdown
+                  <MultiSelect
+                    items={SUBJECT_LIST?.Subject_List}
+                    uniqueKey="subjects_name"
+                    onSelectedItemsChange={onSelectedlevel}
+                    selectedItems={selectedlevel}
+                    //  selectText="Select one or more"
+                    searchInputPlaceholderText="Search Items..."
+                    onChangeInput={(text) =>
+                      console.log("SSSSSSSSSSSSSS", text)
+                    }
+                    tagRemoveIconColor="#2F5597"
+                    tagBorderColor="#2F5597"
+                    tagTextColor="#2F5597"
+                    selectedItemTextColor="#2F5597"
+                    fontSize={12}
+                    selectedItemIconColor="#2F5597"
+                    itemTextColor="#000"
+                    itemFontSize={12}
+                    displayKey="subjects_name"
+                    searchInputStyle={{ color: "#CCC", fontSize: 12 }}
+                    // styleRowList={{ width: "90%" }}
+                    // submitButtonColor="#000"
+                    //submitButtonText="Submit"
+                    // styleDropdownMenu={{ backgroundColor: "red" }}
+                    hideSubmitButton
+                    // styleItemsContainer={{}}
+                  />
+                  {/* </View> */}
+                </View>
+              </View>
+              <View style={styles.DetailContainer}>
+                <TouchableOpacity
+                  onPress={() => ClickOnDone()}
+                  style={{
+                    height: 35,
+                    width: 100,
+                    backgroundColor: "#F6BE00",
+
+                    alignSelf: "flex-end",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 10,
+                    // bottom: 0,
+                    // position: "absolute",
+                    // right: 10,
+
+                    //   right: -230,
+                  }}
+                >
+                  <Text style={styles.ButtonText}>Done</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ) : (
+            <View />
+          )}
+
+          {/* <TouchableOpacity
+            onPress={() => GoTONext()}
+            style={{
+              height: 35,
+              width: 100,
+              backgroundColor: "#F6BE00",
+              marginTop: 20,
+              alignSelf: "flex-end",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 10,
+              bottom: 10,
+              right: 10,
+              position: "absolute",
+              //   right: -230,
+            }}
+          >
+            <Text style={styles.ButtonText}>Done</Text>
+          </TouchableOpacity> */}
+          <View style={{ height: hp(10) }}></View>
+        </ScrollView>
+
+        <View
+          style={{
+            height: "10%",
+            width: "100%",
+            position: "absolute",
+            bottom: hp(-3),
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignSelf: "center",
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => navigation.navigate("")}
+            style={{
+              height: "100%",
+              width: "48%",
+              backgroundColor: "#C0C0C0",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 3,
+            }}
+          >
+            <Text style={styles.BookText}>Cancel Booking</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => GoToNext()}
+            // onPress={() =>
+            //   navigation.navigate("StudentBookingInfo", {
+            //     value: value,
+            //     value1: value1,
+            //     value2: value2,
+            //     data: data,
+            //   })
+            // }
+            style={{
+              height: "100%",
+              width: "48%",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#F6BE00",
+              borderRadius: 3,
+            }}
+          >
+            <Text style={styles.infoText1}>Next</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showEditModal}
+        onRequestClose={() => {
+          setShowEditModal(false);
+        }}
+      >
+        <View style={styles.modalWrapper2}>
+          <View style={styles.modalWrapp}>
+            <View
+              style={{
+                marginTop: 20,
+                width: "100%",
+                padding: 10,
+                backgroundColor: "white",
+              }}
+            >
+              <View style={styles.DetailContainer}>
+                <View style={{ width: "30%" }}>
+                  <Text
+                    style={{ color: "black", fontFamily: "Poppins-Regular" }}
+                  >
+                    Level :
+                  </Text>
+                </View>
+                <View style={{ width: "100%" }}>
+                  <Dropdown
+                    style={[
+                      styles.dropdown,
+                      isFocus && { borderColor: "black" },
+                    ]}
+                    placeholderStyle={{ fontSize: 12 }}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    iconStyle={styles.iconStyle}
+                    itemTextStyle={{ color: "grey", fontSize: 12 }}
+                    data={LEVEL_LIST?.Level_list}
+                    labelField="school_level_name"
+                    valueField="school_level_name"
+                    allowFontScaling={false}
+                    placeholder={!isFocus ? " " : "..."}
+                    value={value}
+                    onFocus={() => setIsFocus(true)}
+                    onBlur={() => setIsFocus(false)}
+                    onChange={(item) => {
+                      setValue(item.school_level_name);
+                      setIsFocus(false);
+                    }}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.DetailContainer}>
+                <View style={{ width: "30%" }}>
+                  <Text
+                    style={{
+                      marginTop: 10,
+                      fontFamily: "Poppins-Regular",
+                      color: "black",
+                    }}
+                  >
+                    Grade :
+                  </Text>
+                </View>
+                <View style={{ width: "100%" }}>
+                  <Dropdown
+                    style={[
+                      styles.dropdown,
+                      isFocus2 && { borderColor: "black" },
+                    ]}
+                    placeholderStyle={{ fontSize: 12 }}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    iconStyle={styles.iconStyle}
+                    itemTextStyle={{ color: "grey", fontSize: 12 }}
+                    data={GRADE_LIST?.Grade_List}
+                    labelField="grade_name"
+                    valueField="grade_name"
+                    allowFontScaling={false}
+                    placeholder={!isFocus2 ? " " : "..."}
+                    value={value2}
+                    onFocus={() => setIsFocus2(true)}
+                    onBlur={() => setIsFocus2(false)}
+                    onChange={(item) => {
+                      setValue2(item.grade_name);
+                      setIsFocus2(false);
+                    }}
+                  />
+                </View>
+              </View>
+
+              <View style={styles.DetailContainer}>
+                <View style={{ height: 100, width: "30%" }}>
+                  <Text
+                    style={{
+                      marginTop: 10,
+                      fontFamily: "Poppins-Regular",
+                      color: "black",
+                    }}
+                  >
+                    Subjects :
+                  </Text>
+                </View>
+                <View style={styles.SelectMoreContainer}>
+                  {/* <Dropdown
                     style={[styles.dropdown, isFocus1 && { borderColor: "black" }]}
                     placeholderStyle={{ fontSize: 12 }}
                     selectedTextStyle={styles.selectedTextStyle}
@@ -618,99 +914,58 @@ const StudentBookingInfo = ({ route }) => {
                   {/* </View> */}
                 </View>
               </View>
-
-              <TouchableOpacity
-                onPress={() => ClickOnDone()}
+              <View
                 style={{
-                  height: 35,
-                  width: 100,
-                  backgroundColor: "#F6BE00",
-
-                  alignSelf: "flex-end",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: 10,
-                  bottom: 0,
-                  right: 10,
+                  bottom: -100,
+                  flexDirection: "row",
                   position: "absolute",
-                  //   right: -230,
+                  width: wp(90),
+                  justifyContent: "center",
+                  alignSelf: "center",
                 }}
               >
-                <Text style={styles.ButtonText}>Done</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  //  onPress={() => ClickOnDone()}
+                  onPress={() => setShowEditModal(false)}
+                  style={{
+                    height: 35,
+                    width: wp(30),
+                    backgroundColor: "#F6BE00",
+
+                    justifyContent: "center",
+                    alignItems: "center",
+                    alignSelf: "center",
+                    borderRadius: 10,
+
+                    //   right: -230,
+                  }}
+                >
+                  <Text style={styles.ButtonText}>Cancel</Text>
+                </TouchableOpacity>
+                <View style={{ width: wp(10) }}></View>
+                <TouchableOpacity
+                  //  onPress={() => ClickOnDone()}
+                  onPress={() => UpdateRecord()}
+                  style={{
+                    height: 35,
+                    width: wp(30),
+                    backgroundColor: "#F6BE00",
+
+                    justifyContent: "center",
+                    alignItems: "center",
+                    alignSelf: "center",
+                    borderRadius: 10,
+
+                    //   right: -230,
+                  }}
+                >
+                  <Text style={styles.ButtonText}>Update</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          ) : (
-            <View />
-          )}
-
-          {/* <TouchableOpacity
-            onPress={() => GoTONext()}
-            style={{
-              height: 35,
-              width: 100,
-              backgroundColor: "#F6BE00",
-              marginTop: 20,
-              alignSelf: "flex-end",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 10,
-              bottom: 10,
-              right: 10,
-              position: "absolute",
-              //   right: -230,
-            }}
-          >
-            <Text style={styles.ButtonText}>Done</Text>
-          </TouchableOpacity> */}
-        </ScrollView>
-
-        <View
-          style={{
-            height: "10%",
-            width: "100%",
-            position: "absolute",
-            bottom: 5,
-            flexDirection: "row",
-            alignSelf: "center",
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => navigation.navigate("")}
-            style={{
-              height: "100%",
-              width: "50%",
-              backgroundColor: "#C0C0C0",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 3,
-            }}
-          >
-            <Text style={styles.BookText}>Cancel Booking</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => GoToNext()}
-            // onPress={() =>
-            //   navigation.navigate("StudentBookingInfo", {
-            //     value: value,
-            //     value1: value1,
-            //     value2: value2,
-            //     data: data,
-            //   })
-            // }
-            style={{
-              height: "100%",
-              width: "50%",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#F6BE00",
-              borderRadius: 3,
-            }}
-          >
-            <Text style={styles.infoText1}>Next</Text>
-          </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -736,20 +991,27 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   Information: {
-    fontSize: 15,
+    fontSize: 12,
     color: "black",
     fontWeight: "500",
     marginTop: 5,
     marginLeft: 10,
   },
+  modalWrapper2: {
+    flex: 1,
+    backgroundColor: "#00000040",
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  modalWrapp: { height: hp(48), width: wp(100), backgroundColor: "#fff" },
   DetailContainer: {
     flexDirection: "row",
-    height: "20%",
+    //  height: "20%",
     width: "100%",
   },
   SelectMoreContainer: {
     // height: 150,
-    width: "60%",
+    // width: "60%",
     flex: 1,
   },
   HeadRight: {
@@ -775,17 +1037,18 @@ const styles = StyleSheet.create({
   infoText: {
     // fontSize: 15,
     color: "black",
-    fontFamily:'Poppins-Regular'
+    fontFamily: "Poppins-Regular",
   },
   infoText1: {
     // fontSize: 15,
     color: "black",
     alignSelf: "center",
-    fontFamily:'Poppins-Regular'
- },
+    fontFamily: "Poppins-SemiBold",
+  },
   BookText: {
-    fontSize: 15,
+    // fontSize: 15,
     color: "white",
+    fontFamily: "Poppins-SemiBold",
     alignSelf: "center",
     fontWeight: "700",
   },
@@ -793,19 +1056,20 @@ const styles = StyleSheet.create({
     // fontSize: 15,
     // color: "white",
     color: "grey",
-    fontFamily:'Poppins-SemiBold'
+    fontFamily: "Poppins-SemiBold",
   },
   BookText2: {
     // fontSize: 12,
     color: "white",
     // fontWeight:"bold",
     color: "grey",
-    fontFamily:'Poppins-REgular'
+    fontFamily: "Poppins-REgular",
   },
   ButtonText: {
     fontSize: 15,
     color: "black",
-fontFamily:'Poppins-SemiBold'  },
+    fontFamily: "Poppins-SemiBold",
+  },
   cardLeft: {
     height: 30,
     width: "100%",
@@ -855,8 +1119,7 @@ fontFamily:'Poppins-SemiBold'  },
   },
   selectedTextStyle: {
     fontSize: 12,
-    color:'#000'
-
+    color: "#000",
   },
   iconStyle: {
     width: 20,

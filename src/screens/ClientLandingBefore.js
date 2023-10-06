@@ -42,7 +42,9 @@ const ClientLandingBefore = () => {
   const dispatch = useDispatch();
   const { GET_ALLTUTORS } = useSelector((state) => state.TutorReducer);
   const navigation = useNavigation();
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
 
+  console.log(Login_Data, "Login_DataLogin_DataLogin_DataLogin_Data");
   const [Tutor, setTutor] = useState([]);
 
   // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP", Tutor);
@@ -84,6 +86,24 @@ const ClientLandingBefore = () => {
     }, 2000);
   }, [GET_ALLTUTORS]);
   // console.log("tutors", Tutor);
+
+  const ClickONReadMore = (
+    profile_image,
+    tutor_code,
+    qualification,
+    personal_statement
+  ) => {
+    if (Login_Data === "") {
+      navigation.navigate("Register");
+    } else {
+      expandToggleModal(
+        profile_image,
+        tutor_code,
+        qualification,
+        personal_statement
+      );
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -178,11 +198,12 @@ const ClientLandingBefore = () => {
               Your Ideal Tutor is{"\n"} waiting
             </Text>
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Register", {
-                  codeadd: "NO",
-                })
-              }
+              onPress={() => navigation.navigate("TutorSearch")}
+              // onPress={() =>
+              //   navigation.navigate("Register", {
+              //     codeadd: "NO",
+              //   })
+              // }
               style={[
                 styles.SearchButton,
                 {
@@ -228,11 +249,12 @@ const ClientLandingBefore = () => {
               </Text>
             </TouchableOpacity> */}
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Register", {
-                  codeadd: "NO",
-                })
-              }
+              onPress={() => navigation.navigate("CheckIn")}
+              // onPress={() =>
+              //   navigation.navigate("Register", {
+              //     codeadd: "NO",
+              //   })
+              // }
               style={[
                 styles.SearchButton,
                 {
@@ -444,7 +466,7 @@ const ClientLandingBefore = () => {
                         </Text>
                         <TouchableOpacity
                           onPress={() =>
-                            expandToggleModal(
+                            ClickONReadMore(
                               item.profile_image,
                               item.tutor_code,
                               item.qualification,
@@ -459,7 +481,7 @@ const ClientLandingBefore = () => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() =>
-                      expandToggleModal(
+                      ClickONReadMore(
                         item.profile_image,
                         item.tutor_code,
                         item.qualification,

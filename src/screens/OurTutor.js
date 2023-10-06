@@ -81,7 +81,9 @@ const OurTutor = ({ props, route }) => {
   const { SUBJECT_LIST } = useSelector((state) => state.TutorReducer);
   const { GRADE_LIST } = useSelector((state) => state.TutorReducer);
   const { Tution_Type } = useSelector((state) => state.TutorReducer);
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
 
+  console.log(Login_Data, "Login_DataLogin_DataLogin_DataLogin_Data");
   //console.log(Tution_Type, "Tution_TypeTution_TypeTution_TypeTution_Type");
   // console.log(
   //   "🚀 ~ file: OurTutor.js ~ line 62 ~ OurTutor ~ GET_QUICK_DATA",

@@ -533,7 +533,7 @@ const TutorSearchProfile = ({ props, route }) => {
         }}
       >
         <TouchableOpacity style={styles.FavBooKChat} onPress={toggleBookmark}>
-          {console.log(!isBookmarked, "OOOOOOOOOOOOOOOOOOOOO")}
+          {/* {console.log(!isBookmarked, "OOOOOOOOOOOOOOOOOOOOO")} */}
           {/* {isBookmarked == "true" ? ( */}
           <Image
             source={

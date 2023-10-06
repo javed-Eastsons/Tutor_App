@@ -35,12 +35,15 @@ const TutorSearch = () => {
   const [forwardArrrow, setForwardArrow] = useState(false);
   const [loader, setLoader] = useState(false);
   const [address, setAddress] = useState("");
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
+
+  console.log(Login_Data, "Login_DataLogin_DataLogin_DataLogin_Data");
 
   const presspostalcode = () => {
-    console.log("cdddddddddddddd", address, postalcode);
-
+    //console.log("cdddddddddddddd", address, postalcode);
+    setLoader(true);
     if (postalcode == "") {
-      console.log("Inside IFFFF");
+      //  console.log("Inside IFFFF");
       Alert.alert("Enter postal code");
     } else {
       let obj = {
@@ -49,21 +52,24 @@ const TutorSearch = () => {
         PostAddress: address,
       };
 
+      //   console.log("Inside ELSEEEEEEEEEE");
+
+      dispatch(GetResultAfterPostcode(postalcode, navigation));
+
       dispatch({
         type: Tution_Type,
         payload: obj,
       });
-      console.log("Inside ELSEEEEEEEEEE");
-      setLoader(true);
-      dispatch(GetResultAfterPostcode(postalcode, navigation))
-        .then((res) => setLoader(false))
-        .finally(() => setLoader(false));
+      // .then((res) => setLoader(false))
+      // .finally(() => setLoader(false));
       setTimeout(() => {
         setLoader(false);
       }, 2000);
     }
   };
+
   const geocodinApi = () => {
+    console.log("dgdgdgdgdgdgd");
     let config = {
       method: "get",
       maxBodyLength: Infinity,
@@ -75,7 +81,7 @@ const TutorSearch = () => {
       .request(config)
       .then((response) => {
         const jsonData = response.data;
-        // console.log(jsonData, "OOOOOOOOOOOOOOOOOOO");
+        console.log(jsonData, "OOOOOOOOOOOOOOOOOOO");
         const jj = jsonData.results[0];
         // setAddress(jj?.formatted_address);
         // console.log(jj, "AddressPin");
@@ -245,7 +251,10 @@ const TutorSearch = () => {
                   )}
                 </View>
               </TouchableOpacity>
-              <View style={[styles.whitebox, { elevation: 5 }]}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("OnlineTuition")}
+                style={[styles.whitebox, { elevation: 5 }]}
+              >
                 <View style={styles.bicons}>
                   <Image source={require("../Assets/onlinetutIcon.png")} />
                 </View>
@@ -273,8 +282,11 @@ const TutorSearch = () => {
                     borderWidth: 1,
                   }}
                 ></View>
-              </View>
-              <View style={[styles.whitebox, { elevation: 5 }]}>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("HomeworkHelp")}
+                style={[styles.whitebox, { elevation: 5 }]}
+              >
                 <View style={styles.bicons}>
                   <Image source={require("../Assets/helptutIcon.png")} />
                 </View>
@@ -303,7 +315,7 @@ const TutorSearch = () => {
                     borderWidth: 1,
                   }}
                 ></View>
-              </View>
+              </TouchableOpacity>
             </View>
 
             {homeTutor === true && (

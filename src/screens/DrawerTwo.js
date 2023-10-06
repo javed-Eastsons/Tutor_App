@@ -9,7 +9,7 @@ import {
   Image,
   Button,
   TouchableOpacity,
-  Switch
+  Switch,
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { TextInput } from "react-native-gesture-handler";
@@ -31,7 +31,7 @@ const DrawerTwo = ({ navigation }) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: "row" }}>
           <View>
             <Image
               source={require("../Assets/try-it.png")}
@@ -39,7 +39,7 @@ const DrawerTwo = ({ navigation }) => {
             />
           </View>
 
-          <View style={{ flexDirection: 'row', marginLeft: 80, marginTop: 20 }}>
+          <View style={{ flexDirection: "row", marginLeft: 80, marginTop: 20 }}>
             <Image
               source={require("../Assets/rateAppIcon.png")}
               style={{ width: 35 }}
@@ -54,9 +54,8 @@ const DrawerTwo = ({ navigation }) => {
               style={{ width: 40 }}
             />
           </View>
-
         </View>
-        <View style={{flexDirection:'row',marginTop:20,marginLeft:50}}>
+        <View style={{ flexDirection: "row", marginTop: 20, marginLeft: 50 }}>
           <Text style={{ fontFamily: "Poppins-Light" }}>
             {console.log(isEnabled)}I want to find a Tutor..
           </Text>
@@ -80,29 +79,31 @@ const DrawerTwo = ({ navigation }) => {
             />
             <Text style={[styles.MenuHead, { marginLeft: 10 }]}>Welcome</Text>
           </View>
-          <View style={[styles.menusublist, { flexDirection: 'row' }]}>
+          <View style={[styles.menusublist, { flexDirection: "row" }]}>
             <View>
               <View style={styles.verticleLine}></View>
-
             </View>
             <View style={{ marginLeft: 10 }}>
               <Text style={styles.subText}>Message from our director</Text>
               <Text style={styles.subText}>About</Text>
               <Text style={styles.subText}>Our Services</Text>
-             
             </View>
           </View>
         </View>
 
         <View style={styles.MenuLIstContainer}>
           <View style={styles.MenuLIst}>
-            <Image source={require("../Assets/dashIcon.png")} style={{ width: 30, marginTop: 5 }} />
-            <Text style={[styles.MenuHead, { marginLeft: 10 }]}>Mark's Dashboard</Text>
+            <Image
+              source={require("../Assets/dashIcon.png")}
+              style={{ width: 30, marginTop: 5 }}
+            />
+            <Text style={[styles.MenuHead, { marginLeft: 10 }]}>
+              Mark's Dashboard
+            </Text>
           </View>
-          <View style={[styles.menusublist, { flexDirection: 'row' }]}>
+          <View style={[styles.menusublist, { flexDirection: "row" }]}>
             <View>
               <View style={styles.verticleLine1}></View>
-
             </View>
             <View style={{ marginLeft: 10 }}>
               <Text style={styles.subText}>My Profile</Text>
@@ -114,11 +115,15 @@ const DrawerTwo = ({ navigation }) => {
               <Text style={styles.subText}>Favourites</Text>
             </View>
           </View>
-
         </View>
         <TouchableOpacity
           onPress={() => {
             AsyncStorage.clear();
+            let obj = "";
+            dispatch({
+              type: Login_Data,
+              payload: obj,
+            });
             navigation.replace("home");
           }}
           style={styles.MenuLIstContainer}
@@ -126,17 +131,22 @@ const DrawerTwo = ({ navigation }) => {
           <View style={styles.MenuLIst}>
             <Image
               source={require("../Assets/logoutIcon.png")}
-              style={[styles.icons, { backgroundColor: '#fff', marginTop: 5 }]}
+              style={[styles.icons, { backgroundColor: "#fff", marginTop: 5 }]}
             />
             <Text style={styles.MenuHead}>Logout</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {
-          navigation.navigate("HelpSupport");
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("HelpSupport");
+          }}
+        >
           <View style={styles.MenuLIstContainer}>
             <View style={styles.MenuLIst}>
-              <Image source={require("../Assets/Help.png")} style={styles.icons} />
+              <Image
+                source={require("../Assets/Help.png")}
+                style={styles.icons}
+              />
               <Text style={styles.MenuHead}>Help & Support</Text>
             </View>
           </View>
@@ -151,9 +161,11 @@ const DrawerTwo = ({ navigation }) => {
             </View>
           </View>
         </TouchableOpacity> */}
-        <TouchableOpacity onPress={() => {
-          navigation.navigate("TermsConditions");
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("TermsConditions");
+          }}
+        >
           <View style={styles.MenuLIstContainer}>
             <View style={styles.MenuLIst}>
               <Image
@@ -164,9 +176,11 @@ const DrawerTwo = ({ navigation }) => {
             </View>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {
-          navigation.navigate("PrivacyPolicy");
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("PrivacyPolicy");
+          }}
+        >
           <View style={styles.MenuLIstContainer}>
             <View style={styles.MenuLIst}>
               <Image
@@ -178,14 +192,15 @@ const DrawerTwo = ({ navigation }) => {
           </View>
         </TouchableOpacity>
 
-
-
         <View style={styles.SocialMainContainer}>
           <View style={styles.SocialContainer}>
             <Image source={require("../Assets/Fb.png")} style={styles.icons} />
           </View>
           <View style={styles.SocialContainer}>
-            <Image source={require("../Assets/Insta.png")} style={styles.icons} />
+            <Image
+              source={require("../Assets/Insta.png")}
+              style={styles.icons}
+            />
           </View>
           <View style={styles.SocialContainer}>
             <Image
@@ -225,7 +240,7 @@ const styles = StyleSheet.create({
   },
   subText: {
     color: "#fff",
-    fontFamily: 'Poppins-Light'
+    fontFamily: "Poppins-Light",
   },
 
   icons: {
@@ -238,8 +253,8 @@ const styles = StyleSheet.create({
   LastText: {
     color: "#fff",
     fontSize: 15,
-    fontFamily: 'Poppins-Italic',
-    marginLeft: 10
+    fontFamily: "Poppins-Italic",
+    marginLeft: 10,
   },
   MenuLIst: {
     flexDirection: "row",
@@ -253,7 +268,7 @@ const styles = StyleSheet.create({
     padding: 5,
     fontSize: 16,
     color: "yellow",
-    fontFamily: 'Poppins-SemiBold'
+    fontFamily: "Poppins-SemiBold",
   },
   SocialMainContainer: {
     height: 40,
@@ -268,16 +283,16 @@ const styles = StyleSheet.create({
     width: "12%",
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 5
+    marginRight: 5,
   },
   verticleLine: {
     height: 70,
     width: 2,
-    backgroundColor: 'yellow',
+    backgroundColor: "yellow",
   },
   verticleLine1: {
     height: 160,
     width: 2,
-    backgroundColor: 'yellow',
+    backgroundColor: "yellow",
   },
 });

@@ -66,6 +66,7 @@ const TuitionServices = () => {
 
   const getAddress = (lat, long) => {
     console.log("WERTYUI");
+
     let config1 = {
       method: "get",
       maxBodyLength: Infinity,
@@ -160,7 +161,7 @@ const TuitionServices = () => {
               paddingBottom: 10,
             }}
           >
-            Home Tution
+            Home{"\n"}Tution
           </Text>
           <View
             style={{
@@ -202,7 +203,7 @@ const TuitionServices = () => {
               paddingBottom: 10,
             }}
           >
-            Online Tution
+            Online{"\n"}Tution
           </Text>
           <View
             style={{
