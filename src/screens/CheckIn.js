@@ -73,10 +73,10 @@ const CheckIn = () => {
     console.log(selectedval);
     setCurrentTab(selectedval);
   };
-  // console.log(
-  //   GET_FILTER_ASSIGNMENT,
-  //   "GET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENT"
-  // );
+  console.log(
+    GET_FILTER_ASSIGNMENT,
+    "GET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENTGET_FILTER_ASSIGNMENT"
+  );
 
   const toggleBookmark = (postid, fav) => {
     console.log(Login_Data.userid, postid, fav, "LLLLLLLLLLLLLLLLLLLLLLLL");
@@ -261,7 +261,7 @@ const CheckIn = () => {
         </View>
       </View>
 
-      <ScrollView nestedScrollEnabled={true}>
+      <View>
         <View style={styles.SearchContainer}>
           <Text
             style={{
@@ -453,7 +453,7 @@ const CheckIn = () => {
           </TouchableOpacity> */}
         </View>
         {detail_view == "List" ? (
-          <View>
+          <View style={{ height: hp(65) }}>
             {dataFrom == "Postal" ? (
               <FlatList
                 // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
@@ -464,7 +464,7 @@ const CheckIn = () => {
                 //renderItem={renderItem}
 
                 renderItem={({ item, index }) => (
-                  <View key={item.student_post_requirements_id} style={{}}>
+                  <View key={index} style={{}}>
                     <TouchableOpacity
                       onPress={() =>
                         Assignment_Detail(
@@ -621,7 +621,7 @@ const CheckIn = () => {
                         height: 20,
                         width: 30,
                         position: "absolute",
-                        right: 50,
+                        right: 20,
                         marginTop: 50,
                       }}
                     >
@@ -639,7 +639,7 @@ const CheckIn = () => {
                       )}
                     </TouchableOpacity>
 
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                       onPress={() =>
                         checkforexpand(
                           item.student_post_requirements_id,
@@ -662,7 +662,7 @@ const CheckIn = () => {
                         source={require("../Assets/Expand.png")}
                         style={{ height: 20, width: 20 }}
                       />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                     <Modal
                       isVisible={isExpandModalVisible}
@@ -795,8 +795,24 @@ const CheckIn = () => {
                 data={filterData}
                 keyExtractor={(item, index) => index}
                 renderItem={({ item, index }) => (
-                  <View key={item.student_post_requirements_id} style={{}}>
-                    <TouchableOpacity style={styles.List}>
+                  <View key={index} style={{}}>
+                    <TouchableOpacity
+                      style={styles.List}
+                      onPress={() =>
+                        Assignment_Detail(
+                          item.student_post_requirements_id,
+                          item.student_postal_address,
+                          item.tutor_duration_weeks,
+                          item.tutor_duration_hours,
+                          item.tutor_tution_offer_amount,
+                          item.tutor_tution_offer_amount_type,
+                          item.booked_date,
+                          item.student_level_grade_subjects,
+                          item.tutor_qualification,
+                          item.tutor_schedule_and_slot_times
+                        )
+                      }
+                    >
                       <View
                         style={{
                           width: "22%",
@@ -1102,12 +1118,64 @@ const CheckIn = () => {
             )}
           </View>
         ) : (
-          <View style={{ flex: 1, height: 520 }}>
+          <View style={{ height: hp(65) }}>
             <View
               style={{
-                height: 100,
+                width: wp(100),
+                flexDirection: "row",
+                justifyContent: "center",
+
+                alignSelf: "center",
+              }}
+            >
+              <View
+                style={{
+                  width: wp(48),
+                  flexDirection: "row",
+
+                  alignItems: "flex-start",
+                }}
+              >
+                <Image
+                  source={require("../Assets/user.png")}
+                  style={{
+                    height: 50,
+                    width: 50,
+                    marginBottom: 5,
+                  }}
+                />
+                <View style={{ alignSelf: "center", marginLeft: wp(2) }}>
+                  <StarRating
+                    fullStarColor="orange"
+                    disabled={false}
+                    maxStars={5}
+                    rating={4}
+                    starSize={13}
+                    // selectedStar={(rating) => setStrCount(rating)}
+                  />
+                </View>
+              </View>
+
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "flex-end",
+                  width: wp(48),
+                }}
+              >
+                <Text style={styles.Information}>Post ID: {postID}</Text>
+                <Text style={styles.Information}> {bookDate}</Text>
+              </View>
+            </View>
+            <View>
+              <Text style={[styles.Information, { alignSelf: "center" }]}>
+                {address}
+              </Text>
+            </View>
+            <View
+              style={{
                 width: "100%",
-                marginTop: 20,
+                marginTop: 10,
                 flexDirection: "row",
               }}
             >
@@ -1183,7 +1251,11 @@ const CheckIn = () => {
                 />
               </TouchableOpacity>
             </View>
-            <ScrollView style={{ height: 200 }}>
+            <ScrollView
+              style={{
+                marginTop: 10,
+              }}
+            >
               <View style={{ paddingBottom: 10 }}>
                 {currentTab == "tutiontype" ? (
                   studentDetail &&
@@ -1395,13 +1467,13 @@ const CheckIn = () => {
                   ))
                 )}
               </View>
+              <View style={{ height: hp(5) }}></View>
             </ScrollView>
             <View
               style={{
                 height: hp(6),
                 width: "100%",
-                position: "absolute",
-                bottom: 0,
+                marginTop: 10,
                 flexDirection: "row",
                 alignSelf: "center",
               }}
@@ -1437,7 +1509,7 @@ const CheckIn = () => {
             </View>
           </View>
         )}
-      </ScrollView>
+      </View>
       <Modal
         isVisible={isModalVisible}
         onBackdropPress={() => setModalVisible(false)}

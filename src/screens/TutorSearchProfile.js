@@ -76,17 +76,17 @@ const TutorSearchProfile = ({ props, route }) => {
   const toggleBookmark = () => {
     //  setIsBookmarked(!isBookmarked);
 
-    console.log(data.favourite_status, "PPPPPPPPPPPPPPPPPPPP");
+    console.log(data, "PPPPPPPPPPPPPPPPPPPP");
     setLoader(true);
-    if (data.favourite_status == "True") {
+    if (data.favourite_status == "true") {
       console.log("TTTTTTTT");
       dispatch(
-        FavouriteTutorByStudent(Login_Data.userid, data.user_id, "False")
+        FavouriteTutorByStudent(Login_Data.userid, data.user_id, "false")
       );
     } else {
       console.log("FFFFF");
       dispatch(
-        FavouriteTutorByStudent(Login_Data.userid, data.user_id, "True")
+        FavouriteTutorByStudent(Login_Data.userid, data.user_id, "true")
       );
     }
 
@@ -112,6 +112,7 @@ const TutorSearchProfile = ({ props, route }) => {
   //console.log(Tution_Type, "Tution_TypeTution_TypeTution_TypeTution_Type");
 
   // Collapsed condition for the single collapsible
+
   const [collapsed, setCollapsed] = useState(true);
   // MultipleSelect is for the Multiple Expand allowed
   // True: Expand multiple at a time
@@ -537,7 +538,7 @@ const TutorSearchProfile = ({ props, route }) => {
           {/* {isBookmarked == "true" ? ( */}
           <Image
             source={
-              isBookmarked == "True"
+              isBookmarked == "true"
                 ? require("../Assets/heart.png")
                 : require("../Assets/Health.png")
             }
@@ -589,7 +590,7 @@ const TutorSearchProfile = ({ props, route }) => {
           onpress={() => GetFavTutor()}
         >
           <Text style={{ alignSelf: "center", color: "grey" }}>
-            {isBookmarked == "True" ? "My Fav" : "Favourite"}
+            {isBookmarked == "true" ? "My Fav" : "Favourite"}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
