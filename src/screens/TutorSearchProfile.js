@@ -66,12 +66,8 @@ const TutorSearchProfile = ({ props, route }) => {
   const [activeSections, setActiveSections] = useState([]);
   const [activeSectionsSch, setActiveSectionsSch] = useState([]);
   const { Tution_Type } = useSelector((state) => state.TutorReducer);
-  const [isBookmarked, setIsBookmarked] = useState(data.favourite_status);
-  console.log(
-    isBookmarked,
-    "LLLLLLLLLLLLLLLLLLLLLLLLLLLL",
-    data.favourite_status
-  );
+  const [isBookmarked, setIsBookmarked] = useState(data.Favourite);
+  console.log(isBookmarked, "LLLLLLLLLLLLLLLLLLLLLLLLLLLL", data.Favourite);
 
   const toggleBookmark = () => {
     //  setIsBookmarked(!isBookmarked);

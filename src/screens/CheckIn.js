@@ -31,6 +31,7 @@ import { useDispatch, useSelector } from "react-redux";
 import StarRating from "react-native-star-rating";
 import { Loader } from "../common/Loader";
 import { GetFilterAssignment } from "../Redux/Actions/TutorSearchAction";
+import { Apply_Assignment } from "../Redux/Actions/TutorBooking";
 
 const CheckIn = () => {
   const [strCount, setStrCount] = useState(1);
@@ -237,6 +238,13 @@ const CheckIn = () => {
       setStudent_Detail(student_level_grade_subjects),
       setQualification(tutor_qualification),
       setSchedule(tutor_schedule_and_slot_times);
+  };
+
+  const ApplyAssignment = (postid, loginuser, status) => {
+    console.log(postid, loginuser, status, "PPPPPPPPPPPPPPPPPPPP");
+
+    setLoader(true);
+    dispatch(Apply_Assignment(postid, loginuser, status, navigation));
   };
 
   return (
@@ -454,7 +462,7 @@ const CheckIn = () => {
           </TouchableOpacity> */}
         </View>
         {detail_view == "List" ? (
-          <View style={{ height: hp(65) }}>
+          <View style={{ height: hp(70) }}>
             {dataFrom == "Postal" ? (
               <FlatList
                 // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
@@ -467,6 +475,7 @@ const CheckIn = () => {
                 renderItem={({ item, index }) => (
                   <View key={index} style={{}}>
                     <TouchableOpacity
+                      key={index}
                       onPress={() =>
                         Assignment_Detail(
                           item.student_post_requirements_id,
@@ -481,7 +490,13 @@ const CheckIn = () => {
                           item.tutor_schedule_and_slot_times
                         )
                       }
-                      style={styles.List}
+                      style={[
+                        styles.List,
+                        {
+                          backgroundColor:
+                            index % 2 == 0 ? "#f2f2f2" : "#FFFFFF",
+                        },
+                      ]}
                     >
                       <View
                         style={{
@@ -798,6 +813,7 @@ const CheckIn = () => {
                 renderItem={({ item, index }) => (
                   <View key={index} style={{}}>
                     <TouchableOpacity
+                      key={index}
                       style={styles.List}
                       onPress={() =>
                         Assignment_Detail(
@@ -1494,7 +1510,7 @@ const CheckIn = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                // onPress={() => BookTutorProcess("Accept")}
+                onPress={() => ApplyAssignment(postID, Login_Data.userid, true)}
                 //  onPress={() => navigation.navigate("MakeOffer")}
                 style={{
                   height: "100%",

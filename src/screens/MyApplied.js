@@ -26,10 +26,12 @@ import {
   AllPostsByClient,
   ViewAssignment,
   FavAssignment,
+  Applied_Assignment,
   FavouriteAssignment,
 } from "../Redux/Actions/Tutors";
 import { useDispatch, useSelector } from "react-redux";
 import StarRating from "react-native-star-rating";
+import { Apply_Assignment } from "../Redux/Actions/TutorBooking";
 
 const MyApplied = () => {
   const [strCount, setStrCount] = useState(1);
@@ -37,7 +39,7 @@ const MyApplied = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [postDetail, setPostDetail] = useState([]);
   const dispatch = useDispatch();
-  const { FAV_ASSIGNMENT } = useSelector((state) => state.TutorReducer);
+  const { APPLIED_ASSIGNMENT } = useSelector((state) => state.TutorReducer);
   const { POST_DETAIL } = useSelector((state) => state.TutorReducer);
   const navigation = useNavigation();
   const { Login_Data } = useSelector((state) => state.TutorReducer);
@@ -51,6 +53,17 @@ const MyApplied = () => {
   const [selectedlevels, setSelectedLevels] = useState([]);
   const [loader, setLoader] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState("");
+  const [postID, setPostid] = useState("");
+  const [address, setAddress] = useState("");
+  const [weeks, setWeeks] = useState("");
+  const [hours, setHours] = useState("");
+  const [amount, setAmount] = useState("");
+  const [bookDate, setBookDate] = useState("");
+  const [studentDetail, setStudent_Detail] = useState([]);
+  const [qualification, setQualification] = useState([]);
+  const [schedule, setSchedule] = useState([]);
+  const [detail_view, setDetail_View] = useState("List");
+  const [currentTab, setCurrentTab] = useState("tutiontype");
 
   const FetchDetail = (time) => {
     let picker = selectedlevels;
@@ -67,7 +80,10 @@ const MyApplied = () => {
 
     // Perform any other necessary actions, such as updating the date
   };
-
+  const SelectTab = (selectedval) => {
+    console.log(selectedval);
+    setCurrentTab(selectedval);
+  };
   const expandToggleModal = (
     PostID,
     student_tution_type,
@@ -95,30 +111,69 @@ const MyApplied = () => {
   };
 
   useEffect(() => {
-    dispatch(FavAssignment(Login_Data, navigation));
-    setAssignment(FAV_ASSIGNMENT);
+    dispatch(Applied_Assignment(Login_Data, navigation));
+    setAssignment(APPLIED_ASSIGNMENT);
   }, []);
 
   useEffect(() => {
     setLoader(true);
-    setAssignment(FAV_ASSIGNMENT);
+    setAssignment(APPLIED_ASSIGNMENT);
     setTimeout(() => {
       setLoader(false);
     }, 2000);
-  }, [FAV_ASSIGNMENT]);
+  }, [APPLIED_ASSIGNMENT]);
 
   console.log("assignmentassignmentassignment", assignment);
 
-  const toggleBookmark = (postid, fav) => {
-    console.log(Login_Data.userid, postid, fav, "LLLL");
+  // const toggleBookmark = (postid, fav) => {
+  //   console.log(Login_Data.userid, postid, fav, "LLLL");
+  //   setLoader(true);
+  //   dispatch(FavouriteAssignment(Login_Data.userid, postid, fav));
+
+  //   setTimeout(() => {
+  //     dispatch(FavAssignment(Login_Data, navigation));
+  //     setLoader(false);
+  //   }, 2000);
+  // };
+
+  const Assignment_Detail = (
+    student_post_requirements_id,
+    student_postal_address,
+    tutor_duration_weeks,
+    tutor_duration_hours,
+    tutor_tution_offer_amount,
+    tutor_tution_offer_amount_type,
+    booked_date,
+    student_level_grade_subjects,
+    tutor_qualification,
+    tutor_schedule_and_slot_times
+  ) => {
+    setDetail_View("DetailView");
+    setPostid(student_post_requirements_id),
+      setAddress(student_postal_address),
+      setWeeks(tutor_duration_weeks),
+      setHours(tutor_duration_hours),
+      setAmount(tutor_tution_offer_amount),
+      setOfferType(tutor_tution_offer_amount_type),
+      setBookDate(booked_date),
+      setStudent_Detail(student_level_grade_subjects),
+      setQualification(tutor_qualification),
+      setSchedule(tutor_schedule_and_slot_times);
+  };
+
+  const ApplyAssignment = (postid, loginuser, status) => {
+    console.log(postid, loginuser, status, "PPPPPPPPPPPPPPPPPPPP");
+
     setLoader(true);
-    dispatch(FavouriteAssignment(Login_Data.userid, postid, fav));
+    dispatch(Apply_Assignment(postid, loginuser, status, navigation));
+    setDetail_View("List");
 
     setTimeout(() => {
-      dispatch(FavAssignment(Login_Data, navigation));
+      dispatch(Applied_Assignment(Login_Data, navigation));
       setLoader(false);
     }, 2000);
   };
+
   return (
     <View style={styles.container}>
       <Loader flag={loader} />
@@ -142,7 +197,7 @@ const MyApplied = () => {
         </View>
       </View>
 
-      <ScrollView>
+      <View>
         <View style={styles.SearchContainer}>
           <Text
             style={{
@@ -333,131 +388,164 @@ const MyApplied = () => {
             </Text>
           </TouchableOpacity> */}
         </View>
+        {detail_view == "List" ? (
+          <FlatList
+            // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
+            scrollEnabled={true}
+            data={assignment}
+            keyExtractor={(item, index) => index}
+            showsVerticalScrollIndicator={false}
+            //renderItem={renderItem}
 
-        <FlatList
-          // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
-          scrollEnabled={true}
-          data={assignment}
-          keyExtractor={(item, index) => index}
-          showsVerticalScrollIndicator={false}
-          //renderItem={renderItem}
-
-          renderItem={({ item, index }) => (
-            <View style={{}}>
-              <TouchableOpacity style={styles.List}>
-                <View
-                  style={{
-                    width: "22%",
-                    marginLeft: 5,
-                    justifyContent: "center",
-                  }}
+            renderItem={({ item, index }) => (
+              <View style={{}}>
+                <TouchableOpacity
+                  style={[
+                    styles.List,
+                    { backgroundColor: index % 2 == 0 ? "#f2f2f2" : "#FFFFFF" },
+                  ]}
+                  onPress={() =>
+                    Assignment_Detail(
+                      item.student_post_requirements_id,
+                      item.student_postal_address,
+                      item.tutor_duration_weeks,
+                      item.tutor_duration_hours,
+                      item.tutor_tution_offer_amount,
+                      item.tutor_tution_offer_amount_type,
+                      item.booked_date,
+                      item.student_level_grade_subjects,
+                      item.tutor_qualification,
+                      item.tutor_schedule_and_slot_times
+                    )
+                  }
                 >
-                  <Image
-                    source={require("../Assets/user.png")}
+                  {/* <View
                     style={{
-                      height: 50,
-                      width: 50,
-                      marginBottom: 5,
-                      alignSelf: "center",
+                      width: "22%",
+                      marginLeft: 5,
+                      justifyContent: "center",
                     }}
-                  />
-                  <StarRating
-                    fullStarColor="orange"
-                    disabled={false}
-                    maxStars={5}
-                    rating={4}
-                    starSize={13}
-                    // selectedStar={(rating) => setStrCount(rating)}
-                  />
-                </View>
-
-                <View style={{ width: "75%", marginLeft: 10 }}>
-                  <View style={{ width: "70%", flexDirection: "row" }}>
-                    {/* <Text style={styles.LIstText}>
-                      Post ID {item.student_post_requirements_id}
-                    </Text> */}
-                  </View>
-
-                  <View
-                    style={
-                      {
-                        // height: 20,
-                        //width: "70%",
-                        //backgroundColor: "white",
-                      }
-                    }
                   >
-                    <View>
-                      {item.student_level_grade_subjects &&
-                        item.student_level_grade_subjects.map((item) => {
-                          return (
-                            <View>
-                              <View>
-                                <Text style={{ color: "#000", fontSize: 12 }}>
-                                  {/* {" "}
-                                  Level :{" "} */}
-                                  <Text
-                                    key={item}
-                                    style={{ fontSize: 12, fontWeight: "700" }}
-                                  >
-                                    {item.Level}
-                                  </Text>
-                                </Text>
-                              </View>
+                    <Image
+                      source={require("../Assets/user.png")}
+                      style={{
+                        height: 50,
+                        width: 50,
+                        marginBottom: 5,
+                        alignSelf: "center",
+                      }}
+                    />
+                    <StarRating
+                      fullStarColor="orange"
+                      disabled={false}
+                      maxStars={5}
+                      rating={4}
+                      starSize={13}
+                      // selectedStar={(rating) => setStrCount(rating)}
+                    />
+                  </View> */}
 
-                              <View>
-                                <Text style={{ color: "#000", fontSize: 12 }}>
-                                  {/* {" "}
-                                  Level :{" "} */}
-                                  <Text key={item} style={{ fontSize: 10 }}>
-                                    {item.Grade}
-                                  </Text>
-                                </Text>
-                              </View>
+                  <View style={{ width: "100%", marginLeft: 10 }}>
+                    <View
+                      style={{
+                        width: "95%",
+                        flexDirection: "row",
+                        paddingBottom: 10,
+                        paddingTop: 10,
 
-                              <View style={{ marginBottom: 5 }}>
-                                <Text style={{ color: "#000", fontSize: 12 }}>
-                                  {/* {" "}
+                        alignSelf: "center",
+                      }}
+                    >
+                      <View
+                        style={{
+                          width: "60%",
+
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Text numberOfLines={1} style={styles.LIstText}>
+                          {item.student_postal_address}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          width: "25%",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: "#000",
+                            fontSize: 12,
+                            marginLeft: 15,
+                            alignSelf: "flex-end",
+                          }}
+                        >
+                          {/* {" "}
                                   Subjects :{" "} */}
-                                  <Text key={item} style={{ fontSize: 10 }}>
-                                    {item.ALL_Subjects}
-                                  </Text>
-                                </Text>
-                              </View>
-                            </View>
-                          );
-                        })}
+                          <Text key={item} style={{ fontSize: 10 }}>
+                            {item.booked_date}
+                          </Text>
+                        </Text>
+                      </View>
                     </View>
                     <View
                       style={{
-                        width: "78%",
-                        flexDirection: "row",
-                        paddingBottom: 10,
+                        marginLeft: 20,
+                        // height: 20,
+                        //width: "70%",
+                        //backgroundColor: "white",
                       }}
                     >
-                      <Text numberOfLines={1} style={styles.LIstText}>
-                        {item.student_postal_address}
-                      </Text>
-                      <Text
-                        style={{
-                          color: "#000",
-                          fontSize: 12,
-                          marginLeft: 15,
-                        }}
-                      >
-                        {/* {" "}
-                                  Subjects :{" "} */}
-                        <Text key={item} style={{ fontSize: 10 }}>
-                          {item.booked_date}
-                        </Text>
-                      </Text>
-                    </View>
-                  </View>
-                  <View></View>
-                </View>
-              </TouchableOpacity>
+                      <View>
+                        {item.student_level_grade_subjects &&
+                          item.student_level_grade_subjects.map((item) => {
+                            return (
+                              <View>
+                                <View>
+                                  <Text style={{ color: "#000", fontSize: 12 }}>
+                                    {/* {" "}
+                                  Level :{" "} */}
+                                    <Text
+                                      key={item}
+                                      style={{
+                                        fontSize: 12,
+                                        fontWeight: "700",
+                                      }}
+                                    >
+                                      {item.Level}
+                                    </Text>
+                                  </Text>
+                                </View>
 
-              <TouchableOpacity
+                                <View>
+                                  <Text style={{ color: "#000", fontSize: 12 }}>
+                                    {/* {" "}
+                                  Level :{" "} */}
+                                    <Text key={item} style={{ fontSize: 10 }}>
+                                      {item.Grade}
+                                    </Text>
+                                  </Text>
+                                </View>
+
+                                <View style={{ marginBottom: 5 }}>
+                                  <Text style={{ color: "#000", fontSize: 12 }}>
+                                    {/* {" "}
+                                  Subjects :{" "} */}
+                                    <Text key={item} style={{ fontSize: 10 }}>
+                                      {item.ALL_Subjects}
+                                    </Text>
+                                  </Text>
+                                </View>
+                              </View>
+                            );
+                          })}
+                      </View>
+                    </View>
+                    <View></View>
+                  </View>
+                </TouchableOpacity>
+
+                {/* <TouchableOpacity
                 onPress={() =>
                   toggleBookmark(item.student_post_requirements_id, "false")
                 }
@@ -480,8 +568,8 @@ const MyApplied = () => {
                     style={{ height: 20, width: 20 }}
                   />
                 )}
-              </TouchableOpacity>
-
+              </TouchableOpacity> */}
+                {/* 
               <TouchableOpacity
                 onPress={() =>
                   expandToggleModal(
@@ -505,69 +593,73 @@ const MyApplied = () => {
                   source={require("../Assets/Expand.png")}
                   style={{ height: 20, width: 20 }}
                 />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
 
-              <Modal
-                isVisible={isExpandModalVisible}
-                onBackdropPress={() => setExpandModalVisible(false)}
-              >
-                <View style={styles.ExpandBlueContainer}>
-                  <Text style={styles.BlueText}>Post Detail</Text>
-                </View>
-
-                <View
-                  style={{
-                    borderTopLeftRadius: 10,
-                    borderTopRightRadius: 10,
-                    alignSelf: "center",
-                    position: "absolute",
-                    bottom: 0,
-                    height: hp(70),
-                    width: wp(95),
-                    backgroundColor: "#fff",
-                  }}
+                <Modal
+                  isVisible={isExpandModalVisible}
+                  onBackdropPress={() => setExpandModalVisible(false)}
                 >
-                  <TouchableOpacity style={styles.List}>
-                    <View style={{ height: 60, width: "100%", marginLeft: 10 }}>
-                      <View
-                        style={{
-                          height: 20,
-                          width: "50%",
-                          flexDirection: "row",
-                        }}
-                      >
-                        <Text style={styles.LIstText}>
-                          Post ID:{item.student_post_requirements_id}
-                        </Text>
-                      </View>
+                  <View style={styles.ExpandBlueContainer}>
+                    <Text style={styles.BlueText}>Post Detail</Text>
+                  </View>
 
-                      {/* <Text style={styles.LIstText2}>
+                  <View
+                    style={{
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
+                      alignSelf: "center",
+                      position: "absolute",
+                      bottom: 0,
+                      height: hp(70),
+                      width: wp(95),
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <TouchableOpacity style={styles.List}>
+                      <View
+                        style={{ height: 60, width: "100%", marginLeft: 10 }}
+                      >
+                        <View
+                          style={{
+                            height: 20,
+                            width: "50%",
+                            flexDirection: "row",
+                          }}
+                        >
+                          <Text style={styles.LIstText}>
+                            Post ID:{item.student_post_requirements_id}
+                          </Text>
+                        </View>
+
+                        {/* <Text style={styles.LIstText2}>
                         Student Grade: {item.student_grade}
                       </Text>
                       <Text style={styles.LIstText2}>
                         Student level: {item.student_level}
                       </Text> */}
-                      <Text style={styles.LIstText2}>
-                        Tuition Type: {tuitionType}
-                      </Text>
-                      <Text style={styles.LIstText2}>PostCode: {postCode}</Text>
-                      <View style={{ marginTop: 20 }}></View>
-                      <Text style={styles.LIstText2}>
-                        Street Address: {postAdd}
-                      </Text>
-                      {/* <Text style={styles.LIstText2}>
+                        <Text style={styles.LIstText2}>
+                          Tuition Type: {tuitionType}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          PostCode: {postCode}
+                        </Text>
+                        <View style={{ marginTop: 20 }}></View>
+                        <Text style={styles.LIstText2}>
+                          Street Address: {postAdd}
+                        </Text>
+                        {/* <Text style={styles.LIstText2}>
                         Duration: {item.tutor_duration_weeks}
                       </Text> */}
-                      {/* <Text style={styles.LIstText2}>
+                        {/* <Text style={styles.LIstText2}>
                         Hours: {item.tutor_duration_hours}
                       </Text> */}
-                      <Text style={styles.LIstText2}>
-                        Fee Detail: {OfferType}
-                      </Text>
-                      <Text style={styles.LIstText2}>
-                        Offer Amount: SGD {Fee} per hour
-                      </Text>
-                      {/* <Text style={styles.LIstText2}>
+                        <Text style={styles.LIstText2}>
+                          Fee Detail: {OfferType}
+                        </Text>
+                        <Text style={styles.LIstText2}>
+                          Offer Amount: SGD {Fee} per hour
+                        </Text>
+                        {/* <Text style={styles.LIstText2}>
                         Subjects:{" "}
                         {ALL_POSTS_BY_CLIENT[0]?.student_subjects &&
                           ALL_POSTS_BY_CLIENT[0]?.student_subjects.map(
@@ -580,7 +672,7 @@ const MyApplied = () => {
                             }
                           )}
                       </Text> */}
-                      {/* <Text style={styles.LIstText2}>
+                        {/* <Text style={styles.LIstText2}>
                         Tutor Qualification:{" "}
                         {ALL_POSTS_BY_CLIENT[0]?.tutor_qualification &&
                           ALL_POSTS_BY_CLIENT[0]?.tutor_qualification.map(
@@ -593,7 +685,7 @@ const MyApplied = () => {
                             }
                           )}
                       </Text> */}
-                      {/* <Text style={styles.LIstText2}>
+                        {/* <Text style={styles.LIstText2}>
                         Schedule Day:{" "}
                         {ALL_POSTS_BY_CLIENT[0]?.tutor_schedule &&
                           ALL_POSTS_BY_CLIENT[0]?.tutor_schedule.map((item) => {
@@ -604,7 +696,7 @@ const MyApplied = () => {
                             );
                           })}
                       </Text> */}
-                      {/* <Text style={styles.LIstText2}>
+                        {/* <Text style={styles.LIstText2}>
                         Schedule Time:{" "}
                         {ALL_POSTS_BY_CLIENT[0]?.Tutor_slot_time &&
                           ALL_POSTS_BY_CLIENT[0]?.Tutor_slot_time.map(
@@ -617,14 +709,408 @@ const MyApplied = () => {
                             }
                           )}
                       </Text> */}
-                    </View>
-                  </TouchableOpacity>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </Modal>
+              </View>
+            )}
+          />
+        ) : (
+          <View style={{ height: hp(65) }}>
+            <View
+              style={{
+                width: wp(100),
+                flexDirection: "row",
+                justifyContent: "center",
+
+                alignSelf: "center",
+              }}
+            >
+              <View
+                style={{
+                  width: wp(48),
+                  flexDirection: "row",
+
+                  alignItems: "flex-start",
+                }}
+              >
+                <Image
+                  source={require("../Assets/user.png")}
+                  style={{
+                    height: 50,
+                    width: 50,
+                    marginBottom: 5,
+                  }}
+                />
+                <View style={{ alignSelf: "center", marginLeft: wp(2) }}>
+                  <StarRating
+                    fullStarColor="orange"
+                    disabled={false}
+                    maxStars={5}
+                    rating={4}
+                    starSize={13}
+                    // selectedStar={(rating) => setStrCount(rating)}
+                  />
                 </View>
-              </Modal>
+              </View>
+
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "flex-end",
+                  width: wp(48),
+                }}
+              >
+                <Text style={styles.Information}>Post ID: {postID}</Text>
+                <Text style={styles.Information}> {bookDate}</Text>
+              </View>
             </View>
-          )}
-        />
-      </ScrollView>
+            <View>
+              <Text style={[styles.Information, { alignSelf: "center" }]}>
+                {address}
+              </Text>
+            </View>
+            <View
+              style={{
+                width: "100%",
+                marginTop: 10,
+                flexDirection: "row",
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => SelectTab("tutiontype")}
+                style={[
+                  currentTab == "tutiontype"
+                    ? styles.cardFourBoxes1Active
+                    : styles.cardFourBoxes,
+                  styles.shadowPropFourBoxes,
+                ]}
+              >
+                <Image
+                  source={require("../Assets/Student.png")}
+                  style={styles.TypeImage3}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => SelectTab("qualification")}
+                style={[
+                  currentTab == "qualification"
+                    ? styles.cardFourBoxes1Active
+                    : styles.cardFourBoxes1,
+                  styles.shadowPropFourBoxes1,
+                ]}
+              >
+                <Image
+                  source={require("../Assets/Qualification.png")}
+                  style={styles.TypeImage3}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => SelectTab("duration")}
+                style={[
+                  currentTab == "duration"
+                    ? styles.cardFourBoxes1Active
+                    : styles.cardFourBoxes1,
+                  styles.shadowPropFourBoxes1,
+                ]}
+              >
+                <Image
+                  source={require("../Assets/Duration.png")}
+                  style={styles.TypeImage3}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => SelectTab("doller")}
+                style={[
+                  currentTab == "doller"
+                    ? styles.cardFourBoxes1Active
+                    : styles.cardFourBoxes1,
+                  styles.shadowPropFourBoxes1,
+                ]}
+              >
+                <Image
+                  source={require("../Assets/Dollar.png")}
+                  style={styles.TypeImage3}
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => SelectTab("time")}
+                style={[
+                  currentTab == "time"
+                    ? styles.cardFourBoxes1Active
+                    : styles.cardFourBoxes1,
+                  styles.shadowPropFourBoxes1,
+                ]}
+              >
+                <Image
+                  source={require("../Assets/Time.png")}
+                  style={styles.TypeImage3}
+                />
+              </TouchableOpacity>
+            </View>
+            <ScrollView
+              style={{
+                marginTop: 10,
+              }}
+            >
+              <View style={{ paddingBottom: 10 }}>
+                {currentTab == "tutiontype" ? (
+                  studentDetail &&
+                  studentDetail.map((student) => (
+                    <View
+                      // key={item.Id}
+                      style={{
+                        width: wp(100),
+                        flexDirection: "row",
+                        marginBottom: 15,
+                        elevation: 2,
+                        backgroundColor: "#fff",
+                        borderBottomColor: "#000",
+                        borderBottomWidth: 1.1,
+                        borderStyle: "dashed",
+                      }}
+                    >
+                      <View
+                        style={{
+                          width: wp(10),
+                          backgroundColor: "purple",
+                          elevation: 3,
+                        }}
+                      />
+
+                      <View
+                        key={student.ID}
+                        style={{
+                          marginBottom: 10,
+                          padding: 10,
+                          width: wp(70),
+                          backgroundColor: "#fff",
+                        }}
+                      >
+                        <Text style={styles.Information}>{student.Grade}</Text>
+                        <Text style={styles.Information}>{student.Level}</Text>
+                        <Text style={styles.Information}>
+                          {student.ALL_Subjects}
+                        </Text>
+                      </View>
+                    </View>
+                  ))
+                ) : currentTab == "qualification" ? (
+                  <View
+                    // key={item.Id}
+                    style={{
+                      width: wp(100),
+                      flexDirection: "row",
+
+                      elevation: 2,
+                      backgroundColor: "#fff",
+                      borderBottomColor: "#000",
+                      borderBottomWidth: 1.1,
+                      borderStyle: "dashed",
+                    }}
+                  >
+                    <View
+                      style={{
+                        width: wp(10),
+                        backgroundColor: "purple",
+                        elevation: 3,
+                      }}
+                    />
+                    <View
+                      style={{
+                        backgroundColor: "#fff",
+                        justifyContent: "center",
+                        paddingBottom: 10,
+                        paddingTop: 10,
+                        width: wp(60),
+                      }}
+                    >
+                      {qualification &&
+                        qualification.map((item, index) => (
+                          <Text key={index} style={[styles.Information]}>
+                            {item.Tutor_Qualification}
+                          </Text>
+                        ))}
+                    </View>
+                  </View>
+                ) : currentTab == "duration" ? (
+                  <View
+                    // key={item.Id}
+                    style={{
+                      height: 90,
+                      width: wp(100),
+                      flexDirection: "row",
+                      marginBottom: 15,
+                      elevation: 2,
+                      backgroundColor: "#fff",
+                      borderBottomColor: "#000",
+                      borderBottomWidth: 1.1,
+                      borderStyle: "dashed",
+                    }}
+                  >
+                    <View
+                      style={{
+                        height: 90,
+                        width: wp(10),
+                        backgroundColor: "purple",
+                        elevation: 3,
+                      }}
+                    />
+
+                    <View
+                      style={{
+                        marginBottom: 10,
+                        padding: 10,
+                        width: wp(60),
+                        backgroundColor: "#fff",
+                      }}
+                    >
+                      {/* <Text style={styles.Information}>
+                     Student ID: {student.Id}
+                   </Text> */}
+                      <Text style={styles.Information}>{weeks}</Text>
+                      <Text style={styles.Information}>{hours}</Text>
+                    </View>
+                  </View>
+                ) : currentTab == "doller" ? (
+                  <View
+                    // key={item.Id}
+                    style={{
+                      height: 90,
+                      width: wp(100),
+                      flexDirection: "row",
+                      marginBottom: 15,
+                      elevation: 2,
+                      backgroundColor: "#fff",
+                      borderBottomColor: "#000",
+                      borderBottomWidth: 1.1,
+                      borderStyle: "dashed",
+                    }}
+                  >
+                    <View
+                      style={{
+                        height: 90,
+                        width: wp(10),
+                        backgroundColor: "purple",
+                        elevation: 3,
+                      }}
+                    />
+
+                    <View
+                      style={{
+                        marginBottom: 10,
+                        padding: 10,
+                        width: wp(60),
+                        backgroundColor: "#fff",
+                      }}
+                    >
+                      {/* <Text style={styles.Information}>
+                     Student ID: {student.Id}
+                   </Text> */}
+                      <Text style={styles.Information}>SGD {amount}.00</Text>
+                      <Text style={styles.Information}>{OfferType}</Text>
+                    </View>
+                  </View>
+                ) : (
+                  schedule &&
+                  schedule.map((item, index) => (
+                    <View
+                      // key={item.Id}
+                      style={{
+                        height: 90,
+                        width: "100%",
+                        flexDirection: "row",
+                        marginBottom: 15,
+                        elevation: 2,
+                        backgroundColor: "#fff",
+                        borderBottomColor: "#000",
+                        borderBottomWidth: 1.1,
+                        borderStyle: "dashed",
+                      }}
+                    >
+                      <View
+                        style={{
+                          height: 90,
+                          width: "10%",
+                          backgroundColor: "purple",
+                          elevation: 3,
+                        }}
+                      />
+
+                      <View
+                        style={{
+                          marginBottom: 10,
+                          padding: 10,
+                          width: wp(60),
+                          backgroundColor: "#fff",
+                        }}
+                      >
+                        {/* <Text style={styles.Information}>
+                     Student ID: {student.Id}
+                   </Text> */}
+                        {/* {item.slot_time.map((item1, index1) => ( */}
+                        <View style={{ flexDirection: "row" }} key={{}}>
+                          <Text style={styles.Information}>
+                            {item.tutor_schedule}
+                          </Text>
+                          <Text> </Text>
+                          <Text style={styles.Information}>
+                            {item.slot_times + " "}
+                          </Text>
+                        </View>
+                        {/* ))} */}
+                      </View>
+                    </View>
+                  ))
+                )}
+              </View>
+              <View style={{ height: hp(5) }}></View>
+            </ScrollView>
+            <View
+              style={{
+                height: hp(6),
+                width: "100%",
+                marginTop: 10,
+                flexDirection: "row",
+                alignSelf: "center",
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => setDetail_View("List")}
+                style={{
+                  height: "100%",
+                  width: "50%",
+                  backgroundColor: "#C0C0C0",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: 3,
+                }}
+              >
+                <Text style={styles.BookText5}>Cancel</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() =>
+                  ApplyAssignment(postID, Login_Data.userid, false)
+                }
+                //  onPress={() => navigation.navigate("MakeOffer")}
+                style={{
+                  height: "100%",
+                  width: "50%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#000",
+                  borderRadius: 3,
+                }}
+              >
+                <Text style={styles.infoText1}>Withdraw Application</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+      </View>
       <Modal
         isVisible={isModalVisible}
         onBackdropPress={() => setModalVisible(false)}
@@ -730,6 +1216,69 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     // marginBottom: 5,
   },
+  BookText5: {
+    fontSize: 15,
+    color: "white",
+    fontWeight: "bold",
+    color: "grey",
+  },
+  infoText1: {
+    fontSize: 15,
+    color: "#fff",
+    alignSelf: "center",
+    fontWeight: "700",
+  },
+  Information: {
+    fontSize: 12,
+    color: "black",
+    fontFamily: "Poppins-Regular",
+    marginLeft: 10,
+  },
+  cardFourBoxes: {
+    height: 70,
+    width: "18%",
+    backgroundColor: "#E0E0E0",
+    justifyContent: "center",
+    alignItems: "center",
+    // marginLeft:3
+  },
+  shadowPropFourBoxes: {
+    shadowOffset: { width: 5, height: 5 },
+    shadowColor: "#000000",
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+  },
+  cardFourBoxes1: {
+    height: 70,
+    width: "18%",
+    backgroundColor: "#E0E0E0",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 8,
+  },
+  shadowPropFourBoxes1: {
+    shadowOffset: { width: 5, height: 5 },
+    shadowColor: "#000000",
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+  },
+  cardFourBoxes1Active: {
+    height: 70,
+    width: "18%",
+    backgroundColor: "#E0E0E0",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 8,
+    borderBottomWidth: 2,
+    borderColor: "#000",
+  },
+  shadowProp: {
+    shadowColor: "#000",
+
+    elevation: 10,
+    // shadowColor: '#52006A',
+  },
+
   whitebox: {
     height: hp(20),
     width: wp(80),
@@ -764,9 +1313,10 @@ const styles = StyleSheet.create({
     margin: 20,
     alignSelf: "center",
     shadowColor: "grey",
-    elevation: 15,
+    // elevation: 15,
     shadowOffset: { width: 8, height: 10 },
   },
+
   Boxone: {
     height: hp(15),
     width: wp(30),

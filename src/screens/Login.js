@@ -259,13 +259,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#000",
     marginBottom: 10,
-    fontFamily:'Poppins-Bold'
+    fontFamily: "Poppins-Bold",
   },
   Firsttext: {
     fontSize: 14,
     color: "grey",
     lineHeight: 15,
-    fontFamily:'Poppins-Regular'
+    fontFamily: "Poppins-Regular",
   },
 
   ImageSec: {
@@ -295,21 +295,21 @@ const styles = StyleSheet.create({
   },
   TermsCondition: {
     // fontSize: 16,
-    color:'grey',
+    color: "grey",
     marginTop: 15,
-    fontFamily:'Poppins-SemiBold'
+    fontFamily: "Poppins-SemiBold",
   },
   TextInputText: {
     color: "#131313",
-    fontFamily: 'Poppins-Regular',
+    fontFamily: "Poppins-Regular",
     fontSize: 14,
     lineHeight: 16,
     paddingBottom: 8,
   },
   ForgotText: {
     textAlign: "right",
-    color:'grey',
-    fontFamily:'Poppins-Regular'
+    color: "grey",
+    fontFamily: "Poppins-Regular",
   },
   moblieSec: {
     backgroundColor: "lightgrey",
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
   mobiletoch: {
     backgroundColor: "#2F5597",
     width: wp(28),
-    height: hp(6),
+    height: hp(5),
     borderRadius: 30,
     justifyContent: "center",
   },
@@ -339,8 +339,8 @@ const styles = StyleSheet.create({
   ButtonText: {
     color: "#fff",
     textAlign: "center",
-    fontSize:13,
-    fontFamily:'Poppins-Regular'
+    fontSize: 11,
+    fontFamily: "Poppins-SemiBold",
   },
   RequsertButton: {
     backgroundColor: "#2F5597",
@@ -356,7 +356,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
     fontSize: 16,
-    fontFamily:'Poppins-Regular'
+    fontFamily: "Poppins-Regular",
   },
   bottomcontent: {
     justifyContent: "center",

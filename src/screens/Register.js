@@ -329,12 +329,12 @@ const Register = ({ route }) => {
           {/* {console.log(imageSource1, "LLLLLLLLLLLLLLLLLLLLLLL")} */}
           {imageSource1 == "" ? (
             <Image
-              source={require("../Assets/profileImg.png")}
+              source={require("../Assets/Profile.png")}
               style={{
                 width: 100,
                 height: 100,
-                borderRadius: 50,
-                backgroundColor: "grey",
+
+                //  backgroundColor: "grey",
               }}
             />
           ) : (

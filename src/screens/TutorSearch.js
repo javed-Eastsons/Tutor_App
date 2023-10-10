@@ -54,7 +54,7 @@ const TutorSearch = () => {
 
       //   console.log("Inside ELSEEEEEEEEEE");
 
-      dispatch(GetResultAfterPostcode(postalcode, navigation));
+      dispatch(GetResultAfterPostcode(postalcode, Login_Data, navigation));
 
       dispatch({
         type: Tution_Type,

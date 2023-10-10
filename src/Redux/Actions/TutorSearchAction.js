@@ -3,6 +3,7 @@ import {
   GET_FILTER_DATA,
   GET_QUICK_DATA,
   GET_FILTER_ASSIGNMENT,
+  Login_Data,
 } from "./types";
 import AsyncStorage from "@react-native-community/async-storage";
 import axios, * as others from "axios";
@@ -228,8 +229,8 @@ export const GetfilterSubject = (
   };
 };
 
-export const GetResultAfterPostcode = (postalcode, navigation) => {
-  //console.log(postalcode);
+export const GetResultAfterPostcode = (postalcode, Login_Data, navigation) => {
+  console.log(postalcode, Login_Data, "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
   return (dispatch, getState) => {
     axios.defaults.baseURL = "https://refuel.site";
     const url1 =
@@ -238,8 +239,13 @@ export const GetResultAfterPostcode = (postalcode, navigation) => {
     var formData = new FormData();
     formData.append("tuition_type", "Home Tuition");
     formData.append("postal_code", postalcode);
+    if (Login_Data.userid == undefined) {
+      formData.append("logged_in_student_id", "");
+    } else {
+      formData.append("logged_in_student_id", Login_Data.userid);
+    }
 
-    //console.log("FORMDATAAAAA", formData);
+    console.log(url1, "url1url1url1url1url1", formData);
 
     return fetch(url1, {
       method: "POST",

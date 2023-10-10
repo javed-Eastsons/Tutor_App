@@ -61,6 +61,51 @@ export const AcceptFinalOffer = (TutId, BookingId, OfferStatus, navigation) => {
   };
 };
 
+export const Apply_Assignment = (postid, loginuser, status, navigation) => {
+  console.log(postid, loginuser, status);
+  return (dispatch, getState) => {
+    axios.defaults.baseURL = "https://refuel.site";
+    const url1 =
+      axios.defaults.baseURL +
+      "/projects/tutorapp/APIs/AppliedByTutorPostRequirement/student_post_requirements_Applied_by_tutor.php";
+
+    var formData = new FormData();
+    formData.append("logged_in_tutor_id", loginuser);
+    formData.append("student_post_requirements_id", postid);
+    formData.append("apply_tag", status);
+
+    return fetch(url1, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
+        //   Alert.alert(responseJson.message)
+        if (responseJson.status == true) {
+          console.log("ww", responseJson.message);
+          navigation.navigate("MyApplied");
+          Alert.alert(responseJson.message);
+          // dispatch({
+          //   type: REGISTER_MSG,
+          //   REG_MSG: responseJson.message,
+          // });
+        } else if (responseJson.status == false) {
+          // navigation.navigate("TutorAcceptCancel");
+          console.log("AAa", responseJson.message);
+          // Alert.alert(responseJson.message)
+        }
+      })
+      .catch((error) => console.log(error.message));
+  };
+};
+
 export const NegotiateOfferAmountUpdate = (
   bookingId,
   tutorId,

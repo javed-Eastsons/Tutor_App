@@ -13,7 +13,10 @@ import {
   SINGLE_USER,
   VIEW_ASSIGNMENT,
   FAV_ASSIGNMENT,
+  APPLIED_ASSIGNMENT,
   ALL_FAV_TUTORS,
+  INTERESTED_TUTOR,
+  INTERESTED_TUTORALL,
 } from "./types";
 import AsyncStorage from "@react-native-community/async-storage";
 import axios, * as others from "axios";
@@ -292,6 +295,41 @@ export const FavAssignment = (Login_Data, navigation) => {
   };
 };
 
+export const Applied_Assignment = (Login_Data, navigation) => {
+  console.log(Login_Data);
+  return async (dispatch, getState) => {
+    const url1 =
+      "https://refuel.site/projects/tutorapp/APIs/MyAppliedListByTutor/MyAppliedListByTutor.php?tutor_login_id=" +
+      Login_Data.userid;
+    // console.log(url1, "POSTSTSTTSTSTSTSTSTSTSTSTSTCODEEEEEE");
+    await fetch(url1, {
+      method: "GET",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": authtoken,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        // console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.output);
+        if (responseJson.status == true) {
+          dispatch({
+            type: APPLIED_ASSIGNMENT,
+            payload: responseJson.output,
+          });
+        } else if (responseJson.status == false) {
+          dispatch({
+            type: APPLIED_ASSIGNMENT,
+            payload: responseJson.message,
+          });
+          Alert.alert(responseJson.message);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
 export const GetAllFavTutor = (studentId) => {
   return async (dispatch, getState) => {
     const url1 =
@@ -322,6 +360,88 @@ export const GetAllFavTutor = (studentId) => {
         } else if (responseJson.status == false) {
           dispatch({
             type: ALL_FAV_TUTORS,
+            payload: responseJson.message,
+          });
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const Get_Filter_Tutor = (loginuser, postId) => {
+  return async (dispatch, getState) => {
+    const url1 =
+      "https://refuel.site/projects/tutorapp/APIs/AppliedForStudentList/FilterAppliedForStudentList.php?student_login_id=" +
+      loginuser +
+      "&student_post_requirements_id=" +
+      postId;
+
+    console.log(url1, "IIIIIIIIIIIIIIIIII");
+
+    await fetch(url1, {
+      method: "GET",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": authtoken,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(
+          "AllFILTERTUTORAllFILTERTUTORAllFILTERTUTORAllFILTERTUTOR",
+          responseJson.output
+        );
+        if (responseJson.status == true) {
+          dispatch({
+            type: INTERESTED_TUTOR,
+            payload: responseJson.output,
+          });
+        } else if (responseJson.status == false) {
+          dispatch({
+            type: INTERESTED_TUTOR,
+            payload: responseJson.message,
+          });
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const Interested_Tutor = (studentId) => {
+  return async (dispatch, getState) => {
+    const url1 =
+      "https://refuel.site/projects/tutorapp/APIs/AppliedForStudentList/AppliedForStudentList.php?student_login_id=" +
+      studentId;
+
+    console.log(url1, "IIIIIIIIIIIIIIIIII");
+
+    await fetch(url1, {
+      method: "GET",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": authtoken,
+      }),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(
+          "ALL_FAVTUTORSALL_FAVTUTORSALL_FAVTUTORS",
+          responseJson.output
+        );
+        if (responseJson.status == true) {
+          dispatch({
+            type: INTERESTED_TUTOR,
+            payload: responseJson.output,
+          });
+          dispatch({
+            type: INTERESTED_TUTORALL,
+            payload: responseJson.output,
+          });
+        } else if (responseJson.status == false) {
+          dispatch({
+            type: INTERESTED_TUTOR,
             payload: responseJson.message,
           });
         }

@@ -22,8 +22,11 @@ import {
   SUBJECT_LIST,
   ALL_FAV_TUTORS,
   VIEW_ASSIGNMENT,
+  INTERESTED_TUTOR,
   FAV_ASSIGNMENT,
+  APPLIED_ASSIGNMENT,
   SINGLE_USER,
+  INTERESTED_TUTORALL,
 } from "../Actions/types";
 
 const initialstate = {
@@ -46,12 +49,15 @@ const initialstate = {
   ALL_POSTS_BY_CLIENT: [],
   VIEW_ASSIGNMENT: [],
   FAV_ASSIGNMENT: [],
+  APPLIED_ASSIGNMENT: [],
   LEVEL_LIST: "",
   GRADE_LIST: "",
   SINGLE_USER: [],
   SUBJECT_LIST: "",
   SINGLE_USER_DETAILS: "",
   ALL_FAV_TUTORS: [],
+  INTERESTED_TUTOR: [],
+  INTERESTED_TUTORALL: [],
 };
 
 const TutorReducer = (state = initialstate, action) => {
@@ -95,6 +101,8 @@ const TutorReducer = (state = initialstate, action) => {
       return { ...state, VIEW_ASSIGNMENT: action.payload };
     case FAV_ASSIGNMENT:
       return { ...state, FAV_ASSIGNMENT: action.payload };
+    case APPLIED_ASSIGNMENT:
+      return { ...state, APPLIED_ASSIGNMENT: action.payload };
     case POST_DETAIL:
       return { ...state, POST_DETAIL: action.payload };
     case LEVEL_LIST:
@@ -109,6 +117,10 @@ const TutorReducer = (state = initialstate, action) => {
       return { ...state, SINGLE_USER_DETAILS: action.payload };
     case ALL_FAV_TUTORS:
       return { ...state, ALL_FAV_TUTORS: action.payload };
+    case INTERESTED_TUTOR:
+      return { ...state, INTERESTED_TUTOR: action.payload };
+    case INTERESTED_TUTORALL:
+      return { ...state, INTERESTED_TUTORALL: action.payload };
   }
 
   return state;

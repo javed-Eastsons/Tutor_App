@@ -127,16 +127,16 @@ const ClientLandingBefore = () => {
         </View>
       </View>
 
-      <ScrollView>
+      <ScrollView nestedScrollEnabled={true}>
         <View style={styles.usercontainer}>
           <View style={styles.UserLeft}>
-            <Text style={{ fontSize: 18, fontWeight: "700", paddingRight: 10 }}>
-              Hey
+            <Text style={{ fontSize: 18, fontWeight: "700", paddingLeft: 20 }}>
+              Hello
             </Text>
-            <Image
+            {/* <Image
               source={require("../Assets/user.png")}
               style={styles.usericons}
-            />
+            /> */}
             {/* <View style={{ flexDirection: "row" }}>
                             <Image source={require('../Assets/start.png')}
                                 style={styles.sicons}
@@ -238,7 +238,8 @@ const ClientLandingBefore = () => {
                 color: "black",
               }}
             >
-              Find your student{"\n"} waiting
+              {/* Find your student{"\n"} waiting */}
+              Find your students{"\n"} here
             </Text>
             {/* <TouchableOpacity
               onPress={() => navigation.navigate('TutorLanding')}
@@ -401,20 +402,40 @@ const ClientLandingBefore = () => {
               //renderItem={renderItem}
 
               renderItem={({ item, index }) => (
-                <View style={{ marginTop: 10, marginBottom: 10 }}>
-                  <TouchableOpacity style={styles.List}>
-                    <Image
-                      source={{
-                        uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item.profile_image}`,
+                <View style={{ marginTop: 10 }}>
+                  <TouchableOpacity
+                    style={[
+                      styles.List,
+                      {
+                        backgroundColor: index % 2 == 0 ? "#fff" : "#e2e3e9",
+                      },
+                    ]}
+                  >
+                    <View
+                      style={{
+                        height: 70,
+                        width: "15%",
                       }}
-                      style={styles.tutorPic}
-                    />
+                    >
+                      <Image
+                        source={{
+                          uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item.profile_image}`,
+                        }}
+                        style={styles.tutorPic}
+                      />
+                    </View>
 
-                    <View style={{ height: 70, width: "70%", marginLeft: 10 }}>
+                    <View
+                      style={{
+                        height: 70,
+                        width: "75%",
+                        marginLeft: 10,
+                      }}
+                    >
                       <View
                         style={{
                           height: 20,
-                          width: "70%",
+
                           flexDirection: "row",
                         }}
                       >
@@ -436,10 +457,9 @@ const ClientLandingBefore = () => {
                         style={{
                           height: 20,
                           width: "70%",
-                          backgroundColor: "white",
                         }}
                       >
-                        <Text style={styles.LIstText}>
+                        <Text style={styles.LIstTextL}>
                           {item.qualification}
                         </Text>
                       </View>
@@ -448,7 +468,7 @@ const ClientLandingBefore = () => {
                           fullStarColor="orange"
                           disabled={false}
                           maxStars={5}
-                          rating={item.Average_rating}
+                          rating={4}
                           starSize={15}
                           // selectedStar={(rating) => setStrCount(rating)}
                         />
@@ -459,9 +479,17 @@ const ClientLandingBefore = () => {
                           height: 20,
                           width: "100%",
                           flexDirection: "row",
+                          position: "absolute",
+                          left: -80,
+                          top: 70,
                         }}
                       >
-                        <Text style={[styles.LIstText1, { width: wp(30) }]}>
+                        <Text
+                          style={[
+                            styles.LIstText1,
+                            { width: wp(70), fontStyle: "italic" },
+                          ]}
+                        >
                           {item.personal_statement}...
                         </Text>
                         <TouchableOpacity
@@ -474,7 +502,15 @@ const ClientLandingBefore = () => {
                             )
                           }
                         >
-                          <Text style={{ color: "#2F5597" }}>ReadMore</Text>
+                          <Text
+                            style={{
+                              color: "#2F5597",
+                              fontSize: 12,
+                              fontStyle: "italic",
+                            }}
+                          >
+                            read more
+                          </Text>
                         </TouchableOpacity>
                       </View>
                     </View>
@@ -492,8 +528,8 @@ const ClientLandingBefore = () => {
                       height: 20,
                       width: 30,
                       position: "absolute",
-                      right: 30,
-                      marginTop: 30,
+                      right: 20,
+                      marginTop: 10,
                     }}
                   >
                     <Image
@@ -750,18 +786,19 @@ const styles = StyleSheet.create({
   },
 
   List: {
-    padding: 10,
+    // padding: 10,
+    paddingTop: 10,
+    //   flexDirection: "row",
+    // alignItems: "center",
     flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "red",
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: wp(90),
-    height: hp(15),
-    alignSelf: "center",
+    //  backgroundColor: "white",
+    justifyContent: "center",
+    width: wp(100),
+    height: wp(26),
+
     shadowColor: "grey",
     // borderWidth:1,
-    elevation: 10,
+    // elevation: 10,
     shadowOffset: { width: 8, height: 10 },
   },
   Boxone: {
@@ -779,7 +816,13 @@ const styles = StyleSheet.create({
   },
   LIstText: {
     marginLeft: 5,
-    fontSize: 13,
+    fontSize: 12,
+    fontFamily: "Poppins-SemiBold",
+    color: "black",
+  },
+  LIstTextL: {
+    marginLeft: 5,
+    fontSize: 10,
     fontFamily: "Poppins-SemiBold",
     color: "black",
   },
@@ -840,7 +883,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 30,
     width: 30,
-    marginBottom: 10,
   },
   toggleicons: {
     height: 30,
@@ -883,14 +925,16 @@ const styles = StyleSheet.create({
   postText: {
     fontSize: 16,
     // fontWeight: "700",
-    color: "#2F5597",
+    // color: "#2F5597",
+    color: "#1f3864",
+    marginTop: 10,
     alignSelf: "center",
     fontFamily: "Poppins-Regular",
   },
 
   sliderText: {
     fontSize: 12,
-    color: "#000",
+    color: "#a2a2a2",
     alignSelf: "center",
     fontFamily: "Poppins-Light",
   },
@@ -915,8 +959,8 @@ const styles = StyleSheet.create({
     width: 50,
   },
   tutorPic: {
-    height: 58,
-    width: 58,
+    height: 50,
+    width: 50,
     borderRadius: 30,
     padding: 10,
   },
@@ -1009,14 +1053,16 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   UserLeft: {
-    width: wp(35),
+    width: wp(30),
+
     height: hp(10),
     flexDirection: "row",
     alignItems: "center",
   },
   UserRight: {
-    width: wp(50),
+    width: wp(68),
     height: hp(8),
+
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "flex-end",

@@ -26,10 +26,12 @@ import {
   AllPostsByClient,
   ViewAssignment,
   FavAssignment,
+  Applied_Assignment,
   FavouriteAssignment,
 } from "../Redux/Actions/Tutors";
 import { useDispatch, useSelector } from "react-redux";
 import StarRating from "react-native-star-rating";
+import { Apply_Assignment } from "../Redux/Actions/TutorBooking";
 
 const MyFavAssignment = () => {
   const [strCount, setStrCount] = useState(1);
@@ -159,6 +161,13 @@ const MyFavAssignment = () => {
       setStudent_Detail(student_level_grade_subjects),
       setQualification(tutor_qualification),
       setSchedule(tutor_schedule_and_slot_times);
+  };
+
+  const ApplyAssignment = (postid, loginuser, status) => {
+    console.log(postid, loginuser, status, "PPPPPPPPPPPPPPPPPPPP");
+
+    setLoader(true);
+    dispatch(Apply_Assignment(postid, loginuser, status, navigation));
   };
 
   return (
@@ -387,7 +396,10 @@ const MyFavAssignment = () => {
             renderItem={({ item, index }) => (
               <View key={index}>
                 <TouchableOpacity
-                  style={styles.List}
+                  style={[
+                    styles.List,
+                    { backgroundColor: index % 2 == 0 ? "#f2f2f2" : "#FFFFFF" },
+                  ]}
                   onPress={() =>
                     Assignment_Detail(
                       item.student_post_requirements_id,
@@ -1065,7 +1077,7 @@ const MyFavAssignment = () => {
               </TouchableOpacity>
 
               <TouchableOpacity
-                // onPress={() => BookTutorProcess("Accept")}
+                onPress={() => ApplyAssignment(postID, Login_Data.userid, true)}
                 //  onPress={() => navigation.navigate("MakeOffer")}
                 style={{
                   height: "100%",
@@ -1276,7 +1288,7 @@ const styles = StyleSheet.create({
     margin: 20,
     alignSelf: "center",
     shadowColor: "grey",
-    elevation: 15,
+    //elevation: 15,
     shadowOffset: { width: 8, height: 10 },
   },
   Boxone: {

@@ -135,7 +135,7 @@ const Drawer = ({ navigation }) => {
               source={require("../Assets/logoutIcon.png")}
               style={[styles.icons, { backgroundColor: "#fff", marginTop: 5 }]}
             />
-            <Text style={styles.MenuHead}>Logout111</Text>
+            <Text style={styles.MenuHead}>Logout</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
