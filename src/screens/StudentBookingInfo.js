@@ -674,9 +674,9 @@ const StudentBookingInfo = ({ route }) => {
                     justifyContent: "center",
                     alignItems: "center",
                     borderRadius: 10,
-                    // bottom: 0,
-                    // position: "absolute",
-                    // right: 10,
+                    bottom: 0,
+                    right: 10,
+                    position: "absolute",
 
                     //   right: -230,
                   }}

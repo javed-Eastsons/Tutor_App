@@ -120,7 +120,11 @@ const TutorSearchProfile = ({ props, route }) => {
   //     setCollapsed(!collapsed);
   // };
   useEffect(() => {
+    setLoader(true);
     dispatch(singleUserDetails(data.user_id));
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
   }, []);
 
   const setSections = (sections) => {

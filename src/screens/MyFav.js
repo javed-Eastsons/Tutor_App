@@ -329,7 +329,7 @@ const MyFav = () => {
             </View>
           </View>
 
-          {isActive == true ? (
+          {/* {isActive == true ? (
             <View
               style={{ marginTop: 40 }}
               onPress={() => {
@@ -364,7 +364,7 @@ const MyFav = () => {
                 }}
               />
             </View>
-          )}
+          )} */}
         </View>
       </Animatable.View>
     );
@@ -590,7 +590,7 @@ const MyFav = () => {
               marginTop: 15,
             }}
           >
-            My Faves
+            My Favs
           </Text>
         </View>
 
@@ -610,7 +610,7 @@ const MyFav = () => {
                 color: selectedTab == "Post" ? "#fff" : "#000",
               }}
             >
-              Posts
+              Interested Tutors
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -628,7 +628,7 @@ const MyFav = () => {
                 color: selectedTab == "Search" ? "#fff" : "#000",
               }}
             >
-              Search
+              My Fav
             </Text>
           </TouchableOpacity>
         </View>
@@ -698,7 +698,7 @@ const MyFav = () => {
                   //  showsVerticalScrollIndicator={false}
                   //renderItem={renderItem}
                   renderItem={({ item, index }) => (
-                    <View style={{}}>
+                    <TouchableOpacity style={{}}>
                       <TouchableOpacity style={styles.List}>
                         <View style={{ width: "100%", marginLeft: 10 }}>
                           {/* <View style={{ width: "70%", flexDirection: "row" }}>
@@ -873,30 +873,50 @@ const MyFav = () => {
 
                                 <View
                                   style={{
-                                    width: "80%",
+                                    width: "100%",
                                     flexDirection: "row",
-                                    alignSelf: "center",
+                                    // alignSelf: "center",
                                   }}
                                 >
-                                  <Text style={styles.LIstText1}>
-                                    {item1.personal_statement}...
-                                  </Text>
-                                  <TouchableOpacity>
+                                  <View
+                                    style={{
+                                      width: "80%",
+                                      // flexDirection: "row",
+                                      // alignSelf: "center",
+                                    }}
+                                  >
                                     <Text
-                                      style={[
-                                        styles.LIstText1,
-                                        { color: "#2F5597" },
-                                      ]}
+                                      style={styles.LIstText1}
+                                      numberOfLines={2}
                                     >
-                                      ReadMore
+                                      {item1.personal_statement}...
                                     </Text>
-                                  </TouchableOpacity>
+                                  </View>
+                                  <View
+                                    style={{
+                                      width: "20%",
+                                      alignSelf: "flex-end",
+                                      // flexDirection: "row",
+                                      // alignSelf: "center",
+                                    }}
+                                  >
+                                    <TouchableOpacity>
+                                      <Text
+                                        style={[
+                                          styles.LIstText1,
+                                          { color: "#2F5597" },
+                                        ]}
+                                      >
+                                        ReadMore
+                                      </Text>
+                                    </TouchableOpacity>
+                                  </View>
                                 </View>
                               </View>
                             </View>
                           );
                         })}
-                    </View>
+                    </TouchableOpacity>
                   )}
                 />
               </ScrollView>
@@ -1303,7 +1323,7 @@ const MyFav = () => {
           </View>
         ) : (
           <ScrollView style={{ height: hp(70), marginTop: 10 }}>
-            <Accordion
+            {/* <Accordion
               activeSections={activeSections}
               sections={ALL_FAV_TUTORS}
               //title and content of accordion
@@ -1322,6 +1342,178 @@ const MyFav = () => {
               duration={400}
               //Duration for Collapse and expand
               onChange={setSections}
+            /> */}
+
+            <FlatList
+              scrollEnabled={true}
+              data={Tutor}
+              keyExtractor={(item, index) => index}
+              //  showsVerticalScrollIndicator={false}
+              //renderItem={renderItem}
+              renderItem={({ item, index }) => (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("TutorSearchProfile", {
+                      data: item,
+                    })
+                  }
+                  style={[
+                    styles.List,
+                    {
+                      backgroundColor: index % 2 == 0 ? "#f2f2f2" : "#FFFFFF",
+                    },
+                  ]}
+                >
+                  <View style={{ flexDirection: "row" }}>
+                    <View>
+                      <View style={styles.List1}>
+                        {Login_Data.profilepic == "" ||
+                        Login_Data.profilepic == null ? (
+                          <Image
+                            source={require("../Assets/user.png")}
+                            style={styles.usericons}
+                          />
+                        ) : (
+                          <Image
+                            source={{
+                              uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item.profile_image}`,
+                            }}
+                            style={styles.usericons}
+                          />
+                        )}
+
+                        <View
+                          style={{ height: 60, width: "70%", marginLeft: 10 }}
+                        >
+                          <View
+                            style={{
+                              height: 20,
+                              width: "70%",
+                              flexDirection: "row",
+                            }}
+                          >
+                            <Text style={styles.LIstText}>
+                              {item.tutor_code}
+                            </Text>
+                            <Image
+                              source={{
+                                uri: `https://refuel.site/projects/tutorapp/flags-medium/ao.png`,
+                              }}
+                              style={styles.Flagicons}
+                            />
+                          </View>
+                          <View
+                            style={{
+                              height: 20,
+                              width: "70%",
+                            }}
+                          >
+                            <Text style={styles.LIstText}>
+                              {item.qualification}
+                            </Text>
+                          </View>
+                          <View style={{ width: 40, margin: 3 }}>
+                            <StarRating
+                              fullStarColor="orange"
+                              disabled={false}
+                              maxStars={5}
+                              // rating={item.Average_rating}
+                              rating={4}
+                              starSize={14}
+                              // selectedStar={(rating) => setStrCount(rating)}
+                            />
+                          </View>
+                        </View>
+                      </View>
+
+                      <View
+                        style={{
+                          width: "98%",
+                          flexDirection: "row",
+                          //  backgroundColor: "green",
+                          // alignSelf: "center",
+                        }}
+                      >
+                        <View
+                          style={{
+                            width: "68%",
+                            // backgroundColor: "yellow",
+                            // alignSelf: "center",
+                          }}
+                        >
+                          <Text style={styles.LIstText1} numberOfLines={2}>
+                            {item.personal_statement}...
+                          </Text>
+                        </View>
+                        <View
+                          style={{
+                            width: "30%",
+                            justifyContent: "flex-end",
+                            // backgroundColor: "red",
+                            // alignSelf: "center",
+                          }}
+                        >
+                          <TouchableOpacity
+                            onPress={() =>
+                              navigation.navigate("TutorSearchProfile", {
+                                data: item,
+                              })
+                            }
+                            style={{
+                              alignSelf: "flex-end",
+
+                              // alignSelf: "center",
+                            }}
+                          >
+                            <Text
+                              style={[styles.LIstText1, { color: "#2F5597" }]}
+                            >
+                              See more
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                    </View>
+
+                    {/* {isActive == true ? (
+              <View
+                style={{ marginTop: 40 }}
+                onPress={() => {
+                  handleExpandOPen(index);
+                }}
+              >
+                <Image
+                  source={require("../Assets/PopDown.png")}
+                  style={{
+                    height: 20,
+                    width: 20,
+                    resizeMode: "cover",
+                  }}
+  
+                  // style={styles.usericons}
+                />
+              </View>
+            ) : (
+              <View
+                style={{ marginTop: 40 }}
+                onPress={() => {
+                  handleExpand();
+                }}
+              >
+                <Image
+                  source={require("../Assets/popIcon.png")}
+                  // style={styles.usericons}
+                  style={{
+                    height: 20,
+                    width: 20,
+                    resizeMode: "cover",
+                  }}
+                />
+              </View>
+            )} */}
+                  </View>
+                </TouchableOpacity>
+              )}
             />
           </ScrollView>
         )}

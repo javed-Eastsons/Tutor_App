@@ -29,7 +29,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { editProfile } from "../Redux/Actions/Tutors";
 
 import { Tutoring_Data } from "../Redux/Actions/types";
-import { getLevelList, getGradeList,getSubjectList } from "../Redux/Actions/Tutors";
+import {
+  getLevelList,
+  getGradeList,
+  getSubjectList,
+} from "../Redux/Actions/Tutors";
 
 var selectArray = [];
 var gradeArray = [];
@@ -38,7 +42,7 @@ const TutoringDetail = () => {
   const dispatch = useDispatch();
   const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
   const { LEVEL_LIST } = useSelector((state) => state.TutorReducer);
-  const {SUBJECT_LIST}= useSelector((state) => state.TutorReducer);
+  const { SUBJECT_LIST } = useSelector((state) => state.TutorReducer);
   const { GRADE_LIST } = useSelector((state) => state.TutorReducer);
   const [tutoring, setTutoring] = useState("");
   const [P1, setP1] = useState("");
@@ -51,9 +55,9 @@ const TutoringDetail = () => {
   const [grade, setGrade] = useState([]);
 
   console.log(grade, "gradeJK");
-  console.log(gradeArray, 'gradeArray')
-  console.log(GRADE_LIST, 'GRADE-HIM')
-  console.log(SUBJECT_LIST, 'SUBJECT_LIST')
+  console.log(gradeArray, "gradeArray");
+  console.log(GRADE_LIST, "GRADE-HIM");
+  console.log(SUBJECT_LIST, "SUBJECT_LIST");
 
   const AddQualification = (val) => {
     if (P1 == val) {
@@ -368,7 +372,7 @@ const TutoringDetail = () => {
   const [TutorLevel, setTutorLevel] = useState("");
   const [levelDetail, setLevelDetail] = useState("");
   const [count, setCount] = useState(0);
-  console.log(selectListTutor, 'selectListTutor')
+  console.log(selectListTutor, "selectListTutor");
   // console.log(levelDetail,'levelDetail')
 
   const [state, setState] = useState("Select Year");
@@ -412,7 +416,8 @@ const TutoringDetail = () => {
       gradeArray,
       state,
       state2,
-      selectedItems,'ALLDATA'
+      selectedItems,
+      "ALLDATA"
     );
 
     // if (P1 == P1) {
@@ -426,7 +431,7 @@ const TutoringDetail = () => {
     var item1 = {};
     item1["Id"] = count;
     item1["tutor_qualification_Subject"] = selectListTutor;
-    item1["Tutoring_Grade"] = gradeArray.map(item=> item?.Grade);
+    item1["Tutoring_Grade"] = gradeArray.map((item) => item?.Grade);
     item1["Tutoring_Year"] = state;
     item1["Tutoring_Month"] = state2;
     item1["Tutoring_ALL_Subjects"] = selectedItems;
@@ -463,13 +468,8 @@ const TutoringDetail = () => {
     setselectedItems([]);
   };
 
-
-
   const gradeData = (val) => {
-
-    console.log(
-      val, '@@@@@AAAAJJJJ@@@@'
-    );
+    console.log(val, "@@@@@AAAAJJJJ@@@@");
 
     // if (P1 == P1) {
     //   setSelectListTutor("");
@@ -482,27 +482,14 @@ const TutoringDetail = () => {
     var item1 = {};
     item1["Grade"] = val;
 
-
-    if (
-      !isExistInArray(
-        selectArray,
-        "Grade",
-        item1.Grade
-      )
-    ) {
+    if (!isExistInArray(selectArray, "Grade", item1.Grade)) {
       //  console.log('insert in array');
       gradeArray.push(item1);
       // selectArray.push(obj3);
     } else {
-      RemoveTempExercise(
-        selectArray,
-        "Grade",
-        item1.Grade
-      );
+      RemoveTempExercise(selectArray, "Grade", item1.Grade);
     }
     // }
-
-
   };
   console.log(count, "countttttttttttt");
   console.log(
@@ -510,7 +497,6 @@ const TutoringDetail = () => {
     //selectArray.Tutoring_ALL_Subjects[1],
     "selectArrayselectArray@@@@@@@@@@@@@@@@@@@@@@@@@"
   );
-
 
   const SelectYear = (val) => {
     if (state == val) {
@@ -697,18 +683,13 @@ const TutoringDetail = () => {
   };
   useEffect(() => {
     dispatch(getLevelList());
-
   }, []);
   useEffect(() => {
-
     dispatch(getGradeList(selectListTutor));
-
   }, [selectListTutor]);
-  
+
   useEffect(() => {
-
     dispatch(getSubjectList(selectListTutor));
-
   }, [selectListTutor]);
   return (
     <View style={styles.container}>
@@ -805,10 +786,10 @@ const TutoringDetail = () => {
               {item.tutor_qualification_Subject}
             </Text>
             {item.Tutoring_Grade.map((item) => (
-                <Text style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}>
+              <Text style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}>
                 {item}
               </Text>
-              ))}
+            ))}
             <Text style={{ color: "#000", marginLeft: wp(3), fontSize: 14 }}>
               {item.Tutoring_Grade?.Grade}
             </Text>
@@ -994,13 +975,18 @@ const TutoringDetail = () => {
                       alignSelf: "center",
                       flexDirection: "row",
                       backgroundColor:
-                        selectListTutor == item.school_level_name ? "#2F5597" : "#fff",
+                        selectListTutor == item.school_level_name
+                          ? "#2F5597"
+                          : "#fff",
                       // marginTop: hp(2),
                     }}
                   >
                     <Text
                       style={{
-                        color: selectListTutor == item.school_level_name ? "#fff" : "#000",
+                        color:
+                          selectListTutor == item.school_level_name
+                            ? "#fff"
+                            : "#000",
                         fontSize: 13,
                         marginLeft: wp(4),
                       }}
@@ -1109,10 +1095,8 @@ const TutoringDetail = () => {
                   flexDirection: "row",
                 }}
               >
-                {
-                  GRADE_LIST?.Grade_List ?
-
-                    GRADE_LIST?.Grade_List.map((item) => {
+                {GRADE_LIST?.Grade_List
+                  ? GRADE_LIST?.Grade_List.map((item) => {
                       return (
                         <View
                           style={{
@@ -1121,7 +1105,6 @@ const TutoringDetail = () => {
                             justifyContent: "center",
                           }}
                         >
-
                           <TouchableOpacity
                             //  onPress={() => setP1("P1")}
                             onPress={() => gradeData(item?.grade_name)}
@@ -1130,24 +1113,26 @@ const TutoringDetail = () => {
                               width: wp(8),
                               borderWidth: 1,
                               borderColor: "lightgrey",
-                              backgroundColor: gradeArray.map(item => item?.Grade)== item?.grade_name ? "#2F5597" : "#fff",
+                              backgroundColor:
+                                gradeArray.map((item) => item?.Grade) ==
+                                item?.grade_name
+                                  ? "#2F5597"
+                                  : "#fff",
                             }}
                           ></TouchableOpacity>
                           <Text
-                            style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
+                            style={{
+                              color: "grey",
+                              fontSize: 14,
+                              fontWeight: "800",
+                            }}
                           >
                             {item?.grade_name}
                           </Text>
                         </View>
-                      )
+                      );
                     })
-                    : null
-
-                }
-
-
-
-
+                  : null}
               </View>
               <View>
                 <View style={{ marginTop: hp(2), marginLeft: wp(5) }}>
@@ -1370,9 +1355,9 @@ const TutoringDetail = () => {
                   displayKey="subjects_name"
                   searchInputStyle={{ color: "#000", fontSize: 13 }}
                   hideSubmitButton
-                //  submitButtonColor="#000"
-                //submitButtonText="Submit"
-                //   removeSelected
+                  //  submitButtonColor="#000"
+                  //submitButtonText="Submit"
+                  //   removeSelected
                 />
               </View>
 

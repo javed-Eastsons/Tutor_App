@@ -143,14 +143,14 @@ const ClientLanding = () => {
       Url: "",
     },
     {
-      name: "My Faves",
+      name: "My Favs",
       src: require("../Assets/newFavIcon.png"),
       Url: "MyFav",
     },
     // {
-    //   name: "Payments",
-    //   src: require("../Assets/PayN.png"),
-    //   Url: "",
+    //   name: "My Favs",
+    //   src: require("../Assets/newFavIcon.png"),
+    //   Url: "My Fav",
     // },
   ];
 

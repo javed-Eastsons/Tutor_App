@@ -290,7 +290,7 @@ const TutorQualification = ({ route }) => {
           </Text>
         </View>
         <View style={[styles.Bookcard, styles.BookshadowProp]}>
-          <View
+          {/* <View
             style={{
               height: 40,
               width: "100%",
@@ -298,7 +298,7 @@ const TutorQualification = ({ route }) => {
               flexDirection: "row",
             }}
           >
-            <Text style={styles.BookText1}>Tutor's Qualification</Text>
+            <Text style={styles.BookText1}>Tutor's Qualifications</Text>
             <View style={{ position: "absolute", right: 10 }}>
               <Image
                 source={require("../Assets/Qualification.png")}
@@ -338,7 +338,7 @@ const TutorQualification = ({ route }) => {
                 height: 100,
               }}
             />
-          </View>
+          </View> */}
 
           <View style={[styles.cardFrequency, styles.shadowPropFrequency]}>
             <Text style={styles.BookText1}>Frequency & Duration</Text>
@@ -350,7 +350,7 @@ const TutorQualification = ({ route }) => {
             </View>
             <View
               style={{
-                height: 40,
+                height: 70,
                 width: "100%",
                 marginTop: 0,
                 flexDirection: "row",
@@ -446,17 +446,17 @@ const TutorQualification = ({ route }) => {
                   flexDirection: "row",
                   justifyContent: "space-between",
                   paddingHorizontal: 20,
-                  marginTop: 20,
+                  marginTop: 25,
                 }}
               >
                 <View style={[styles.radioBtn, { marginRight: 10 }]}>
-                  <Text style={{ color: "#fff", marginTop: 7 }}>
-                    Place Offer
+                  <Text style={{ color: "#fff", marginTop: 5 }}>
+                    Firm Offer
                   </Text>
                   <RadioButton value="first" color="#fff" />
                 </View>
                 <View style={styles.radioBtn}>
-                  <Text style={{ color: "#fff", marginTop: 7 }}>
+                  <Text style={{ color: "#fff", marginTop: 5 }}>
                     Negotiable
                   </Text>
                   <RadioButton value="second" color="#fff" />
@@ -550,7 +550,8 @@ const TutorQualification = ({ route }) => {
               height: "10%",
               width: "100%",
               //position: "absolute",
-              // bottom: 5,
+              //bottom: 10,
+              marginTop: wp(45),
               justifyContent: "space-between",
               flexDirection: "row",
               alignSelf: "center",
@@ -689,7 +690,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-SemiBold",
   },
   Bookcard: {
-    height: "60%",
+    // height: "60%",
     width: "100%",
     backgroundColor: "#F5F5F5",
     alignSelf: "center",
@@ -754,14 +755,14 @@ const styles = StyleSheet.create({
     height: 20,
   },
   cardFrequency: {
-    height: 85,
+    height: 100,
     width: "100%",
     padding: 10,
     marginTop: 10,
     backgroundColor: "white",
   },
   TuitionFrequency: {
-    height: 150,
+    height: 120,
     width: "100%",
     padding: 10,
     marginTop: 10,
@@ -808,6 +809,8 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     paddingHorizontal: 20,
     elevation: 2,
+    height: 30,
+    width: wp(40),
     marginBottom: 5,
     backgroundColor: "#2F5597",
   },

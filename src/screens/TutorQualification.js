@@ -262,7 +262,7 @@ const TutorQualification = ({ route }) => {
           </View>
           <View style={styles.UserInfoContainer}>
             <View style={styles.UserInfoContainer1}>
-              <Text style={styles.infoText}>Hello</Text>
+              <Text style={styles.infoText}>Hellovdfsd</Text>
             </View>
             <View style={{ height: 30, width: 200 }}>
               <Text style={styles.infoText}>University Undergraguate</Text>
@@ -295,7 +295,7 @@ const TutorQualification = ({ route }) => {
               flexDirection: "row",
             }}
           >
-            <Text style={styles.BookText1}>Tutor's Qualification</Text>
+            <Text style={styles.BookText1}>Tutor's Qualificationsfsaf</Text>
             <View style={{ position: "absolute", right: 10 }}>
               <Image
                 source={require("../Assets/Qualification.png")}

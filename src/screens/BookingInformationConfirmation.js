@@ -209,9 +209,12 @@ const BookingInformationConfirmation = () => {
         </View>
         <View
           style={{
-            height: 100,
+            //height: 100,
             width: "100%",
             marginTop: 20,
+            alignSelf: "center",
+            //    justifyContent: "center",
+            //   backgroundColor: "red",
             flexDirection: "row",
           }}
         >
@@ -229,7 +232,7 @@ const BookingInformationConfirmation = () => {
               style={styles.TypeImage3}
             />
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => SelectTab("qualification")}
             style={[
               currentTab == "qualification"
@@ -242,7 +245,7 @@ const BookingInformationConfirmation = () => {
               source={require("../Assets/Qualification.png")}
               style={styles.TypeImage3}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             onPress={() => SelectTab("duration")}
             style={[

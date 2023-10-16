@@ -224,7 +224,7 @@ const TutorSearch = () => {
                     fontFamily: "Poppins-Regular",
                   }}
                 >
-                  Home Tution
+                  Home{"\n"}Tution
                 </Text>
                 <View
                   style={{
@@ -270,7 +270,7 @@ const TutorSearch = () => {
                     fontFamily: "Poppins-Regular",
                   }}
                 >
-                  Online Tution
+                  Online{"\n"}Tution
                 </Text>
                 <View
                   style={{

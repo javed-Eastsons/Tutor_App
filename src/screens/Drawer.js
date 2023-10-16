@@ -22,6 +22,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-community/async-storage";
 import { useDispatch, useSelector } from "react-redux";
 import { Login_Data } from "../Redux/Actions/types";
+
 const Drawer = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const Drawer = ({ navigation }) => {
     navigation.navigate("Auth4");
     setIsEnabled(false);
   };
+
   return (
     <ScrollView>
       <View style={styles.container}>

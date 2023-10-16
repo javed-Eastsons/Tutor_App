@@ -125,7 +125,14 @@ const ItemBox = (props) => {
   };
   return (
     <Swipeable renderLeftActions={leftSwipe} renderRightActions={rightSwipe}>
-      <View style={styles.swipperWrapper}>
+      <View
+        style={[
+          styles.swipperWrapper,
+          {
+            backgroundColor: props.index % 2 == 0 ? "#e2e3e9" : "#FFFFFF",
+          },
+        ]}
+      >
         <View style={styles.leftImageWrapper}>
           {/* <Image source={require('../Assets/user.png')} style={styles.leftImage} /> */}
           <Image
@@ -150,16 +157,6 @@ const ItemBox = (props) => {
                 source={require("../Assets/flag.png")}
                 style={styles.flagImage}
               />
-              <View style={{ width: 100, marginLeft: 50 }}>
-                <StarRating
-                  fullStarColor="orange"
-                  disabled={false}
-                  maxStars={5}
-                  rating={props.data.Average_rating}
-                  starSize={15}
-                  // selectedStar={(rating) => setStrCount(rating)}
-                />
-              </View>
             </View>
             <View
               style={{
@@ -180,14 +177,25 @@ const ItemBox = (props) => {
               >
                 {props.data.name_of_school}
               </Text>
+
               <TouchableOpacity
                 style={{ height: 40, width: 30, marginRight: wp(4) }}
               >
                 <Image
-                  source={require("../Assets/three_dot.png")}
-                  style={{ height: 40, width: 30 }}
+                  source={require("../Assets/Expand.png")}
+                  style={{ height: 20, width: 20 }}
                 />
               </TouchableOpacity>
+            </View>
+            <View style={{ width: 80, marginLeft: 5 }}>
+              <StarRating
+                fullStarColor="orange"
+                disabled={false}
+                maxStars={5}
+                rating={4}
+                starSize={15}
+                // selectedStar={(rating) => setStrCount(rating)}
+              />
             </View>
             <View
               style={{
@@ -195,17 +203,31 @@ const ItemBox = (props) => {
                 width: "80%",
                 marginHorizontal: 10,
                 flexDirection: "row",
+                position: "absolute",
+                left: -70,
+                top: 60,
                 fontFamily: "Poppins-Light",
               }}
             >
-              <Text style={{ color: "black" }}>
+              <Text
+                style={{
+                  color: "black",
+                  width: wp(40),
+                  fontFamily: "Poppins-Regular",
+                  fontStyle: "italic",
+                }}
+              >
                 {props.data.personal_statement}...
               </Text>
               <TouchableOpacity>
                 <Text
-                  style={{ color: "#2F5597", fontFamily: "Poppins-Regular" }}
+                  style={{
+                    color: "#2F5597",
+                    fontStyle: "italic",
+                    fontFamily: "Poppins-Regular",
+                  }}
                 >
-                  ReadMore
+                  read more
                 </Text>
               </TouchableOpacity>
             </View>
@@ -257,11 +279,11 @@ const styles = StyleSheet.create({
   swipperWrapper: {
     flexDirection: "row",
     justifyContent: "space-between",
-    width: wp(95),
+    width: wp(100),
     marginBottom: hp(1),
     alignSelf: "center",
     // marginLeft: wp(5),
-    elevation: 5,
+    //  elevation: 5,
     paddingVertical: hp(1),
     borderRadius: 4,
     marginTop: hp(1),
@@ -270,11 +292,12 @@ const styles = StyleSheet.create({
   leftImageWrapper: {
     width: wp(18),
     alignItems: "center",
-    justifyContent: "center",
+    //  justifyContent: "center",
   },
   leftImage: {
-    height: 60,
-    width: 60,
+    height: 40,
+    width: 40,
+    borderRadius: 50,
     marginLeft: wp(2),
   },
   widthWrapper: {
@@ -287,7 +310,7 @@ const styles = StyleSheet.create({
     height: 20,
     width: "90%",
     marginLeft: 10,
-    marginTop: 10,
+    // marginTop: 10,
   },
   userIdWrapper: {
     color: "#000",

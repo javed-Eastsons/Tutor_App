@@ -218,6 +218,11 @@ const MyPosts = () => {
                             );
                           })}
                       </View>
+                      <View style={{ width: "70%", flexDirection: "row" }}>
+                        <Text style={styles.LIstText}>
+                          Interested Tutors: {item.Total_no_of_Tutor_Applied}
+                        </Text>
+                      </View>
                     </View>
                     <View></View>
                   </View>

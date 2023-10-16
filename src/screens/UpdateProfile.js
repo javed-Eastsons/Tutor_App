@@ -603,7 +603,11 @@ const UpdateProfile = ({ props, route }) => {
                 </Text>
 
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("HomeTution")}
+                  onPress={() =>
+                    navigation.navigate("HomeTution", {
+                      RouteFrom: "Update",
+                    })
+                  }
                   style={{
                     height: hp(4),
                     width: wp(8),

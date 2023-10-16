@@ -96,7 +96,7 @@ const TutorLanding = () => {
       <ScrollView>
         <View style={styles.usercontainer}>
           <View style={styles.UserLeft}>
-            {Login_Data.profilepic == "" ? (
+            {Login_Data.profilepic == "" || Login_Data.profilepic == null ? (
               <Image
                 source={require("../Assets/mailuser.png")}
                 style={styles.usericons}
