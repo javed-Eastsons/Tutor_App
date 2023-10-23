@@ -371,9 +371,7 @@ export const GetAllFavTutor = (studentId) => {
 export const Get_Filter_Tutor = (loginuser, postId) => {
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/AppliedForStudentList/FilterAppliedForStudentList.php?student_login_id=" +
-      loginuser +
-      "&student_post_requirements_id=" +
+      "https://refuel.site/projects/tutorapp/APIs/FilterData/StudentPostRequirementListingFilter.php?student_post_requirements_id=" +
       postId;
 
     console.log(url1, "IIIIIIIIIIIIIIIIII");
@@ -392,6 +390,7 @@ export const Get_Filter_Tutor = (loginuser, postId) => {
           "AllFILTERTUTORAllFILTERTUTORAllFILTERTUTORAllFILTERTUTOR",
           responseJson.output
         );
+
         if (responseJson.status == true) {
           dispatch({
             type: INTERESTED_TUTOR,
@@ -411,7 +410,7 @@ export const Get_Filter_Tutor = (loginuser, postId) => {
 export const Interested_Tutor = (studentId) => {
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/AppliedForStudentList/AppliedForStudentList.php?student_login_id=" +
+      "https://refuel.site/projects/tutorapp/APIs/TutorList/StudentPostRequirementListing.php?student_id=" +
       studentId;
 
     console.log(url1, "IIIIIIIIIIIIIIIIII");

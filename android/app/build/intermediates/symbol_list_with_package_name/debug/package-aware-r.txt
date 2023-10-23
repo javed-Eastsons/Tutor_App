@@ -1650,6 +1650,7 @@ drawable src_assets_educator_icon
 drawable src_assets_evening
 drawable src_assets_exam
 drawable src_assets_expand
+drawable src_assets_explainedhp
 drawable src_assets_fav_assign
 drawable src_assets_favourite
 drawable src_assets_fb
@@ -1666,9 +1667,12 @@ drawable src_assets_home
 drawable src_assets_hometuticon
 drawable src_assets_hometution
 drawable src_assets_homework
+drawable src_assets_homeworkpic
 drawable src_assets_iicon
 drawable src_assets_insta
+drawable src_assets_internationaltutor
 drawable src_assets_japan
+drawable src_assets_lessons
 drawable src_assets_linkedin
 drawable src_assets_location
 drawable src_assets_login
@@ -1679,6 +1683,8 @@ drawable src_assets_mailuser
 drawable src_assets_malaysia
 drawable src_assets_male
 drawable src_assets_map
+drawable src_assets_marketinghp
+drawable src_assets_missedhp
 drawable src_assets_morning
 drawable src_assets_myactivities
 drawable src_assets_mypost
@@ -1689,12 +1695,14 @@ drawable src_assets_night
 drawable src_assets_online
 drawable src_assets_onlinetuticon
 drawable src_assets_onlinetution
+drawable src_assets_onlinetutpic
 drawable src_assets_ourservice
 drawable src_assets_ourtutors
 drawable src_assets_pastedgraphic5
 drawable src_assets_pastedgraphic7
 drawable src_assets_payn
 drawable src_assets_pencil
+drawable src_assets_penciledit
 drawable src_assets_pencilicon
 drawable src_assets_people
 drawable src_assets_personal
@@ -1702,7 +1710,9 @@ drawable src_assets_philippines
 drawable src_assets_plus
 drawable src_assets_postrequire
 drawable src_assets_privacy
+drawable src_assets_profile
 drawable src_assets_profileimg
+drawable src_assets_projecthp
 drawable src_assets_promotion
 drawable src_assets_qricon
 drawable src_assets_qualification
@@ -1732,10 +1742,12 @@ drawable src_assets_time
 drawable src_assets_togglebb
 drawable src_assets_tryit
 drawable src_assets_tryiticon
+drawable src_assets_tutiondemand
 drawable src_assets_tutionsjobs
 drawable src_assets_tutiontype
 drawable src_assets_tutiontypes
 drawable src_assets_tutor_icon
+drawable src_assets_tutord
 drawable src_assets_twitter
 drawable src_assets_uk
 drawable src_assets_upcoming

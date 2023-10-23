@@ -437,31 +437,25 @@ const TutorSearchProfile = ({ props, route }) => {
             alignItems: "center",
           }}
         >
-          <View
-            style={{
-              height: 80,
-              width: 80,
-              borderRadius: 40,
-              marginBottom: 40,
-            }}
-          >
-            {/* <Image 
+          {/* <Image 
                         source={{uri:`https://refuel.site/projects/tutorapp/UPLOAD_file/${data?.profile_image}`}}
                         style={styles.leftImage}
                         resizeMode={'cover'}
                         /> */}
+          {data.profile_image == "" || data.profile_image == null ? (
+            <Image
+              source={require("../Assets/user.png")}
+              style={styles.usericons}
+            />
+          ) : (
             <Image
               source={{
                 uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${data?.profile_image}`,
               }}
-              style={{
-                resizeMode: "cover",
-                width: "100%",
-                height: "100%",
-                borderRadius: 40,
-              }}
+              style={styles.usericons}
             />
-          </View>
+          )}
+
           <View
             style={{ height: 40, width: 40, position: "absolute", right: 30 }}
           >
@@ -879,6 +873,11 @@ const styles = StyleSheet.create({
   //   marginBottom: 20,
 
   // },
+  usericons: {
+    height: 50,
+    width: 50,
+    borderRadius: 50,
+  },
   title: {
     textAlign: "center",
     fontSize: 18,

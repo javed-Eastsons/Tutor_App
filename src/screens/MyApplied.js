@@ -261,6 +261,7 @@ const MyApplied = () => {
               Primary
             </Text>
           </TouchableOpacity>
+
           <TouchableOpacity
             // onPress={() => setSeconadyFun()}
             onPress={() => {

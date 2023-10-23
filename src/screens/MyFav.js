@@ -53,7 +53,7 @@ const MyFav = () => {
   const [Tutor, setTutor] = useState([]);
   const [interestedTutor, setInterestedTutor] = useState([]);
   const [interestedTutorAll, setInterestedTutorAll] = useState([]);
-  const [selectedTab, setSelectedTab] = useState("Post");
+  const [selectedTab, setSelectedTab] = useState("Search");
   const [postID, setPostid] = useState("");
   const [address, setAddress] = useState("");
   const [weeks, setWeeks] = useState("");
@@ -594,7 +594,7 @@ const MyFav = () => {
           </Text>
         </View>
 
-        <View style={{ width: wp(100), flexDirection: "row", marginTop: 10 }}>
+        {/* <View style={{ width: wp(100), flexDirection: "row", marginTop: 10 }}>
           <TouchableOpacity
             onPress={() => chooseTab("Post")}
             style={{
@@ -631,7 +631,7 @@ const MyFav = () => {
               My Fav
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         {/* 
         {loader == true ? (
@@ -1367,8 +1367,8 @@ const MyFav = () => {
                   <View style={{ flexDirection: "row" }}>
                     <View>
                       <View style={styles.List1}>
-                        {Login_Data.profilepic == "" ||
-                        Login_Data.profilepic == null ? (
+                        {item.profile_image == "" ||
+                        item.profile_image == null ? (
                           <Image
                             source={require("../Assets/user.png")}
                             style={styles.usericons}
@@ -1821,6 +1821,7 @@ const styles = StyleSheet.create({
   usericons: {
     height: 50,
     width: 50,
+    borderRadius: 50,
   },
   Flagicons: {
     height: 20,
