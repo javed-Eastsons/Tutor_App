@@ -219,6 +219,7 @@ const PersonalInfo = ({ route }) => {
     console.log(route.params.RouteFrom);
 
     console.log(Age, markGender, selectnational, "????????????????");
+
     let obj = {
       Age: Age,
       markGender: markGender,
