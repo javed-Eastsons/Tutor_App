@@ -28,8 +28,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
   editProfile,
+
   saveProfile,
+
   GetUserProfile,
+  singleUserDetails
 } from "../Redux/Actions/Tutors";
 
 import { Loader } from "../common/Loader";
@@ -49,13 +52,17 @@ const UpdateProfile = ({ props, route }) => {
   const { Login_Data } = useSelector((state) => state.TutorReducer);
   const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
   const [loader, setLoader] = useState(false);
+  const { SINGLE_USER_DETAILS } = useSelector((state) => state.TutorReducer);
 
-  console.log(
-    // SINGLE_USER,
-    "SINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USER",
-    Login_Data.profilepic
-  );
 
+
+
+  // console.log(
+  //   'Hellooo',
+  //   Login_Data
+  // );
+
+  //console.log(SINGLE_USER_DETAILS[0]?.Extra_info, 'jkkkkk')
   if (route.params) {
     const {
       Age,
@@ -75,7 +82,13 @@ const UpdateProfile = ({ props, route }) => {
     } = route.params;
   }
 
-  console.log(GET_USER_ID, "chika");
+  console.log(Tutoring_Data, 'Tutoring_DataTutoring_DataTutoring_DataTutoring_DataTutoring_DataTutoring_Data')
+  // console.log(PersonalInfo_Data,
+  //   Tution_Type,
+  //   AcademicHistory_Data,
+  //   TutionStatus_Data,
+  //   Tutoring_Data, 'editDataHaiiiiii')
+  //console.log(GET_USER_ID, "chika");
   // console.log(PersonalInfo_Data, 'PersonalInfo_Data')
   // console.log(AcademicHistory_Data, 'AcademicHistory_Data')
   // console.log(Tutoring_Data, 'Tutoring_Data')
@@ -85,10 +98,11 @@ const UpdateProfile = ({ props, route }) => {
   const dispatch = useDispatch();
   //  console.log(imageSource, "imageSource0");
   const requestPermission = () => {
-    request(PERMISSIONS.IOS.CAMERA).then((result) => {
-      // console.log("requestPermission -> result", result);
-      if (result === "granted") openCamera();
-    });
+    openCamera();
+    // request(PERMISSIONS.IOS.CAMERA).then((result) => {
+    //   // console.log("requestPermission -> result", result);
+    //   if (result === "granted") openCamera();
+    // });
   };
   const openImageLibrary = () => {
     launchImageLibrary(options, (response) => {
@@ -121,13 +135,18 @@ const UpdateProfile = ({ props, route }) => {
           })
       );
 
-  toDataURL(newImg).then((dataUrl) => {
-    var base64result = dataUrl.split(",")[1];
+  // toDataURL(newImg).then((dataUrl) => {
+  //   console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP')
+  //   var base64result = dataUrl.split(",")[1];
 
-    // console.log("RESULT:", base64result);
-    setImageSource(base64result);
-    setImageSource1(dataUrl);
-  });
+  //   console.log(base64result, "dataUrlOOOOOOOO:");
+  //   setImageSource(base64result);
+  //   //setImageSource1(base64result);
+  //   setImageSource1(dataUrl);
+  // });
+
+
+
 
   const openCamera = () => {
     launchCamera(options, (response) => {
@@ -140,8 +159,10 @@ const UpdateProfile = ({ props, route }) => {
         console.log("User tapped custom button: ", response.customButton);
       } else {
         // console.log(response);
-        setNewImg(response);
-        AsyncStorage.setItem("profileImage", response);
+        // setNewImg(response);
+        setNewImg(response.assets[0].uri);
+        AsyncStorage.setItem("profileImage", response.assets[0].uri);
+
       }
       setShowPopup(false);
     });
@@ -158,6 +179,7 @@ const UpdateProfile = ({ props, route }) => {
         // backgroundColor: 'rgba(0,0,0,0.2)',
         zIndex: 10,
         height: "100%",
+
         width: "100%",
       }}
     >
@@ -180,7 +202,7 @@ const UpdateProfile = ({ props, route }) => {
             alignItems: "center",
           }}
         >
-          <Text>Open Camera</Text>
+          <Text>Camera</Text>
         </TouchableOpacity>
 
         <View style={{ height: 1, width: "100%", backgroundColor: "grey" }} />
@@ -193,7 +215,7 @@ const UpdateProfile = ({ props, route }) => {
             alignItems: "center",
           }}
         >
-          <Text>Open Image Library</Text>
+          <Text>Gallery Options</Text>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
@@ -204,6 +226,8 @@ const UpdateProfile = ({ props, route }) => {
   //   setNewImg(img);
   // }, []);
 
+
+
   let options = {
     title: "You can choose one image",
     maxWidth: 256,
@@ -213,39 +237,124 @@ const UpdateProfile = ({ props, route }) => {
     },
   };
 
+
+  useEffect(() => {
+    if (newImg) {
+      toDataURL(newImg).then((dataUrl) => {
+        console.log('Data URL Conversion Completed');
+        var base64result = dataUrl.split(",")[1];
+        console.log(base64result, "dataUrlOOOOOOOO:");
+        setImageSource(base64result);
+        setImageSource1(dataUrl);
+      });
+    }
+  }, [newImg]);
+
+
+  //console.log(imageSource, 'kkkkkkkkkk', imageSource1)
+
   useEffect(() => {
     setLoader(true);
-    setImageSource1(
-      "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
-        Login_Data.profilepic
-    );
-    dispatch(GetUserProfile(Login_Data.userid));
+    dispatch(singleUserDetails(Login_Data.userid));
     setTimeout(() => {
       setLoader(false);
     }, 2000);
   }, []);
 
+
+  console.log(Login_Data.profilepic, 'Login_Data.profilepicLogin_Data.profilepicLogin_Data.profilepic', imageSource)
+
+
+
   useEffect(() => {
+
     setUserDetail(SINGLE_USER);
+
   }, [SINGLE_USER]);
 
   useEffect(() => {
+
     setUserDetail(SINGLE_USER);
+
   }, [SINGLE_USER]);
 
+
   useEffect(() => {
-    setImageSource1(
-      "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
-        Login_Data.profilepic
-    );
+    setLoader(true);
+    dispatch(GetUserProfile(Login_Data.userid));
+    //setImageSource1("")
+    //setImageSource("")
+
+    if (userDetail[0]?.Extra_info[0].profile_image != "") {
+      setImageSource1(
+        "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
+        userDetail[0]?.Extra_info[0].profile_image
+      );
+
+
+    } else {
+      setImageSource(
+        imageSource1
+      );
+    }
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+
   }, []);
 
+
+  //console.log(imageSource1, 'imagesource11111')
+  //console.log(userDetail[0]?.Extra_info[0].profile_image, ' OOOOOOOOOOOOOOOOOOO[0]?.Extra_info[0].profile_image')
+
+
+
+
+  // console.log(PersonalInfo_Data, 'PersonalInfo_DataPersonalInfo_DataPersonalInfo_DataPersonalInfo_Data')
+
+
+
+
+  // useEffect(() => {
+  //   setImageSource1(
+  //     "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
+  //       Login_Data.profilepic
+  //   );
+  // }, []);
+
+
+  //console.log(PersonalInfo_Data, 'PersonalInfo_Data11111111111111')
+
+  //console.log(AcademicHistory_Data, 'AcademicHistory_Data222222222')
+
+  // console.log(Tution_Type, 'Tution_Type')
+
+  //console.log(Tutoring_Data, 'Tutoring_DataTutoring_DataTutoring_Data')
+
+  // console.log(TutionStatus_Data, 'TutionStatus_Data')
+
+
+
   const EditProfile = () => {
+
     console.log(
-      Tution_Type,
-      "Tutoring_TypeTutoring_TypeTutoring_Type",
-      PersonalInfo_Data
+      // Tution_Type,
+      // "Tutoring_TypeTutoring_TypeTutoring_Type",
+      // PersonalInfo_Data,
+      // Login_Data, "Login_DataLogin_DataLogin_DataLogin_Data",
+      //  imageSource, "imageSourceimageSourceimageSource",
+      // PersonalInfo_Data, "PersonalInfo_DataPersonalInfo_DataPersonalInfo_Data",
+      // Tution_Type, "Tution_TypeTution_TypeTution_TypeTution_Type",
+      // AcademicHistory_Data, "AcademicHistory_DataAcademicHistory_DataAcademicHistory_Data",
+      // TutionStatus_Data, "TutionStatus_DataTutionStatus_Data",
+      // Tutoring_Data, "Tutoring_DataTutoring_Data",
+      // SINGLE_USER_DETAILS[0]?.Extra_info, "Extra_infoExtra_infoExtra_info",
+      // SINGLE_USER_DETAILS[0]?.history_academy_arr, "history_academy_arrhistory_academy_arrhistory_academy_arr",
+      // SINGLE_USER_DETAILS[0]?.tutoring_detail_arr, "tutoring_detail_arrtutoring_detail_arrtutoring_detail_arr"
     );
+
+
+
     setBtnP(true);
 
     dispatch(
@@ -257,12 +366,28 @@ const UpdateProfile = ({ props, route }) => {
         AcademicHistory_Data,
         TutionStatus_Data,
         Tutoring_Data,
+        userDetail[0]?.Extra_info,
+        userDetail[0]?.history_academy_arr,
+        userDetail[0]?.tutoring_detail_arr,
         navigation
       )
     );
+
+    setLoader(true);
+    // dispatch(singleUserDetails(Login_Data.userid));
+    //setImageSource1("")
+    //setImageSource(null)
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
     //Alert.alert("Save Profile Successfully");
     // console.log("save Profile");
   };
+
+  // console.log(SINGLE_USER_DETAILS[0]?.Extra_info[0].profile_image, 'SINGLE_USER_DETAILS[0]?.Extra_info.profile_imageSINGLE_USER_DETAILS[0]?.Extra_info.profile_image')
+  // console.log(Login_Data.profilepic, 'Login_Data.profilepicLogin_Data.profilepicLogin_Data.profilepic')
+  //console.log(imageSource1, 'imageSource1imageSource1imageSource1', imageSource)
+
 
   const saveprofile = () => {
     console.log(
@@ -313,6 +438,8 @@ const UpdateProfile = ({ props, route }) => {
         </View>
       </View>
 
+
+
       <ScrollView>
         <View style={styles.usercontainer}>
           {showPopup && showSelectionPopup()}
@@ -335,20 +462,41 @@ const UpdateProfile = ({ props, route }) => {
             marginTop: 65,
           }}
           onPress={() => setShowPopup(true)}
+
         >
-          {imageSource1 == "" ? (
-            <Image
-              source={require("../Assets/mailuser.png")}
-              style={styles.usericons}
-            />
-          ) : (
+
+
+
+
+
+          {imageSource1 != "https://refuel.site/projects/tutorapp/UPLOAD_file/undefined" ? (
+            <>
+              <Image
+                source={{
+                  uri: imageSource1,
+                }}
+                style={styles.usericons}
+              />
+              {/* <Text>{imageSource1}</Text> */}
+            </>
+
+          ) : userDetail[0]?.Extra_info[0].profile_image != "" && imageSource1 == "https://refuel.site/projects/tutorapp/UPLOAD_file/undefined" ? (
+
             <Image
               source={{
-                uri: imageSource1,
+                uri: "https://refuel.site/projects/tutorapp/UPLOAD_file/" + userDetail[0]?.Extra_info[0].profile_image,
               }}
+
               style={styles.usericons}
             />
-          )}
+          ) :
+            <Image
+
+              source={require("../Assets/profileImg.png")}
+              style={styles.usericons}
+            />
+
+          }
         </TouchableOpacity>
         <View style={styles.postContainer}>
           {route?.params?.complete === "complete" ? (
@@ -385,13 +533,21 @@ const UpdateProfile = ({ props, route }) => {
                   onPress={() =>
                     navigation.navigate("PersonalInfo", {
                       RouteFrom: "Update",
+                      PersonalInfo_info: PersonalInfo_Data
                     })
                   }
                   style={styles.infoWrapper}
                 >
-                  <Text style={styles.infoWrapperText}>
-                    Enter Personal Information
-                  </Text>
+                  {PersonalInfo_Data == "" ?
+                    <Text style={styles.infoWrapperText}>
+                      Enter Personal Information
+                    </Text>
+                    :
+                    <Text style={styles.infoWrapperText}>
+                      Edit Personal Information
+                    </Text>
+                  }
+
                 </TouchableOpacity>
               </View>
             </View>
@@ -431,13 +587,21 @@ const UpdateProfile = ({ props, route }) => {
                   onPress={() =>
                     navigation.navigate("AcademicInfo", {
                       RouteFrom: "Update",
+                      AcademicHistory_Info: AcademicHistory_Data
                     })
                   }
                   style={styles.infoWrapper}
                 >
-                  <Text style={styles.infoWrapperText}>
-                    Enter Academic History
-                  </Text>
+                  {AcademicHistory_Data == "" ?
+                    <Text style={styles.infoWrapperText}>
+                      Enter Academic History
+                    </Text>
+                    :
+                    <Text style={styles.infoWrapperText}>
+                      Edit Academic History
+                    </Text>
+                  }
+
                 </TouchableOpacity>
               </View>
             </View>
@@ -508,6 +672,7 @@ const UpdateProfile = ({ props, route }) => {
                     justifyContent: "center",
                   }}
                 >
+
                   {/* <Image source={require('../Assets/tutionsjobs.png')}
                                         style={{height:hp(3), width:wp(6)}}/> */}
                 </TouchableOpacity>
@@ -567,6 +732,7 @@ const UpdateProfile = ({ props, route }) => {
                 onPress={() =>
                   navigation.navigate("HomeTution", {
                     RouteFrom: "Update",
+                    Tution_Info: Tution_Type
                   })
                 }
                 style={{
@@ -606,25 +772,36 @@ const UpdateProfile = ({ props, route }) => {
                   onPress={() =>
                     navigation.navigate("HomeTution", {
                       RouteFrom: "Update",
+                      Tution_Info: Tution_Type
                     })
                   }
                   style={{
                     height: hp(4),
                     width: wp(8),
                     borderRadius: 50,
-                    backgroundColor: "#fff",
+                    backgroundColor: route?.params?.selectHomeTution == "selectHT" ? "green" : "#fff",
                     elevation: 10,
                     marginTop: hp(1),
                     alignItems: "center",
                     justifyContent: "center",
                   }}
                 >
+                  {
+                    Tution_Type == "" ?
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+                      : <Image source={require('../Assets/Grade.png')}
+                        style={{ height: hp(3), width: wp(6) }} />
+                  }
+
                   {/* <Image source={require('../Assets/tutionsjobs.png')}
-                                        style={{height:hp(3), width:wp(6)}}/> */}
+                    style={{ height: hp(3), width: wp(6) }} /> */}
                 </TouchableOpacity>
               </TouchableOpacity>
             </View>
-            <View style={{ alignSelf: "center", marginTop: hp(3) }}>
+            {/* <View style={{ alignSelf: "center", marginTop: hp(3) }}>
               <TouchableOpacity
                 style={{
                   backgroundColor: "#2F5597",
@@ -637,7 +814,7 @@ const UpdateProfile = ({ props, route }) => {
               >
                 <Text style={{ color: "#fff", fontSize: 14 }}>Save</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
 
           {route?.params?.Tutorcomplete === "Tutorccomplete" ? (
@@ -679,13 +856,21 @@ const UpdateProfile = ({ props, route }) => {
                   onPress={() =>
                     navigation.navigate("TutoringDetail", {
                       RouteFrom: "Update",
+                      Tutoring_Info: Tutoring_Data
                     })
                   }
                   style={styles.infoWrapper}
                 >
-                  <Text style={styles.infoWrapperText}>
-                    Enter Tutoring Details
-                  </Text>
+                  {Tutoring_Data == "" ?
+                    <Text style={styles.infoWrapperText}>
+                      Enter Tutoring Details
+                    </Text>
+                    :
+                    <Text style={styles.infoWrapperText}>
+                      Edit Tutoring Details
+                    </Text>
+                  }
+
                 </TouchableOpacity>
               </View>
             </View>
@@ -724,6 +909,7 @@ const UpdateProfile = ({ props, route }) => {
                 />
               </View>
               <View>
+
                 <Text style={styles.postText}>A Word from You</Text>
                 <Text style={styles.postSemiText}>
                   A little more & you have completed your profile
@@ -733,11 +919,19 @@ const UpdateProfile = ({ props, route }) => {
                   onPress={() =>
                     navigation.navigate("WordYou", {
                       RouteFrom: "Update",
+                      TutionStatus_Info: TutionStatus_Data
                     })
                   }
                   style={styles.infoWrapper}
                 >
-                  <Text style={styles.infoWrapperText}>A Word from Yous</Text>
+                  {TutionStatus_Data == "" ?
+                    <Text style={styles.infoWrapperText}>A Word from Yours</Text>
+
+                    :
+                    <Text style={styles.infoWrapperText}>Edit Word from Yours</Text>
+
+
+                  }
                 </TouchableOpacity>
               </View>
             </View>
@@ -810,6 +1004,7 @@ const styles = StyleSheet.create({
   Headers: {
     // backgroundColor: "red",
     height: hp(10),
+
     justifyContent: "center",
     flexDirection: "row",
     width: wp(100),
@@ -929,7 +1124,7 @@ const styles = StyleSheet.create({
     width: wp(45),
     height: hp(10),
     flexDirection: "row",
-    marginTop: hp(2),
+    //  marginTop: hp(2),
     alignItems: "center",
   },
   postContainer: {
@@ -1003,10 +1198,12 @@ const styles = StyleSheet.create({
   HeadRight: {
     width: wp(45),
     height: hp(10),
-    marginTop: hp(2),
+    //  marginTop: hp(2),
     // backgroundColor: "pink",
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "flex-end",
   },
+  tickImage: { height: hp(2), width: wp(6) },
+
 });

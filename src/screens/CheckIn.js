@@ -520,7 +520,7 @@ const CheckIn = () => {
                           maxStars={5}
                           rating={4}
                           starSize={13}
-                          // selectedStar={(rating) => setStrCount(rating)}
+                        // selectedStar={(rating) => setStrCount(rating)}
                         />
                       </View>
 
@@ -852,7 +852,7 @@ const CheckIn = () => {
                           maxStars={5}
                           rating={4}
                           starSize={13}
-                          // selectedStar={(rating) => setStrCount(rating)}
+                        // selectedStar={(rating) => setStrCount(rating)}
                         />
                       </View>
 
@@ -1168,7 +1168,7 @@ const CheckIn = () => {
                     maxStars={5}
                     rating={4}
                     starSize={13}
-                    // selectedStar={(rating) => setStrCount(rating)}
+                  // selectedStar={(rating) => setStrCount(rating)}
                   />
                 </View>
               </View>
@@ -1508,21 +1508,41 @@ const CheckIn = () => {
               >
                 <Text style={styles.BookText5}>Cancel</Text>
               </TouchableOpacity>
+              {Login_Data === "" ?
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Register")}
+                  //  onPress={() => navigation.navigate("MakeOffer")}
+                  style={{
+                    height: "100%",
+                    width: "50%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#F6BE00",
+                    borderRadius: 3,
+                  }}
+                >
+                  <Text style={styles.infoText1}>Apply</Text>
+                </TouchableOpacity>
+                :
 
-              <TouchableOpacity
-                onPress={() => ApplyAssignment(postID, Login_Data.userid, true)}
-                //  onPress={() => navigation.navigate("MakeOffer")}
-                style={{
-                  height: "100%",
-                  width: "50%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "#F6BE00",
-                  borderRadius: 3,
-                }}
-              >
-                <Text style={styles.infoText1}>Apply</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => ApplyAssignment(postID, Login_Data.userid, true)}
+                  // disabled={true}
+                  //  onPress={() => navigation.navigate("MakeOffer")}
+                  style={{
+                    height: "100%",
+                    width: "50%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#F6BE00",
+                    borderRadius: 3,
+                  }}
+                >
+                  <Text style={styles.infoText1}>Apply</Text>
+                </TouchableOpacity>
+
+              }
+
             </View>
           </View>
         )}
@@ -1612,7 +1632,7 @@ const CheckIn = () => {
       </Modal>
 
       {/* Expand model */}
-    </View>
+    </View >
   );
 };
 

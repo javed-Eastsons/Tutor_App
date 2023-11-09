@@ -44,6 +44,7 @@ import {
   FavouriteTutorByStudent,
 } from "../Redux/Actions/Tutors";
 import { Loader } from "../common/Loader";
+import ViewMoreText from 'react-native-view-more-text';
 
 const TutorSearchProfile = ({ props, route }) => {
   const navigation = useNavigation();
@@ -90,6 +91,20 @@ const TutorSearchProfile = ({ props, route }) => {
       setLoader(false);
     }, 2000);
   };
+
+
+  const renderViewMore = (onPress) => {
+    return (
+      <Text style={{ width: wp(90), alignSelf: "center", color: 'blue', textAlign: "right", fontSize: 12 }} onPress={onPress}>see more</Text>
+    )
+  }
+
+
+  const renderViewLess = (onPress) => {
+    return (
+      <Text style={{ width: wp(90), alignSelf: "center", color: 'blue', textAlign: "right", fontSize: 12 }} onPress={onPress}>see less</Text>
+    )
+  }
 
   // const updateFilter = (isBookmarked) => {
   //   console.log(isBookmarked, "isBookmarkedisBookmarkedisBookmarked");
@@ -140,7 +155,13 @@ const TutorSearchProfile = ({ props, route }) => {
         style={[
           styles.header,
           isActive ? styles.active : styles.inactive,
-          { width: wp(90), alignSelf: "center" },
+          {
+            width: wp(90), borderRadius: 10,
+            paddingTop: 5,
+            marginTop: 5,
+            paddingBottom: 5,
+            paddingLeft: 10, alignSelf: "center", flexDirection: "row", backgroundColor: "#067FD0",
+          },
         ]}
         transition="backgroundColor"
       >
@@ -152,14 +173,33 @@ const TutorSearchProfile = ({ props, route }) => {
               paddingTop: 5,
               paddingBottom: 5,
               paddingLeft: 10,
+              width: wp(70),
               fontSize: 14,
               color: "#fff",
-              backgroundColor: "#067FD0",
+              //  backgroundColor: "#067FD0",
               textAlign: "left",
             },
           ]}
         >
           {section.TutoringLevel}
+        </Text>
+        <Text
+          style={[
+            styles.headerText,
+            {
+              width: wp(10),
+              borderRadius: 10,
+              paddingTop: 5,
+              paddingBottom: 5,
+              paddingLeft: 10,
+              fontSize: 14,
+              color: "#fff",
+              //  backgroundColor: "#067FD0",
+              textAlign: 'right',
+            },
+          ]}
+        >
+          {isActive ? "-" : "+"}
         </Text>
       </Animatable.View>
     );
@@ -179,19 +219,19 @@ const TutorSearchProfile = ({ props, route }) => {
       >
         <Animatable.Text
           animation={isActive ? "bounceIn" : undefined}
-          style={{ textAlign: "center", color: "#000" }}
+          style={{ textAlign: 'left', color: "#000" }}
         >
           {`Levels :   ${section.Tutoring_Grade}`}
         </Animatable.Text>
         <Animatable.Text
           animation={isActive ? "bounceIn" : undefined}
-          style={{ textAlign: "center", color: "#000" }}
+          style={{ textAlign: "left", color: "#000" }}
         >
           {`Experience :   ${section.Tutoring_Year} Year ${section.Tutoring_Month} Months`}
         </Animatable.Text>
         <Animatable.Text
           animation={isActive ? "bounceIn" : undefined}
-          style={{ textAlign: "center", color: "#000" }}
+          style={{ textAlign: "left", color: "#000" }}
         >
           {`Subjects :   ${section.Tutoring_ALL_Subjects}`}
         </Animatable.Text>
@@ -213,7 +253,13 @@ const TutorSearchProfile = ({ props, route }) => {
         style={[
           styles.header,
           isActive ? styles.active : styles.inactive,
-          { width: wp(90), alignSelf: "center" },
+          {
+            width: wp(90), borderRadius: 10,
+            paddingTop: 5,
+            marginTop: 5,
+            paddingBottom: 5,
+            paddingLeft: 10, alignSelf: "center", flexDirection: "row", backgroundColor: "#067FD0",
+          },
         ]}
         transition="backgroundColor"
       >
@@ -226,13 +272,32 @@ const TutorSearchProfile = ({ props, route }) => {
               paddingBottom: 5,
               paddingLeft: 10,
               fontSize: 14,
+              width: wp(70),
               color: "#fff",
-              backgroundColor: "#067FD0",
+
               textAlign: "left",
             },
           ]}
         >
-          {section.school} {isActive ? "-" : "+"}
+          {section.school}
+        </Text>
+        <Text
+          style={[
+            styles.headerText,
+            {
+              borderRadius: 10,
+              paddingTop: 5,
+              paddingBottom: 5,
+              paddingLeft: 10,
+              fontSize: 14,
+              width: wp(10),
+              color: "#fff",
+
+              textAlign: 'right',
+            },
+          ]}
+        >
+          {isActive ? "-" : "+"}
         </Text>
       </Animatable.View>
     );
@@ -397,6 +462,7 @@ const TutorSearchProfile = ({ props, route }) => {
     // });
     navigation.navigate("StudentBookingInfo", {
       data: data,
+      profile_pic: data.profile_image
     });
   };
 
@@ -615,7 +681,22 @@ const TutorSearchProfile = ({ props, route }) => {
                 <Text style={{fontSize:12,color:"black"}}>I am an excellent tutor but i look kind of odd</Text>
                 </View> */}
       </View>
-      <View
+      <ViewMoreText
+        numberOfLines={2}
+        renderViewMore={renderViewMore}
+        renderViewLess={renderViewLess}
+        textStyle={{
+          // height: 50,
+          width: "90%",
+          // marginBottom: 10,
+          alignSelf: "center",
+        }}
+      >
+        <Text style={{ fontSize: 12, color: "black" }}>
+          {data.personal_statement}
+        </Text>
+      </ViewMoreText>
+      {/* <View
         style={{
           height: 50,
           width: "90%",
@@ -626,7 +707,7 @@ const TutorSearchProfile = ({ props, route }) => {
         <Text style={{ fontSize: 12, color: "black" }}>
           {data.personal_statement}
         </Text>
-      </View>
+      </View> */}
 
       <View
         style={{
@@ -802,7 +883,7 @@ const TutorSearchProfile = ({ props, route }) => {
                     duration={400}
                     //Duration for Collapse and expand
                     onChange={setSections}
-                    //setting the state of active sections
+                  //setting the state of active sections
                   />
                   {/*Code for Accordion/Expandable List ends here*/}
                 </ScrollView>
@@ -845,7 +926,7 @@ const TutorSearchProfile = ({ props, route }) => {
                     duration={400}
                     //Duration for Collapse and expand
                     onChange={setSectionsSch}
-                    //setting the state of active sections
+                  //setting the state of active sections
                   />
                   {/*Code for Accordion/Expandable List ends here*/}
                 </ScrollView>
@@ -878,6 +959,7 @@ const styles = StyleSheet.create({
     width: 50,
     borderRadius: 50,
   },
+
   title: {
     textAlign: "center",
     fontSize: 18,

@@ -65,6 +65,8 @@ const HomeTution = ({ route }) => {
   };
   //  console.log(mapData, "mapData");
 
+  console.log(route.params.Tution_Info, 'Tution_InfoTution_InfoTution_Info')
+
   // console.log(FirstName, slideStartingValue.toFixed(0), "postalcode");
   const geocodinApi = () => {
     let config = {
@@ -150,10 +152,46 @@ const HomeTution = ({ route }) => {
   useEffect(() => {
     setLoader(true);
     setUserDetail(SINGLE_USER);
-    setFirstName(userDetail[0]?.Extra_info[0]?.postal_code);
-    setAddress(userDetail[0]?.Extra_info[0]?.location);
-    setLatitude(userDetail[0]?.Extra_info[0]?.lettitude);
-    setLongitude(userDetail[0]?.Extra_info[0]?.longitude);
+    if (route.params.Tution_Info.Postal_Code == undefined) {
+      setFirstName(userDetail[0]?.Extra_info[0]?.postal_code);
+      setAddress(userDetail[0]?.Extra_info[0]?.location);
+    }
+    else {
+      setFirstName(route.params.Tution_Info.Postal_Code);
+      setAddress(route.params.Tution_Info.address);
+    }
+
+    // setFirstName(userDetail[0]?.Extra_info[0]?.postal_code);
+
+    if (route.params.Tution_Info.longitude == undefined && route.params.Tution_Info.latitude == undefined && route.params.Tution_Info.Distance == undefined) {
+      setLatitude(Number(userDetail[0]?.Extra_info[0].lettitude ? 0 : 0))
+      setLongitude(Number(userDetail[0]?.Extra_info[0].longitude ? 0 : 0))
+      setSlideStartingValue(Number(userDetail[0]?.Extra_info[0].travel_distance ? 0 : 20));
+
+      // setLatitude(Number(userDetail[0]?.Extra_info[0].lettitude))
+      // setLongitude(Number(userDetail[0]?.Extra_info[0].longitude))
+      // setSlideStartingValue(Number(userDetail[0]?.Extra_info[0].travel_distance));
+
+
+    }
+    else {
+      setLongitude(Number(route.params.Tution_Info.longitude));
+      setLatitude(Number(route.params.Tution_Info.latitude));
+      setSlideStartingValue(Number(route.params.Tution_Info.Distance));
+
+    }
+    // setLatitude(userDetail[0]?.Extra_info[0]?.lettitude);
+    // setLongitude(userDetail[0]?.Extra_info[0]?.longitude);
+    // setLongitude(route.params.Tution_Info.longitude);
+    //setLatitude(route.params.Tution_Info.latitude);
+    // if (slideStartingValue == NaN) {
+    //   setSlideStartingValue(20);
+
+    // }
+    // else {
+    //   setSlideStartingValue(Number(route.params.Tution_Info.Distance));
+
+    // }
     setTimeout(() => {
       setLoader(false);
     }, 2000);
@@ -164,11 +202,13 @@ const HomeTution = ({ route }) => {
   //   "userDetail[0]?.Extra_info[0]?.travel_distance"
   // );
 
+
+  // console.log(slideStartingValue, latitude, longitude, 'slideStartingValueslideStartingValueslideStartingValue')
   const onRegionCHange = (reg) => {
     // console.log(reg, "DDDDDDDDDDDDDDDDDDDDDDDDD");
     mapRef?.current?.animateToRegion({
-      latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
-      longitude: mapData ? mapData?.geometry?.location?.lng : 77.3812,
+      latitude: mapData ? mapData?.geometry?.location?.lat : latitude,
+      longitude: mapData ? mapData?.geometry?.location?.lng : longitude,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421,
     });
@@ -301,23 +341,23 @@ const HomeTution = ({ route }) => {
                 showsMyLocationButton={true}
                 userInterfaceStyle="dark"
                 initialRegion={{
-                  latitude: mapData ? mapData?.geometry?.location?.lat : 28.621,
+                  latitude: mapData ? mapData?.geometry?.location?.lat : latitude,
                   longitude: mapData
                     ? mapData?.geometry?.location?.lng
-                    : 77.3812,
+                    : longitude,
                   latitudeDelta: 0.0922,
                   longitudeDelta: 0.0421,
                 }}
-                // mapType={'standard'}
+              // mapType={'standard'}
               >
                 <Circle
                   center={{
                     latitude: mapData
                       ? mapData?.geometry?.location?.lat
-                      : 28.621,
+                      : latitude,
                     longitude: mapData
                       ? mapData?.geometry?.location?.lng
-                      : 77.3812,
+                      : longitude,
                   }}
                   radius={slideStartingValue.toFixed(0) * 80}
                   // radius={slideStartingValue * 80}
@@ -329,10 +369,10 @@ const HomeTution = ({ route }) => {
                   coordinate={{
                     latitude: mapData
                       ? mapData?.geometry?.location?.lat
-                      : 28.621,
+                      : latitude,
                     longitude: mapData
                       ? mapData?.geometry?.location?.lng
-                      : 77.3812,
+                      : longitude,
                   }}
                   onDragEnd={(e) =>
                     this.setState({ x: e.nativeEvent.coordinate })
@@ -365,7 +405,7 @@ const HomeTution = ({ route }) => {
                   // setSlideStartingCount((prev) => prev + 1);
                 }
                 minimumValue={1}
-                value={25}
+                value={slideStartingValue}
                 maximumValue={50}
                 minimumTrackTintColor="#000000"
                 maximumT

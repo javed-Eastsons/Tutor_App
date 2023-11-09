@@ -64,7 +64,8 @@ const TutoringDetail = ({ route }) => {
   const [grade, setGrade] = useState([]);
   const [loader, setLoader] = useState(false);
   const [loader1, setLoader1] = useState(false);
-  const [records, setRecords] = useState(selectArray);
+  //const [records, setRecords] = useState(selectArray);
+  const [records, setRecords] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
   const [tutSave, setTutSave] = useState(false);
   const [editId, setEditId] = useState(); // ID of the record you want to edit
@@ -72,9 +73,11 @@ const TutoringDetail = ({ route }) => {
   const [EditLevel, setEditLevel] = useState()
   const [completeEditLevel, setCompleteEditLevel] = useState()
 
-  console.log(selectArray, "Startttttttttttttttttttttttt");
+  //console.log(selectArray, "Startttttttttttttttttttttttt");
 
-  console.log(records, "recordsrecordsrecordsrecordsrecords");
+  //console.log(records, "recordsrecordsrecordsrecordsrecords");
+  console.log(SUBJECT_LIST, "SUBJECT_LISTSUBJECT_LISTSUBJECT_LIST");
+
 
   // console.log(grade, "gradeJK");
   // console.log(gradeArray, "gradeArray");
@@ -454,6 +457,12 @@ const TutoringDetail = ({ route }) => {
   // console.log(tutorSubject,'tutorSubject')
   // console.log(selectedItems,'selectedItems')
 
+  console.log(route.params.Tutoring_Info, 'Tutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_Info')
+
+
+  function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
   const ALLDATA = () => {
     selectListTutor, gradeArray, state, state2, selectedItems;
 
@@ -469,15 +478,18 @@ const TutoringDetail = ({ route }) => {
     // if (P1 == P1) {
     //   setSelectListTutor("");
     const obj3 = [];
+    const randomNum = getRandomNumber(1, 9999);
 
-    setCount(count + 1);
+
+    //  setCount(count + 1);
 
     console.log(obj3, "AAAAA");
     console.log(editId, 'editId')
     var item1 = {};
-    item1["tutoring_detail_id"] = count;
+    //  item1["tutoring_detail_id"] = count;
+    item1["tutoring_detail_id"] = randomNum;
     item1["TutoringLevel"] = selectListTutor;
-    item1["AdmissionLevel"] = "";
+
     item1["Tutoring_Grade"] = gradeArray.map((item) => item?.Grade);
     item1["Tutoring_Year"] = state;
     item1["Tutoring_Month"] = state2;
@@ -486,14 +498,23 @@ const TutoringDetail = ({ route }) => {
     if (
       !isExistInArray(
         selectArray,
-        "tutor_qualification_Subject",
-        item1.tutor_qualification_Subject
+        "tutoring_detail_id",
+        item1.tutoring_detail_id
       )
     ) {
       //  console.log('insert in array');
       // records.push(item1);
-      selectArray.push(item1);
-      setRecords(selectArray);
+      // selectArray.push(item1);
+      // setRecords(selectArray);
+
+      if (records == undefined) {
+        selectArray.push(item1);
+        setRecords(selectArray);
+      }
+      else {
+        records.push(item1)
+        setRecords(records);
+      }
 
     } else {
       RemoveTempExercise(
@@ -516,6 +537,8 @@ const TutoringDetail = ({ route }) => {
     setState2("");
     setselectedItems([]);
   };
+
+
   const UpdateRecord = () => {
     console.log(editId);
     const newData = records.map((record) => {
@@ -831,27 +854,76 @@ const TutoringDetail = ({ route }) => {
     setTutoring(true)
   }
   const handleSubjectEdit = (level) => {
+
+    console.log(level, '999999999')
+    dispatch(getSubjectList(level));
     setTutorSubjectEdit(true)
     setselectedItems([])
 
     setEditLevel(level)
   }
+
+
+
+
+
+
+
   const savedata = () => {
+
+
+
     // dispatch(editProfile(selectListTutor,state,state2,selectArray, GET_USER_ID));
-    console.log(selectListTutor, state, state2, selectArray, GET_USER_ID);
+    //   console.log(selectListTutor, state, state2, selectArray, GET_USER_ID, 'OOOOOOOOOOOOOOOOOOAAAAAAAAA');
     setTutSave(true);
+
+
+    console.log(records, 'recordsrecordsrecordsrecordsAAAAAAA')
+    // let obj = {
+    //   selectListTutor: selectListTutor,
+    //   state: state,
+    //   state2: state2,
+    //   selectArray: selectArray,
+    //   GET_USER_ID: GET_USER_ID,
+    //   tutSave: tutSave,
+    //   // selectArray: records
+
+    // };
+    // const convertedData = records.map(item => {
+    //   // Check if the properties exist and are non-null
+    //   const tutoringAllSubjects = item?.Tutoring_ALL_Subjects
+    //     ? item.Tutoring_ALL_Subjects.split(',')
+    //     : [];
+    //   const tutoringGrade = item?.Tutoring_Grade
+    //     ? item.Tutoring_Grade.split(',')
+    //     : [];
+
+    //   // Create a new object with the converted values
+    //   return {
+    //     ...item,
+    //     Tutoring_ALL_Subjects: tutoringAllSubjects,
+    //     Tutoring_Grade: tutoringGrade
+    //   };
+    // });
+
+
+
+
+
+
+
+    // console.log(convertedData, 'convertedDataconvertedDataconvertedData')
+
     let obj = {
-      selectListTutor: selectListTutor,
-      state: state,
-      state2: state2,
-      selectArray: selectArray,
-      GET_USER_ID: GET_USER_ID,
-      tutSave: tutSave,
-    };
+      selectArray: records
+    }
+
     dispatch({
       type: Tutoring_Data,
       payload: obj,
     });
+
+    console.log(obj, 'KKKKKKKKKKKKKKKKKKKKKKKK',)
 
     if (route.params.RouteFrom == "Update") {
       navigation.navigate("UpdateProfile", {
@@ -960,10 +1032,23 @@ const TutoringDetail = ({ route }) => {
     setUserDetail(SINGLE_USER);
   }, [SINGLE_USER]);
 
+
+  console.log(route.params.Tutoring_Info.selectArray, 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS')
+
   useEffect(() => {
     setLoader(true);
     setUserDetail(SINGLE_USER);
-    setRecords(userDetail[0]?.tutoring_detail_arr);
+    if (route.params.Tutoring_Info.selectArray == undefined) {
+      // setSchool1(userDetail[0]?.Extra_info[0]?.name_of_school);
+      // setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
+      /// setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
+      setRecords(userDetail[0]?.tutoring_detail_arr);
+    }
+    else {
+      setRecords(route.params.Tutoring_Info.selectArray);
+    }
+    // setRecords(userDetail[0]?.tutoring_detail_arr);
+
     // setSchool1(userDetail[0]?.Extra_info[0]?.name_of_school);
     // setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
     // setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
@@ -972,6 +1057,10 @@ const TutoringDetail = ({ route }) => {
       setLoader(false);
     }, 2000);
   }, [SINGLE_USER]);
+
+
+  console.log(records, 'UUUUUUUUUUUUUUUUUU')
+
 
   const deleteRecord = (idToDelete) => {
     console.log(idToDelete, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -1071,7 +1160,7 @@ const TutoringDetail = ({ route }) => {
             </Text>
           </TouchableOpacity>
 
-          {console.log(records, "LLPPPPPPPPPPPPP")}
+          {console.log(records, "LLPPPPPPPPPPPPPLLPPPPPPPPPPPPPLLPPPPPPPPPPPPPLLPPPPPPPPPPPPP")}
 
           <ScrollView style={{ height: 300 }}>
             {records &&
@@ -1140,6 +1229,7 @@ const TutoringDetail = ({ route }) => {
                                   <Image
                                     source={require("../Assets/pencilEdit.png")}
                                   />
+
                                 </TouchableOpacity>
 
                                 : null
@@ -2251,9 +2341,11 @@ const TutoringDetail = ({ route }) => {
                     <Text
                       style={{ color: "#000", fontSize: 20, fontWeight: "800" }}
                     >
-                      Select mutiple (if required)
+                      Select multiple (if required)
                     </Text>
                   </View>
+
+                  {console.log(SUBJECT_LIST && SUBJECT_LIST?.Subject_List, 'SUBJECT_LIST?.Subject_ListSUBJECT_LIST?.Subject_ListSUBJECT_LIST?.Subject_ListSUBJECT_LIST?.Subject_ListSUBJECT_LIST?.Subject_List')}
 
                   <View style={{ marginHorizontal: wp(5) }}>
                     <MultiSelect

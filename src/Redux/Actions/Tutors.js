@@ -144,7 +144,7 @@ export const GetUserProfile = (UserId, navigation) => {
     const url1 =
       "https://refuel.site/projects/tutorapp/APIs/UserDetails/SingleUserProfile.php?user_id=" +
       UserId;
-    console.log(url1, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    console.log(url1, "1111111111111111");
     await fetch(url1, {
       method: "GET",
       headers: new Headers({
@@ -487,9 +487,10 @@ export const RegisterUser = (
   Password,
   Email,
   country_phone_code,
-  Mobile
+  Mobile,
+  imageSource
 ) => {
-  console.log(FirstName, LastName, Email, country_phone_code, Mobile, Password);
+  console.log(FirstName, LastName, Email, country_phone_code, Mobile, Password, imageSource);
   return async (dispatch, getState) => {
     //const login = await getApiKey();
     let fcmToken = await AsyncStorage.getItem("fcmToken");
@@ -510,6 +511,9 @@ export const RegisterUser = (
     formData.append("password", Password);
     formData.append("device_token", fcmToken);
     formData.append("device_type", "Android");
+    formData.append("profile_image", imageSource);
+
+
 
     return fetch(url1, {
       method: "POST",
@@ -527,7 +531,7 @@ export const RegisterUser = (
         //   Alert.alert(responseJson.message)
         if (responseJson.status == true) {
           console.log("ww", responseJson.message);
-          Alert.alert(responseJson.message);
+          // Alert.alert(responseJson.message);
           dispatch({
             type: REGISTER_MSG,
             REG_MSG: responseJson.message,
@@ -728,13 +732,13 @@ export const OTPVerifywithrole = (role, otp, navigation) => {
         if (responseJson.status == true && role == "I am an Educator") {
           navigation.navigate("Auth2");
           console.log("PPPaaa", responseJson.message);
-          Alert.alert(responseJson.message);
+          // Alert.alert(responseJson.message);
         } else if (
           responseJson.status == true &&
           role == "I am looking for a Tutor"
         ) {
           navigation.replace("Auth");
-          Alert.alert(responseJson.message);
+          //Alert.alert(responseJson.message);
           console.log("PPPaaa", responseJson.message);
 
           // dispatch({
@@ -759,6 +763,7 @@ export const OTPVerifywithrole = (role, otp, navigation) => {
   };
 };
 
+
 export const editProfile = (
   Login_Data,
   imageSource,
@@ -767,43 +772,189 @@ export const editProfile = (
   AcademicHistory_Data,
   TutionStatus_Data,
   Tutoring_Data,
+  Extra_info,
+  history_academy_arr,
+  tutoring_detail_arr,
   navigation
 ) => {
-  console.log(Login_Data, "APIID");
-  // console.log(imageSource, "imageSourceAPI");
-  // console.log(PersonalInfo_Data, "PersonalInfo_Data");
-  // console.log(AcademicHistory_Data, "AcademicHistory_Data");
-  // console.log(Tution_Type, "Tution_Type");
+  //console.log(Login_Data, "APIID");
+  console.log(//PersonalInfo_Data,
+    //Tution_Type,
+    //AcademicHistory_Data,
+    //TutionStatus_Data,
+    // Tutoring_Data, 'Tutoring_DataTutoring_Data', Tutoring_Data.selectArray, "selectArrayselectArrayselectArrayselectArray", tutoring_detail_arr
+  );
 
-  // console.log(Tutoring_Data.selectArray, "Tutoring_Data_LEVEL");
+  const transformedData = {
+    "tutoring_detail_arr": Tutoring_Data.selectArray.map(item => {
+      if (Array.isArray(item.Tutoring_Grade) && typeof item.Tutoring_ALL_Subjects === 'string') {
+        return {
+          ...item,
+          "Tutoring_Grade": item.Tutoring_Grade.map(grade => grade),
+          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.split(',').map(subject => subject.trim())
+        };
+      } else if (typeof item.Tutoring_Grade === 'string' && Array.isArray(item.Tutoring_ALL_Subjects)) {
+        return {
+          ...item,
+          "Tutoring_Grade": item.Tutoring_Grade.split(',').map(grade => grade.trim()),
+          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.map(subject => subject)
+        };
+      }
+
+      else if (Array.isArray(item.Tutoring_Grade) && Array.isArray(item.Tutoring_ALL_Subjects)) {
+        return {
+          ...item,
+          "Tutoring_Grade": item.Tutoring_Grade.map(grade => grade),
+          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.map(subject => subject)
+        };
+      }
+      else {
+        return {
+          ...item,
+          "Tutoring_Grade": item.Tutoring_Grade.split(',').map(grade => grade.trim()),
+          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.split(',').map(subject => subject.trim())
+        }
+
+      }
+    })
+  };
+
+  // const transformedData = {
+  //   "tutoring_detail_arr": Tutoring_Data.selectArray.map(item => ({
+  //     ...item,
+  //     if(item.Tutoring_Grade === Object && item.Tutoring_ALL_Subjects === String )
+
+  //      {
+  //       "Tutoring_Grade": item["Tutoring_Grade"].split(',').map(grade => grade.trim()),
+  //       "Tutoring_ALL_Subjects": item["Tutoring_ALL_Subjects"].map(subject => subject.trim())
+  //     },
+  //   else{
+  //     "Tutoring_ALL_Subjects": item["Tutoring_ALL_Subjects"].split(',').map(subject => subject.trim())
+  //     "Tutoring_Grade": item["Tutoring_Grade"].split(',').map(grade => grade.trim()),
+  //   },
+  //   }))
+  // };
+  //  console.log(typeof (Tutoring_Data.selectArray[0]), "111111111111");
+  //  console.log(typeof (Tutoring_Data.selectArray[0].Tutoring_ALL_Subjects), "22222222");
+  //console.log(history_academy_arr, "history_academy_arr");
+  //console.log(tutoring_detail_arr, "tutoring_detail_arr", Tutoring_Data);
+
+  //console.log(transformedData, "Tutoring_Data_LEVELTutoring_Data_LEVELTutoring_Data_LEVEL");
+  console.log(transformedData.tutoring_detail_arr, "GGGGGGGGGGGGGGGGGGGG");
   // console.log(TutionStatus_Data, "WORD_For_YOU");
-
-  let data1 = JSON.stringify({
+  data1 = JSON.stringify({
     user_id: Login_Data.userid,
-    age: PersonalInfo_Data?.Age,
+    age: PersonalInfo_Data ? PersonalInfo_Data?.Age : Extra_info.age,
+    date_of_year: PersonalInfo_Data?.year,
+    flag: PersonalInfo_Data?.selectflag,
+
     profile_image: imageSource,
-    gender: PersonalInfo_Data?.markGender,
-    nationality: PersonalInfo_Data?.selectnational,
-    qualification: AcademicHistory_Data?.qualification,
-    name_of_school: AcademicHistory_Data?.school,
-    Course_Exam: AcademicHistory_Data?.Course,
-    gra_year: AcademicHistory_Data?.gra_year,
-    lettitude: Tution_Type?.latitude,
-    longitude: Tution_Type?.longitude,
-    stream: Tutoring_Data?.stream,
-    tutor_status: TutionStatus_Data?.WorkAs,
-    tuition_type: Tution_Type?.TutionType,
-    postal_code: Tution_Type?.Postal_Code,
-    location: Tution_Type?.address,
-    travel_distance: Tution_Type?.Distance,
-    personal_statement: TutionStatus_Data?.statement,
-    HistoryAcademy: AcademicHistory_Data.History,
-    TutoringDetail: Tutoring_Data.selectArray,
-  });
+    gender: PersonalInfo_Data ? PersonalInfo_Data?.markGender : Extra_info.gender,
+    nationality: PersonalInfo_Data ? PersonalInfo_Data?.selectnational : Extra_info.nationality,
+    qualification: AcademicHistory_Data ? AcademicHistory_Data?.qualification : Extra_info.qualification,
+    name_of_school: AcademicHistory_Data ? AcademicHistory_Data?.school : Extra_info.name_of_school,
+    Course_Exam: AcademicHistory_Data ? AcademicHistory_Data?.Course : Extra_info.Course_Exam,
+    gra_year: AcademicHistory_Data ? AcademicHistory_Data?.gra_year : Extra_info.gra_year,
+    lettitude: Tution_Type ? Tution_Type?.latitude : Extra_info.lettitude,
+    longitude: Tution_Type ? Tution_Type?.longitude : Extra_info.longitude,
+    stream: Tutoring_Data ? Tutoring_Data?.stream : Extra_info.stream,
+    tutor_status: TutionStatus_Data ? TutionStatus_Data?.WorkAs : Extra_info.tutor_status,
+    tuition_type: Tution_Type ? Tution_Type?.TutionType : Extra_info.tuition_type,
+    postal_code: Tution_Type ? Tution_Type?.Postal_Code : Extra_info.postal_code,
+    location: Tution_Type ? Tution_Type?.address : Extra_info.location,
+    travel_distance: Tution_Type ? Tution_Type?.Distance : Extra_info.travel_distance,
+    personal_statement: TutionStatus_Data ? TutionStatus_Data?.statement : Extra_info.personal_statement,
+    HistoryAcademy: AcademicHistory_Data ? AcademicHistory_Data.History : history_academy_arr,
+    // TutoringDetail: Tutoring_Data ? Tutoring_Data.selectArray : tutoring_detail_arr,
+    TutoringDetail: transformedData.tutoring_detail_arr,
+    //   TutoringDetail: Tutoring_Data.selectArray,
+  })
+  // let data1;
+  // if (typeof (Tutoring_Data.selectArray[0].Tutoring_Grade) == Object || typeof (Tutoring_Data.selectArray[0].Tutoring_ALL_Subjects) == Object) {
+  //   console.log('PPPPPPPPPPPPP')
+  //   console.log(Tutoring_Data.selectArray)
+  //   data1 = JSON.stringify({
+  //     user_id: Login_Data.userid,
+  //     age: PersonalInfo_Data ? PersonalInfo_Data?.Age : Extra_info.age,
+  //     profile_image: imageSource,
+  //     gender: PersonalInfo_Data ? PersonalInfo_Data?.markGender : Extra_info.gender,
+  //     nationality: PersonalInfo_Data ? PersonalInfo_Data?.selectnational : Extra_info.nationality,
+  //     qualification: AcademicHistory_Data ? AcademicHistory_Data?.qualification : Extra_info.qualification,
+  //     name_of_school: AcademicHistory_Data ? AcademicHistory_Data?.school : Extra_info.name_of_school,
+  //     Course_Exam: AcademicHistory_Data ? AcademicHistory_Data?.Course : Extra_info.Course_Exam,
+  //     gra_year: AcademicHistory_Data ? AcademicHistory_Data?.gra_year : Extra_info.gra_year,
+  //     lettitude: Tution_Type ? Tution_Type?.latitude : Extra_info.lettitude,
+  //     longitude: Tution_Type ? Tution_Type?.longitude : Extra_info.longitude,
+  //     stream: Tutoring_Data ? Tutoring_Data?.stream : Extra_info.stream,
+  //     tutor_status: TutionStatus_Data ? TutionStatus_Data?.WorkAs : Extra_info.tutor_status,
+  //     tuition_type: Tution_Type ? Tution_Type?.TutionType : Extra_info.tuition_type,
+  //     postal_code: Tution_Type ? Tution_Type?.Postal_Code : Extra_info.postal_code,
+  //     location: Tution_Type ? Tution_Type?.address : Extra_info.location,
+  //     travel_distance: Tution_Type ? Tution_Type?.Distance : Extra_info.travel_distance,
+  //     personal_statement: TutionStatus_Data ? TutionStatus_Data?.statement : Extra_info.personal_statement,
+  //     HistoryAcademy: AcademicHistory_Data ? AcademicHistory_Data.History : history_academy_arr,
+  //     //TutoringDetail: [Tutoring_Data ? Tutoring_Data.selectArray : tutoring_detail_arr],
+  //     TutoringDetail: Tutoring_Data.selectArray,
+  //   });
+  // }
+  // else {
+
+  //   console.log('OOOOOOOOOOOOOOOOO')
+  //   const convertedData = Tutoring_Data.selectArray.map(item => {
+  //     // Check if the properties exist and are non-null
+  //     const tutoringAllSubjects = item?.Tutoring_ALL_Subjects
+  //       ? item.Tutoring_ALL_Subjects.split(',')
+  //       : "";
+  //     const tutoringGrade = item?.Tutoring_Grade
+  //       ? item.Tutoring_Grade.split(',')
+  //       : "";
+
+  //     // Create a new object with the converted values
+  //     return {
+  //       ...item,
+  //       Tutoring_ALL_Subjects: tutoringAllSubjects,
+  //       Tutoring_Grade: tutoringGrade
+  //     };
+  //   });
+
+  //   console.log('DDDDDDDDDDDDD')
+  //   console.log(convertedData, 'convertedDataconvertedDataconvertedData')
+
+  //   data1 = JSON.stringify({
+  //     user_id: Login_Data.userid,
+  //     age: PersonalInfo_Data ? PersonalInfo_Data?.Age : Extra_info.age,
+  //     profile_image: imageSource,
+  //     gender: PersonalInfo_Data ? PersonalInfo_Data?.markGender : Extra_info.gender,
+  //     nationality: PersonalInfo_Data ? PersonalInfo_Data?.selectnational : Extra_info.nationality,
+  //     qualification: AcademicHistory_Data ? AcademicHistory_Data?.qualification : Extra_info.qualification,
+  //     name_of_school: AcademicHistory_Data ? AcademicHistory_Data?.school : Extra_info.name_of_school,
+  //     Course_Exam: AcademicHistory_Data ? AcademicHistory_Data?.Course : Extra_info.Course_Exam,
+  //     gra_year: AcademicHistory_Data ? AcademicHistory_Data?.gra_year : Extra_info.gra_year,
+  //     lettitude: Tution_Type ? Tution_Type?.latitude : Extra_info.lettitude,
+  //     longitude: Tution_Type ? Tution_Type?.longitude : Extra_info.longitude,
+  //     stream: Tutoring_Data ? Tutoring_Data?.stream : Extra_info.stream,
+  //     tutor_status: TutionStatus_Data ? TutionStatus_Data?.WorkAs : Extra_info.tutor_status,
+  //     tuition_type: Tution_Type ? Tution_Type?.TutionType : Extra_info.tuition_type,
+  //     postal_code: Tution_Type ? Tution_Type?.Postal_Code : Extra_info.postal_code,
+  //     location: Tution_Type ? Tution_Type?.address : Extra_info.location,
+  //     travel_distance: Tution_Type ? Tution_Type?.Distance : Extra_info.travel_distance,
+  //     personal_statement: TutionStatus_Data ? TutionStatus_Data?.statement : Extra_info.personal_statement,
+  //     HistoryAcademy: AcademicHistory_Data ? AcademicHistory_Data.History : history_academy_arr,
+  //     //TutoringDetail: [Tutoring_Data ? Tutoring_Data.selectArray : tutoring_detail_arr],
+  //     TutoringDetail: convertedData,
+  //   });
+  // }
+
+
+
+
+
+
+
 
   console.log(
     data1,
-    "payloadpayloadpayloadpayloadpayloadpayloadpayloadpayload"
+    "NEWWWWWWWWWWWWWWWNEWWWWWWWWWWWWWWWNEWWWWWWWWWWWWWWWNEWWWWWWWWWWWWWWW"
   );
 
   return (dispatch, getState) => {
@@ -823,8 +974,9 @@ export const editProfile = (
       .then((responseJson) => {
         console.log(JSON.stringify(responseJson.data), "respone");
         if (responseJson.data.status == true) {
+          dispatch(GetUserProfile(Login_Data.userid))
           Alert.alert(responseJson.data.message);
-          navigation.navigate("Auth4");
+          navigation.replace("Auth4");
         } else if (responseJson.data.status == false) {
           Alert.alert("Record not inserted");
         }
@@ -834,6 +986,82 @@ export const editProfile = (
       });
   };
 };
+
+// export const editProfile = (
+//   Login_Data,
+//   imageSource,
+//   PersonalInfo_Data,
+//   Tution_Type,
+//   AcademicHistory_Data,
+//   TutionStatus_Data,
+//   Tutoring_Data,
+//   navigation
+// ) => {
+//   console.log(Login_Data, "APIID");
+//   // console.log(imageSource, "imageSourceAPI");
+//   // console.log(PersonalInfo_Data, "PersonalInfo_Data");
+//   // console.log(AcademicHistory_Data, "AcademicHistory_Data");
+//   // console.log(Tution_Type, "Tution_Type");
+
+//   // console.log(Tutoring_Data.selectArray, "Tutoring_Data_LEVEL");
+//   // console.log(TutionStatus_Data, "WORD_For_YOU");
+
+//   let data1 = JSON.stringify({
+//     user_id: Login_Data.userid,
+//     age: PersonalInfo_Data?.Age,
+//     profile_image: imageSource,
+//     gender: PersonalInfo_Data?.markGender,
+//     nationality: PersonalInfo_Data?.selectnational,
+//     qualification: AcademicHistory_Data?.qualification,
+//     name_of_school: AcademicHistory_Data?.school,
+//     Course_Exam: AcademicHistory_Data?.Course,
+//     gra_year: AcademicHistory_Data?.gra_year,
+//     lettitude: Tution_Type?.latitude,
+//     longitude: Tution_Type?.longitude,
+//     stream: Tutoring_Data?.stream,
+//     tutor_status: TutionStatus_Data?.WorkAs,
+//     tuition_type: Tution_Type?.TutionType,
+//     postal_code: Tution_Type?.Postal_Code,
+//     location: Tution_Type?.address,
+//     travel_distance: Tution_Type?.Distance,
+//     personal_statement: TutionStatus_Data?.statement,
+//     HistoryAcademy: AcademicHistory_Data.History,
+//     TutoringDetail: Tutoring_Data.selectArray,
+//   });
+
+//   console.log(
+//     data1,
+//     "payloadpayloadpayloadpayloadpayloadpayloadpayloadpayload"
+//   );
+
+//   return (dispatch, getState) => {
+//     let config = {
+//       method: "POST",
+//       maxBodyLength: Infinity,
+//       url: "https://refuel.site/projects/tutorapp/APIs/UserRegistration/UpdateUserProfile.php",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       data: data1,
+//     };
+
+//     axios
+//       .request(config)
+//       // .then((response) => response.json())
+//       .then((responseJson) => {
+//         console.log(JSON.stringify(responseJson.data), "respone");
+//         if (responseJson.data.status == true) {
+//           Alert.alert(responseJson.data.message);
+//           navigation.navigate("Auth4");
+//         } else if (responseJson.data.status == false) {
+//           Alert.alert("Record not inserted");
+//         }
+//       })
+//       .catch((error) => {
+//         console.log(error, "error");
+//       });
+//   };
+// };
 
 export const saveProfile = (
   GET_USER_ID,
@@ -851,12 +1079,14 @@ export const saveProfile = (
   // console.log(AcademicHistory_Data, "AcademicHistory_Data");
   // console.log(Tution_Type, "Tution_Type");
 
-  // console.log(Tutoring_Data.selectArray, "Tutoring_Data_LEVEL");
+  console.log(Tutoring_Data.selectArray, "Tutoring_Data_LEVEL");
   // console.log(TutionStatus_Data, "WORD_For_YOU");
 
   let data1 = JSON.stringify({
     user_id: GET_USER_ID,
     age: PersonalInfo_Data?.Age,
+    date_of_year: PersonalInfo_Data?.year,
+    flag: PersonalInfo_Data?.selectflag,
     profile_image: imageSource,
     gender: PersonalInfo_Data?.markGender,
     nationality: PersonalInfo_Data?.selectnational,
@@ -882,52 +1112,52 @@ export const saveProfile = (
     "payloadpayloadpayloadpayloadpayloadpayloadpayloadpayload"
   );
 
-  return (dispatch, getState) => {
-    let config = {
-      method: "POST",
-      maxBodyLength: Infinity,
-      url: "https://refuel.site/projects/tutorapp/APIs/UserRegistration/CompleteUserProfileLoop.php",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data1,
-    };
+  // return (dispatch, getState) => {
+  //   let config = {
+  //     method: "POST",
+  //     maxBodyLength: Infinity,
+  //     url: "https://refuel.site/projects/tutorapp/APIs/UserRegistration/CompleteUserProfileLoop.php",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     data: data1,
+  //   };
 
-    axios
-      .request(config)
-      // .then((response) => response.json())
-      .then(async (responseJson) => {
-        console.log(JSON.stringify(responseJson.data), "respone");
-        if (responseJson.data.status == true) {
-          await AsyncStorage.setItem("user_type", responseJson.data.user_type);
-          await AsyncStorage.setItem("user_id", responseJson.data.user_id);
-          await AsyncStorage.setItem("postcode", responseJson.data.postal_code);
-          await AsyncStorage.setItem(
-            "profilepic",
-            responseJson.data.profile_image
-          );
+  //   axios
+  //     .request(config)
+  //     // .then((response) => response.json())
+  //     .then(async (responseJson) => {
+  //       console.log(JSON.stringify(responseJson.data), "respone");
+  //       if (responseJson.data.status == true) {
+  //         await AsyncStorage.setItem("user_type", responseJson.data.user_type);
+  //         await AsyncStorage.setItem("user_id", responseJson.data.user_id);
+  //         await AsyncStorage.setItem("postcode", responseJson.data.postal_code);
+  //         await AsyncStorage.setItem(
+  //           "profilepic",
+  //           responseJson.data.profile_image
+  //         );
 
-          let obj = {
-            userid: responseJson.data.user_id,
-            userType: responseJson.data.user_type,
-            postcode: responseJson.data.postal_code,
-            profilepic: responseJson.data.profile_image,
-          };
-          dispatch({
-            type: Login_Data,
-            payload: obj,
-          });
-          Alert.alert(responseJson.data.message);
-          // console.log(responseJson.data);
-          navigation.navigate("Auth4");
-        } else if (responseJson.data.status == false) {
-          Alert.alert("Record not inserted");
-        }
-      })
-      .catch((error) => {
-        console.log(error, "error");
-      });
-  };
+  //         let obj = {
+  //           userid: responseJson.data.user_id,
+  //           userType: responseJson.data.user_type,
+  //           postcode: responseJson.data.postal_code,
+  //           profilepic: responseJson.data.profile_image,
+  //         };
+  //         dispatch({
+  //           type: Login_Data,
+  //           payload: obj,
+  //         });
+  //         Alert.alert(responseJson.data.message);
+  //         // console.log(responseJson.data);
+  //         navigation.navigate("Auth4");
+  //       } else if (responseJson.data.status == false) {
+  //         Alert.alert("Record not inserted");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error, "error");
+  //     });
+  // };
 };
 
 export const offerDateTime = (

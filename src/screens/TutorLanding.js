@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   SafeAreaView,
@@ -22,12 +22,217 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Shadow } from "react-native-shadow-2";
-
+import { PersonalInfo_Data, AcademicHistory_Data, Tution_Type, Tutoring_Data, TutionStatus_Data } from "../Redux/Actions/types";
+import { GetUserProfile } from "../Redux/Actions/Tutors";
+import { Loader } from "../common/Loader";
 const TutorLanding = () => {
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
+
+  const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
   const { Login_Data } = useSelector((state) => state.TutorReducer);
+  const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
+  const dispatch = useDispatch();
+  const [userDetail, setUserDetail] = useState([]);
+  const [Age, setAge] = useState(0);
+  const [markGender, setMarkGender] = useState("");
+  const [selectnational, setSelectNational] = useState("");
+  const [selectflag, setSelectFlag] = useState("");
+  const [national, setNational] = useState("");
+  const [qualification, setQualification] = useState("");
+  const [gradYear, setGradYear] = useState("");
+  const [school1, setSchool1] = useState("");
+  const [courses, setCourses] = useState("");
+  const [records, setRecords] = useState([]);
+  const [records1, setRecords1] = useState([]);
+
+  const [FirstName, setFirstName] = React.useState("");
+  const [address, setAddress] = React.useState("");
+
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
+  const [mark, setmark] = useState("");
+  const [loader, setLoader] = useState(false);
+
+  const [yourdata, setYourdata] = useState("");
+
+
+
+  const [slideStartingValue, setSlideStartingValue] = useState(20);
   console.log(Login_Data, "Login_DataLogin_DataLogin_Data");
+
+
+
+  console.log(SINGLE_USER, 'SINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USER')
+
+  useEffect(() => {
+    setLoader(true)
+    dispatch(GetUserProfile(Login_Data.userid));
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+  }, []);
+
+
+
+  useEffect(() => {
+
+    setUserDetail(SINGLE_USER);
+
+  }, [SINGLE_USER]);
+
+
+
+
+
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+    setAge(userDetail[0]?.Extra_info[0].age);
+    setMarkGender(userDetail[0]?.Extra_info[0].gender);
+    setNational(userDetail[0]?.Extra_info[0].nationality);
+    setSelectNational(userDetail[0]?.Extra_info[0].nationality);
+    setQualification(userDetail[0]?.Extra_info[0].qualification);
+    setSchool1(userDetail[0]?.Extra_info[0].name_of_school);
+    setCourses(userDetail[0]?.Extra_info[0].Course_Exam);
+    setGradYear(userDetail[0]?.Extra_info[0].gra_year);
+    setRecords(userDetail[0]?.history_academy_arr);
+    setFirstName(userDetail[0]?.Extra_info[0].postal_code);
+    setAddress(userDetail[0]?.Extra_info[0].location);
+    setLatitude(Number(userDetail[0]?.Extra_info[0].lettitude))
+    setLongitude(Number(userDetail[0]?.Extra_info[0].longitude))
+    setSlideStartingValue(Number(userDetail[0]?.Extra_info[0].travel_distance));
+
+    setRecords1(userDetail[0]?.tutoring_detail_arr);
+    setYourdata(userDetail[0]?.Extra_info[0]?.personal_statement);
+    setmark(userDetail[0]?.Extra_info[0]?.tutor_status);
+  }, [SINGLE_USER]);
+
+
+
+  // useEffect(() => {
+  //   setUserDetail(SINGLE_USER);
+  //   setAge(userDetail[0]?.Extra_info[0]?.age);
+  //   setMarkGender(userDetail[0]?.Extra_info[0]?.gender);
+  //   setNational(userDetail[0]?.Extra_info[0]?.nationality);
+  //   setSelectNational(userDetail[0]?.Extra_info[0]?.nationality);
+  //   setQualification(userDetail[0]?.Extra_info[0]?.qualification);
+  //   setSchool1(userDetail[0]?.Extra_info[0]?.name_of_school);
+  //   setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
+  //   setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
+  //   setRecords(userDetail[0]?.history_academy_arr);
+  //   setFirstName(userDetail[0]?.Extra_info[0]?.postal_code);
+  //   setAddress(userDetail[0]?.Extra_info[0]?.location);
+  //   setLatitude(Number(userDetail[0]?.Extra_info[0]?.lettitude))
+  //   setLongitude(Number(userDetail[0]?.Extra_info[0]?.longitude))
+  //   setSlideStartingValue(Number(userDetail[0]?.Extra_info[0]?.travel_distance));
+
+  //   setRecords1(userDetail[0]?.tutoring_detail_arr);
+  //   setYourdata(userDetail[0]?.Extra_info[0]?.personal_statement);
+  //   setmark(userDetail[0]?.Extra_info[0]?.tutor_status);
+  // }, [SINGLE_USER]);
+
+
+
+
+
+
+
+  // console.log('AGE', userDetail[0]?.Extra_info[0]?.age);
+  // console.log('gender', userDetail[0]?.Extra_info[0]?.gender);
+  // console.log('nationality', userDetail[0]?.Extra_info[0]?.nationality);
+  // console.log('PersonalInfo_Data', PersonalInfo_Data);
+
+  console.log(userDetail[0]?.Extra_info[0].flag, 'profile_imageprofile_imageprofile_imageprofile_imageprofile_image')
+  console.log(userDetail[0]?.Extra_info[0].date_of_year, 'profile_imageprofile_imageprofile_imageprofile_imageprofile_image')
+
+
+  const UpdateSection = () => {
+
+
+    console.log(userDetail[0]?.Extra_info[0].profile_image, 'profile_imageprofile_imageprofile_imageprofile_imageprofile_image')
+    console.log(userDetail[0]?.Extra_info[0].flag, 'profile_imageprofile_imageprofile_imageprofile_imageprofile_image')
+    console.log(userDetail[0]?.Extra_info[0].date_of_year, 'profile_imageprofile_imageprofile_imageprofile_imageprofile_image')
+
+    let obj = {
+      Age: userDetail[0]?.Extra_info[0].age,
+      markGender: userDetail[0]?.Extra_info[0].gender,
+      selectnational: userDetail[0]?.Extra_info[0].nationality,
+      selectflag: userDetail[0]?.Extra_info[0].flag,
+      year: userDetail[0]?.Extra_info[0].date_of_year,
+      //  persSave: persSave,
+
+    };
+
+    dispatch({
+      type: PersonalInfo_Data,
+      payload: obj,
+    });
+
+    let obj1 = {
+      qualification: userDetail[0]?.Extra_info[0].qualification,
+      //  Experience: Experience,
+      school: userDetail[0]?.Extra_info[0].name_of_school,
+      Course: userDetail[0]?.Extra_info[0].Course_Exam,
+      // subject: subject,
+      //exam: state == "Others" ? otherExam : state,
+      gra_year: userDetail[0]?.Extra_info[0].gra_year,
+      History: userDetail[0]?.history_academy_arr,
+      //GET_USER_ID: GET_USER_ID,
+      //acadSave: acadSave,
+    };
+    dispatch({
+      type: AcademicHistory_Data,
+      payload: obj1,
+    });
+
+
+    let obj2 = {
+      Postal_Code: userDetail[0]?.Extra_info[0].postal_code,
+      TutionType: "Home Tuition",
+      address: userDetail[0]?.Extra_info[0].location,
+      Distance: Number(userDetail[0]?.Extra_info[0].travel_distance),
+      latitude: Number(userDetail[0]?.Extra_info[0].lettitude),
+      longitude: Number(userDetail[0]?.Extra_info[0].longitude),
+
+      //Distance: slideStartingValue,
+    };
+
+    dispatch({
+      type: Tution_Type,
+      payload: obj2,
+    });
+
+
+
+    let obj3 = {
+
+      selectArray: userDetail[0]?.tutoring_detail_arr,
+
+    };
+    dispatch({
+      type: Tutoring_Data,
+      payload: obj3,
+    });
+
+
+    console.log(obj3, 'Tutoring_DataTutoring_DataTutoring_DataTutoring_DataTutoring_Data')
+
+    let obj4 = {
+      WorkAs: userDetail[0]?.Extra_info[0].tutor_status,
+      statement: userDetail[0]?.Extra_info[0].personal_statement,
+      //  wordSave: wordSave,
+    };
+
+    dispatch({
+      type: TutionStatus_Data,
+      payload: obj4,
+    });
+
+
+    navigation.navigate("UpdateProfile")
+
+
+  }
 
   const cardsData = [
     {
@@ -73,6 +278,7 @@ const TutorLanding = () => {
 
   return (
     <View style={styles.container}>
+      <Loader flag={loader} />
       <View style={styles.Headers}>
         <View style={styles.HeadLeft}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -96,9 +302,9 @@ const TutorLanding = () => {
       <ScrollView>
         <View style={styles.usercontainer}>
           <View style={styles.UserLeft}>
-            {Login_Data.profilepic == "" || Login_Data.profilepic == null ? (
+            {userDetail[0]?.Extra_info[0].profile_image == "" || userDetail[0]?.Extra_info[0].profile_image == null ? (
               <Image
-                source={require("../Assets/mailuser.png")}
+                source={require("../Assets/profileImg.png")}
                 style={styles.usericons}
               />
             ) : (
@@ -106,7 +312,7 @@ const TutorLanding = () => {
                 source={{
                   uri:
                     "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
-                    Login_Data.profilepic,
+                    userDetail[0]?.Extra_info[0].profile_image,
                 }}
                 style={styles.usericons}
               />
@@ -180,7 +386,7 @@ const TutorLanding = () => {
             </Text>
             <TouchableOpacity
               // onPress={() => navigation.navigate("Auth2")}
-              onPress={() => navigation.navigate("UpdateProfile")}
+              onPress={() => UpdateSection()}
               style={styles.SearchButton}
             >
               <Text
@@ -499,7 +705,7 @@ const styles = StyleSheet.create({
     width: wp(45),
     height: hp(10),
     flexDirection: "row",
-    marginTop: 15,
+    // marginTop: 15,
     alignItems: "center",
   },
   postContainer: {
@@ -548,7 +754,7 @@ const styles = StyleSheet.create({
   HeadRight: {
     width: wp(45),
     height: hp(10),
-    marginTop: 15,
+    // marginTop: 15,
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "flex-end",

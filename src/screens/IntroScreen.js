@@ -76,13 +76,13 @@ const IntroScreen = () => {
 
   console.log(Login_Data, "Login_DataLogin_DataLogin_DataLogin_Data");
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const onDone = async () => {
     //  setShowRealApp(true);
-    navigation.replace("ClientLandingBefore");
+    //navigation.replace("ClientLandingBefore");
     // navigation.replace("MakePayment");
-    // navigation.replace("YourProfle");
+    navigation.replace("YourProfle");
     // navigation.replace("Accordian");
 
     // navigation.replace("Auth2");
@@ -374,8 +374,8 @@ const IntroScreen = () => {
                 marginBottom: 10,
               }}
 
-              // onPress={() => setShowRealApp(false)}
-              // onPress={() => navigation.navigate('ProfileScreen')}
+            // onPress={() => setShowRealApp(false)}
+            // onPress={() => navigation.navigate('ProfileScreen')}
             >
               <Text
                 style={{

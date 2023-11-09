@@ -548,7 +548,7 @@ const OurTutor = ({ props, route }) => {
 
   useEffect(() => {
     setLoader(true);
-    updateFilter();
+    //updateFilter();
     setFilterData(GET_FILTER_DATA);
     setTimeout(() => {
       setLoader(false);
@@ -1813,7 +1813,7 @@ const OurTutor = ({ props, route }) => {
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
                       hideSubmitButton
-                      //  styleItemsContainer={{ height: 150, }}
+                    //  styleItemsContainer={{ height: 150, }}
                     />
                   </View>
 
@@ -1849,7 +1849,7 @@ const OurTutor = ({ props, route }) => {
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
                       hideSubmitButton
-                      //   styleItemsContainer={{ height: 150, }}
+                    //   styleItemsContainer={{ height: 150, }}
                     />
                   </View>
 
@@ -1887,7 +1887,7 @@ const OurTutor = ({ props, route }) => {
                       //submitButtonText="Submit"
                       styleDropdownMenu={{}}
                       hideSubmitButton
-                      //    styleItemsContainer={{ height: 150, }}
+                    //    styleItemsContainer={{ height: 150, }}
                     />
                   </View>
 

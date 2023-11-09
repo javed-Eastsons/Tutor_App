@@ -91,10 +91,11 @@ const YourProfle = ({ props, route }) => {
   const dispatch = useDispatch();
   //  console.log(imageSource, "imageSource0");
   const requestPermission = () => {
-    request(PERMISSIONS.IOS.CAMERA).then((result) => {
-      // console.log("requestPermission -> result", result);
-      if (result === "granted") openCamera();
-    });
+    openCamera();
+    // request(PERMISSIONS.IOS.CAMERA).then((result) => {
+    //   // console.log("requestPermission -> result", result);
+    //   if (result === "granted") openCamera();
+    // });
   };
   const openImageLibrary = () => {
     launchImageLibrary(options, (response) => {
@@ -146,69 +147,126 @@ const YourProfle = ({ props, route }) => {
         console.log("User tapped custom button: ", response.customButton);
       } else {
         // console.log(response);
-        setNewImg(response);
-        AsyncStorage.setItem("profileImage", response);
+        setNewImg(response.assets[0].uri);
+        AsyncStorage.setItem("profileImage", response.assets[0].uri);
       }
       setShowPopup(false);
     });
   };
 
+
   const showSelectionPopup = () => (
     <TouchableOpacity
       onPress={() => setShowPopup(false)}
       style={{
-        position: "absolute",
-        top: 50,
+        // position: "absolute",
+        // top: 2,
         justifyContent: "center",
         alignItems: "center",
+        //right: 0,
+
         // backgroundColor: 'rgba(0,0,0,0.2)',
-        zIndex: 10,
-        height: "100%",
-        width: "100%",
+        //zIndex: 10,
+        //height: "100%",
+        //width: "40%",
       }}
     >
       <View
         style={{
-          height: 100,
+          height: 70,
           width: 200,
-          //   backgroundColor: 'red',
+          // backgroundColor: 'red',
           alignItems: "center",
           justifyContent: "center",
-          marginTop: 20,
+          // marginTop: 20,
         }}
       >
         <TouchableOpacity
           onPress={requestPermission}
           style={{
-            height: 50,
+            height: 40,
             width: "100%",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Text>Open Camera</Text>
+          <Text style={{ color: "#000", fontSize: 12 }}>Camera</Text>
         </TouchableOpacity>
-
-        <View style={{ height: 1, width: "100%", backgroundColor: "grey" }} />
+        <View style={{ height: 1, width: "50%", backgroundColor: "grey" }} />
         <TouchableOpacity
           onPress={openImageLibrary}
           style={{
-            height: 50,
+            height: 40,
             width: "100%",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Text>Open Image Library</Text>
+          <Text style={{ color: "#000", fontSize: 12 }}>Gallery Options</Text>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
+  // const showSelectionPopup = () => (
+  //   <TouchableOpacity
+  //     onPress={() => setShowPopup(false)}
+  //     style={{
+  //       position: "absolute",
+  //       top: 50,
+  //       justifyContent: "center",
+  //       alignItems: "center",
+  //       // backgroundColor: 'rgba(0,0,0,0.2)',
+  //       zIndex: 10,
+  //       height: "100%",
+  //       width: "100%",
+  //     }}
+  //   >
+  //     <View
+  //       style={{
+  //         height: 100,
+  //         width: 200,
+  //         //   backgroundColor: 'red',
+  //         alignItems: "center",
+  //         justifyContent: "center",
+  //         marginTop: 20,
+  //       }}
+  //     >
+  //       <TouchableOpacity
+  //         onPress={requestPermission}
+  //         style={{
+  //           height: 50,
+  //           width: "100%",
+  //           justifyContent: "center",
+  //           alignItems: "center",
+  //         }}
+  //       >
+
+  //         <Text>Camera</Text>
+
+  //       </TouchableOpacity>
+
+  //       <View style={{ height: 1, width: "100%", backgroundColor: "grey" }} />
+  //       <TouchableOpacity
+  //         onPress={openImageLibrary}
+  //         style={{
+  //           height: 50,
+  //           width: "100%",
+  //           justifyContent: "center",
+  //           alignItems: "center",
+  //         }}
+  //       >
+  //         <Text>Gallery Options</Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //   </TouchableOpacity>
+  // );
 
   useEffect(async () => {
     const img = await AsyncStorage.getItem("profileImage");
     setNewImg(img);
   }, []);
+
+
   let options = {
     title: "You can choose one image",
     maxWidth: 256,
@@ -231,7 +289,7 @@ const YourProfle = ({ props, route }) => {
       setUserDetail(SINGLE_USER);
       setImageSource1(
         "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
-          userDetail[0]?.Extra_info[0]?.profile_image
+        userDetail[0]?.Extra_info[0]?.profile_image
       );
     },
     [SINGLE_USER],
@@ -242,7 +300,7 @@ const YourProfle = ({ props, route }) => {
     () => {
       setImageSource1(
         "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
-          userDetail[0]?.Extra_info[0]?.profile_image
+        userDetail[0]?.Extra_info[0]?.profile_image
       );
     },
     [SINGLE_USER],
@@ -266,7 +324,9 @@ const YourProfle = ({ props, route }) => {
 
   // console.log('route?.params?.complete', route?.params?.complete)
   // console.log('route?.params?.Academiccomplete', route?.params?.Academiccomplete)
-  console.log(PersonalInfo_Data, "PersonalInfo_Data");
+  // console.log(PersonalInfo_Data, "PersonalInfo_Data from your profile");
+  //console.log(AcademicHistory_Data, "AcademicHistory_DataAcademicHistory_Data from your profile");
+  console.log(Tution_Type, "Tution_TypeTution_TypeTution_Type from your profile");
   const UpdateProfile = () => {
     console.log(
       Tution_Type,
@@ -328,50 +388,90 @@ const YourProfle = ({ props, route }) => {
               style={styles.icons}
             />
           </TouchableOpacity>
-          <Image source={require("../Assets/bell.png")} style={styles.icons} />
+          {/* <Image source={require("../Assets/bell.png")} style={styles.icons} /> */}
         </View>
         <View style={styles.HeadRight}>
           {/* <Image source={require('../Assets/search.png')}
                         style={styles.icons}
                     /> */}
-          <Image source={require("../Assets/chat.png")} style={styles.icons} />
+          {/* <Image source={require("../Assets/chat.png")} style={styles.icons} /> */}
         </View>
       </View>
 
       <ScrollView>
         <View style={styles.usercontainer}>
-          {showPopup && showSelectionPopup()}
+          {/* {showPopup && showSelectionPopup()} */}
           <View style={styles.UserLeft}>
             <Text style={styles.text1}>Your Profile</Text>
             <Text style={styles.text2}>
-              Account is only completly setup with your profile
+              Complete your profile to access ALL Features
             </Text>
           </View>
         </View>
-
-        <TouchableOpacity
-          style={{
-            width: "100%",
-            height: 100,
-            borderRadius: 50,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "white",
-            marginTop: 65,
-          }}
-          onPress={() => setShowPopup(true)}
+        <View
+          style={{ flexDirection: "row", width: wp(90), justifyContent: "center", alignSelf: "center" }}
         >
-          <Image
-            source={{ uri: imageSource1 }}
+
+          <View
             style={{
-              width: 100,
+              width: "30%",
+            }}
+          >
+
+          </View>
+
+          <TouchableOpacity
+            style={{
+              width: "30%",
               height: 100,
               borderRadius: 50,
-              backgroundColor: "grey",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "white",
+              //  marginTop: 65,
             }}
-          />
-        </TouchableOpacity>
+            onPress={() => setShowPopup(true)}
+          >
+            <View
+              style={{
+                width: 25,
+                position: "relative",
+                top: 18,
+                left: wp(10),
+                //padding: 10,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#fff",
+                //  borderColor: '#000',
+                borderRadius: 20,
+                //   borderWidth: 2,
+                height: 25,
+              }}
+            >
+              <Image
+                source={require("../Assets/pencilEdit.png")}
+                style={{
+                  width: 15,
+                  height: 15,
 
+                  //  backgroundColor: "grey",
+                }}
+              />
+            </View>
+            <Image
+              source={{ uri: imageSource1 }}
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50,
+                backgroundColor: "grey",
+              }}
+            />
+          </TouchableOpacity>
+          <View style={styles.usercontainer1}>
+            {showPopup && showSelectionPopup()}
+          </View>
+        </View>
         <View style={styles.postContainer}>
           {route?.params?.complete === "complete" ? (
             <TouchableOpacity
@@ -412,14 +512,35 @@ const YourProfle = ({ props, route }) => {
                     onPress={() =>
                       navigation.navigate("PersonalInfo", {
                         RouteFrom: "Create",
+                        PersonalInfo_info: PersonalInfo_Data
                       })
                     }
                     style={styles.infoWrapper}
                   >
-                    <Text style={styles.infoWrapperText}>
-                      Enter Personal Information
-                    </Text>
+                    {PersonalInfo_Data == "" ?
+                      <Text style={styles.infoWrapperText}>
+                        Enter Personal Information
+                      </Text>
+                      :
+                      <Text style={styles.infoWrapperText}>
+                        Edit Personal Information
+                      </Text>
+                    }
+
                   </TouchableOpacity>
+                  {PersonalInfo_Data == "" ?
+                    <View />
+                    :
+
+                    <View style={styles.tickWrapper}>
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+                    </View>
+
+                  }
+
                   {/* // ) : null} */}
                   {/* {PersonalInfo_Data.persSave == false ? ( */}
                   {/* <View style={styles.tickWrapper}>
@@ -486,14 +607,34 @@ const YourProfle = ({ props, route }) => {
                     onPress={() =>
                       navigation.navigate("AcademicInfo", {
                         RouteFrom: "Create",
+                        AcademicHistory_Info: AcademicHistory_Data
                       })
                     }
                     style={styles.infoWrapper}
                   >
-                    <Text style={styles.infoWrapperText}>
-                      Enter Academic History
-                    </Text>
+                    {AcademicHistory_Data == "" ?
+                      <Text style={styles.infoWrapperText}>
+                        Enter Academic History
+                      </Text>
+                      :
+                      <Text style={styles.infoWrapperText}>
+                        Edit Academic History
+                      </Text>
+                    }
+
                   </TouchableOpacity>
+
+                  {AcademicHistory_Data == "" ?
+                    <View />
+                    :
+                    <View style={styles.tickWrapper}>
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+                    </View>
+
+                  }
                   {/* ) : null} */}
                   {/* {AcademicHistory_Data.acadSave == false ? (
                     <View style={styles.tickWrapper}>
@@ -645,6 +786,7 @@ const YourProfle = ({ props, route }) => {
                 onPress={() =>
                   navigation.navigate("HomeTution", {
                     RouteFrom: "Create",
+                    Tution_Info: Tution_Type
                   })
                 }
                 style={{
@@ -684,6 +826,7 @@ const YourProfle = ({ props, route }) => {
                   onPress={() =>
                     navigation.navigate("HomeTution", {
                       RouteFrom: "Create",
+                      Tution_Info: Tution_Type
                     })
                   }
                   style={{
@@ -697,12 +840,24 @@ const YourProfle = ({ props, route }) => {
                     justifyContent: "center",
                   }}
                 >
-                  {/* <Image source={require('../Assets/tutionsjobs.png')}
-                                        style={{height:hp(3), width:wp(6)}}/> */}
+                  {
+                    Tution_Type == "" ?
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+                      : <View style={styles.tickWrapper}>
+                        <Image
+                          source={require("../Assets/right.png")}
+                          style={styles.tickImage}
+                        />
+                      </View>
+                  }
+
                 </TouchableOpacity>
               </TouchableOpacity>
             </View>
-            <View style={{ alignSelf: "center", marginTop: hp(3) }}>
+            {/* <View style={{ alignSelf: "center", marginTop: hp(3) }}>
               <TouchableOpacity
                 style={{
                   backgroundColor: "#2F5597",
@@ -715,7 +870,7 @@ const YourProfle = ({ props, route }) => {
               >
                 <Text style={{ color: "#fff", fontSize: 14 }}>Save</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
 
           {route?.params?.Tutorcomplete === "Tutorccomplete" ? (
@@ -763,14 +918,33 @@ const YourProfle = ({ props, route }) => {
                     onPress={() =>
                       navigation.navigate("TutoringDetail", {
                         RouteFrom: "Create",
+                        Tutoring_Info: Tutoring_Data
                       })
                     }
                     style={styles.infoWrapper}
                   >
-                    <Text style={styles.infoWrapperText}>
-                      Enter Tutoring Details
-                    </Text>
+
+                    {Tutoring_Data == "" ?
+                      <Text style={styles.infoWrapperText}>
+                        Enter Tutoring Details
+                      </Text>
+                      :
+                      <Text style={styles.infoWrapperText}>
+                        Edit Tutoring Details
+                      </Text>
+                    }
                   </TouchableOpacity>
+                  {Tutoring_Data == "" ?
+                    <View />
+                    :
+                    <View style={styles.tickWrapper}>
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+                    </View>
+
+                  }
                   {/* ) : null} */}
                   {/* {TutionStatus_Data.tutSave == false ? (
                     <View style={styles.tickWrapper}>
@@ -867,12 +1041,31 @@ const YourProfle = ({ props, route }) => {
                     onPress={() =>
                       navigation.navigate("WordYou", {
                         RouteFrom: "Create",
+                        TutionStatus_Info: TutionStatus_Data
                       })
                     }
                     style={styles.infoWrapper}
                   >
-                    <Text style={styles.infoWrapperText}>A Word from You</Text>
+                    {TutionStatus_Data == "" ?
+                      <Text style={styles.infoWrapperText}>A Word from Yours</Text>
+
+                      :
+                      <Text style={styles.infoWrapperText}>Edit Word from Yours</Text>
+
+
+                    }
                   </TouchableOpacity>
+                  {TutionStatus_Data == "" ?
+                    <View />
+                    :
+                    <View style={styles.tickWrapper}>
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+                    </View>
+
+                  }
                   {/* )} */}
                 </View>
               </TouchableOpacity>
@@ -1034,6 +1227,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     //justifyContent: "center"
   },
+  usercontainer1: {
+    height: hp(10),
+    // backgroundColor: "red",
+    width: wp(30),
+    alignSelf: "center",
+
+    //justifyContent: "center"
+  },
   usericons: {
     height: 50,
     width: 50,
@@ -1164,6 +1365,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     position: "absolute",
     right: 5,
-    bottom: 1,
+
+    bottom: 7,
   },
 });

@@ -4,7 +4,9 @@ import {
   SafeAreaView,
   StyleSheet,
   View,
+  Platform,
   Text,
+  KeyboardAvoidingView,
   ScrollView,
   Image,
   Button,
@@ -36,19 +38,27 @@ import { Dropdown } from "react-native-element-dropdown";
 import { countryCode } from "../common/countrycode";
 import { launchImageLibrary, launchCamera } from "react-native-image-picker";
 import { request, check, PERMISSIONS, RESULTS } from "react-native-permissions";
+import { CanceledError } from "axios";
 const Register = ({ route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [FirstName, setFirstName] = React.useState("");
   const [LastName, setLastName] = React.useState("");
   const [Password, setPassword] = React.useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [Mobile, setMobile] = React.useState("");
   const [ConfirmEmail, setConfirmEmail] = React.useState("");
+  const [ConfirmEmailmsg, setConfirmEmailMsg] = React.useState("");
   const [Email, setEmail] = React.useState("");
   const [showemail, setShowEmail] = React.useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isTermsModalVisible, setTermsModalVisible] = useState(false);
   const [isVerfyModalVisible, setVerifyModalVisible] = useState(false);
   const [otp, setOtp] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [strength, setStrength] = useState('');
+  const [iconArraow, setIconArrow] = useState("");
+
   const [enable, setEnable] = useState(false);
   const [loader, setLoader] = useState(false);
   const [value, setValue] = useState([]);
@@ -64,10 +74,12 @@ const Register = ({ route }) => {
   useEffect(() => {
     setLoader(true);
     setImageSource1("");
+    setImageSource("");
     setTimeout(() => {
       setLoader(false);
     }, 2000);
   }, []);
+
 
   const data = countryCode;
   // [
@@ -93,6 +105,72 @@ const Register = ({ route }) => {
     setModalVisible(!isModalVisible);
   };
 
+
+  const validatePassword = (input) => {
+    let newSuggestions = [];
+    if (input.length < 8) {
+      newSuggestions.push('Password should be at least 8 characters long')
+    }
+    if (!/\d/.test(input)) {
+      newSuggestions.push('Add at least one number')
+    }
+
+    if (!/[A-Z]/.test(input) || !/[a-z]/.test(input)) {
+      newSuggestions.push('Include both upper and lower case letters')
+    }
+
+    if (!/[^A-Za-z0-9]/.test(input)) {
+      newSuggestions.push('Include at least one special character')
+    }
+
+    setSuggestions(newSuggestions);
+
+    // Determine password strength based on suggestions 
+    if (newSuggestions.length === 0) {
+      setStrength('Very Strong');
+    }
+    else if (newSuggestions.length <= 1) {
+      setStrength('Strong')
+    }
+    else if (newSuggestions.length <= 2) {
+      setStrength('Moderate')
+    }
+    else if (newSuggestions.length <= 3) {
+      setStrength('Weak')
+    }
+    else {
+      setStrength('Too Weak')
+    }
+  }
+
+
+  const ConfirmEmailAdd = (input) => {
+
+    if (input != Email) {
+      setConfirmEmailMsg('Email does not match')
+    }
+    else {
+      setConfirmEmailMsg("")
+
+    }
+
+  }
+
+
+  const ConfirmMobileAdd = (input) => {
+
+    if (input.length >= 7) {
+      setIconArrow("show")
+    }
+
+    else {
+      setIconArrow("")
+
+    }
+
+  }
+
+
   const VerifytoggleModal = () => {
     console.log(
       "AAAAAAAAAA",
@@ -104,30 +182,53 @@ const Register = ({ route }) => {
       ConfirmEmail
     );
 
+    let check = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/
+
+
     if (FirstName == "") {
       Alert.alert("Enter First Name");
-    } else if (LastName == "") {
+    }
+
+    else if (LastName == "") {
       Alert.alert("Enter Last Name");
-    } else if (Password == "") {
-      Alert.alert("Enter Password");
-    } else if (Email == "") {
+    }
+
+    // else if (Password.match(check)) {
+    //   Alert.alert("password should at leat one number,lower,upper character ");
+    // }
+
+    else if (Email == "") {
       Alert.alert("Enter Email");
     } else if (ConfirmEmail != Email) {
       Alert.alert("Email does not match");
-    } else if (Mobile == "") {
+    }
+    else if (value == "") {
+      Alert.alert("Choose Country Code");
+    }
+    else if (Mobile == "") {
       Alert.alert("Enter Mobile Number");
-    } else {
+    }
+    else if (value == "") {
+      Alert.alert("Choose Country Code");
+    }
+    else if (imageSource == "") {
+      Alert.alert("Please choose a profile pic");
+    }
+
+    else {
       dispatch(
-        RegisterUser(FirstName, LastName, Password, Email, value, Mobile)
+        RegisterUser(FirstName, LastName, Password, Email, value, Mobile, imageSource)
       );
 
       console.log("sddddddddd");
 
       // Alert.alert(Registermsg);
-      setVerifyModalVisible(!isVerfyModalVisible);
+      //  setVerifyModalVisible(!isVerfyModalVisible);
       //  setModalVisible(!isModalVisible);
     }
   };
+
+  const isSubmitDisabled = otp.length !== 4;
 
   const verifyOTP = () => {
     //console.log('LLLLLLLLLLPPPPPPPPPPPPP', otpcode);
@@ -171,7 +272,19 @@ const Register = ({ route }) => {
   // useEffect(() => {
   //   Get_Image();
   // }, []);
-
+  const shadowStyles = {
+    ...Platform.select({
+      android: {
+        elevation: 20,
+      },
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 3,
+      },
+    }),
+  };
   const Get_Image = async () => {
     const img = await AsyncStorage.getItem("profileImage");
     setNewImg(img);
@@ -186,12 +299,16 @@ const Register = ({ route }) => {
     },
   };
   const requestPermission = () => {
-    request(PERMISSIONS.IOS.CAMERA).then((result) => {
-      console.log("requestPermission -> result", result);
-      if (result === "granted") openCamera();
-    });
+    openCamera();
+    // request(PERMISSIONS.IOS.CAMERA).then((result) => {
+    //   // console.log("requestPermission -> result", result);
+    //   if (result === "granted") openCamera();
+    // });
   };
 
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   const openCamera = () => {
     launchCamera(options, (response) => {
       if (response.didCancel) {
@@ -247,18 +364,35 @@ const Register = ({ route }) => {
     setImageSource1(dataUrl);
   });
 
+  const CancelTerms = () => {
+
+    setTermsModalVisible(false)
+    setEnable(false)
+  }
+
+  const AgreeTerms = () => {
+
+    setTermsModalVisible(false)
+    setEnable(true)
+  }
+
+  //console.log(imageSource, "imageSourceimageSourceimageSourceimageSourceimageSource")
+  // console.log(imageSource1, "imageSource1imageSource1imageSource1imageSource1")
+
   const showSelectionPopup = () => (
     <TouchableOpacity
       onPress={() => setShowPopup(false)}
       style={{
-        position: "absolute",
+        // position: "absolute",
         // top: 2,
         justifyContent: "center",
         alignItems: "center",
+        //right: 0,
+
         // backgroundColor: 'rgba(0,0,0,0.2)',
-        zIndex: 10,
-        height: "100%",
-        width: "100%",
+        //zIndex: 10,
+        //height: "100%",
+        //width: "40%",
       }}
     >
       <View
@@ -280,9 +414,9 @@ const Register = ({ route }) => {
             alignItems: "center",
           }}
         >
-          <Text style={{ color: "#000" }}>Open Camera</Text>
+          <Text style={{ color: "#000", fontSize: 12 }}>Camera</Text>
         </TouchableOpacity>
-        <View style={{ height: 1, width: "100%", backgroundColor: "grey" }} />
+        <View style={{ height: 1, width: "50%", backgroundColor: "grey" }} />
         <TouchableOpacity
           onPress={openImageLibrary}
           style={{
@@ -292,63 +426,125 @@ const Register = ({ route }) => {
             alignItems: "center",
           }}
         >
-          <Text style={{ color: "#000" }}>Open Image Library</Text>
+          <Text style={{ color: "#000", fontSize: 12 }}>Gallery Options</Text>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}>
       <Loader flag={loader} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{ width: wp(92), alignSelf: "center" }}
       >
+        <View style={styles.bottomcontent}>
+          <Text style={styles.AlreadyText}>Already have an account? </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.loginText}>Login Here </Text>
+          </TouchableOpacity>
+        </View>
         <View style={styles.Headcontainer}>
           <Text style={styles.headtext}>Create Account</Text>
           <Text style={styles.Firsttext}>
-            Good Choice! Create an Account & experiance all {"\n"} the
-            intersting features
+            Good Choice! Create an Account & experiance all {"\n"}the
+            intersting features.
           </Text>
         </View>
-        <View style={styles.usercontainer}>
-          {showPopup && showSelectionPopup()}
-        </View>
-        <TouchableOpacity
-          style={{
-            width: "100%",
-            height: 100,
-            borderRadius: 50,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "white",
-            // marginTop: 65,s
-          }}
-          onPress={() => setShowPopup(true)}
+        <View
+          style={{ flexDirection: "row", width: wp(90), justifyContent: "center", alignSelf: "center" }}
         >
-          {/* {console.log(imageSource1, "LLLLLLLLLLLLLLLLLLLLLLL")} */}
-          {imageSource1 == "" ? (
-            <Image
-              source={require("../Assets/Profile.png")}
-              style={{
-                width: 100,
-                height: 100,
 
-                //  backgroundColor: "grey",
-              }}
-            />
-          ) : (
-            <Image
-              source={{ uri: imageSource1 }}
-              style={{
-                width: 100,
-                height: 100,
-                borderRadius: 50,
-                backgroundColor: "grey",
-              }}
-            />
-          )}
-        </TouchableOpacity>
+          <View
+            style={{
+              width: "30%",
+            }}
+          >
+
+          </View>
+          <TouchableOpacity
+            style={{
+              width: "30%",
+              //height: 100,
+              borderRadius: 50,
+              //     justifyContent: "center",
+              //  alignItems: "center",
+              alignItems: "flex-end",
+              // backgroundColor: "red",
+              // marginTop: 65,s
+            }}
+            onPress={() => setShowPopup(true)}
+          >
+            {/* {console.log(imageSource1, "LLLLLLLLLLLLLLLLLLLLLLL")} */}
+            {imageSource1 == "" ? (
+              <Image
+                source={require("../Assets/Profile.png")}
+                style={{
+                  width: 100,
+                  height: 100,
+
+                  //  backgroundColor: "grey",
+                }}
+              />
+            ) : (
+              <>
+                <View
+                  style={{
+                    width: 25,
+                    position: "relative",
+                    top: 10,
+                    left: 20,
+                    //padding: 10,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#fff",
+                    //  borderColor: '#000',
+                    borderRadius: 20,
+                    //   borderWidth: 2,
+                    height: 25,
+                  }}
+                >
+                  <Image
+                    source={require("../Assets/pencilEdit.png")}
+                    style={{
+                      width: 15,
+                      height: 15,
+
+                      //  backgroundColor: "grey",
+                    }}
+                  />
+                </View>
+                <View
+                  style={{
+                    alignItems: "center",
+                    borderRadius: 50,
+                    marginTop: -20,
+                    paddingBottom: 10,
+                    ...shadowStyles,
+                  }}
+                >
+                  <Image
+                    source={{ uri: imageSource1 }}
+                    style={{
+                      width: 100,
+                      height: 100,
+                      borderRadius: 50,
+
+                    }}
+                  />
+                </View>
+
+
+              </>
+            )}
+          </TouchableOpacity>
+          <View style={styles.usercontainer}>
+            {showPopup && showSelectionPopup()}
+          </View>
+
+        </View>
 
         {/* <View style={styles.ImageSec}>
           <View style={styles.Profileimage}>
@@ -391,42 +587,86 @@ const Register = ({ route }) => {
 
         <View style={styles.searchSection}>
           <Text style={styles.TextInputText}>Password</Text>
-          <TextInput
-            onChangeText={(text) => {
-              setPassword(text);
-            }}
-            placeholder="Password"
-            value={Password}
-            style={styles.input}
-          />
+          <View style={styles.Outinput}>
+            <TextInput
+              onChangeText={(text) => {
+                setPassword(text);
+                validatePassword(text)
+              }}
+              secureTextEntry={!showPassword}
+              placeholder="Password"
+              value={Password}
+              style={styles.passinput}
+            />
+
+            <TouchableOpacity
+              onPress={() => toggleShowPassword()}
+              style={{ justifyContent: "center", }}
+            >
+              {showPassword ?
+                <Image
+                  source={require("../Assets/view.png")}
+                  style={styles.icons}
+                />
+                :
+                <Image
+                  source={require("../Assets/hide.png")}
+                  style={styles.icons}
+                />
+              }
+            </TouchableOpacity>
+          </View>
+
+          <Text style={styles.strengthText}>
+            {strength}
+          </Text>
+          <Text style={styles.suggestionsText}>
+            {suggestions.map((suggestion, index) => (
+              <Text key={index}>
+                {suggestion}{'\n'}
+              </Text>))}
+          </Text>
+
+          {/* <MaterialCommunityIcons
+            name={showPassword ? 'eye-off' : 'eye'}
+            size={24}
+            color="#aaa"
+            style={styles.icon}
+            onPress={toggleShowPassword}
+          /> */}
         </View>
 
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row", width: wp(90), alignSelf: "center", justifyContent: "center" }}>
           <Text style={styles.TermsCondition}>
-            I agree to the Terms & Conditions, and the {"\n"} Privacy Policy
+            View T&C and Privacy Policy
           </Text>
           <TouchableOpacity
-            onPress={() => setEnable(!enable)}
+            //  onPress={() => setEnable(!enable)}
+            onPress={() => setTermsModalVisible(true)}
             style={
               enable
                 ? {
-                    height: 20,
-                    width: 20,
-                    borderRadius: 20,
-                    borderColor: "lightgrey",
-                    padding: 2,
-                    backgroundColor: "#2F5597",
-                    // marginLeft: wp(10),
-                    borderWidth: 3,
-                  }
+                  height: 20,
+                  width: 20,
+
+                  borderRadius: 20,
+                  alignSelf: "flex-end",
+                  borderColor: "lightgrey",
+                  padding: 2,
+                  marginLeft: 10,
+                  backgroundColor: "#2F5597",
+                  // marginLeft: wp(10),
+                  borderWidth: 3,
+                }
                 : {
-                    height: 20,
-                    width: 20,
-                    borderRadius: 20,
-                    borderColor: "lightgrey",
-                    // marginLeft: wp(10),
-                    borderWidth: 1,
-                  }
+                  height: 20,
+                  width: 20,
+                  marginLeft: 10,
+                  borderRadius: 20,
+                  borderColor: "lightgrey",
+                  // marginLeft: wp(10),
+                  borderWidth: 1,
+                }
             }
           ></TouchableOpacity>
         </View>
@@ -437,13 +677,13 @@ const Register = ({ route }) => {
               style={styles.mobiletoch}
               onPress={() => showcontent()}
             >
-              <Text style={styles.ButtonText}>Email</Text>
+              <Text style={styles.ButtonText}>Mobile Number</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.emailtoch}
               onPress={() => showcontent()}
             >
-              <Text style={styles.ButtonText}>Mobile Number</Text>
+              <Text style={styles.ButtonText}>Email</Text>
             </TouchableOpacity>
           </View>
         ) : (
@@ -452,43 +692,18 @@ const Register = ({ route }) => {
               style={styles.emailtoch}
               onPress={() => showcontent()}
             >
-              <Text style={styles.ButtonText}>Email</Text>
+              <Text style={styles.ButtonText}>Mobile Number</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.mobiletoch}
               onPress={() => showcontent()}
             >
-              <Text style={styles.ButtonText}>Mobile Number</Text>
+              <Text style={styles.ButtonText}>Email</Text>
             </TouchableOpacity>
           </View>
         )}
 
         {showemail == false ? (
-          <View>
-            <View style={styles.searchSection}>
-              <Text style={styles.TextInputText}>Email Address</Text>
-              <TextInput
-                onChangeText={(text) => {
-                  setEmail(text);
-                }}
-                placeholder="Email"
-                value={Email}
-                style={styles.input}
-              />
-            </View>
-            <View style={styles.searchSection}>
-              <Text style={styles.TextInputText}>Confirm Email Address</Text>
-              <TextInput
-                onChangeText={(text) => {
-                  setConfirmEmail(text);
-                }}
-                placeholder="Confirm Email"
-                value={ConfirmEmail}
-                style={styles.input}
-              />
-            </View>
-          </View>
-        ) : (
           <View>
             <Text style={styles.TextInputText}>Mobile Number</Text>
             <View
@@ -528,6 +743,7 @@ const Register = ({ route }) => {
               <TextInput
                 onChangeText={(text) => {
                   setMobile(text);
+                  ConfirmMobileAdd(text)
                 }}
                 placeholder="Mobile Number"
                 value={Mobile}
@@ -546,28 +762,155 @@ const Register = ({ route }) => {
                 }}
               />
             </View>
+            <View>
+              {iconArraow == "show" ?
+                <View style={{ height: wp(20), justifyContent: "center", }}>
+                  <TouchableOpacity
+                    onPress={() => showcontent()}
+                    style={styles.circleArrow}>
+                    <Image source={require("../Assets/circleArrow.png")} />
+                  </TouchableOpacity>
+                </View>
+                :
+
+                <View />
+              }
+
+            </View>
+            {/* <TouchableOpacity
+              disabled={!enable}
+              style={[
+                styles.RequsertButton,
+                { backgroundColor: enable ? "#2F5597" : "#bdc2dc" },
+              ]}
+             
+              onPress={() => VerifytoggleModal()}
+            >
+              <Text style={styles.ReqButtonText}>Request OTP</Text>
+            
+            </TouchableOpacity> */}
+          </View>
+
+        ) : (
+          <View>
+            <View style={styles.searchSection}>
+              <Text style={styles.TextInputText}>Email Address</Text>
+              <TextInput
+                onChangeText={(text) => {
+                  setEmail(text);
+                }}
+                placeholder="Email"
+                value={Email}
+                style={styles.input}
+              />
+            </View>
+            <View style={styles.searchSection}>
+              <Text style={styles.TextInputText}>Confirm Email Address</Text>
+              <TextInput
+                onChangeText={(text) => {
+                  setConfirmEmail(text);
+                  ConfirmEmailAdd(text)
+                }}
+                placeholder="Confirm Email"
+                value={ConfirmEmail}
+                style={styles.input}
+              />
+              <Text style={styles.suggestionsText}>
+                {ConfirmEmailmsg}
+              </Text>
+            </View>
+
             <TouchableOpacity
               disabled={!enable}
               style={[
                 styles.RequsertButton,
                 { backgroundColor: enable ? "#2F5597" : "#bdc2dc" },
               ]}
-              //onPress={() => navigation.navigate('OTPScreen')}
+
               onPress={() => VerifytoggleModal()}
             >
               <Text style={styles.ReqButtonText}>Request OTP</Text>
-              {/* <Text style={styles.ReqButtonText}>Choose Role</Text> */}
+
             </TouchableOpacity>
+            <View style={{ height: wp(10) }}></View>
           </View>
         )}
 
-        <View style={styles.bottomcontent}>
-          <Text style={styles.AlreadyText}>Already have an account? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text style={styles.loginText}>Login Here </Text>
-          </TouchableOpacity>
-        </View>
+
       </ScrollView>
+
+
+      <Modal
+        isVisible={isTermsModalVisible}
+        onBackdropPress={() => setTermsModalVisible(false)}
+      >
+        {/* <View style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, alignSelf: 'center', position: 'absolute', bottom: 0, height: hp(45), width: wp(100), backgroundColor: '#fff' }}>
+         */}
+        <View
+          style={{
+            //  height: "50%",
+            marginTop: "auto",
+            position: "absolute",
+            bottom: -20,
+            left: -20,
+            width: wp(100),
+          }}
+        >
+          <View style={styles.BlueContainer1}>
+            <Text style={styles.BlueText}>Terms & Condition</Text>
+          </View>
+          <View
+            style={{
+              alignSelf: "center",
+              // position: "absolute",
+              // bottom: 0,
+              height: hp(75),
+              width: wp(100),
+              backgroundColor: "#fff",
+            }}
+          >
+            <View style={styles.ModelTextContainer}>
+              <Text style={styles.TermModelText}> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the
+                1500s, when an unknown printer took a galley of type and scrambled it to
+                make a type specimen book. It has survived not only five centuries, but
+                also the leap into electronic typesetting, remaining essentially
+                unchanged. It was popularised in the 1960s with the release of Letraset
+                sheets containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.</Text>
+            </View>
+            <View style={{ alignContent: "flex-end", flexDirection: 'row', width: wp(60), alignSelf: 'center', justifyContent: "space-between" }}>
+              <TouchableOpacity
+                onPress={() => CancelTerms()}
+                style={{
+                  backgroundColor: "#2F5597",
+                  width: wp(20),
+                  alignItems: "center",
+                  padding: 10,
+                  borderRadius: 1,
+                }}
+              >
+                <Text style={{ color: '#fff', fontSize: 12 }}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => AgreeTerms()}
+                style={{
+                  backgroundColor: "#2F5597",
+                  width: wp(20),
+                  alignItems: "center",
+                  padding: 10,
+                  borderRadius: 1,
+                }}
+              >
+                <Text style={{ color: '#fff', fontSize: 12 }}>Agree</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          {/* </View> */}
+        </View>
+      </Modal>
+
 
       <Modal
         isVisible={isModalVisible}
@@ -666,13 +1009,15 @@ const Register = ({ route }) => {
             alignSelf: "center",
             position: "absolute",
             bottom: 0,
-            height: hp(80),
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+            height: hp(60),
             width: wp(100),
             backgroundColor: "#fff",
           }}
         >
           <View style={styles.BlueContainer}>
-            <Text style={styles.BlueText}>Verify Mobile Number</Text>
+            <Text style={styles.BlueText}>Verify Email Address</Text>
           </View>
           <View
             style={{
@@ -680,20 +1025,22 @@ const Register = ({ route }) => {
               borderTopRightRadius: 50,
               alignSelf: "center",
               position: "absolute",
-              top: hp(20),
+              top: hp(8),
               height: hp(45),
               width: wp(90),
               backgroundColor: "#fff",
+              elevation: 20,
+              color: '#000'
             }}
           >
             <View style={styles.ModelTextContainer}>
               <Text style={styles.ModelText}>Verification Code</Text>
               <Text style={styles.ModelText2}>
-                We have sent the code verification to your mobile number
+                OTP is sent to your email address
               </Text>
             </View>
             <OTPTextView
-              containerStyle={{ flex: 1, marginHorizontal: 16 }}
+              containerStyle={{ marginHorizontal: 16 }}
               handleTextChange={(text) => setOtp(text)}
               inputCount={4}
               keyboardType="numeric"
@@ -707,39 +1054,15 @@ const Register = ({ route }) => {
               height={66}
               tintColor={"#fff"}
             />
-            {/* <OtpInputs
-          handleChange={(code) => console.log(code)}
-          numberOfInputs={4}
-        /> */}
-            {/* <OTPInputView
-              handleChange={code => console.log(code)}
-              numberOfInputs={4}
-              style={{width: '60%', height: 100, alignSelf: 'center'}}
-              pinCount={4}
-              code={otp} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
-              onCodeChanged={otp => setOtp(otp)}
-              //autoFocusOnLoad
-              autoFocusOnLoad={false}
-              codeInputFieldStyle={styles.underlineStyleBase}
-              codeInputHighlightStyle={styles.underlineStyleHighLighted}
-              onCodeFilled={code => {
-                verifyOTP(code);
 
-                // navigation.navigate('Register', {
-                //     codeadd: 'yes'
-                // })
-                console.log(`Code is ${code}, you are good to go!`);
-              }}
-            /> */}
-            {/* <OtpInputs
+            <TouchableOpacity style={{ width: wp(90), alignSelf: "center", marginTop: wp(15), marginBottom: wp(2) }}>
+              <Text style={{ textAlign: "center", color: '#2F5597', fontSize: 12 }}>Resend OTP</Text>
+            </TouchableOpacity>
 
-          handleChange={(code) => console.log(code)}
-          numberOfInputs={4}
-        /> */}
             <TouchableOpacity
               style={{
                 alignSelf: "center",
-                backgroundColor: "#2F5597",
+                backgroundColor: isSubmitDisabled ? "#bdc2dc" : "#2F5597",
                 width: wp(70),
                 height: 50,
                 alignItems: "center",
@@ -749,6 +1072,7 @@ const Register = ({ route }) => {
               onPress={() => {
                 verifyOTP();
               }}
+              disabled={isSubmitDisabled}
             >
               <Text style={{ color: "#fff", fontSize: 15, fontWeight: "bold" }}>
                 Submit
@@ -757,7 +1081,7 @@ const Register = ({ route }) => {
           </View>
         </View>
       </Modal>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -789,6 +1113,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "700",
     textAlign: "center",
+  },
+  TermModelText: {
+    fontSize: 12,
+    // fontWeight: "700",
+    justifyContent: "center"
   },
 
   ModelText2: {
@@ -827,7 +1156,25 @@ const styles = StyleSheet.create({
     width: wp(100),
     alignSelf: "center",
     borderTopRightRadius: 20,
-    marginTop: hp(10),
+    // marginTop: hp(10),
+  },
+  strengthText: {
+    //fontWeight: 'bold',
+    fontSize: 10,
+    color: '#007700',
+  },
+  circleArrow: {
+    //flex: 0.1,
+    alignSelf: "flex-end"
+    // justifyContent: "center",
+    // alignItems: "flex-end",
+    // paddingRight: wp(4.5),
+    // paddingBottom: hp(4),
+  },
+  suggestionsText: {
+    color: 'red',
+    fontSize: 10,
+    paddingLeft: 15
   },
   BlueContainer1: {
     height: hp(10),
@@ -851,9 +1198,34 @@ const styles = StyleSheet.create({
     borderColor: "#D3D3D3",
     borderRadius: 20,
     fontSize: 14,
-    width: wp("90%"),
+    paddingLeft: 10,
+    width: wp(90),
     // fontFamily: 'SharpSansDispNo1-Semibold',
-    paddingLeft: 12,
+
+    color: "#131313",
+    height: 45,
+  },
+  passinput: {
+    // borderWidth: 1,
+    borderColor: "#D3D3D3",
+    borderRadius: 20,
+    fontSize: 14,
+    paddingLeft: 10,
+    width: wp(80),
+    // fontFamily: 'SharpSansDispNo1-Semibold',
+
+    color: "#131313",
+    height: 45,
+  },
+  Outinput: {
+    borderWidth: 1,
+    borderColor: "#D3D3D3",
+    borderRadius: 20,
+    flexDirection: "row",
+    fontSize: 14,
+    width: wp(90),
+    // fontFamily: 'SharpSansDispNo1-Semibold',
+
     color: "#131313",
     height: 45,
   },
@@ -919,7 +1291,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "red",
     color: "#131313",
     fontFamily: "Poppins-SemiBold",
-    // fontSize: 14,
+    fontSize: 12,
   },
   Rolecontainer: {
     //flexDirection: "row",
@@ -947,8 +1319,8 @@ const styles = StyleSheet.create({
     // alignSelf: "flex-end"
   },
   icons: {
-    height: 30,
-    width: 30,
+    height: 20,
+    width: 20,
     marginRight: 10,
   },
   moblieSec: {
@@ -982,7 +1354,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   RequsertButton: {
-    height: hp(7),
+    height: hp(5),
+    width: wp(80),
+    alignSelf: "center",
     borderRadius: 50,
     marginTop: 15,
     justifyContent: "center",
@@ -990,12 +1364,13 @@ const styles = StyleSheet.create({
   ReqButtonText: {
     color: "#fff",
     textAlign: "center",
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: "Poppins-Regular",
   },
   bottomcontent: {
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "row",
     marginTop: 15,
   },
   AlreadyText: {
@@ -1004,18 +1379,20 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: "#2F5597",
-    fontSize: 15,
+    fontSize: 12,
     paddingTop: 5,
     fontFamily: "Poppins-Bold",
     marginBottom: 5,
   },
 
   usercontainer: {
-    height: hp(10),
+    alignSelf: "flex-start",
     // backgroundColor: "red",
-    width: wp(90),
-    alignSelf: "center",
-    flexDirection: "row",
+    width: wp(30),
+    //backgroundColor: "yellow",
+
+    //alignSelf: "center",
+    //  flexDirection: "row",
     //justifyContent: "center"
   },
 });

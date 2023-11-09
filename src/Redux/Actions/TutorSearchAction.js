@@ -111,7 +111,7 @@ export const GetFilterBySubjects = (
 
           // navigation.navigate('OurTutor')
         } else if (responseJson.status == false) {
-          console.log("AAa", responseJson.message);
+          console.log("AAaaaaaaaaaaaaaaaaa", responseJson.message);
           dispatch({
             type: GET_FILTER_DATA,
             FILTER_DATA: [],

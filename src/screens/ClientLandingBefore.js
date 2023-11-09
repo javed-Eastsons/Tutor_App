@@ -94,6 +94,7 @@ const ClientLandingBefore = () => {
     personal_statement
   ) => {
     if (Login_Data === "") {
+      // navigation.navigate("Register");
       navigation.navigate("Register");
     } else {
       expandToggleModal(
@@ -178,7 +179,7 @@ const ClientLandingBefore = () => {
         <View style={styles.postContainer}>
           <TouchableOpacity
             style={[styles.cardLeft, styles.shadowPropLeft]}
-            //    onPress={() => navigation.navigate('TutorSearch')}
+          //    onPress={() => navigation.navigate('TutorSearch')}
           >
             <View style={styles.cardShadow1}>
               <Image
@@ -423,6 +424,9 @@ const ClientLandingBefore = () => {
                         }}
                         style={styles.tutorPic}
                       />
+                      {/* <Text>
+                        {item.profile_image}
+                      </Text> */}
                     </View>
 
                     <View
@@ -435,7 +439,6 @@ const ClientLandingBefore = () => {
                       <View
                         style={{
                           height: 20,
-
                           flexDirection: "row",
                         }}
                       >
@@ -470,7 +473,7 @@ const ClientLandingBefore = () => {
                           maxStars={5}
                           rating={4}
                           starSize={15}
-                          // selectedStar={(rating) => setStrCount(rating)}
+                        // selectedStar={(rating) => setStrCount(rating)}
                         />
                       </View>
 

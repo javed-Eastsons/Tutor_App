@@ -30,11 +30,15 @@ import { editProfile } from "../Redux/Actions/Tutors";
 import { AcademicHistory_Data } from "../Redux/Actions/types";
 var selectArray = [];
 
+
 const AcademicInfo = ({ route }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const fArr = [];
   console.log(selectArray, "selectArray");
+  console.log(route.params.AcademicHistory_Info, 'AcademicHistory_InfoAcademicHistory_InfoAcademicHistory_Info');
+
+
 
   ("");
 
@@ -136,7 +140,8 @@ const AcademicInfo = ({ route }) => {
   const [historyModal, setHistoryModal] = useState(false);
   const [historyModal1, setHistoryModal1] = useState(false);
   const [examName, setExamName] = useState("");
-  const [records, setRecords] = useState(selectArray);
+  //const [records, setRecords] = useState(selectArray);
+  const [records, setRecords] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
 
   const [editId, setEditId] = useState(); // ID of the record you want to edit
@@ -163,11 +168,35 @@ const AcademicInfo = ({ route }) => {
   useEffect(() => {
     setLoader(true);
     setUserDetail(SINGLE_USER);
-    setQualification(userDetail[0]?.Extra_info[0]?.qualification);
-    setSchool1(userDetail[0]?.Extra_info[0]?.name_of_school);
-    setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
-    setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
-    setRecords(userDetail[0]?.history_academy_arr);
+    // setQualification(userDetail[0]?.Extra_info[0]?.qualification);
+    if (route.params.AcademicHistory_Info.qualification == undefined &&
+      route.params.AcademicHistory_Info.school == undefined &&
+      route.params.AcademicHistory_Info.Course == undefined &&
+      route.params.AcademicHistory_Info.gra_year == undefined &&
+      route.params.AcademicHistory_Info.History == undefined
+    ) {
+      setQualification(userDetail[0]?.Extra_info[0]?.qualification);
+      setSchool1(userDetail[0]?.Extra_info[0]?.name_of_school);
+      setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
+      setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
+      setRecords(userDetail[0]?.history_academy_arr);
+
+    }
+
+    else {
+      setQualification(route.params.AcademicHistory_Info.qualification);
+      setSchool1(route.params.AcademicHistory_Info.school);
+      setCourses(route.params.AcademicHistory_Info.Course);
+      setGradYear(route.params.AcademicHistory_Info.gra_year);
+      setRecords(route.params.AcademicHistory_Info.History);
+
+
+    }
+
+    //setSchool1(userDetail[0]?.Extra_info[0]?.name_of_school);
+    //  setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
+    // setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
+    // setRecords(userDetail[0]?.history_academy_arr);
     setTimeout(() => {
       setLoader(false);
     }, 2000);
@@ -184,7 +213,8 @@ const AcademicInfo = ({ route }) => {
     { label: "Others", value: "Others" },
   ];
   const [otherExam, setOtherExam] = useState("");
-  const [countD, setCountD] = useState(1);
+
+  //const [countD, setCountD] = useState();
 
   const [Experience, setExperience] = useState("Select One Option");
   const Experience_List = [
@@ -228,6 +258,7 @@ const AcademicInfo = ({ route }) => {
 
   const saveacademicinfo = () => {
     setAcadSave(true);
+    selectArray = []
     console.log(
       "LLLLLL",
       qualification,
@@ -247,7 +278,8 @@ const AcademicInfo = ({ route }) => {
       // subject: subject,
       exam: state == "Others" ? otherExam : state,
       gra_year: gradYear,
-      History: selectArray,
+      //  History: selectArray,
+      History: records,
       GET_USER_ID: GET_USER_ID,
       acadSave: acadSave,
     };
@@ -267,9 +299,13 @@ const AcademicInfo = ({ route }) => {
     const updatedRecords = records.filter(
       (record) => record.HistoryID !== idToDelete
     );
-    console.log(updatedRecords, "AAAAAAAAAAAA");
+    console.log(updatedRecords, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     setRecords(updatedRecords);
+    //selectArray = []
   };
+
+
+
 
   const AddHistoryModal = () => {
     setHistoryModal(true);
@@ -333,7 +369,7 @@ const AcademicInfo = ({ route }) => {
   );
 
   const checkQual = () => {
-    console.log(qualification, "SSSSSSSSSSSSSSSSSS");
+    //console.log(qualification, "SSSSSSSSSSSSSSSSSS");
 
     if (
       qualification == "Ex School Teacher" ||
@@ -366,16 +402,19 @@ const AcademicInfo = ({ route }) => {
 
   const onDeleteE = () => {
     setSchool([]);
+    setSchool1("");
     setState("Select One Option");
     setExamName("");
   };
   const onDelete = () => {
     setSchool([]);
+    setSchool1("");
     setExperience("Select One Option");
   };
   const onDeleteGradYear = () => {
     setSchool([]);
     setCourses("");
+    setSchool1("");
     setGradYear("");
   };
   const onEditE = () => {
@@ -423,6 +462,11 @@ const AcademicInfo = ({ route }) => {
     selectArray = Ex_array;
   };
 
+
+  function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   const addHistoryData = (school, state) => {
     console.log(school, state, "@@@@@AAAAJJJJ@@@@");
 
@@ -430,13 +474,16 @@ const AcademicInfo = ({ route }) => {
     //   setSelectListTutor("");
     const obj3 = [];
 
-    setCountD(countD + 1);
+    const randomNum = getRandomNumber(1, 9999);
+
+    // setCountD(countD + randomNum);
 
     console.log(obj3, "AAAAA");
 
     var item1 = {};
     //  item1["history_academy_id"] = countD;
-    item1["HistoryID"] = countD;
+    // item1["HistoryID"] = countD;
+    item1["HistoryID"] = randomNum;
     item1["school"] = school;
     item1["exam"] = state == "Others" ? otherExam : state;
     item1["result"] = sections;
@@ -444,21 +491,32 @@ const AcademicInfo = ({ route }) => {
     // item1["grade"] = grade;
     console.log(item1, "itemasssssssssssss");
 
-    if (!isExistInArray(selectArray, "school", item1.school)) {
+    if (!isExistInArray(selectArray, "HistoryID", item1.HistoryID)) {
       //  console.log('insert in array');
       //records.push(item1);
+      // records && 
+      if (records == undefined) {
+        selectArray.push(item1);
+        setRecords(selectArray);
+      }
+      else {
+        records.push(item1)
+        setRecords(records);
+      }
 
-      selectArray.push(item1);
-      setRecords(selectArray);
+      // setRecords(records);
+
     } else {
       RemoveTempExercise(selectArray, "school", item1.school);
     }
+
+
     // }
     CrossButton();
     setSections([]);
   };
 
-  console.log(records, "QQQQQQQQQQQQQQQQQQQQQQ");
+  // console.log(selectArray, "QQQQQQQQQQQQQQQQQQQQQQ");
 
   const onTickFunc = () => {
     console.log(school, state, "PPPPPPPPPPPPPPPPPPPPPP");
@@ -618,6 +676,8 @@ const AcademicInfo = ({ route }) => {
                         />
                       </TouchableOpacity>
                     </TouchableOpacity>
+
+                    {/* {school1 == "" && gradYear == "" && courses == "" ? */}
                     <TouchableOpacity
                       onPress={() => {
                         checkQual();
@@ -660,71 +720,13 @@ const AcademicInfo = ({ route }) => {
                         Add Detail (optional)
                       </Text>
                     </TouchableOpacity>
-                    {school != [] && Experience != "Select One Option" ? (
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          marginHorizontal: wp(5),
-                          backgroundColor: "#fff",
-                          elevation: 10,
-                          height: hp(12),
-                          marginTop: hp(2),
-                        }}
-                      >
-                        <View style={{ marginLeft: wp(3) }}>
-                          <Text
-                            style={{
-                              fontSize: 13,
-                              color: "#2F5597",
-                              fontFamily: "Poppins-Regular",
-                            }}
-                          >
-                            {school}
-                          </Text>
-                          <Text style={{ color: "#000", fontSize: 13 }}>
-                            Year in Service / {Experience}
-                          </Text>
-                          {/* <Text style={{ color: '#000', fontSize: 14, }}>{year}</Text> */}
-                        </View>
-                        <View>
-                          <TouchableOpacity
-                            onPress={() => setDetails(true)}
-                            style={{
-                              backgroundColor: "lightblue",
-                              borderRadius: 6,
-                              height: hp(6),
-                              width: wp(14),
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
-                          >
-                            <Image
-                              source={require("../Assets/Pencil.png")}
-                              style={{ height: hp(3), width: wp(5) }}
-                            />
-                          </TouchableOpacity>
-                          <TouchableOpacity
-                            style={{
-                              backgroundColor: "#2F5597",
-                              borderRadius: 6,
-                              height: hp(6),
-                              width: wp(14),
-                              alignItems: "center",
-                              justifyContent: "center",
-                              marginTop: 5,
-                            }}
-                            onPress={onDelete}
-                          >
-                            <Image
-                              source={require("../Assets/delete.png")}
-                              style={{ height: hp(4), width: wp(7) }}
-                            />
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    ) : null}
+                    {/* :
+                      null
+                    } */}
+
+
+
+
                     {school1 ? (
                       <View
                         style={{
@@ -796,8 +798,8 @@ const AcademicInfo = ({ route }) => {
                     ) : null}
 
                     {school != [] &&
-                    state != "Select One Option" &&
-                    examName != "" ? (
+                      state != "Select One Option" &&
+                      examName != "" ? (
                       <View
                         style={{
                           flexDirection: "row",
@@ -1352,6 +1354,7 @@ const AcademicInfo = ({ route }) => {
                             width: wp(75),
                             color: "#000",
                           }}
+                          keyboardType="numeric"
                           value={gradYear}
                           onChangeText={(text) => {
                             setGradYear(text);
@@ -1367,7 +1370,7 @@ const AcademicInfo = ({ route }) => {
                 </Modal>
                 {/* modal end */}
               </View>
-              <View
+              {/* <View
                 style={{
                   flex: 0.1,
                   flexDirection: "row",
@@ -1390,7 +1393,7 @@ const AcademicInfo = ({ route }) => {
                 >
                   <Image source={require("../Assets/circleArrow.png")} />
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
           )}
           {showemail == "History" && (
@@ -1462,6 +1465,10 @@ const AcademicInfo = ({ route }) => {
                     />
                   }
                 >
+
+                  {console.log(records, 'LLLLLLLLLLLLLLLLL')}
+                  {console.log(selectArray, "QQQQQQQQQQQQQQQQQQQQQQ")}
+
                   {records &&
                     records.map((item) => {
                       return (
@@ -2457,7 +2464,9 @@ const AcademicInfo = ({ route }) => {
                 </Modal>
               </View>
               <View style={{ flex: 0.1, paddingBottom: hp(5) }}>
-                <TouchableOpacity
+
+
+                {/* <TouchableOpacity
                   onPress={() => navigation.goBack()}
                   style={styles.circleArrow}
                 >
@@ -2465,7 +2474,9 @@ const AcademicInfo = ({ route }) => {
                     style={{ transform: [{ rotate: "180deg" }] }}
                     source={require("../Assets/circleArrow.png")}
                   />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+
+
                 <View style={{ alignItems: "center" }}>
                   <TouchableOpacity
                     onPress={() => saveacademicinfo()}

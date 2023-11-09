@@ -48,11 +48,12 @@ var selectArray = [];
 var selectFilter = [];
 
 const StudentBookingInfo = ({ route }) => {
-  // const data = route.params.data;
-  // console.log(
-  //   "🚀 ~ file: StudentBookingInfo.js ~ line 37 ~ StudentBookingInfo ~ data",
-  //   data
-  // );
+  const data = route.params.data;
+  console.log(
+    "🚀 ~ file: StudentBookingInfo.js ~ line 37 ~ StudentBookingInfo ~ data",
+    data,
+    route.params.profile_pic, 'route.params.dataroute.params.dataroute.params.data'
+  );
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [value, setValue] = useState(null);
@@ -346,29 +347,83 @@ const StudentBookingInfo = ({ route }) => {
           width: "90%",
           alignSelf: "center",
           marginTop: 10,
+          // backgroundColor: "red",
           flexDirection: "row",
         }}
       >
         <View
           style={{
-            height: 60,
-            width: 100,
-            justifyContent: "center",
-            alignItems: "center",
+            height: 70,
+            width: "30%",
+            alignSelf: "center",
+            marginTop: 10,
+            //backgroundColor: "yellow",
+
           }}
         >
-          <Image
-            source={require("../Assets/user.png")}
-            style={styles.leftImage}
-          />
+
+          <View
+            style={{
+              height: 60,
+              width: 100,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+
+
+            {route.params.profile_pic == "" || route.params.profile_pic == null ? (
+              <Image
+                source={require("../Assets/user.png")}
+                style={styles.usericons}
+              />
+            ) : (
+              <Image
+                source={{
+                  uri: "https://refuel.site/projects/tutorapp/UPLOAD_file/" + data.profile_image,
+                }}
+                style={styles.usericons}
+              />
+            )}
+          </View>
+          <View style={{ height: 60, width: 200 }}>
+            <View style={{ height: 30, width: 200 }}>
+              {/* <Text style={styles.infoText}>{data.tutor_code}</Text> */}
+            </View>
+            <View style={{ height: 30, width: 200 }}>
+              {/* <Text style={styles.infoText}>{data.name_of_school}</Text> */}
+            </View>
+          </View>
         </View>
-        <View style={{ height: 60, width: 200 }}>
-          <View style={{ height: 30, width: 200 }}>
-            {/* <Text style={styles.infoText}>{data.tutor_code}</Text> */}
-          </View>
-          <View style={{ height: 30, width: 200 }}>
-            {/* <Text style={styles.infoText}>{data.name_of_school}</Text> */}
-          </View>
+        <View
+          style={{
+            height: 70,
+            width: "60%",
+            alignSelf: "center",
+            marginTop: 10,
+
+          }}
+        >
+          {/* {console.log("https://refuel.site/projects/tutorapp/UPLOAD_file/" + data.profile_image)}
+          <Text>{"https://refuel.site/projects/tutorapp/UPLOAD_file/" + data.profile_image}</Text> */}
+          <Text style={{ fontSize: 12, fontWeight: "700" }}>
+            Tutor Code:
+            <Text style={{ fontSize: 12, fontWeight: 'normal' }}>
+              {data.tutor_code}
+            </Text>
+          </Text>
+          <Text style={{ fontSize: 12, fontWeight: "700" }}>
+            Qualification:
+            <Text style={{ fontSize: 12, fontWeight: 'normal' }}>
+              {data.qualification}
+            </Text>
+          </Text>
+          <Text style={{ fontSize: 12, fontWeight: "700" }}>
+            Gender:
+            <Text style={{ fontSize: 12, fontWeight: 'normal' }}>
+              {data.gender}
+            </Text>
+          </Text>
         </View>
       </View>
       <View style={{ height: 20, width: "90%", alignSelf: "center" }}>
@@ -379,9 +434,10 @@ const StudentBookingInfo = ({ route }) => {
             maxStars={5}
             // rating={data.Average_Rating}
             starSize={15}
-            // selectedStar={(rating) => setStrCount(rating)}
+          // selectedStar={(rating) => setStrCount(rating)}
           />
         </View>
+
       </View>
       <View style={[styles.cardLeft, styles.shadowPropLeft]}>
         <Text style={styles.infoText1}>
@@ -657,7 +713,7 @@ const StudentBookingInfo = ({ route }) => {
                     //submitButtonText="Submit"
                     // styleDropdownMenu={{ backgroundColor: "red" }}
                     hideSubmitButton
-                    // styleItemsContainer={{}}
+                  // styleItemsContainer={{}}
                   />
                   {/* </View> */}
                 </View>
@@ -1013,6 +1069,11 @@ const styles = StyleSheet.create({
     // height: 150,
     // width: "60%",
     flex: 1,
+  },
+  usericons: {
+    height: 50,
+    width: 50,
+    borderRadius: 50,
   },
   HeadRight: {
     width: wp(45),

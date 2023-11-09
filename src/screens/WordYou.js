@@ -39,7 +39,9 @@ const WordYou = ({ route }) => {
   const [yourdata, setYourdata] = useState("");
   const [wordSave, setWordSave] = useState(false);
 
-  console.log("LLLLLLLLLLLLLLLLLLL", mark, yourdata);
+  console.log("LLLLLLLLLLLLLLLLLLL", mark, yourdata, route.params.TutionStatus_Info);
+
+
 
   useEffect(() => {
     dispatch(GetUserProfile(Login_Data.userid));
@@ -52,8 +54,18 @@ const WordYou = ({ route }) => {
   useEffect(() => {
     setLoader(true);
     setUserDetail(SINGLE_USER);
-    setYourdata(userDetail[0]?.Extra_info[0]?.personal_statement);
-    setmark(userDetail[0]?.Extra_info[0]?.tutor_status);
+    if (route.params.TutionStatus_Info.statement == undefined && route.params.TutionStatus_Info.WorkAs == undefined) {
+      setYourdata(userDetail[0]?.Extra_info[0]?.personal_statement);
+      setmark(userDetail[0]?.Extra_info[0]?.tutor_status);
+    }
+    else {
+      setYourdata(route.params.TutionStatus_Info.statement);
+
+      setmark(route.params.TutionStatus_Info.WorkAs);
+
+
+    }
+
     setTimeout(() => {
       setLoader(false);
     }, 2000);
@@ -127,10 +139,14 @@ const WordYou = ({ route }) => {
                 top: -hp(1),
               }}
             >
-              <Image
-                source={require("../Assets/closeingray.png")}
-                style={{ height: hp(6), width: wp(12) }}
-              />
+              <TouchableOpacity
+                onPress={() => setYourdata("")}
+              >
+                <Image
+                  source={require("../Assets/closeingray.png")}
+                  style={{ height: hp(6), width: wp(12) }}
+                />
+              </TouchableOpacity>
             </View>
             <TouchableOpacity
               style={{
