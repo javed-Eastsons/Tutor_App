@@ -31,6 +31,7 @@ const Login = () => {
   const [FirstName, setFirstName] = React.useState("");
   const [LastName, setLastName] = React.useState("");
   const [Password, setPassword] = React.useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [Mobile, setMobile] = React.useState("");
   const [ConfirmEmail, setConfirmEmail] = React.useState("");
   const [Email, setEmail] = React.useState("");
@@ -60,6 +61,9 @@ const Login = () => {
     console.log("sddddddddd");
   };
 
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <View style={styles.container}>
       <Loader flag={loader} />
@@ -70,10 +74,11 @@ const Login = () => {
         <View style={styles.Headcontainer}>
           <Text style={styles.headtext}>Login</Text>
           <Text style={styles.Firsttext}>
-            If this is your first time , Welcome!
+            If this your first time here, Welcome!
+
           </Text>
           <Text style={styles.Firsttext}>
-            If I have seen you before,it nice to see you again.
+            If not, Welcome Back!
           </Text>
         </View>
 
@@ -164,7 +169,7 @@ const Login = () => {
                     onChangeText={(text) => {
                       setEmail(text);
                     }}
-                    placeholder="Your Name"
+                    placeholder="Email Address"
                     value={Email}
                     style={styles.input}
                   />
@@ -195,7 +200,7 @@ const Login = () => {
                     onChangeText={(text) => {
                       setMobile(text);
                     }}
-                    placeholder="Mobile"
+                    placeholder="Mobile Number"
                     value={Mobile}
                     keyboardType="number-pad"
                     style={styles.input}
@@ -203,15 +208,53 @@ const Login = () => {
                 </View>
                 <View style={styles.searchSection}>
                   <Text style={styles.TextInputText}>Password</Text>
-                  <TextInput
-                    onChangeText={(text) => {
-                      setPassword(text);
-                    }}
-                    secureTextEntry={true}
-                    placeholder="Password"
-                    value={Password}
-                    style={styles.input}
-                  />
+                  <View style={styles.Outinput}>
+                    <TextInput
+                      onChangeText={(text) => {
+                        setPassword(text);
+                        //    validatePassword(text)
+                      }}
+                      secureTextEntry={!showPassword}
+                      placeholder="Password"
+                      value={Password}
+                      style={styles.passinput}
+                    />
+
+                    <TouchableOpacity
+                      onPress={() => toggleShowPassword()}
+                      style={{ justifyContent: "center", }}
+                    >
+                      {showPassword ?
+                        <Image
+                          source={require("../Assets/view.png")}
+                          style={styles.icons}
+                        />
+                        :
+                        <Image
+                          source={require("../Assets/hide.png")}
+                          style={styles.icons}
+                        />
+                      }
+                    </TouchableOpacity>
+                  </View>
+
+                  {/* <Text style={styles.strengthText}>
+                    {strength}
+                  </Text>
+                  <Text style={styles.suggestionsText}>
+                    {suggestions.map((suggestion, index) => (
+                      <Text key={index}>
+                        {suggestion}{'\n'}
+                      </Text>))}
+                  </Text> */}
+
+                  {/* <MaterialCommunityIcons
+            name={showPassword ? 'eye-off' : 'eye'}
+            size={24}
+            color="#aaa"
+            style={styles.icon}
+            onPress={toggleShowPassword}
+          /> */}
                 </View>
                 <View style={styles.bottomcontent}>
                   <Text style={styles.ForgotText}>Forgot Password?</Text>
@@ -242,6 +285,8 @@ const Login = () => {
         >
           <Text style={styles.ReqButtonText}>Sign In </Text>
         </TouchableOpacity>
+
+
       </ScrollView>
     </View>
   );
@@ -322,6 +367,11 @@ const styles = StyleSheet.create({
     width: wp(90),
     flexDirection: "row",
   },
+  icons: {
+    height: 20,
+    width: 20,
+    marginRight: 10,
+  },
   mobiletoch: {
     backgroundColor: "#2F5597",
     width: wp(28),
@@ -346,11 +396,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#2F5597",
     height: hp(7),
     borderRadius: 50,
-
     width: wp(90),
     alignSelf: "center",
     marginTop: hp(25),
     justifyContent: "center",
+
+
+
+
+    // Elevation for Android
+    elevation: 2,
   },
   ReqButtonText: {
     color: "#fff",
@@ -369,4 +424,31 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     paddingTop: 5,
   },
+  passinput: {
+    // borderWidth: 1,
+    borderColor: "#D3D3D3",
+    borderRadius: 20,
+    fontSize: 14,
+    paddingLeft: 10,
+    width: wp(80),
+    // fontFamily: 'SharpSansDispNo1-Semibold',
+
+    color: "#131313",
+    height: 45,
+  },
+  Outinput: {
+    borderWidth: 1,
+    borderColor: "#D3D3D3",
+    borderRadius: 20,
+    flexDirection: "row",
+    fontSize: 14,
+    width: wp(90),
+    // fontFamily: 'SharpSansDispNo1-Semibold',
+
+    color: "#131313",
+    height: 45,
+  },
+
+
+
 });

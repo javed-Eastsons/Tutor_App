@@ -72,8 +72,14 @@ const TutoringDetail = ({ route }) => {
   const [editTut, setEditTut] = useState(false)
   const [EditLevel, setEditLevel] = useState()
   const [completeEditLevel, setCompleteEditLevel] = useState()
+  const [expandedItemIndex, setExpandedItemIndex] = useState(null);
 
-  //console.log(selectArray, "Startttttttttttttttttttttttt");
+  // const [isCollapsed, setIsCollapsed] = useState(true);
+
+  const toggleCollapse = (index) => {
+    setExpandedItemIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
 
   //console.log(records, "recordsrecordsrecordsrecordsrecords");
   console.log(SUBJECT_LIST, "SUBJECT_LISTSUBJECT_LISTSUBJECT_LIST");
@@ -396,7 +402,7 @@ const TutoringDetail = ({ route }) => {
 
   const [selectListTutor, setSelectListTutor] = useState("");
   const [TutorLevel, setTutorLevel] = useState("");
-  const [levelDetail, setLevelDetail] = useState("");
+  const [levelDetail, setLevelDetail] = useState(false);
   const [levelDetailYear, setLevelDetailYear] = useState("");
   const [levelDetailGrade, setLevelDetailGrade] = useState("");
 
@@ -464,6 +470,7 @@ const TutoringDetail = ({ route }) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   const ALLDATA = () => {
+
     selectListTutor, gradeArray, state, state2, selectedItems;
 
     console.log(
@@ -652,7 +659,14 @@ const TutoringDetail = ({ route }) => {
   const EDITDATA = (id) => {
     setEditId(id)
 
-    setEditTut(true)
+    if (editTut == true) {
+      setEditTut(false)
+    }
+    else {
+      setEditTut(true)
+    }
+
+
 
 
   };
@@ -661,6 +675,9 @@ const TutoringDetail = ({ route }) => {
     dispatch(getGradeList(level));
 
   }
+
+
+  // console.log(gradeArray, 'UUUUUUUUUUUUUUUUUUUUUUUUU')
 
   const SelectAllOption = () => {
     if (GRADE_LIST?.Grade_List) {
@@ -745,12 +762,12 @@ const TutoringDetail = ({ route }) => {
     }
     // }
   };
-  console.log(count, "countttttttttttt");
-  console.log(
-    gradeArray,
-    //selectArray.Tutoring_ALL_Subjects[1],
-    "selectArrayselectArray@@@@@@@@@@@@@@@@@@@@@@@@@"
-  );
+  //  console.log(count, "countttttttttttt");
+  // console.log(
+  //   gradeArray,
+  //   //selectArray.Tutoring_ALL_Subjects[1],
+  //   "selectArrayselectArray@@@@@@@@@@@@@@@@@@@@@@@@@"
+  // );
 
   const SelectYear = (val) => {
     if (state == val) {
@@ -843,22 +860,71 @@ const TutoringDetail = ({ route }) => {
     // createsubject(selectedItems);
     setselectedItems(selectedItems);
   };
-  const handleGradeEdit = (level) => {
+  const handleGradeEdit = (level, selectedgrade) => {
+
+    if (typeof selectedgrade === 'string') {
+      const gradesArray = selectedgrade.split(","); // Split the string into an array
+
+      const transformedGrades = gradesArray.map(grade => ({ "Grade": grade })); // Transform each element
+      console.log(level, selectedgrade, "IIIIIIIIIIIIIIIIII", transformedGrades)
+      setGradeArray(transformedGrades)
+
+    }
+    else {
+      const transformedGrades = selectedgrade.map(grade => ({ "Grade": grade }));
+      console.log(level, selectedgrade, "IIIIIIIIIIIIIIIIII", transformedGrades)
+      setGradeArray(transformedGrades)
+    }
+
+
+    // const transformedGrades = selectedgrade.map(grade => ({ "Grade": grade }));
+
+
+
     setLevelDetailGrade(true)
-    gradeArray.splice(0, gradeArray.length)
+
+    //gradeArray.splice(0, gradeArray.length)
 
     setEditLevel(level)
   }
+
+
+
+  const handleTutExp = (year, month) => {
+    //console.log(year, month, '33333333333333333')
+    setState(year),
+      setState2(month)
+    setLevelDetailYear(true)
+
+  }
+
+  //console.log(editLevel, 'editleveleditleveleditleveleditleveleditlevel')
   const addNewTutoring = () => {
     setselectedItems([])
     setTutoring(true)
   }
-  const handleSubjectEdit = (level) => {
+  const handleSubjectEdit = (level, subjects) => {
 
-    console.log(level, '999999999')
+    console.log(level, '999999999', subjects)
+
+    if (typeof subjects === 'string') {
+      const transformedsubject = subjects.split(","); // Split the string into an array
+
+      // const transformedsubject = subjectArray.map(grade => ({ "Grade": grade })); // Transform each element
+      console.log(level, subjects, "IIIIIIIIIIIIIIIIII", transformedsubject)
+      setselectedItems(transformedsubject)
+
+    }
+    else {
+      const transformedsubject = subjects;
+      console.log(level, subjects, "IIIIIIIIIIIIIIIIII", transformedsubject)
+      setselectedItems(transformedsubject)
+    }
+
+
     dispatch(getSubjectList(level));
     setTutorSubjectEdit(true)
-    setselectedItems([])
+    //setselectedItems([])
 
     setEditLevel(level)
   }
@@ -1033,7 +1099,7 @@ const TutoringDetail = ({ route }) => {
   }, [SINGLE_USER]);
 
 
-  console.log(route.params.Tutoring_Info.selectArray, 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS')
+  //console.log(route.params.Tutoring_Info.selectArray, 'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS')
 
   useEffect(() => {
     setLoader(true);
@@ -1059,17 +1125,36 @@ const TutoringDetail = ({ route }) => {
   }, [SINGLE_USER]);
 
 
-  console.log(records, 'UUUUUUUUUUUUUUUUUU')
+  //console.log(records, 'UUUUUUUUUUUUUUUUUU')
 
 
   const deleteRecord = (idToDelete) => {
-    console.log(idToDelete, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    const updatedRecords = records.filter(
-      (record) => record.tutoring_detail_id !== idToDelete
+    Alert.alert(
+      'Are you sure',
+      'you want to delete ?', // <- this part is optional, you can pass an empty string
+      [
+        {
+          text: 'Yes',
+          onPress: () => {
+            const updatedRecords = records.filter(
+              (record) => record.tutoring_detail_id !== idToDelete
+            );
+            console.log(updatedRecords, "AAAAAAAAAAAA");
+            setRecords(updatedRecords);
+          },
+        },
+
+        {
+          text: 'No',
+          onPress: () => { cancelable: false },
+        },
+
+
+      ],
+
     );
-    console.log(updatedRecords, "AAAAAAAAAAAA");
-    setRecords(updatedRecords);
   };
+
 
   const selectLevelFunc = () => {
     selectListTutor == "" ? (() => { })() : setLevelDetail();
@@ -1094,13 +1179,13 @@ const TutoringDetail = ({ route }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
-          <Image source={require("../Assets/bell.png")} style={styles.icons} />
+          {/* <Image source={require("../Assets/bell.png")} style={styles.icons} />
 
           <Image
             source={require("../Assets/search.png")}
             style={styles.icons}
           />
-          <Image source={require("../Assets/chat.png")} style={styles.icons} />
+          <Image source={require("../Assets/chat.png")} style={styles.icons} /> */}
         </View>
       </View>
       {loader == true ? (
@@ -1121,8 +1206,7 @@ const TutoringDetail = ({ route }) => {
             }}
           >
             <Text style={{ color: "grey", fontSize: 14, paddingTop: hp(0.5) }}>
-              You can list your Tutoring Level, Subjects & Experience in this
-              section
+              List your Tutoring Levels, Subjects & Experience.
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -1160,20 +1244,22 @@ const TutoringDetail = ({ route }) => {
             </Text>
           </TouchableOpacity>
 
-          {console.log(records, "LLPPPPPPPPPPPPPLLPPPPPPPPPPPPPLLPPPPPPPPPPPPPLLPPPPPPPPPPPPP")}
+          {/* {console.log(records, "LLPPPPPPPPPPPPPLLPPPPPPPPPPPPPLLPPPPPPPPPPPPPLLPPPPPPPPPPPPP")} */}
 
           <ScrollView style={{ height: 300 }}>
             {records &&
               records.map((item, index) => (
                 <View
                   style={{
-                    justifyContent: "space-between",
-                    backgroundColor: "red",
+                    justifyContent: 'space-between',
+                    backgroundColor: 'red',
                     marginHorizontal: wp(5),
-                    backgroundColor: "#fff",
+                    backgroundColor: '#fff',
                     elevation: 10,
                     paddingVertical: hp(1),
                     marginTop: hp(2),
+                    marginBottom: hp(2),
+
                   }}
                   key={item.tutoring_detail_id}
                 >
@@ -1195,7 +1281,7 @@ const TutoringDetail = ({ route }) => {
                         >
                           {item.TutoringLevel}
                         </Text>
-                        {
+                        {/* {
                           editTut == true && editId === item.tutoring_detail_id ?
                             <TouchableOpacity
                               onPress={() => editLevel(item.TutoringLevel)}
@@ -1206,10 +1292,10 @@ const TutoringDetail = ({ route }) => {
                             </TouchableOpacity>
 
                             : null
-                        }
+                        } */}
 
                       </View>
-                      {
+                      {/* {
                         item.AdmissionLevel ?
                           <View style={{ flexDirection: "row" }}>
                             <Text
@@ -1227,7 +1313,7 @@ const TutoringDetail = ({ route }) => {
                                   onPress={() => setTutoring(true)}
                                 >
                                   <Image
-                                    source={require("../Assets/pencilEdit.png")}
+                                    source={require("../Assets/greyedit.png")}
                                   />
 
                                 </TouchableOpacity>
@@ -1237,7 +1323,7 @@ const TutoringDetail = ({ route }) => {
 
                           </View>
                           : null
-                      }
+                      } */}
 
                       <View style={{ flexDirection: "row" }}>
                         <Text
@@ -1247,17 +1333,19 @@ const TutoringDetail = ({ route }) => {
                             fontSize: 14,
                           }}
                         >
-                          {item.Tutoring_Grade + ","}
+                          {item.Tutoring_Grade + ", "}
+                          {/* {item.Tutoring_Grade.join(', ')} */}
                         </Text>
                         {
                           editTut == true && editId === item.tutoring_detail_id ?
                             <TouchableOpacity
                               onPress={() => {
-                                handleGradeEdit(item.TutoringLevel)
+                                handleGradeEdit(item.TutoringLevel, item.Tutoring_Grade)
                               }}
                             >
                               <Image
-                                source={require("../Assets/pencilEdit.png")}
+                                source={require("../Assets/greyedit.png")}
+                                style={{ height: 20, width: 20 }}
                               />
                             </TouchableOpacity>
 
@@ -1279,11 +1367,13 @@ const TutoringDetail = ({ route }) => {
                           editTut == true && editId === item.tutoring_detail_id ?
                             <TouchableOpacity
                               onPress={() => {
-                                setLevelDetailYear(true)
+                                handleTutExp(item.Tutoring_Year, item.Tutoring_Month)
+
                               }}
                             >
                               <Image
-                                source={require("../Assets/pencilEdit.png")}
+                                source={require("../Assets/greyedit.png")}
+                                style={{ height: 20, width: 20 }}
                               />
                             </TouchableOpacity>
 
@@ -1291,7 +1381,26 @@ const TutoringDetail = ({ route }) => {
                         }
 
                       </View>
-                      <View style={{ flexDirection: "row" }}>
+                      <View style={{
+                        flexDirection: "row", overflow: 'hidden', // Hide the overflow content
+                        // maxHeight: isCollapsed ? hp(3) : hp(10),
+                        maxHeight: expandedItemIndex === index ? hp(10) : hp(3),
+                        //  backgroundColor: "red"
+                      }}>
+                        <Text
+                          style={{
+                            marginLeft: wp(3),
+                            color: "#000",
+                            fontSize: 14,
+                            //    backgroundColor: "red",
+                            width: wp(60)
+                          }}
+                        >
+                          {/* {item.Tutoring_ALL_Subjects.join(', ')} */}
+                          {item.Tutoring_ALL_Subjects + ","}
+                          {"\n"}
+                        </Text>
+
                         <Text
                           style={{
                             marginLeft: wp(3),
@@ -1299,17 +1408,34 @@ const TutoringDetail = ({ route }) => {
                             fontSize: 14,
                           }}
                         >
-                          {item.Tutoring_ALL_Subjects + ","}
+
                         </Text>
+
+                        {/* <Text
+                          style={{
+                            marginLeft: wp(3),
+                            color: "#000",
+                            fontSize: 14,
+                          }}
+                        >
+                          {item.Tutoring_ALL_Subjects.split(',').map((subject, index) => (
+                            <Text key={index}>
+                              {subject.trim()}
+                              {index < item.Tutoring_ALL_Subjects.split(',').length - 1 ? '\n' : ''}
+                            </Text>
+                          ))}
+                        </Text> */}
+
                         {
                           editTut == true && editId === item.tutoring_detail_id ?
                             <TouchableOpacity
                               onPress={() => {
-                                handleSubjectEdit(item.TutoringLevel)
+                                handleSubjectEdit(item.TutoringLevel, item.Tutoring_ALL_Subjects)
                               }}
                             >
                               <Image
-                                source={require("../Assets/pencilEdit.png")}
+                                source={require("../Assets/greyedit.png")}
+                                style={{ height: 20, width: 20 }}
                               />
                             </TouchableOpacity>
 
@@ -1317,7 +1443,10 @@ const TutoringDetail = ({ route }) => {
                         }
 
                       </View>
-
+                      <TouchableOpacity onPress={() => toggleCollapse(index)}>
+                        <Text style={{ paddingLeft: 10, color: '#2F5597' }}>
+                          {expandedItemIndex === index ? 'See Less' : 'See More'}</Text>
+                      </TouchableOpacity>
 
 
                     </View>
@@ -1326,7 +1455,7 @@ const TutoringDetail = ({ route }) => {
                         onPress={() => EDITDATA(item.tutoring_detail_id)}
                         style={{
                           height: 50,
-                          backgroundColor: "lightblue",
+                          backgroundColor: "#2F5597",
                           width: 40,
                           justifyContent: "center",
                           alignItems: "center",
@@ -1342,14 +1471,17 @@ const TutoringDetail = ({ route }) => {
                         onPress={() => deleteRecord(item.tutoring_detail_id)}
                         style={{
                           height: 50,
-                          backgroundColor: "lightblue",
+                          backgroundColor: "#2F5597",
                           justifyContent: "center",
                           marginTop: 15,
                           alignItems: "center",
                         }}
                       >
 
-                        <Image source={require("../Assets/Deletes.png")} />
+                        <Image source={require("../Assets/delete.png")}
+
+                          style={{ height: hp(4), width: wp(7) }}
+                        />
                       </TouchableOpacity>
                     </View>
                   </View>
@@ -1462,32 +1594,42 @@ const TutoringDetail = ({ route }) => {
                     }}
                   >
                     <TouchableOpacity
-                      onPress={() => setTutoring(false)}
+                      onPress={() => {
+                        setTutoring(false);
+                        setSelectListTutor("");
+                      }}
                       style={styles.crossImageWrapper}
                     >
                       <Image
                         source={require("../Assets/closeingray.png")}
                         style={styles.crossImage}
                       />
-                    </TouchableOpacity>
 
-                    <TouchableOpacity
-                      //  onPress={() => AddQualification(TutorLevel)}
-                      onPress={() => selectLevelFunc()}
-                      // onPress={() =>
-                      //   selectListTutor == ""
-                      //     ? (() => {
-                      //         setTutoring(false);
-                      //       })()
-                      //     : setLevelDetail()
-                      // }
-                      style={styles.tickWrapper}
-                    >
-                      <Image
-                        source={require("../Assets/right.png")}
-                        style={styles.tickImage}
-                      />
+                      {/* {console.log(selectListTutor, 'selectListTutorselectListTutorselectListTutorselectListTutor')} */}
                     </TouchableOpacity>
+                    {selectListTutor == "" ?
+                      <View />
+
+                      :
+                      <TouchableOpacity
+                        //  onPress={() => AddQualification(TutorLevel)}
+                        onPress={() => selectLevelFunc()}
+                        // onPress={() =>
+                        //   selectListTutor == ""
+                        //     ? (() => {
+                        //         setTutoring(false);
+                        //       })()
+                        //     : setLevelDetail()
+                        // }
+                        style={styles.tickWrapper}
+                      >
+                        <Image
+                          source={require("../Assets/right.png")}
+                          style={styles.tickImage}
+                        />
+                      </TouchableOpacity>
+                    }
+
                   </View>
                   <View
                     style={{
@@ -1568,7 +1710,15 @@ const TutoringDetail = ({ route }) => {
                     }}
                   >
                     <TouchableOpacity
-                      onPress={() => setLevelDetail(false)}
+                      onPress={() => {
+                        setSelectListTutor("");
+                        setGradeArray([]);
+                        setLevelDetail(false);
+
+
+
+                      }
+                      }
                       style={styles.crossImageWrapper}
                     >
                       <Image
@@ -1576,19 +1726,30 @@ const TutoringDetail = ({ route }) => {
                         style={styles.crossImage}
                       />
                     </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() => {
-                        setTutorSubject(true);
-                        setLevelDetail(false);
-                        setTutoring(false);
-                      }}
-                      style={styles.tickWrapper}
-                    >
-                      <Image
-                        source={require("../Assets/right.png")}
-                        style={styles.tickImage}
-                      />
-                    </TouchableOpacity>
+                    {/* // {console.log(gradeArray, 'gradeArraygradeArraygradeArraygradeArray')} */}
+                    {console.log(state, 'statestatestatestatestate')}
+                    {console.log(state2, '222222222222')}
+
+                    {(gradeArray == [] || gradeArray == undefined || gradeArray == "") || (state == "Select Year" || state == "" || state == undefined) || (state2 == "Select Month" || state2 == "" || state2 == undefined) ?
+                      <View />
+                      :
+                      <TouchableOpacity
+                        onPress={() => {
+                          setTutorSubject(true);
+                          setLevelDetail(false);
+                          setTutoring(false);
+
+                        }}
+                        style={styles.tickWrapper}
+                      >
+                        <Image
+                          source={require("../Assets/right.png")}
+                          style={styles.tickImage}
+                        />
+
+                      </TouchableOpacity>
+                    }
+
                   </View>
                   <View
                     style={{ justifyContent: "center", alignItems: "center" }}
@@ -1596,7 +1757,7 @@ const TutoringDetail = ({ route }) => {
                     <Text
                       style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
                     >
-                      Select Level Details
+                      Select Level Details0000
                     </Text>
                   </View>
 
@@ -1644,6 +1805,7 @@ const TutoringDetail = ({ route }) => {
                       <ActivityIndicator size="small" />
                     </View>
                   ) : (
+
                     <View
                       style={{
                         marginHorizontal: wp(5),
@@ -1651,8 +1813,10 @@ const TutoringDetail = ({ route }) => {
                         flexDirection: "row",
                       }}
                     >
+
+                      {/* {console.log(selectListTutor, 'selectListTutorselectListTutorselectListTutorselectListTutor')} */}
                       {GRADE_LIST?.Grade_List &&
-                        GRADE_LIST?.Grade_List.map((item) => {
+                        GRADE_LIST?.Grade_List?.map((item) => {
                           return (
                             <View
                               style={{
@@ -1662,7 +1826,7 @@ const TutoringDetail = ({ route }) => {
                               }}
                             >
                               <TouchableOpacity
-                                //  onPress={() => setP1("P1")}
+
                                 onPress={() => gradeData(item?.grade_name)}
                                 style={{
                                   height: hp(4),
@@ -1676,26 +1840,267 @@ const TutoringDetail = ({ route }) => {
                                   )
                                     ? "#2F5597"
                                     : "#fff",
-                                  // gradeArray.map((item) => item?.Grade) ==
-                                  // item?.grade_name
-                                  //   ? "#2F5597"
-                                  //   : "#fff",
+
                                 }}
                               ></TouchableOpacity>
                               <Text
                                 style={{
                                   color: "grey",
-                                  fontSize: 14,
-                                  fontWeight: "800",
+                                  fontSize: 10,
+                                  fontWeight: "700",
                                 }}
                               >
+
+
+
                                 {item?.grade_name}
+
+
+
                               </Text>
                             </View>
                           );
                         })}
+                      {/* {selectListTutor === "AEIS" ?
+
+                        <View
+                          style={{
+                            marginHorizontal: wp(5),
+                            //marginTop: hp(3),
+                            flexDirection: "row",
+                          }}
+                        >
+                          {GRADE_LIST?.Grade_List &&
+                            GRADE_LIST?.Grade_List?.map((item) => {
+                              return (
+                                <View
+                                  style={{
+                                    width: wp(15),
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                  }}
+                                >
+                                  <TouchableOpacity
+                                    key={item.id}
+                                    onPress={() => gradeData(item?.grade_name)}
+                                    style={{
+                                      height: hp(4),
+                                      width: wp(8),
+                                      borderWidth: 1,
+                                      borderColor: "lightgrey",
+                                      backgroundColor: gradeArray.some(
+                                        (obj) =>
+                                          obj.hasOwnProperty("Grade") &&
+                                          obj["Grade"] === item.grade_name
+                                      )
+                                        ? "#2F5597"
+                                        : "#fff",
+
+                                    }}
+                                  ></TouchableOpacity>
+                                  <Text
+                                    style={{
+                                      color: "grey",
+                                      fontSize: 10,
+                                      fontWeight: "700",
+                                    }}
+                                  >
+
+
+                                    {item?.school_level_name}
+
+
+
+                                  </Text>
+                                </View>
+                              );
+                            })}
+
+                        </View>
+                        : selectListTutor === "Secondary" ?
+                          <>
+                            <View
+                              style={{
+                                marginHorizontal: wp(5),
+                                marginTop: hp(3),
+                                flexDirection: "row",
+                              }}
+                            >
+                              {GRADE_LIST?.Grade_List?.Grades &&
+                                GRADE_LIST?.Grade_List?.Grades?.map((item) => {
+                                  return (
+                                    <View
+                                      style={{
+                                        width: wp(15),
+                                        alignItems: "center",
+                                        justifyContent: "center",
+
+                                      }}
+                                    >
+                                      <TouchableOpacity
+                                        //  onPress={() => setP1("P1")}
+                                        key={item.id}
+                                        onPress={() => gradeData(item?.grade_name)}
+                                        style={{
+                                          height: hp(4),
+                                          width: wp(8),
+                                          borderWidth: 1,
+                                          borderColor: "lightgrey",
+                                          backgroundColor: gradeArray.some(
+                                            (obj) =>
+                                              obj.hasOwnProperty("Grade") &&
+                                              obj["Grade"] === item.grade_name
+                                          )
+                                            ? "#2F5597"
+                                            : "#fff",
+                                          // gradeArray.map((item) => item?.Grade) ==
+                                          // item?.grade_name
+                                          //   ? "#2F5597"
+                                          //   : "#fff",
+                                        }}
+                                      ></TouchableOpacity>
+                                      <Text
+                                        style={{
+                                          color: "grey",
+                                          fontSize: 10,
+                                          fontWeight: "700",
+                                        }}
+                                      >
+
+
+                                        {
+                                          item?.grade_name}
+
+
+                                      
+                                      </Text>
+                                    </View>
+                                  );
+                                })}
+                            </View>
+
+                            <View
+                              style={{
+                                marginHorizontal: wp(5),
+                                marginTop: hp(2),
+                                flexDirection: "row",
+                              }}
+                            >
+
+                              {GRADE_LIST?.Grade_List?.Grades &&
+                                GRADE_LIST?.Grade_List?.Streams?.map((item) => {
+                                  return (
+                                    <View
+                                      style={{
+                                        width: wp(15),
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                      }}
+                                    >
+                                      <TouchableOpacity
+                                        //  onPress={() => setP1("P1")}
+                                        key={item.id}
+                                        onPress={() => gradeData(item?.grade_name)}
+                                        style={{
+                                          height: hp(4),
+                                          width: wp(8),
+                                          borderWidth: 1,
+                                          borderColor: "lightgrey",
+                                          backgroundColor: gradeArray.some(
+                                            (obj) =>
+                                              obj.hasOwnProperty("Grade") &&
+                                              obj["Grade"] === item.grade_name
+                                          )
+                                            ? "#2F5597"
+                                            : "#fff",
+                                          // gradeArray.map((item) => item?.Grade) ==
+                                          // item?.grade_name
+                                          //   ? "#2F5597"
+                                          //   : "#fff",
+                                        }}
+                                      ></TouchableOpacity>
+                                      <Text
+                                        style={{
+                                          color: "grey",
+                                          fontSize: 10,
+                                          fontWeight: "700",
+                                        }}
+                                      >
+
+
+                                        {
+                                          item?.stream_name}
+
+
+                                    
+                                      </Text>
+                                    </View>
+                                  );
+                                })}
+                            </View>
+                          </>
+                          :
+                          <View
+                            style={{
+                              marginHorizontal: wp(5),
+                              marginTop: hp(3),
+                              flexDirection: "row",
+                            }}
+                          >
+
+                           {GRADE_LIST?.Grade_List &&
+                              GRADE_LIST?.Grade_List?.map((item) => {
+                                return (
+                                  <View
+                                    style={{
+                                      width: wp(15),
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                    }}
+                                  >
+                                    <TouchableOpacity
+
+                                      onPress={() => gradeData(item?.grade_name)}
+                                      style={{
+                                        height: hp(4),
+                                        width: wp(8),
+                                        borderWidth: 1,
+                                        borderColor: "lightgrey",
+                                        backgroundColor: gradeArray.some(
+                                          (obj) =>
+                                            obj.hasOwnProperty("Grade") &&
+                                            obj["Grade"] === item.grade_name
+                                        )
+                                          ? "#2F5597"
+                                          : "#fff",
+
+                                      }}
+                                    ></TouchableOpacity>
+                                    <Text
+                                      style={{
+                                        color: "grey",
+                                        fontSize: 10,
+                                        fontWeight: "700",
+                                      }}
+                                    >
+
+
+
+                                      {item?.grade_name}
+
+
+
+                                    </Text>
+                                  </View>
+                                );
+                              })} 
+                          </View>
+                      } */}
                     </View>
+
                   )}
+
+
 
                   <View>
                     <View style={{ marginTop: hp(2), marginLeft: wp(5) }}>
@@ -1827,6 +2232,7 @@ const TutoringDetail = ({ route }) => {
                     </View>
                   </View>
                 </View>
+
               </View>
             </Modal>
 
@@ -1850,7 +2256,7 @@ const TutoringDetail = ({ route }) => {
                     }}
                   >
                     <TouchableOpacity
-                      onPress={() => setLevelDetail(false)}
+                      onPress={() => setLevelDetailYear(false)}
                       style={styles.crossImageWrapper}
                     >
                       <Image
@@ -1877,7 +2283,7 @@ const TutoringDetail = ({ route }) => {
                     <Text
                       style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
                     >
-                      Select Level Details
+                      Select Level Details111
                     </Text>
                   </View>
 
@@ -2077,7 +2483,7 @@ const TutoringDetail = ({ route }) => {
                     <Text
                       style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
                     >
-                      Select Tutoring Level
+                      Select Tutoring Level11
                     </Text>
                   </View>
 
@@ -2173,7 +2579,7 @@ const TutoringDetail = ({ route }) => {
                     <Text
                       style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
                     >
-                      Select Level Details
+                      Select Level Details2222
                     </Text>
                   </View>
 
@@ -2221,6 +2627,7 @@ const TutoringDetail = ({ route }) => {
                       <ActivityIndicator size="small" />
                     </View>
                   ) : (
+
                     <View
                       style={{
                         marginHorizontal: wp(5),
@@ -2306,19 +2713,30 @@ const TutoringDetail = ({ route }) => {
                         style={styles.crossImage}
                       />
                     </TouchableOpacity>
-                    <TouchableOpacity
-                      //  onPress={() => setTutorSubject(false)}
-                      onPress={() => {
-                        UpdateSubjectRecord()
-                        setTutorSubjectEdit(false)
-                      }}
-                      style={styles.tickWrapper}
-                    >
-                      <Image
-                        source={require("../Assets/right.png")}
-                        style={styles.tickImage}
-                      />
-                    </TouchableOpacity>
+
+                    {console.log(selectedItems, 'selectedItemsselectedItemsselectedItems')}
+
+                    {selectedItems == "" || selectedItems == [] || selectedItems == undefined ?
+                      <View />
+                      :
+
+                      <TouchableOpacity
+                        //  onPress={() => setTutorSubject(false)}
+                        onPress={() => {
+                          UpdateSubjectRecord()
+                          setTutorSubjectEdit(false)
+                        }}
+                        style={styles.tickWrapper}
+                      >
+                        <Image
+                          source={require("../Assets/right.png")}
+                          style={styles.tickImage}
+                        />
+                      </TouchableOpacity>
+
+                    }
+
+
                   </View>
 
                   <View
@@ -2327,7 +2745,7 @@ const TutoringDetail = ({ route }) => {
                     <Text
                       style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
                     >
-                      Select Tutoring Subjects
+                      Select Tutoring Subjects11
                     </Text>
                   </View>
 
@@ -2345,7 +2763,7 @@ const TutoringDetail = ({ route }) => {
                     </Text>
                   </View>
 
-                  {console.log(SUBJECT_LIST && SUBJECT_LIST?.Subject_List, 'SUBJECT_LIST?.Subject_ListSUBJECT_LIST?.Subject_ListSUBJECT_LIST?.Subject_ListSUBJECT_LIST?.Subject_ListSUBJECT_LIST?.Subject_List')}
+                  {/* {console.log(SUBJECT_LIST && SUBJECT_LIST?.Subject_List, 'SUBJECT_LIST?.Subject_ListSUBJECT_LIST?.Subject_ListSUBJECT_LIST?.Subject_ListSUBJECT_LIST?.Subject_ListSUBJECT_LIST?.Subject_List')} */}
 
                   <View style={{ marginHorizontal: wp(5) }}>
                     <MultiSelect
@@ -2509,7 +2927,7 @@ const TutoringDetail = ({ route }) => {
               paddingBottom: hp(3),
             }}
           >
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => navigation.goBack()}
               style={styles.circleArrow}
             >
@@ -2517,7 +2935,7 @@ const TutoringDetail = ({ route }) => {
                 style={{ transform: [{ rotate: "180deg" }] }}
                 source={require("../Assets/circleArrow.png")}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <TouchableOpacity
                 onPress={() => savedata()}

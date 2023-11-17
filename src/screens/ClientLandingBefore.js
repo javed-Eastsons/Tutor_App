@@ -177,13 +177,13 @@ const ClientLandingBefore = () => {
         ></View>
 
         <View style={styles.postContainer}>
-          <TouchableOpacity
-            style={[styles.cardLeft, styles.shadowPropLeft]}
+          <View
+            style={[styles.cardLeft, styles.shadowPropLeft, { marginLeft: 6, height: hp(21.3) }]}
           //    onPress={() => navigation.navigate('TutorSearch')}
           >
             <View style={styles.cardShadow1}>
               <Image
-                source={require("../Assets/PastedGraphic5.png")}
+                source={require("../Assets/searchnow.png")}
                 style={styles.posticons}
               />
             </View>
@@ -212,6 +212,7 @@ const ClientLandingBefore = () => {
                   height: 30,
                   justifyContent: "center",
                   alignItems: "center",
+                  marginTop: 6
                 },
               ]}
             >
@@ -221,13 +222,23 @@ const ClientLandingBefore = () => {
                 Search Now
               </Text>
             </TouchableOpacity>
-          </TouchableOpacity>
-          <View style={[styles.cardLeft, styles.shadowPropLeft]}>
-            <View style={styles.cardShadow1}>
+          </View>
+          <View
+            style={[styles.cardLeft, styles.shadowPropLeft, { height: hp(21.3) }]}
+          //   style={[styles.cardLeft, styles.shadowPropLeft]}
+          >
+            {/* <View style={styles.cardShadow1}>
               <Image
                 source={require("../Assets/PastedGraphic7.png")}
-                // style={styles.posticons}
-                style={{ height: 35, width: 35, alignSelf: "center" }}
+                style={styles.posticons}
+              />
+            </View> */}
+            <View style={styles.cardShadow1}>
+              <Image
+                source={require("../Assets/checkin.png")}
+                //  style={styles.cardShadow2}
+                style={styles.posticons}
+              //style={{ height: 35, width: 35, alignSelf: "center" }}
               />
             </View>
 
@@ -264,6 +275,7 @@ const ClientLandingBefore = () => {
                   height: 30,
                   justifyContent: "center",
                   alignItems: "center",
+                  marginTop: 6
                 },
               ]}
             >
@@ -280,7 +292,9 @@ const ClientLandingBefore = () => {
           <ScrollView contentContainerStyle={{ padding: 5 }} horizontal={true}>
             <TouchableOpacity
               style={[styles.cardSlider, styles.shadowPropSlider]}
-              onPress={toggleModal}
+
+              onPress={() => navigation.navigate('ChatWithTutors')}
+            // onPress={toggleModal}
             >
               <View style={styles.cardShadow}>
                 <Image
@@ -300,7 +314,8 @@ const ClientLandingBefore = () => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.cardSlider, styles.shadowPropSlider]}
-              onPress={toggleModal}
+              onPress={() => navigation.navigate('OurTutorPop')}
+            //  onPress={toggleModal}
             >
               <View style={styles.cardShadow}>
                 <Image
@@ -321,7 +336,8 @@ const ClientLandingBefore = () => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.cardSlider, styles.shadowPropSlider]}
-              onPress={toggleModal}
+              onPress={() => navigation.navigate('OurServices')}
+            //  onPress={toggleModal}
             >
               <View style={styles.cardShadow}>
                 <Image
@@ -342,7 +358,8 @@ const ClientLandingBefore = () => {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.cardSlider, styles.shadowPropSlider]}
-              onPress={toggleModal}
+              onPress={() => navigation.navigate('MyActivityPop')}
+            //  onPress={toggleModal}
             >
               <View style={styles.cardShadow}>
                 <Image
@@ -364,7 +381,8 @@ const ClientLandingBefore = () => {
 
             <TouchableOpacity
               style={[styles.cardSlider, styles.shadowPropSlider]}
-              onPress={toggleModal}
+              onPress={() => navigation.navigate('Promotions')}
+            //  onPress={toggleModal}
             >
               <View style={styles.cardShadow}>
                 <Image
@@ -404,7 +422,7 @@ const ClientLandingBefore = () => {
 
               renderItem={({ item, index }) => (
                 <View style={{ marginTop: 10 }}>
-                  <TouchableOpacity
+                  <View
                     style={[
                       styles.List,
                       {
@@ -495,30 +513,35 @@ const ClientLandingBefore = () => {
                         >
                           {item.personal_statement}...
                         </Text>
-                        <TouchableOpacity
-                          onPress={() =>
-                            ClickONReadMore(
-                              item.profile_image,
-                              item.tutor_code,
-                              item.qualification,
-                              item.personal_statement
-                            )
-                          }
+                        <View
+                          style={{ width: wp(25), }}
                         >
-                          <Text
-                            style={{
-                              color: "#2F5597",
-                              fontSize: 12,
-                              fontStyle: "italic",
-                            }}
+                          <TouchableOpacity
+
+                            onPress={() =>
+                              navigation.navigate("TutorSearchProfile", {
+                                data: item
+                              })
+                            }
                           >
-                            read more
-                          </Text>
-                        </TouchableOpacity>
+                            <Text
+                              style={{
+                                color: "#2F5597",
+                                fontSize: 12,
+                                fontStyle: "italic",
+                                textAlign: "center"
+
+                              }}
+                            >
+                              View
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+
                       </View>
                     </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity
+                  </View>
+                  {/* <TouchableOpacity
                     onPress={() =>
                       ClickONReadMore(
                         item.profile_image,
@@ -539,7 +562,7 @@ const ClientLandingBefore = () => {
                       source={require("../Assets/Expand.png")}
                       style={{ height: 20, width: 20 }}
                     />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
 
                   {/* <View style={{ height: 20, width: "100%", marginHorizontal: 20, flexDirection: "row" }}>
                                   <Text style={styles.LIstText1}>{item.personal_statement}...</Text>
@@ -1009,8 +1032,8 @@ const styles = StyleSheet.create({
   },
   posticons: {
     alignSelf: "center",
-    height: 77,
-    width: 77,
+    height: 35,
+    width: 35,
   },
   postRighticons: {
     height: 50,
@@ -1109,6 +1132,29 @@ const styles = StyleSheet.create({
   cardShadow1: {
     height: 50,
     width: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 40,
+    alignSelf: "center",
+    // overflow: 'hidden',
+    backgroundColor: "white",
+    marginTop: 10,
+    // backgroundColor: 'red',
+    shadowColor: "#000",
+    // shadowOffset: {
+    //     width: 5,
+    //     height: 10,
+    //     width: -5,
+    //     height: -10,
+
+    // },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 10,
+  },
+  cardShadow2: {
+    height: 55,
+    width: 65,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 40,

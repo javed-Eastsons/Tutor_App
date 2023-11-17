@@ -93,6 +93,11 @@ import MyApplied from "../screens/MyApplied";
 import Checkout from "../screens/Checkout";
 import OnlineTuition from "../screens/OnlineTuition";
 import HomeworkHelp from "../screens/HomeworkHelp";
+import ChatWithTutors from "../screens/ChatWithTutors";
+import OurTutorPop from "../screens/OurTutorPop";
+import OurServices from "../screens/OurServices";
+import MyActivityPop from "../screens/MyActivityPop";
+import Promotions from "../screens/Promotions";
 import MyFavAssignment from "../screens/MyFavAssignment";
 
 const SignStack = createStackNavigator();
@@ -404,6 +409,107 @@ function SignInScreen() {
         }}
       />
       <SecondStack.Screen
+        name="ChatWithTutors"
+        component={ChatWithTutors}
+        options={{
+          title: "ChatWithTutors",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="OurTutorPop"
+        component={OurTutorPop}
+        options={{
+          title: "OurTutorPop",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="OurServices"
+        component={OurServices}
+        options={{
+          title: "OurServices",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="MyActivityPop"
+        component={MyActivityPop}
+        options={{
+          title: "MyActivityPop",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="Promotions"
+        component={Promotions}
+        options={{
+          title: "Promotions",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="TutorSearchProfile"
+        component={TutorSearchProfile}
+        options={{
+          title: "AuthCheck",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
         name="TutorSearch"
         component={TutorSearch}
         options={{
@@ -623,8 +729,8 @@ function MyTabBar({ state, descriptors, navigation }) {
           options.tabBarLabel !== undefined
             ? options.tabBarLabel
             : options.title !== undefined
-            ? options.title
-            : route.name;
+              ? options.title
+              : route.name;
 
         const isFocused = state.index === index;
         let showlabel = "";
@@ -632,7 +738,7 @@ function MyTabBar({ state, descriptors, navigation }) {
 
         if (label == "TutorHomeStacknavigation") {
           // showlabel = "Dashboard";
-          iconNm = require("../Assets/HomeTution.png");
+          iconNm = require("../Assets/homeicon.png");
 
           // {
           //   isFocused ?
@@ -644,7 +750,7 @@ function MyTabBar({ state, descriptors, navigation }) {
 
         if (label == "Bookmark") {
           // showlabel = "Settings";
-          iconNm = require("../Assets/ChatTutors.png");
+          iconNm = require("../Assets/msgicon.png");
 
           // {
           //   isFocused ?
@@ -658,7 +764,7 @@ function MyTabBar({ state, descriptors, navigation }) {
 
         if (label == "ClientLanding") {
           //showlabel = "Home";
-          iconNm = require("../Assets/HomeTution.png");
+          iconNm = require("../Assets/phone.png");
 
           // {
           //   isFocused ?
@@ -669,7 +775,7 @@ function MyTabBar({ state, descriptors, navigation }) {
         }
         if (label == "Tab4") {
           //showlabel = "Home";
-          iconNm = require("../Assets/Settings.png");
+          iconNm = require("../Assets/settingicon.png");
 
           // {
           //   isFocused ?
@@ -760,10 +866,20 @@ function MyTabBar({ state, descriptors, navigation }) {
                 padding: 8,
                 justifyContent: "center",
                 alignItems: "center",
+                borderWidth: 2,
+                borderColor: 'lightgrey',
+                width: 35,
+                height: 35,
+                elevation: 28,
+                shadowColor: 'black',  // Shadow color
+                shadowOpacity: 0.5,    // Opacity of the shadow
+                shadowRadius: 10,      // Radius of the shadow
+                shadowOffset: { width: 0, height: 20 },
+                borderRadius: 50,
                 alignSelf: "center",
               }}
             >
-              <Image source={iconNm} style={{ width: 30, height: 30 }} />
+              <Image source={iconNm} style={{ width: 20, height: 20, borderRadius: 50 }} />
 
               {/* <Text style={{ alignSelf: 'center', color: isFocused ? '#000' : '#0008', fontSize: 13,fontWeight:'bold' }}>
                       {showlabel}
@@ -1578,6 +1694,7 @@ function FirstStacknavigation() {
         }}
       />
 
+
       <FirstStack.Screen
         name="PersonalInfo"
         component={PersonalInfo}
@@ -1709,6 +1826,40 @@ function TutorHomeStacknavigation() {
           },
 
           headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="OnlineTuition"
+        component={OnlineTuition}
+        options={{
+          title: "OnlineTuition",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="HomeworkHelp"
+        component={HomeworkHelp}
+        options={{
+          title: "HomeworkHelp",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
           headerTintColor: "#fff",
           headerTitleAlign: "center",
           headerTitleStyle: {
@@ -2089,6 +2240,41 @@ function TutorHomeStacknavigation4() {
           },
 
           headerShown: false,
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="OnlineTuition"
+        component={OnlineTuition}
+        options={{
+          title: "OnlineTuition",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <SecondStack.Screen
+        name="HomeworkHelp"
+        component={HomeworkHelp}
+        options={{
+          title: "HomeworkHelp",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
           headerTintColor: "#fff",
           headerTitleAlign: "center",
           headerTitleStyle: {

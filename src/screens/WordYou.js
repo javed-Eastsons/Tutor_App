@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   Modal,
   FlatList,
+  Alert,
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { TextInput } from "react-native-gesture-handler";
@@ -76,26 +77,40 @@ const WordYou = ({ route }) => {
 
   const savedata = () => {
     // dispatch(editProfile(mark, GET_USER_ID));
+    console.log(mark, 'OOOOOOO', yourdata, 'LLLLLLLL')
 
-    setWordSave(true);
-    let obj = {
-      WorkAs: mark,
-      statement: yourdata,
-      wordSave: wordSave,
-    };
 
-    dispatch({
-      type: TutionStatus_Data,
-      payload: obj,
-    });
+    if (yourdata == "" || yourdata == undefined) {
+      Alert.alert('Please tell us something about you')
 
-    if (route.params.RouteFrom == "Update") {
-      navigation.navigate("UpdateProfile");
-    } else {
-      navigation.navigate("YourProfle");
+    }
+    else if (mark == "" || mark == undefined) {
+      Alert.alert('Please choose one option')
+
     }
 
-    console.log("LLLLLLLLLLLLLLLLLLL", mark, yourdata);
+    else {
+      setWordSave(true);
+      let obj = {
+        WorkAs: mark,
+        statement: yourdata,
+        wordSave: wordSave,
+      };
+
+      dispatch({
+        type: TutionStatus_Data,
+        payload: obj,
+      });
+      if (route.params.RouteFrom == "Update") {
+        navigation.navigate("UpdateProfile");
+      } else {
+        navigation.navigate("YourProfle");
+      }
+
+      console.log("LLLLLLLLLLLLLLLLLLL", mark, yourdata);
+    }
+
+
   };
 
   return (
@@ -111,13 +126,13 @@ const WordYou = ({ route }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
-          <Image source={require("../Assets/bell.png")} style={styles.icons} />
+          {/* <Image source={require("../Assets/bell.png")} style={styles.icons} /> */}
 
-          <Image
+          {/* <Image
             source={require("../Assets/search.png")}
             style={styles.icons}
-          />
-          <Image source={require("../Assets/chat.png")} style={styles.icons} />
+          /> */}
+          {/* <Image source={require("../Assets/chat.png")} style={styles.icons} /> */}
         </View>
       </View>
       {loader == true ? (
@@ -126,7 +141,7 @@ const WordYou = ({ route }) => {
         </View>
       ) : (
         <View style={{ flex: 1 }}>
-          <View style={{ flex: 0.9 }}>
+          <View style={{ flex: 0.9, marginTop: 30 }}>
             <View
               style={{
                 justifyContent: "flex-end",
@@ -143,8 +158,8 @@ const WordYou = ({ route }) => {
                 onPress={() => setYourdata("")}
               >
                 <Image
-                  source={require("../Assets/closeingray.png")}
-                  style={{ height: hp(6), width: wp(12) }}
+                  source={require("../Assets/editword.png")}
+                  style={{ height: hp(5), width: wp(10) }}
                 />
               </TouchableOpacity>
             </View>
@@ -171,7 +186,7 @@ const WordYou = ({ route }) => {
                 Terms & Conditions applies
               </Text>
               <TextInput
-                placeholder=" Write something about your tutoring experience. Highlight students’ performance under your tutelage (if available)"
+                placeholder="Write something about your tutoring experience,Tutoring Experience,Past Students"
                 numberOfLines={5}
                 multiline={true}
                 onChangeText={(text) => {
@@ -265,9 +280,9 @@ const WordYou = ({ route }) => {
               paddingBottom: hp(3),
             }}
           >
-            <TouchableOpacity style={styles.circleArrow}>
+            {/* <TouchableOpacity style={styles.circleArrow}>
               <Image source={require("../Assets/circleArrow.png")} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <View style={{ alignItems: "center" }}>
               <TouchableOpacity
                 onPress={() => savedata()}

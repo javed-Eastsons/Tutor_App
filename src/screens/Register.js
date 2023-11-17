@@ -37,6 +37,7 @@ import { Loader } from "../common/Loader";
 import { Dropdown } from "react-native-element-dropdown";
 import { countryCode } from "../common/countrycode";
 import { launchImageLibrary, launchCamera } from "react-native-image-picker";
+
 import { request, check, PERMISSIONS, RESULTS } from "react-native-permissions";
 import { CanceledError } from "axios";
 const Register = ({ route }) => {
@@ -46,6 +47,7 @@ const Register = ({ route }) => {
   const [LastName, setLastName] = React.useState("");
   const [Password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [userrole, setUserRole] = useState("");
   const [Mobile, setMobile] = React.useState("");
   const [ConfirmEmail, setConfirmEmail] = React.useState("");
   const [ConfirmEmailmsg, setConfirmEmailMsg] = React.useState("");
@@ -211,9 +213,9 @@ const Register = ({ route }) => {
     else if (value == "") {
       Alert.alert("Choose Country Code");
     }
-    else if (imageSource == "") {
-      Alert.alert("Please choose a profile pic");
-    }
+    // else if (imageSource == "") {
+    //   Alert.alert("Please choose a profile pic");
+    // }
 
     else {
       dispatch(
@@ -223,7 +225,7 @@ const Register = ({ route }) => {
       console.log("sddddddddd");
 
       // Alert.alert(Registermsg);
-      //  setVerifyModalVisible(!isVerfyModalVisible);
+      setVerifyModalVisible(!isVerfyModalVisible);
       //  setModalVisible(!isModalVisible);
     }
   };
@@ -245,6 +247,7 @@ const Register = ({ route }) => {
   };
 
   const selectrole = (role) => {
+    setUserRole(role)
     console.log("AAAAAAAAAAAAAAAA", role, otp);
     //navigation.navigate('Auth');
     setLoader(true);
@@ -320,7 +323,7 @@ const Register = ({ route }) => {
         console.log("User tapped custom button: ", response.customButton);
       } else {
         // console.log(response);
-        setNewImg(response);
+        setNewImg(response.assets[0].uri);
         AsyncStorage.setItem("profileImage", response);
       }
       setShowPopup(false);
@@ -406,18 +409,6 @@ const Register = ({ route }) => {
         }}
       >
         <TouchableOpacity
-          onPress={requestPermission}
-          style={{
-            height: 40,
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ color: "#000", fontSize: 12 }}>Camera</Text>
-        </TouchableOpacity>
-        <View style={{ height: 1, width: "50%", backgroundColor: "grey" }} />
-        <TouchableOpacity
           onPress={openImageLibrary}
           style={{
             height: 40,
@@ -426,7 +417,27 @@ const Register = ({ route }) => {
             alignItems: "center",
           }}
         >
-          <Text style={{ color: "#000", fontSize: 12 }}>Gallery Options</Text>
+          <Image
+            source={require("../Assets/gallery.png")}
+            style={styles.icons1}
+          />
+        </TouchableOpacity>
+
+        <View style={{ height: 0, width: "50%", backgroundColor: "grey" }} />
+        <TouchableOpacity
+          onPress={requestPermission}
+          style={{
+            height: 40,
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+
+          <Image
+            source={require("../Assets/camra.png")}
+            style={styles.icons1}
+          />
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
@@ -456,14 +467,10 @@ const Register = ({ route }) => {
         <View
           style={{ flexDirection: "row", width: wp(90), justifyContent: "center", alignSelf: "center" }}
         >
-
-          <View
-            style={{
-              width: "30%",
-            }}
-          >
-
+          <View style={styles.usercontainer}>
+            {showPopup && showSelectionPopup()}
           </View>
+
           <TouchableOpacity
             style={{
               width: "30%",
@@ -540,8 +547,12 @@ const Register = ({ route }) => {
               </>
             )}
           </TouchableOpacity>
-          <View style={styles.usercontainer}>
-            {showPopup && showSelectionPopup()}
+          <View
+            style={{
+              width: "30%",
+            }}
+          >
+
           </View>
 
         </View>
@@ -819,12 +830,17 @@ const Register = ({ route }) => {
                 {ConfirmEmailmsg}
               </Text>
             </View>
-
+            {console.log(!enable, 'HHHHHHHHHHHHH', enable, FirstName)}
             <TouchableOpacity
-              disabled={!enable}
+              disabled={
+                !enable ||
+                (FirstName === "" || LastName === "" || Password === "" || ConfirmEmail === "" || Email === "" || Mobile === "")
+              }
+
+              // disabled={enable && FirstName && LastName == "" && Password == "" && ConfirmEmail == "" && Email == "" && Mobile == ""}
               style={[
                 styles.RequsertButton,
-                { backgroundColor: enable ? "#2F5597" : "#bdc2dc" },
+                { backgroundColor: enable && FirstName != "" && LastName != "" && Password != "" && ConfirmEmail != "" && Email != "" && Mobile != "" ? "#2F5597" : "#bdc2dc" },
               ]}
 
               onPress={() => VerifytoggleModal()}
@@ -960,17 +976,30 @@ const Register = ({ route }) => {
                 <Text style={styles.ModelText1}>
                   I am looking for {"\n"}a Tutor
                 </Text>
-                <TouchableOpacity
-                  onPress={() => selectrole("I am looking for a Tutor")}
-                  // onPress={() => navigation.navigate('Auth')}
-                  style={{
-                    height: 20,
-                    width: 20,
-                    borderRadius: 20,
-                    borderColor: "lightgrey",
-                    borderWidth: 1,
-                  }}
-                ></TouchableOpacity>
+                <View style={{
+                  elevation: 10,
+                  shadowColor: '#000',
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 2,
+
+                  height: 20,
+                  width: 20,
+                  color: '#000'
+                }}>
+                  <TouchableOpacity
+                    onPress={() => selectrole("I am looking for a Tutor")}
+                    // onPress={() => navigation.navigate('Auth')}
+                    style={{
+                      height: 20,
+                      width: 20,
+                      borderRadius: 20,
+                      backgroundColor: userrole == "I am looking for a Tutor" ? "#2F5597" : "",
+                      borderColor: "lightgrey",
+                      borderWidth: 2,
+                    }}
+                  ></TouchableOpacity>
+                </View>
               </View>
 
               <View style={styles.Rolecontainer}>
@@ -979,17 +1008,30 @@ const Register = ({ route }) => {
                   style={styles.icons}
                 />
                 <Text style={styles.ModelText1}>I am an {"\n"}Educator</Text>
-                <TouchableOpacity
-                  //onPress={() => navigation.navigate('Auth2')}
-                  onPress={() => selectrole("I am an Educator")}
-                  style={{
-                    height: 20,
-                    width: 20,
-                    borderRadius: 20,
-                    borderColor: "lightgrey",
-                    borderWidth: 1,
-                  }}
-                ></TouchableOpacity>
+                <View style={{
+                  elevation: 10,
+                  shadowColor: '#000',
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 2,
+                  height: 20,
+
+                  width: 20,
+                  color: '#000'
+                }}>
+                  <TouchableOpacity
+                    //onPress={() => navigation.navigate('Auth2')}
+                    onPress={() => selectrole("I am an Educator")}
+                    style={{
+                      height: 20,
+                      width: 20,
+                      borderRadius: 20,
+                      backgroundColor: userrole == "I am an Educator" ? "#2F5597" : "",
+                      borderColor: "lightgrey",
+                      borderWidth: 2,
+                    }}
+                  ></TouchableOpacity>
+                </View>
               </View>
             </View>
           </View>
@@ -1081,7 +1123,7 @@ const Register = ({ route }) => {
           </View>
         </View>
       </Modal>
-    </KeyboardAvoidingView>
+    </KeyboardAvoidingView >
   );
 };
 
@@ -1323,6 +1365,11 @@ const styles = StyleSheet.create({
     width: 20,
     marginRight: 10,
   },
+  icons1: {
+    height: 40,
+    width: 40,
+    marginRight: 10,
+  },
   moblieSec: {
     backgroundColor: "lightgrey",
     height: hp(8),
@@ -1388,7 +1435,8 @@ const styles = StyleSheet.create({
   usercontainer: {
     alignSelf: "flex-start",
     // backgroundColor: "red",
-    width: wp(30),
+    width: wp(20),
+    marginTop: 10,
     //backgroundColor: "yellow",
 
     //alignSelf: "center",

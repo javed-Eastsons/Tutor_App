@@ -182,18 +182,6 @@ const YourProfle = ({ props, route }) => {
         }}
       >
         <TouchableOpacity
-          onPress={requestPermission}
-          style={{
-            height: 40,
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ color: "#000", fontSize: 12 }}>Camera</Text>
-        </TouchableOpacity>
-        <View style={{ height: 1, width: "50%", backgroundColor: "grey" }} />
-        <TouchableOpacity
           onPress={openImageLibrary}
           style={{
             height: 40,
@@ -202,7 +190,27 @@ const YourProfle = ({ props, route }) => {
             alignItems: "center",
           }}
         >
-          <Text style={{ color: "#000", fontSize: 12 }}>Gallery Options</Text>
+          <Image
+            source={require("../Assets/gallery.png")}
+            style={styles.icons1}
+          />
+        </TouchableOpacity>
+
+        <View style={{ height: 0, width: "50%", backgroundColor: "grey" }} />
+        <TouchableOpacity
+          onPress={requestPermission}
+          style={{
+            height: 40,
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+
+          <Image
+            source={require("../Assets/camra.png")}
+            style={styles.icons1}
+          />
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
@@ -411,14 +419,10 @@ const YourProfle = ({ props, route }) => {
         <View
           style={{ flexDirection: "row", width: wp(90), justifyContent: "center", alignSelf: "center" }}
         >
-
-          <View
-            style={{
-              width: "30%",
-            }}
-          >
-
+          <View style={styles.usercontainer1}>
+            {showPopup && showSelectionPopup()}
           </View>
+
 
           <TouchableOpacity
             style={{
@@ -432,32 +436,42 @@ const YourProfle = ({ props, route }) => {
             }}
             onPress={() => setShowPopup(true)}
           >
-            <View
-              style={{
-                width: 25,
-                position: "relative",
-                top: 18,
-                left: wp(10),
-                //padding: 10,
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#fff",
-                //  borderColor: '#000',
-                borderRadius: 20,
-                //   borderWidth: 2,
-                height: 25,
-              }}
-            >
-              <Image
-                source={require("../Assets/pencilEdit.png")}
-                style={{
-                  width: 15,
-                  height: 15,
 
-                  //  backgroundColor: "grey",
+            {imageSource1 == "https://refuel.site/projects/tutorapp/UPLOAD_file/undefined" || imageSource1 == "" || imageSource1 == undefined ?
+              <View />
+
+              :
+
+              <View
+                style={{
+                  width: 25,
+                  position: "relative",
+                  top: 18,
+                  left: wp(10),
+                  //padding: 10,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#fff",
+                  //  borderColor: '#000',
+                  borderRadius: 20,
+                  //   borderWidth: 2,
+                  height: 25,
                 }}
-              />
-            </View>
+              >
+                <Image
+                  source={require("../Assets/pencilEdit.png")}
+                  style={{
+                    width: 15,
+                    height: 15,
+
+                    //  backgroundColor: "grey",
+                  }}
+                />
+              </View>
+            }
+
+
+            {console.log(imageSource1, 'imageSource1imageSource1imageSource1imageSource1imageSource1')}
             <Image
               source={{ uri: imageSource1 }}
               style={{
@@ -468,13 +482,17 @@ const YourProfle = ({ props, route }) => {
               }}
             />
           </TouchableOpacity>
-          <View style={styles.usercontainer1}>
-            {showPopup && showSelectionPopup()}
+          <View
+            style={{
+              width: "30%",
+            }}
+          >
+
           </View>
         </View>
         <View style={styles.postContainer}>
           {route?.params?.complete === "complete" ? (
-            <TouchableOpacity
+            <View
               style={[styles.postLeft, { justifyContent: "space-between" }]}
             >
               <View style={{ flexDirection: "row" }}>
@@ -488,7 +506,7 @@ const YourProfle = ({ props, route }) => {
                 source={require("../Assets/tutionsjobs.png")}
                 style={styles.tickIcon}
               />
-            </TouchableOpacity>
+            </View>
           ) : (
             <View style={styles.postLeft}>
               <View>
@@ -497,7 +515,7 @@ const YourProfle = ({ props, route }) => {
                   style={styles.posticons}
                 />
               </View>
-              <TouchableOpacity
+              <View
                 onPress={() => {
                   setShowPers(true);
                 }}
@@ -517,7 +535,8 @@ const YourProfle = ({ props, route }) => {
                     }
                     style={styles.infoWrapper}
                   >
-                    {PersonalInfo_Data == "" ?
+                    {PersonalInfo_Data.Age == "" || PersonalInfo_Data.Age == undefined && PersonalInfo_Data.markGender == undefined && PersonalInfo_Data.selectnational == undefined ?
+
                       <Text style={styles.infoWrapperText}>
                         Enter Personal Information
                       </Text>
@@ -528,7 +547,8 @@ const YourProfle = ({ props, route }) => {
                     }
 
                   </TouchableOpacity>
-                  {PersonalInfo_Data == "" ?
+                  {PersonalInfo_Data.Age == "" || PersonalInfo_Data.Age == undefined && PersonalInfo_Data.markGender == undefined && PersonalInfo_Data.selectnational == undefined ?
+
                     <View />
                     :
 
@@ -564,7 +584,7 @@ const YourProfle = ({ props, route }) => {
                   </TouchableOpacity> */}
                   {/* // )} */}
                 </View>
-              </TouchableOpacity>
+              </View>
             </View>
           )}
 
@@ -592,7 +612,7 @@ const YourProfle = ({ props, route }) => {
                   style={styles.posticons}
                 />
               </View>
-              <TouchableOpacity
+              <View
                 onPress={() => {
                   setShowAcad(true);
                 }}
@@ -612,7 +632,11 @@ const YourProfle = ({ props, route }) => {
                     }
                     style={styles.infoWrapper}
                   >
-                    {AcademicHistory_Data == "" ?
+
+                    {console.log(AcademicHistory_Data, '7777777777777777777')}
+                    {AcademicHistory_Data == "" || AcademicHistory_Data.Course == undefined || AcademicHistory_Data.Course == "" || AcademicHistory_Data.gra_year == undefined || AcademicHistory_Data.gra_year == ""
+                      || AcademicHistory_Data.qualification == undefined || AcademicHistory_Data.qualification == ""
+                      ?
                       <Text style={styles.infoWrapperText}>
                         Enter Academic History
                       </Text>
@@ -624,7 +648,9 @@ const YourProfle = ({ props, route }) => {
 
                   </TouchableOpacity>
 
-                  {AcademicHistory_Data == "" ?
+                  {AcademicHistory_Data == "" || AcademicHistory_Data.Course == undefined || AcademicHistory_Data.Course == "" || AcademicHistory_Data.gra_year == undefined || AcademicHistory_Data.gra_year == ""
+                    || AcademicHistory_Data.qualification == undefined || AcademicHistory_Data.qualification == ""
+                    ?
                     <View />
                     :
                     <View style={styles.tickWrapper}>
@@ -658,7 +684,7 @@ const YourProfle = ({ props, route }) => {
                     </TouchableOpacity>
                   )} */}
                 </View>
-              </TouchableOpacity>
+              </View>
             </View>
           )}
           {/* <View style={styles.postLeft}>
@@ -674,20 +700,21 @@ const YourProfle = ({ props, route }) => {
                 style={styles.posticons}
               />
               <View>
-                <Text style={styles.postText}>Tution Type</Text>
+                {/* <Text style={styles.postText}>Tution Type</Text>Select the Tuition Services you would like to provide */}
+                <Text style={styles.postText}>Select the Tuition Services you would like {"\n"}to provide</Text>
                 <Text style={styles.postSemiText}>
                   We have a few tuition services. What are your preferences?
                 </Text>
               </View>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", width: wp(86), justifyContent: "space-between", alignSelf: "center" }}>
               <TouchableOpacity
                 style={{
                   height: hp(20),
                   marginTop: hp(2),
                   alignItems: "center",
-                  marginLeft: wp(3),
-                  width: wp(26.7),
+                  // marginLeft: wp(3),
+                  width: wp(27),
                   backgroundColor: "#fff",
                   elevation: 10,
                   borderRadius: 8,
@@ -717,8 +744,8 @@ const YourProfle = ({ props, route }) => {
 
                 <TouchableOpacity
                   style={{
-                    height: hp(4),
-                    width: wp(8),
+                    height: 30,
+                    width: 30,
                     borderRadius: 50,
                     backgroundColor: "#fff",
                     elevation: 10,
@@ -736,8 +763,8 @@ const YourProfle = ({ props, route }) => {
                   height: hp(20),
                   marginTop: hp(2),
                   alignItems: "center",
-                  marginLeft: wp(3),
-                  width: wp(26.7),
+                  //  marginLeft: wp(3),
+                  width: wp(27),
                   backgroundColor: "#fff",
                   elevation: 10,
                   borderRadius: 8,
@@ -767,8 +794,8 @@ const YourProfle = ({ props, route }) => {
 
                 <TouchableOpacity
                   style={{
-                    height: hp(4),
-                    width: wp(8),
+                    height: 30,
+                    width: 30,
                     borderRadius: 50,
                     backgroundColor: "#fff",
                     elevation: 10,
@@ -793,8 +820,8 @@ const YourProfle = ({ props, route }) => {
                   height: hp(20),
                   marginTop: hp(2),
                   alignItems: "center",
-                  marginLeft: wp(3),
-                  width: wp(26.7),
+                  //   marginLeft: wp(3),
+                  width: wp(27),
                   backgroundColor: "#fff",
                   elevation: 10,
                   borderRadius: 8,
@@ -813,7 +840,7 @@ const YourProfle = ({ props, route }) => {
                   }}
                 >
                   <Image
-                    source={require("../Assets/hometutIcon.png")}
+                    source={require("../Assets/8a.png")}
                     style={{ height: hp(4), width: wp(6) }}
                   />
                 </View>
@@ -830,8 +857,8 @@ const YourProfle = ({ props, route }) => {
                     })
                   }
                   style={{
-                    height: hp(4),
-                    width: wp(8),
+                    height: 30,
+                    width: 30,
                     borderRadius: 50,
                     backgroundColor: "#fff",
                     elevation: 10,
@@ -841,7 +868,9 @@ const YourProfle = ({ props, route }) => {
                   }}
                 >
                   {
-                    Tution_Type == "" ?
+                    Tution_Type == "" || Tution_Type.Postal_Code == undefined && Tution_Type.address == undefined
+                      && isNaN(Tution_Type.Distance) && isNaN(Tution_Type.latitude) && isNaN(Tution_Type.longitude)
+                      ?
                       <Image
                         source={require("../Assets/right.png")}
                         style={styles.tickImage}
@@ -899,7 +928,7 @@ const YourProfle = ({ props, route }) => {
                   style={styles.posticons}
                 />
               </View>
-              <TouchableOpacity
+              <View
                 onPress={() => {
                   setShowTut(true);
                 }}
@@ -924,7 +953,7 @@ const YourProfle = ({ props, route }) => {
                     style={styles.infoWrapper}
                   >
 
-                    {Tutoring_Data == "" ?
+                    {Tutoring_Data == "" || Tutoring_Data.selectArray.length == 0 ?
                       <Text style={styles.infoWrapperText}>
                         Enter Tutoring Details
                       </Text>
@@ -934,7 +963,7 @@ const YourProfle = ({ props, route }) => {
                       </Text>
                     }
                   </TouchableOpacity>
-                  {Tutoring_Data == "" ?
+                  {Tutoring_Data == "" || Tutoring_Data.selectArray.length == 0 ?
                     <View />
                     :
                     <View style={styles.tickWrapper}>
@@ -968,7 +997,7 @@ const YourProfle = ({ props, route }) => {
                   </TouchableOpacity> */}
                   {/* )} */}
                 </View>
-              </TouchableOpacity>
+              </View>
             </View>
           )}
 
@@ -1004,14 +1033,14 @@ const YourProfle = ({ props, route }) => {
                   style={styles.posticons}
                 />
               </View>
-              <TouchableOpacity
+              <View
                 onPress={() => {
                   setShowWord(true);
                 }}
               >
                 <Text style={styles.postText}>A Word from You</Text>
                 <Text style={styles.postSemiText}>
-                  A little more & you have completed your profile
+                  A little more about you & your tutoring  achievements
                 </Text>
 
                 <View style={{ flexDirection: "row" }}>
@@ -1046,16 +1075,18 @@ const YourProfle = ({ props, route }) => {
                     }
                     style={styles.infoWrapper}
                   >
-                    {TutionStatus_Data == "" ?
-                      <Text style={styles.infoWrapperText}>A Word from Yours</Text>
+                    {TutionStatus_Data == "" || TutionStatus_Data.WorkAs == undefined && TutionStatus_Data.statement == undefined ?
+
+                      <Text style={styles.infoWrapperText}>Enter Your Bio</Text>
 
                       :
-                      <Text style={styles.infoWrapperText}>Edit Word from Yours</Text>
+                      <Text style={styles.infoWrapperText}>Edit Your Bio</Text>
 
 
                     }
                   </TouchableOpacity>
-                  {TutionStatus_Data == "" ?
+                  {TutionStatus_Data == "" || TutionStatus_Data.WorkAs == undefined && TutionStatus_Data.statement == undefined ?
+
                     <View />
                     :
                     <View style={styles.tickWrapper}>
@@ -1068,18 +1099,42 @@ const YourProfle = ({ props, route }) => {
                   }
                   {/* )} */}
                 </View>
-              </TouchableOpacity>
+              </View>
+
             </View>
           )}
         </View>
         {/* {Age == 0 ? ( */}
-        <TouchableOpacity
-          style={styles.RequsertButton}
-          // onPress={() => navigation.navigate('TutorLanding')}
-          onPress={() => saveprofile()}
-        >
-          <Text style={styles.ReqButtonText}>Done</Text>
-        </TouchableOpacity>
+        <View style={{ height: 10 }}></View>
+        {/* 
+        {console.log(
+
+          PersonalInfo_Data, AcademicHistory_Data, Tution_Type, TutionStatus_Data, TutionStatus_Data
+
+        )} */}
+        {(PersonalInfo_Data.Age == "" || PersonalInfo_Data.Age == undefined && PersonalInfo_Data.markGender == undefined && PersonalInfo_Data.selectnational == undefined)
+          || (AcademicHistory_Data == "" || AcademicHistory_Data.Course == undefined || AcademicHistory_Data.Course == "" || AcademicHistory_Data.gra_year == undefined || AcademicHistory_Data.gra_year == ""
+            || AcademicHistory_Data.qualification == undefined || AcademicHistory_Data.qualification == "")
+          || (Tution_Type == "" || Tution_Type.Postal_Code == undefined && Tution_Type.address == undefined
+            || isNaN(Tution_Type.Distance) && isNaN(Tution_Type.latitude) && isNaN(Tution_Type.longitude))
+
+          || (TutionStatus_Data == "" || TutionStatus_Data.WorkAs == undefined && TutionStatus_Data.statement == undefined)
+          || (Tutoring_Data == "" || Tutoring_Data.selectArray.length == 0)
+          ?
+          <View />
+          :
+          <TouchableOpacity
+            style={styles.RequsertButton}
+            // onPress={() => navigation.navigate('TutorLanding')}
+            onPress={() => saveprofile()}
+          >
+            <Text style={styles.ReqButtonText}>Done</Text>
+          </TouchableOpacity>
+
+        }
+
+
+
         {/* ) : (
           <TouchableOpacity
             style={styles.RequsertButton}
@@ -1140,6 +1195,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     marginBottom: 20,
+    elevation: 10,
+    color: '#000'
   },
   ReqButtonText: {
     color: "#fff",
@@ -1198,6 +1255,11 @@ const styles = StyleSheet.create({
     elevation: 10,
     marginLeft: wp(3),
   },
+  icons1: {
+    height: 40,
+    width: 40,
+    marginRight: 10,
+  },
   infoWrapperText: {
     fontSize: 13,
     color: "#fff",
@@ -1229,8 +1291,9 @@ const styles = StyleSheet.create({
   },
   usercontainer1: {
     height: hp(10),
+    marginTop: 10,
     // backgroundColor: "red",
-    width: wp(30),
+    width: wp(25),
     alignSelf: "center",
 
     //justifyContent: "center"

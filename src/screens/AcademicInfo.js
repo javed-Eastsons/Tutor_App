@@ -46,7 +46,7 @@ const AcademicInfo = ({ route }) => {
   const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
   const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
   const { Login_Data } = useSelector((state) => state.TutorReducer);
-  const [selectQualification, setselectQualification] = useState(false);
+  const [selectQualification, setselectQualification] = useState(true);
   const [details, setDetails] = useState(false);
   const [detailsE, setDetailsE] = useState(false);
   const [acadSave, setAcadSave] = useState(false);
@@ -75,14 +75,49 @@ const AcademicInfo = ({ route }) => {
   const handleSubjectChange = (text, index) => {
     const updatedSections = [...sections];
     updatedSections[index].subject = text;
+    // if (text.trim() !== "" && updatedSections[index].grade.trim() !== "") {
+    //   setSections(updatedSections);
+    // } else {
+    //   // Optionally, you can show an error message or take some other action
+    //   //Alert.alert("Subject or Grade cannot be empty");
+    //   console.log("Subject or Grade cannot be empty");
+
+    // }
+
+    // if (text.trim() !== "" && updatedSections[index].subject.trim() !== "") {
+    //   setSections(updatedSections);
+    // } else {
+    //   // Optionally, you can show an error message or take some other action
+    //   console.log("Subject or Grade cannot be empty");
+    //   // Alert.alert("Subject or Grade cannot be empty");
+    // }
     setSections(updatedSections);
   };
 
   const handleGradeChange = (text, index) => {
+
+    console.log(text, index, '9999999999')
     const updatedSections = [...sections];
     updatedSections[index].grade = text;
+    // if (text.trim() !== "" && updatedSections[index].grade.trim() !== "") {
+    //   setSections(updatedSections);
+    // } else {
+    //   // Optionally, you can show an error message or take some other action
+    //   //Alert.alert("Subject or Grade cannot be empty");
+    //   console.log("Subject or Grade cannot be empty");
+
+    // }
+    // if (text.trim() !== "" && updatedSections[index].subject.trim() !== "") {
+    //   setSections(updatedSections);
+    // } else {
+    //   // Optionally, you can show an error message or take some other action
+    //   console.log("Subject or Grade cannot be empty");
+    //   // Alert.alert("Subject or Grade cannot be empty");
+    // }
     setSections(updatedSections);
   };
+
+  console.log(sections, 'SSSSSSSSSSSSS')
 
   const deleteSection = (index) => {
     const updatedSections = [...sections];
@@ -125,7 +160,7 @@ const AcademicInfo = ({ route }) => {
   //const [selectedCourse, setSelectedCourse] = useState("");
 
   const [national, setNational] = useState("");
-  const [school, setSchool] = useState([]);
+  const [school, setSchool] = useState("");
   const [school1, setSchool1] = useState("");
   const [grade, setGrade] = useState("");
   const [loader, setLoader] = useState(false);
@@ -202,7 +237,7 @@ const AcademicInfo = ({ route }) => {
     }, 2000);
   }, [SINGLE_USER, setQualification]);
 
-  const [state, setState] = useState("Select One Option");
+  const [state, setState] = useState("");
   const state_list = [
     { label: "Select One Option", value: "Select One Option" },
     { label: "GCE O Level", value: "GCE O Level" },
@@ -353,7 +388,7 @@ const AcademicInfo = ({ route }) => {
     setSchool("");
     setGrade("");
     setSubject("");
-    setState("Select One Option");
+    setState("");
   };
 
   const onChangeSchool = (text) => {
@@ -403,7 +438,7 @@ const AcademicInfo = ({ route }) => {
   const onDeleteE = () => {
     setSchool([]);
     setSchool1("");
-    setState("Select One Option");
+    setState("");
     setExamName("");
   };
   const onDelete = () => {
@@ -442,6 +477,16 @@ const AcademicInfo = ({ route }) => {
 
     return isExist;
   };
+
+  const SetGradenumber = (input) => {
+
+    if (input <= 25) {
+      Alert.alert('Year in Service should be 25+')
+    }
+    else {
+      console.log('ok')
+    }
+  }
 
   const RemoveTempExercise = (Ex_array, Ex_Key, Ex_value) => {
     // console.log('sudhanshuuuuuuuuuuuuuuuuuu', JSON.stringify(Ex_array))
@@ -516,14 +561,65 @@ const AcademicInfo = ({ route }) => {
     setSections([]);
   };
 
-  // console.log(selectArray, "QQQQQQQQQQQQQQQQQQQQQQ");
 
+  const onTickDetail = () => {
+    console.log(school1, courses, gradYear)
+    if (school1 == "" || school1 == undefined) {
+      Alert.alert('Enter School name')
+    }
+    else if (courses == "" || courses == undefined) {
+      Alert.alert('Enter Course name')
+
+    }
+    else if (gradYear == "" || gradYear <= 25 || gradYear == undefined) {
+      Alert.alert('year os servoce more than 25')
+
+    }
+    else {
+      setDetailsE(false)
+    }
+
+
+  }
+
+  // console.log(selectArray, "QQQQQQQQQQQQQQQQQQQQQQ");
+  console.log(school, "schoolschoolschoolschoolschoolschoolschool");
   const onTickFunc = () => {
-    console.log(school, state, "PPPPPPPPPPPPPPPPPPPPPP");
-    // addHistoryData(school, state, subject, grade);
-    addHistoryData(school, state);
+
+    console.log(school, "school");
+    console.log(state, "state");
+    const missingData = sections.some(item => !item.grade || !item.subject);
+
+
+    if (school == "") {
+      Alert.alert("School name  required")
+    }
+    else if (state == "") {
+      Alert.alert("exam required")
+    }
+
+    else if (missingData) {
+      // Show an alert if missing data is found
+      Alert.alert('Alert', 'Grade or subject is missing.');
+    }
+
+
+    // else if (sections[index].subject.trim() === "") {
+    //   Alert.alert('LLLLLLL')
+    // }
+
+
+
+    else {
+
+      // addHistoryData(school, state, subject, grade);
+      addHistoryData(school, state);
+    }
+
     // setHistoryModal(false);
   };
+
+
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = useCallback(() => {
@@ -545,13 +641,13 @@ const AcademicInfo = ({ route }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
-          <Image source={require("../Assets/bell.png")} style={styles.icons} />
+          {/* <Image source={require("../Assets/bell.png")} style={styles.icons} />
 
           <Image
             source={require("../Assets/search.png")}
             style={styles.icons}
           />
-          <Image source={require("../Assets/chat.png")} style={styles.icons} />
+          <Image source={require("../Assets/chat.png")} style={styles.icons} /> */}
         </View>
       </View>
       {loader == true ? (
@@ -604,8 +700,8 @@ const AcademicInfo = ({ route }) => {
           {showemail == "Qualification" && (
             <View style={{ flex: 1 }}>
               <View style={{ flex: 0.9 }}>
-                <TouchableOpacity
-                  onPress={() => setselectQualification(true)}
+                <View
+                  //  onPress={() => setselectQualification(true)}
                   style={{
                     borderWidth: 1,
                     borderColor: "lightgrey",
@@ -625,11 +721,11 @@ const AcademicInfo = ({ route }) => {
                     Select your Current Qualification. You can add detail after
                     selection
                   </Text>
-                </TouchableOpacity>
+                </View>
 
                 {qualification ? (
                   <>
-                    <TouchableOpacity
+                    <View
                       style={{
                         height: hp(6),
                         borderWidth: 1,
@@ -663,7 +759,7 @@ const AcademicInfo = ({ route }) => {
                       <TouchableOpacity
                         onPress={() => setselectQualification(true)}
                         style={{
-                          backgroundColor: "lightblue",
+                          backgroundColor: "#2F5597",
                           height: hp(6),
                           width: wp(15),
                           alignItems: "center",
@@ -675,54 +771,54 @@ const AcademicInfo = ({ route }) => {
                           style={{ height: hp(3), width: wp(5) }}
                         />
                       </TouchableOpacity>
-                    </TouchableOpacity>
-
-                    {/* {school1 == "" && gradYear == "" && courses == "" ? */}
-                    <TouchableOpacity
-                      onPress={() => {
-                        checkQual();
-                      }}
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        marginLeft: wp(5),
-                        marginTop: hp(2),
-                      }}
-                    >
-                      <View
+                    </View>
+                    {console.log(school1, 'PPPPPPPPPPP')}
+                    {(school1 == "" || school1 == undefined) && gradYear == "" || gradYear == undefined && courses == "" || courses == undefined ?
+                      <TouchableOpacity
+                        onPress={() => {
+                          checkQual();
+                        }}
                         style={{
-                          backgroundColor: "blue",
-                          height: hp(5),
-                          width: wp(10),
-                          borderRadius: 4,
+                          flexDirection: "row",
                           alignItems: "center",
-                          justifyContent: "center",
+                          marginLeft: wp(5),
+                          marginTop: hp(2),
                         }}
                       >
-                        <Text
+                        <View
                           style={{
-                            fontSize: 25,
-                            color: "#fff",
-                            fontWeight: "800",
+                            backgroundColor: "blue",
+                            height: hp(5),
+                            width: wp(10),
+                            borderRadius: 4,
+                            alignItems: "center",
+                            justifyContent: "center",
                           }}
                         >
-                          +
+                          <Text
+                            style={{
+                              fontSize: 25,
+                              color: "#fff",
+                              fontWeight: "800",
+                            }}
+                          >
+                            +
+                          </Text>
+                        </View>
+                        <Text
+                          style={{
+                            fontSize: 15,
+                            color: "#2F5597",
+                            fontWeight: "800",
+                            marginLeft: wp(2),
+                          }}
+                        >
+                          Add Detail (optional)
                         </Text>
-                      </View>
-                      <Text
-                        style={{
-                          fontSize: 15,
-                          color: "#2F5597",
-                          fontWeight: "800",
-                          marginLeft: wp(2),
-                        }}
-                      >
-                        Add Detail (optional)
-                      </Text>
-                    </TouchableOpacity>
-                    {/* :
+                      </TouchableOpacity>
+                      :
                       null
-                    } */}
+                    }
 
 
 
@@ -1215,7 +1311,8 @@ const AcademicInfo = ({ route }) => {
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() => {
-                            setDetailsE(false);
+                            //setDetailsE(false);
+                            onTickDetail()
                           }}
                           style={styles.tickWrapper}
                         >
@@ -1267,7 +1364,7 @@ const AcademicInfo = ({ route }) => {
                         }}
                       >
                         <TextInput
-                          placeholder="National University of Singapore"
+                          placeholder=""
                           placeholderTextColor={"lightgrey"}
                           style={{
                             marginLeft: wp(2),
@@ -1307,7 +1404,7 @@ const AcademicInfo = ({ route }) => {
                         }}
                       >
                         <TextInput
-                          placeholder="National University of Singapore"
+                          placeholder=""
                           placeholderTextColor={"lightgrey"}
                           style={{
                             marginLeft: wp(2),
@@ -1347,21 +1444,23 @@ const AcademicInfo = ({ route }) => {
                         }}
                       >
                         <TextInput
-                          placeholder="2021"
+                          placeholder=""
                           placeholderTextColor={"lightgrey"}
                           style={{
                             marginLeft: wp(2),
                             width: wp(75),
                             color: "#000",
                           }}
+
                           keyboardType="numeric"
                           value={gradYear}
                           onChangeText={(text) => {
                             setGradYear(text);
+                            SetGradenumber(text)
                           }}
                         />
                         <Image
-                          source={require("../Assets/Course.png")}
+                          source={require("../Assets/Year.png")}
                           style={{ height: hp(3), width: wp(6) }}
                         />
                       </View>
@@ -1399,8 +1498,8 @@ const AcademicInfo = ({ route }) => {
           {showemail == "History" && (
             <View style={{ flex: 1 }}>
               <View style={{ flex: 0.9 }}>
-                <TouchableOpacity
-                  onPress={() => setHistoryModal(true)}
+                <View
+                  //      onPress={() => setHistoryModal(true)}
                   style={{
                     borderWidth: 1,
                     borderColor: "lightgrey",
@@ -1417,9 +1516,10 @@ const AcademicInfo = ({ route }) => {
                       paddingTop: hp(0.5),
                     }}
                   >
-                    You can list the School Name, Exam & Results in this section
+                    {/* You can list the School Name, Exam & Results in this section */}
+                    Include School Names, Exams & Results here
                   </Text>
-                </TouchableOpacity>
+                </View>
                 <TouchableOpacity
                   //  onPress={() => setHistoryModal(true)}
                   onPress={() => AddHistoryModal()}
@@ -1467,6 +1567,7 @@ const AcademicInfo = ({ route }) => {
                 >
 
                   {console.log(records, 'LLLLLLLLLLLLLLLLL')}
+
                   {console.log(selectArray, "QQQQQQQQQQQQQQQQQQQQQQ")}
 
                   {records &&
@@ -1589,7 +1690,7 @@ const AcademicInfo = ({ route }) => {
                                 )
                               }
                               style={{
-                                backgroundColor: "lightblue",
+                                backgroundColor: "#2F5597",
                                 borderRadius: 6,
                                 height: hp(6),
                                 width: wp(14),
@@ -1655,7 +1756,7 @@ const AcademicInfo = ({ route }) => {
                         </TouchableOpacity>
                         <TouchableOpacity
                           style={styles.tickWrapper}
-                          onPress={() => onTickFunc()}
+                          onPress={() => onTickFunc(school, state)}
                         >
                           <Image
                             source={require("../Assets/right.png")}
@@ -1684,7 +1785,7 @@ const AcademicInfo = ({ route }) => {
                         <View
                           style={{
                             position: "absolute",
-                            top: hp(12),
+                            top: hp(5),
                             left: wp(10),
                             zIndex: 999,
                             backgroundColor: "#fff",
@@ -1728,7 +1829,7 @@ const AcademicInfo = ({ route }) => {
                         <View
                           style={{
                             position: "absolute",
-                            top: hp(21),
+                            top: hp(15.5),
                             left: wp(10),
                             zIndex: 999,
                             backgroundColor: "#fff",

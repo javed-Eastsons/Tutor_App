@@ -611,12 +611,28 @@ const TutorSearchProfile = ({ props, route }) => {
           //   />
           // )} */}
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => GotoBook()} style={styles.FavBooKChat}>
-          <Image
-            source={require("../Assets/people.png")}
-            style={styles.Bookicons}
-          />
-        </TouchableOpacity>
+        {Login_Data == "" ?
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Register")}
+
+            style={styles.FavBooKChat}>
+            <Image
+              source={require("../Assets/people.png")}
+              style={styles.Bookicons}
+            />
+          </TouchableOpacity>
+          :
+          <TouchableOpacity onPress={() => GotoBook()}
+
+            style={styles.FavBooKChat}>
+            <Image
+              source={require("../Assets/people.png")}
+              style={styles.Bookicons}
+            />
+          </TouchableOpacity>
+        }
+
+
         <TouchableOpacity style={styles.FavBooKChat}>
           <Image
             source={require("../Assets/Bookchat.png")}
@@ -652,13 +668,32 @@ const TutorSearchProfile = ({ props, route }) => {
           <Text style={{ alignSelf: "center", color: "grey" }}>
             {isBookmarked == "true" ? "My Fav" : "Favourite"}
           </Text>
+          {console.log(Login_Data, 'YYYYYYYYYYYYYYYYYYYYYYYYYY')}
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => GotoBook()}
-          style={styles.FavBooKChatContainer}
-        >
-          <Text style={{ alignSelf: "center", color: "grey" }}>Book</Text>
-        </TouchableOpacity>
+        {Login_Data == "" ?
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Register")}
+            style={styles.FavBooKChatContainer}
+          >
+            <Text style={{ alignSelf: "center", color: "grey" }}>Book</Text>
+          </TouchableOpacity>
+
+
+          :
+
+          <TouchableOpacity
+            onPress={() => GotoBook()}
+            style={styles.FavBooKChatContainer}
+          >
+            <Text style={{ alignSelf: "center", color: "grey" }}>Book</Text>
+          </TouchableOpacity>
+
+          // navigation.navigate("Register");
+
+        }
+
+
         <View style={styles.FavBooKChatContainer}>
           <Text style={{ alignSelf: "center", color: "grey" }}>Chat</Text>
         </View>
@@ -719,140 +754,143 @@ const TutorSearchProfile = ({ props, route }) => {
         }}
       ></View>
 
-      {(() => {
-        if (showwhat == "Experience") {
-          return (
-            <View style={styles.moblieSec}>
-              <TouchableOpacity
-                style={[
-                  styles.emailtoch,
-                  {
-                    backgroundColor:
-                      showwhat == "Experience" ? "#2F5597" : "lightgray",
-                  },
-                ]}
-                onPress={() => showwhatfunc("Experience")}
-              >
-                <Text style={styles.ButtonText}>Experience</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.mobiletoch,
-                  {
-                    backgroundColor:
-                      showwhat == "My Schools" ? "#2F5597" : "lightgray",
-                  },
-                ]}
-                onPress={() => showwhatfunc("My Schools")}
-              >
-                <Text style={styles.ButtonText}>My Schools</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.emailtoch,
-                  {
-                    backgroundColor:
-                      showwhat == "Reviews" ? "#2F5597" : "lightgray",
-                  },
-                ]}
-                onPress={() => showwhatfunc("Reviews")}
-              >
-                <Text style={styles.ButtonText}>Reviews</Text>
-              </TouchableOpacity>
-            </View>
-          );
-        } else if (showwhat == "My Schools") {
-          return (
-            <View style={styles.moblieSec}>
-              <TouchableOpacity
-                style={[
-                  styles.emailtoch,
-                  {
-                    backgroundColor:
-                      showwhat == "Experience" ? "#2F5597" : "lightgray",
-                  },
-                ]}
-                onPress={() => showwhatfunc("Experience")}
-              >
-                <Text style={styles.ButtonText}>Experience</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.mobiletoch,
-                  {
-                    backgroundColor:
-                      showwhat == "My Schools" ? "#2F5597" : "lightgray",
-                  },
-                ]}
-                onPress={() => showwhatfunc("My Schools")}
-              >
-                <Text style={styles.ButtonText}>My Schools</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.emailtoch,
-                  {
-                    backgroundColor:
-                      showwhat == "Reviews" ? "#2F5597" : "lightgray",
-                  },
-                ]}
-                onPress={() => showwhatfunc("Reviews")}
-              >
-                <Text style={styles.ButtonText}>Reviews</Text>
-              </TouchableOpacity>
-            </View>
-          );
-        } else {
-          return (
-            <View style={styles.moblieSec}>
-              <TouchableOpacity
-                style={[
-                  styles.emailtoch,
-                  {
-                    backgroundColor:
-                      showwhat == "Experience" ? "#2F5597" : "lightgray",
-                  },
-                ]}
-                onPress={() => showwhatfunc("Experience")}
-              >
-                <Text style={styles.ButtonText}>Experience</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.mobiletoch,
-                  {
-                    backgroundColor:
-                      showwhat == "My Schools" ? "#2F5597" : "lightgray",
-                  },
-                ]}
-                onPress={() => showwhatfunc("My Schools")}
-              >
-                <Text style={styles.ButtonText}>My Schools</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  styles.emailtoch,
-                  {
-                    backgroundColor:
-                      showwhat == "Reviews" ? "#2F5597" : "lightgray",
-                  },
-                ]}
-                onPress={() => showwhatfunc("Reviews")}
-              >
-                <Text style={styles.ButtonText}>Reviews</Text>
-              </TouchableOpacity>
-            </View>
-          );
-        }
-      })()}
+      {
+        (() => {
+          if (showwhat == "Experience") {
+            return (
+              <View style={styles.moblieSec}>
+                <TouchableOpacity
+                  style={[
+                    styles.emailtoch,
+                    {
+                      backgroundColor:
+                        showwhat == "Experience" ? "#2F5597" : "lightgray",
+                    },
+                  ]}
+                  onPress={() => showwhatfunc("Experience")}
+                >
+                  <Text style={styles.ButtonText}>Experience</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.mobiletoch,
+                    {
+                      backgroundColor:
+                        showwhat == "My Schools" ? "#2F5597" : "lightgray",
+                    },
+                  ]}
+                  onPress={() => showwhatfunc("My Schools")}
+                >
+                  <Text style={styles.ButtonText}>My Schools</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.emailtoch,
+                    {
+                      backgroundColor:
+                        showwhat == "Reviews" ? "#2F5597" : "lightgray",
+                    },
+                  ]}
+                  onPress={() => showwhatfunc("Reviews")}
+                >
+                  <Text style={styles.ButtonText}>Reviews</Text>
+                </TouchableOpacity>
+              </View>
+            );
+          } else if (showwhat == "My Schools") {
+            return (
+              <View style={styles.moblieSec}>
+                <TouchableOpacity
+                  style={[
+                    styles.emailtoch,
+                    {
+                      backgroundColor:
+                        showwhat == "Experience" ? "#2F5597" : "lightgray",
+                    },
+                  ]}
+                  onPress={() => showwhatfunc("Experience")}
+                >
+                  <Text style={styles.ButtonText}>Experience</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.mobiletoch,
+                    {
+                      backgroundColor:
+                        showwhat == "My Schools" ? "#2F5597" : "lightgray",
+                    },
+                  ]}
+                  onPress={() => showwhatfunc("My Schools")}
+                >
+                  <Text style={styles.ButtonText}>My Schools</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.emailtoch,
+                    {
+                      backgroundColor:
+                        showwhat == "Reviews" ? "#2F5597" : "lightgray",
+                    },
+                  ]}
+                  onPress={() => showwhatfunc("Reviews")}
+                >
+                  <Text style={styles.ButtonText}>Reviews</Text>
+                </TouchableOpacity>
+              </View>
+            );
+          } else {
+            return (
+              <View style={styles.moblieSec}>
+                <TouchableOpacity
+                  style={[
+                    styles.emailtoch,
+                    {
+                      backgroundColor:
+                        showwhat == "Experience" ? "#2F5597" : "lightgray",
+                    },
+                  ]}
+                  onPress={() => showwhatfunc("Experience")}
+                >
+                  <Text style={styles.ButtonText}>Experience</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.mobiletoch,
+                    {
+                      backgroundColor:
+                        showwhat == "My Schools" ? "#2F5597" : "lightgray",
+                    },
+                  ]}
+                  onPress={() => showwhatfunc("My Schools")}
+                >
+                  <Text style={styles.ButtonText}>My Schools</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.emailtoch,
+                    {
+                      backgroundColor:
+                        showwhat == "Reviews" ? "#2F5597" : "lightgray",
+                    },
+                  ]}
+                  onPress={() => showwhatfunc("Reviews")}
+                >
+                  <Text style={styles.ButtonText}>Reviews</Text>
+                </TouchableOpacity>
+              </View>
+            );
+          }
+        })()
+      }
 
-      {(() => {
-        if (showwhat == "Experience") {
-          return (
-            <ScrollView>
-              {SINGLE_USER_DETAILS[0]?.tutoring_detail_arr ? (
-                <ScrollView>
-                  {/* 
+      {
+        (() => {
+          if (showwhat == "Experience") {
+            return (
+              <ScrollView>
+                {SINGLE_USER_DETAILS[0]?.tutoring_detail_arr ? (
+                  <ScrollView>
+                    {/* 
                     <View style={styles.multipleToggle}>
                         
                         <Switch
@@ -863,81 +901,82 @@ const TutorSearchProfile = ({ props, route }) => {
                         />
                     </View> */}
 
-                  {/*Code for Accordion/Expandable List starts here*/}
-                  <Accordion
-                    activeSections={activeSections}
-                    //for any default active section
-                    sections={SINGLE_USER_DETAILS[0]?.tutoring_detail_arr}
-                    //title and content of accordion
-                    touchableComponent={TouchableOpacity}
-                    //which type of touchable component you want
-                    //It can be the following Touchables
-                    //TouchableHighlight, TouchableNativeFeedback
-                    //TouchableOpacity , TouchableWithoutFeedback
-                    expandMultiple={multipleSelect}
-                    //Do you want to expand mutiple at a time or single at a time
-                    renderHeader={renderHeader}
-                    //Header Component(View) to render
-                    renderContent={renderContent}
-                    //Content Component(View) to render
-                    duration={400}
-                    //Duration for Collapse and expand
-                    onChange={setSections}
-                  //setting the state of active sections
-                  />
-                  {/*Code for Accordion/Expandable List ends here*/}
-                </ScrollView>
-              ) : (
-                // <TouchableOpacity onPress={toggleExpanded}>
-                //   <View style={styles.searchSection}>
-                //     <Text style={styles.TextInputText}>{data.qualification}</Text>
-                //     <Text style={styles.TextInputText}>{data.Course_Exam}</Text>
-                //     <Text style={styles.TextInputText}>
-                //       {data.OtherCourse_Exam}
-                //     </Text>
-                //   </View>
-                // </TouchableOpacity>
-                <ActivityIndicator />
-              )}
-            </ScrollView>
-          );
-        } else if (showwhat == "My Schools") {
-          return (
-            <ScrollView>
-              {SINGLE_USER_DETAILS[0]?.history_academy_arr ? (
-                <ScrollView>
-                  {/*Code for Accordion/Expandable List starts here*/}
-                  <Accordion
-                    activeSections={activeSectionsSch}
-                    //for any default active section
-                    sections={SINGLE_USER_DETAILS[0]?.history_academy_arr}
-                    //title and content of accordion
-                    touchableComponent={TouchableOpacity}
-                    //which type of touchable component you want
-                    //It can be the following Touchables
-                    //TouchableHighlight, TouchableNativeFeedback
-                    //TouchableOpacity , TouchableWithoutFeedback
-                    expandMultiple={multipleSelect}
-                    //Do you want to expand mutiple at a time or single at a time
-                    renderHeader={renderHeaderSch}
-                    //Header Component(View) to render
-                    renderContent={renderContentSch}
-                    //Content Component(View) to render
-                    duration={400}
-                    //Duration for Collapse and expand
-                    onChange={setSectionsSch}
-                  //setting the state of active sections
-                  />
-                  {/*Code for Accordion/Expandable List ends here*/}
-                </ScrollView>
-              ) : (
-                <ActivityIndicator size="large" />
-              )}
-            </ScrollView>
-          );
-        }
-      })()}
-    </SafeAreaView>
+                    {/*Code for Accordion/Expandable List starts here*/}
+                    <Accordion
+                      activeSections={activeSections}
+                      //for any default active section
+                      sections={SINGLE_USER_DETAILS[0]?.tutoring_detail_arr}
+                      //title and content of accordion
+                      touchableComponent={TouchableOpacity}
+                      //which type of touchable component you want
+                      //It can be the following Touchables
+                      //TouchableHighlight, TouchableNativeFeedback
+                      //TouchableOpacity , TouchableWithoutFeedback
+                      expandMultiple={multipleSelect}
+                      //Do you want to expand mutiple at a time or single at a time
+                      renderHeader={renderHeader}
+                      //Header Component(View) to render
+                      renderContent={renderContent}
+                      //Content Component(View) to render
+                      duration={400}
+                      //Duration for Collapse and expand
+                      onChange={setSections}
+                    //setting the state of active sections
+                    />
+                    {/*Code for Accordion/Expandable List ends here*/}
+                  </ScrollView>
+                ) : (
+                  // <TouchableOpacity onPress={toggleExpanded}>
+                  //   <View style={styles.searchSection}>
+                  //     <Text style={styles.TextInputText}>{data.qualification}</Text>
+                  //     <Text style={styles.TextInputText}>{data.Course_Exam}</Text>
+                  //     <Text style={styles.TextInputText}>
+                  //       {data.OtherCourse_Exam}
+                  //     </Text>
+                  //   </View>
+                  // </TouchableOpacity>
+                  <ActivityIndicator />
+                )}
+              </ScrollView>
+            );
+          } else if (showwhat == "My Schools") {
+            return (
+              <ScrollView>
+                {SINGLE_USER_DETAILS[0]?.history_academy_arr ? (
+                  <ScrollView>
+                    {/*Code for Accordion/Expandable List starts here*/}
+                    <Accordion
+                      activeSections={activeSectionsSch}
+                      //for any default active section
+                      sections={SINGLE_USER_DETAILS[0]?.history_academy_arr}
+                      //title and content of accordion
+                      touchableComponent={TouchableOpacity}
+                      //which type of touchable component you want
+                      //It can be the following Touchables
+                      //TouchableHighlight, TouchableNativeFeedback
+                      //TouchableOpacity , TouchableWithoutFeedback
+                      expandMultiple={multipleSelect}
+                      //Do you want to expand mutiple at a time or single at a time
+                      renderHeader={renderHeaderSch}
+                      //Header Component(View) to render
+                      renderContent={renderContentSch}
+                      //Content Component(View) to render
+                      duration={400}
+                      //Duration for Collapse and expand
+                      onChange={setSectionsSch}
+                    //setting the state of active sections
+                    />
+                    {/*Code for Accordion/Expandable List ends here*/}
+                  </ScrollView>
+                ) : (
+                  <ActivityIndicator size="large" />
+                )}
+              </ScrollView>
+            );
+          }
+        })()
+      }
+    </SafeAreaView >
   );
 };
 export default TutorSearchProfile;

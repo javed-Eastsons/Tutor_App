@@ -528,10 +528,10 @@ export const RegisterUser = (
       .then((response) => response.json())
       .then((responseJson) => {
         console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.message);
-        //   Alert.alert(responseJson.message)
+        //  Alert.alert(responseJson.message)
         if (responseJson.status == true) {
           console.log("ww", responseJson.message);
-          // Alert.alert(responseJson.message);
+          //   Alert.alert(responseJson.message);
           dispatch({
             type: REGISTER_MSG,
             REG_MSG: responseJson.message,
@@ -678,6 +678,7 @@ export const OTPVerify = (code) => {
         if (responseJson.status == true) {
           //  navigation.navigate('Auth');
           console.log("PPPaaa", responseJson.message);
+          Alert.alert('true', responseJson.message)
 
           dispatch({
             type: OTP_MSG,
@@ -686,6 +687,8 @@ export const OTPVerify = (code) => {
         } else if (responseJson.status == false) {
           //  navigation.navigate('Auth');
           console.log("WWWpppp", responseJson.message);
+          Alert.alert("false", responseJson.message)
+
 
           dispatch({
             type: OTP_MSG,
@@ -978,7 +981,7 @@ export const editProfile = (
           Alert.alert(responseJson.data.message);
           navigation.replace("Auth4");
         } else if (responseJson.data.status == false) {
-          Alert.alert("Record not inserted");
+          Alert.alert("Please complete profile to proceed”");
         }
       })
       .catch((error) => {
@@ -1112,52 +1115,52 @@ export const saveProfile = (
     "payloadpayloadpayloadpayloadpayloadpayloadpayloadpayload"
   );
 
-  // return (dispatch, getState) => {
-  //   let config = {
-  //     method: "POST",
-  //     maxBodyLength: Infinity,
-  //     url: "https://refuel.site/projects/tutorapp/APIs/UserRegistration/CompleteUserProfileLoop.php",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     data: data1,
-  //   };
+  return (dispatch, getState) => {
+    let config = {
+      method: "POST",
+      maxBodyLength: Infinity,
+      url: "https://refuel.site/projects/tutorapp/APIs/UserRegistration/CompleteUserProfileLoop.php",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data1,
+    };
 
-  //   axios
-  //     .request(config)
-  //     // .then((response) => response.json())
-  //     .then(async (responseJson) => {
-  //       console.log(JSON.stringify(responseJson.data), "respone");
-  //       if (responseJson.data.status == true) {
-  //         await AsyncStorage.setItem("user_type", responseJson.data.user_type);
-  //         await AsyncStorage.setItem("user_id", responseJson.data.user_id);
-  //         await AsyncStorage.setItem("postcode", responseJson.data.postal_code);
-  //         await AsyncStorage.setItem(
-  //           "profilepic",
-  //           responseJson.data.profile_image
-  //         );
+    axios
+      .request(config)
+      // .then((response) => response.json())
+      .then(async (responseJson) => {
+        console.log(JSON.stringify(responseJson.data), "respone");
+        if (responseJson.data.status == true) {
+          await AsyncStorage.setItem("user_type", responseJson.data.user_type);
+          await AsyncStorage.setItem("user_id", responseJson.data.user_id);
+          await AsyncStorage.setItem("postcode", responseJson.data.postal_code);
+          await AsyncStorage.setItem(
+            "profilepic",
+            responseJson.data.profile_image
+          );
 
-  //         let obj = {
-  //           userid: responseJson.data.user_id,
-  //           userType: responseJson.data.user_type,
-  //           postcode: responseJson.data.postal_code,
-  //           profilepic: responseJson.data.profile_image,
-  //         };
-  //         dispatch({
-  //           type: Login_Data,
-  //           payload: obj,
-  //         });
-  //         Alert.alert(responseJson.data.message);
-  //         // console.log(responseJson.data);
-  //         navigation.navigate("Auth4");
-  //       } else if (responseJson.data.status == false) {
-  //         Alert.alert("Record not inserted");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error, "error");
-  //     });
-  // };
+          let obj = {
+            userid: responseJson.data.user_id,
+            userType: responseJson.data.user_type,
+            postcode: responseJson.data.postal_code,
+            profilepic: responseJson.data.profile_image,
+          };
+          dispatch({
+            type: Login_Data,
+            payload: obj,
+          });
+          Alert.alert(responseJson.data.message);
+          // console.log(responseJson.data);
+          navigation.navigate("Auth4");
+        } else if (responseJson.data.status == false) {
+          Alert.alert("Please complete profile to proceed”");
+        }
+      })
+      .catch((error) => {
+        console.log(error, "error");
+      });
+  };
 };
 
 export const offerDateTime = (

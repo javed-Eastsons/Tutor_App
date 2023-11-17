@@ -172,50 +172,58 @@ const UpdateProfile = ({ props, route }) => {
     <TouchableOpacity
       onPress={() => setShowPopup(false)}
       style={{
-        position: "absolute",
-        top: 50,
+        // position: "absolute",
+        // top: 2,
         justifyContent: "center",
         alignItems: "center",
-        // backgroundColor: 'rgba(0,0,0,0.2)',
-        zIndex: 10,
-        height: "100%",
+        //right: 0,
 
-        width: "100%",
+        // backgroundColor: 'rgba(0,0,0,0.2)',
+        //zIndex: 10,
+        //height: "100%",
+        //width: "40%",
       }}
     >
       <View
         style={{
-          height: 100,
+          height: 70,
           width: 200,
-          //   backgroundColor: 'red',
+          // backgroundColor: 'red',
           alignItems: "center",
           justifyContent: "center",
-          marginTop: 20,
+          // marginTop: 20,
         }}
       >
         <TouchableOpacity
-          onPress={requestPermission}
-          style={{
-            height: 50,
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Text>Camera</Text>
-        </TouchableOpacity>
-
-        <View style={{ height: 1, width: "100%", backgroundColor: "grey" }} />
-        <TouchableOpacity
           onPress={openImageLibrary}
           style={{
-            height: 50,
+            height: 40,
             width: "100%",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
-          <Text>Gallery Options</Text>
+          <Image
+            source={require("../Assets/gallery.png")}
+            style={styles.icons1}
+          />
+        </TouchableOpacity>
+
+        <View style={{ height: 0, width: "50%", backgroundColor: "grey" }} />
+        <TouchableOpacity
+          onPress={requestPermission}
+          style={{
+            height: 40,
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+
+          <Image
+            source={require("../Assets/camra.png")}
+            style={styles.icons1}
+          />
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
@@ -428,13 +436,13 @@ const UpdateProfile = ({ props, route }) => {
               style={styles.icons}
             />
           </TouchableOpacity>
-          <Image source={require("../Assets/bell.png")} style={styles.icons} />
+          {/* <Image source={require("../Assets/bell.png")} style={styles.icons} /> */}
         </View>
         <View style={styles.HeadRight}>
           {/* <Image source={require('../Assets/search.png')}
                         style={styles.icons}
                     /> */}
-          <Image source={require("../Assets/chat.png")} style={styles.icons} />
+          {/* <Image source={require("../Assets/chat.png")} style={styles.icons} /> */}
         </View>
       </View>
 
@@ -442,7 +450,7 @@ const UpdateProfile = ({ props, route }) => {
 
       <ScrollView>
         <View style={styles.usercontainer}>
-          {showPopup && showSelectionPopup()}
+          {/* {showPopup && showSelectionPopup()} */}
           <View style={styles.UserLeft}>
             <Text style={styles.text1}>Edit Profile</Text>
             <Text style={styles.text2}>
@@ -450,54 +458,96 @@ const UpdateProfile = ({ props, route }) => {
             </Text>
           </View>
         </View>
-
-        <TouchableOpacity
-          style={{
-            width: "100%",
-            height: 100,
-            borderRadius: 50,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "white",
-            marginTop: 65,
-          }}
-          onPress={() => setShowPopup(true)}
-
+        <View
+          style={{ flexDirection: "row", width: wp(90), justifyContent: "center", alignSelf: "center" }}
         >
+          <View style={styles.usercontainer1}>
+            {showPopup && showSelectionPopup()}
+          </View>
+
+          <TouchableOpacity
+            style={{
+              width: "30%",
+              height: 100,
+              borderRadius: 50,
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "white",
+              //  marginTop: 65,
+            }}
+            onPress={() => setShowPopup(true)}
+
+          >
 
 
 
 
 
-          {imageSource1 != "https://refuel.site/projects/tutorapp/UPLOAD_file/undefined" ? (
-            <>
+            {imageSource1 != "https://refuel.site/projects/tutorapp/UPLOAD_file/undefined" ? (
+              <>
+                <Image
+                  source={{
+                    uri: imageSource1,
+                  }}
+                  style={styles.usericons}
+                />
+                {/* <Text>{imageSource1}</Text> */}
+              </>
+
+            ) : userDetail[0]?.Extra_info[0].profile_image != "" && imageSource1 == "https://refuel.site/projects/tutorapp/UPLOAD_file/undefined" ? (
+              <>
+                <View
+                  style={{
+                    width: 25,
+                    //  position: "relative",
+                    top: 18,
+                    left: wp(10),
+                    //padding: 10,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#fff",
+                    //  borderColor: '#000',
+                    borderRadius: 20,
+                    //   borderWidth: 2,
+                    height: 25,
+                  }}
+                >
+                  <Image
+                    source={require("../Assets/pencilEdit.png")}
+                    style={{
+                      width: 15,
+                      height: 15,
+
+                      //  backgroundColor: "grey",
+                    }}
+                  />
+                </View>
+                <Image
+                  source={{
+                    uri: "https://refuel.site/projects/tutorapp/UPLOAD_file/" + userDetail[0]?.Extra_info[0].profile_image,
+                  }}
+
+                  style={styles.usericons}
+                />
+              </>
+            ) :
               <Image
-                source={{
-                  uri: imageSource1,
-                }}
+
+                source={require("../Assets/profileImg.png")}
                 style={styles.usericons}
               />
-              {/* <Text>{imageSource1}</Text> */}
-            </>
 
-          ) : userDetail[0]?.Extra_info[0].profile_image != "" && imageSource1 == "https://refuel.site/projects/tutorapp/UPLOAD_file/undefined" ? (
 
-            <Image
-              source={{
-                uri: "https://refuel.site/projects/tutorapp/UPLOAD_file/" + userDetail[0]?.Extra_info[0].profile_image,
-              }}
+            }
+          </TouchableOpacity>
+          <View
+            style={{
+              width: "30%",
+            }}
+          >
 
-              style={styles.usericons}
-            />
-          ) :
-            <Image
-
-              source={require("../Assets/profileImg.png")}
-              style={styles.usericons}
-            />
-
-          }
-        </TouchableOpacity>
+          </View>
+        </View>
         <View style={styles.postContainer}>
           {route?.params?.complete === "complete" ? (
             <TouchableOpacity
@@ -538,7 +588,8 @@ const UpdateProfile = ({ props, route }) => {
                   }
                   style={styles.infoWrapper}
                 >
-                  {PersonalInfo_Data == "" ?
+                  {/* {console.log(PersonalInfo_Data, 'PRINCE$$$$$$$$$$$$$')} */}
+                  {PersonalInfo_Data.Age == "" || PersonalInfo_Data.Age == undefined && PersonalInfo_Data.markGender == undefined && PersonalInfo_Data.selectnational == undefined ?
                     <Text style={styles.infoWrapperText}>
                       Enter Personal Information
                     </Text>
@@ -549,6 +600,19 @@ const UpdateProfile = ({ props, route }) => {
                   }
 
                 </TouchableOpacity>
+                {PersonalInfo_Data.Age == "" || PersonalInfo_Data.Age == undefined && PersonalInfo_Data.markGender == undefined && PersonalInfo_Data.selectnational == undefined ?
+
+                  <View />
+                  :
+
+                  <View style={styles.tickWrapper}>
+                    <Image
+                      source={require("../Assets/right.png")}
+                      style={styles.tickImage}
+                    />
+                  </View>
+
+                }
               </View>
             </View>
           )}
@@ -592,7 +656,10 @@ const UpdateProfile = ({ props, route }) => {
                   }
                   style={styles.infoWrapper}
                 >
-                  {AcademicHistory_Data == "" ?
+                  {/* {console.log(AcademicHistory_Data, '@@@@@@@@@2222222222222')} */}
+                  {AcademicHistory_Data == "" || AcademicHistory_Data.Course == undefined && AcademicHistory_Data.gra_year == undefined
+                    && AcademicHistory_Data.qualification == undefined
+                    ?
                     <Text style={styles.infoWrapperText}>
                       Enter Academic History
                     </Text>
@@ -603,6 +670,19 @@ const UpdateProfile = ({ props, route }) => {
                   }
 
                 </TouchableOpacity>
+                {AcademicHistory_Data == "" || AcademicHistory_Data.Course == undefined && AcademicHistory_Data.gra_year == undefined
+                  && AcademicHistory_Data.qualification == undefined
+                  ?
+                  <View />
+                  :
+                  <View style={styles.tickWrapper}>
+                    <Image
+                      source={require("../Assets/right.png")}
+                      style={styles.tickImage}
+                    />
+                  </View>
+
+                }
               </View>
             </View>
           )}
@@ -627,6 +707,8 @@ const UpdateProfile = ({ props, route }) => {
             </View>
             <View style={{ flexDirection: "row" }}>
               <TouchableOpacity
+                onPress={() => navigation.navigate('OnlineTuition')}
+
                 style={{
                   height: hp(20),
                   marginTop: hp(2),
@@ -678,6 +760,7 @@ const UpdateProfile = ({ props, route }) => {
                 </TouchableOpacity>
               </TouchableOpacity>
               <TouchableOpacity
+                onPress={() => navigation.navigate('HomeworkHelp')}
                 style={{
                   height: hp(20),
                   marginTop: hp(2),
@@ -759,7 +842,7 @@ const UpdateProfile = ({ props, route }) => {
                   }}
                 >
                   <Image
-                    source={require("../Assets/hometutIcon.png")}
+                    source={require("../Assets/8a.png")}
                     style={{ height: hp(4), width: wp(6) }}
                   />
                 </View>
@@ -786,14 +869,22 @@ const UpdateProfile = ({ props, route }) => {
                     justifyContent: "center",
                   }}
                 >
+                  {/* {console.log(Tution_Type, '@@@@@@@@@333333333333')} */}
+
                   {
-                    Tution_Type == "" ?
+                    Tution_Type == "" || Tution_Type.Postal_Code == undefined && Tution_Type.address == undefined
+                      && isNaN(Tution_Type.Distance) && isNaN(Tution_Type.latitude) && isNaN(Tution_Type.longitude)
+                      ?
                       <Image
                         source={require("../Assets/right.png")}
                         style={styles.tickImage}
                       />
-                      : <Image source={require('../Assets/Grade.png')}
-                        style={{ height: hp(3), width: wp(6) }} />
+                      : <View style={styles.tickWrapper}>
+                        <Image
+                          source={require("../Assets/right.png")}
+                          style={styles.tickImage}
+                        />
+                      </View>
                   }
 
                   {/* <Image source={require('../Assets/tutionsjobs.png')}
@@ -861,7 +952,10 @@ const UpdateProfile = ({ props, route }) => {
                   }
                   style={styles.infoWrapper}
                 >
-                  {Tutoring_Data == "" ?
+                  {console.log(Tutoring_Data.selectArray, '@@@@@@@@@333333333333')}
+
+                  {Tutoring_Data == "" || Tutoring_Data.selectArray == undefined || Tutoring_Data.selectArray == "" ?
+
                     <Text style={styles.infoWrapperText}>
                       Enter Tutoring Details
                     </Text>
@@ -872,6 +966,18 @@ const UpdateProfile = ({ props, route }) => {
                   }
 
                 </TouchableOpacity>
+                {Tutoring_Data == "" || Tutoring_Data.selectArray == undefined || Tutoring_Data.selectArray == "" ?
+
+                  <View />
+                  :
+                  <View style={styles.tickWrapper}>
+                    <Image
+                      source={require("../Assets/right.png")}
+                      style={styles.tickImage}
+                    />
+                  </View>
+
+                }
               </View>
             </View>
           )}
@@ -912,7 +1018,7 @@ const UpdateProfile = ({ props, route }) => {
 
                 <Text style={styles.postText}>A Word from You</Text>
                 <Text style={styles.postSemiText}>
-                  A little more & you have completed your profile
+                  A little more about you & your tutoring  achievements
                 </Text>
 
                 <TouchableOpacity
@@ -924,15 +1030,29 @@ const UpdateProfile = ({ props, route }) => {
                   }
                   style={styles.infoWrapper}
                 >
-                  {TutionStatus_Data == "" ?
-                    <Text style={styles.infoWrapperText}>A Word from Yours</Text>
+                  {console.log(TutionStatus_Data, '@@@@@@@@@333333333333')}
+
+                  {TutionStatus_Data == "" || TutionStatus_Data.WorkAs == undefined && TutionStatus_Data.statement == undefined ?
+                    <Text style={styles.infoWrapperText}>Enter Your Bio</Text>
 
                     :
-                    <Text style={styles.infoWrapperText}>Edit Word from Yours</Text>
+                    <Text style={styles.infoWrapperText}>Edit Your Bio</Text>
 
 
                   }
                 </TouchableOpacity>
+                {TutionStatus_Data == "" || TutionStatus_Data.WorkAs == undefined && TutionStatus_Data.statement == undefined ?
+
+                  <View />
+                  :
+                  <View style={styles.tickWrapper}>
+                    <Image
+                      source={require("../Assets/right.png")}
+                      style={styles.tickImage}
+                    />
+                  </View>
+
+                }
               </View>
             </View>
           )}
@@ -973,6 +1093,28 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  tickImage: { height: 15, width: 15 },
+  tickWrapper: {
+    backgroundColor: "green",
+    height: hp(3),
+    width: wp(6),
+    borderRadius: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute",
+    right: 5,
+
+    bottom: 7,
+  },
+  usercontainer1: {
+    height: hp(10),
+    marginTop: 10,
+    // backgroundColor: "red",
+    width: wp(25),
+    alignSelf: "center",
+
+    //justifyContent: "center"
+  },
   Boxone: {
     height: hp(15),
     width: wp(30),
@@ -995,6 +1137,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     marginBottom: 20,
+  },
+  icons1: {
+    height: 40,
+    width: 40,
+    marginRight: 10,
   },
   ReqButtonText: {
     color: "#fff",
@@ -1204,6 +1351,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
   },
-  tickImage: { height: hp(2), width: wp(6) },
+  //  tickImage: { height: hp(2), width: wp(6) },
 
 });

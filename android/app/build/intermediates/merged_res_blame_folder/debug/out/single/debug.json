@@ -1,23 +1,15 @@
 [
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_uk.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_uk.png"
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_msgicon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_msgicon.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_health.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_health.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_slider1.jpg.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_slider1.jpg"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_booking.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_booking.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "com.tutor.app-main-41:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_newfavicon.png.flat",
@@ -30,14 +22,6 @@
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_penciledit.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_penciledit.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_closeingray.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_closeingray.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/raw_src_assets_first.mp4.flat",
-        "source": "com.tutor.app-main-41:/raw/src_assets_first.mp4"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_node_modules_reactnavigation_elements_src_assets_backiconmask.png.flat",
@@ -60,26 +44,6 @@
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_flag.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_projecthp.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_projecthp.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_slider2.jpg.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_slider2.jpg"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_logo.jpg.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_logo.jpg"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_fb.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_fb.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_personal.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_personal.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_usericon.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_usericon.png"
     },
@@ -88,96 +52,40 @@
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_grade.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_tutiondemand.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_tutiondemand.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_insta.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_insta.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_duration.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_duration.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_japan.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_japan.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_afternoon.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_afternoon.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_chat.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_chat.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_heart.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_heart.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_node_modules_reactnative_libraries_newappscreen_components_logo.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/node_modules_reactnative_libraries_newappscreen_components_logo.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_us.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_us.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_checkin.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_checkin.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-xxxhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
         "source": "com.tutor.app-main-41:/drawable-xxxhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_backgrey.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_backgrey.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_explainedhp.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_explainedhp.png"
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_homeicon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_homeicon.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_start.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_start.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable_rn_edit_text_material.xml.flat",
-        "source": "com.tutor.app-main-41:/drawable/rn_edit_text_material.xml"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "com.tutor.app-main-41:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_greyedit.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_greyedit.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_profile.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_profile.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_three_dot.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_three_dot.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_missedhp.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_missedhp.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/mipmap-mdpi_ic_launcher_round.png.flat",
-        "source": "com.tutor.app-main-41:/mipmap-mdpi/ic_launcher_round.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_rightarrowcode.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_rightarrowcode.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_tryiticon.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_tryiticon.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_singapore.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_singapore.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_taiwan.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_taiwan.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_back.png.flat",
@@ -196,68 +104,24 @@
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_assign_unfav.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/raw_src_assets_second.mp4.flat",
-        "source": "com.tutor.app-main-41:/raw/src_assets_second.mp4"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_home.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_home.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_twitter.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_twitter.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_right.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_right.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_pencil.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_pencil.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_exam.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_exam.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_user.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_user.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_favourite.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_favourite.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_userwhite.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_userwhite.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-xhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-xhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_morning.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_morning.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_ourservice.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_ourservice.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_educator_icon.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_educator_icon.png"
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_searchnow.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_searchnow.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_philippines.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_philippines.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_payn.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_payn.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_assests.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_assests.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_privacy.png.flat",
@@ -292,14 +156,6 @@
         "source": "com.tutor.app-main-41:/drawable-xxhdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_myqr.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_myqr.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_slider4.jpg.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_slider4.jpg"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/mipmap-xxhdpi_ic_launcher_round.png.flat",
         "source": "com.tutor.app-main-41:/mipmap-xxhdpi/ic_launcher_round.png"
     },
@@ -316,36 +172,12 @@
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_school.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_upcoming.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_upcoming.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "com.tutor.app-main-41:/mipmap-hdpi/ic_launcher.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_deletes.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_deletes.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_togglebb.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_togglebb.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_male.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_male.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_homeworkpic.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_homeworkpic.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_pencilicon.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_pencilicon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_ourtutors.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_ourtutors.png"
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_ser3.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_ser3.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-xxhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
@@ -372,20 +204,12 @@
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_female.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_terms.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_terms.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_marketinghp.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_marketinghp.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_hearticon.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_hearticon.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_welcome.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_welcome.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_act2.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_act2.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/mipmap-xhdpi_ic_launcher.png.flat",
@@ -394,6 +218,410 @@
     {
         "merged": "com.tutor.app-merged_res-39:/raw_src_assets_four.mp4.flat",
         "source": "com.tutor.app-main-41:/raw/src_assets_four.mp4"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_malaysia.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_malaysia.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_bookchat.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_bookchat.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_fav_assign.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_fav_assign.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_help.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_help.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_pastedgraphic5.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_pastedgraphic5.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_sorticon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_sorticon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_internationaltutor.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_internationaltutor.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_iicon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_iicon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_tutor1.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_tutor1.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_btoggle.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_btoggle.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_plus.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_plus.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_tutord.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_tutord.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_downbutton.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_downbutton.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_dollar.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_dollar.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_course.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_course.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_search.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_search.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_tutiontype.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_tutiontype.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_qricon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_qricon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_act3.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_act3.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_location.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_location.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_baricon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_baricon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_chat3.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_chat3.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_tutor_icon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_tutor_icon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.tutor.app-main-41:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_share.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_share.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_edit.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_edit.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_node_modules_reactnativepaper_src_assets_backchevron.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/node_modules_reactnativepaper_src_assets_backchevron.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_calendarwhite.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_calendarwhite.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_node_modules_reactnativeelementdropdown_src_assets_down.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/node_modules_reactnativeelementdropdown_src_assets_down.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_evening.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_evening.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-xhdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-xhdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_8a.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_8a.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_editword.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_editword.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_postrequire.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_postrequire.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_canada.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_canada.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_filtericon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_filtericon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_circle.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_circle.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_bookings.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_bookings.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_uk.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_uk.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_slider1.jpg.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_slider1.jpg"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.tutor.app-main-41:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_closeingray.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_closeingray.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/raw_src_assets_first.mp4.flat",
+        "source": "com.tutor.app-main-41:/raw/src_assets_first.mp4"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_chat1.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_chat1.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_projecthp.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_projecthp.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_slider2.jpg.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_slider2.jpg"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_logo.jpg.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_logo.jpg"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_personal.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_personal.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_fb.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_fb.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_tutiondemand.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_tutiondemand.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_insta.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_insta.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_duration.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_duration.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_japan.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_japan.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_afternoon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_afternoon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_chat.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_chat.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_heart.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_heart.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_settingicon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_settingicon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_node_modules_reactnative_libraries_newappscreen_components_logo.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/node_modules_reactnative_libraries_newappscreen_components_logo.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_backgrey.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_backgrey.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_explainedhp.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_explainedhp.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_phone.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_phone.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable_rn_edit_text_material.xml.flat",
+        "source": "com.tutor.app-main-41:/drawable/rn_edit_text_material.xml"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_three_dot.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_three_dot.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.tutor.app-main-41:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_rightarrowcode.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_rightarrowcode.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_tryiticon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_tryiticon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_singapore.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_singapore.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_taiwan.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_taiwan.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_gallery.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_gallery.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_nogender.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_nogender.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/raw_src_assets_second.mp4.flat",
+        "source": "com.tutor.app-main-41:/raw/src_assets_second.mp4"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_twitter.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_twitter.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_right.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_right.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_exam.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_exam.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_favourite.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_favourite.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_user.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_user.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-xhdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-xhdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_morning.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_morning.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_hide.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_hide.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_ourservice.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_ourservice.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_educator_icon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_educator_icon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_payn.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_payn.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_assests.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_assests.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_myqr.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_myqr.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_slider4.jpg.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_slider4.jpg"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_camra.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_camra.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_upcoming.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_upcoming.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.tutor.app-main-41:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_act1.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_act1.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_deletes.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_deletes.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_togglebb.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_togglebb.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_male.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_male.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_homeworkpic.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_homeworkpic.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_chat2.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_chat2.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_ourtutors.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_ourtutors.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_chat5panel.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_chat5panel.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_terms.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_terms.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_marketinghp.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_marketinghp.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_view.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_view.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_hearticon.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_hearticon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_tutor2.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_tutor2.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
@@ -424,28 +652,12 @@
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_wordyou.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_malaysia.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_malaysia.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_bookchat.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_bookchat.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_fav_assign.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_fav_assign.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_help.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_help.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_pastedgraphic5.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_pastedgraphic5.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/node_modules_reactnavigation_drawer_src_views_assets_toggledrawericon.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_ser2.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_ser2.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_hometuticon.png.flat",
@@ -460,20 +672,12 @@
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_newposticon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_sorticon.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_sorticon.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_bell.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_bell.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_circlearrow.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_circlearrow.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_internationaltutor.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_internationaltutor.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_night.png.flat",
@@ -484,28 +688,12 @@
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_rateappicon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_iicon.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_iicon.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_settings.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_settings.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_btoggle.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_btoggle.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_plus.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_plus.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_linkedin.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_linkedin.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_tutord.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_tutord.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_homework.png.flat",
@@ -520,8 +708,8 @@
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_helptuticon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_downbutton.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_downbutton.png"
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_year.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_year.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_tutionsjobs.png.flat",
@@ -532,60 +720,28 @@
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_academic.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_dollar.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_dollar.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_shareicon.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_shareicon.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_course.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_course.png"
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_ser1.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_ser1.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_searching.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_searching.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_search.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_search.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_lessons.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_lessons.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_tutiontype.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_tutiontype.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_qricon.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_qricon.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_location.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_location.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_baricon.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_baricon.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_qualification.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_qualification.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_tutor_icon.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_tutor_icon.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/mipmap-xhdpi_ic_launcher_round.png.flat",
-        "source": "com.tutor.app-main-41:/mipmap-xhdpi/ic_launcher_round.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_online.png.flat",
@@ -596,40 +752,16 @@
         "source": "com.tutor.app-main-41:/drawable/logogrey.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_share.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_share.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_edit.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_edit.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_profileimg.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_profileimg.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_node_modules_reactnativepaper_src_assets_backchevron.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/node_modules_reactnativepaper_src_assets_backchevron.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_calendarwhite.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_calendarwhite.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_time.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_time.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_node_modules_reactnativeelementdropdown_src_assets_down.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/node_modules_reactnativeelementdropdown_src_assets_down.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_subjectexperience.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_subjectexperience.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_evening.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_evening.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/raw_src_assets_third.mp4.flat",
@@ -638,14 +770,6 @@
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_chattutors.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_chattutors.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-xhdpi_node_modules_reactnavigation_elements_src_assets_backicon.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-xhdpi/node_modules_reactnavigation_elements_src_assets_backicon.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_postrequire.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_postrequire.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_onlinetution.png.flat",
@@ -660,27 +784,15 @@
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_people.png"
     },
     {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_canada.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_canada.png"
-    },
-    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_logouticon.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_logouticon.png"
     },
     {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_tutor3.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_tutor3.png"
+    },
+    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_pastedgraphic7.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_pastedgraphic7.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_filtericon.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_filtericon.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_circle.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_circle.png"
-    },
-    {
-        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_bookings.png.flat",
-        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_bookings.png"
     }
 ]

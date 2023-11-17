@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   Modal,
   FlatList,
+  Alert,
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { TextInput } from "react-native-gesture-handler";
@@ -1354,8 +1355,8 @@ const PersonalInfo = ({ route }) => {
     }
   ]);
   const [selectnational, setSelectNational] = useState("");
-  const [selectflag, setSelectFlag] = useState("");
-  const [national, setNational] = useState("Singapore");
+  const [selectflag, setSelectFlag] = useState("sg");
+  const [national, setNational] = useState("");
   const [filterData, setFilterData] = useState([]);
   const [withoutfilter, setWithoutFilter] = useState("");
   const [persSave, setPersSave] = useState(false);
@@ -1394,17 +1395,42 @@ const PersonalInfo = ({ route }) => {
   console.log(route.params.PersonalInfo_info.selectnational, 'selectnational');
   console.log(route.params.PersonalInfo_info.selectflag, 'selectflag');
   console.log(route.params.PersonalInfo_info.year, 'year');
+  console.log(route.params.PersonalInfo_info.national, 'national');
 
 
   useEffect(() => {
     setLoader(true);
     setUserDetail(SINGLE_USER);
+
+    if (route.params.PersonalInfo_info.selectnational == undefined || route.params.PersonalInfo_info.selectnational == "" && userDetail[0]?.Extra_info[0]?.nationality == "") {
+      setNational("Singapore")
+      setSelectFlag()
+
+
+    }
+
+    else if (route.params.PersonalInfo_info.selectnational == undefined || route.params.PersonalInfo_info.selectnational == "" && userDetail[0]?.Extra_info[0]?.nationality != "") {
+
+
+      setNational(userDetail[0]?.Extra_info[0]?.nationality);
+      setSelectFlag(userDetail[0]?.Extra_info[0]?.flag)
+    }
+    else {
+      setNational(route.params.PersonalInfo_info.selectnational)
+      setSelectFlag(route.params.PersonalInfo_info.selectflag)
+
+
+    }
+
+
     if (route.params.PersonalInfo_info.Age == undefined && route.params.PersonalInfo_info.markGender == undefined && route.params.PersonalInfo_info.selectnational == undefined && route.params.PersonalInfo_info.selectflag == undefined) {
       setAge(userDetail[0]?.Extra_info[0]?.age);
       setSelectFlag(userDetail[0]?.Extra_info[0]?.flag)
       setMarkGender(userDetail[0]?.Extra_info[0]?.gender);
-      setNational(userDetail[0]?.Extra_info[0]?.nationality);
+      //  setNational(userDetail[0]?.Extra_info[0]?.nationality);
       setDate(userDetail[0]?.Extra_info[0]?.date_of_year)
+      // setNational(route.params.PersonalInfo_info.selectnational)
+
 
 
     }
@@ -1412,7 +1438,7 @@ const PersonalInfo = ({ route }) => {
       setAge(route.params.PersonalInfo_info.Age)
       setMarkGender(route.params.PersonalInfo_info.markGender)
       setSelectNational(route.params.PersonalInfo_info.selectnational)
-      setNational(route.params.PersonalInfo_info.selectnational)
+      // setNational(route.params.PersonalInfo_info.selectnational)
       setSelectFlag(route.params.PersonalInfo_info.selectflag)
       setDate(route.params.PersonalInfo_info.year)
 
@@ -1461,42 +1487,57 @@ const PersonalInfo = ({ route }) => {
     // console.log(route.params.RouteFrom, 'fromfromfromfrom');
     // console.log(route.params.PersonalInfo_info, 'PersonalInfo_infoPersonalInfo_info');
 
-    console.log(Age, markGender, selectnational, selectflag, "????????????????");
-
-    let obj = {
-      Age: Age,
-      markGender: markGender,
-      selectnational: selectnational,
-      persSave: persSave,
-      selectflag: selectflag.toLowerCase(),
-      year: moment(date).format("YYYY")
-    };
-
-    dispatch({
-      type: PersonalInfo_Data,
-      payload: obj,
-    });
+    if (Age == "" || Age == undefined) {
+      Alert.alert('Data Missing');
+    }
+    else if (markGender == "" || markGender == undefined) {
+      Alert.alert('Data Missing');
+    }
+    else if (selectnational == "" || selectnational == undefined) {
+      Alert.alert('Data Missing');
+    }
+    else {
 
 
-    console.log(obj, 'KKKKKKKKKKKKKKKK')
 
-    // dispatch(editProfile(Age, markGender,selectnational, GET_USER_ID));
+      console.log(Age, markGender, selectnational, selectflag, "????????????????");
 
-    if (route.params.RouteFrom == "Update") {
-      navigation.navigate("UpdateProfile", {
+      let obj = {
         Age: Age,
         markGender: markGender,
         selectnational: selectnational,
-        GET_USER_ID: GET_USER_ID,
-      });
-    } else {
-      navigation.navigate("YourProfle", {
-        Age: Age,
-        markGender: markGender,
-        selectnational: selectnational,
-        GET_USER_ID: GET_USER_ID,
         persSave: persSave,
+        selectflag: selectflag.toLowerCase(),
+        year: moment(date).format("YYYY")
+      };
+
+      dispatch({
+        type: PersonalInfo_Data,
+        payload: obj,
       });
+
+
+      console.log(obj, 'KKKKKKKKKKKKKKKK')
+
+      // dispatch(editProfile(Age, markGender,selectnational, GET_USER_ID));
+
+      if (route.params.RouteFrom == "Update") {
+        navigation.navigate("UpdateProfile", {
+          Age: Age,
+          markGender: markGender,
+          selectnational: selectnational,
+          GET_USER_ID: GET_USER_ID,
+        });
+      } else {
+        navigation.navigate("YourProfle", {
+          Age: Age,
+          markGender: markGender,
+          selectnational: selectnational,
+          GET_USER_ID: GET_USER_ID,
+          persSave: persSave,
+        });
+      }
+
     }
   };
 
@@ -1524,13 +1565,13 @@ const PersonalInfo = ({ route }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
-          <Image source={require("../Assets/bell.png")} style={styles.icons} />
+          {/* <Image source={require("../Assets/bell.png")} style={styles.icons} /> */}
 
-          <Image
+          {/* <Image
             source={require("../Assets/search.png")}
             style={styles.icons}
-          />
-          <Image source={require("../Assets/chat.png")} style={styles.icons} />
+          /> */}
+          {/* <Image source={require("../Assets/chat.png")} style={styles.icons} /> */}
         </View>
       </View>
 
@@ -1561,6 +1602,8 @@ const PersonalInfo = ({ route }) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+
+              disabled={Age == "" || Age == undefined || Age <= 16 ? true : false}
               style={[
                 styles.emailtoch,
                 {
@@ -1580,6 +1623,7 @@ const PersonalInfo = ({ route }) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              disabled={Age == "" || Age == undefined ? true : false}
               style={[
                 styles.nationaltoch,
                 {
@@ -1589,8 +1633,9 @@ const PersonalInfo = ({ route }) => {
               ]}
               onPress={() => {
                 setShowEmail("Nationality");
-                // setPickerServices(true);
+                setPickerServices(true);
               }}
+            //  onPress={() => setPickerServices(true)}
             >
               <Text
                 style={[
@@ -1736,6 +1781,7 @@ const PersonalInfo = ({ route }) => {
                       />
                     </View>
                   </TouchableOpacity>
+                  <Text style={{ fontSize: 10 }}>Age should be more than 16.</Text>
                 </View>
               </View>
               <View style={{ flex: 0.1, justifyContent: "flex-end" }}>
@@ -1748,69 +1794,89 @@ const PersonalInfo = ({ route }) => {
           {showemail == "Gender" && (
             <View style={{ flex: 1 }}>
               <View style={{ flex: 0.9 }}>
-                <Text style={{ fontSize: 20, padding: 10, color: "black" }}>
-                  {markGender}
-                </Text>
-                <TouchableOpacity onPress={() => setMarkGender("Male")}>
+
+                {console.log(markGender, 'ssssssssssss')}
+
+
+                {markGender == "Male" ?
                   <View
                     style={{
-                      backgroundColor: "white",
+                      backgroundColor: "White",
                       height: hp(8),
-                      width: wp(16),
+                      width: wp(90),
                       borderRadius: 50,
+                      alignSelf: "center",
                       alignItems: "center",
                       justifyContent: "center",
                       marginTop: hp(10),
-                      marginLeft: wp(15),
+
                     }}
                   >
                     <Image
-                      source={require("../Assets/Male.png")}
-                      style={{ height: hp(5), width: wp(10) }}
+                      source={require("../Assets/male.png")}
+                      style={{ height: hp(20), resizeMode: 'contain' }}
                     />
                   </View>
-                  <View
-                    style={{
-                      borderWidth: 1,
-                      borderColor: "grey",
-                      alignItems: "center",
-                      backgroundColor:
-                        markGender == "Male" ? "#2F5597" : "#fff",
-                      height: hp(4),
-                      width: wp(15),
-                      marginLeft: wp(3),
-                      marginTop: hp(3),
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text
+                  : markGender == "Female" ?
+                    <View
                       style={{
-                        fontSize: 16,
-                        color: markGender == "Male" ? "#fff" : "grey",
+                        backgroundColor: "White",
+                        height: hp(8),
+                        width: wp(90),
+                        borderRadius: 50,
+                        alignSelf: "center",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginTop: hp(10),
+
                       }}
                     >
-                      Male
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => setMarkGender("Female")}>
-                  <View
-                    style={{
-                      justifyContent: "flex-end",
-                      alignItems: "flex-end",
-                    }}
-                  >
+                      <Image
+                        source={require("../Assets/female.png")}
+                        style={{ height: hp(20), resizeMode: 'contain' }}
+                      />
+                    </View>
+                    :
+
+
+                    <View
+                      style={{
+                        backgroundColor: "White",
+                        height: hp(8),
+                        width: wp(90),
+                        borderRadius: 50,
+                        alignSelf: "center",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginTop: hp(10),
+
+                      }}
+                    >
+                      <Image
+                        source={require("../Assets/NoGender.png")}
+                        style={{ height: hp(20), resizeMode: 'contain' }}
+                      />
+                    </View>
+                }
+
+
+
+                {/* <Text style={{ fontSize: 20, padding: 10, color: "black" }}>
+                  {markGender}
+                </Text> */}
+                <View style={{ marginTop: wp(20), flexDirection: "row", width: wp(90), justifyContent: "space-between", alignSelf: "center" }}>
+
+                  <TouchableOpacity onPress={() => setMarkGender("Male")}>
+
                     <View
                       style={{
                         borderWidth: 1,
                         borderColor: "grey",
                         alignItems: "center",
                         backgroundColor:
-                          markGender == "Female" ? "#2F5597" : "#fff",
+                          markGender == "Male" ? "#2F5597" : "#fff",
                         height: hp(4),
-                        marginRight: wp(3),
-                        width: wp(19),
+                        width: wp(15),
                         marginLeft: wp(3),
                         marginTop: hp(3),
                         justifyContent: "center",
@@ -1819,33 +1885,52 @@ const PersonalInfo = ({ route }) => {
                     >
                       <Text
                         style={{
-                          color: markGender == "Female" ? "#fff" : "grey",
                           fontSize: 16,
+                          color: markGender == "Male" ? "#fff" : "grey",
                         }}
                       >
-                        Female
+                        Male
                       </Text>
                     </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => setMarkGender("Female")}>
                     <View
                       style={{
-                        backgroundColor: "white",
-                        height: hp(8),
-                        marginRight: wp(20),
-                        width: wp(16),
-                        borderRadius: 10,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        marginTop: hp(3),
-                        marginLeft: wp(15),
+                        justifyContent: "flex-end",
+                        alignItems: "flex-end",
                       }}
                     >
-                      <Image
-                        source={require("../Assets/Female.png")}
-                        style={{ height: hp(5), width: wp(10) }}
-                      />
+                      <View
+                        style={{
+                          borderWidth: 1,
+                          borderColor: "grey",
+                          alignItems: "center",
+                          backgroundColor:
+                            markGender == "Female" ? "#2F5597" : "#fff",
+                          height: hp(4),
+                          marginRight: wp(3),
+                          width: wp(19),
+                          marginLeft: wp(3),
+                          marginTop: hp(3),
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: markGender == "Female" ? "#fff" : "grey",
+                            fontSize: 16,
+                          }}
+                        >
+                          Female
+                        </Text>
+                      </View>
+
+
                     </View>
-                  </View>
-                </TouchableOpacity>
+                  </TouchableOpacity>
+                </View>
+
               </View>
               <View style={{ flex: 0.1, justifyContent: "flex-end" }}>
                 {/* <TouchableOpacity style={styles.circleArrow}>
@@ -1869,7 +1954,7 @@ const PersonalInfo = ({ route }) => {
                     width: wp(90),
                     flexDirection: "row",
                     backgroundColor: "#fff",
-                    marginTop: hp(2),
+                    marginTop: hp(10),
                   }}
                 >
                   <View
@@ -1881,9 +1966,21 @@ const PersonalInfo = ({ route }) => {
                   >
 
                     {console.log("https://refuel.site/projects/tutorapp/flags-medium/" + selectflag + ".png", 'selectflagselectflag')}
-
-
                     {selectflag ?
+
+                      <Image
+                        source={{ uri: `https://refuel.site/projects/tutorapp/flags-medium/${selectflag.toLowerCase()}.png` }}
+                        style={{ height: hp(3), width: wp(6), marginLeft: wp(5) }}
+                      />
+
+                      :
+                      <Image
+                        source={require("../Assets/Singapore.png")}
+                        style={{ height: hp(3), width: wp(6), marginLeft: wp(5) }}
+                      />
+                    }
+
+                    {/* {selectflag ?
 
                       <Image
                         source={{ uri: `https://refuel.site/projects/tutorapp/flags-medium/${selectflag.toLowerCase()}.png` }}
@@ -1893,7 +1990,7 @@ const PersonalInfo = ({ route }) => {
                       :
                       // Handle the case where selectflag is undefined or not set
                       null // Or display an error message or default image
-                    }
+                    } */}
                     <Text
                       style={{ color: "#000", fontSize: 13, marginLeft: wp(4) }}
                     >
@@ -1903,7 +2000,7 @@ const PersonalInfo = ({ route }) => {
                   </View>
                   <View
                     style={{
-                      backgroundColor: "lightblue",
+                      backgroundColor: "#2F5597",
                       height: hp(6),
                       width: wp(15),
                       alignItems: "center",
@@ -1950,7 +2047,7 @@ const PersonalInfo = ({ route }) => {
                       </Text>
                     </View>
                     <View style={{ marginLeft: wp(5), marginTop: hp(2) }}>
-                      <Text
+                      {/* <Text
                         style={{
                           color: "#000",
                           fontSize: 18,
@@ -1958,7 +2055,7 @@ const PersonalInfo = ({ route }) => {
                         }}
                       >
                         Select One Option
-                      </Text>
+                      </Text> */}
 
                       <View
                         style={{
@@ -1981,10 +2078,19 @@ const PersonalInfo = ({ route }) => {
                             flexDirection: "row",
                           }}
                         >
-                          <Image
-                            source={require("../Assets/Singapore.png")}
-                            style={{ height: hp(2.5), width: wp(6) }}
-                          />
+                          {selectflag ?
+
+                            <Image
+                              source={{ uri: `https://refuel.site/projects/tutorapp/flags-medium/${selectflag.toLowerCase()}.png` }}
+                              style={{ height: hp(3), width: wp(6), marginLeft: wp(5) }}
+                            />
+
+                            :
+                            <Image
+                              source={require("../Assets/Singapore.png")}
+                              style={{ height: hp(2.5), width: wp(6) }}
+                            />
+                          }
 
                           <TextInput
                             style={{
@@ -1992,13 +2098,15 @@ const PersonalInfo = ({ route }) => {
                               fontSize: 14,
                               fontWeight: "800",
                               marginLeft: wp(3),
+                              //backgroundColor: "red",
+                              width: wp(60)
                             }}
                             underlineColorAndroid="rgba(0,0,0,0)"
                             placeholder={"Enter the country"}
                             keyboardType="default"
                             returnKeyType="done"
                             autoCapitalize="none"
-                            value={filterData}
+                            value={selectnational}
                             onChangeText={(text) => SearchFilterFunction(text)}
                           />
                         </View>
@@ -2110,10 +2218,12 @@ const PersonalInfo = ({ route }) => {
                       width: wp(60),
                       alignItems: "center",
                       justifyContent: "center",
+                      elevation: 10,
+                      color: "#000"
                     }}
                   >
                     <Text style={{ color: "#fff", fontSize: 14 }}>
-                      Save info
+                      Save
                     </Text>
                   </TouchableOpacity>
                 </View>

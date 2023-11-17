@@ -31,7 +31,7 @@ import { GetUserProfile } from "../Redux/Actions/Tutors";
 import Slider from "@react-native-community/slider";
 
 const HomeTution = ({ route }) => {
-  const circleCenter = { latitude: 37.78825, longitude: -122.4324 };
+  //const circleCenter = { latitude: 37.78825, longitude: -122.4324 };
   const circleRadius = 1000; // in meters
   const mapRef = useRef(null);
   const navigation = useNavigation();
@@ -68,6 +68,95 @@ const HomeTution = ({ route }) => {
   console.log(route.params.Tution_Info, 'Tution_InfoTution_InfoTution_Info')
 
   // console.log(FirstName, slideStartingValue.toFixed(0), "postalcode");
+
+
+
+  console.log(route.params.Tution_Info.longitude, 'LLLLLLLLLLLLOOOOOOOOOOOOOOO')
+  useEffect(() => {
+    onRegionCHange();
+  }, [mapData]);
+
+  useEffect(() => {
+    dispatch(GetUserProfile(Login_Data.userid));
+  }, []);
+
+  useEffect(() => {
+    setUserDetail(SINGLE_USER);
+  }, [SINGLE_USER]);
+
+  useEffect(() => {
+    setLoader(true);
+    setUserDetail(SINGLE_USER);
+    // if (route.params.Tution_Info.Postal_Code == undefined) {
+    //   setFirstName(userDetail[0]?.Extra_info[0]?.postal_code);
+    //   setAddress(userDetail[0]?.Extra_info[0]?.location);
+    // }
+    // else {
+    //   setFirstName(route.params.Tution_Info.Postal_Code);
+    //   setAddress(route.params.Tution_Info.address);
+    // }
+
+    console.log(route.params.Tution_Info.Distance, 'IIIIIIIIIIIIIII', route.params.Tution_Info.longitude, 'LLLLLLLLLLLL', route.params.Tution_Info.latitude)
+    // setFirstName(userDetail[0]?.Extra_info[0]?.postal_code);
+
+    if (route.params.Tution_Info.Postal_Code == undefined && route.params.Tution_Info.longitude == undefined || isNaN(route.params.Tution_Info.longitude) && route.params.Tution_Info.latitude == undefined || isNaN(route.params.Tution_Info.latitude) && route.params.Tution_Info.Distance == undefined || isNaN(route.params.Tution_Info.Distance)) {
+      setLatitude(Number(userDetail[0]?.Extra_info[0].lettitude ? 0 : 0))
+      setLongitude(Number(userDetail[0]?.Extra_info[0].longitude ? 0 : 0))
+      setSlideStartingValue(Number(userDetail[0]?.Extra_info[0].travel_distance ? 0 : 20));
+      setFirstName(userDetail[0]?.Extra_info[0]?.postal_code);
+      setAddress(userDetail[0]?.Extra_info[0]?.location);
+
+      // setLatitude(Number(userDetail[0]?.Extra_info[0].lettitude))
+      // setLongitude(Number(userDetail[0]?.Extra_info[0].longitude))
+      // setSlideStartingValue(Number(userDetail[0]?.Extra_info[0].travel_distance));
+      console.log('22222222222222222')
+
+    }
+    else {
+      setLongitude(Number(route.params.Tution_Info.longitude));
+      setLatitude(Number(route.params.Tution_Info.latitude));
+      setSlideStartingValue(Number(route.params.Tution_Info.Distance));
+      setFirstName(route.params.Tution_Info.Postal_Code);
+      setAddress(route.params.Tution_Info.address);
+      console.log('444444444444444')
+    }
+    // setLatitude(userDetail[0]?.Extra_info[0]?.lettitude);
+    // setLongitude(userDetail[0]?.Extra_info[0]?.longitude);
+    // setLongitude(route.params.Tution_Info.longitude);
+    //setLatitude(route.params.Tution_Info.latitude);
+    // if (slideStartingValue == NaN) {
+    //   setSlideStartingValue(20);
+
+    // }
+    // else {
+    //   setSlideStartingValue(Number(route.params.Tution_Info.Distance));
+
+    // }
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+    // setRecords(userDetail[0]?.history_academy_arr);
+  }, [SINGLE_USER]);
+  // console.log(
+  //   typeof slideStartingValue,
+  //   "userDetail[0]?.Extra_info[0]?.travel_distance"
+  // );
+
+
+  // console.log(slideStartingValue, latitude, longitude, 'slideStartingValueslideStartingValueslideStartingValue')
+  const onRegionCHange = (reg) => {
+    // console.log(reg, "DDDDDDDDDDDDDDDDDDDDDDDDD");
+    mapRef?.current?.animateToRegion({
+      latitude: mapData ? mapData?.geometry?.location?.lat : latitude,
+      longitude: mapData ? mapData?.geometry?.location?.lng : longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    });
+
+    //   setAddress(mapData?.formatted_address);
+  };
+
+
   const geocodinApi = () => {
     let config = {
       method: "get",
@@ -136,85 +225,6 @@ const HomeTution = ({ route }) => {
   if (mapData) {
     // console.log(mapData?.geometry?.location, "latlong");
   }
-
-  useEffect(() => {
-    onRegionCHange();
-  }, [mapData]);
-
-  useEffect(() => {
-    dispatch(GetUserProfile(Login_Data.userid));
-  }, []);
-
-  useEffect(() => {
-    setUserDetail(SINGLE_USER);
-  }, [SINGLE_USER]);
-
-  useEffect(() => {
-    setLoader(true);
-    setUserDetail(SINGLE_USER);
-    if (route.params.Tution_Info.Postal_Code == undefined) {
-      setFirstName(userDetail[0]?.Extra_info[0]?.postal_code);
-      setAddress(userDetail[0]?.Extra_info[0]?.location);
-    }
-    else {
-      setFirstName(route.params.Tution_Info.Postal_Code);
-      setAddress(route.params.Tution_Info.address);
-    }
-
-    // setFirstName(userDetail[0]?.Extra_info[0]?.postal_code);
-
-    if (route.params.Tution_Info.longitude == undefined && route.params.Tution_Info.latitude == undefined && route.params.Tution_Info.Distance == undefined) {
-      setLatitude(Number(userDetail[0]?.Extra_info[0].lettitude ? 0 : 0))
-      setLongitude(Number(userDetail[0]?.Extra_info[0].longitude ? 0 : 0))
-      setSlideStartingValue(Number(userDetail[0]?.Extra_info[0].travel_distance ? 0 : 20));
-
-      // setLatitude(Number(userDetail[0]?.Extra_info[0].lettitude))
-      // setLongitude(Number(userDetail[0]?.Extra_info[0].longitude))
-      // setSlideStartingValue(Number(userDetail[0]?.Extra_info[0].travel_distance));
-
-
-    }
-    else {
-      setLongitude(Number(route.params.Tution_Info.longitude));
-      setLatitude(Number(route.params.Tution_Info.latitude));
-      setSlideStartingValue(Number(route.params.Tution_Info.Distance));
-
-    }
-    // setLatitude(userDetail[0]?.Extra_info[0]?.lettitude);
-    // setLongitude(userDetail[0]?.Extra_info[0]?.longitude);
-    // setLongitude(route.params.Tution_Info.longitude);
-    //setLatitude(route.params.Tution_Info.latitude);
-    // if (slideStartingValue == NaN) {
-    //   setSlideStartingValue(20);
-
-    // }
-    // else {
-    //   setSlideStartingValue(Number(route.params.Tution_Info.Distance));
-
-    // }
-    setTimeout(() => {
-      setLoader(false);
-    }, 2000);
-    // setRecords(userDetail[0]?.history_academy_arr);
-  }, [SINGLE_USER]);
-  // console.log(
-  //   typeof slideStartingValue,
-  //   "userDetail[0]?.Extra_info[0]?.travel_distance"
-  // );
-
-
-  // console.log(slideStartingValue, latitude, longitude, 'slideStartingValueslideStartingValueslideStartingValue')
-  const onRegionCHange = (reg) => {
-    // console.log(reg, "DDDDDDDDDDDDDDDDDDDDDDDDD");
-    mapRef?.current?.animateToRegion({
-      latitude: mapData ? mapData?.geometry?.location?.lat : latitude,
-      longitude: mapData ? mapData?.geometry?.location?.lng : longitude,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    });
-
-    //   setAddress(mapData?.formatted_address);
-  };
 
   const GetPostDetail = () => {
     let obj = {
@@ -286,7 +296,7 @@ const HomeTution = ({ route }) => {
                   </TouchableOpacity>
                 </View>
               </View>
-              {address ? (
+              {address && slideStartingValue != 20 ? (
                 <TouchableOpacity
                   onPress={() => GetPostDetail()}
                   //onPress={() => navigation.navigate("YourProfle")}
@@ -390,27 +400,9 @@ const HomeTution = ({ route }) => {
                   fontSize: 12,
                 }}
               >
-                Select the furthest distance you are willing to travel from your
-                location for home tuition{" "}
+                Select the furthest distance you are willing to travel{" "}
               </Text>
-              <Slider
-                style={{
-                  width: wp(90),
-                  height: 40,
-                  alignSelf: "center",
-                  marginTop: 10,
-                }}
-                onSlidingComplete={
-                  (value) => setSlideStartingValue(value)
-                  // setSlideStartingCount((prev) => prev + 1);
-                }
-                minimumValue={1}
-                value={slideStartingValue}
-                maximumValue={50}
-                minimumTrackTintColor="#000000"
-                maximumT
-                rackTintColor="#000000"
-              />
+
               <View
                 style={{
                   width: wp(90),
@@ -418,6 +410,7 @@ const HomeTution = ({ route }) => {
                   marginLeft: wp(5),
                   flexDirection: "row",
                   fontSize: 12,
+                  marginTop: wp(5)
                 }}
               >
                 <Text style={{ width: wp(30) }}>100m</Text>
@@ -431,6 +424,24 @@ const HomeTution = ({ route }) => {
           ) : (
             <View />
           )}
+          <Slider
+            style={{
+              width: wp(90),
+              height: 40,
+              alignSelf: "center",
+              marginTop: 10,
+            }}
+            onSlidingComplete={
+              (value) => setSlideStartingValue(value)
+              // setSlideStartingCount((prev) => prev + 1);
+            }
+            minimumValue={1}
+            value={slideStartingValue}
+            maximumValue={50}
+            minimumTrackTintColor="#000000"
+            maximumT
+            rackTintColor="#000000"
+          />
           <View style={{ height: wp(10) }}></View>
         </ScrollView>
       )}
