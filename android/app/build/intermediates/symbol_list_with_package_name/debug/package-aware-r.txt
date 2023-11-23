@@ -1648,6 +1648,7 @@ drawable src_assets_checkin
 drawable src_assets_china
 drawable src_assets_circle
 drawable src_assets_circlearrow
+drawable src_assets_close
 drawable src_assets_closeingray
 drawable src_assets_code
 drawable src_assets_course
@@ -1672,6 +1673,7 @@ drawable src_assets_filtericon
 drawable src_assets_flag
 drawable src_assets_gallery
 drawable src_assets_grade
+drawable src_assets_green
 drawable src_assets_greyedit
 drawable src_assets_health
 drawable src_assets_heart

@@ -396,6 +396,10 @@
         "source": "com.tutor.app-main-41:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_close.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_close.png"
+    },
+    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_closeingray.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_closeingray.png"
     },
@@ -702,6 +706,10 @@
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_settings.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_settings.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_green.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_green.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_linkedin.png.flat",
