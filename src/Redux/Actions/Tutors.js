@@ -49,12 +49,21 @@ export const getLevelList = (Login_Data, navigation) => {
       .catch((error) => console.log(error));
   };
 };
-export const getGradeList = (Level) => {
+export const getGradeList = (Level, Admission_level) => {
+
+  console.log(Level, Admission_level, "KKKKKKKKKKK1111111111111")
   return (dispatch, getState) => {
     const url =
       "https://refuel.site/projects/tutorapp/APIs/GradeListBasedOnLevel/GradeListBasedOnLevel.php";
     let data = new FormData();
     data.append("Level", Level);
+    if (Admission_level == undefined) {
+      data.append("Admission_level", "");
+    }
+    else {
+      data.append("Admission_level", Admission_level);
+    }
+
 
     console.log(data, "formdata");
     return fetch(url, {
@@ -69,7 +78,7 @@ export const getGradeList = (Level) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("GRADE_LIST", responseJson);
+        console.log("GRADE_LISTYYYYYYYYYYYYYYYYYY", responseJson);
         if (responseJson.status == true) {
           dispatch({
             type: GRADE_LIST,
@@ -488,9 +497,9 @@ export const RegisterUser = (
   Email,
   country_phone_code,
   Mobile,
-  imageSource
+  imageSource, navigation
 ) => {
-  console.log(FirstName, LastName, Email, country_phone_code, Mobile, Password, imageSource);
+  console.log(FirstName, LastName, Email, country_phone_code, Mobile, Password, imageSource,);
   return async (dispatch, getState) => {
     //const login = await getApiKey();
     let fcmToken = await AsyncStorage.getItem("fcmToken");
@@ -536,6 +545,16 @@ export const RegisterUser = (
             type: REGISTER_MSG,
             REG_MSG: responseJson.message,
           });
+          navigation.navigate('VerifyOTPScreen', {
+            Email: Email,
+            FirstName: FirstName,
+            LastName: LastName,
+            Password: Password,
+
+            country_phone_code: country_phone_code,
+            Mobile: Mobile,
+            imageSource: imageSource
+          })
         } else if (responseJson.status == false) {
           console.log("AAa", responseJson.message);
           Alert.alert(responseJson.message);
@@ -644,18 +663,19 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
   };
 };
 
-export const OTPVerify = (code) => {
-  // console.log(Mobile, Email, Password)
+
+export const SendOtpforgotpassword = (Email, otp, newpassword, navigation) => {
+  console.log(Email, otp, newpassword);
   return (dispatch, getState) => {
     axios.defaults.baseURL = "https://refuel.site";
     const url1 =
       axios.defaults.baseURL +
-      "/projects/tutorapp/APIs/UserRegistration/UserRegistrationOTP.php";
+      "/projects/tutorapp/APIs/Forgotpassword/forgotpassword.php";
     var formData = new FormData();
-    // formData.append('login_option', 'Mobile Number')
 
-    formData.append("OTP_MOBILE", code);
-
+    formData.append("email", Email);
+    formData.append('newpassword', newpassword)
+    formData.append("otp", otp);
     console.log("FORMDATAAAAA", formData);
 
     return fetch(url1, {
@@ -669,38 +689,81 @@ export const OTPVerify = (code) => {
       body: formData,
     })
       .then((response) => response.json())
-      .then((responseJson) => {
-        console.log("RegisterAPI", responseJson);
-        dispatch({
-          type: GET_USER_ID,
-          USER_ID: responseJson?.user_id,
-        });
+      .then(async (responseJson) => {
+        console.log("forgotpasswordforgotpasswordforgotpasswordforgotpasswordforgotpassword", responseJson);
+
         if (responseJson.status == true) {
-          //  navigation.navigate('Auth');
-          console.log("PPPaaa", responseJson.message);
-          Alert.alert('true', responseJson.message)
 
-          dispatch({
-            type: OTP_MSG,
-            otpmsg: responseJson.message,
-          });
+          Alert.alert(responseJson.message);
+
+
         } else if (responseJson.status == false) {
-          //  navigation.navigate('Auth');
-          console.log("WWWpppp", responseJson.message);
-          Alert.alert("false", responseJson.message)
+          Alert.alert(responseJson.message);
 
-
-          dispatch({
-            type: OTP_MSG,
-            otpmsg: responseJson.message,
-          });
         }
       })
       .catch((error) => console.log("LLLLLLLLL", error.message));
   };
 };
 
-export const OTPVerifywithrole = (role, otp, navigation) => {
+// export const OTPVerify = (code) => {
+//   // console.log(Mobile, Email, Password)
+//   return (dispatch, getState) => {
+//     axios.defaults.baseURL = "https://refuel.site";
+//     const url1 =
+//       axios.defaults.baseURL +
+//       "/projects/tutorapp/APIs/UserRegistration/UserRegistrationOTP.php";
+//     var formData = new FormData();
+//     // formData.append('login_option', 'Mobile Number')
+
+//     // formData.append("OTP_MOBILE", code);
+//     formData.append("OTP_EMAIL", code);
+
+//     console.log("FORMDATAAAAA", formData);
+
+//     return fetch(url1, {
+//       method: "POST",
+//       headers: new Headers({
+//         Accept: "application/json",
+//         "Content-Type": "multipart/form-data",
+//         // "Authorization": authtoken,
+//       }),
+
+//       body: formData,
+//     })
+//       .then((response) => response.json())
+//       .then((responseJson) => {
+//         console.log("RegisterAPI", responseJson);
+//         dispatch({
+//           type: GET_USER_ID,
+//           USER_ID: responseJson?.user_id,
+//         });
+//         if (responseJson.status == true) {
+//           //  navigation.navigate('Auth');
+//           console.log("PPPaaa", responseJson.message);
+//           Alert.alert('true', responseJson.message)
+
+//           dispatch({
+//             type: OTP_MSG,
+//             otpmsg: responseJson.message,
+//           });
+//         } else if (responseJson.status == false) {
+//           //  navigation.navigate('Auth');
+//           console.log("WWWpppp", responseJson.message);
+//           Alert.alert("false", responseJson.message)
+
+
+//           dispatch({
+//             type: OTP_MSG,
+//             otpmsg: responseJson.message,
+//           });
+//         }
+//       })
+//       .catch((error) => console.log("LLLLLLLLL", error.message));
+//   };
+// };
+
+export const OTPVerifywithrole = (role, otp, email, navigation) => {
   // console.log(Mobile, Email, Password)
   return (dispatch, getState) => {
     axios.defaults.baseURL = "https://refuel.site";
@@ -709,6 +772,7 @@ export const OTPVerifywithrole = (role, otp, navigation) => {
       "/projects/tutorapp/APIs/UserRegistration/UserRegistrationOTP.php";
     var formData = new FormData();
     formData.append("user_type", role);
+    formData.append("email", email);
 
     formData.append("OTP_EMAIL", otp);
     //formData.append("OTP_MOBILE", otp);
@@ -735,13 +799,13 @@ export const OTPVerifywithrole = (role, otp, navigation) => {
         if (responseJson.status == true && role == "I am an Educator") {
           navigation.navigate("Auth2");
           console.log("PPPaaa", responseJson.message);
-          // Alert.alert(responseJson.message);
+          //  Alert.alert(responseJson.message);
         } else if (
           responseJson.status == true &&
           role == "I am looking for a Tutor"
         ) {
           navigation.replace("Auth");
-          //Alert.alert(responseJson.message);
+          Alert.alert(responseJson.message);
           console.log("PPPaaa", responseJson.message);
 
           // dispatch({
@@ -1298,10 +1362,10 @@ export const FavouriteTutorByStudent = (loginuser, tutorid, val) => {
       .then((responseJson) => {
         console.log("responseJson", responseJson);
         if (responseJson.status == true) {
-          Alert.alert(responseJson.message);
+          // Alert.alert(responseJson.message);
           // navigation.navigate("Auth4");
         } else if (responseJson.status == false) {
-          Alert.alert("Record not inserted");
+          Alert.alert("Something Wrong");
         }
       })
       .catch((error) => console.log("LLLLLLLLL", error.message));

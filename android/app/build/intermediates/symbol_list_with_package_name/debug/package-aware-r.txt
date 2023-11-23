@@ -1630,6 +1630,7 @@ drawable src_assets_backgrey
 drawable src_assets_baricon
 drawable src_assets_bell
 drawable src_assets_bookchat
+drawable src_assets_booki
 drawable src_assets_booking
 drawable src_assets_bookings
 drawable src_assets_btoggle
@@ -1648,6 +1649,7 @@ drawable src_assets_china
 drawable src_assets_circle
 drawable src_assets_circlearrow
 drawable src_assets_closeingray
+drawable src_assets_code
 drawable src_assets_course
 drawable src_assets_dashicon
 drawable src_assets_delete
@@ -1703,6 +1705,7 @@ drawable src_assets_missedhp
 drawable src_assets_morning
 drawable src_assets_msgicon
 drawable src_assets_myactivities
+drawable src_assets_myapplied
 drawable src_assets_mypost
 drawable src_assets_myqr
 drawable src_assets_newfavicon

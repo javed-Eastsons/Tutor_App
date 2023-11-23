@@ -154,7 +154,7 @@ const ClientLanding = () => {
     // },
   ];
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   // useEffect(async () => {
   //   console.log(Login_Data, "AAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -180,16 +180,29 @@ const ClientLanding = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
-          <Image source={require("../Assets/bell.png")} style={styles.icons} />
-          <Image
-            source={require("../Assets/search.png")}
-            style={styles.icons}
-          />
-          <Image source={require("../Assets/chat.png")} style={styles.icons} />
+          <View>
+            <Image source={require("../Assets/bell.png")} style={styles.icons} />
+            <Text style={{ fontSize: 10 }}></Text>
+
+          </View>
+          <View>
+            <Image
+              source={require("../Assets/search.png")}
+              style={styles.icons}
+            />
+            <Text style={{ fontSize: 10 }}></Text>
+
+          </View>
+
+          <View>
+            <Image source={require("../Assets/chat.png")} style={styles.icons} />
+            <Text style={{ fontSize: 10 }}>Support</Text>
+          </View>
+
         </View>
       </View>
 
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.usercontainer}>
           <View style={styles.UserLeft}>
             {Login_Data.profilepic == "" || Login_Data.profilepic == null ? (
@@ -207,7 +220,7 @@ const ClientLanding = () => {
                 style={styles.usericons}
               />
             )}
-            <View style={{ flexDirection: "row" }}>
+            {/* <View style={{ flexDirection: "row" }}>
               <Image
                 source={require("../Assets/start.png")}
                 style={styles.sicons}
@@ -224,7 +237,7 @@ const ClientLanding = () => {
                 source={require("../Assets/start.png")}
                 style={styles.sicons}
               />
-            </View>
+            </View> */}
           </View>
           <View style={styles.UserRight}>
             <Text style={{ fontFamily: "Poppins-Light" }}>
@@ -256,7 +269,7 @@ const ClientLanding = () => {
           <TouchableOpacity style={[styles.cardLeft, styles.shadowPropLeft]}>
             <View style={styles.cardShadow1}>
               <Image
-                source={require("../Assets/PastedGraphic5.png")}
+                source={require("../Assets/searchnow.png")}
                 style={styles.posticons}
               />
             </View>
@@ -349,104 +362,123 @@ const ClientLanding = () => {
           </TouchableOpacity>
         </View>
 
+
+
         <View style={styles.SliderContainer}>
-          <ScrollView horizontal={true} contentContainerStyle={{ padding: 10 }}>
-            <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}
-            >
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require("../Assets/ChatTutors.png")}
-                  style={styles.Slidericons}
-                />
-              </View>
 
-              <Text style={styles.postText}>Chat with Tutors</Text>
-              <Text numberOfLines={2} style={styles.sliderText}>
-                Chat with tutors and access their suitability.Sharing your
-                tutions concerns with potential tutors...
-                {/* <TouchableOpacity>
-                  <Text style={{color: '#2F5597'}}>See More</Text>
-                </TouchableOpacity> */}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}
-            >
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require("../Assets/OurTutors.png")}
-                  style={styles.Slidericons}
-                />
-              </View>
+          <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={{ padding: 5 }} horizontal={true}
+          >
+            <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
 
-              <Text style={styles.postText}>Our Tutors</Text>
-              <Text numberOfLines={2} style={styles.sliderText}>
-                Chat with tutors and access their suitability.Sharing your
-                tutions concerns with potential tutors...
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}
-            >
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require("../Assets/OurService.png")}
-                  style={styles.Slidericons}
-                />
-              </View>
 
-              <Text style={styles.postText}>Our Services</Text>
-              <Text numberOfLines={2} style={styles.sliderText}>
-                Chat with tutors and access their suitability.Sharing your
-                tutions concerns with potential tutors...
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}
-            >
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require("../Assets/MyActivities.png")}
-                  style={styles.Slidericons}
-                />
-              </View>
-              {/* <Image source={require('../Assets/MyActivities.png')}
-                                style={styles.Slidericons}
-                            /> */}
-              <Text style={styles.postText}>My Activities</Text>
-              <Text numberOfLines={2} style={styles.sliderText}>
-                Chat with tutors and access their suitability.Sharing your
-                tutions concerns with potential tutors...
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}
-            >
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require("../Assets/Promotion.png")}
-                  style={styles.Slidericons}
-                />
-              </View>
-              {/* <Image source={require('../Assets/Promotion.png')}
-                                style={styles.Slidericons}
-                            /> */}
-              <Text style={styles.postText}>Promotions</Text>
-              <Text numberOfLines={2} style={styles.sliderText}>
-                Chat with tutors and access their suitability.{"\n"}Sharing your
-                tutions concerns with {"\n"} potential tutors...
-              </Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.cardSlider, styles.shadowPropSlider]}
 
-            {/* <View style={styles.Slider}>
-                            <Image source={require('../Assets/Promotion.png')}
-                                style={styles.Slidericons}
-                            />
-                            <Text style={styles.postText}>Promotions</Text>
-                            <Text numberOfLines={2} style={styles.sliderText}>Chat with tutors and access their suitability.Sharing your tutions concerns with potential tutors...
-                            <TouchableOpacity><Text style={{color:"#2F5597"}}>See More</Text></TouchableOpacity></Text>
-                        </View> */}
+                onPress={() => navigation.navigate('ChatWithTutors')}
+              // onPress={toggleModal}
+              >
+                <View style={styles.cardShadow}>
+                  <Image
+                    source={require("../Assets/code.png")}
+                    style={styles.Slidericons}
+                  />
+                </View>
+                <View>
+                  <Text style={styles.postText}>Chat with Tutors</Text>
+                </View>
+                <View style={{ padding: 5 }}>
+                  <Text numberOfLines={3} style={styles.sliderText}>
+                    Chat with tutors & assess their suitability. Sharing your tuition concerns with …..
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.cardSlider, styles.shadowPropSlider]}
+                onPress={() => navigation.navigate('OurTutorPop')}
+              //  onPress={toggleModal}
+              >
+                <View style={styles.cardShadow}>
+                  <Image
+                    source={require("../Assets/OurTutors.png")}
+                    style={styles.Slidericons}
+                  />
+                </View>
+                {/* <Image source={require('../Assets/OurTutors.png')}
+                      style={styles.Slidericons}
+                  /> */}
+                <Text style={styles.postText}>Our Tutors</Text>
+                <View style={{ padding: 5 }}>
+                  <Text numberOfLines={3} style={styles.sliderText}>
+                    We have an extensive database of competent tutors. They all possess …
+
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.cardSlider, styles.shadowPropSlider]}
+                onPress={() => navigation.navigate('OurServices')}
+              //  onPress={toggleModal}
+              >
+                <View style={styles.cardShadow}>
+                  <Image
+                    source={require("../Assets/OurService.png")}
+                    style={styles.Slidericons}
+                  />
+                </View>
+                {/* <Image source={require('../Assets/OurService.png')}
+                      style={styles.Slidericons}
+                  /> */}
+                <Text style={styles.postText}>Our Services</Text>
+                <View style={{ padding: 5 }}>
+                  <Text numberOfLines={3} style={styles.sliderText}>
+                    We provide Home Tuition, Online Tuition & Homework Help for all levels & …
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.cardSlider, styles.shadowPropSlider]}
+                onPress={() => navigation.navigate('MyActivityPop')}
+              //  onPress={toggleModal}
+              >
+                <View style={styles.cardShadow}>
+                  <Image
+                    source={require("../Assets/Booki.png")}
+                    style={styles.Slidericons}
+                  />
+                </View>
+                {/* <Image source={require('../Assets/MyActivities.png')}
+                      style={styles.Slidericons}
+                  /> */}
+                <Text style={styles.postText}>My Bookings</Text>
+                <View style={{ padding: 5 }}>
+                  <Text numberOfLines={3} style={styles.sliderText}>
+                    Everything of significance that you do on during the booking process. …
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[styles.cardSlider, styles.shadowPropSlider]}
+                onPress={() => navigation.navigate('Promotions')}
+              //  onPress={toggleModal}
+              >
+                <View style={styles.cardShadow}>
+                  <Image
+                    source={require("../Assets/Promotion.png")}
+                    style={styles.Slidericons}
+                  />
+                </View>
+                {/* <Image source={require('../Assets/Promotion.png')}
+                      style={styles.Slidericons}
+                  /> */}
+                <Text style={styles.postText}>Promotions</Text>
+                <View style={{ padding: 5 }}>
+                  <Text numberOfLines={3} style={styles.sliderText}>
+                    We value all our users. As a token of our appreciation, we have special offers …
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </ScrollView>
         </View>
 
@@ -614,15 +646,13 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins-Regular",
   },
   postText: {
-    width: "90%",
-    fontSize: 14,
-    fontWeight: "500",
-    color: "#000",
+    fontSize: 16,
+    // fontWeight: "700",
+    // color: "#2F5597",
+    color: "#1f3864",
+    marginTop: 10,
     alignSelf: "center",
-    marginLeft: 8,
-    marginBottom: 8,
-    marginTop: 8,
-    fontFamily: "Poppins-SemiBold",
+    // fontFamily: "Poppins-Regular",
   },
   sliderText: {
     //  width: '90%',
@@ -643,7 +673,7 @@ const styles = StyleSheet.create({
 
   usercontainer: {
     height: hp(10),
-
+    marginTop: 20,
     width: wp(100),
     flexDirection: "row",
     justifyContent: "center",
@@ -664,8 +694,8 @@ const styles = StyleSheet.create({
   },
   posticons: {
     alignSelf: "center",
-    height: 77,
-    width: 77,
+    height: 35,
+    width: 35,
   },
   postRighticons: {
     alignSelf: "center",

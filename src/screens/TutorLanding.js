@@ -12,6 +12,7 @@ import {
   Switch,
   TouchableOpacity,
 } from "react-native";
+import StarRating from "react-native-star-rating";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { TextInput } from "react-native-gesture-handler";
 // import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -243,12 +244,12 @@ const TutorLanding = () => {
 
     {
       name: "My Applied",
-      src: require("../Assets/newPostIcon.png"),
+      src: require("../Assets/myapplied.png"),
       Url: "MyApplied",
     },
 
     {
-      name: "Upcomings",
+      name: "Upcoming",
       src: require("../Assets/Upcoming.png"),
       Url: "",
     },
@@ -299,48 +300,44 @@ const TutorLanding = () => {
         </View>
       </View>
 
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.usercontainer}>
           <View style={styles.UserLeft}>
-            {userDetail[0]?.Extra_info[0].profile_image == "" || userDetail[0]?.Extra_info[0].profile_image == null ? (
-              <Image
-                source={require("../Assets/profileImg.png")}
-                style={styles.usericons}
-              />
-            ) : (
-              <Image
-                source={{
-                  uri:
-                    "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
-                    userDetail[0]?.Extra_info[0].profile_image,
-                }}
-                style={styles.usericons}
-              />
-            )}
 
             <View style={{ flexDirection: "row" }}>
-              <Image
-                source={require("../Assets/start.png")}
-                style={styles.sicons}
-              />
-              <Image
-                source={require("../Assets/start.png")}
-                style={styles.sicons}
-              />
-              <Image
-                source={require("../Assets/start.png")}
-                style={styles.sicons}
-              />
-              <Image
-                source={require("../Assets/start.png")}
-                style={styles.sicons}
-              />
+              {userDetail[0]?.Extra_info[0].profile_image == "" || userDetail[0]?.Extra_info[0].profile_image == null ? (
+                <Image
+                  source={require("../Assets/profileImg.png")}
+                  style={styles.usericons}
+                />
+              ) : (
+                <Image
+                  source={{
+                    uri:
+                      "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
+                      userDetail[0]?.Extra_info[0].profile_image,
+                  }}
+                  style={styles.usericons}
+                />
+              )}
+
+              <View style={{ width: 40, marginLeft: 5, marginTop: 30 }}>
+                <StarRating
+                  fullStarColor="orange"
+                  disabled={false}
+                  maxStars={5}
+                  rating={4}
+                  starSize={15}
+                // selectedStar={(rating) => setStrCount(rating)}
+                />
+              </View>
             </View>
           </View>
 
           <View style={styles.UserRight}>
             <Text style={{ color: "#000", fontFamily: "Poppins-Light" }}>
-              {console.log(isEnabled)}I want to be a Student...
+              {/* {console.log(isEnabled)}I want to be a Student... */}
+              {console.log(isEnabled)}I want to find a Tutor
             </Text>
 
             <Switch
@@ -369,63 +366,68 @@ const TutorLanding = () => {
         ></View>
 
         <View style={styles.postContainer}>
-          <TouchableOpacity style={[styles.cardLeft, styles.shadowPropLeft]}>
-            <View style={styles.cardShadowLeft}>
-              <Shadow>
+          <View style={{ alignSelf: 'center', justifyContent: "space-between", width: wp(95), flexDirection: "row" }}>
+            <TouchableOpacity style={[styles.cardLeft, styles.shadowPropLeft]}>
+              <View style={styles.cardShadowLeft}>
+
+
                 <Image
                   source={require("../Assets/Searching.png")}
-                  style={[styles.posticonsU, { borderRadius: 40 }]}
+                  style={styles.postRighticons}
                 />
-              </Shadow>
-            </View>
 
-            <Text
-              style={{ textAlign: "center", marginTop: 10, marginBottom: 5 }}
-            >
-              Keep your profile {"\n"}current
-            </Text>
-            <TouchableOpacity
-              // onPress={() => navigation.navigate("Auth2")}
-              onPress={() => UpdateSection()}
-              style={styles.SearchButton}
-            >
-              <Text
-                style={{ color: "#fff", alignSelf: "center", fontSize: 14 }}
-              >
-                Update
-              </Text>
-            </TouchableOpacity>
-          </TouchableOpacity>
+              </View>
 
-          <TouchableOpacity style={[styles.cardLeft, styles.shadowPropLeft]}>
-            <View style={styles.cardShadowRight}>
-              <Image
-                source={require("../Assets/PastedGraphic7.png")}
-                style={styles.postRighticons}
-              />
-            </View>
-            <Text
-              style={{
-                textAlign: "center",
-                marginTop: 10,
-                marginBottom: 5,
-                width: "90%",
-                alignSelf: "center",
-              }}
-            >
-              Find your students here
-            </Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("CheckIn")}
-              style={styles.CheckinButton}
-            >
               <Text
-                style={{ color: "#2F5597", alignSelf: "center", fontSize: 14 }}
+                style={{ textAlign: "center", marginTop: 10, marginBottom: 5 }}
               >
-                Check in
+                Keep your profile {"\n"}current
               </Text>
+              <TouchableOpacity
+                // onPress={() => navigation.navigate("Auth2")}
+                onPress={() => UpdateSection()}
+                style={styles.SearchButton}
+              >
+                <Text
+                  style={{ color: "#fff", alignSelf: "center", fontSize: 14 }}
+                >
+                  Update
+                </Text>
+              </TouchableOpacity>
             </TouchableOpacity>
-          </TouchableOpacity>
+
+            <TouchableOpacity style={[styles.cardLeft, styles.shadowPropLeft]}>
+
+              <View style={styles.cardShadow1}>
+                <Image
+                  source={require("../Assets/checkin.png")}
+                  style={styles.postRighticons}
+                />
+              </View>
+              <Text
+                style={{
+                  textAlign: "center",
+                  marginTop: 10,
+                  marginBottom: 5,
+                  width: "90%",
+                  alignSelf: "center",
+                }}
+              >
+                Find your students {"\n"}here
+              </Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("CheckIn")}
+                style={styles.CheckinButton}
+              >
+                <Text
+                  style={{ color: "#fff", alignSelf: "center", fontSize: 14 }}
+                >
+                  Check in
+                </Text>
+              </TouchableOpacity>
+            </TouchableOpacity>
+          </View>
+
         </View>
 
         {/* <View style={styles.postContainer}>
@@ -447,103 +449,121 @@ const TutorLanding = () => {
                 </View> */}
 
         <View style={styles.SliderContainer}>
-          <ScrollView horizontal={true} contentContainerStyle={{ padding: 10 }}>
-            <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}
-            >
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require("../Assets/ChatTutors.png")}
-                  style={styles.Slidericons}
-                />
-              </View>
 
-              <Text style={styles.postText}>Chat with Tutors</Text>
-              <Text numberOfLines={2} style={styles.sliderText}>
-                Chat with tutors and access their suitability.Sharing your
-                tutions concerns with potential tutors...
-                {/* <TouchableOpacity>
-                  <Text style={{color: '#2F5597'}}>See More</Text>
-                </TouchableOpacity> */}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}
-            >
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require("../Assets/OurTutors.png")}
-                  style={styles.Slidericons}
-                />
-              </View>
+          <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={{ padding: 5 }} horizontal={true}
+          >
+            <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
 
-              <Text style={styles.postText}>Our Tutors</Text>
-              <Text numberOfLines={2} style={styles.sliderText}>
-                Chat with tutors and access their suitability.Sharing your
-                tutions concerns with potential tutors...
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}
-            >
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require("../Assets/OurService.png")}
-                  style={styles.Slidericons}
-                />
-              </View>
 
-              <Text style={styles.postText}>Our Services</Text>
-              <Text numberOfLines={2} style={styles.sliderText}>
-                Chat with tutors and access their suitability.Sharing your
-                tutions concerns with potential tutors...
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}
-            >
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require("../Assets/MyActivities.png")}
-                  style={styles.Slidericons}
-                />
-              </View>
-              {/* <Image source={require('../Assets/MyActivities.png')}
+              <TouchableOpacity
+                style={[styles.cardSlider, styles.shadowPropSlider]}
+
+                onPress={() => navigation.navigate('ChatWithTutors')}
+              // onPress={toggleModal}
+              >
+                <View style={styles.cardShadow}>
+                  <Image
+                    source={require("../Assets/code.png")}
+                    style={styles.Slidericons}
+                  />
+                </View>
+                <View>
+                  <Text style={styles.postText}>Code of Conduct</Text>
+                </View>
+                <View style={{ padding: 5 }}>
+                  <Text numberOfLines={3} style={styles.sliderText}>
+                    Tutors should be familiar with the code of conduct of required of Educators. …..
+
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.cardSlider, styles.shadowPropSlider]}
+                onPress={() => navigation.navigate('OurTutorPop')}
+              //  onPress={toggleModal}
+              >
+                <View style={styles.cardShadow}>
+                  <Image
+                    source={require("../Assets/OurTutors.png")}
+                    style={styles.Slidericons}
+                  />
+                </View>
+                {/* <Image source={require('../Assets/OurTutors.png')}
                                 style={styles.Slidericons}
                             /> */}
-              <Text style={styles.postText}>My Activities</Text>
-              <Text numberOfLines={2} style={styles.sliderText}>
-                Chat with tutors and access their suitability.Sharing your
-                tutions concerns with potential tutors...
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.cardSlider, styles.shadowPropSlider]}
-            >
-              <View style={styles.cardShadow}>
-                <Image
-                  source={require("../Assets/Promotion.png")}
-                  style={styles.Slidericons}
-                />
-              </View>
-              {/* <Image source={require('../Assets/Promotion.png')}
+                <Text style={styles.postText}>Our Tutors</Text>
+                <View style={{ padding: 5 }}>
+                  <Text numberOfLines={3} style={styles.sliderText}>
+                    See how you fit in within our tutor categories. Academic Qualification …
+
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.cardSlider, styles.shadowPropSlider]}
+                onPress={() => navigation.navigate('OurServices')}
+              //  onPress={toggleModal}
+              >
+                <View style={styles.cardShadow}>
+                  <Image
+                    source={require("../Assets/OurService.png")}
+                    style={styles.Slidericons}
+                  />
+                </View>
+                {/* <Image source={require('../Assets/OurService.png')}
                                 style={styles.Slidericons}
                             /> */}
-              <Text style={styles.postText}>Promotions</Text>
-              <Text numberOfLines={2} style={styles.sliderText}>
-                Chat with tutors and access their suitability.{"\n"}Sharing your
-                tutions concerns with {"\n"} potential tutors...
-              </Text>
-            </TouchableOpacity>
-
-            {/* <View style={styles.Slider}>
-                            <Image source={require('../Assets/Promotion.png')}
+                <Text style={styles.postText}>Our Services</Text>
+                <View style={{ padding: 5 }}>
+                  <Text numberOfLines={3} style={styles.sliderText}>
+                    We provide Home Tuition, Online Tuition & Homework Help for all levels & …
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.cardSlider, styles.shadowPropSlider]}
+                onPress={() => navigation.navigate('MyActivityPop')}
+              //  onPress={toggleModal}
+              >
+                <View style={styles.cardShadow}>
+                  <Image
+                    source={require("../Assets/Booki.png")}
+                    style={styles.Slidericons}
+                  />
+                </View>
+                {/* <Image source={require('../Assets/MyActivities.png')}
                                 style={styles.Slidericons}
-                            />
-                            <Text style={styles.postText}>Promotions</Text>
-                            <Text numberOfLines={2} style={styles.sliderText}>Chat with tutors and access their suitability.Sharing your tutions concerns with potential tutors...
-                            <TouchableOpacity><Text style={{color:"#2F5597"}}>See More</Text></TouchableOpacity></Text>
-                        </View> */}
+                            /> */}
+                <Text style={styles.postText}>My Bookings</Text>
+                <View style={{ padding: 5 }}>
+                  <Text numberOfLines={3} style={styles.sliderText}>
+                    Everything of significance that you do on during the booking process. …
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[styles.cardSlider, styles.shadowPropSlider]}
+                onPress={() => navigation.navigate('Promotions')}
+              //  onPress={toggleModal}
+              >
+                <View style={styles.cardShadow}>
+                  <Image
+                    source={require("../Assets/Promotion.png")}
+                    style={styles.Slidericons}
+                  />
+                </View>
+                {/* <Image source={require('../Assets/Promotion.png')}
+                                style={styles.Slidericons}
+                            /> */}
+                <Text style={styles.postText}>Promotions</Text>
+                <View style={{ padding: 5 }}>
+                  <Text numberOfLines={3} style={styles.sliderText}>
+                    We value all our users. As a token of our appreciation, we have special offers …
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </ScrollView>
         </View>
         <View>
@@ -610,11 +630,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 30,
     width: 30,
-    marginBottom: 10,
+    // marginBottom: 10,
   },
   SliderContainer: {
     marginTop: 10,
     height: hp(22),
+    // backgroundColor: "red",
     width: "100%",
   },
 
@@ -635,19 +656,20 @@ const styles = StyleSheet.create({
   },
 
   postText: {
-    width: "90%",
-    fontSize: 14,
-    fontWeight: "500",
-    color: "#000",
+    fontSize: 16,
+    // fontWeight: "700",
+    // color: "#2F5597",
+    color: "#1f3864",
+    marginTop: 10,
     alignSelf: "center",
+    // fontFamily: "Poppins-Regular",
   },
   sliderText: {
-    //  width: '90%',
     fontSize: 12,
-    color: "#000",
+    // color: "#a2a2a2",
+    // color: '#000',
     alignSelf: "center",
-
-    fontFamily: "Poppins-Light",
+    // fontFamily: "Poppins-Light",
   },
   postTextRight: {
     fontSize: 18,
@@ -688,8 +710,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   posticonsU: {
-    height: 40,
-    width: 40,
+    height: 30,
+    width: 30,
     alignSelf: "center",
   },
   postRighticons: {
@@ -710,9 +732,12 @@ const styles = StyleSheet.create({
   },
   postContainer: {
     height: hp(20),
-    flexDirection: "row",
-    width: wp(90),
-    marginTop: 20,
+    // flexDirection: 'row',
+    // justifyContent: "space-between",
+    width: wp(100),
+    // backgroundColor: "red",
+    marginTop: 15,
+    marginBottom: 10,
     alignSelf: "center",
   },
   postLeft: {
@@ -735,6 +760,7 @@ const styles = StyleSheet.create({
     width: wp(35),
     height: hp(10),
     justifyContent: "center",
+    // backgroundColor: "red"
   },
 
   toggleicons: {
@@ -744,7 +770,7 @@ const styles = StyleSheet.create({
   },
 
   UserRight: {
-    width: wp(55),
+    width: wp(65),
     height: hp(8),
     flexDirection: "row",
     justifyContent: "center",
@@ -788,69 +814,55 @@ const styles = StyleSheet.create({
     width: 50,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 25,
-    // borderWidth: 0.1,
-    alignSelf: "center",
-    overflow: "hidden",
-    padding: 16,
-    backgroundColor: "white",
-    // backgroundColor: '#fff',
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-      // height: 50,
-      // width: 50,
-      // justifyContent: "center",
-      // alignItems: "center",
-      // borderRadius: 25,
-      // borderWidth: 0.1,
-      // alignSelf: "center",
-      // overflow: "hidden",
-      // padding: 16,
-      // backgroundColor: "transparent",
-      // // backgroundColor: '#fff',
-      // shadowColor: "#000",
-      // shadowOffset: {
-      //   width: 0,
-      //   height: 2,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 5,
-    elevation: 5,
-  },
-  cardShadow1: {
-    height: 50,
-    width: 50,
-    justifyContent: "center",
-    alignItems: "center",
     borderRadius: 40,
     alignSelf: "center",
     // overflow: 'hidden',
     backgroundColor: "white",
-    marginTop: 10,
     // backgroundColor: 'red',
     shadowColor: "#000",
-    shadowOffset: {
-      width: 5,
-      height: 10,
-      width: -5,
-      height: -10,
-      elevation: 10,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 5,
+    // shadowOffset: {
+    //     width: 5,
+    //     height: 10,
+    //     width: -5,
+    //     height: -10,
+
+    // },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
     elevation: 10,
   },
+  // cardShadow1: {
+  //   height: 50,
+  //   width: 50,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   borderRadius: 40,
+  //   alignSelf: "center",
+  //   // overflow: 'hidden',
+  //   backgroundColor: "white",
+  //   marginTop: 10,
+  //   // backgroundColor: 'red',
+  //   shadowColor: "#000",
+  //   shadowOffset: {
+  //     width: 5,
+  //     height: 10,
+  //     width: -5,
+  //     height: -10,
+  //     elevation: 10,
+  //   },
+  //   shadowOpacity: 0.18,
+  //   shadowRadius: 5,
+  //   elevation: 10,
+  // },
   cardLeft: {
     backgroundColor: "white",
     justifyContent: "center",
-    marginVertical: 0,
-    height: hp(18),
-    width: wp(40),
+    //marginVertical: 0,
+    height: hp(21),
+    width: wp(45),
     borderRadius: 20,
-    alignSelf: "flex-start",
-    marginRight: wp(6),
+    // alignSelf: "flex-start",
+    // marginRight: wp(6),
     // borderWidth: 0.2,
   },
   shadowPropLeft: {
@@ -883,12 +895,12 @@ const styles = StyleSheet.create({
   cardSlider: {
     backgroundColor: "white",
     width: wp(55),
-    marginLeft: 15,
-    marginRight: 10,
+    marginLeft: 10,
+    marginRight: 5,
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    padding: 5,
+    // padding: 5,
     // alignSelf: "flex-start",
     // borderWidth: 0.2,
     // height: hp(18),
@@ -908,18 +920,44 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   cardShadowLeft: {
-    marginTop: 10,
-    height: 45,
-    width: 60,
+    height: 50,
+    width: 50,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 60,
-    // borderWidth: 0.1,
+    borderRadius: 40,
     alignSelf: "center",
-    overflow: "hidden",
-    // padding: 16,
-    backgroundColor: "transparent",
-    // backgroundColor:'red',
+    // overflow: 'hidden',
+    backgroundColor: "white",
+    marginTop: 10,
+    // backgroundColor: 'red',
+    shadowColor: "#000",
+
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 10,
+  },
+  cardShadow1: {
+    height: 50,
+    width: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 40,
+    alignSelf: "center",
+    // overflow: 'hidden',
+    backgroundColor: "white",
+    marginTop: 10,
+    // backgroundColor: 'red',
+    shadowColor: "#000",
+    // shadowOffset: {
+    //     width: 5,
+    //     height: 10,
+    //     width: -5,
+    //     height: -10,
+
+    // },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 10,
   },
   cardShadowRight: {
     marginTop: 10,
@@ -927,32 +965,33 @@ const styles = StyleSheet.create({
     width: 50,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 40,
+    borderRadius: 50,
     borderWidth: 0.1,
     alignSelf: "center",
     overflow: "hidden",
     padding: 16,
-    backgroundColor: "transparent",
-    // backgroundColor: '#fff',
-    shadowColor: "#000",
+    //backgroundColor: "transparent",
+    backgroundColor: '#fff',
+    // shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.18,
+    //shadowOpacity: 0.18,
     shadowRadius: 5,
-    elevation: 5,
+    //elevation: 5,
   },
   CheckinButton: {
-    // backgroundColor: "#2F5597",
+    backgroundColor: "#2F5597",
     padding: 5,
     width: wp(30),
-    // borderRadius: 20,
+
+    borderRadius: 20,
     alignSelf: "center",
   },
   SearchButton: {
     backgroundColor: "#2F5597",
-    padding: 2,
+    padding: 5,
     width: wp(30),
     borderRadius: 20,
     alignSelf: "center",

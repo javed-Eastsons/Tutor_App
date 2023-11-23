@@ -291,6 +291,75 @@ export const GetResultAfterPostcode = (postalcode, Login_Data, navigation) => {
   };
 };
 
+
+export const GetResultAfterPostcodeLatLong = (postalcode, lat, long, Login_Data, navigation) => {
+  console.log(postalcode, Login_Data, "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+  return (dispatch, getState) => {
+    axios.defaults.baseURL = "https://refuel.site";
+    const url1 =
+      axios.defaults.baseURL +
+      "/projects/tutorapp/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance.php";
+    // var formData = new FormData();
+    // formData.append("tuition_type", "Home Tuition");
+    // formData.append("postal_code", postalcode);
+    // if (Login_Data.userid == undefined) {
+    //   formData.append("logged_in_student_id", "");
+    // } else {
+    //   formData.append("logged_in_student_id", Login_Data.userid);
+    // }
+    const _body = {
+      postal_code: postalcode,
+      student_lat: lat,
+      student_long: long,
+    };
+
+
+    console.log(url1, "url1url1url1url1url1", _body);
+
+    return fetch(url1, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        //  "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: JSON.stringify(_body),
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        // console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
+
+        if (responseJson.status == true) {
+          console.log(
+            "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            responseJson.Search_Data_Records
+          );
+          // Alert.alert(responseJson.message)
+          dispatch({
+            type: GET_POSTAL_DATA,
+            POSTAL_DATA: responseJson.Search_Data_Records,
+          });
+
+          navigation.navigate("OurTutor", {
+            postalcode: postalcode,
+            tuition_type: "Home Tuition",
+          });
+        } else if (responseJson.status == false) {
+          //  console.log("AAa", responseJson.message);
+          Alert.alert(responseJson.message);
+          // dispatch({
+
+          //     type: REGISTER_MSG,
+          //     REG_MSG: responseJson.message
+
+          // });
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+  };
+};
+
 export const GetQuickData = (postalcode, navigation) => {
   console.log(
     "🚀 ~ file: TutorSearchAction.js ~ line 202 ~ GetQuickData ~ postalcode",

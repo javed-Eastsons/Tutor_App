@@ -307,8 +307,7 @@ const ClientLandingBefore = () => {
               </View>
               <View style={{ padding: 5 }}>
                 <Text numberOfLines={3} style={styles.sliderText}>
-                  Chat with tutors and access their suitability.{"\n"}Sharing
-                  your tutions concerns with {"\n"}potential tutors...
+                  Chat with tutors & assess their suitability. Sharing your tuition concerns with …..
                 </Text>
               </View>
             </TouchableOpacity>
@@ -329,8 +328,7 @@ const ClientLandingBefore = () => {
               <Text style={styles.postText}>Our Tutors</Text>
               <View style={{ padding: 5 }}>
                 <Text numberOfLines={3} style={styles.sliderText}>
-                  Chat with tutors and access their suitability.{"\n"}Sharing
-                  your tutions concerns with {"\n"}potential tutors...
+                  We have an extensive database of competent tutors. They all possess varied …,,,,,,,,,,,,
                 </Text>
               </View>
             </TouchableOpacity>
@@ -351,8 +349,7 @@ const ClientLandingBefore = () => {
               <Text style={styles.postText}>Our Services</Text>
               <View style={{ padding: 5 }}>
                 <Text numberOfLines={3} style={styles.sliderText}>
-                  Chat with tutors and access their suitability.{"\n"}Sharing
-                  your tutions concerns with {"\n"}potential tutors...
+                  We provide Home Tuition, Online Tuition & Homework Help for all levels & …
                 </Text>
               </View>
             </TouchableOpacity>
@@ -370,11 +367,11 @@ const ClientLandingBefore = () => {
               {/* <Image source={require('../Assets/MyActivities.png')}
                                 style={styles.Slidericons}
                             /> */}
-              <Text style={styles.postText}>My Activities</Text>
+              <Text style={styles.postText}>We are Hiring</Text>
               <View style={{ padding: 5 }}>
                 <Text numberOfLines={3} style={styles.sliderText}>
-                  Chat with tutors and access their suitability.{"\n"}Sharing
-                  your tutions concerns with {"\n"}potential tutors...
+                  Tutors, if you are looking for tuition jobs, look no further. We have hundreds …
+
                 </Text>
               </View>
             </TouchableOpacity>
@@ -396,8 +393,7 @@ const ClientLandingBefore = () => {
               <Text style={styles.postText}>Promotions</Text>
               <View style={{ padding: 5 }}>
                 <Text numberOfLines={3} style={styles.sliderText}>
-                  Chat with tutors and access their suitability.{"\n"}Sharing
-                  your tutions concerns with {"\n"}potential tutors...
+                  We value all our users. As a token of our appreciation, we have special offers …
                 </Text>
               </View>
             </TouchableOpacity>
@@ -927,7 +923,7 @@ const styles = StyleSheet.create({
     height: hp(22),
     backgroundColor: "white",
     // backgroundColor:"red",
-    width: wp(44),
+    width: wp(55),
     marginLeft: 15,
     marginRight: 10,
     borderRadius: 20,
@@ -955,14 +951,15 @@ const styles = StyleSheet.create({
     color: "#1f3864",
     marginTop: 10,
     alignSelf: "center",
-    fontFamily: "Poppins-Regular",
+    // fontFamily: "Poppins-Regular",
   },
 
   sliderText: {
-    fontSize: 12,
-    color: "#a2a2a2",
+    fontSize: 11,
+    textAlign: "center",
+    //color: "#a2a2a2",
     alignSelf: "center",
-    fontFamily: "Poppins-Light",
+    fontFamily: "Poppins-Regular",
   },
   postTextRight: {
     fontSize: 18,

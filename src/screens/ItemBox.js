@@ -152,7 +152,7 @@ const ItemBox = (props) => {
           {/* {console.log('tutor', item.first_name)} */}
           <View>
             <View style={styles.wrraper}>
-              <Text style={styles.userIdWrapper}>{props.data.tutor_code}</Text>
+              <Text style={styles.userIdWrapper}>{props.data.postal_code}</Text>
               <Image
                 source={require("../Assets/flag.png")}
                 style={styles.flagImage}
@@ -175,7 +175,7 @@ const ItemBox = (props) => {
                   fontFamily: "Poppins-Light",
                 }}
               >
-                {props.data.name_of_school}
+                {props.data.qualification}
               </Text>
 
               <TouchableOpacity
@@ -194,7 +194,7 @@ const ItemBox = (props) => {
                 maxStars={5}
                 rating={4}
                 starSize={15}
-                // selectedStar={(rating) => setStrCount(rating)}
+              // selectedStar={(rating) => setStrCount(rating)}
               />
             </View>
             <View

@@ -5,6 +5,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
 import { enableScreens } from "react-native-screens";
 import Register from "../screens/Register";
+import VerifyOTPScreen from "../screens/VerifyOTPScreen";
 
 import IntroScreen from "../screens/IntroScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -99,6 +100,7 @@ import OurServices from "../screens/OurServices";
 import MyActivityPop from "../screens/MyActivityPop";
 import Promotions from "../screens/Promotions";
 import MyFavAssignment from "../screens/MyFavAssignment";
+import ForgotPassword from "../screens/ForgotPassword";
 
 const SignStack = createStackNavigator();
 
@@ -338,6 +340,25 @@ function SignInScreen() {
         }}
       />
 
+
+      <Stack.Screen
+        name="VerifyOTPScreen"
+        component={VerifyOTPScreen}
+        options={{
+          title: "VerifyOTPScreen",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
       <Stack.Screen
         name="OTPScreen"
         component={OTPScreen}
@@ -361,6 +382,24 @@ function SignInScreen() {
         component={Login}
         options={{
           title: "AuthCheck",
+          headerShown: false,
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPassword}
+        options={{
+          title: "ForgotPassword",
           headerShown: false,
           headerStyle: {
             backgroundColor: "#e85b3d",
@@ -1289,6 +1328,91 @@ function SecondStacknavigation() {
           },
         }}
       />
+      <SecondStack.Screen
+        name="ChatWithTutors"
+        component={ChatWithTutors}
+        options={{
+          title: "ChatWithTutors",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="OurTutorPop"
+        component={OurTutorPop}
+        options={{
+          title: "OurTutorPop",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="OurServices"
+        component={OurServices}
+        options={{
+          title: "OurServices",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="MyActivityPop"
+        component={MyActivityPop}
+        options={{
+          title: "MyActivityPop",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="Promotions"
+        component={Promotions}
+        options={{
+          title: "Promotions",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
 
       <SecondStack.Screen
         name="TutorSearch"
@@ -1886,6 +2010,7 @@ function TutorHomeStacknavigation() {
         }}
       />
 
+
       <FirstStack.Screen
         name="PersonalInfo"
         component={PersonalInfo}
@@ -2252,6 +2377,91 @@ function TutorHomeStacknavigation4() {
         component={OnlineTuition}
         options={{
           title: "OnlineTuition",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="ChatWithTutors"
+        component={ChatWithTutors}
+        options={{
+          title: "ChatWithTutors",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="OurTutorPop"
+        component={OurTutorPop}
+        options={{
+          title: "OurTutorPop",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="OurServices"
+        component={OurServices}
+        options={{
+          title: "OurServices",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="MyActivityPop"
+        component={MyActivityPop}
+        options={{
+          title: "MyActivityPop",
+          headerStyle: {
+            backgroundColor: "#e85b3d",
+          },
+          headerShown: false,
+
+          headerTintColor: "#fff",
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <SecondStack.Screen
+        name="Promotions"
+        component={Promotions}
+        options={{
+          title: "Promotions",
           headerStyle: {
             backgroundColor: "#e85b3d",
           },

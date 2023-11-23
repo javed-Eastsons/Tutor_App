@@ -52,6 +52,10 @@
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_grade.png"
     },
     {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_code.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_code.png"
+    },
+    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_us.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_us.png"
     },
@@ -240,6 +244,10 @@
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_pastedgraphic5.png"
     },
     {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_myapplied.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_myapplied.png"
+    },
+    {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_sorticon.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_sorticon.png"
     },
@@ -354,6 +362,10 @@
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_postrequire.png.flat",
         "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_postrequire.png"
+    },
+    {
+        "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_booki.png.flat",
+        "source": "com.tutor.app-main-41:/drawable-mdpi/src_assets_booki.png"
     },
     {
         "merged": "com.tutor.app-merged_res-39:/drawable-mdpi_src_assets_canada.png.flat",

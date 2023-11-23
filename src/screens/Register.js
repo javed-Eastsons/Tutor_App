@@ -66,7 +66,8 @@ const Register = ({ route }) => {
   const [value, setValue] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [imageSource, setImageSource] = useState("");
-
+  const [minutes, setMinutes] = useState(1);
+  const [seconds, setSeconds] = useState(30);
   const [imageSource1, setImageSource1] = useState("");
   const [newImg, setNewImg] = useState(null);
 
@@ -218,14 +219,22 @@ const Register = ({ route }) => {
     // }
 
     else {
+
+
+      setLoader(true)
+
+
       dispatch(
-        RegisterUser(FirstName, LastName, Password, Email, value, Mobile, imageSource)
+        RegisterUser(FirstName, LastName, Password, Email, value, Mobile, imageSource, navigation)
       );
+      setTimeout(() => {
+        setLoader(false)
+      }, 2000);
 
       console.log("sddddddddd");
 
       // Alert.alert(Registermsg);
-      setVerifyModalVisible(!isVerfyModalVisible);
+      //  setVerifyModalVisible(!isVerfyModalVisible);
       //  setModalVisible(!isModalVisible);
     }
   };
@@ -238,9 +247,10 @@ const Register = ({ route }) => {
     setOtp(otpcode);
     setLoader(true);
     //  console.log('newwwwwwwwwwwwwww', otp)
-    dispatch(OTPVerify(otpcode))
-      .then((res) => setLoader(false))
-      .finally(() => setLoader(false));
+    // dispatch(OTPVerifywithrole(otpcode)) 
+    // dispatch(OTPVerify(otpcode))
+    //   .then((res) => setLoader(false))
+    //   .finally(() => setLoader(false));
     console.log("isVerfyModalVisible=", isVerfyModalVisible);
     //Alert.alert(otpmsgs)
     setVerifyModalVisible(false);
@@ -265,11 +275,13 @@ const Register = ({ route }) => {
       //     navigation
       //   )
       // );
-      dispatch(OTPVerifywithrole(role, otp, navigation));
+      dispatch(OTPVerifywithrole(role, otp, Email, navigation));
 
       setModalVisible(false);
       setLoader(false);
     }, 3000);
+
+
   };
 
   // useEffect(() => {
@@ -378,7 +390,15 @@ const Register = ({ route }) => {
     setTermsModalVisible(false)
     setEnable(true)
   }
+  const resendOTP = () => {
+    setMinutes(1);
+    setSeconds(30);
+    dispatch(
+      RegisterUser(FirstName, LastName, Password, Email, value, Mobile, imageSource)
+    );
 
+
+  };
   //console.log(imageSource, "imageSourceimageSourceimageSourceimageSourceimageSource")
   // console.log(imageSource1, "imageSource1imageSource1imageSource1imageSource1")
 
@@ -453,7 +473,12 @@ const Register = ({ route }) => {
       >
         <View style={styles.bottomcontent}>
           <Text style={styles.AlreadyText}>Already have an account? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <TouchableOpacity
+
+            //  onPress={() => navigation.navigate("VerifyOTPScreen")}
+            onPress={() => navigation.navigate("Login")}
+
+          >
             <Text style={styles.loginText}>Login Here </Text>
           </TouchableOpacity>
         </View>
@@ -562,6 +587,8 @@ const Register = ({ route }) => {
             <Image source={require("../Assets/usericon.png")} />
           </View>
         </View> */}
+
+
         <View
           style={{
             flexDirection: "row",
@@ -858,7 +885,7 @@ const Register = ({ route }) => {
 
       <Modal
         isVisible={isTermsModalVisible}
-        onBackdropPress={() => setTermsModalVisible(false)}
+      //    onBackdropPress={() => setTermsModalVisible(false)}
       >
         {/* <View style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, alignSelf: 'center', position: 'absolute', bottom: 0, height: hp(45), width: wp(100), backgroundColor: '#fff' }}>
          */}
@@ -930,7 +957,7 @@ const Register = ({ route }) => {
 
       <Modal
         isVisible={isModalVisible}
-        onBackdropPress={() => setModalVisible(false)}
+      // onBackdropPress={() => setModalVisible(false)}
       >
         {/* <View style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, alignSelf: 'center', position: 'absolute', bottom: 0, height: hp(45), width: wp(100), backgroundColor: '#fff' }}>
          */}
@@ -1041,7 +1068,7 @@ const Register = ({ route }) => {
 
       <Modal
         isVisible={isVerfyModalVisible}
-        onBackdropPress={() => setVerifyModalVisible(false)}
+        //  onBackdropPress={() => setVerifyModalVisible(false)}
         onModalHide={() => setModalVisible(true)}
       >
         <View
@@ -1096,9 +1123,54 @@ const Register = ({ route }) => {
               height={66}
               tintColor={"#fff"}
             />
+            <View
+              style={{
 
-            <TouchableOpacity style={{ width: wp(90), alignSelf: "center", marginTop: wp(15), marginBottom: wp(2) }}>
-              <Text style={{ textAlign: "center", color: '#2F5597', fontSize: 12 }}>Resend OTP</Text>
+                alignSelf: "center", marginTop: 10,
+
+              }}
+            >
+
+
+              {seconds > 0 || minutes > 0 ? (
+                <Text
+                  style={{
+                    color: 'green',
+                    width: wp(90), alignSelf: "center", marginBottom: wp(2),
+                    textAlign: "center",
+                  }}
+                >
+                  Time Remaining: {minutes < 10 ? `0${minutes}` : minutes}:
+                  {seconds < 10 ? `0${seconds}` : seconds}
+                </Text>
+              ) : (
+                <Text
+                  style={{
+                    color: 'red',
+                    width: wp(90), alignSelf: "center", marginBottom: wp(2),
+                    textAlign: "center",
+                  }}
+                >Didn't recieve code?</Text>
+              )}
+            </View>
+            <TouchableOpacity
+              onPress={() => resendOTP()}
+              disabled={seconds > 0 || minutes > 0}
+              style={{
+
+
+                width: wp(90), alignSelf: "center", marginBottom: wp(2)
+
+              }}
+
+            >
+
+
+              <Text style={{
+                color: seconds > 0 || minutes > 0 ? "#bdc2dc" : "#2F5597",
+                fontWeight: seconds > 0 || minutes > 0 ? "400" : "700",
+                textAlign: "center", color: '#2F5597', fontSize: 12
+              }}>Resend OTP</Text>
             </TouchableOpacity>
 
             <TouchableOpacity

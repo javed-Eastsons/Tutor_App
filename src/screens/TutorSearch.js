@@ -22,7 +22,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { GetResultAfterPostcode } from "../Redux/Actions/TutorSearchAction";
+import { GetResultAfterPostcode, GetResultAfterPostcodeLatLong } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../common/Loader";
 import { Tution_Type, Postal_Code_Address } from "../Redux/Actions/types";
@@ -32,6 +32,8 @@ const TutorSearch = () => {
   const dispatch = useDispatch();
   const [homeTutor, setHomeTutor] = useState(false);
   const [postalcode, setpostalcode] = useState("");
+  const [latitude, setlatitude] = useState("");
+  const [longitude, setlongitude] = useState("");
   const [forwardArrrow, setForwardArrow] = useState(false);
   const [loader, setLoader] = useState(false);
   const [address, setAddress] = useState("");
@@ -54,7 +56,8 @@ const TutorSearch = () => {
 
       //   console.log("Inside ELSEEEEEEEEEE");
 
-      dispatch(GetResultAfterPostcode(postalcode, Login_Data, navigation));
+      // dispatch(GetResultAfterPostcode(postalcode, Login_Data, navigation));
+      dispatch(GetResultAfterPostcodeLatLong(postalcode, latitude, longitude, Login_Data, navigation));
 
       dispatch({
         type: Tution_Type,
@@ -86,6 +89,7 @@ const TutorSearch = () => {
         // setAddress(jj?.formatted_address);
         // console.log(jj, "AddressPin");
         getAddress(jj?.geometry?.location?.lat, jj?.geometry?.location?.lng);
+
         // console.log(
         //   jj?.formatted_address,
         //   "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ"
@@ -104,6 +108,8 @@ const TutorSearch = () => {
 
   const getAddress = (lat, long) => {
     console.log("WERTYUI");
+    setlatitude(lat)
+    setlongitude(long)
     let config1 = {
       method: "get",
       maxBodyLength: Infinity,
@@ -182,8 +188,8 @@ const TutorSearch = () => {
 
             <View style={styles.LittlemoreContainer}>
               <View style={styles.LittlLeft}>
-                <Text style={styles.Text1}>A little more...</Text>
-                <Text style={styles.Text2}>This will help us,help you</Text>
+                <Text style={styles.Text1}>Search It!</Text>
+                <Text style={styles.Text2}>A little more to help us start</Text>
               </View>
               <View style={styles.LittlRight}>
                 <Image
@@ -211,7 +217,9 @@ const TutorSearch = () => {
                 style={[styles.whitebox, { elevation: 5 }]}
               >
                 <View style={styles.bicons}>
-                  <Image source={require("../Assets/hometutIcon.png")} />
+                  <Image source={require("../Assets/8a.png")}
+                    style={{ height: 30, width: 30 }}
+                  />
                 </View>
                 <Text
                   style={{
@@ -244,7 +252,7 @@ const TutorSearch = () => {
                         width: 10,
                         borderRadius: 50,
                         borderWidth: 1,
-                        backgroundColor: "#000",
+                        backgroundColor: "#2F5597",
                         marginTop: hp(0.5),
                       }}
                     ></View>
@@ -321,7 +329,7 @@ const TutorSearch = () => {
             {homeTutor === true && (
               <View style={styles.tutorWrapper}>
                 <Text style={styles.tutorText}>
-                  Tuition Location Postal Code
+                  Tuition Location’s Postal Code
                 </Text>
                 <View style={styles.inputWrapper}>
                   <TextInput
@@ -386,6 +394,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     //backgroundColor: 'red',
     top: 20,
+    marginBottom: 50,
     marginRight: 10,
     zIndex: 99999,
   },
@@ -400,14 +409,14 @@ const styles = StyleSheet.create({
   },
   LittlLeft: {
     height: hp(15),
-    width: wp(50),
+    width: wp(55),
     justifyContent: "center",
 
     // backgroundColor: 'red'
   },
   LittlRight: {
     height: hp(15),
-    width: wp(40),
+    width: wp(35),
     justifyContent: "center",
     //  backgroundColor: "yellow",
     alignItems: "flex-end",
@@ -447,13 +456,16 @@ const styles = StyleSheet.create({
     //   backgroundColor: "#2F5597",
     //  height: hp(15),
     flexDirection: "row",
-    justifyContent: "center",
+    // justifyContent: "center",
+    justifyContent: "space-between",
     marginTop: -hp(8),
-    // backgroundColor:'yellow'
+    width: wp(95),
+    alignSelf: "center",
+    // backgroundColor: 'yellow'
   },
   Text2: {
     color: "grey",
-    fontSize: 16,
+    fontSize: 14,
     fontFamily: "Poppins-Regular",
   },
 
@@ -550,6 +562,7 @@ const styles = StyleSheet.create({
     width: wp(38),
     elevation: 6,
     marginTop: hp(1),
+    marginBottom: hp(2),
     flexDirection: "row",
     alignItems: "center",
   },

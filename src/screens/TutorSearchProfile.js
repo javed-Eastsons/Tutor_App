@@ -13,6 +13,7 @@ import {
   Modal,
   ImageBase,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { TextInput } from "react-native-gesture-handler";
@@ -69,28 +70,67 @@ const TutorSearchProfile = ({ props, route }) => {
   const { Tution_Type } = useSelector((state) => state.TutorReducer);
   const [isBookmarked, setIsBookmarked] = useState(data.Favourite);
   console.log(isBookmarked, "LLLLLLLLLLLLLLLLLLLLLLLLLLLL", data.Favourite);
+  // console.log("KKKKKKKKKKKKK", isBookmarked, !isBookmarked);
+
 
   const toggleBookmark = () => {
-    //  setIsBookmarked(!isBookmarked);
+    //  console.log("IIIIIIIIIIIIII", isBookmarked,);
 
-    console.log(data, "PPPPPPPPPPPPPPPPPPPP");
     setLoader(true);
-    if (data.favourite_status == "true") {
-      console.log("TTTTTTTT");
-      dispatch(
-        FavouriteTutorByStudent(Login_Data.userid, data.user_id, "false")
-      );
+
+    if (isBookmarked) {
+      // If already bookmarked, remove from bookmarks
+
+      dispatch(FavouriteTutorByStudent(Login_Data.userid, data.user_id, "false"));
     } else {
-      console.log("FFFFF");
-      dispatch(
-        FavouriteTutorByStudent(Login_Data.userid, data.user_id, "true")
-      );
+      // If not bookmarked, add to bookmarks
+      dispatch(FavouriteTutorByStudent(Login_Data.userid, data.user_id, "true"));
     }
+
+    // Toggle the bookmark status
+    setIsBookmarked(!isBookmarked);
 
     setTimeout(() => {
       setLoader(false);
     }, 2000);
   };
+
+  // const toggleBookmark = () => {
+  //   console.log("PPPPPPPPPPPPPPPPPPPP", isBookmarked, !isBookmarked);
+  //   // if (isBookmarked == true) {
+  //   //   setIsBookmarked(false);
+  //   // }
+  //   // else {
+  //   //   setIsBookmarked(true);
+
+  //   // }
+  //   setIsBookmarked(!isBookmarked);
+
+  //   //console.log(data, "PPPPPPPPPPPPPPPPPPPP", data.Favourite, isBookmarked);
+
+  //   setLoader(true);
+  //   if (data.f == true) {
+  //     console.log("TTTTTTTT");
+  //     setIsBookmarked(!isBookmarked);
+  //     Alert.alert('iiifffffff', isBookmarked)
+  //     dispatch(
+  //       FavouriteTutorByStudent(Login_Data.userid, data.user_id, "false")
+  //     );
+  //   } else {
+  //     console.log("FFFFF");
+  //     Alert.alert('elseeeeeeeeeee', isBookmarked,)
+  //     setIsBookmarked(isBookmarked);
+  //     dispatch(
+  //       FavouriteTutorByStudent(Login_Data.userid, data.user_id, "true")
+  //     );
+  //   }
+
+  //   setTimeout(() => {
+  //     setLoader(false);
+  //   }, 2000);
+  // };
+
+
 
 
   const renderViewMore = (onPress) => {
@@ -467,7 +507,7 @@ const TutorSearchProfile = ({ props, route }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       <Loader flag={loader} />
       <View style={styles.Headers}>
         <View style={styles.HeadLeft}>
@@ -540,7 +580,7 @@ const TutorSearchProfile = ({ props, route }) => {
           </View>
         </View>
         <View style={{ height: 25, width: "100%" }}>
-          <Text style={styles.infoText}>{data.name_of_school}</Text>
+          <Text style={styles.infoText}>{data.qualification}</Text>
         </View>
         <View
           style={{
@@ -593,14 +633,14 @@ const TutorSearchProfile = ({ props, route }) => {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity style={styles.FavBooKChat} onPress={toggleBookmark}>
-          {/* {console.log(!isBookmarked, "OOOOOOOOOOOOOOOOOOOOO")} */}
+        <TouchableOpacity style={styles.FavBooKChat} onPress={() => toggleBookmark()}>
+          {console.log(isBookmarked, "OOOOOOOOOOOOOOOOOOOOO")}
           {/* {isBookmarked == "true" ? ( */}
           <Image
             source={
-              isBookmarked == "true"
+              isBookmarked == false
                 ? require("../Assets/heart.png")
-                : require("../Assets/Health.png")
+                : require("../Assets/fav_Assign.png")
             }
             style={styles.Bookicons}
           />
@@ -663,10 +703,11 @@ const TutorSearchProfile = ({ props, route }) => {
       >
         <TouchableOpacity
           style={styles.FavBooKChatContainer}
-          onpress={() => GetFavTutor()}
+        //onpress={() => GetFavTutor()}
         >
           <Text style={{ alignSelf: "center", color: "grey" }}>
-            {isBookmarked == "true" ? "My Fav" : "Favourite"}
+            {/* {isBookmarked == "true" ? "My Fav" : "Favourite"} */}
+            Favourite
           </Text>
           {console.log(Login_Data, 'YYYYYYYYYYYYYYYYYYYYYYYYYY')}
         </TouchableOpacity>
@@ -708,7 +749,7 @@ const TutorSearchProfile = ({ props, route }) => {
       </View>
 
       <View style={{ height: 30, width: "90%", alignSelf: "center" }}>
-        <Text style={{ fontWeight: "bold", fontSize: 18, color: "black" }}>
+        <Text style={{ fontWeight: "bold", fontSize: 14, color: "black" }}>
           A bit about me
         </Text>
 
@@ -983,8 +1024,9 @@ export default TutorSearchProfile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5FCFF",
-    paddingTop: 30,
+    //backgroundColor: "#F5FCFF",
+    backgroundColor: "#fff",
+    //paddingTop: 30,
   },
   // title: {
   //   textAlign: "center",
@@ -1018,11 +1060,16 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
+
     backgroundColor: "#fff",
     color: "#000",
   },
   active: {
     backgroundColor: "rgba(255,255,255,1)",
+    borderRadius: 20,
+    marginTop: 5,
+    marginBottom: 5,
+    elevation: 5,
     color: "#000",
   },
   inactive: {
@@ -1081,6 +1128,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     width: wp(100),
+    // backgroundColor: "red"
   },
   HeadLeft: {
     width: wp(45),
@@ -1128,6 +1176,7 @@ const styles = StyleSheet.create({
     shadowColor: "grey",
     shadowOpacity: 0.5,
     shadowRadius: 3,
+    elevation: 10
   },
   threeDotContainer: {
     height: 40,

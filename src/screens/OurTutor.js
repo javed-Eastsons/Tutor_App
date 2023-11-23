@@ -1058,337 +1058,351 @@ const OurTutor = ({ props, route }) => {
             </View>
           </View>
         </View>
-        <View style={{ alignItems: "center", backgroundColor: "#f7f2fa" }}>
-          <Text
+        <View style={{
+          height: hp(20),
+          backgroundColor: "lightgrey"
+        }}>
+
+
+          <View style={{
+
+          }}>
+            <Text
+              style={{
+                color: "#2F5597",
+                paddingTop: 5,
+                paddingLeft: 10,
+
+                fontFamily: "Poppins-Regular",
+              }}
+            >
+              Frequently Used Filters
+            </Text>
+          </View>
+          <View
             style={{
-              color: "purple",
-              paddingTop: 5,
-              fontFamily: "Poppins-Regular",
+              flexDirection: "row",
+              //  backgroundColor: "lightgrey"
+              //backgroundColor: "#f7f2fa",
+              //  backgroundColor: "red",
+              //   paddingBottom: 10,
             }}
           >
-            Frequently Used Filters
-          </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            backgroundColor: "#f7f2fa",
-            paddingBottom: 10,
-          }}
-        >
-          <TouchableOpacity
-            style={[
-              styles.subjectsWrapper,
-              {
-                backgroundColor: selectedlevels.some((obj) => {
-                  return obj.includes("Primary");
-                })
-                  ? "#2F5597"
-                  : "#fff",
-                //  backgroundColor: Primary == "Primary" ? "#fff" : "#2F5597",
-              },
-            ]}
-            onPress={() =>
-              //  dispatch(GetQuickData());
-              FetchDetail("Primary")
-            }
-          >
-            {/* // onPress={() => setPrimaryFun()} style={[styles.subjectsWrapper, { backgroundColor: Primary == 'Primary' ? '#fff' : '#2F5597' }]} */}
-            <Text
+            <TouchableOpacity
               style={[
-                styles.subjectText,
+                styles.subjectsWrapper,
                 {
-                  color: selectedlevels.some((obj) => {
+                  backgroundColor: selectedlevels.some((obj) => {
                     return obj.includes("Primary");
                   })
-                    ? "#fff"
-                    : "#2F5597",
+                    ? "#2F5597"
+                    : "#fff",
+                  //  backgroundColor: Primary == "Primary" ? "#fff" : "#2F5597",
                 },
               ]}
+              onPress={() =>
+                //  dispatch(GetQuickData());
+                FetchDetail("Primary")
+              }
             >
-              Primary
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            // onPress={() => setSeconadyFun()}
-            onPress={() => {
-              FetchDetail("Secondary");
-            }}
-            style={[
-              styles.subjectsWrapper,
-              {
-                backgroundColor: selectedlevels.some((obj) => {
-                  return obj.includes("Secondary");
-                })
-                  ? "#2F5597"
-                  : "#fff",
-              },
-            ]}
-          >
-            <Text
+              {/* // onPress={() => setPrimaryFun()} style={[styles.subjectsWrapper, { backgroundColor: Primary == 'Primary' ? '#fff' : '#2F5597' }]} */}
+              <Text
+                style={[
+                  styles.subjectText,
+                  {
+                    color: selectedlevels.some((obj) => {
+                      return obj.includes("Primary");
+                    })
+                      ? "#fff"
+                      : "#2F5597",
+                  },
+                ]}
+              >
+                Primary
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              // onPress={() => setSeconadyFun()}
+              onPress={() => {
+                FetchDetail("Secondary");
+              }}
               style={[
-                styles.subjectText,
+                styles.subjectsWrapper,
                 {
-                  color: selectedlevels.some((obj) => {
+                  backgroundColor: selectedlevels.some((obj) => {
                     return obj.includes("Secondary");
                   })
-                    ? "#fff"
-                    : "#2F5597",
+                    ? "#2F5597"
+                    : "#fff",
                 },
               ]}
             >
-              Secondary
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            //   onPress={() => setJCFun()}
-            onPress={() => {
-              FetchDetail("JC/Pre-U");
-            }}
-            style={[
-              styles.subjectsWrapper,
-              {
-                backgroundColor: selectedlevels.some((obj) => {
-                  return obj.includes("JC/Pre-U");
-                })
-                  ? "#2F5597"
-                  : "#fff",
-              },
-            ]}
-          >
-            <Text
+              <Text
+                style={[
+                  styles.subjectText,
+                  {
+                    color: selectedlevels.some((obj) => {
+                      return obj.includes("Secondary");
+                    })
+                      ? "#fff"
+                      : "#2F5597",
+                  },
+                ]}
+              >
+                Secondary
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              //   onPress={() => setJCFun()}
+              onPress={() => {
+                FetchDetail("JC/Pre-U");
+              }}
               style={[
-                styles.subjectText,
+                styles.subjectsWrapper,
                 {
-                  color: selectedlevels.some((obj) => {
+                  backgroundColor: selectedlevels.some((obj) => {
                     return obj.includes("JC/Pre-U");
                   })
-                    ? "#fff"
-                    : "#2F5597",
+                    ? "#2F5597"
+                    : "#fff",
                 },
               ]}
             >
-              JC/Pre-U
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              FetchDetail("IB (Diploma)");
-            }}
-            // onPress={() => setIBFun()}
-            style={[
-              styles.subjectsWrapper,
-              {
-                backgroundColor: selectedlevels.some((obj) => {
-                  return obj.includes("IB (Diploma)");
-                })
-                  ? "#2F5597"
-                  : "#fff",
-              },
-            ]}
-          >
-            <Text
+              <Text
+                style={[
+                  styles.subjectText,
+                  {
+                    color: selectedlevels.some((obj) => {
+                      return obj.includes("JC/Pre-U");
+                    })
+                      ? "#fff"
+                      : "#2F5597",
+                  },
+                ]}
+              >
+                JC/Pre-U
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                FetchDetail("IB (Diploma)");
+              }}
+              // onPress={() => setIBFun()}
               style={[
-                styles.subjectText,
+                styles.subjectsWrapper,
                 {
-                  color: selectedlevels.some((obj) => {
+                  backgroundColor: selectedlevels.some((obj) => {
                     return obj.includes("IB (Diploma)");
                   })
-                    ? "#fff"
-                    : "#2F5597",
+                    ? "#2F5597"
+                    : "#fff",
                 },
               ]}
             >
-              IB (Diploma)
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            // onPress={() => setAEISFun()}
-            onPress={() => {
-              FetchDetail("AEIS");
-            }}
-            style={[
-              styles.subjectsWrapper,
-
-              {
-                backgroundColor: selectedlevels.some((obj) => {
-                  return obj.includes("AEIS");
-                })
-                  ? "#2F5597"
-                  : "#fff",
-                // backgroundColor: AEIS == "AEIS" ? "#fff" : "#2F5597"
-              },
-            ]}
-          >
-            <Text
+              <Text
+                style={[
+                  styles.subjectText,
+                  {
+                    color: selectedlevels.some((obj) => {
+                      return obj.includes("IB (Diploma)");
+                    })
+                      ? "#fff"
+                      : "#2F5597",
+                  },
+                ]}
+              >
+                IB (Diploma)
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              // onPress={() => setAEISFun()}
+              onPress={() => {
+                FetchDetail("AEIS");
+              }}
               style={[
-                styles.subjectText,
+                styles.subjectsWrapper,
+
                 {
-                  color: selectedlevels.some((obj) => {
+                  backgroundColor: selectedlevels.some((obj) => {
                     return obj.includes("AEIS");
                   })
-                    ? "#fff"
-                    : "#2F5597",
+                    ? "#2F5597"
+                    : "#fff",
+                  // backgroundColor: AEIS == "AEIS" ? "#fff" : "#2F5597"
                 },
               ]}
             >
-              AEIS
-            </Text>
-          </TouchableOpacity>
-        </View>
+              <Text
+                style={[
+                  styles.subjectText,
+                  {
+                    color: selectedlevels.some((obj) => {
+                      return obj.includes("AEIS");
+                    })
+                      ? "#fff"
+                      : "#2F5597",
+                  },
+                ]}
+              >
+                AEIS
+              </Text>
+            </TouchableOpacity>
+          </View>
 
-        <View
-          style={{
-            flexDirection: "row",
-            backgroundColor: "#f7f2fa",
-            paddingBottom: 10,
-          }}
-        >
-          <TouchableOpacity
-            AddSubjects
-            // onPress={() => setEnglishFun()}
-            onPress={() => AddSubjects("English")}
-            style={[
-              styles.subjectsWrapper,
-              {
-                backgroundColor: subjectList.some((obj) => {
-                  return obj.includes("English");
-                })
-                  ? "#2F5597"
-                  : "#fff",
-              },
-            ]}
+
+          <View
+            style={{
+              flexDirection: "row",
+              //  backgroundColor: "lightgrey",
+              // backgroundColor: "#f7f2fa",
+              // paddingBottom: 10,
+            }}
           >
-            <Text
+            <TouchableOpacity
+              AddSubjects
+              // onPress={() => setEnglishFun()}
+              onPress={() => AddSubjects("English")}
               style={[
-                styles.subjectText,
+                styles.subjectsWrapper,
                 {
-                  color: subjectList.some((obj) => {
+                  backgroundColor: subjectList.some((obj) => {
                     return obj.includes("English");
                   })
-                    ? "#fff"
-                    : "#2F5597",
+                    ? "#2F5597"
+                    : "#fff",
                 },
               ]}
             >
-              English
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            // onPress={() => setMathFun()}
-            onPress={() => AddSubjects("Math")}
-            style={[
-              styles.subjectsWrapper,
-              {
-                backgroundColor: subjectList.some((obj) => {
-                  return obj.includes("Math");
-                })
-                  ? "#2F5597"
-                  : "#fff",
-              },
-            ]}
-          >
-            <Text
+              <Text
+                style={[
+                  styles.subjectText,
+                  {
+                    color: subjectList.some((obj) => {
+                      return obj.includes("English");
+                    })
+                      ? "#fff"
+                      : "#2F5597",
+                  },
+                ]}
+              >
+                English
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              // onPress={() => setMathFun()}
+              onPress={() => AddSubjects("Math")}
               style={[
-                styles.subjectText,
+                styles.subjectsWrapper,
                 {
-                  color: subjectList.some((obj) => {
+                  backgroundColor: subjectList.some((obj) => {
                     return obj.includes("Math");
                   })
-                    ? "#fff"
-                    : "#2F5597",
+                    ? "#2F5597"
+                    : "#fff",
                 },
               ]}
             >
-              Math
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => AddSubjects("Science")}
-            style={[
-              styles.subjectsWrapper,
-              {
-                backgroundColor: subjectList.some((obj) => {
-                  return obj.includes("Science");
-                })
-                  ? "#2F5597"
-                  : "#fff",
-              },
-            ]}
-          >
-            <Text
+              <Text
+                style={[
+                  styles.subjectText,
+                  {
+                    color: subjectList.some((obj) => {
+                      return obj.includes("Math");
+                    })
+                      ? "#fff"
+                      : "#2F5597",
+                  },
+                ]}
+              >
+                Math
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => AddSubjects("Science")}
               style={[
-                styles.subjectText,
+                styles.subjectsWrapper,
                 {
-                  color: subjectList.some((obj) => {
+                  backgroundColor: subjectList.some((obj) => {
                     return obj.includes("Science");
                   })
-                    ? "#fff"
-                    : "#2F5597",
+                    ? "#2F5597"
+                    : "#fff",
                 },
               ]}
             >
-              Science
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => AddSubjects("Chinese")}
-            style={[
-              styles.subjectsWrapper,
-              {
-                backgroundColor: subjectList.some((obj) => {
-                  return obj.includes("Chinese");
-                })
-                  ? "#2F5597"
-                  : "#fff",
-              },
-            ]}
-          >
-            <Text
+              <Text
+                style={[
+                  styles.subjectText,
+                  {
+                    color: subjectList.some((obj) => {
+                      return obj.includes("Science");
+                    })
+                      ? "#fff"
+                      : "#2F5597",
+                  },
+                ]}
+              >
+                Science
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => AddSubjects("Chinese")}
               style={[
-                styles.subjectText,
+                styles.subjectsWrapper,
                 {
-                  color: subjectList.some((obj) => {
+                  backgroundColor: subjectList.some((obj) => {
                     return obj.includes("Chinese");
                   })
-                    ? "#fff"
-                    : "#2F5597",
+                    ? "#2F5597"
+                    : "#fff",
                 },
               ]}
             >
-              Chinese
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => AddSubjects("Economics")}
-            style={[
-              styles.subjectsWrapper,
-              {
-                backgroundColor: subjectList.some((obj) => {
-                  return obj.includes("Economics");
-                })
-                  ? "#2F5597"
-                  : "#fff",
-              },
-            ]}
-          >
-            <Text
+              <Text
+                style={[
+                  styles.subjectText,
+                  {
+                    color: subjectList.some((obj) => {
+                      return obj.includes("Chinese");
+                    })
+                      ? "#fff"
+                      : "#2F5597",
+                  },
+                ]}
+              >
+                Chinese
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => AddSubjects("Economics")}
               style={[
-                styles.subjectText,
+                styles.subjectsWrapper,
                 {
-                  color: subjectList.some((obj) => {
+                  backgroundColor: subjectList.some((obj) => {
                     return obj.includes("Economics");
                   })
-                    ? "#fff"
-                    : "#2F5597",
+                    ? "#2F5597"
+                    : "#fff",
                 },
               ]}
             >
-              Economics
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={[
+                  styles.subjectText,
+                  {
+                    color: subjectList.some((obj) => {
+                      return obj.includes("Economics");
+                    })
+                      ? "#fff"
+                      : "#2F5597",
+                  },
+                ]}
+              >
+                Economics
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-
         {/* <View style={{ marginLeft: wp(2.5), }}>
                 <FlatList
                     data={Level}
@@ -1488,28 +1502,42 @@ const OurTutor = ({ props, route }) => {
             <View style={styles.modalWrapp}>
               <View style={styles.crossWRapper}>
                 <TouchableOpacity
-                  onPress={() => setPickerServices(false)}
+                  onPress={() => {
+                    setPickerServices(false);
+                    setSelectedSort("")
+                  }}
                   style={styles.crossImageWrapper}
                 >
                   <Image
                     source={require("../Assets/closeingray.png")}
                     style={styles.crossImage}
                   />
+                  {console.log(selctedSort, 'selctedSortselctedSortselctedSort')}
                 </TouchableOpacity>
-                <View style={styles.tickWrapper}>
-                  <TouchableOpacity onPress={() => setPickerServices(false)}>
-                    <Image
-                      source={require("../Assets/right.png")}
-                      style={styles.tickImage}
-                    />
-                  </TouchableOpacity>
-                </View>
+                {selctedSort == "" ?
+                  <View />
+                  :
+                  <View style={styles.tickWrapper}>
+                    <TouchableOpacity onPress={() => {
+                      setPickerServices(false);
+                      setSelectedSort("")
+                    }
+
+                    }>
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                }
+
               </View>
 
               <View style={styles.sortByWrapper}>
                 <Text style={styles.sortByText}>Sort By</Text>
 
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={() => setSelectedSort("Tutor living closest to me")}
                   style={{
                     backgroundColor:
@@ -1533,8 +1561,8 @@ const OurTutor = ({ props, route }) => {
                   >
                     Tutor living closest to me
                   </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
+                </TouchableOpacity> */}
+                {/* <TouchableOpacity
                   onPress={() =>
                     setSelectedSort("Tutor living furthest from me")
                   }
@@ -1559,7 +1587,7 @@ const OurTutor = ({ props, route }) => {
                   >
                     Tutor living furthest from me
                   </Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <TouchableOpacity
                   onPress={() => setSelectedSort("Highest to Lowest rating")}
                   style={{
@@ -2520,6 +2548,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "red"
   },
   crossImage: { height: hp(4), width: wp(8) },
   tickWrapper: {
