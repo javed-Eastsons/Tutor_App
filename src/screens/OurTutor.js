@@ -1509,7 +1509,7 @@ const OurTutor = ({ props, route }) => {
                   style={styles.crossImageWrapper}
                 >
                   <Image
-                    source={require("../Assets/closeingray.png")}
+                    source={require("../Assets/close.png")}
                     style={styles.crossImage}
                   />
                   {console.log(selctedSort, 'selctedSortselctedSortselctedSort')}
@@ -1525,7 +1525,7 @@ const OurTutor = ({ props, route }) => {
 
                     }>
                       <Image
-                        source={require("../Assets/right.png")}
+                        source={require("../Assets/green.png")}
                         style={styles.tickImage}
                       />
                     </TouchableOpacity>
@@ -2548,18 +2548,21 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "red"
+    // backgroundColor: "red"
   },
-  crossImage: { height: hp(4), width: wp(8) },
+  crossImage: {
+    height: 30,
+    width: 30,
+  },
   tickWrapper: {
-    backgroundColor: "green",
+    // backgroundColor: "green",
     height: hp(5),
     width: wp(10),
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
   },
-  tickImage: { height: hp(2), width: wp(7) },
+  tickImage: { height: 30, width: 30 },
   sortByWrapper: { marginHorizontal: wp(5), marginTop: hp(3) },
   sortByText: { color: "#000", fontSize: 15, fontWeight: "800" },
   modalSecondWRapper: {

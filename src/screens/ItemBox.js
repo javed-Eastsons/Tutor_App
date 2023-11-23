@@ -134,13 +134,21 @@ const ItemBox = (props) => {
         ]}
       >
         <View style={styles.leftImageWrapper}>
+          {props.data.profile_image == null || props.data.profile_image == "" ?
+            <Image
+              source={require("../Assets/profileImg.png")}
+              style={styles.leftImage}
+            />
+            :
+            <Image
+              source={{
+                uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${props.data.profile_image}`,
+              }}
+              style={styles.leftImage}
+            />
+          }
           {/* <Image source={require('../Assets/user.png')} style={styles.leftImage} /> */}
-          <Image
-            source={{
-              uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${props.data.profile_image}`,
-            }}
-            style={styles.leftImage}
-          />
+
         </View>
 
         {/* {Tutor && Tutor.map((item) => { */}
@@ -149,12 +157,14 @@ const ItemBox = (props) => {
           onPress={() => MOveToNext()}
           style={styles.widthWrapper}
         >
-          {/* {console.log('tutor', item.first_name)} */}
+          {console.log('tutortutortutortutor', `https://refuel.site/projects/tutorapp/flags-medium/${props.flag}.png`)}
           <View>
             <View style={styles.wrraper}>
-              <Text style={styles.userIdWrapper}>{props.data.postal_code}</Text>
+              <Text style={styles.userIdWrapper}>{props.data.tutor_code}</Text>
               <Image
-                source={require("../Assets/flag.png")}
+                source={{ uri: `https://refuel.site/projects/tutorapp/flags-medium/${props.data.flag}.png` }}
+
+                //  source={require("../Assets/flag.png")}
                 style={styles.flagImage}
               />
             </View>
@@ -210,14 +220,15 @@ const ItemBox = (props) => {
               }}
             >
               <Text
+                numberOfLines={2}
                 style={{
                   color: "black",
-                  width: wp(40),
+                  width: wp(70),
                   fontFamily: "Poppins-Regular",
                   fontStyle: "italic",
                 }}
               >
-                {props.data.personal_statement}...
+                {props.data.personal_statement}
               </Text>
               <TouchableOpacity>
                 <Text

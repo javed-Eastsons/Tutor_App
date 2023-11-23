@@ -27,10 +27,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../common/Loader";
 import { Tution_Type, Postal_Code_Address } from "../Redux/Actions/types";
 import axios from "axios";
+import HomeworkHelp from "./HomeworkHelp";
 const TutorSearch = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [homeTutor, setHomeTutor] = useState(false);
+  const [onlineTutor, setOnlineTutor] = useState(false);
+  const [homeWorkTutor, setHomeWorkTutor] = useState(false);
   const [postalcode, setpostalcode] = useState("");
   const [latitude, setlatitude] = useState("");
   const [longitude, setlongitude] = useState("");
@@ -158,8 +161,8 @@ const TutorSearch = () => {
         style={Platform.OS === "ios" && { flex: 1 }}
         keyboardVerticalOffset={40}
       >
-        <ScrollView>
-          <View style={{ flex: 0.9 }}>
+        <ScrollView style={{}}>
+          <View style={{ height: hp(95) }}>
             <View style={styles.Headers}>
               <View style={styles.HeadLeft}>
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -203,7 +206,7 @@ const TutorSearch = () => {
               <Text
                 style={{
                   color: "#fff",
-                  fontSize: 20,
+                  fontSize: 18,
                   padding: 10,
                   fontFamily: "Poppins-Regular",
                 }}
@@ -213,7 +216,11 @@ const TutorSearch = () => {
             </View>
             <View style={styles.blueContiner1}>
               <TouchableOpacity
-                onPress={() => setHomeTutor(true)}
+                onPress={() => {
+                  setHomeTutor(true)
+                  setOnlineTutor(false)
+                  setHomeWorkTutor(false)
+                }}
                 style={[styles.whitebox, { elevation: 5 }]}
               >
                 <View style={styles.bicons}>
@@ -260,7 +267,12 @@ const TutorSearch = () => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate("OnlineTuition")}
+                onPress={() => {
+                  navigation.navigate("OnlineTuition");
+                  setOnlineTutor(true)
+                  setHomeWorkTutor(false)
+                  setHomeTutor(false)
+                }}
                 style={[styles.whitebox, { elevation: 5 }]}
               >
                 <View style={styles.bicons}>
@@ -289,10 +301,29 @@ const TutorSearch = () => {
                     borderColor: "#000",
                     borderWidth: 1,
                   }}
-                ></View>
+                >
+                  {onlineTutor === true && (
+                    <View
+                      style={{
+                        alignSelf: "center",
+                        height: 10,
+                        width: 10,
+                        borderRadius: 50,
+                        borderWidth: 1,
+                        backgroundColor: "#2F5597",
+                        marginTop: hp(0.5),
+                      }}
+                    ></View>
+                  )}
+                </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate("HomeworkHelp")}
+                onPress={() => {
+                  navigation.navigate("HomeworkHelp");
+                  setHomeWorkTutor(true)
+                  setOnlineTutor(false)
+                  setHomeTutor(false)
+                }}
                 style={[styles.whitebox, { elevation: 5 }]}
               >
                 <View style={styles.bicons}>
@@ -322,7 +353,21 @@ const TutorSearch = () => {
                     borderColor: "#000",
                     borderWidth: 1,
                   }}
-                ></View>
+                >
+                  {homeWorkTutor === true && (
+                    <View
+                      style={{
+                        alignSelf: "center",
+                        height: 10,
+                        width: 10,
+                        borderRadius: 50,
+                        borderWidth: 1,
+                        backgroundColor: "#2F5597",
+                        marginTop: hp(0.5),
+                      }}
+                    ></View>
+                  )}
+                </View>
               </TouchableOpacity>
             </View>
 
@@ -356,24 +401,28 @@ const TutorSearch = () => {
             {forwardArrrow === true && (
               <View style={styles.forwardArrowWrapper}>
                 <Text style={styles.forwardArrowTextWrapper}>{address}</Text>
+                {/* <Text style={styles.forwardArrowTextWrapper}>{latitude}</Text>
+                <Text style={styles.forwardArrowTextWrapper}>{longitude}</Text> */}
               </View>
             )}
+
+            <TouchableOpacity
+              style={[
+                styles.circleArrow,
+                { display: !address ? "none" : "flex" },
+              ]}
+              onPress={() => presspostalcode()}
+            >
+              {/* //onPress={() => navigation.navigate('OurTutor')}> */}
+              {homeTutor === true && (
+                <Image source={require("../Assets/circleArrow.png")} />
+              )}
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={[
-              styles.circleArrow,
-              { display: !address ? "none" : "flex" },
-            ]}
-            onPress={() => presspostalcode()}
-          >
-            {/* //onPress={() => navigation.navigate('OurTutor')}> */}
-            {homeTutor === true && (
-              <Image source={require("../Assets/circleArrow.png")} />
-            )}
-          </TouchableOpacity>
+
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 
@@ -393,7 +442,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#fff",
     //backgroundColor: 'red',
-    top: 20,
+    top: 0,
     marginBottom: 50,
     marginRight: 10,
     zIndex: 99999,
@@ -534,10 +583,13 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
   circleArrow: {
-    flex: 0.1,
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    // flex: 0.1,
+    //justifyContent: "flex-end",
+    //alignItems: "flex-end",
     paddingRight: wp(3.5),
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
     paddingBottom: hp(2),
   },
   forwardArrowWrapper: {
@@ -547,7 +599,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "center",
     // height: hp(5),
-    marginTop: hp(2),
+    marginTop: hp(1),
   },
   forwardArrowTextWrapper: {
     color: "#000",
@@ -567,8 +619,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   tutorWrapper: {
-    marginTop: hp(7),
-    justifyContent: "center",
+    //  marginTop: hp(1),
+    // justifyContent: "center",
     alignItems: "center",
   },
   tutorText: { fontSize: 11, color: "#000", fontFamily: "Poppins-Light" },

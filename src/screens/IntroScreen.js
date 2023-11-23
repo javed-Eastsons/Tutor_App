@@ -81,11 +81,11 @@ const IntroScreen = () => {
   const onDone = async () => {
     //  setShowRealApp(true);
     navigation.replace("ClientLandingBefore");
-    // navigation.replace("MakePayment");
+    //navigation.replace("MakePayment");
     //navigation.replace("YourProfle");
     // navigation.replace("Accordian");
 
-    // navigation.replace("Auth2");
+    // navigation.replace("Auth2"); 
     //  navigation.replace("TutorHomeStacknavigation");
     // let token =await AsyncStorage.getItem("token")
     // console.log(token)

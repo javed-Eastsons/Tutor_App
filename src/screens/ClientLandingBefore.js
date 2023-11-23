@@ -85,7 +85,7 @@ const ClientLandingBefore = () => {
       setLoader(false);
     }, 2000);
   }, [GET_ALLTUTORS]);
-  // console.log("tutors", Tutor);
+  console.log("tutorstutorstutorstutors", Tutor);
 
   const ClickONReadMore = (
     profile_image,
@@ -456,12 +456,13 @@ const ClientLandingBefore = () => {
                           flexDirection: "row",
                         }}
                       >
+                        {console.log(`https://refuel.site/projects/tutorapp/flags-medium/${item.flag}.png`)}
                         <Text style={styles.LIstText}>{item.tutor_code}</Text>
                         <Image
-                          source={{
-                            uri: `https://refuel.site/projects/tutorapp/flags-medium/ao.png`,
-                          }}
-                          style={styles.Flagicons}
+                          source={{ uri: `https://refuel.site/projects/tutorapp/flags-medium/${item.flag}.png` }}
+
+                          //  source={require("../Assets/flag.png")}
+                          style={styles.flagImage}
                         />
                         {/* <Text style={styles.LIstText}>{item.nationality}</Text> */}
                         {/* <View style={{backgroundColor:"red",height:20,width:30}}>
@@ -506,8 +507,9 @@ const ClientLandingBefore = () => {
                             styles.LIstText1,
                             { width: wp(70), fontStyle: "italic" },
                           ]}
+                          numberOfLines={2}
                         >
-                          {item.personal_statement}...
+                          {item.personal_statement}
                         </Text>
                         <View
                           style={{ width: wp(25), }}
@@ -942,6 +944,11 @@ const styles = StyleSheet.create({
   searchText: {
     textAlign: "center",
     padding: 10,
+  },
+  flagImage: {
+    height: hp(2),
+    width: wp(6),
+    marginLeft: wp(2),
   },
 
   postText: {

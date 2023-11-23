@@ -537,36 +537,49 @@ const TutorSearchProfile = ({ props, route }) => {
         <View
           style={{
             height: 60,
-            width: "100%",
+            width: wp(60),
+            // backgroundColor: "red",
+
             flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
           }}
         >
+
+          <View style={{ marginLeft: wp(8) }} >
+            {data.profile_image == "" || data.profile_image == null ? (
+              <Image
+                source={require("../Assets/user.png")}
+                style={styles.usericons}
+              />
+            ) : (
+              <Image
+                source={{
+                  uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${data?.profile_image}`,
+                }}
+                style={styles.usericons}
+              />
+            )}
+          </View>
+
           {/* <Image 
                         source={{uri:`https://refuel.site/projects/tutorapp/UPLOAD_file/${data?.profile_image}`}}
                         style={styles.leftImage}
                         resizeMode={'cover'}
                         /> */}
-          {data.profile_image == "" || data.profile_image == null ? (
-            <Image
-              source={require("../Assets/user.png")}
-              style={styles.usericons}
-            />
-          ) : (
-            <Image
-              source={{
-                uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${data?.profile_image}`,
-              }}
-              style={styles.usericons}
-            />
-          )}
+
 
           <View
-            style={{ height: 40, width: 40, position: "absolute", right: 30 }}
+            style={{
+              height: 40, width: 40,
+
+              //position: "absolute", right: 30
+            }}
           >
             <Image
-              source={require("../Assets/flag.png")}
+              source={{ uri: `https://refuel.site/projects/tutorapp/flags-medium/${data.flag}.png` }}
+
+              // source={require("../Assets/flag.png")}
               style={styles.flagImage}
             />
           </View>
@@ -638,7 +651,7 @@ const TutorSearchProfile = ({ props, route }) => {
           {/* {isBookmarked == "true" ? ( */}
           <Image
             source={
-              isBookmarked == false
+              isBookmarked == false || isBookmarked == undefined || isBookmarked == ""
                 ? require("../Assets/heart.png")
                 : require("../Assets/fav_Assign.png")
             }
@@ -1038,6 +1051,7 @@ const styles = StyleSheet.create({
   usericons: {
     height: 50,
     width: 50,
+
     borderRadius: 50,
   },
 
@@ -1165,7 +1179,7 @@ const styles = StyleSheet.create({
   cardCenter: {
     // borderWidth: 0.2,
     height: 210,
-    width: "60%",
+    width: wp(60),
     backgroundColor: "white",
     alignSelf: "center",
     borderRadius: 50,
@@ -1196,8 +1210,10 @@ const styles = StyleSheet.create({
   flagImage: {
     height: hp(2),
     width: wp(6),
+    borderWidth: 1,
+    borderColor: 'lightgrey',
     marginLeft: wp(2),
-    alignSelf: "center",
+    // alignSelf: "center",
   },
   leftImageWrapper: {
     width: wp(18),

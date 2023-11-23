@@ -395,14 +395,38 @@ const YourProfle = ({ props, route }) => {
               source={require("../Assets/baricon.png")}
               style={styles.icons}
             />
+            <Text style={{ fontSize: 10 }}></Text>
+
+
+
           </TouchableOpacity>
           {/* <Image source={require("../Assets/bell.png")} style={styles.icons} /> */}
         </View>
         <View style={styles.HeadRight}>
-          {/* <Image source={require('../Assets/search.png')}
-                        style={styles.icons}
-                    /> */}
-          {/* <Image source={require("../Assets/chat.png")} style={styles.icons} /> */}
+          {/* <View>
+            <Image source={require("../Assets/bell.png")} style={styles.icons} />
+            <Text style={{ fontSize: 10 }}></Text>
+
+          </View> */}
+          {/* <View>
+            <Image
+              source={require("../Assets/search.png")}
+              style={styles.icons}
+            />
+            <Text style={{ fontSize: 10 }}></Text>
+
+          </View> */}
+
+          <View>
+            <Image source={require("../Assets/chat.png")} style={styles.icons} />
+            <Text style={{ fontSize: 10 }}>Support</Text>
+          </View>
+          <View>
+            <Image source={require("../Assets/bell.png")} style={styles.icons} />
+            <Text style={{ fontSize: 10 }}></Text>
+
+          </View>
+
         </View>
       </View>
 
@@ -708,7 +732,8 @@ const YourProfle = ({ props, route }) => {
               </View>
             </View>
             <View style={{ flexDirection: "row", width: wp(86), justifyContent: "space-between", alignSelf: "center" }}>
-              <TouchableOpacity
+              <View
+                onPress={() => navigation.navigate('OnlineTuition')}
                 style={{
                   height: hp(20),
                   marginTop: hp(2),
@@ -743,11 +768,12 @@ const YourProfle = ({ props, route }) => {
                 </Text>
 
                 <TouchableOpacity
+                  onPress={() => navigation.navigate('OnlineTuition')}
                   style={{
                     height: 30,
                     width: 30,
                     borderRadius: 50,
-                    backgroundColor: "#fff",
+                    backgroundColor: "grey",
                     elevation: 10,
                     marginTop: hp(1),
                     alignItems: "center",
@@ -757,8 +783,8 @@ const YourProfle = ({ props, route }) => {
                   {/* <Image source={require('../Assets/tutionsjobs.png')}
                                         style={{height:hp(3), width:wp(6)}}/> */}
                 </TouchableOpacity>
-              </TouchableOpacity>
-              <TouchableOpacity
+              </View>
+              <View
                 style={{
                   height: hp(20),
                   marginTop: hp(2),
@@ -793,11 +819,12 @@ const YourProfle = ({ props, route }) => {
                 </Text>
 
                 <TouchableOpacity
+                  onPress={() => navigation.navigate('HomeworkHelp')}
                   style={{
                     height: 30,
                     width: 30,
                     borderRadius: 50,
-                    backgroundColor: "#fff",
+                    backgroundColor: "grey",
                     elevation: 10,
                     marginTop: hp(1),
                     alignItems: "center",
@@ -807,15 +834,15 @@ const YourProfle = ({ props, route }) => {
                   {/* <Image source={require('../Assets/tutionsjobs.png')}
                                         style={{height:hp(3), width:wp(6)}}/> */}
                 </TouchableOpacity>
-              </TouchableOpacity>
+              </View>
 
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate("HomeTution", {
-                    RouteFrom: "Create",
-                    Tution_Info: Tution_Type
-                  })
-                }
+              <View
+                // onPress={() =>
+                //   navigation.navigate("HomeTution", {
+                //     RouteFrom: "Create",
+                //     Tution_Info: Tution_Type
+                //   })
+                // }
                 style={{
                   height: hp(20),
                   marginTop: hp(2),
@@ -884,7 +911,7 @@ const YourProfle = ({ props, route }) => {
                   }
 
                 </TouchableOpacity>
-              </TouchableOpacity>
+              </View>
             </View>
             {/* <View style={{ alignSelf: "center", marginTop: hp(3) }}>
               <TouchableOpacity
@@ -1205,8 +1232,9 @@ const styles = StyleSheet.create({
   },
   Headers: {
     // backgroundColor: "red",
-    height: hp(10),
+    height: hp(8),
     justifyContent: "center",
+    marginBottom: 10,
     flexDirection: "row",
     width: wp(100),
   },
