@@ -278,7 +278,7 @@ const AcademicInfo = ({ route }) => {
     { label: "22", value: "22" },
     { label: "23", value: "23" },
     { label: "24", value: "24" },
-    { label: "25", value: "25" },
+    { label: "25+", value: "25+" },
   ];
 
   console.log(school, Experience, "sch, exp");
@@ -571,10 +571,11 @@ const AcademicInfo = ({ route }) => {
       Alert.alert('Enter Course name')
 
     }
-    else if (gradYear == "" || gradYear <= 25 || gradYear == undefined) {
-      Alert.alert('year os servoce more than 25')
 
-    }
+    // else if (gradYear == "" || gradYear <= 25 || gradYear == undefined) {
+    //   Alert.alert('year os servoce more than 25')
+
+    // }
     else {
       setDetailsE(false)
     }
@@ -641,6 +642,16 @@ const AcademicInfo = ({ route }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
+
+          <View>
+            <Image source={require("../Assets/chat.png")} style={styles.icons} />
+            <Text style={{ fontSize: 10 }}>Support</Text>
+          </View>
+          <View>
+            <Image source={require("../Assets/bell.png")} style={styles.icons} />
+            <Text style={{ fontSize: 10 }}></Text>
+
+          </View>
           {/* <Image source={require("../Assets/bell.png")} style={styles.icons} />
 
           <Image
@@ -1456,7 +1467,7 @@ const AcademicInfo = ({ route }) => {
                           value={gradYear}
                           onChangeText={(text) => {
                             setGradYear(text);
-                            SetGradenumber(text)
+                            //    SetGradenumber(text)
                           }}
                         />
                         <Image
@@ -1581,7 +1592,6 @@ const AcademicInfo = ({ route }) => {
                             marginHorizontal: wp(5),
                             backgroundColor: "#fff",
                             elevation: 10,
-
                             marginTop: hp(2),
                             marginBottom: hp(2),
                           }}
@@ -1610,32 +1620,38 @@ const AcademicInfo = ({ route }) => {
                             </Text>
 
                             <View>
-                              <View
-                                style={{
-                                  flexDirection: "row",
-                                  marginBottom: 5,
-                                }}
-                              >
-                                <Text
+                              {item.result.length > 0 ?
+                                <View
                                   style={{
-                                    width: wp(50),
-                                    color: "#000",
-                                    fontSize: 14,
+                                    flexDirection: "row",
+                                    marginBottom: 5,
                                   }}
                                 >
-                                  Subject
-                                </Text>
+                                  <Text
+                                    style={{
+                                      width: wp(50),
+                                      color: "#000",
+                                      fontSize: 14,
+                                    }}
+                                  >
+                                    Subject
+                                  </Text>
 
-                                <Text
-                                  style={{
-                                    width: wp(15),
-                                    color: "#000",
-                                    fontSize: 14,
-                                  }}
-                                >
-                                  Grade
-                                </Text>
-                              </View>
+                                  <Text
+                                    style={{
+                                      width: wp(15),
+                                      color: "#000",
+                                      fontSize: 14,
+                                    }}
+                                  >
+                                    Grade
+                                  </Text>
+                                </View>
+                                :
+                                <View />
+                              }
+
+
                               {item.result &&
                                 item.result.map((item1, resultIndex) => (
                                   <>

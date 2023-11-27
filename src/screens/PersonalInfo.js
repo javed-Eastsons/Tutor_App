@@ -1360,24 +1360,47 @@ const PersonalInfo = ({ route }) => {
   const [filterData, setFilterData] = useState([]);
   const [withoutfilter, setWithoutFilter] = useState("");
   const [persSave, setPersSave] = useState(false);
+
   const SearchFilterFunction = (text) => {
-    const searchWord = text;
+    const searchWord = text.toUpperCase();
     const newFilter = nationality.filter((value) => {
       const itemData = value.countryname
         ? value.countryname.toUpperCase()
         : "".toUpperCase();
-      const textData = text.toUpperCase();
-      return itemData.indexOf(textData) > -1;
+      return itemData.indexOf(searchWord) > -1;
     });
 
     console.log("search word================>", searchWord, newFilter);
-    setWithoutFilter(searchWord);
-    if (searchWord === "") {
-      setFilterData([]);
+
+    if (text === "") {
+      // setFilterData([]);
+      setSelectNational("")
+
     } else {
       setFilterData(newFilter);
+      setSelectNational(text)
     }
+    //setWithoutFilter(text);
   };
+
+  // const SearchFilterFunction = (text) => {
+  //   const searchWord = text;
+  //   const newFilter = nationality.filter((value) => {
+  //     const itemData = value.countryname
+  //       ? value.countryname.toUpperCase()
+  //       : "".toUpperCase();
+  //     const textData = text.toUpperCase();
+  //     return itemData.indexOf(textData) > -1;
+  //   });
+
+  //   console.log("search word================>", searchWord, newFilter);
+  //   setWithoutFilter(searchWord);
+  //   if (searchWord === "") {
+  //     setFilterData([]);
+  //   } else {
+  //     setFilterData(newFilter);
+  //   }
+  // };
 
   const [markGender, setMarkGender] = useState("");
   const [increateTime, setincreseTime] = useState(new Date());
@@ -1402,9 +1425,9 @@ const PersonalInfo = ({ route }) => {
     setLoader(true);
     setUserDetail(SINGLE_USER);
 
-    if (route.params.PersonalInfo_info.selectnational == undefined || route.params.PersonalInfo_info.selectnational == "" && userDetail[0]?.Extra_info[0]?.nationality == "") {
+    if (route.params.PersonalInfo_info.selectflag == undefined || route.params.PersonalInfo_info.selectflag == "" && route.params.PersonalInfo_info.selectnational == undefined || route.params.PersonalInfo_info.selectnational == "" && userDetail[0]?.Extra_info[0]?.nationality == "") {
       setNational("Singapore")
-      setSelectFlag()
+      setSelectFlag("sg")
 
 
     }
@@ -1481,7 +1504,7 @@ const PersonalInfo = ({ route }) => {
 
   console.log(route.params.RouteFrom, 'fromfromfromfrom');
   console.log(route.params.PersonalInfo_info, 'PersonalInfo_infoPersonalInfo_info');
-
+  console.log(selectflag, 'selectflagselectflagselectflagselectflag')
 
   const personalinfofun = () => {
     // console.log(route.params.RouteFrom, 'fromfromfromfrom');
@@ -1493,21 +1516,25 @@ const PersonalInfo = ({ route }) => {
     else if (markGender == "" || markGender == undefined) {
       Alert.alert('Data Missing');
     }
-    else if (selectnational == "" || selectnational == undefined) {
+    // else if (selectnational == "" || selectnational == undefined) {
+    //   Alert.alert('Data Missing');
+    // }
+    else if (national == "" || national == undefined) {
       Alert.alert('Data Missing');
     }
     else {
 
 
 
-      console.log(Age, markGender, selectnational, selectflag, "????????????????");
+      console.log(Age, markGender, selectnational, national, selectflag, "????????????????");
 
       let obj = {
         Age: Age,
         markGender: markGender,
-        selectnational: selectnational,
+        //  selectnational: selectnational,
+        selectnational: national,
         persSave: persSave,
-        selectflag: selectflag.toLowerCase(),
+        selectflag: selectflag == undefined ? "sg" : selectflag.toLowerCase(),
         year: moment(date).format("YYYY")
       };
 
@@ -1565,6 +1592,15 @@ const PersonalInfo = ({ route }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
+          <View>
+            <Image source={require("../Assets/chat.png")} style={styles.icons} />
+            <Text style={{ fontSize: 10 }}>Support</Text>
+          </View>
+          <View>
+            <Image source={require("../Assets/bell.png")} style={styles.icons} />
+            <Text style={{ fontSize: 10 }}></Text>
+
+          </View>
           {/* <Image source={require("../Assets/bell.png")} style={styles.icons} /> */}
 
           {/* <Image
@@ -1633,7 +1669,7 @@ const PersonalInfo = ({ route }) => {
               ]}
               onPress={() => {
                 setShowEmail("Nationality");
-                setPickerServices(true);
+                //  setPickerServices(true);
               }}
             //  onPress={() => setPickerServices(true)}
             >

@@ -416,7 +416,7 @@ const TutoringDetail = ({ route }) => {
 
   const [state, setState] = useState("Select Year");
   const state_list = [
-    { label: "Select Year", value: "Select Year" },
+    { label: "0", value: "0" },
     { label: "1", value: "1" },
     { label: "2", value: "2" },
     { label: "3", value: "3" },
@@ -445,7 +445,7 @@ const TutoringDetail = ({ route }) => {
   ];
   const [state2, setState2] = useState("Select Month");
   const state_list2 = [
-    { label: "Select Month", value: "Select Month" },
+    { label: "0", value: "0" },
     { label: "1", value: "1" },
     { label: "2", value: "2" },
     { label: "3", value: "3" },
@@ -1277,6 +1277,16 @@ const TutoringDetail = ({ route }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
+          <View>
+            <Image source={require("../Assets/chat.png")} style={styles.icons} />
+            <Text style={{ fontSize: 10 }}>Support</Text>
+          </View>
+          <View>
+            <Image source={require("../Assets/bell.png")} style={styles.icons} />
+            <Text style={{ fontSize: 10 }}></Text>
+
+          </View>
+
           {/* <Image source={require("../Assets/bell.png")} style={styles.icons} />
 
           <Image
@@ -1431,8 +1441,8 @@ const TutoringDetail = ({ route }) => {
                             fontSize: 14,
                           }}
                         >
-                          {item.Tutoring_Grade + ", "}
-                          {/* {item.Tutoring_Grade.join(', ')} */}
+                          {/* {item.Tutoring_Grade + ", "} */}
+                          {item.Tutoring_Grade.join(', ')}
                         </Text>
                         {
                           editTut == true && editId === item.tutoring_detail_id ?
@@ -1494,8 +1504,8 @@ const TutoringDetail = ({ route }) => {
                             width: wp(60)
                           }}
                         >
-                          {/* {item.Tutoring_ALL_Subjects.join(', ')} */}
-                          {item.Tutoring_ALL_Subjects + ","}
+                          {item.Tutoring_ALL_Subjects.join(', ')}
+                          {/* {item.Tutoring_ALL_Subjects + ","} */}
                           {"\n"}
                         </Text>
 

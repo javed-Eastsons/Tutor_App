@@ -718,6 +718,7 @@ const Register = ({ route }) => {
               <Text style={styles.ButtonText}>Mobile Number</Text>
             </TouchableOpacity>
             <TouchableOpacity
+              disabled={iconArraow == "show" ? false : true}
               style={styles.emailtoch}
               onPress={() => showcontent()}
             >
@@ -761,7 +762,7 @@ const Register = ({ route }) => {
                   color: "#131313",
                   height: 45,
                 }}
-                placeholderStyle={styles.placeholderStyle}
+                placeholderStyle={{ fontSize: 14 }}
                 selectedTextStyle={styles.selectedTextStyle}
                 inputSearchStyle={styles.inputSearchStyle}
                 iconStyle={styles.iconStyle}
@@ -770,7 +771,7 @@ const Register = ({ route }) => {
                 maxHeight={300}
                 labelField="value"
                 valueField="value"
-                placeholder="Code"
+                placeholder="Country Code"
                 searchPlaceholder="Search..."
                 value={value}
                 onChange={(item) => {
@@ -785,7 +786,7 @@ const Register = ({ route }) => {
                 }}
                 placeholder="Mobile Number"
                 value={Mobile}
-                keyboardType="number-pad"
+                keyboardType="numeric"
                 style={{
                   flex: 1.5,
                   borderWidth: 1,
@@ -801,17 +802,18 @@ const Register = ({ route }) => {
               />
             </View>
             <View>
+
               {iconArraow == "show" ?
                 <View style={{ height: wp(20), justifyContent: "center", }}>
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     onPress={() => showcontent()}
                     style={styles.circleArrow}>
                     <Image source={require("../Assets/circleArrow.png")} />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
                 :
 
-                <View />
+                <View style={{ height: wp(20), justifyContent: "center", }}></View>
               }
 
             </View>

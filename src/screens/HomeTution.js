@@ -44,7 +44,7 @@ const HomeTution = ({ route }) => {
 
   const [userDetail, setUserDetail] = useState([]);
   const dispatch = useDispatch();
-  const [slideStartingValue, setSlideStartingValue] = useState(20);
+  const [slideStartingValue, setSlideStartingValue] = useState(1);
   const [slideStartingCount, setSlideStartingCount] = useState(0);
 
   const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
@@ -102,7 +102,7 @@ const HomeTution = ({ route }) => {
     if (route.params.Tution_Info.Postal_Code == undefined && route.params.Tution_Info.longitude == undefined || isNaN(route.params.Tution_Info.longitude) && route.params.Tution_Info.latitude == undefined || isNaN(route.params.Tution_Info.latitude) && route.params.Tution_Info.Distance == undefined || isNaN(route.params.Tution_Info.Distance)) {
       setLatitude(Number(userDetail[0]?.Extra_info[0].lettitude ? 0 : 0))
       setLongitude(Number(userDetail[0]?.Extra_info[0].longitude ? 0 : 0))
-      setSlideStartingValue(Number(userDetail[0]?.Extra_info[0].travel_distance ? 0 : 20));
+      setSlideStartingValue(Number(userDetail[0]?.Extra_info[0].travel_distance ? 0 : 1));
       setFirstName(userDetail[0]?.Extra_info[0]?.postal_code);
       setAddress(userDetail[0]?.Extra_info[0]?.location);
 
@@ -413,7 +413,7 @@ const HomeTution = ({ route }) => {
                   marginTop: wp(5)
                 }}
               >
-                <Text style={{ width: wp(30) }}>100m</Text>
+                <Text style={{ width: wp(30) }}>1km</Text>
                 <Text style={{ width: wp(30), textAlign: "center" }}>
                   {/* {slideStartingValue.toFixed(0)}km */}
                   {slideStartingValue.toFixed(0)}km

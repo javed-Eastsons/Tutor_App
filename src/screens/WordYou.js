@@ -75,6 +75,13 @@ const WordYou = ({ route }) => {
     // setRecords(userDetail[0]?.history_academy_arr);
   }, [SINGLE_USER, setYourdata]);
 
+
+  const handleTextChange = (text) => {
+    if (text.length <= 300) {
+      setYourdata(text);
+    }
+  };
+
   const savedata = () => {
     // dispatch(editProfile(mark, GET_USER_ID));
     console.log(mark, 'OOOOOOO', yourdata, 'LLLLLLLL')
@@ -126,6 +133,16 @@ const WordYou = ({ route }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
+          <View>
+            <Image source={require("../Assets/chat.png")} style={styles.icons} />
+            <Text style={{ fontSize: 10 }}>Support</Text>
+          </View>
+          <View>
+            <Image source={require("../Assets/bell.png")} style={styles.icons} />
+            <Text style={{ fontSize: 10 }}></Text>
+
+          </View>
+
           {/* <Image source={require("../Assets/bell.png")} style={styles.icons} /> */}
 
           {/* <Image
@@ -140,8 +157,8 @@ const WordYou = ({ route }) => {
           <ActivityIndicator style={{ alignSelf: "center" }} size={"small"} />
         </View>
       ) : (
-        <View style={{ flex: 1 }}>
-          <View style={{ flex: 0.9, marginTop: 30 }}>
+        <View style={{}}>
+          <View style={{ marginTop: 30, height: hp(80) }}>
             <View
               style={{
                 justifyContent: "flex-end",
@@ -163,7 +180,7 @@ const WordYou = ({ route }) => {
                 />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity
+            <View
               style={{
                 borderWidth: 2,
                 borderColor: "lightgrey",
@@ -175,41 +192,48 @@ const WordYou = ({ route }) => {
                 marginLeft: wp(5),
               }}
             >
-              <Text
-                style={{
-                  color: "#2F5597",
-                  fontSize: 14,
-                  paddingTop: hp(1.5),
-                  textDecorationLine: "underline",
-                }}
-              >
-                Terms & Conditions applies
-              </Text>
+              <TouchableOpacity>
+                <Text
+                  style={{
+                    color: "#2F5597",
+                    fontSize: 14,
+                    paddingTop: hp(1.5),
+                    textDecorationLine: "underline",
+                  }}
+                >
+                  Terms & Conditions applies
+                </Text>
+              </TouchableOpacity>
               <TextInput
                 placeholder="Write something about your tutoring experience,Tutoring Experience,Past Students"
-                numberOfLines={5}
+                // numberOfLines={6}
                 multiline={true}
-                onChangeText={(text) => {
-                  setYourdata(text);
-                }}
+                maxLength={300}
+                // onChangeText={(text) => {
+                //   setYourdata(text);
+                // }}
+                onChangeText={(text) => handleTextChange(text)}
                 value={yourdata}
                 style={{ textAlignVertical: "top" }}
               />
               {/* <Text style={{ color: 'lightgrey', fontSize: 14, paddingTop: hp(.5), marginTop: hp(3) }}>
                             Write something about your tutoring experience. Highlight students’ performance under your tutelage (if available)</Text>
                         */}
-              <View
-                style={{
-                  justifyContent: "flex-end",
-                  alignItems: "flex-end",
-                  paddingTop: hp(8),
-                }}
-              >
-                <Text style={{ color: "lightgrey", fontSize: 14 }}>
+
+            </View>
+            <View
+              style={{
+                justifyContent: "flex-end",
+                alignItems: "flex-end",
+                marginRight: 15,
+
+              }}
+            >
+              <Text style={{ color: "lightgrey", fontSize: 14 }}>{yourdata?.length}/300 characters</Text>
+              {/* <Text style={{ color: "lightgrey", fontSize: 14 }}>
                   300 words max
-                </Text>
-              </View>
-            </TouchableOpacity>
+                </Text> */}
+            </View>
 
             <View
               style={{
@@ -272,36 +296,44 @@ const WordYou = ({ route }) => {
                 </Text>
               </TouchableOpacity>
             </View>
-          </View>
-          <View
-            style={{
-              flex: 0.1,
-              justifyContent: "flex-end",
-              paddingBottom: hp(3),
-            }}
-          >
-            {/* <TouchableOpacity style={styles.circleArrow}>
+
+            <View
+              style={{
+                // flex: 1,
+                width: wp(90),
+                position: 'absolute',
+                bottom: 0,
+                alignSelf: "center",
+                justifyContent: "center",
+
+                paddingBottom: hp(3),
+              }}
+            >
+              {/* <TouchableOpacity style={styles.circleArrow}>
               <Image source={require("../Assets/circleArrow.png")} />
             </TouchableOpacity> */}
-            <View style={{ alignItems: "center" }}>
-              <TouchableOpacity
-                onPress={() => savedata()}
-                // onPress={() => navigation.navigate('YourProfle',{
-                //             WordYou:'WordYou'
-                //         })}
-                style={{
-                  backgroundColor: "#2F5597",
-                  borderRadius: 25,
-                  height: hp(6),
-                  width: wp(60),
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Text style={{ color: "#fff", fontSize: 14 }}>Save</Text>
-              </TouchableOpacity>
+              <View style={{ alignItems: "center" }}>
+                <TouchableOpacity
+                  onPress={() => savedata()}
+                  // onPress={() => navigation.navigate('YourProfle',{
+                  //             WordYou:'WordYou'
+                  //         })}
+                  style={{
+                    backgroundColor: "#2F5597",
+                    borderRadius: 25,
+                    height: hp(6),
+                    width: wp(60),
+                    alignSelf: "center",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={{ color: "#fff", fontSize: 14 }}>Save</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
+
         </View>
       )}
     </View>

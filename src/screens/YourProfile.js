@@ -462,6 +462,16 @@ const YourProfle = ({ props, route }) => {
           >
 
             {imageSource1 == "https://refuel.site/projects/tutorapp/UPLOAD_file/undefined" || imageSource1 == "" || imageSource1 == undefined ?
+
+              // <Image
+              //   source={require("../Assets/Profile.png")}
+              //   style={{
+              //     width: 100,
+              //     height: 100,
+
+              //     //  backgroundColor: "grey",
+              //   }}
+              // />
               <View />
 
               :
@@ -496,24 +506,50 @@ const YourProfle = ({ props, route }) => {
 
 
             {console.log(imageSource1, 'imageSource1imageSource1imageSource1imageSource1imageSource1')}
-            <Image
-              source={{ uri: imageSource1 }}
-              style={{
-                width: 100,
-                height: 100,
-                borderRadius: 50,
-                backgroundColor: "grey",
-              }}
-            />
+            {imageSource1 == "https://refuel.site/projects/tutorapp/UPLOAD_file/undefined" || imageSource1 == "" || imageSource1 == undefined ?
+
+              <Image
+                source={require("../Assets/Profile.png")}
+                style={{
+                  width: 100,
+                  height: 100,
+
+                  //  backgroundColor: "grey",
+                }}
+              />
+              :
+              <Image
+                source={{ uri: imageSource1 }}
+                style={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: 50,
+                  backgroundColor: "grey",
+                }}
+              />
+            }
           </TouchableOpacity>
           <View
             style={{
               width: "30%",
             }}
           >
+            {imageSource1 == "https://refuel.site/projects/tutorapp/UPLOAD_file/undefined" || imageSource1 == "" || imageSource1 == undefined ?
+              <View />
 
+              :
+              <View style={styles.tickWrapper}>
+                <Image
+                  source={require("../Assets/right.png")}
+                  style={styles.tickImage}
+                />
+              </View>
+            }
           </View>
         </View>
+
+
+
         <View style={styles.postContainer}>
           {route?.params?.complete === "complete" ? (
             <View
@@ -1147,6 +1183,8 @@ const YourProfle = ({ props, route }) => {
 
           || (TutionStatus_Data == "" || TutionStatus_Data.WorkAs == undefined && TutionStatus_Data.statement == undefined)
           || (Tutoring_Data == "" || Tutoring_Data.selectArray.length == 0)
+          || (imageSource1 == "https://refuel.site/projects/tutorapp/UPLOAD_file/undefined" || imageSource1 == "" || imageSource1 == undefined)
+
           ?
           <View />
           :
