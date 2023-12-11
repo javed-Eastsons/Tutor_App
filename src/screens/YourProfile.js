@@ -31,6 +31,8 @@ import {
   GetUserProfile,
 } from "../Redux/Actions/Tutors";
 
+import { Loader } from "../common/Loader";
+
 const YourProfle = ({ props, route }) => {
   const [imageSource, setImageSource] = useState(null);
   const [imageSource1, setImageSource1] = useState(null);
@@ -50,6 +52,7 @@ const YourProfle = ({ props, route }) => {
   const [showAcad, setShowAcad] = useState(false);
   const [showTut, setShowTut] = useState(false);
   const [showWord, setShowWord] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   console.log(
     //  SINGLE_USER.Extra_info[0],
@@ -369,6 +372,7 @@ const YourProfle = ({ props, route }) => {
       Tutoring_Data
     );
     setBtnP(true);
+    setLoader(true);
     dispatch(
       saveProfile(
         GET_USER_ID,
@@ -381,6 +385,9 @@ const YourProfle = ({ props, route }) => {
         navigation
       )
     );
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
     //Alert.alert("Save Profile Successfully");
     // console.log("save Profile");
   };
@@ -388,6 +395,7 @@ const YourProfle = ({ props, route }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
+      <Loader flag={loader} />
       <View style={styles.Headers}>
         <View style={styles.HeadLeft}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>

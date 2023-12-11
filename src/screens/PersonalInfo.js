@@ -1592,14 +1592,15 @@ const PersonalInfo = ({ route }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.HeadRight}>
+
           <View>
             <Image source={require("../Assets/chat.png")} style={styles.icons} />
             <Text style={{ fontSize: 10 }}>Support</Text>
           </View>
+
           <View>
             <Image source={require("../Assets/bell.png")} style={styles.icons} />
             <Text style={{ fontSize: 10 }}></Text>
-
           </View>
           {/* <Image source={require("../Assets/bell.png")} style={styles.icons} /> */}
 

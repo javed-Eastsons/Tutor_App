@@ -80,10 +80,11 @@ const IntroScreen = () => {
 
   const onDone = async () => {
     //  setShowRealApp(true);
-    //  navigation.replace("ClientLandingBefore");
+    //navigation.replace("ClientLandingBefore");
     //navigation.replace("MakePayment");
     navigation.replace("YourProfle");
     // navigation.replace("Accordian");
+    // navigation.replace("VerifyOTPScreen");VerifyOTPScreen
 
     // navigation.replace("Auth2"); 
     //  navigation.replace("TutorHomeStacknavigation");

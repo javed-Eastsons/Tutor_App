@@ -49,12 +49,60 @@ export const getLevelList = (Login_Data, navigation) => {
       .catch((error) => console.log(error));
   };
 };
+
+
 export const getGradeList = (Level, Admission_level) => {
 
   console.log(Level, Admission_level, "KKKKKKKKKKK1111111111111")
   return (dispatch, getState) => {
     const url =
       "https://refuel.site/projects/tutorapp/APIs/GradeListBasedOnLevel/GradeListBasedOnLevel.php";
+    let data = new FormData();
+    data.append("Level", Level);
+    if (Admission_level == undefined) {
+
+      data.append("Admission_level", "");
+
+    }
+
+    else {
+
+      data.append("Admission_level", Admission_level);
+
+    }
+
+
+    console.log(data, "formdata");
+    return fetch(url, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("GRADE_LISTYYYYYYYYYYYYYYYYYY", responseJson);
+        if (responseJson.status == true) {
+          dispatch({
+            type: GRADE_LIST,
+            payload: responseJson,
+          }); // navigation.navigate("Auth4");
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+  };
+};
+
+export const getTutorGradeList = (Level, Admission_level) => {
+
+  console.log(Level, Admission_level, "IUU********888888888888888888")
+  return (dispatch, getState) => {
+    const url =
+      "https://refuel.site/projects/tutorapp/APIs/GradeListBasedOnLevel/GradeListBasedOnLevelForTutor.php";
     let data = new FormData();
     data.append("Level", Level);
     if (Admission_level == undefined) {
@@ -78,7 +126,7 @@ export const getGradeList = (Level, Admission_level) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log("GRADE_LISTYYYYYYYYYYYYYYYYYY", responseJson);
+        console.log("getTutorGradeListgetTutorGradeListgetTutorGradeListgetTutorGradeListgetTutorGradeList", responseJson);
         if (responseJson.status == true) {
           dispatch({
             type: GRADE_LIST,
@@ -774,7 +822,7 @@ export const OTPVerifywithrole = (role, otp, email, navigation) => {
     formData.append("user_type", role);
     formData.append("email", email);
 
-    formData.append("OTP_EMAIL", otp);
+    //  formData.append("OTP_EMAIL", otp);
     //formData.append("OTP_MOBILE", otp);
 
     console.log("FORMDATAAAAA", formData);
@@ -1223,6 +1271,7 @@ export const saveProfile = (
       })
       .catch((error) => {
         console.log(error, "error");
+        Alert.alert(error)
       });
   };
 };

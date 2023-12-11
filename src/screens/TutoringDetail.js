@@ -34,6 +34,7 @@ import { Tutoring_Data } from "../Redux/Actions/types";
 import {
   getLevelList,
   getGradeList,
+  getTutorGradeList,
   getSubjectList,
 } from "../Redux/Actions/Tutors";
 
@@ -77,6 +78,9 @@ const TutoringDetail = ({ route }) => {
   const [EditLevel, setEditLevel] = useState()
   const [completeEditLevel, setCompleteEditLevel] = useState()
   const [expandedItemIndex, setExpandedItemIndex] = useState(null);
+  const [selectedSec, setSelectedSec] = useState([]);
+  const [selectedStreams, setSelectedStreams] = useState([]);
+
 
   // const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -110,6 +114,7 @@ const TutoringDetail = ({ route }) => {
       );
 
       console.log("PPPPPPPPPPPP");
+
     } else {
       setSelectListTutor(val);
 
@@ -501,6 +506,7 @@ const TutoringDetail = ({ route }) => {
     item1["tutoring_detail_id"] = randomNum;
     item1["TutoringLevel"] = selectListTutor;
     item1["AdmissionLevel"] = admissionlevel;
+    item1["SecondaryDetail"] = resultArray;
     item1["Tutoring_Grade"] = gradeArray.map((item) => item?.Grade);
     item1["Tutoring_Year"] = state;
     item1["Tutoring_Month"] = state2;
@@ -795,31 +801,221 @@ const TutoringDetail = ({ route }) => {
   };
 
 
+
+
+
+  // const SecAdmissionLevel = (val) => {
+  //   console.log(val, selectListTutor, "@@@@@AAAAJJJJ@@@@");
+  //   // setLoader(true)
+  //   setAdmissionLevel(val)
+  //   setAdmissionArray([]);
+  //   const selectedGrade = { "Admission": val };
+  //   setAdmissionArray([selectedGrade]);
+  //   dispatch(getGradeList(selectListTutor, val));
+
+  // };
+
+
+  // const SecAdmissionLevel = (val) => {
+  //   // Check if the admission is already selected
+  //   if (admissionArray.includes(val)) {
+  //     // If selected, remove it
+  //     setAdmissionArray(admissionArray.filter(item => item !== val));
+  //   } else {
+  //     // If not selected, add it
+  //     setAdmissionArray([...admissionArray, { "Admission": val }]);
+  //   }
+  // };
+
   const SecAdmissionLevel = (val) => {
-    console.log(val, selectListTutor, "@@@@@AAAAJJJJ@@@@");
-    // setLoader(true)
-    setAdmissionLevel(val)
-    setAdmissionArray([]);
-    const selectedGrade = { "Admission": val };
-    setAdmissionArray([selectedGrade]);
-    dispatch(getGradeList(selectListTutor, val));
+    // Check if the admission is already selected
+    const existingIndex = admissionArray.findIndex(item => item.Admission === val);
 
+    if (existingIndex !== -1) {
+      // If selected, remove it
+      const updatedArray = [...admissionArray];
+      updatedArray.splice(existingIndex, 1);
+      setAdmissionArray(updatedArray);
+    } else {
+      // If not selected, add it
+      setAdmissionArray([...admissionArray, { "Admission": val }]);
+    }
   };
 
-  const StreamLevel = (val) => {
-    console.log(val, selectListTutor, "@@@@@AAAAJJJJ@@@@");
-    //  setLoader(true)
-    setStreamLevel(val)
-    setGradeArray([]);
-    const selectedGrade = { "Grade": val };
+  // const StreamLevel = (val) => {
+  //   console.log(val, selectListTutor, "@@@@@AAAAJJJJ@@@@");
+  //   //  setLoader(true)
+  //   setStreamLevel(val)
+  //   setGradeArray([]);
+  //   const selectedGrade = { "Grade": val };
 
-    // setGradeArray([selectedGrade]);
-    setGradeArray([selectedGrade]);
-    dispatch(getGradeList(selectListTutor, val));
+  //   // setGradeArray([selectedGrade]);
+  //   setGradeArray([selectedGrade]);
+  //   dispatch(getGradeList(selectListTutor, val));
 
 
+  // };
+
+
+  // const SecondarySec = (sec) => {
+  //   console.log(sec, 'UUUUUUUUUUUUU')
+  //   // Check if the sec is already selected
+  //   if (selectedSec.includes(sec)) {
+  //     // If selected, remove it
+  //     setSelectedSec(selectedSec.filter(item => item !== sec));
+  //     // Also remove the corresponding streams
+  //     setSelectedStreams([]);
+  //   } else {
+  //     // If not selected, add it
+  //     setSelectedSec([...selectedSec, sec]);
+  //     // Fetch and set the corresponding streams for the selected sec
+  //     const selectedStreamsForSec = StreamLevel(sec); // Replace with your logic
+  //     setSelectedStreams(selectedStreamsForSec);
+  //   }
+  // };
+
+  // const StreamLevel = (stream) => {
+  //   console.log(stream, 'streamstreamstreamstream')
+  //   // Check if the stream is already selected
+  //   if (selectedStreams.includes(stream)) {
+  //     // If selected, remove it
+  //     setSelectedStreams(selectedStreams.filter(item => item !== stream));
+  //   } else {
+  //     // If not selected, add it
+  //     setSelectedStreams([...selectedStreams, stream]);
+  //   }
+  // };
+
+  const fetchStreamsForSec = (sec) => {
+
+    // Replace this with your logic to fetch streams for the selected "Sec"
+    // For example, if you have a data structure with "Sec" and corresponding streams:
+    const secData = {
+      "Sec 1": ["Express", "NA", "IP", "NT"],
+      // Add other sections as needed
+    };
+    return secData[sec] || [];
   };
 
+  // const SecondarySec = (sec) => {
+  //   console.log(sec, 'UUUUUUUUUUUUU');
+  //   // Check if the sec is already selected
+  //   if (selectedSec.includes(sec)) {
+  //     // If selected, remove it
+  //     setSelectedSec(selectedSec.filter(item => item !== sec));
+  //     // Also remove the corresponding streams
+  //     setSelectedStreams([]);
+  //   } else {
+  //     // If not selected, add it
+  //     setSelectedSec([...selectedSec, sec]);
+  //     // Fetch and set the corresponding streams for the selected sec
+  //     const selectedStreamsForSec = fetchStreamsForSec(sec);
+  //     setSelectedStreams(selectedStreamsForSec);
+  //   }
+  // };
+
+  // const StreamLevel = (stream) => {
+  //   console.log(stream, 'streamstreamstreamstream');
+  //   // Check if the stream is already selected
+  //   if (selectedStreams.includes(stream)) {
+  //     // If selected, remove it
+  //     setSelectedStreams(selectedStreams.filter(item => item !== stream));
+  //   } else {
+  //     // If not selected, add it
+  //     setSelectedStreams([...selectedStreams, stream]);
+  //   }
+  // };
+
+  // const SecondarySec = (sec) => {
+  //   if (selectedSec.includes(sec)) {
+  //     setSelectedSec(selectedSec.filter(item => item !== sec));
+  //     setSelectedStreams([]);
+  //   } else {
+  //     setSelectedSec([...selectedSec, sec]);
+  //     const selectedStreamsForSec = GRADE_LIST?.Grade_List_For_Tutor.find(grade => grade.grade_name === sec)?.streams_sec || [];
+  //     setSelectedStreams(selectedStreamsForSec.map(stream => stream.stream_name));
+  //   }
+  // };
+
+  // const SecondarySec = (gradeName) => {
+  //   // Toggle the selection for the section
+  //   const updatedSelectedSec = selectedSec.includes(gradeName)
+  //     ? selectedSec.filter((sec) => sec !== gradeName)
+  //     : [...selectedSec, gradeName];
+
+  //   // Update the selected sections
+  //   setSelectedSec(updatedSelectedSec);
+
+  //   // If the section is selected for the first time, initialize its stream array in selectedStreams state
+  //   if (!selectedStreams[gradeName]) {
+  //     setSelectedStreams({
+  //       ...selectedStreams,
+  //       [gradeName]: [],
+  //     });
+  //   }
+  // };
+
+  // // Function to handle selection of streams for a specific section
+  // const StreamLevel = (gradeName, streamName) => {
+  //   // Toggle the selection for the stream
+  //   const updatedSelectedStreams = selectedStreams[gradeName].includes(streamName)
+  //     ? selectedStreams[gradeName].filter((stream) => stream !== streamName)
+  //     : [...selectedStreams[gradeName], streamName];
+
+  //   // Update the selected streams for the specific section
+  //   setSelectedStreams({
+  //     ...selectedStreams,
+  //     [gradeName]: updatedSelectedStreams,
+  //   });
+  // };
+
+
+
+  const SecondarySec = (gradeName) => {
+    // Check if the section is already selected
+    if (selectedSec.includes(gradeName)) {
+      // If selected, remove the section and its streams from the state
+      const { [gradeName]: removedSection, ...remainingStreams } = selectedStreams;
+      setSelectedSec(selectedSec.filter((sec) => sec !== gradeName));
+      setSelectedStreams(remainingStreams);
+    } else {
+      // If not selected, add the section and initialize its stream array in selectedStreams state
+      setSelectedSec([...selectedSec, gradeName]);
+      setSelectedStreams({
+        ...selectedStreams,
+        [gradeName]: [],
+      });
+    }
+  };
+
+  // Function to handle selection of streams for a specific section
+  const StreamLevel = (gradeName, streamName) => {
+    // Toggle the selection for the stream
+    const updatedSelectedStreams = selectedStreams[gradeName].includes(streamName)
+      ? selectedStreams[gradeName].filter((stream) => stream !== streamName)
+      : [...selectedStreams[gradeName], streamName];
+
+    // Update the selected streams for the specific section
+    setSelectedStreams({
+      ...selectedStreams,
+      [gradeName]: updatedSelectedStreams,
+    });
+  };
+
+  // console.log(selectedSec, 'selectedSecselectedSecselectedSecselectedSecselectedSec')
+  console.log(selectedStreams, 'selectedStreamsselectedStreamsselectedStreamsselectedStreams')
+
+  const getResultArray = () => {
+    const result = selectedSec.map((gradeName) => {
+      const streamsForGrade = selectedStreams[gradeName] || [];
+      return { "AdmissionLevel": gradeName, "Stream": streamsForGrade };
+    });
+
+    return result;
+  };
+
+  const resultArray = getResultArray();
+  console.log("Result:", resultArray);
 
 
 
@@ -993,9 +1189,15 @@ const TutoringDetail = ({ route }) => {
 
   //console.log(editLevel, 'editleveleditleveleditleveleditleveleditlevel')
   const addNewTutoring = () => {
+
     setselectedItems([])
+    setSelectedSec([])
+    setSelectedSec([])
+    setSelectedStreams([])
     setTutoring(true)
+
   }
+
   const handleSubjectEdit = (level, subjects) => {
 
     console.log(level, '999999999', subjects)
@@ -1175,7 +1377,16 @@ const TutoringDetail = ({ route }) => {
   }, []);
 
   useEffect(() => {
-    dispatch(getGradeList(EditLevel ? (EditLevel, "") : (selectListTutor, "")));
+    if (selectListTutor == "Secondary") {
+      console.log('OOOOOOOOOOOOOOOOO')
+      dispatch(getTutorGradeList(EditLevel ? (EditLevel, "") : (selectListTutor, "")));
+
+    }
+    else {
+      console.log('DDDDDDDDDDDDDDD')
+      dispatch(getGradeList(EditLevel ? (EditLevel, "") : (selectListTutor, "")));
+
+    }
   }, [selectListTutor, EditLevel]);
 
 
@@ -1256,7 +1467,19 @@ const TutoringDetail = ({ route }) => {
 
   const selectLevelFunc = () => {
     selectListTutor == "" ? (() => { })() : setLevelDetail();
-    dispatch(getGradeList(selectListTutor));
+
+    if (selectListTutor == "Secondary") {
+      console.log('OOOOOOOOOOOOOOOOOselectLevelFuncselectLevelFunc', EditLevel, selectListTutor)
+      dispatch(getTutorGradeList(selectListTutor, ""));
+
+    }
+    else {
+      console.log('DDDDDDDDDDDDDDDselectLevelFuncselectLevelFunc')
+      dispatch(getGradeList(selectListTutor, ""));
+
+    }
+
+
     dispatch(getSubjectList(selectListTutor));
     setLoader1(true);
     setTimeout(() => {
@@ -1352,7 +1575,7 @@ const TutoringDetail = ({ route }) => {
             </Text>
           </TouchableOpacity>
 
-          {/* {console.log(records, "LLPPPPPPPPPPPPPLLPPPPPPPPPPPPPLLPPPPPPPPPPPPPLLPPPPPPPPPPPPP")} */}
+          {console.log(records, "LLPPPPPPPPPPPPPLLPPPPPPPPPPPPPLLPPPPPPPPPPPPPLLPPPPPPPPPPPPP")}
 
           <ScrollView style={{ height: 300 }}>
             {records &&
@@ -1433,6 +1656,54 @@ const TutoringDetail = ({ route }) => {
                           : null
                       }
 
+                      <View style={{}}>
+
+                        {item.SecondaryDetail.map((item1, index1) =>
+                          <View style={{ flexDirection: "row" }}>
+                            <Text
+                              style={{
+                                marginLeft: wp(3),
+                                color: "#000",
+                                fontSize: 14,
+                              }}
+                            >
+                              {item1.AdmissionLevel}
+                            </Text>
+                            <Text
+                              style={{
+                                marginLeft: wp(10),
+                                color: "#000",
+
+                                fontSize: 14,
+                              }}
+                            >
+                              {item1.Stream.join(', ')}
+                            </Text>
+                          </View>
+                        )}
+                        {/* records.map((item, index) => ( */}
+                        {/* {item.Tutoring_Grade.join(', ')} */}
+                        {/* {item.Tutoring_Grade.split(',').join(', ')} */}
+
+
+                        {
+                          editTut == true && editId === item.tutoring_detail_id ?
+                            <TouchableOpacity
+                              onPress={() => {
+                                handleGradeEdit(item.TutoringLevel, item.Tutoring_Grade, item.AdmissionLevel)
+                              }}
+                            >
+                              <Image
+                                source={require("../Assets/greyedit.png")}
+                                style={{ height: 20, width: 20 }}
+                              />
+                            </TouchableOpacity>
+
+                            : null
+                        }
+
+                      </View>
+
                       <View style={{ flexDirection: "row" }}>
                         <Text
                           style={{
@@ -1441,8 +1712,10 @@ const TutoringDetail = ({ route }) => {
                             fontSize: 14,
                           }}
                         >
-                          {/* {item.Tutoring_Grade + ", "} */}
-                          {item.Tutoring_Grade.join(', ')}
+                          {item.Tutoring_Grade + ", "}
+                          {/* {item.Tutoring_Grade.join(', ')} */}
+                          {/* {item.Tutoring_Grade.split(',').join(', ')} */}
+
                         </Text>
                         {
                           editTut == true && editId === item.tutoring_detail_id ?
@@ -1461,6 +1734,7 @@ const TutoringDetail = ({ route }) => {
                         }
 
                       </View>
+
                       <View style={{ flexDirection: "row" }}>
                         <Text
                           style={{
@@ -1489,6 +1763,7 @@ const TutoringDetail = ({ route }) => {
                         }
 
                       </View>
+
                       <View style={{
                         flexDirection: "row", overflow: 'hidden', // Hide the overflow content
                         // maxHeight: isCollapsed ? hp(3) : hp(10),
@@ -1504,8 +1779,8 @@ const TutoringDetail = ({ route }) => {
                             width: wp(60)
                           }}
                         >
-                          {item.Tutoring_ALL_Subjects.join(', ')}
-                          {/* {item.Tutoring_ALL_Subjects + ","} */}
+                          {/* {item.Tutoring_ALL_Subjects.join(', ')} */}
+                          {item.Tutoring_ALL_Subjects + ","}
                           {"\n"}
                         </Text>
 
@@ -1551,11 +1826,11 @@ const TutoringDetail = ({ route }) => {
                         }
 
                       </View>
+
                       <TouchableOpacity onPress={() => toggleCollapse(index)}>
                         <Text style={{ paddingLeft: 10, color: '#2F5597' }}>
                           {expandedItemIndex === index ? 'See Less' : 'See More'}</Text>
                       </TouchableOpacity>
-
 
                     </View>
                     <View>
@@ -1692,7 +1967,9 @@ const TutoringDetail = ({ route }) => {
               }}
             >
               <View style={styles.modalWrapper2}>
-                <View style={styles.modalWrapp}>
+                <View
+                  style={styles.modalWrapp}
+                >
                   <View
                     style={{
                       flexDirection: "row",
@@ -1808,7 +2085,11 @@ const TutoringDetail = ({ route }) => {
               }}
             >
               <View style={styles.modalWrapper2}>
-                <View style={styles.modalWrapp}>
+                <View
+                  style={{ height: selectListTutor == "Secondary" ? hp(85) : hp(55), width: wp(100), backgroundColor: "#fff" }}
+
+                // style={styles.modalWrapp}
+                >
                   <View
                     style={{
                       flexDirection: "row",
@@ -1839,26 +2120,27 @@ const TutoringDetail = ({ route }) => {
                     {console.log(state, 'statestatestatestatestate')}
                     {console.log(state2, '222222222222')}
 
-                    {(gradeArray == [] || gradeArray == undefined || gradeArray == "") || (state == "Select Year" || state == "" || state == undefined) || (state2 == "Select Month" || state2 == "" || state2 == undefined) ?
-                      <View />
-                      :
-                      <TouchableOpacity
-                        onPress={() => {
-                          setTutorSubject(true);
-                          setLevelDetail(false);
-                          setTutoring(false);
+                    {/* {selectListTutor == "" || (gradeArray == [] || gradeArray == undefined || gradeArray == "") || (state == "Select Year" || state == "" || state == undefined) || (state2 == "Select Month" || state2 == "" || state2 == undefined) ?
+                      <View /> */}
+                    {/* : */}
+                    <TouchableOpacity
+                      onPress={() => {
+                        setTutorSubject(true);
+                        setLevelDetail(false);
+                        setTutoring(false);
 
 
-                        }}
-                        style={styles.tickWrapper}
-                      >
-                        <Image
-                          source={require("../Assets/right.png")}
-                          style={styles.tickImage}
-                        />
 
-                      </TouchableOpacity>
-                    }
+                      }}
+                      style={styles.tickWrapper}
+                    >
+                      <Image
+                        source={require("../Assets/right.png")}
+                        style={styles.tickImage}
+                      />
+
+                    </TouchableOpacity>
+                    {/* } */}
 
                   </View>
                   <View
@@ -2100,8 +2382,6 @@ const TutoringDetail = ({ route }) => {
 
                                             }}
                                           >
-
-
                                             <TouchableOpacity
                                               key={item.id}
                                               onPress={() => gradeData(item?.grade_name)}
@@ -2202,13 +2482,74 @@ const TutoringDetail = ({ route }) => {
                         {selectListTutor === "Secondary" && (
                           <>
                             <View style={{
-                              flexDirection: "row",
+                              // flexDirection: "row",
                               // marginTop: hp(3)
                             }}>
-                              {GRADE_LIST?.Grade_List && GRADE_LIST?.Grade_List?.Grades?.map((item) => (
+                              {GRADE_LIST?.Grade_List_For_Tutor && GRADE_LIST?.Grade_List_For_Tutor.map((grade) => (
+                                <View style={{ flexDirection: "row", }}
+                                  key={grade.grade_name}>
+                                  <View style={{ width: wp(20) }}>
+                                    <TouchableOpacity
+                                      //  key={item.id}
+                                      onPress={() => SecondarySec(grade.grade_name)}
+                                      style={{
+                                        height: hp(4),
+                                        width: wp(8),
+                                        borderWidth: 1,
+                                        borderColor: "lightgrey",
+                                        //  backgroundColor: gradeArray[0]?.Grade === grade.grade_name ? "#2F5597" : "#fff",
+                                        backgroundColor: selectedSec.includes(grade.grade_name) ? "#2F5597" : "#fff",
+                                      }}
+
+                                    ></TouchableOpacity>
+                                    <Text style={{
+                                      color: "grey",
+                                      fontSize: 10,
+                                      marginBottom: wp(5),
+                                      fontWeight: "700",
+                                    }}>{grade.grade_name}</Text>
+                                  </View>
+                                  <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+
+                                    {grade.streams_sec && grade.streams_sec.map((stream) => (
+                                      <View style={{}}>
+                                        <TouchableOpacity
+                                          key={stream.id}
+                                          onPress={() => StreamLevel(grade.grade_name, stream.stream_name)}
+
+                                          style={{
+                                            height: hp(4),
+                                            width: wp(8),
+                                            marginRight: wp(5),
+                                            borderWidth: 1,
+                                            borderColor: 'lightgrey',
+                                            // backgroundColor: streamArray.some(obj => obj.Stream === stream.stream_name) ? '#2F5597' : '#fff',
+                                            //  backgroundColor: selectedStreams.includes(stream.stream_name) ? '#2F5597' : '#fff',
+
+                                            backgroundColor: selectedStreams[grade.grade_name]?.includes(stream.stream_name)
+                                              ? '#2F5597'
+                                              : '#fff',
+
+                                            ///margin: 5,
+                                          }}
+                                        ></TouchableOpacity>
+                                        <Text style={{
+                                          color: "grey",
+                                          // textAlign: "center",
+                                          fontSize: 10,
+                                          fontWeight: "700",
+                                        }}>{stream.stream_name}</Text>
+                                      </View>
+                                    ))}
+                                  </View>
+                                </View>
+                              ))}
+
+                              {/* {GRADE_LIST?.Grade_List && GRADE_LIST?.Grade_List?.Grades?.map((item) => (
                                 <View
                                   style={{
                                     width: wp(15),
+                                    marginTop: wp(2),
                                     alignItems: "center",
                                     justifyContent: "center",
                                   }}
@@ -2221,7 +2562,10 @@ const TutoringDetail = ({ route }) => {
                                       width: wp(8),
                                       borderWidth: 1,
                                       borderColor: "lightgrey",
-                                      backgroundColor: admissionArray[0]?.Admission === item.grade_name ? "#2F5597" : "#fff",
+                                      //  backgroundColor: admissionArray[0]?.Admission === item.grade_name ? "#2F5597" : "#fff",
+                                      // backgroundColor: admissionArray.includes(item.grade_name) ? "#2F5597" : "#fff",
+                                      backgroundColor: admissionArray.some(obj => obj.Admission === item.grade_name) ? "#2F5597" : "#fff",
+
                                     }}
                                   ></TouchableOpacity>
                                   <Text
@@ -2240,7 +2584,7 @@ const TutoringDetail = ({ route }) => {
 
                                   </Text>
                                 </View>
-                              ))}
+                              ))} */}
                             </View>
 
                             <View style={{ flexDirection: "row", marginTop: hp(2) }}>
@@ -3584,12 +3928,14 @@ const TutoringDetail = ({ route }) => {
                       items={SUBJECT_LIST?.Subject_List}
                       uniqueKey="subjects_name"
                       //   ref={(component) => { this.multiSelect = component }}
+
                       styleInputGroup={{
                         width: wp(90),
                         borderRadius: 8,
                         borderWidth: 1,
                         borderColor: "#000",
                       }}
+
                       styleItemsContainer={{
                         marginTop: 20,
                         height: wp(90),
@@ -3769,9 +4115,9 @@ const TutoringDetail = ({ route }) => {
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </View >
       )}
-    </View>
+    </View >
   );
 };
 

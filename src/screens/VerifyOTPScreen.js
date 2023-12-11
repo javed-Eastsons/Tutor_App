@@ -38,9 +38,7 @@ import { Dropdown } from "react-native-element-dropdown";
 import { countryCode } from "../common/countrycode";
 import { launchImageLibrary, launchCamera } from "react-native-image-picker";
 
-import { request, check, PERMISSIONS, RESULTS } from "react-native-permissions";
-import { CanceledError } from "axios";
-
+import axios, * as others from "axios";
 
 const VerifyOTPScreen = ({ route }) => {
   const navigation = useNavigation();
@@ -115,9 +113,66 @@ const VerifyOTPScreen = ({ route }) => {
   const isSubmitDisabled = otp.length !== 4;
 
   const verifyOTP = () => {
+    setLoader(true);
     //console.log('LLLLLLLLLLPPPPPPPPPPPPP', otpcode);
     let otpcode = otp;
     setOtp(otpcode);
+
+
+
+    axios.defaults.baseURL = "https://refuel.site";
+    const url1 =
+      axios.defaults.baseURL +
+      "/projects/tutorapp/APIs/UserRegistration/OTPVerify.php";
+    var formData = new FormData();
+    // formData.append("user_type", role);
+    formData.append("email", route.params.Email);
+
+    formData.append("OTP_EMAIL", otp);
+    //formData.append("OTP_MOBILE", otp);
+
+    console.log("FORMDATAAAAA", formData);
+
+    return fetch(url1, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("OTPVERIFYYYYYYYYYYYYYYY", responseJson);
+
+        if (responseJson.status == true) {
+          setModalVisible(true);
+          console.log("PPPaaa", responseJson.message);
+          setTimeout(() => {
+            setLoader(false);
+          }, 2000);
+
+          //  Alert.alert(responseJson.message);
+        } else if (responseJson.status == false) {
+          //  navigation.navigate('Auth');
+          //   console.log('WWWpppp', responseJson.message)
+          Alert.alert(responseJson.message);
+          // dispatch({
+          setTimeout(() => {
+            setLoader(false);
+          }, 2000);
+
+          //     type: OTP_MSG,
+          //     otpmsg: responseJson.message
+
+          // });
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+
+
     //  setLoader(true);
     //  console.log('newwwwwwwwwwwwwww', otp)
     // dispatch(OTPVerifywithrole(otpcode)) 
@@ -131,33 +186,22 @@ const VerifyOTPScreen = ({ route }) => {
   };
 
   const selectrole = (role) => {
+
     setUserRole(role)
     console.log("AAAAAAAAAAAAAAAA", role, otp, route.params.Email);
     //navigation.navigate('Auth');
     setLoader(true);
 
+
+    dispatch(OTPVerifywithrole(role, otp, route.params.Email, navigation));
+
+    setModalVisible(false);
+    setUserRole("")
     setTimeout(() => {
-      // dispatch(
-      //   RegisterUser(
-      //     FirstName,
-      //     LastName,
-      //     Password,
-      //     Email,
-      //     value,
-      //     Mobile,
-      //     role,
-      //     navigation
-      //   )
-      // );
-      dispatch(OTPVerifywithrole(role, otp, route.params.Email, navigation));
+      setLoader(false);
+    }, 2000);
 
-      setModalVisible(false);
-      setUserRole("")
-      setTimeout(() => {
-        setLoader(false);
-      }, 2000);
 
-    }, 3000);
 
 
   };

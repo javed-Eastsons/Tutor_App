@@ -31,6 +31,8 @@ import {
   GetfilterSubject,
   GetfilterQualification,
   GetQuickData,
+  GetResultAfterPostcodeLatLong1,
+
   GetFilterBySubjects,
 } from "../Redux/Actions/TutorSearchAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -973,9 +975,18 @@ const OurTutor = ({ props, route }) => {
   console.log(subjectList, "subjectListsubjectListsubjectList");
 
   const updateFilter = () => {
-    dispatch(
-      GetFilterBySubjects(selectedlevels, Tution_Type.Postal_Code, subjectList)
-    );
+    route.params.postalcode,
+      // dispatch(
+      //   GetFilterBySubjects(selectedlevels, Tution_Type.Postal_Code, subjectList)
+      //   );
+      dispatch(GetResultAfterPostcodeLatLong1(
+        route.params.postalcode,
+        route.params.lat,
+        route.params.long,
+        selectedlevels,
+
+        navigation));
+
   };
 
   return (
