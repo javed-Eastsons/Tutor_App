@@ -80,7 +80,7 @@ const TutoringDetail = ({ route }) => {
   const [expandedItemIndex, setExpandedItemIndex] = useState(null);
   const [selectedSec, setSelectedSec] = useState([]);
   const [selectedStreams, setSelectedStreams] = useState([]);
-
+  const [ResultArray, setResultArray] = useState([]);
 
   // const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -89,10 +89,10 @@ const TutoringDetail = ({ route }) => {
   };
 
 
-  //console.log(records, "recordsrecordsrecordsrecordsrecords");
-  console.log(SUBJECT_LIST, "SUBJECT_LISTSUBJECT_LISTSUBJECT_LIST");
-
-
+  //console.zlog(records, "recordsrecordsrecordsrecordsrecords");
+  // console.log(SUBJECT_LIST, "SUBJECT_LISTSUBJECT_LISTSUBJECT_LIST");
+console.log(records,'recordsSecondaryDetail')
+console.log(SINGLE_USER[0]?.TutoringDetail,'SINGLEAPISINGLEAPISINGLEAPISINGLEAPI')
   // console.log(grade, "gradeJK");
   // console.log(gradeArray, "gradeArray");
   //console.log(GRADE_LIST, "GRADE->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -474,7 +474,7 @@ const TutoringDetail = ({ route }) => {
 
   console.log(route.params.Tutoring_Info, 'Tutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_Info')
 
-
+console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
   function getRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -506,8 +506,8 @@ const TutoringDetail = ({ route }) => {
     item1["tutoring_detail_id"] = randomNum;
     item1["TutoringLevel"] = selectListTutor;
     item1["AdmissionLevel"] = admissionlevel;
-    item1["SecondaryDetail"] = resultArray;
-    item1["Tutoring_Grade"] = gradeArray.map((item) => item?.Grade);
+    item1["AdmissionStreamResult"] = resultArray;
+    item1["Tutoring_Grade"] = gradeArray;
     item1["Tutoring_Year"] = state;
     item1["Tutoring_Month"] = state2;
     item1["Tutoring_ALL_Subjects"] = selectedItems;
@@ -558,7 +558,7 @@ const TutoringDetail = ({ route }) => {
 
   const UpdateRecord = () => {
     console.log(editId);
-    const newData = records.map((record) => {
+    const newData = records?.map((record) => {
       if (record.tutoring_detail_id === editId) {
         return {
           ...record,
@@ -578,7 +578,7 @@ const TutoringDetail = ({ route }) => {
   };
   const UpdateLevelRecord = () => {
     console.log(editId);
-    const newData = records.map((record) => {
+    const newData = records?.map((record) => {
       if (record.tutoring_detail_id === editId) {
         return {
           ...record,
@@ -599,7 +599,7 @@ const TutoringDetail = ({ route }) => {
   };
   const UpdateYearRecord = () => {
     console.log(editId);
-    const newData = records.map((record) => {
+    const newData = records?.map((record) => {
       console.log(record, 'record.Id')
       if (record.tutoring_detail_id === editId) {
         return {
@@ -624,12 +624,12 @@ const TutoringDetail = ({ route }) => {
   };
   const UpdateGradeRecord = () => {
     console.log(editId);
-    const newData = records.map((record) => {
+    const newData = records?.map((record) => {
       if (record.tutoring_detail_id === editId) {
         return {
           ...record,
 
-          Tutoring_Grade: gradeArray.map((item) => item?.Grade),
+          Tutoring_Grade: gradeArray?.map((item) => item?.Grade),
           //AdmissionLevel: admissionArray.map((item) => item?.Admission),
           AdmissionLevel: admissionlevel
 
@@ -655,7 +655,7 @@ const TutoringDetail = ({ route }) => {
   const UpdateSubjectRecord = () => {
     console.log(editId);
     console.log(selectedItems, 'subjectss')
-    const newData = records.map((record) => {
+    const newData = records?.map((record) => {
       if (record.tutoring_detail_id === editId) {
         return {
           ...record,
@@ -693,27 +693,27 @@ const TutoringDetail = ({ route }) => {
   }
 
 
-  // console.log(gradeArray, 'UUUUUUUUUUUUUUUUUUUUUUUUU')
+  console.log(gradeArray, 'UUUUUUUUUUUUUUUUUUUUUUUUU')
 
   const SelectAllOption = () => {
     if (GRADE_LIST?.Grade_List) {
-      const allGrades = GRADE_LIST.Grade_List.map((item) => item.grade_name);
+      const allGrades = GRADE_LIST.Grade_List?.map((item) => item.grade_name);
 
       // Check if allGrades are already in gradeArray
       const areAllGradesSelected = allGrades.every((grade) =>
-        gradeArray.some((obj) => obj.Grade === grade)
+        gradeArray?.some((obj) => obj.Grade === grade)
       );
 
       if (!areAllGradesSelected) {
         // Add all grades to gradeArray
         const updatedGradeArray = [
           ...gradeArray,
-          ...allGrades.map((grade) => ({ Grade: grade })),
+          ...allGrades?.map((grade) => ({ Grade: grade })),
         ];
         setGradeArray(updatedGradeArray);
       } else {
         // Remove all grades from gradeArray
-        const filteredGradeArray = gradeArray.filter(
+        const filteredGradeArray = gradeArray?.filter(
           (obj) => !allGrades.includes(obj.Grade)
         );
         setGradeArray(filteredGradeArray);
@@ -768,14 +768,14 @@ const TutoringDetail = ({ route }) => {
     console.log(obj3, "AAAAA");
 
     var item1 = {};
-    item1["Grade"] = val;
+    item1["Tutoring_Grade"] = val;
 
-    if (!isExistInArray(gradeArray, "Grade", item1.Grade)) {
+    if (!isExistInArray(gradeArray, "Grade", item1.Tutoring_Grade)) {
       //  console.log('insert in array');
       gradeArray.push(item1);
       // selectArray.push(obj3);
     } else {
-      RemoveTempExercise(gradeArray, "Grade", item1.Grade);
+      RemoveTempExercise(gradeArray, "Grade", item1.Tutoring_Grade);
     }
     // }
   };
@@ -1006,16 +1006,30 @@ const TutoringDetail = ({ route }) => {
   console.log(selectedStreams, 'selectedStreamsselectedStreamsselectedStreamsselectedStreams')
 
   const getResultArray = () => {
-    const result = selectedSec.map((gradeName) => {
+    const result = selectedSec?.map((gradeName,index) => {
       const streamsForGrade = selectedStreams[gradeName] || [];
-      return { "AdmissionLevel": gradeName, "Stream": streamsForGrade };
+      return { "AdmissionStreamResultID": index+1,"AdmissionLevel": gradeName, "Stream": streamsForGrade };
     });
-
     return result;
   };
 
   const resultArray = getResultArray();
-  console.log("Result:", resultArray);
+  useEffect(() => {
+    const getResultArray = () => {
+      // Your existing code to compute resultArray
+      const result = selectedSec?.map((gradeName,index) => {
+        const streamsForGrade = selectedStreams[gradeName] || [];
+        return { "AdmissionStreamResultID": index+1,"AdmissionLevel": gradeName, "Stream": streamsForGrade };
+      });
+
+      // Set the state only when needed
+      setResultArray(result);
+    };
+
+    // Call getResultArray within useEffect to avoid unnecessary re-renders
+    getResultArray();
+  }, [selectedSec, selectedStreams]);
+  console.log("Result:", ResultArray);
 
 
 
@@ -1113,10 +1127,18 @@ const TutoringDetail = ({ route }) => {
     // console.log('LevelSubjects', selectArray)
   };
 
-  const onSelectedItemsChange = (selectedItems) => {
-    console.log("PPPPPPPPPPPP", selectedItems);
+  const onSelectedItemsChange = (val) => {
+    console.log("PPPPPPPPPPPP", val);
     // createsubject(selectedItems);
-    setselectedItems(selectedItems);
+   
+    const subjectsArray = val;
+
+    const resultArray = subjectsArray.map(subject => ({
+      "Tutoring_ALL_Subjects": typeof subject === 'object' ? subject["Tutoring_ALL_Subjects"] : subject
+    }));
+    
+    console.log(resultArray,'resultArrayresultArrayresultArray')
+    setselectedItems(val)
   };
   const handleGradeEdit = (level, selectedgrade, admission) => {
     setSelectListTutor(level)
@@ -1134,8 +1156,8 @@ const TutoringDetail = ({ route }) => {
       const gradesArray = selectedgrade.split(","); // Split the string into an array
       const admissionArray = admission.split(","); // Split the string into an array
 
-      const transformedGrades = gradesArray.map(grade => ({ "Grade": grade })); // Transform each element
-      const transformedAdmission = admissionArray.map(admission => ({ "Admission": admission })); // Transform each element
+      const transformedGrades = gradesArray?.map(grade => ({ "Grade": grade })); // Transform each element
+      const transformedAdmission = admissionArray?.map(admission => ({ "Admission": admission })); // Transform each element
 
       console.log(level, selectedgrade, "IIIIIIIIIIIIIIIIII", transformedGrades)
       setGradeArray(transformedGrades)
@@ -1147,8 +1169,8 @@ const TutoringDetail = ({ route }) => {
       //const gradesArray = selectedgrade.split(","); // Split the string into an array
       const admissionArray = admission.split(","); // Split the string into an array
 
-      const transformedGrades = selectedgrade.map(grade => ({ "Grade": grade })); // Transform each element
-      const transformedAdmission = admissionArray.map(admission => ({ "Admission": admission })); // Transform each element
+      const transformedGrades = selectedgrade?.map(grade => ({ "Grade": grade })); // Transform each element
+      const transformedAdmission = admissionArray?.map(admission => ({ "Admission": admission })); // Transform each element
 
       console.log(level, selectedgrade, "IIIIIIIIIIIIIIIIII", transformedGrades)
       setGradeArray(transformedGrades)
@@ -1156,8 +1178,8 @@ const TutoringDetail = ({ route }) => {
 
     }
     else {
-      const transformedGrades = selectedgrade.map(grade => ({ "Grade": grade }));
-      const transformedAdmission = admission.map(admission => ({ "Admission": admission })); // Transform each element
+      const transformedGrades = selectedgrade?.map(grade => ({ "Grade": grade }));
+      const transformedAdmission = admission?.map(admission => ({ "Admission": admission })); // Transform each element
 
       console.log(level, selectedgrade, "IIIIIIIIIIIIIIIIII", transformedGrades)
       setGradeArray(transformedGrades)
@@ -1417,10 +1439,12 @@ const TutoringDetail = ({ route }) => {
       // setSchool1(userDetail[0]?.Extra_info[0]?.name_of_school);
       // setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
       /// setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
-      setRecords(userDetail[0]?.tutoring_detail_arr);
+      console.log(userDetail[0]?.TutoringDetail,'userDetail[0]?.TutoringDetail')
+      setRecords(userDetail[0]?.TutoringDetail);
     }
     else {
       setRecords(route.params.Tutoring_Info.selectArray);
+      console.log(route.params.Tutoring_Info.selectArray,'route.params.Tutoring_Info.selectArray')
     }
     // setRecords(userDetail[0]?.tutoring_detail_arr);
 
@@ -1486,6 +1510,7 @@ const TutoringDetail = ({ route }) => {
       setLoader1(false);
     }, 4000);
   };
+
 
   return (
     <View style={styles.container}>
@@ -1579,7 +1604,7 @@ const TutoringDetail = ({ route }) => {
 
           <ScrollView style={{ height: 300 }}>
             {records &&
-              records.map((item, index) => (
+              records?.map((item, index) => (
                 <View
                   style={{
                     justifyContent: 'space-between',
@@ -1658,7 +1683,7 @@ const TutoringDetail = ({ route }) => {
 
                       <View style={{}}>
 
-                        {item.SecondaryDetail.map((item1, index1) =>
+                        {item.SecondaryDetail?.map((item1, index1) =>
                           <View style={{ flexDirection: "row" }}>
                             <Text
                               style={{
@@ -1712,8 +1737,12 @@ const TutoringDetail = ({ route }) => {
                             fontSize: 14,
                           }}
                         >
-                          {item.Tutoring_Grade + ", "}
-                          {/* {item.Tutoring_Grade.join(', ')} */}
+                        {/* {
+                          !gradeArray ?item?.Tutoring_Grade.map(item=>item?.Tutoring_Grade) + ","
+                          : gradeArray?.map(item=>item?.Grade) + ","
+                        } */}
+                              {item?.Tutoring_Grade?.map(item=>item?.Tutoring_Grade) + ","}
+                          {/* {item.Tutoring_Grade.join(', ')}  */}
                           {/* {item.Tutoring_Grade.split(',').join(', ')} */}
 
                         </Text>
@@ -1779,8 +1808,7 @@ const TutoringDetail = ({ route }) => {
                             width: wp(60)
                           }}
                         >
-                          {/* {item.Tutoring_ALL_Subjects.join(', ')} */}
-                          {item.Tutoring_ALL_Subjects + ","}
+                          {item?.Tutoring_ALL_Subjects?.map(item=>item) + ","}
                           {"\n"}
                         </Text>
 
@@ -1813,7 +1841,7 @@ const TutoringDetail = ({ route }) => {
                           editTut == true && editId === item.tutoring_detail_id ?
                             <TouchableOpacity
                               onPress={() => {
-                                handleSubjectEdit(item.TutoringLevel, item.Tutoring_ALL_Subjects)
+                                handleSubjectEdit(item.TutoringLevel, item)
                               }}
                             >
                               <Image
@@ -2390,8 +2418,8 @@ const TutoringDetail = ({ route }) => {
                                                 width: wp(8),
                                                 borderWidth: 1,
                                                 borderColor: "lightgrey",
-                                                backgroundColor: gradeArray.some(
-                                                  (obj) => obj.hasOwnProperty("Grade") && obj["Grade"] === item.grade_name
+                                                backgroundColor: gradeArray?.some(
+                                                  (obj) => obj.hasOwnProperty("Tutoring_Grade") && obj["Tutoring_Grade"] === item.grade_name
                                                 ) ? "#2F5597" : "#fff",
                                               }}
 
@@ -2485,7 +2513,7 @@ const TutoringDetail = ({ route }) => {
                               // flexDirection: "row",
                               // marginTop: hp(3)
                             }}>
-                              {GRADE_LIST?.Grade_List_For_Tutor && GRADE_LIST?.Grade_List_For_Tutor.map((grade) => (
+                              {GRADE_LIST?.Grade_List_For_Tutor && GRADE_LIST?.Grade_List_For_Tutor?.map((grade) => (
                                 <View style={{ flexDirection: "row", }}
                                   key={grade.grade_name}>
                                   <View style={{ width: wp(20) }}>
@@ -2511,7 +2539,7 @@ const TutoringDetail = ({ route }) => {
                                   </View>
                                   <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
 
-                                    {grade.streams_sec && grade.streams_sec.map((stream) => (
+                                    {grade.streams_sec && grade.streams_sec?.map((stream) => (
                                       <View style={{}}>
                                         <TouchableOpacity
                                           key={stream.id}
@@ -2632,7 +2660,7 @@ const TutoringDetail = ({ route }) => {
 
                         {selectListTutor !== "AEIS" && selectListTutor !== "Secondary" && GRADE_LIST && Array.isArray(GRADE_LIST.Grade_List) && (
                           <View style={{ flexDirection: "row", marginTop: hp(3) }}>
-                            {GRADE_LIST.Grade_List.map((item) => (
+                            {GRADE_LIST.Grade_List?.map((item) => (
                               <View
                                 style={{
                                   width: wp(15),
@@ -2648,8 +2676,8 @@ const TutoringDetail = ({ route }) => {
                                     width: wp(8),
                                     borderWidth: 1,
                                     borderColor: "lightgrey",
-                                    backgroundColor: gradeArray.some(
-                                      (obj) => obj.hasOwnProperty("Grade") && obj["Grade"] === item.grade_name
+                                    backgroundColor: gradeArray?.some(
+                                      (obj) => obj.hasOwnProperty("Tutoring_Grade") && obj["Tutoring_Grade"] === item.grade_name
                                     ) ? "#2F5597" : "#fff",
                                   }}
                                 ></TouchableOpacity>
@@ -2963,7 +2991,7 @@ const TutoringDetail = ({ route }) => {
                             paddingHorizontal: wp(4),
                           }}
                         >
-                          {state_list.map(
+                          {state_list?.map(
                             (item) =>
                               item.value === state && (
                                 <Text
@@ -3020,7 +3048,7 @@ const TutoringDetail = ({ route }) => {
                             paddingHorizontal: wp(4),
                           }}
                         >
-                          {state_list2.map(
+                          {state_list2?.map(
                             (item) =>
                               item.value === state2 && (
                                 <Text
@@ -3151,7 +3179,7 @@ const TutoringDetail = ({ route }) => {
                             paddingHorizontal: wp(4),
                           }}
                         >
-                          {state_list.map(
+                          {state_list?.map(
                             (item) =>
                               item.value === state && (
                                 <Text
@@ -3208,7 +3236,7 @@ const TutoringDetail = ({ route }) => {
                             paddingHorizontal: wp(4),
                           }}
                         >
-                          {state_list2.map(
+                          {state_list2?.map(
                             (item) =>
                               item.value === state2 && (
                                 <Text
@@ -3578,8 +3606,8 @@ const TutoringDetail = ({ route }) => {
                                                 width: wp(8),
                                                 borderWidth: 1,
                                                 borderColor: "lightgrey",
-                                                backgroundColor: gradeArray.some(
-                                                  (obj) => obj.hasOwnProperty("Grade") && obj["Grade"] === item.grade_name
+                                                backgroundColor: gradeArray?.some(
+                                                  (obj) => obj.hasOwnProperty("Tutoring_Grade") && obj["Tutoring_Grade"] === item.grade_name
                                                 ) ? "#2F5597" : "#fff",
                                               }}
 
@@ -3728,7 +3756,7 @@ const TutoringDetail = ({ route }) => {
                                       width: wp(8),
                                       borderWidth: 1,
                                       borderColor: "lightgrey",
-                                      backgroundColor: gradeArray[0]?.Grade === item.stream_name ? "#2F5597" : "#fff",
+                                      backgroundColor: gradeArray[0]?.Tutoring_Grade === item.stream_name ? "#2F5597" : "#fff",
 
                                     }}
                                   ></TouchableOpacity>
@@ -3756,7 +3784,7 @@ const TutoringDetail = ({ route }) => {
 
                         {selectListTutor !== "AEIS" && selectListTutor !== "Secondary" && GRADE_LIST && Array.isArray(GRADE_LIST.Grade_List) && (
                           <View style={{ flexDirection: "row", marginTop: hp(3) }}>
-                            {GRADE_LIST.Grade_List.map((item) => (
+                            {GRADE_LIST?.Grade_List?.map((item) => (
                               <View
                                 style={{
                                   width: wp(15),
@@ -3772,8 +3800,8 @@ const TutoringDetail = ({ route }) => {
                                     width: wp(8),
                                     borderWidth: 1,
                                     borderColor: "lightgrey",
-                                    backgroundColor: gradeArray.some(
-                                      (obj) => obj.hasOwnProperty("Grade") && obj["Grade"] === item.grade_name
+                                    backgroundColor: gradeArray?.some(
+                                      (obj) => obj.hasOwnProperty("Tutoring_Grade") && obj["Tutoring_Grade"] === item.grade_name
                                     ) ? "#2F5597" : "#fff",
                                   }}
                                 ></TouchableOpacity>

@@ -786,7 +786,7 @@ const TutionScheduleComponent = ({}) => {
   const GoToNext = () => {
     let obj = {
       Tutor_schedules: selected1,
-      //  tutor_schedule_time: selected,
+      //  _time: selected,
     };
 
     dispatch({

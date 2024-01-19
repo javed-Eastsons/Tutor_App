@@ -86,6 +86,7 @@ const OurTutor = ({ props, route }) => {
   const { Login_Data } = useSelector((state) => state.TutorReducer);
 
   console.log(Login_Data, "Login_DataLogin_DataLogin_DataLogin_Data");
+  console.log(GET_POSTAL_DATA,'GET_POSTAL_DATAGET_POSTAL_DATA')
   //console.log(Tution_Type, "Tution_TypeTution_TypeTution_TypeTution_Type");
   // console.log(
   //   "🚀 ~ file: OurTutor.js ~ line 62 ~ OurTutor ~ GET_QUICK_DATA",
@@ -514,7 +515,7 @@ const OurTutor = ({ props, route }) => {
   const [postaldata, setPostaldata] = useState([]);
   const [filterData, setFilterData] = useState([]);
 
-  // console.log(allTutor, "himlocal");
+  console.log(postaldata, "postaldata");
   // const [selectedSubject, setSelectedSubject] = useState('');
 
   const [pickerServices, setPickerServices] = useState(false);

@@ -28,7 +28,7 @@ export const GetfilterQualification = (
   console.log("mainarray", mainarray);
 
   return (dispatch, getState) => {
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/TutorSearch/TutorSearchByTutionServiceAndPostalCodeAndFilters.php";
@@ -59,7 +59,7 @@ export const GetfilterQualification = (
           // navigation.navigate('OurTutor')
         } else if (responseJson.Status == false) {
           console.log("AAa", responseJson.Message);
-          Alert.alert(responseJson.Message);
+          // Alert.alert(responseJson.Message);
         }
       })
       .catch((error) => console.log("LLLLLLLLL", error.message));
@@ -81,7 +81,7 @@ export const GetFilterBySubjects = (
   // console.log("mainarraymainarraymainarraymainarray", data);
 
   return (dispatch, getState) => {
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/FilterData/TutorFilterData.php";
@@ -134,7 +134,7 @@ export const GetFilterAssignment = (
   // console.log("mainarraymainarraymainarraymainarray", data);
 
   return (dispatch, getState) => {
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/FilterViewAssignmentByLavel/FilterViewAssignmentByLavel.php";
@@ -191,7 +191,7 @@ export const GetfilterSubject = (
   console.log("mainarray", mainarray);
 
   return (dispatch, getState) => {
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/TutorSearch/TutorSearchByTutionServiceAndPostalCodeAndLevelsAndSubjects.php";
@@ -230,9 +230,10 @@ export const GetfilterSubject = (
 };
 
 export const GetResultAfterPostcode = (postalcode, Login_Data, navigation) => {
+  Alert.alert('hello world')
   console.log(postalcode, Login_Data, "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
   return (dispatch, getState) => {
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/TutorSearch/TutorSearchByTutionServiceAndPostalCode.php";
@@ -295,7 +296,7 @@ export const GetResultAfterPostcode = (postalcode, Login_Data, navigation) => {
 export const GetResultAfterPostcodeLatLong = (postalcode, lat, long, navigation) => {
   console.log(postalcode, lat, long, navigation, "PPPPPPPPPPPPPPPPPP");
   return (dispatch, getState) => {
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance.php";
@@ -366,7 +367,7 @@ export const GetResultAfterPostcodeLatLong = (postalcode, lat, long, navigation)
 export const GetResultAfterPostcodeLatLong1 = (postalcode, lat, long, levels, navigation) => {
   console.log(postalcode, lat, long, levels, navigation, "IIIIIIIIIIIIIIIIIIII");
   return (dispatch, getState) => {
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/TutorSearchListingByDistance/TutorSearchListingByDistance.php";
@@ -464,9 +465,9 @@ export const GetQuickData = (postalcode, navigation) => {
 
   return (dispatch, getState) => {
     // alert("hiii 1");
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorSearch/TutorSearchByTutionServiceAndPostalCodeAndLevelsAndSubjects.php";
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorSearch/TutorSearchByTutionServiceAndPostalCodeAndLevelsAndSubjects.php";
 
     return fetch(url1, {
       method: "POST",

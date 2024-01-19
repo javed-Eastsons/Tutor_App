@@ -90,6 +90,7 @@ const TutorQualification = ({ route }) => {
     }
   };
 
+
   console.log(feeOffer, ">>>>>>>>>>>>>feeoffer");
   console.log(">>>>>>", value2, value1, feeOffer, offerAmount);
   const data = [

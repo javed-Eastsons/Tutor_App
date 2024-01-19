@@ -27,6 +27,7 @@ import {
   APPLIED_ASSIGNMENT,
   SINGLE_USER,
   INTERESTED_TUTORALL,
+  FAVOURITE_STATUS,
 } from "../Actions/types";
 
 const initialstate = {
@@ -58,6 +59,7 @@ const initialstate = {
   ALL_FAV_TUTORS: [],
   INTERESTED_TUTOR: [],
   INTERESTED_TUTORALL: [],
+  FAVOURITE_STATUS:''
 };
 
 const TutorReducer = (state = initialstate, action) => {
@@ -121,6 +123,8 @@ const TutorReducer = (state = initialstate, action) => {
       return { ...state, INTERESTED_TUTOR: action.payload };
     case INTERESTED_TUTORALL:
       return { ...state, INTERESTED_TUTORALL: action.payload };
+      case FAVOURITE_STATUS:
+      return { ...state, FAVOURITE_STATUS: action.payload };
   }
 
   return state;

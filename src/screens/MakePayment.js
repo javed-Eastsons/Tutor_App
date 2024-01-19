@@ -55,7 +55,7 @@ const MakePayment = ({ route }) => {
   );
   const { All_Booked_Tutor } = useSelector((state) => state.TutorBooingReducer);
   console.log(
-    All_Booked_Student,
+    All_Booked_Tutor[0],
     "All_Booked_StudentAll_Booked_StudentAll_Booked_Student"
   );
 
@@ -228,6 +228,16 @@ const MakePayment = ({ route }) => {
     );
   }, [offerAmount]);
 
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  useEffect(() => {
+    const offerDate = new Date('01-14-2024');
+    
+    // Format the date as needed by the CalendarPicker (check the required format)
+    const formattedDate = moment(offerDate).format('MM-DD-YYYY');
+
+    setSelectedDate(formattedDate);
+  }, [All_Booked_Tutor]);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.Headers}>
@@ -353,10 +363,11 @@ const MakePayment = ({ route }) => {
                     marginBottom: 20,
                   }}
                 >
-                  {time.toLocaleTimeString([], {
+                  {All_Booked_Tutor[0]?.student_offer_time}
+                  {/* {time.toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
-                  })}
+                  })} */}
                 </Text>
                 <Button
                   title="Select"
@@ -371,7 +382,8 @@ const MakePayment = ({ route }) => {
             {/* <ScrollView horizontal={true}> */}
             <View style={{ width: "75%" }}>
               <CalendarPicker
-                // height={hp(100)}
+        selectedStartDate={selectedDate}
+        // height={hp(100)}
                 width={wp(70)}
                 onDateChange={onDateChange}
               />

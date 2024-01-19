@@ -117,6 +117,7 @@ const StudentBookingInfo = ({ route }) => {
   //     }
   //     return null;
   //   };
+  console.log(records, "SSSSSSSSSSSSSSSS");
 
   const AddMoreDetail = () => {
     setMoreDetail("showSection");
@@ -137,7 +138,7 @@ const StudentBookingInfo = ({ route }) => {
     console.log(obj3, "AAAAA");
 
     var item1 = {};
-    item1["Id"] = count;
+    item1["ID"] = count;
     item1["Level"] = value;
     item1["Grade"] = value2;
     item1["ALL_Subjects"] = selectedlevel;
@@ -153,7 +154,8 @@ const StudentBookingInfo = ({ route }) => {
   console.log(selectArray, "Final seconds");
 
   const deleteRecord = (idToDelete) => {
-    const updatedRecords = records.filter((record) => record.Id !== idToDelete);
+    console.log(idToDelete,'idToDelete')
+    const updatedRecords = records.filter((record) => record.ID !== idToDelete);
     console.log(updatedRecords, "AAAAAAAAAAAA");
     setRecords(updatedRecords);
   };
@@ -549,7 +551,7 @@ const StudentBookingInfo = ({ route }) => {
                     />
                   </TouchableOpacity>
                   <TouchableOpacity
-                    onPress={() => deleteRecord(item.Id)}
+                    onPress={() => deleteRecord(item.ID)}
                     style={{
                       height: 40,
                       width: "100%",

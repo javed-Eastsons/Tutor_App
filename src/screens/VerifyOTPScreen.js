@@ -120,7 +120,7 @@ const VerifyOTPScreen = ({ route }) => {
 
 
 
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/UserRegistration/OTPVerify.php";
@@ -319,7 +319,7 @@ const VerifyOTPScreen = ({ route }) => {
         }}
       >
         <View style={styles.BlueContainer}>
-          <Text style={styles.BlueText}>Verify Email Address</Text>
+          <Text style={styles.BlueText}>Verify Email Address222</Text>
         </View>
         <View
           style={{
@@ -634,7 +634,7 @@ const VerifyOTPScreen = ({ route }) => {
           }}
         >
           <View style={styles.BlueContainer}>
-            <Text style={styles.BlueText}>Verify Email Address</Text>
+            <Text style={styles.BlueText}>Verify Email Address1111</Text>
           </View>
           <View
             style={{

@@ -194,6 +194,7 @@ const ClientLandingBefore = () => {
                 color: "black",
                 marginTop: 10,
                 marginBottom: 5,
+                
               }}
             >
               Your Ideal Tutor is{"\n"} waiting
@@ -434,7 +435,7 @@ const ClientLandingBefore = () => {
                     >
                       <Image
                         source={{
-                          uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item.profile_image}`,
+                          uri: `https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/${item.profile_image}`,
                         }}
                         style={styles.tutorPic}
                       />
@@ -965,6 +966,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     textAlign: "center",
     //color: "#a2a2a2",
+    color:'gray',
     alignSelf: "center",
     fontFamily: "Poppins-Regular",
   },

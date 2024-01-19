@@ -61,7 +61,8 @@ const UpdateProfile = ({ props, route }) => {
   //   'Hellooo',
   //   Login_Data
   // );
-
+  console.log(Tutoring_Data,'Tutoring_Data')
+console.log(route?.params,'ROUTEROUTEROUTEROUTE')
   //console.log(SINGLE_USER_DETAILS[0]?.Extra_info, 'jkkkkk')
   if (route.params) {
     const {
@@ -377,6 +378,7 @@ const UpdateProfile = ({ props, route }) => {
         userDetail[0]?.Extra_info,
         userDetail[0]?.history_academy_arr,
         userDetail[0]?.tutoring_detail_arr,
+        route?.params?.secondaryDetails,
         navigation
       )
     );
@@ -733,8 +735,8 @@ const UpdateProfile = ({ props, route }) => {
                   }}
                 >
                   <Image
-                    source={require("../Assets/onlinetutIcon.png")}
-                    style={{ height: hp(4), width: wp(6) }}
+                    source={require("../Assets/onlinetutIcon1.png")}
+                    style={{ height: hp(4), width: wp(8) }}
                   />
                 </View>
 
@@ -785,8 +787,8 @@ const UpdateProfile = ({ props, route }) => {
                   }}
                 >
                   <Image
-                    source={require("../Assets/helptutIcon.png")}
-                    style={{ height: hp(4), width: wp(6) }}
+                    source={require("../Assets/helptutIcon1.png")}
+                    style={{ height: hp(4), width: wp(8) }}
                   />
                 </View>
 
@@ -843,7 +845,7 @@ const UpdateProfile = ({ props, route }) => {
                 >
                   <Image
                     source={require("../Assets/8a.png")}
-                    style={{ height: hp(4), width: wp(6) }}
+                    style={{ height: hp(4), width: wp(8) }}
                   />
                 </View>
 

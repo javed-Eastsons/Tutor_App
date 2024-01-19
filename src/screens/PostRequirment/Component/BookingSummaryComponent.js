@@ -46,6 +46,7 @@ const BookingSummaryComponent = () => {
   const dispatch = useDispatch();
   const { Tutor_Schedule } = useSelector((state) => state.TutorReducer);
   const { Tution_Type } = useSelector((state) => state.TutorReducer);
+  const { Tutor_Detail } = useSelector((state) => state.TutorReducer);
   const { Student_Detail } = useSelector((state) => state.TutorReducer);
   const { Tutor_Qualification } = useSelector((state) => state.TutorReducer);
   const { All_Booked_Tutor } = useSelector((state) => state.TutorBooingReducer);
@@ -76,6 +77,7 @@ const BookingSummaryComponent = () => {
         Tutor_Qualification,
         Login_Data.userid,
         Postal_Code_Address,
+        Tutor_Detail,
         navigation
       )
     );

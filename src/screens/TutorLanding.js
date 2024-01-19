@@ -64,7 +64,7 @@ const TutorLanding = () => {
 
 
 
-  console.log(SINGLE_USER, 'SINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USER')
+  console.log(userDetail[0]?.Extra_info[0], 'SINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USERSINGLE_USER')
 
   useEffect(() => {
     setLoader(true)
@@ -326,7 +326,7 @@ const TutorLanding = () => {
                   fullStarColor="orange"
                   disabled={false}
                   maxStars={5}
-                  rating={4}
+                  rating={0}
                   starSize={15}
                 // selectedStar={(rating) => setStrCount(rating)}
                 />
@@ -379,7 +379,7 @@ const TutorLanding = () => {
               </View>
 
               <Text
-                style={{ textAlign: "center", marginTop: 10, marginBottom: 5 }}
+                style={{ textAlign: "center", marginTop: 10, marginBottom: 5 ,color:'gray'}}
               >
                 Keep your profile {"\n"}current
               </Text>
@@ -411,6 +411,7 @@ const TutorLanding = () => {
                   marginBottom: 5,
                   width: "90%",
                   alignSelf: "center",
+                  color:'gray'
                 }}
               >
                 Find your students {"\n"}here
@@ -669,6 +670,7 @@ const styles = StyleSheet.create({
     // color: "#a2a2a2",
     // color: '#000',
     alignSelf: "center",
+    color:'gray'
     // fontFamily: "Poppins-Light",
   },
   postTextRight: {

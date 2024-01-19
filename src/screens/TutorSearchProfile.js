@@ -56,15 +56,18 @@ const TutorSearchProfile = ({ props, route }) => {
   const dispatch = useDispatch();
   const { GET_POSTAL_DATA } = useSelector((state) => state.TutorsearchReducer);
   const { SINGLE_USER_DETAILS } = useSelector((state) => state.TutorReducer);
+  const { FAVOURITE_STATUS } = useSelector((state) => state.TutorReducer);
+
   const { Login_Data } = useSelector((state) => state.TutorReducer);
   console.log(Login_Data, "Login_DataLogin_DataLogin_Data");
+  console.log(FAVOURITE_STATUS,'FAVOURITE_STATUS')
   // console.log(
   //   SINGLE_USER_DETAILS[0]?.tutoring_detail_arr.map(
   //     (item) => item?.TutoringLevel
   //   ),
   //   "SINGLE_USER_DETAILS"
   // );
-
+console.log(data,'routeeeeeee')
   const [activeSections, setActiveSections] = useState([]);
   const [activeSectionsSch, setActiveSectionsSch] = useState([]);
   const { Tution_Type } = useSelector((state) => state.TutorReducer);
@@ -246,6 +249,7 @@ const TutorSearchProfile = ({ props, route }) => {
   };
 
   const renderContent = (section, _, isActive) => {
+    console.log(section,'PKPKPKPK')
     //Accordion Content view
     return (
       <Animatable.View
@@ -344,6 +348,7 @@ const TutorSearchProfile = ({ props, route }) => {
   };
 
   const renderContentSch = (section, _, isActive) => {
+    console.log(section,'seccccc')
     //Accordion Content view
     return (
       <Animatable.View
@@ -378,7 +383,11 @@ const TutorSearchProfile = ({ props, route }) => {
                 fontSize: 14,
               }}
             >
-              Subject
+              {
+                 section?.result.length === 0 ? '':'Subject'
+
+              }
+              
             </Text>
 
             <Text
@@ -388,7 +397,9 @@ const TutorSearchProfile = ({ props, route }) => {
                 fontSize: 14,
               }}
             >
-              Grade
+              {
+                 section?.result.length === 0 ? '':'Grade'
+              }
             </Text>
           </View>
         </Animatable.Text>
@@ -555,7 +566,7 @@ const TutorSearchProfile = ({ props, route }) => {
             ) : (
               <Image
                 source={{
-                  uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${data?.profile_image}`,
+                  uri: `https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/${data?.profile_image}`,
                 }}
                 style={styles.usericons}
               />
@@ -577,7 +588,7 @@ const TutorSearchProfile = ({ props, route }) => {
             }}
           >
             <Image
-              source={{ uri: `https://refuel.site/projects/tutorapp/flags-medium/${data.flag}.png` }}
+              source={{ uri: `https://colwithfarmchips.co.uk/projects/tutorapp/flags-medium/${data.flag}.png` }}
 
               // source={require("../Assets/flag.png")}
               style={styles.flagImage}
@@ -646,9 +657,20 @@ const TutorSearchProfile = ({ props, route }) => {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity style={styles.FavBooKChat} onPress={() => toggleBookmark()}>
+        <TouchableOpacity disabled={Login_Data ? false : true} style={styles.FavBooKChat} onPress={() => toggleBookmark()}>
           {console.log(isBookmarked, "OOOOOOOOOOOOOOOOOOOOO")}
           {/* {isBookmarked == "true" ? ( */}
+          {
+            data?.favourite == "true" ?
+            <Image
+            source={
+              isBookmarked == false || isBookmarked == undefined || isBookmarked == ""
+                ? require("../Assets/fav_Assign.png")
+                : require("../Assets/heart.png")
+            }
+            style={styles.Bookicons}
+          />
+          :
           <Image
             source={
               isBookmarked == false || isBookmarked == undefined || isBookmarked == ""
@@ -657,6 +679,8 @@ const TutorSearchProfile = ({ props, route }) => {
             }
             style={styles.Bookicons}
           />
+          }
+          
           {/* // ) : (
           //   <Image
           //     source={require("../Assets/Health.png")}
@@ -686,7 +710,7 @@ const TutorSearchProfile = ({ props, route }) => {
         }
 
 
-        <TouchableOpacity style={styles.FavBooKChat}>
+        <TouchableOpacity disabled={Login_Data ? false : true} style={styles.FavBooKChat}>
           <Image
             source={require("../Assets/Bookchat.png")}
             style={styles.Bookicons}

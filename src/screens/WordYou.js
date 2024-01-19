@@ -142,7 +142,7 @@ const WordYou = ({ route }) => {
             <Text style={{ fontSize: 10 }}></Text>
 
           </View>
-
+          
           {/* <Image source={require("../Assets/bell.png")} style={styles.icons} /> */}
 
           {/* <Image

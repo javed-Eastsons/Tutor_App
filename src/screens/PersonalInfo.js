@@ -1850,7 +1850,7 @@ const PersonalInfo = ({ route }) => {
                     }}
                   >
                     <Image
-                      source={require("../Assets/male.png")}
+                      source={require("../Assets/Male.png")}
                       style={{ height: hp(20), resizeMode: 'contain' }}
                     />
                   </View>
@@ -1869,7 +1869,7 @@ const PersonalInfo = ({ route }) => {
                       }}
                     >
                       <Image
-                        source={require("../Assets/female.png")}
+                        source={require("../Assets/Female.png")}
                         style={{ height: hp(20), resizeMode: 'contain' }}
                       />
                     </View>

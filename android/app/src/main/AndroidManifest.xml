@@ -5,10 +5,11 @@
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
-      android:icon="@drawable/logogrey"
-      android:roundIcon="@drawable/logogrey"
       android:allowBackup="false"
+        android:icon="@drawable/logogrey"
+      android:roundIcon="@drawable/logogrey"
       android:theme="@style/AppTheme">
+      
        <meta-data
       android:name="com.google.android.geo.API_KEY"
       android:value="AIzaSyBe7R2rEvrkKUsLEoiCkLyFr4kd_sQE0Kw"

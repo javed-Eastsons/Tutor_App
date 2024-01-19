@@ -84,8 +84,8 @@ const TutionSchedulePicker = ({}) => {
   const [date, setDate] = useState("");
   const [isExpandModalVisible, setExpandModalVisible] = useState(false);
   const { Tutor_Qualification } = useSelector((state) => state.TutorReducer);
-  const { Tutor_Schedule } = useSelector((state) => state.TutorReducer);
-  console.log(Tutor_Schedule, "Tutor_ScheduleTutor_ScheduleTutor_Schedule");
+  // const { Tutor_Schedule } = useSelector((state) => state.TutorReducer);
+  // console.log(Tutor_Schedule, "Tutor_ScheduleTutor_ScheduleTutor_Schedule");
 
   const dispatch = useDispatch();
   // console.log(

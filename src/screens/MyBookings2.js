@@ -869,7 +869,7 @@ const MyBookings = ({ props, route }) => {
   const setTabFunc = (val) => {
     setTabs(val);
   };
-  console.log(All_Booked_Tutor[0]?.tutor_booking_status,All_Booked_Tutor[0]?.offer_status,'tutorBookingStatus,offerStatus')
+  console.log(All_Booked_Tutor[0]?.tutor_booking_status, All_Booked_Tutor[0]?.offer_status, 'tutorBookingStatus,offerStatus')
   console.log(All_Booked_Tutor[0]?.tutor_tution_offer_amount_type, All_Booked_Tutor[0]?.tutor_tution_fees, 'jkk')
   return (
     <>
@@ -1006,13 +1006,13 @@ const MyBookings = ({ props, route }) => {
                   marginLeft: 4,
                 }}
               >
-               { `You have made a ${All_Booked_Tutor[0]?.tutor_tution_offer_amount_type} offer `}
+                {`You have made a ${All_Booked_Tutor[0]?.tutor_tution_offer_amount_type} offer `}
               </Text>
             </View>
             <View
               style={{
                 height: hp(7),
-                width: "100%", 
+                width: "100%",
                 //justifyContent: "center",
                 // alignItems: "center",
                 backgroundColor: "#F2F2F2",
@@ -1024,8 +1024,8 @@ const MyBookings = ({ props, route }) => {
               <Text style={styles.BookText3}>
                 Instructions:
                 <Text style={styles.BookText4}>
-                You have placed an offer, tutor will be informed 
-                you will be recieve an app notification when the tutor has responded.
+                  You have placed an offer, tutor will be informed
+                  you will be recieve an app notification when the tutor has responded.
                 </Text>
               </Text>
             </View>
@@ -1044,9 +1044,12 @@ const MyBookings = ({ props, route }) => {
                   <View style={styles.swipperWrapper}>
                     <View style={styles.leftImageWrapper}>
                       <Image
-                        source={require("../Assets/user.png")}
+                        source={{
+                          uri: `https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/${item?.profile_image}`,
+                        }}
                         style={styles.leftImage}
                       />
+
                     </View>
 
                     {/* {Tutor && Tutor.map((item) => { */}
@@ -1165,18 +1168,18 @@ const MyBookings = ({ props, route }) => {
                     </TouchableOpacity>
                     <TouchableOpacity
                       onPress={() =>
-                        route?.params?.proceed === true ? 
-                        navigation.navigate("AcceptNegotiate")
+                        route?.params?.proceed === true ?
+                          navigation.navigate("AcceptNegotiate")
                           :
-                        navigation.navigate("MakeOffer", {
-                          Amount_type: All_Booked_Tutor[0]?.tutor_tution_offer_amount_type,
-                          fees: All_Booked_Tutor[0]?.tutor_tution_fees,
-                          tutorBookingStatus:All_Booked_Tutor[0]?.tutor_booking_status,
-                          offerStatus:All_Booked_Tutor[0]?.offer_status,
-                          tutorBookingProcessId:All_Booked_Tutor[0]?.tutor_booking_process_id
-                          // amount: offerAmount,
-                          // youramount: youroffer
-                        })
+                          navigation.navigate("MakeOffer", {
+                            Amount_type: All_Booked_Tutor[0]?.tutor_tution_offer_amount_type,
+                            fees: All_Booked_Tutor[0]?.tutor_tution_fees,
+                            tutorBookingStatus: All_Booked_Tutor[0]?.tutor_booking_status,
+                            offerStatus: All_Booked_Tutor[0]?.offer_status,
+                            tutorBookingProcessId: All_Booked_Tutor[0]?.tutor_booking_process_id
+                            // amount: offerAmount,
+                            // youramount: youroffer
+                          })
                       }
                       style={{
                         height: "100%",
@@ -1187,7 +1190,7 @@ const MyBookings = ({ props, route }) => {
                         borderRadius: 3,
                       }}
                     >
-                      <Text style={{color :route?.params?.proceed === true ? 'white' : 'black' }}>{route?.params?.proceed === true ? 'Proceed' : 'View Details'}  </Text>
+                      <Text style={{ color: route?.params?.proceed === true ? 'white' : 'black' }}>{route?.params?.proceed === true ? 'Proceed' : 'View Details'}  </Text>
                     </TouchableOpacity>
                   </View>
                 </View>

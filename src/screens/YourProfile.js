@@ -375,7 +375,7 @@ const YourProfle = ({ props, route }) => {
     setLoader(true);
     dispatch(
       saveProfile(
-        GET_USER_ID,
+        GET_USER_ID ? GET_USER_ID : Login_Data?.userid,
         imageSource,
         PersonalInfo_Data,
         Tution_Type,
@@ -802,8 +802,8 @@ const YourProfle = ({ props, route }) => {
                   }}
                 >
                   <Image
-                    source={require("../Assets/onlinetutIcon.png")}
-                    style={{ height: hp(4), width: wp(6) }}
+                    source={require("../Assets/onlinetutIcon1.png")}
+                    style={{ height: hp(4), width: wp(8) }}
                   />
                 </View>
 
@@ -853,8 +853,8 @@ const YourProfle = ({ props, route }) => {
                   }}
                 >
                   <Image
-                    source={require("../Assets/helptutIcon.png")}
-                    style={{ height: hp(4), width: wp(6) }}
+                    source={require("../Assets/helptutIcon1.png")}
+                    style={{ height: hp(4), width: wp(8) }}
                   />
                 </View>
 
@@ -912,7 +912,7 @@ const YourProfle = ({ props, route }) => {
                 >
                   <Image
                     source={require("../Assets/8a.png")}
-                    style={{ height: hp(4), width: wp(6) }}
+                    style={{ height: hp(4), width: wp(8) }}
                   />
                 </View>
 
@@ -1024,7 +1024,7 @@ const YourProfle = ({ props, route }) => {
                     style={styles.infoWrapper}
                   >
 
-                    {Tutoring_Data == "" || Tutoring_Data.selectArray.length == 0 ?
+                    {Tutoring_Data == "" || Tutoring_Data?.selectArray?.length == 0 ?
                       <Text style={styles.infoWrapperText}>
                         Enter Tutoring Details
                       </Text>
@@ -1034,7 +1034,7 @@ const YourProfle = ({ props, route }) => {
                       </Text>
                     }
                   </TouchableOpacity>
-                  {Tutoring_Data == "" || Tutoring_Data.selectArray.length == 0 ?
+                  {Tutoring_Data == "" || Tutoring_Data?.selectArray?.length == 0 ?
                     <View />
                     :
                     <View style={styles.tickWrapper}>
@@ -1190,7 +1190,7 @@ const YourProfle = ({ props, route }) => {
             || isNaN(Tution_Type.Distance) && isNaN(Tution_Type.latitude) && isNaN(Tution_Type.longitude))
 
           || (TutionStatus_Data == "" || TutionStatus_Data.WorkAs == undefined && TutionStatus_Data.statement == undefined)
-          || (Tutoring_Data == "" || Tutoring_Data.selectArray.length == 0)
+          || (Tutoring_Data == "" || Tutoring_Data?.selectArray?.length == 0)
           || (imageSource1 == "https://refuel.site/projects/tutorapp/UPLOAD_file/undefined" || imageSource1 == "" || imageSource1 == undefined)
 
           ?

@@ -61,6 +61,10 @@ const BookingInformationConfirmation = () => {
     console.log(selectedval);
     setCurrentTab(selectedval);
   };
+  console.log(Tutor_Schedule,'Tutor_ScheduleTutor_SchedulePPPP')
+  console.log(Student_Detail,'Student_DetailStudent_DetailIIIII')
+  console.log(Tutor_Qualification,'Tutor_QualificationTutor_Qualification')
+
   console.log(currentTab, "currentTab");
   // console.log(
   //   Tutor_Schedule,
@@ -74,7 +78,7 @@ const BookingInformationConfirmation = () => {
   //   Tutor_Detail,
   //   "Tutor_Detail"
   // );
-
+console.log(Tutor_Detail,'Tutor_DetailTutor_Detail')
   const BookTutorProcess = () => {
     dispatch(
       BookTutor(

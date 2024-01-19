@@ -1070,8 +1070,10 @@ const MyBookings = ({ props, route }) => {
                 <View style={{}}>
                   <View style={styles.swipperWrapper}>
                     <View style={styles.leftImageWrapper}>
-                      <Image
-                        source={require("../Assets/user.png")}
+                    <Image
+                        source={{
+                          uri: `https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/${item?.profile_image}`,
+                        }}
                         style={styles.leftImage}
                       />
                     </View>

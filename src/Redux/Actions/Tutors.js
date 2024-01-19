@@ -17,6 +17,7 @@ import {
   ALL_FAV_TUTORS,
   INTERESTED_TUTOR,
   INTERESTED_TUTORALL,
+  FAVOURITE_STATUS
 } from "./types";
 import AsyncStorage from "@react-native-community/async-storage";
 import axios, * as others from "axios";
@@ -26,7 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 export const getLevelList = (Login_Data, navigation) => {
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/LevelList/LevelList.php";
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/LevelList/LevelList.php";
     console.log(url1, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     await fetch(url1, {
       method: "GET",
@@ -56,7 +57,7 @@ export const getGradeList = (Level, Admission_level) => {
   console.log(Level, Admission_level, "KKKKKKKKKKK1111111111111")
   return (dispatch, getState) => {
     const url =
-      "https://refuel.site/projects/tutorapp/APIs/GradeListBasedOnLevel/GradeListBasedOnLevel.php";
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/GradeListBasedOnLevel/GradeListBasedOnLevel.php";
     let data = new FormData();
     data.append("Level", Level);
     if (Admission_level == undefined) {
@@ -102,7 +103,7 @@ export const getTutorGradeList = (Level, Admission_level) => {
   console.log(Level, Admission_level, "IUU********888888888888888888")
   return (dispatch, getState) => {
     const url =
-      "https://refuel.site/projects/tutorapp/APIs/GradeListBasedOnLevel/GradeListBasedOnLevelForTutor.php";
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/GradeListBasedOnLevel/GradeListBasedOnLevelForTutor.php";
     let data = new FormData();
     data.append("Level", Level);
     if (Admission_level == undefined) {
@@ -141,7 +142,7 @@ export const getTutorGradeList = (Level, Admission_level) => {
 export const getSubjectList = (Level) => {
   return (dispatch, getState) => {
     const url =
-      "https://refuel.site/projects/tutorapp/APIs/SubjectListBasedOnLevel/SubjectListBasedOnLevel.php";
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/SubjectListBasedOnLevel/SubjectListBasedOnLevel.php";
     let data = new FormData();
     data.append("Level", Level);
 
@@ -172,7 +173,7 @@ export const getSubjectList = (Level) => {
 
 export const singleUserDetails = (id) => {
   return async (dispatch, getState) => {
-    const url1 = `https://refuel.site/projects/tutorapp/APIs/UserDetails/SingleUserProfile.php?user_id=${id}`;
+    const url1 = `https://colwithfarmchips.co.uk/projects/tutorapp/APIs/UserDetails/SingleUserProfile.php?user_id=${id}`;
     console.log(url1, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     await fetch(url1, {
       method: "GET",
@@ -199,7 +200,7 @@ export const singleUserDetails = (id) => {
 export const GetUserProfile = (UserId, navigation) => {
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/UserDetails/SingleUserProfile.php?user_id=" +
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/UserDetails/SingleUserProfile.php?user_id=" +
       UserId;
     console.log(url1, "1111111111111111");
     await fetch(url1, {
@@ -229,7 +230,7 @@ export const GetUserProfile = (UserId, navigation) => {
 export const GetPostDetail = (Post_ID, navigation) => {
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorList/PostRequirementListingDetails.php?student_post_requirements_id=" +
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorList/PostRequirementListingDetails.php?student_post_requirements_id=" +
       Post_ID;
     console.log(url1, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     await fetch(url1, {
@@ -257,7 +258,7 @@ export const GetPostDetail = (Post_ID, navigation) => {
 export const AllPostsByClient = (Login_Data, navigation) => {
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorList/StudentPostRequirementListing.php?student_id=" +
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorList/StudentPostRequirementListing.php?student_id=" +
       Login_Data.userid;
     console.log(url1, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     await fetch(url1, {
@@ -286,7 +287,7 @@ export const ViewAssignment = (Login_Data, navigation) => {
   console.log(Login_Data);
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorList/ViewAssignment.php?tutor_login_id=" +
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorList/ViewAssignment.php?tutor_login_id=" +
       Login_Data.userid;
     console.log(url1, "POSTSTSTTSTSTSTSTSTSTSTSTSTCODEEEEEE");
     await fetch(url1, {
@@ -321,7 +322,7 @@ export const FavAssignment = (Login_Data, navigation) => {
   console.log(Login_Data);
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorList/ViewMyFavouriteAssignment.php?tutor_login_id=" +
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorList/ViewMyFavouriteAssignment.php?tutor_login_id=" +
       Login_Data.userid;
     // console.log(url1, "POSTSTSTTSTSTSTSTSTSTSTSTSTCODEEEEEE");
     await fetch(url1, {
@@ -356,9 +357,9 @@ export const Applied_Assignment = (Login_Data, navigation) => {
   console.log(Login_Data);
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/MyAppliedListByTutor/MyAppliedListByTutor.php?tutor_login_id=" +
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/MyAppliedListByTutor/MyAppliedListByTutor.php?tutor_login_id=" +
       Login_Data.userid;
-    // console.log(url1, "POSTSTSTTSTSTSTSTSTSTSTSTSTCODEEEEEE");
+    console.log(url1, "POSTSTSTTSTSTSTSTSTSTSTSTSTCODEEEEEE");
     await fetch(url1, {
       method: "GET",
       headers: new Headers({
@@ -390,7 +391,7 @@ export const Applied_Assignment = (Login_Data, navigation) => {
 export const GetAllFavTutor = (studentId) => {
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/FavouriteTutorList/FavouriteTutorList.php?logged_in_student_id=" +
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/FavouriteTutorList/FavouriteTutorList.php?logged_in_student_id=" +
       studentId;
 
     console.log(url1, "IIIIIIIIIIIIIIIIII");
@@ -428,7 +429,7 @@ export const GetAllFavTutor = (studentId) => {
 export const Get_Filter_Tutor = (loginuser, postId) => {
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/FilterData/StudentPostRequirementListingFilter.php?student_post_requirements_id=" +
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/FilterData/StudentPostRequirementListingFilter.php?student_post_requirements_id=" +
       postId;
 
     console.log(url1, "IIIIIIIIIIIIIIIIII");
@@ -467,7 +468,7 @@ export const Get_Filter_Tutor = (loginuser, postId) => {
 export const Interested_Tutor = (studentId) => {
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorList/StudentPostRequirementListing.php?student_id=" +
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorList/StudentPostRequirementListing.php?student_id=" +
       studentId;
 
     console.log(url1, "IIIIIIIIIIIIIIIIII");
@@ -514,7 +515,7 @@ export const GetAllTutors = () => {
     //var authtoken = data;
     //  console.log(authtoken)
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorList/TutorList.php";
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorList/TutorList.php";
 
     await fetch(url1, {
       method: "GET",
@@ -555,10 +556,9 @@ export const RegisterUser = (
     //let data = JSON.parse(login);
     //var authtoken = data;
     //  console.log(authtoken)
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
-      axios.defaults.baseURL +
-      "/projects/tutorapp/APIs/UserRegistration/UserRegistration.php";
+     "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/UserRegistration/UserRegistration.php"
     var formData = new FormData();
     formData.append("first_name", FirstName);
     formData.append("last_name", LastName);
@@ -571,7 +571,7 @@ export const RegisterUser = (
     formData.append("profile_image", imageSource);
 
 
-
+console.log(formData,'registerPAyLoad')
     return fetch(url1, {
       method: "POST",
       headers: new Headers({
@@ -619,7 +619,7 @@ export const RegisterUser = (
 export const LoginUser = (Mobile, Email, Password, navigation) => {
   console.log(Mobile, Email, Password);
   return (dispatch, getState) => {
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/UserLogin/UserLogin.php";
@@ -644,7 +644,7 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
     })
       .then((response) => response.json())
       .then(async (responseJson) => {
-        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
+        console.log("responseJsonLOGIN", responseJson);
 
         if (
           responseJson &&
@@ -669,8 +669,11 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
             type: Login_Data,
             payload: obj,
           });
-
-          navigation.replace("Auth4");
+          if (responseJson?.complete_profile == "No") {
+            navigation.replace("YourProfle");
+          } else {
+            navigation.replace("Auth4");
+          }
         } else if (
           responseJson.Status == true &&
           responseJson.user_type == "I am looking for a Tutor"
@@ -689,7 +692,10 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
             payload: obj,
           });
           console.log("Client succesfull login");
+
           navigation.replace("Auth");
+
+
           // await AsyncStorage.setItem("token",responseJson.Access_Token)
           // .then(res=>{
           //     console.log("Client succesfull login")
@@ -715,7 +721,7 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
 export const SendOtpforgotpassword = (Email, otp, newpassword, navigation) => {
   console.log(Email, otp, newpassword);
   return (dispatch, getState) => {
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/Forgotpassword/forgotpassword.php";
@@ -810,11 +816,62 @@ export const SendOtpforgotpassword = (Email, otp, newpassword, navigation) => {
 //       .catch((error) => console.log("LLLLLLLLL", error.message));
 //   };
 // };
+export const OTPVerify = (code) => {
+  // console.log(Mobile, Email, Password)
+  return (dispatch, getState) => {
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
+    const url1 =
+      axios.defaults.baseURL +
+      "/projects/tutorapp/APIs/UserRegistration/UserRegistrationOTP.php";
+    var formData = new FormData();
+    // formData.append('login_option', 'Mobile Number')
 
+    formData.append("OTP_EMAIL", code);
+
+    console.log("FORMDATAAAAA", formData);
+
+    return fetch(url1, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("RegisterAPI", responseJson);
+        dispatch({
+          type: GET_USER_ID,
+          USER_ID: responseJson?.user_id,
+        });
+        if (responseJson.status == true) {
+          //  navigation.navigate('Auth');
+          console.log("PPPaaa", responseJson.message);
+
+          dispatch({
+            type: OTP_MSG,
+            otpmsg: responseJson.message,
+          });
+        } else if (responseJson.status == false) {
+          //  navigation.navigate('Auth');
+          console.log("WWWpppp", responseJson.message);
+
+          dispatch({
+            type: OTP_MSG,
+            otpmsg: responseJson.message,
+          });
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+  };
+};
 export const OTPVerifywithrole = (role, otp, email, navigation) => {
   // console.log(Mobile, Email, Password)
   return (dispatch, getState) => {
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/UserRegistration/UserRegistrationOTP.php";
@@ -890,6 +947,7 @@ export const editProfile = (
   Extra_info,
   history_academy_arr,
   tutoring_detail_arr,
+  secondaryDetails,
   navigation
 ) => {
   //console.log(Login_Data, "APIID");
@@ -897,30 +955,30 @@ export const editProfile = (
     //Tution_Type,
     //AcademicHistory_Data,
     //TutionStatus_Data,
-    // Tutoring_Data, 'Tutoring_DataTutoring_Data', Tutoring_Data.selectArray, "selectArrayselectArrayselectArrayselectArray", tutoring_detail_arr
+    Tutoring_Data, 'Tutoring_DataTutoring_Data', Tutoring_Data.selectArray, "selectArrayselectArrayselectArrayselectArray", tutoring_detail_arr
   );
-
+  console.log(secondaryDetails, 'secondaryDetailseditProfilesecondaryDetailseditProfile')
   const transformedData = {
     "tutoring_detail_arr": Tutoring_Data.selectArray.map(item => {
       if (Array.isArray(item.Tutoring_Grade) && typeof item.Tutoring_ALL_Subjects === 'string') {
         return {
           ...item,
-          "Tutoring_Grade": item.Tutoring_Grade.map(grade => grade),
-          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.split(',').map(subject => subject.trim())
+          "Tutoring_Grade": item.Tutoring_Grade.map(grade => grade?.Tutoring_Grade),
+          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.split(',').map(subject => subject?.Tutoring_ALL_Subjects.trim())
         };
       } else if (typeof item.Tutoring_Grade === 'string' && Array.isArray(item.Tutoring_ALL_Subjects)) {
         return {
           ...item,
-          "Tutoring_Grade": item.Tutoring_Grade.split(',').map(grade => grade.trim()),
-          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.map(subject => subject)
+          "Tutoring_Grade": item.Tutoring_Grade.split(',').map(grade => grade?.Tutoring_Grade.trim()),
+          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.map(subject => subject?.Tutoring_ALL_Subjects)
         };
       }
 
       else if (Array.isArray(item.Tutoring_Grade) && Array.isArray(item.Tutoring_ALL_Subjects)) {
         return {
           ...item,
-          "Tutoring_Grade": item.Tutoring_Grade.map(grade => grade),
-          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.map(subject => subject)
+          "Tutoring_Grade": item.Tutoring_Grade.map(grade => grade?.Tutoring_Grade),
+          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.map(subject => subject?.Tutoring_ALL_Subjects)
         };
       }
       else {
@@ -970,95 +1028,21 @@ export const editProfile = (
     name_of_school: AcademicHistory_Data ? AcademicHistory_Data?.school : Extra_info.name_of_school,
     Course_Exam: AcademicHistory_Data ? AcademicHistory_Data?.Course : Extra_info.Course_Exam,
     gra_year: AcademicHistory_Data ? AcademicHistory_Data?.gra_year : Extra_info.gra_year,
-    lettitude: Tution_Type ? Tution_Type?.latitude : Extra_info.lettitude,
-    longitude: Tution_Type ? Tution_Type?.longitude : Extra_info.longitude,
+    lettitude: Tution_Type ? Tution_Type?.latitude.toString() : Extra_info.lettitude.toString(),
+    longitude: Tution_Type ? Tution_Type?.longitude.toString() : Extra_info.longitude.toString(),
     stream: Tutoring_Data ? Tutoring_Data?.stream : Extra_info.stream,
     tutor_status: TutionStatus_Data ? TutionStatus_Data?.WorkAs : Extra_info.tutor_status,
     tuition_type: Tution_Type ? Tution_Type?.TutionType : Extra_info.tuition_type,
     postal_code: Tution_Type ? Tution_Type?.Postal_Code : Extra_info.postal_code,
     location: Tution_Type ? Tution_Type?.address : Extra_info.location,
-    travel_distance: Tution_Type ? Tution_Type?.Distance : Extra_info.travel_distance,
+    travel_distance: Tution_Type ? Tution_Type?.Distance.toString() : Extra_info.travel_distance.toString(),
     personal_statement: TutionStatus_Data ? TutionStatus_Data?.statement : Extra_info.personal_statement,
     HistoryAcademy: AcademicHistory_Data ? AcademicHistory_Data.History : history_academy_arr,
     // TutoringDetail: Tutoring_Data ? Tutoring_Data.selectArray : tutoring_detail_arr,
     TutoringDetail: transformedData.tutoring_detail_arr,
     //   TutoringDetail: Tutoring_Data.selectArray,
   })
-  // let data1;
-  // if (typeof (Tutoring_Data.selectArray[0].Tutoring_Grade) == Object || typeof (Tutoring_Data.selectArray[0].Tutoring_ALL_Subjects) == Object) {
-  //   console.log('PPPPPPPPPPPPP')
-  //   console.log(Tutoring_Data.selectArray)
-  //   data1 = JSON.stringify({
-  //     user_id: Login_Data.userid,
-  //     age: PersonalInfo_Data ? PersonalInfo_Data?.Age : Extra_info.age,
-  //     profile_image: imageSource,
-  //     gender: PersonalInfo_Data ? PersonalInfo_Data?.markGender : Extra_info.gender,
-  //     nationality: PersonalInfo_Data ? PersonalInfo_Data?.selectnational : Extra_info.nationality,
-  //     qualification: AcademicHistory_Data ? AcademicHistory_Data?.qualification : Extra_info.qualification,
-  //     name_of_school: AcademicHistory_Data ? AcademicHistory_Data?.school : Extra_info.name_of_school,
-  //     Course_Exam: AcademicHistory_Data ? AcademicHistory_Data?.Course : Extra_info.Course_Exam,
-  //     gra_year: AcademicHistory_Data ? AcademicHistory_Data?.gra_year : Extra_info.gra_year,
-  //     lettitude: Tution_Type ? Tution_Type?.latitude : Extra_info.lettitude,
-  //     longitude: Tution_Type ? Tution_Type?.longitude : Extra_info.longitude,
-  //     stream: Tutoring_Data ? Tutoring_Data?.stream : Extra_info.stream,
-  //     tutor_status: TutionStatus_Data ? TutionStatus_Data?.WorkAs : Extra_info.tutor_status,
-  //     tuition_type: Tution_Type ? Tution_Type?.TutionType : Extra_info.tuition_type,
-  //     postal_code: Tution_Type ? Tution_Type?.Postal_Code : Extra_info.postal_code,
-  //     location: Tution_Type ? Tution_Type?.address : Extra_info.location,
-  //     travel_distance: Tution_Type ? Tution_Type?.Distance : Extra_info.travel_distance,
-  //     personal_statement: TutionStatus_Data ? TutionStatus_Data?.statement : Extra_info.personal_statement,
-  //     HistoryAcademy: AcademicHistory_Data ? AcademicHistory_Data.History : history_academy_arr,
-  //     //TutoringDetail: [Tutoring_Data ? Tutoring_Data.selectArray : tutoring_detail_arr],
-  //     TutoringDetail: Tutoring_Data.selectArray,
-  //   });
-  // }
-  // else {
 
-  //   console.log('OOOOOOOOOOOOOOOOO')
-  //   const convertedData = Tutoring_Data.selectArray.map(item => {
-  //     // Check if the properties exist and are non-null
-  //     const tutoringAllSubjects = item?.Tutoring_ALL_Subjects
-  //       ? item.Tutoring_ALL_Subjects.split(',')
-  //       : "";
-  //     const tutoringGrade = item?.Tutoring_Grade
-  //       ? item.Tutoring_Grade.split(',')
-  //       : "";
-
-  //     // Create a new object with the converted values
-  //     return {
-  //       ...item,
-  //       Tutoring_ALL_Subjects: tutoringAllSubjects,
-  //       Tutoring_Grade: tutoringGrade
-  //     };
-  //   });
-
-  //   console.log('DDDDDDDDDDDDD')
-  //   console.log(convertedData, 'convertedDataconvertedDataconvertedData')
-
-  //   data1 = JSON.stringify({
-  //     user_id: Login_Data.userid,
-  //     age: PersonalInfo_Data ? PersonalInfo_Data?.Age : Extra_info.age,
-  //     profile_image: imageSource,
-  //     gender: PersonalInfo_Data ? PersonalInfo_Data?.markGender : Extra_info.gender,
-  //     nationality: PersonalInfo_Data ? PersonalInfo_Data?.selectnational : Extra_info.nationality,
-  //     qualification: AcademicHistory_Data ? AcademicHistory_Data?.qualification : Extra_info.qualification,
-  //     name_of_school: AcademicHistory_Data ? AcademicHistory_Data?.school : Extra_info.name_of_school,
-  //     Course_Exam: AcademicHistory_Data ? AcademicHistory_Data?.Course : Extra_info.Course_Exam,
-  //     gra_year: AcademicHistory_Data ? AcademicHistory_Data?.gra_year : Extra_info.gra_year,
-  //     lettitude: Tution_Type ? Tution_Type?.latitude : Extra_info.lettitude,
-  //     longitude: Tution_Type ? Tution_Type?.longitude : Extra_info.longitude,
-  //     stream: Tutoring_Data ? Tutoring_Data?.stream : Extra_info.stream,
-  //     tutor_status: TutionStatus_Data ? TutionStatus_Data?.WorkAs : Extra_info.tutor_status,
-  //     tuition_type: Tution_Type ? Tution_Type?.TutionType : Extra_info.tuition_type,
-  //     postal_code: Tution_Type ? Tution_Type?.Postal_Code : Extra_info.postal_code,
-  //     location: Tution_Type ? Tution_Type?.address : Extra_info.location,
-  //     travel_distance: Tution_Type ? Tution_Type?.Distance : Extra_info.travel_distance,
-  //     personal_statement: TutionStatus_Data ? TutionStatus_Data?.statement : Extra_info.personal_statement,
-  //     HistoryAcademy: AcademicHistory_Data ? AcademicHistory_Data.History : history_academy_arr,
-  //     //TutoringDetail: [Tutoring_Data ? Tutoring_Data.selectArray : tutoring_detail_arr],
-  //     TutoringDetail: convertedData,
-  //   });
-  // }
 
 
 
@@ -1071,12 +1055,11 @@ export const editProfile = (
     data1,
     "NEWWWWWWWWWWWWWWWNEWWWWWWWWWWWWWWWNEWWWWWWWWWWWWWWWNEWWWWWWWWWWWWWWW"
   );
-
   return (dispatch, getState) => {
     let config = {
       method: "POST",
       maxBodyLength: Infinity,
-      url: "https://refuel.site/projects/tutorapp/APIs/UserRegistration/UpdateUserProfile.php",
+      url: "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/UserRegistration/CompleteUserProfileLoop.php",
       headers: {
         "Content-Type": "application/json",
       },
@@ -1087,14 +1070,17 @@ export const editProfile = (
       .request(config)
       // .then((response) => response.json())
       .then((responseJson) => {
-        console.log(JSON.stringify(responseJson.data), "respone");
-        if (responseJson.data.status == true) {
+        console.log(responseJson, "respone");
+
+        if (responseJson?.status == true) {
           dispatch(GetUserProfile(Login_Data.userid))
-          Alert.alert(responseJson.data.message);
+          Alert.alert(responseJson?.message);
           navigation.replace("Auth4");
-        } else if (responseJson.data.status == false) {
+        } else if (responseJson?.status == false) {
           Alert.alert("Please complete profile to proceed”");
         }
+        navigation.replace("Auth4");
+
       })
       .catch((error) => {
         console.log(error, "error");
@@ -1194,34 +1180,63 @@ export const saveProfile = (
   // console.log(AcademicHistory_Data, "AcademicHistory_Data");
   // console.log(Tution_Type, "Tution_Type");
 
-  console.log(Tutoring_Data.selectArray, "Tutoring_Data_LEVEL");
-  // console.log(TutionStatus_Data, "WORD_For_YOU");
+  // console.log(Tutoring_Data.selectArray, "Tutoring_Data_LEVEL");
+  console.log(Tutoring_Data.selectArray, "Tutoring_Data.selectArray");
 
-  let data1 = JSON.stringify({
-    user_id: GET_USER_ID,
-    age: PersonalInfo_Data?.Age,
-    date_of_year: PersonalInfo_Data?.year,
-    flag: PersonalInfo_Data?.selectflag,
-    profile_image: imageSource,
-    gender: PersonalInfo_Data?.markGender,
-    nationality: PersonalInfo_Data?.selectnational,
-    qualification: AcademicHistory_Data?.qualification,
-    name_of_school: AcademicHistory_Data?.school,
-    Course_Exam: AcademicHistory_Data?.Course,
-    gra_year: AcademicHistory_Data?.gra_year,
-    lettitude: Tution_Type?.latitude,
-    longitude: Tution_Type?.longitude,
-    stream: Tutoring_Data?.stream,
-    tutor_status: TutionStatus_Data?.WorkAs,
-    tuition_type: Tution_Type?.TutionType,
-    postal_code: Tution_Type?.Postal_Code,
-    location: Tution_Type?.address,
-    travel_distance: Tution_Type?.Distance,
-    personal_statement: TutionStatus_Data?.statement,
-    HistoryAcademy: AcademicHistory_Data.History,
-    TutoringDetail: Tutoring_Data.selectArray,
-  });
+  // let data1 = JSON.stringify({
+  //   user_id: GET_USER_ID,
+  //   age: PersonalInfo_Data?.Age,
+  //   date_of_year: PersonalInfo_Data?.year,
+  //   flag: PersonalInfo_Data?.selectflag,
+  //   profile_image: imageSource,
+  //   gender: PersonalInfo_Data?.markGender,
+  //   nationality: PersonalInfo_Data?.selectnational,
+  //   qualification: AcademicHistory_Data?.qualification,
+  //   name_of_school: AcademicHistory_Data?.school,
+  //   Course_Exam: AcademicHistory_Data?.Course,
+  //   gra_year: AcademicHistory_Data?.gra_year,
+  //   lettitude: Tution_Type?.latitude,
+  //   longitude: Tution_Type?.longitude,
+  //   stream: Tutoring_Data?.stream,
+  //   tutor_status: TutionStatus_Data?.WorkAs,
+  //   tuition_type: Tution_Type?.TutionType,
+  //   postal_code: Tution_Type?.Postal_Code,
+  //   location: Tution_Type?.address,
+  //   travel_distance: Tution_Type?.Distance,
+  //   personal_statement: TutionStatus_Data?.statement,
+  //   HistoryAcademy: AcademicHistory_Data.History,
+  //   TutoringDetail: Tutoring_Data.selectArray,
+  // });
 
+  let data1 =
+  {
+    "user_id": GET_USER_ID,
+    "age": PersonalInfo_Data?.Age,
+    "date_of_year": PersonalInfo_Data?.year,
+    "flag": PersonalInfo_Data?.selectflag,
+    "profile_image": imageSource,
+    "gender": PersonalInfo_Data?.markGender,
+    "nationality": PersonalInfo_Data?.selectnational,
+    "qualification": AcademicHistory_Data?.qualification,
+    "name_of_school": AcademicHistory_Data?.school,
+    "Course_Exam": AcademicHistory_Data?.Course,
+    "gra_year": AcademicHistory_Data?.gra_year,
+    "tutor_status": TutionStatus_Data?.WorkAs,
+    "tuition_type": Tution_Type?.TutionType,
+    "location": Tution_Type?.address,
+    "postal_code": Tution_Type?.Postal_Code,
+    "travel_distance": Tution_Type?.Distance,
+    "personal_statement": TutionStatus_Data?.statement,
+    "lettitude": Tution_Type?.latitude,
+    "longitude": Tution_Type?.longitude,
+
+
+
+    "HistoryAcademy": AcademicHistory_Data.History,
+
+    "TutoringDetail":Tutoring_Data.selectArray
+
+  }
   console.log(
     data1,
     "payloadpayloadpayloadpayloadpayloadpayloadpayloadpayload"
@@ -1231,7 +1246,7 @@ export const saveProfile = (
     let config = {
       method: "POST",
       maxBodyLength: Infinity,
-      url: "https://refuel.site/projects/tutorapp/APIs/UserRegistration/CompleteUserProfileLoop.php",
+      url: "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/UserRegistration/CompleteUserProfileLoop.php",
       headers: {
         "Content-Type": "application/json",
       },
@@ -1284,7 +1299,7 @@ export const offerDateTime = (
 ) => {
   return (dispatch, getState) => {
     const url =
-      "https://refuel.site/projects/tutorapp/APIs/TutorBookings/DateAndTimeOfferUpdate.php";
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorBookings/DateAndTimeOfferUpdate.php";
 
     let data = new FormData();
     data.append("tutor_booking_process_id", tutorBookingProcessId);
@@ -1347,7 +1362,7 @@ export const FavouriteAssignment = (loginuser, postId, Fav, val) => {
   console.log(loginuser, postId, Fav);
   return (dispatch, getState) => {
     const url =
-      "https://refuel.site/projects/tutorapp/APIs/TutorFavouriteAssignment/TutorFavouriteAssignment.php";
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorFavouriteAssignment/TutorFavouriteAssignment.php";
 
     let data = new FormData();
     data.append("tutor_login_id", loginuser);
@@ -1386,7 +1401,7 @@ export const FavouriteTutorByStudent = (loginuser, tutorid, val) => {
   console.log(loginuser, tutorid, val);
   return (dispatch, getState) => {
     const url =
-      "https://refuel.site/projects/tutorapp/APIs/FavouriteTutorByStudent/FavouriteTutorByStudent.php";
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/FavouriteTutorByStudent/FavouriteTutorByStudent.php";
 
     let data = new FormData();
     data.append("logged_in_student_id", loginuser);
@@ -1411,6 +1426,10 @@ export const FavouriteTutorByStudent = (loginuser, tutorid, val) => {
       .then((responseJson) => {
         console.log("responseJson", responseJson);
         if (responseJson.status == true) {
+          dispatch({
+            type: FAVOURITE_STATUS,
+            payload: responseJson?.Favourite,
+          });
           // Alert.alert(responseJson.message);
           // navigation.navigate("Auth4");
         } else if (responseJson.status == false) {
@@ -1424,7 +1443,7 @@ export const FavouriteTutorByStudent = (loginuser, tutorid, val) => {
 export const ConfirmofferDateTime = (tutorBookingProcessId, student_id) => {
   return (dispatch, getState) => {
     const url =
-      "https://refuel.site/projects/tutorapp/APIs/TutorBookings/DateAndTimeOfferUpdate.php";
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorBookings/DateAndTimeOfferUpdate.php";
 
     let data = new FormData();
     data.append("tutor_booking_process_id", tutorBookingProcessId);
@@ -1447,6 +1466,10 @@ export const ConfirmofferDateTime = (tutorBookingProcessId, student_id) => {
       .then((responseJson) => {
         console.log("responseJson", responseJson);
         if (responseJson.status == true) {
+          dispatch({
+            type: FAVOURITE_STATUS,
+            payload: responseJson?.Favourite,
+          });
           Alert.alert(responseJson.message);
           // navigation.navigate("Auth4");
         } else if (responseJson.status == false) {
@@ -1492,7 +1515,7 @@ export const negotiateByStudent = (
 ) => {
   return (dispatch, getState) => {
     const url =
-      "https://refuel.site/projects/tutorapp/APIs/TutorBookings/NegotiateOfferAmountUpdate.php";
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorBookings/NegotiateOfferAmountUpdate.php";
     let data = new FormData();
     data.append("tutor_booking_process_id", tutorBookingProcessId);
     data.append("tutor_tution_offer_amount_type", "Negotiable");
@@ -1532,7 +1555,7 @@ export const acceptOffer = (
 ) => {
   return (dispatch, getState) => {
     const url =
-      "https://refuel.site/projects/tutorapp/APIs/TutorBookings/OfferStatus.php";
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorBookings/OfferStatus.php";
 
     let data = new FormData();
     data.append("tutor_booking_process_id", tutorBookingProcessId);
@@ -1574,38 +1597,62 @@ export const studentPostRequirement = (
   Tutor_Qualification,
   student_id,
   Postal_Code_Address,
+  Tutor_Detail,
   navigation
 ) => {
   return (dispatch, getState) => {
+    // console.log(student_id,'student_id')
+    // let data = {
+    //   logged_in_user_id: student_id.toString(),
+
+    //   Student_Level_Grade_Subjects: Student_Detail?.Student_Data,
+
+    //   student_tution_type: Tution_Type?.TutionType,
+    //   student_postal_code: Tution_Type?.Postal_Code,
+    //   student_postal_address: Postal_Code_Address,
+    //   tutor_id: "4",
+    //   tutor_duration_weeks: Tutor_Qualification?.frequency,
+    //   tutor_duration_hours: Tutor_Qualification?.duration,
+    //   tutor_tution_fees: Tutor_Qualification?.FeeOffer,
+    //   tutor_tution_schedule_time: "12:30",
+    //   tutor_tution_offer_amount_type:
+    //     Tutor_Qualification?.feetype === "Place Offer"
+    //       ? "Non Negotiable"
+    //       : "Negotiable",
+    //   tutor_tution_offer_amount: Tutor_Qualification?.FeeOffer,
+    //   // booked_date: "17-07-2023",
+
+    //   Qualifications: Tutor_Qualification?.TutorQualification,
+
+    //   Tutor_Schedules_Slot_Time: Tutor_Schedule?.Tutor_schedules,
+    // };
     let data = {
-      logged_in_user_id: student_id,
+      "logged_in_user_id": student_id,
+      "Student_Level_Grade_Subjects": Student_Detail?.Student_Data,
 
-      Student_Level_Grade_Subjects: Student_Detail?.Student_Data,
 
-      student_tution_type: Tution_Type?.TutionType,
-      student_postal_code: Tution_Type?.Postal_Code,
-      student_postal_address: Postal_Code_Address,
-      tutor_id: "4",
-      tutor_duration_weeks: Tutor_Qualification?.frequency,
-      tutor_duration_hours: Tutor_Qualification?.duration,
-      tutor_tution_fees: Tutor_Qualification?.FeeOffer,
-      tutor_tution_schedule_time: "12:30",
-      tutor_tution_offer_amount_type:
-        Tutor_Qualification?.feetype === "Place Offer"
-          ? "Non Negotiable"
-          : "Negotiable",
-      tutor_tution_offer_amount: Tutor_Qualification?.FeeOffer,
-      // booked_date: "17-07-2023",
+      "student_tution_type": Tution_Type?.TutionType,
+      "student_postal_code": Tution_Type?.Postal_Code,
+      "student_postal_address": Postal_Code_Address,
+      "tutor_id": Tutor_Detail?.tutorid,
+      "tutor_duration_weeks": Tutor_Qualification?.frequency,
+      "tutor_duration_hours": Tutor_Qualification?.duration,
+      "tutor_tution_fees": Tutor_Qualification?.FeeOffer,
+      "tutor_tution_schedule_time": "12:30",
+      "tutor_tution_offer_amount_type": Tutor_Qualification?.feetype === "Place Offer"
+        ? "Non Negotiable"
+        : "Negotiable",
+      "tutor_tution_offer_amount": Tutor_Qualification?.FeeOffer,
 
-      Qualifications: Tutor_Qualification?.TutorQualification,
 
-      Tutor_Schedules_Slot_Time: Tutor_Schedule?.Tutor_schedules,
-    };
+      "Qualifications": Tutor_Qualification?.TutorQualification,
+      "Tutor_Schedules_Slot_Time": Tutor_Schedule?.Tutor_schedules
+    }
     console.log(data, "newdataaaaaaaa");
     let config = {
       method: "POST",
       maxBodyLength: Infinity,
-      url: "https://refuel.site/projects/tutorapp/APIs/TutorBookings/StudentPostRequirementLoopData.php",
+      url: "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorBookings/StudentPostRequirementLoopData.php",
       headers: {
         "Content-Type": "application/json",
       },

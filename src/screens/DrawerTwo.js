@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 import {
   SafeAreaView,
@@ -21,17 +21,23 @@ import {
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-community/async-storage";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Login_Data } from "../Redux/Actions/types";
+import { GetUserProfile } from "../Redux/Actions/Tutors";
 
 const DrawerTwo = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const dispatch = useDispatch();
+  const { Login_Data } = useSelector((state) => state.TutorReducer);
+
+  const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
     navigation.navigate("ClientLanding");
     setIsEnabled(false);
   };
+  useEffect(() => {
+    dispatch(GetUserProfile(Login_Data.userid));
+  }, []);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -51,17 +57,17 @@ const DrawerTwo = ({ navigation }) => {
 
             <Image
               source={require("../Assets/qrIcon.png")}
-              style={{ width: 30 }}
+              style={{ width: 30, marginTop: 5 }}
             />
             <Image
               source={require("../Assets/shareIcon.png")}
-              style={{ width: 40 }}
+              style={{ width: 40, marginTop: 6 }}
             />
           </View>
         </View>
         <View style={{ flexDirection: "row", marginTop: 20, marginLeft: 50 }}>
-          <Text style={{ fontFamily: "Poppins-Light" }}>
-            {console.log(isEnabled)}I want to find a Tutor..
+          <Text style={{ fontFamily: "Poppins-Light", color: '#fff', marginTop: 3 }}>
+            {console.log(isEnabled)}I want to look for a Tutor
           </Text>
           <TouchableOpacity
           //onPress={() => navigation.navigate('TutorLanding')}
@@ -88,7 +94,7 @@ const DrawerTwo = ({ navigation }) => {
               <View style={styles.verticleLine}></View>
             </View>
             <View style={{ marginLeft: 10 }}>
-              <Text style={styles.subText}>Message from our director</Text>
+              <Text style={styles.subText}>Message from  director</Text>
               <Text style={styles.subText}>About</Text>
               <Text style={styles.subText}>Our Services</Text>
             </View>
@@ -102,7 +108,7 @@ const DrawerTwo = ({ navigation }) => {
               style={{ width: 30, marginTop: 5 }}
             />
             <Text style={[styles.MenuHead, { marginLeft: 10 }]}>
-              Mark's Dashboard
+            {SINGLE_USER[0]?.first_name}'s Dashboard
             </Text>
           </View>
           <View style={[styles.menusublist, { flexDirection: "row" }]}>
@@ -113,10 +119,10 @@ const DrawerTwo = ({ navigation }) => {
               <Text style={styles.subText}>My Profile</Text>
               <Text style={styles.subText}>My Account</Text>
               <Text style={styles.subText}>My Activities</Text>
-              <Text style={styles.subText}>My Booking</Text>
+              <Text style={styles.subText}>My Bookings</Text>
               <Text style={styles.subText}>My Applied</Text>
               <Text style={styles.subText}>My Assignments</Text>
-              <Text style={styles.subText}>Favourites</Text>
+              <Text style={styles.subText}>My Favs</Text>
             </View>
           </View>
         </View>
@@ -173,8 +179,8 @@ const DrawerTwo = ({ navigation }) => {
           <View style={styles.MenuLIstContainer}>
             <View style={styles.MenuLIst}>
               <Image
-                source={require("../Assets/Health.png")}
-                style={styles.icons}
+                source={require("../Assets/helpSideMenu.png")}
+                style={[styles.icons,{marginTop:4}]}
               />
               <Text style={styles.MenuHead}>Terms & Conditions</Text>
             </View>
@@ -207,10 +213,12 @@ const DrawerTwo = ({ navigation }) => {
             />
           </View>
           <View style={styles.SocialContainer}>
-            <Image
-              source={require("../Assets/Twitter.png")}
-              style={styles.icons}
-            />
+          <View style={{backgroundColor:'#fff'}}>
+          <Image
+            source={require("../Assets/Twitter1.png")}
+            style={styles.icons}
+          />
+          </View>
           </View>
           <View style={styles.SocialContainer}>
             <Image
@@ -277,7 +285,7 @@ const styles = StyleSheet.create({
   SocialMainContainer: {
     height: 40,
     width: "100%",
-    marginTop: 20,
+    // marginTop: 20,
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",

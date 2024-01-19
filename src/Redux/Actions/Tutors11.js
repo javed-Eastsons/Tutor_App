@@ -11,7 +11,7 @@ export const GetAllTutors = () => {
     //var authtoken = data;
     //  console.log(authtoken)
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorList/TutorList.php";
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorList/TutorList.php";
 
     await fetch(url1, {
       method: "GET",

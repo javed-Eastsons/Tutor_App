@@ -142,7 +142,7 @@ const ItemBox = (props) => {
             :
             <Image
               source={{
-                uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${props.data.profile_image}`,
+                uri: `https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/${props.data.profile_image}`,
               }}
               style={styles.leftImage}
             />

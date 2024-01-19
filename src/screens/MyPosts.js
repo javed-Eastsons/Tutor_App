@@ -77,7 +77,7 @@ const MyPosts = () => {
   //   "ALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORS",
   //   Login_Data
   // );
-
+console.log(interestedTutor,'intintintint')
   console.log(value, "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
   const renderLabel = () => {
     if (value || isFocus) {
@@ -648,7 +648,9 @@ const MyPosts = () => {
             </View>
             {detail_view == "List" ? (
               <ScrollView style={{ height: hp(65) }}>
-                <FlatList
+                {
+                  interestedTutor ?
+<FlatList
                   // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
                   scrollEnabled={true}
                   data={interestedTutor}
@@ -890,6 +892,11 @@ const MyPosts = () => {
                     </TouchableOpacity>
                   )}
                 />
+                  :
+                  <Text style={styles.noData}>No Record Found</Text>
+
+                }
+                
               </ScrollView>
             ) : (
               <View style={{ height: hp(65) }}>
@@ -1797,4 +1804,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 3,
   },
+  noData:{
+    alignSelf:'center',
+    fontSize:20,
+    marginTop:150
+  }
 });

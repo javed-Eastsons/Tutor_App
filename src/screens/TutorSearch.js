@@ -276,7 +276,7 @@ const TutorSearch = () => {
                 style={[styles.whitebox, { elevation: 5 }]}
               >
                 <View style={styles.bicons}>
-                  <Image source={require("../Assets/onlinetutIcon.png")} />
+                  <Image source={require("../Assets/onlinetutIcon1.png")} style={{ height: 30, width: 30 }} />
                 </View>
 
                 <Text
@@ -327,7 +327,7 @@ const TutorSearch = () => {
                 style={[styles.whitebox, { elevation: 5 }]}
               >
                 <View style={styles.bicons}>
-                  <Image source={require("../Assets/helptutIcon.png")} />
+                  <Image source={require("../Assets/helptutIcon1.png")} style={{ height: 30, width: 30 }}/>
                 </View>
 
                 <Text

@@ -11,6 +11,7 @@ import {
   Button,
   FlatList,
   TouchableOpacity,
+  Alert
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { TextInput } from "react-native-gesture-handler";
@@ -75,7 +76,7 @@ const MyFav = () => {
   //   "ALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORS",
   //   Login_Data
   // );
-
+console.log(Tutor,'TUTUTUT')
   console.log(value, "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
   const renderLabel = () => {
     if (value || isFocus) {
@@ -1343,8 +1344,9 @@ const MyFav = () => {
               //Duration for Collapse and expand
               onChange={setSections}
             /> */}
-
-            <FlatList
+            {
+              Tutor  != 'No record found.'?
+              <FlatList
               scrollEnabled={true}
               data={Tutor}
               keyExtractor={(item, index) => index}
@@ -1515,6 +1517,11 @@ const MyFav = () => {
                 </TouchableOpacity>
               )}
             />
+              :
+              <Text style={styles.noData}>No Record Found</Text>
+
+            }
+            
           </ScrollView>
         )}
       </View>
@@ -2019,4 +2026,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 3,
   },
+  noData:{
+    alignSelf:'center',
+    fontSize:20,
+    marginTop:150
+  }
 });

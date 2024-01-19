@@ -19,7 +19,7 @@ const currentDate = moment().format("DD-MM-YYYY");
 export const AcceptFinalOffer = (TutId, BookingId, OfferStatus, navigation) => {
   console.log(TutId, BookingId, OfferStatus);
   return (dispatch, getState) => {
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/TutorBookings/DateAndTimeOfferUpdate.php";
@@ -64,7 +64,7 @@ export const AcceptFinalOffer = (TutId, BookingId, OfferStatus, navigation) => {
 export const Apply_Assignment = (postid, loginuser, status, navigation) => {
   console.log(postid, loginuser, status);
   return (dispatch, getState) => {
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/AppliedByTutorPostRequirement/student_post_requirements_Applied_by_tutor.php";
@@ -116,7 +116,7 @@ export const NegotiateOfferAmountUpdate = (
 ) => {
   console.log(bookingId, tutorId, offerAmount, NewofferType);
   return (dispatch, getState) => {
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/TutorBookings/NegotiateOfferAmountUpdate.php";
@@ -173,7 +173,7 @@ export const OfferStatus = (
 ) => {
   console.log(bookingId, offerstatus, OfferType);
   return (dispatch, getState) => {
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/TutorBookings/OfferStatus.php";
@@ -232,7 +232,7 @@ export const BookingStatus = (
     //let data = JSON.parse(login);
     //var authtoken = data;
     //  console.log(authtoken)
-    axios.defaults.baseURL = "https://refuel.site";
+    axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
     const url1 =
       axios.defaults.baseURL +
       "/projects/tutorapp/APIs/TutorBookings/BookingStatus.php";
@@ -283,7 +283,7 @@ export const GetBookedTutorDetail = (bookingData, navigation) => {
   console.log(bookingData);
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorList/BookedBySingleTutorDetails.php?tutor_id=" +
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorList/BookedBySingleTutorDetails.php?tutor_id=" +
       bookingData?.tutorId +
       "&tutor_booking_process_id=" +
       bookingData?.BookingId;
@@ -323,7 +323,7 @@ export const GetBookedTutorList = (Login_Data, navigation) => {
     //var authtoken = data;
     //  console.log(authtoken)
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorList/TutorListing.php?student_id=" +
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorList/TutorListing.php?student_id=" +
       Login_Data?.userid;
 
     //console.log(url1, "Studenttttttttttttttttttttttttttt1");
@@ -355,7 +355,7 @@ export const GetBookedTutorList = (Login_Data, navigation) => {
 export const GetBookedStudentList = (Login_Data, navigation) => {
   return async (dispatch, getState) => {
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorList/BookedTutorList.php?tutor_id=" +
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorList/BookedTutorList.php?tutor_id=" +
       Login_Data?.userid;
 
     console.log(url1, "url1url1url1url1url1url1url1url1url1");
@@ -426,7 +426,7 @@ export const BookTutor = (
   return (dispatch, getState) => {
     // axios.defaults.baseURL = "https://refuel.site";
     const url1 =
-      "https://refuel.site/projects/tutorapp/APIs/TutorBookings/TutorBookingsProcessLoopData.php";
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/TutorBookings/TutorBookingsProcessLoopData.php";
 
     fetch(url1, {
       method: "POST",

@@ -254,6 +254,7 @@ const Register = ({ route }) => {
     console.log("isVerfyModalVisible=", isVerfyModalVisible);
     //Alert.alert(otpmsgs)
     setVerifyModalVisible(false);
+    
   };
 
   const selectrole = (role) => {
@@ -763,8 +764,9 @@ const Register = ({ route }) => {
                   height: 45,
                 }}
                 placeholderStyle={{ fontSize: 14 }}
-                selectedTextStyle={styles.selectedTextStyle}
-                inputSearchStyle={styles.inputSearchStyle}
+                itemTextStyle={{color:'gray'}}
+                selectedTextStyle={{color:'gray'}}
+                inputSearchStyle={{color:'gray'}}
                 iconStyle={styles.iconStyle}
                 data={data}
                 search
@@ -1233,6 +1235,7 @@ const styles = StyleSheet.create({
   TermModelText: {
     fontSize: 12,
     // fontWeight: "700",
+    color:'gray',
     justifyContent: "center"
   },
 
