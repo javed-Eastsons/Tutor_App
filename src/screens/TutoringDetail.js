@@ -14,6 +14,7 @@ import {
   FlatList,
   Alert
 } from "react-native";
+
 import AppIntroSlider from "react-native-app-intro-slider";
 import { TextInput } from "react-native-gesture-handler";
 // import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -48,6 +49,7 @@ const TutoringDetail = ({ route }) => {
   const { LEVEL_LIST } = useSelector((state) => state.TutorReducer);
   const { SUBJECT_LIST } = useSelector((state) => state.TutorReducer);
   const { GRADE_LIST } = useSelector((state) => state.TutorReducer);
+  const { GRADE_LIST_TUTOR } = useSelector((state) => state.TutorReducer);
   const { Login_Data } = useSelector((state) => state.TutorReducer);
   const { SINGLE_USER } = useSelector((state) => state.TutorReducer);
   const [tutoring, setTutoring] = useState("");
@@ -80,8 +82,8 @@ const TutoringDetail = ({ route }) => {
   const [expandedItemIndex, setExpandedItemIndex] = useState(null);
   const [selectedSec, setSelectedSec] = useState([]);
   const [selectedStreams, setSelectedStreams] = useState([]);
-  const [ResultArray, setResultArray] = useState([]);
 
+  console.log(selectedStreams, 'selectedStreamsselectedStreamsselectedStreamsselectedStreamsselectedStreams')
   // const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = (index) => {
@@ -89,13 +91,13 @@ const TutoringDetail = ({ route }) => {
   };
 
 
-  //console.zlog(records, "recordsrecordsrecordsrecordsrecords");
-  // console.log(SUBJECT_LIST, "SUBJECT_LISTSUBJECT_LISTSUBJECT_LIST");
-console.log(records,'recordsSecondaryDetail')
-console.log(SINGLE_USER[0]?.TutoringDetail,'SINGLEAPISINGLEAPISINGLEAPISINGLEAPI')
+  //console.log(records, "recordsrecordsrecordsrecordsrecords");
+  console.log(SUBJECT_LIST, "SUBJECT_LISTSUBJECT_LISTSUBJECT_LIST");
+
+
   // console.log(grade, "gradeJK");
-  // console.log(gradeArray, "gradeArray");
-  //console.log(GRADE_LIST, "GRADE->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  console.log(GRADE_LIST_TUTOR, "GRADE_LIST_TUTOR");
+  console.log(GRADE_LIST, "GRADE->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
   // console.log(SUBJECT_LIST, "SUBJECT_LIST");
 
   const AddQualification = (val) => {
@@ -474,10 +476,15 @@ console.log(SINGLE_USER[0]?.TutoringDetail,'SINGLEAPISINGLEAPISINGLEAPISINGLEAPI
 
   console.log(route.params.Tutoring_Info, 'Tutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_InfoTutoring_Info')
 
-console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
+
   function getRandomNumber(min, max) {
+
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
+
+
+  console.log(admissionlevel, resultArray, 'GURANSHGURANSHGURANSHGURANSHGURANSH')
+
   const ALLDATA = () => {
 
     selectListTutor, gradeArray, state, state2, selectedItems;
@@ -507,7 +514,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
     item1["TutoringLevel"] = selectListTutor;
     item1["AdmissionLevel"] = admissionlevel;
     item1["AdmissionStreamResult"] = resultArray;
-    item1["Tutoring_Grade"] = gradeArray;
+    item1["Tutoring_Grade"] = gradeArray.map((item) => item?.Grade);
     item1["Tutoring_Year"] = state;
     item1["Tutoring_Month"] = state2;
     item1["Tutoring_ALL_Subjects"] = selectedItems;
@@ -557,9 +564,12 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
 
 
   const UpdateRecord = () => {
+
     console.log(editId);
-    const newData = records?.map((record) => {
+    const newData = records.map((record) => {
+
       if (record.tutoring_detail_id === editId) {
+
         return {
           ...record,
           TutoringLevel: selectListTutor,
@@ -570,15 +580,23 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
           // You can update other fields here as well
         };
       }
+
       return record;
+
     });
+
+
 
     setRecords(newData);
     console.log(newData, "newDatanewDatanewDatanewDatanewData");
+
   };
+
+
+
   const UpdateLevelRecord = () => {
     console.log(editId);
-    const newData = records?.map((record) => {
+    const newData = records.map((record) => {
       if (record.tutoring_detail_id === editId) {
         return {
           ...record,
@@ -599,7 +617,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
   };
   const UpdateYearRecord = () => {
     console.log(editId);
-    const newData = records?.map((record) => {
+    const newData = records.map((record) => {
       console.log(record, 'record.Id')
       if (record.tutoring_detail_id === editId) {
         return {
@@ -622,16 +640,20 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
     }
     console.log(newData, "newDatanewDatanewDatanewDatanewData");
   };
+
+
+
   const UpdateGradeRecord = () => {
     console.log(editId);
-    const newData = records?.map((record) => {
+    const newData = records.map((record) => {
       if (record.tutoring_detail_id === editId) {
         return {
           ...record,
 
-          Tutoring_Grade: gradeArray?.map((item) => item?.Grade),
+          Tutoring_Grade: gradeArray.map((item) => item?.Grade),
           //AdmissionLevel: admissionArray.map((item) => item?.Admission),
-          AdmissionLevel: admissionlevel
+          AdmissionLevel: admissionlevel,
+          AdmissionStreamResult: resultArray,
 
 
           // You can update other fields here as well
@@ -647,7 +669,11 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
       setLevelDetailYear(true)
     }
     console.log(newData, "newDatanewDatanewDatanewDatanewData");
+
   };
+
+
+
 
 
 
@@ -655,7 +681,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
   const UpdateSubjectRecord = () => {
     console.log(editId);
     console.log(selectedItems, 'subjectss')
-    const newData = records?.map((record) => {
+    const newData = records.map((record) => {
       if (record.tutoring_detail_id === editId) {
         return {
           ...record,
@@ -693,32 +719,34 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
   }
 
 
-  console.log(gradeArray, 'UUUUUUUUUUUUUUUUUUUUUUUUU')
+  // console.log(gradeArray, 'UUUUUUUUUUUUUUUUUUUUUUUUU')
 
   const SelectAllOption = () => {
+
     if (GRADE_LIST?.Grade_List) {
-      const allGrades = GRADE_LIST.Grade_List?.map((item) => item.grade_name);
+      const allGrades = GRADE_LIST.Grade_List.map((item) => item.grade_name);
 
       // Check if allGrades are already in gradeArray
       const areAllGradesSelected = allGrades.every((grade) =>
-        gradeArray?.some((obj) => obj.Grade === grade)
+        gradeArray.some((obj) => obj.Grade === grade)
       );
 
       if (!areAllGradesSelected) {
         // Add all grades to gradeArray
         const updatedGradeArray = [
           ...gradeArray,
-          ...allGrades?.map((grade) => ({ Grade: grade })),
+          ...allGrades.map((grade) => ({ Grade: grade })),
         ];
         setGradeArray(updatedGradeArray);
       } else {
         // Remove all grades from gradeArray
-        const filteredGradeArray = gradeArray?.filter(
+        const filteredGradeArray = gradeArray.filter(
           (obj) => !allGrades.includes(obj.Grade)
         );
         setGradeArray(filteredGradeArray);
       }
     }
+
   };
 
   console.log(gradeArray, "AllArrayAllArray");
@@ -768,20 +796,21 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
     console.log(obj3, "AAAAA");
 
     var item1 = {};
-    item1["Tutoring_Grade"] = val;
+    item1["Grade"] = val;
 
-    if (!isExistInArray(gradeArray, "Grade", item1.Tutoring_Grade)) {
+    if (!isExistInArray(gradeArray, "Grade", item1.Grade)) {
       //  console.log('insert in array');
       gradeArray.push(item1);
       // selectArray.push(obj3);
     } else {
-      RemoveTempExercise(gradeArray, "Grade", item1.Tutoring_Grade);
+      RemoveTempExercise(gradeArray, "Grade", item1.Grade);
     }
     // }
   };
 
 
   const AdmissionLevel = (val) => {
+
     console.log(val, selectListTutor, "@@@@@AAAAJJJJ@@@@");
 
     setLoader1(true)
@@ -795,8 +824,6 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
     setTimeout(() => {
       setLoader1(false)
     }, 2000);
-
-
 
   };
 
@@ -991,7 +1018,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
   // Function to handle selection of streams for a specific section
   const StreamLevel = (gradeName, streamName) => {
     // Toggle the selection for the stream
-    const updatedSelectedStreams = selectedStreams[gradeName].includes(streamName)
+    const updatedSelectedStreams = selectedStreams[gradeName]?.includes(streamName)
       ? selectedStreams[gradeName].filter((stream) => stream !== streamName)
       : [...selectedStreams[gradeName], streamName];
 
@@ -1005,31 +1032,33 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
   // console.log(selectedSec, 'selectedSecselectedSecselectedSecselectedSecselectedSec')
   console.log(selectedStreams, 'selectedStreamsselectedStreamsselectedStreamsselectedStreams')
 
+  // const getResultArray = () => {
+  //   const result = selectedSec.map((gradeName) => {
+  //     const streamsForGrade = selectedStreams[gradeName] || [];
+  //     return { "AdmissionLevel": gradeName, "Stream": streamsForGrade };
+  //   });
+
+  //   return result;
+  // };
+
   const getResultArray = () => {
-    const result = selectedSec?.map((gradeName,index) => {
+    let count = 1; // Initialize count
+
+    const result = selectedSec?.map((gradeName) => {
       const streamsForGrade = selectedStreams[gradeName] || [];
-      return { "AdmissionStreamResultID": index+1,"AdmissionLevel": gradeName, "Stream": streamsForGrade };
+      const resultObject = { "AdmissionStreamResultID": count, "AdmissionLevel": gradeName, "Stream": streamsForGrade };
+      count++; // Increment count for the next iteration
+      return resultObject;
     });
+
     return result;
   };
 
   const resultArray = getResultArray();
-  useEffect(() => {
-    const getResultArray = () => {
-      // Your existing code to compute resultArray
-      const result = selectedSec?.map((gradeName,index) => {
-        const streamsForGrade = selectedStreams[gradeName] || [];
-        return { "AdmissionStreamResultID": index+1,"AdmissionLevel": gradeName, "Stream": streamsForGrade };
-      });
+  console.log("Result:", resultArray);
 
-      // Set the state only when needed
-      setResultArray(result);
-    };
 
-    // Call getResultArray within useEffect to avoid unnecessary re-renders
-    getResultArray();
-  }, [selectedSec, selectedStreams]);
-  console.log("Result:", ResultArray);
+
 
 
 
@@ -1127,64 +1156,105 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
     // console.log('LevelSubjects', selectArray)
   };
 
-  const onSelectedItemsChange = (val) => {
-    console.log("PPPPPPPPPPPP", val);
+  const onSelectedItemsChange = (selectedItems) => {
+    console.log("PPPPPPPPPPPP", selectedItems);
     // createsubject(selectedItems);
-   
-    const subjectsArray = val;
-
-    const resultArray = subjectsArray.map(subject => ({
-      "Tutoring_ALL_Subjects": typeof subject === 'object' ? subject["Tutoring_ALL_Subjects"] : subject
-    }));
-    
-    console.log(resultArray,'resultArrayresultArrayresultArray')
-    setselectedItems(val)
+    setselectedItems(selectedItems);
   };
-  const handleGradeEdit = (level, selectedgrade, admission) => {
+
+
+  const handleSecEdit = (a, b, c) => {
+    console.log(a, 'aaaa', b, 'bbbbb', c, 'IIIIU*(&*()*&*()&*()')
+    console.log('SSSSSSSSSSSSS')
+    setSelectedStreams(b)
+    setLevelDetailGrade(true)
+  }
+
+  const handleGradeEdit = (level, selectedgrade, admission, admissionResult) => {
+
+    console.log(level, selectedgrade, admission, admissionResult, 'MMMMMMMMMM')
+
+
+    //secondaryFunc(admissionResult);
+
+
     setSelectListTutor(level)
     // setAdmissionArray()
     setAdmissionLevel(admission)
-    console.log(level, selectedgrade, admission, '999999999999999999')
+
+    console.log(selectListTutor, 'KJJJJJJJJJJJJ')
+    console.log(level, selectedgrade, admission, admissionResult, '999999999999999999')
     setLoader(true)
-    dispatch(getGradeList(level, admission));
+    // if (selectListTutor == "Secondary" || level == 'Secondary' ) {
+    // Alert.alert('hello world')
+    if (selectListTutor == "Secondary" || level == 'Secondary') {
 
-    // setSelectListTutor(level)
-    //setEditLevel(level)
-    console.log(level, selectedgrade, 'ZZZZZZZZZZZZZ', editLevel)
+      setLoader(true)
+      // setLevelDetailGrade(true)
+      console.log('OOOOOOOOOOOOOOOOOselectLevelFuncselectLevelFunc', EditLevel, selectListTutor)
+      const AdmissionTrans = admissionResult?.map((item, index) => item.AdmissionLevel);
+      setSelectedSec(AdmissionTrans)
+      const selectedStreams = admissionResult?.reduce((acc, entry) => {
+        acc[entry.AdmissionLevel] = entry.Stream;
+        return acc;
+      }, {});
 
-    if (typeof selectedgrade === 'string' && typeof admission === 'string') {
-      const gradesArray = selectedgrade.split(","); // Split the string into an array
-      const admissionArray = admission.split(","); // Split the string into an array
+      setSelectedStreams(selectedStreams)
 
-      const transformedGrades = gradesArray?.map(grade => ({ "Grade": grade })); // Transform each element
-      const transformedAdmission = admissionArray?.map(admission => ({ "Admission": admission })); // Transform each element
-
-      console.log(level, selectedgrade, "IIIIIIIIIIIIIIIIII", transformedGrades)
-      setGradeArray(transformedGrades)
-      setAdmissionArray(transformedAdmission)
-
-    }
-
-    else if (Array.isArray(selectedgrade) && typeof admission === 'string') {
-      //const gradesArray = selectedgrade.split(","); // Split the string into an array
-      const admissionArray = admission.split(","); // Split the string into an array
-
-      const transformedGrades = selectedgrade?.map(grade => ({ "Grade": grade })); // Transform each element
-      const transformedAdmission = admissionArray?.map(admission => ({ "Admission": admission })); // Transform each element
-
-      console.log(level, selectedgrade, "IIIIIIIIIIIIIIIIII", transformedGrades)
-      setGradeArray(transformedGrades)
-      setAdmissionArray(transformedAdmission)
+      dispatch(getTutorGradeList(level, ""));
+      setTimeout(() => {
+        setLoader(false)
+      }, 2000);
 
     }
+
+
+
     else {
-      const transformedGrades = selectedgrade?.map(grade => ({ "Grade": grade }));
-      const transformedAdmission = admission?.map(admission => ({ "Admission": admission })); // Transform each element
 
-      console.log(level, selectedgrade, "IIIIIIIIIIIIIIIIII", transformedGrades)
-      setGradeArray(transformedGrades)
-      setAdmissionArray(transformedAdmission)
+      dispatch(getGradeList(level, admission));
+
+      // setSelectListTutor(level)
+      //setEditLevel(level)
+      console.log(level, selectedgrade, 'ZZZZZZZZZZZZZ', editLevel)
+
+      if (typeof selectedgrade === 'string' && typeof admission === 'string') {
+        const gradesArray = selectedgrade.split(","); // Split the string into an array
+        const admissionArray = admission.split(","); // Split the string into an array
+
+        const transformedGrades = gradesArray.map(grade => ({ "Grade": grade })); // Transform each element
+        const transformedAdmission = admissionArray.map(admission => ({ "Admission": admission })); // Transform each element
+
+        console.log(level, selectedgrade, "IIIIIIIIIIIIIIIIII", transformedGrades)
+        setGradeArray(transformedGrades)
+        setAdmissionArray(transformedAdmission)
+
+      }
+
+      else if (Array.isArray(selectedgrade) && typeof admission === 'string') {
+        //const gradesArray = selectedgrade.split(","); // Split the string into an array
+        const admissionArray = admission.split(","); // Split the string into an array
+
+        const transformedGrades = selectedgrade.map(grade => ({ "Grade": grade })); // Transform each element
+        const transformedAdmission = admissionArray.map(admission => ({ "Admission": admission })); // Transform each element
+
+        console.log(level, selectedgrade, "IIIIIIIIIIIIIIIIII", transformedGrades)
+        setGradeArray(transformedGrades)
+        setAdmissionArray(transformedAdmission)
+
+      }
+      else {
+        const transformedGrades = selectedgrade && selectedgrade.map(grade => ({ "Grade": grade }));
+        const transformedAdmission = admission && admission.map(admission => ({ "Admission": admission })); // Transform each element
+
+        console.log(level, selectedgrade, "IIIIIIIIIIIIIIIIII", transformedGrades)
+        setGradeArray(transformedGrades)
+        setAdmissionArray(transformedAdmission)
+      }
+
     }
+
+
     setTimeout(() => {
       setLoader(false)
     }, 2000);
@@ -1192,6 +1262,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
     // const transformedGrades = selectedgrade.map(grade => ({ "Grade": grade }));
 
     setLevelDetailGrade(true)
+
 
     //gradeArray.splice(0, gradeArray.length)
 
@@ -1205,6 +1276,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
     //console.log(year, month, '33333333333333333')
     setState(year),
       setState2(month)
+
     setLevelDetailYear(true)
 
   }
@@ -1219,7 +1291,15 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
     setTutoring(true)
 
   }
+  const crossTutoringSubject = () => {
+    setTutorSubject(false)
+    setselectedItems([])
+    setSelectedSec([])
+    setSelectedSec([])
+    setSelectedStreams([])
+    setTutoring(true)
 
+  }
   const handleSubjectEdit = (level, subjects) => {
 
     console.log(level, '999999999', subjects)
@@ -1245,10 +1325,6 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
 
     setEditLevel(level)
   }
-
-
-
-
 
 
 
@@ -1439,12 +1515,10 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
       // setSchool1(userDetail[0]?.Extra_info[0]?.name_of_school);
       // setCourses(userDetail[0]?.Extra_info[0]?.Course_Exam);
       /// setGradYear(userDetail[0]?.Extra_info[0]?.gra_year);
-      console.log(userDetail[0]?.TutoringDetail,'userDetail[0]?.TutoringDetail')
-      setRecords(userDetail[0]?.TutoringDetail);
+      setRecords(userDetail[0]?.tutoring_detail_arr);
     }
     else {
       setRecords(route.params.Tutoring_Info.selectArray);
-      console.log(route.params.Tutoring_Info.selectArray,'route.params.Tutoring_Info.selectArray')
     }
     // setRecords(userDetail[0]?.tutoring_detail_arr);
 
@@ -1510,6 +1584,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
       setLoader1(false);
     }, 4000);
   };
+
 
 
   return (
@@ -1604,7 +1679,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
 
           <ScrollView style={{ height: 300 }}>
             {records &&
-              records?.map((item, index) => (
+              records.map((item, index) => (
                 <View
                   style={{
                     justifyContent: 'space-between',
@@ -1683,7 +1758,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
 
                       <View style={{}}>
 
-                        {item.SecondaryDetail?.map((item1, index1) =>
+                        {item.AdmissionStreamResult && item.AdmissionStreamResult.map((item1, index1) =>
                           <View style={{ flexDirection: "row" }}>
                             <Text
                               style={{
@@ -1698,7 +1773,6 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                               style={{
                                 marginLeft: wp(10),
                                 color: "#000",
-
                                 fontSize: 14,
                               }}
                             >
@@ -1706,57 +1780,72 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                             </Text>
                           </View>
                         )}
+
                         {/* records.map((item, index) => ( */}
                         {/* {item.Tutoring_Grade.join(', ')} */}
                         {/* {item.Tutoring_Grade.split(',').join(', ')} */}
 
 
+                        {/* 
                         {
                           editTut == true && editId === item.tutoring_detail_id ?
                             <TouchableOpacity
                               onPress={() => {
-                                handleGradeEdit(item.TutoringLevel, item.Tutoring_Grade, item.AdmissionLevel)
+                                handleSecEdit(item.TutoringLevel, item.SecondaryDetail)
                               }}
                             >
                               <Image
                                 source={require("../Assets/greyedit.png")}
                                 style={{ height: 20, width: 20 }}
                               />
+                              <Text>qwe</Text>
                             </TouchableOpacity>
 
                             : null
-                        }
+                        } */}
+
+
 
                       </View>
 
                       <View style={{ flexDirection: "row" }}>
-                        <Text
-                          style={{
-                            marginLeft: wp(3),
-                            color: "#000",
-                            fontSize: 14,
-                          }}
-                        >
-                        {/* {
-                          !gradeArray ?item?.Tutoring_Grade.map(item=>item?.Tutoring_Grade) + ","
-                          : gradeArray?.map(item=>item?.Grade) + ","
-                        } */}
-                              {item?.Tutoring_Grade?.map(item=>item?.Tutoring_Grade) + ","}
-                          {/* {item.Tutoring_Grade.join(', ')}  */}
-                          {/* {item.Tutoring_Grade.split(',').join(', ')} */}
 
-                        </Text>
+                        {item.TutoringLevel == 'Secondary' ?
+                          null
+                          :
+
+                          <Text
+                            style={{
+                              marginLeft: wp(3),
+                              color: "#000",
+                              fontSize: 14,
+                            }}
+                          >
+                            {item.Tutoring_Grade + ", "}
+                            {/* {item.Tutoring_Grade.join(', ')} */}
+                            {/* {item.Tutoring_Grade.split(',').join(', ')} */}
+
+                          </Text>
+                        }
+
+
+
                         {
                           editTut == true && editId === item.tutoring_detail_id ?
+
                             <TouchableOpacity
+
                               onPress={() => {
-                                handleGradeEdit(item.TutoringLevel, item.Tutoring_Grade, item.AdmissionLevel)
+                                handleGradeEdit(item.TutoringLevel, item.Tutoring_Grade, item.AdmissionLevel, item.AdmissionStreamResult)
                               }}
+
                             >
                               <Image
                                 source={require("../Assets/greyedit.png")}
                                 style={{ height: 20, width: 20 }}
                               />
+                              {/* <Text>sggs</Text> */}
+
                             </TouchableOpacity>
 
                             : null
@@ -1808,7 +1897,8 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                             width: wp(60)
                           }}
                         >
-                          {item?.Tutoring_ALL_Subjects?.map(item=>item) + ","}
+                          {/* {item.Tutoring_ALL_Subjects.join(', ')} */}
+                          {item.Tutoring_ALL_Subjects + ","}
                           {"\n"}
                         </Text>
 
@@ -1841,7 +1931,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                           editTut == true && editId === item.tutoring_detail_id ?
                             <TouchableOpacity
                               onPress={() => {
-                                handleSubjectEdit(item.TutoringLevel, item)
+                                handleSubjectEdit(item.TutoringLevel, item.Tutoring_ALL_Subjects)
                               }}
                             >
                               <Image
@@ -1862,6 +1952,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
 
                     </View>
                     <View>
+
                       <TouchableOpacity
                         onPress={() => EDITDATA(item.tutoring_detail_id)}
                         style={{
@@ -2040,6 +2131,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                           source={require("../Assets/right.png")}
                           style={styles.tickImage}
                         />
+
                       </TouchableOpacity>
                     }
 
@@ -2193,7 +2285,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                     <Text
                       style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
                     >
-                      Select according to preference
+                      Select according to preference2
                     </Text>
 
                     {selectListTutor == "Secondary" ?
@@ -2242,52 +2334,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                     >
                       {console.log(admissionlevel, 'admissionleveladmissionleveladmissionleveladmissionlevel')}
                       {/* {console.log(selectListTutor, 'selectListTutorselectListTutorselectListTutorselectListTutor')} */}
-                      {/* {GRADE_LIST?.Grade_List &&
-                        GRADE_LIST?.Grade_List?.map((item) => {
-                          return (
-                            <View
-                              style={{
-                                width: wp(15),
-                                alignItems: "center",
-                                justifyContent: "center",
-                              }}
-                            >
-                              <TouchableOpacity
 
-                                onPress={() => gradeData(item?.grade_name)}
-                                style={{
-                                  height: hp(4),
-                                  width: wp(8),
-                                  borderWidth: 1,
-                                  borderColor: "lightgrey",
-                                  backgroundColor: gradeArray.some(
-                                    (obj) =>
-                                      obj.hasOwnProperty("Grade") &&
-                                      obj["Grade"] === item.grade_name
-                                  )
-                                    ? "#2F5597"
-                                    : "#fff",
-
-                                }}
-                              ></TouchableOpacity>
-                              <Text
-                                style={{
-                                  color: "grey",
-                                  fontSize: 10,
-                                  fontWeight: "700",
-                                }}
-                              >
-
-
-
-                                {item?.grade_name}
-
-
-
-                              </Text>
-                            </View>
-                          );
-                        })} */}
 
 
                       <View
@@ -2418,8 +2465,8 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                                                 width: wp(8),
                                                 borderWidth: 1,
                                                 borderColor: "lightgrey",
-                                                backgroundColor: gradeArray?.some(
-                                                  (obj) => obj.hasOwnProperty("Tutoring_Grade") && obj["Tutoring_Grade"] === item.grade_name
+                                                backgroundColor: gradeArray.some(
+                                                  (obj) => obj.hasOwnProperty("Grade") && obj["Grade"] === item.grade_name
                                                 ) ? "#2F5597" : "#fff",
                                               }}
 
@@ -2454,55 +2501,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                             </View>
 
 
-                            {/* {admissionlevel && admissionlevel.trim() !== "" && (
-                              <View style={{ flexDirection: "row" }}>
-                                {GRADE_LIST?.Grade_List && GRADE_LIST?.Grade_List?.map((item) => (
-                                  <View
-                                    style={{
-                                      width: wp(15),
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                    }}
-                                  >
 
-
-                                    <TouchableOpacity
-                                      key={item.id}
-                                      onPress={() => gradeData(item?.grade_name)}
-                                      style={{
-                                        height: hp(4),
-                                        width: wp(8),
-                                        borderWidth: 1,
-                                        borderColor: "lightgrey",
-                                        backgroundColor: gradeArray.some(
-                                          (obj) => obj.hasOwnProperty("Grade") && obj["Grade"] === item.grade_name
-                                        ) ? "#2F5597" : "#fff",
-                                      }}
-
-                                    >
-
-
-                                    </TouchableOpacity>
-                                    <Text
-                                      style={{
-                                        color: "grey",
-                                        fontSize: 10,
-                                        fontWeight: "700",
-                                      }}
-                                    >
-
-
-
-                                      {item?.grade_name}
-
-
-
-                                    </Text>
-                                  </View>
-                                ))}
-                              </View>
-                            )
-                            } */}
 
                           </>
                         )}
@@ -2513,7 +2512,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                               // flexDirection: "row",
                               // marginTop: hp(3)
                             }}>
-                              {GRADE_LIST?.Grade_List_For_Tutor && GRADE_LIST?.Grade_List_For_Tutor?.map((grade) => (
+                              {GRADE_LIST?.Grade_List_For_Tutor && GRADE_LIST?.Grade_List_For_Tutor.map((grade) => (
                                 <View style={{ flexDirection: "row", }}
                                   key={grade.grade_name}>
                                   <View style={{ width: wp(20) }}>
@@ -2539,11 +2538,18 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                                   </View>
                                   <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
 
-                                    {grade.streams_sec && grade.streams_sec?.map((stream) => (
+                                    {grade.streams_sec && grade.streams_sec.map((stream) => (
                                       <View style={{}}>
                                         <TouchableOpacity
                                           key={stream.id}
-                                          onPress={() => StreamLevel(grade.grade_name, stream.stream_name)}
+                                          onPress={() => {
+                                            if (selectedSec.includes(grade.grade_name)) {
+                                              StreamLevel(grade.grade_name, stream.stream_name)
+
+                                            }else{
+                                              Alert.alert('Please Select Grade First!')
+                                            }
+                                          }}
 
                                           style={{
                                             height: hp(4),
@@ -2573,46 +2579,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                                 </View>
                               ))}
 
-                              {/* {GRADE_LIST?.Grade_List && GRADE_LIST?.Grade_List?.Grades?.map((item) => (
-                                <View
-                                  style={{
-                                    width: wp(15),
-                                    marginTop: wp(2),
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                  }}
-                                >
-                                  <TouchableOpacity
-                                    key={item.id}
-                                    onPress={() => SecAdmissionLevel(item?.grade_name)}
-                                    style={{
-                                      height: hp(4),
-                                      width: wp(8),
-                                      borderWidth: 1,
-                                      borderColor: "lightgrey",
-                                      //  backgroundColor: admissionArray[0]?.Admission === item.grade_name ? "#2F5597" : "#fff",
-                                      // backgroundColor: admissionArray.includes(item.grade_name) ? "#2F5597" : "#fff",
-                                      backgroundColor: admissionArray.some(obj => obj.Admission === item.grade_name) ? "#2F5597" : "#fff",
 
-                                    }}
-                                  ></TouchableOpacity>
-                                  <Text
-                                    style={{
-                                      color: "grey",
-                                      fontSize: 10,
-                                      fontWeight: "700",
-                                    }}
-                                  >
-
-
-
-                                    {item?.grade_name}
-
-
-
-                                  </Text>
-                                </View>
-                              ))} */}
                             </View>
 
                             <View style={{ flexDirection: "row", marginTop: hp(2) }}>
@@ -2632,7 +2599,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                                       width: wp(8),
                                       borderWidth: 1,
                                       borderColor: "lightgrey",
-                                      backgroundColor: gradeArray[0]?.Grade === item.stream_name ? "#2F5597" : "#fff",
+                                      backgroundColor: gradeArray && gradeArray[0]?.Grade === item.stream_name ? "#2F5597" : "#fff",
 
                                     }}
                                   ></TouchableOpacity>
@@ -2646,7 +2613,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
 
 
 
-                                    {item?.stream_name}
+                                    {item?.stream_name}dfsdfsdfsdfsd
 
 
 
@@ -2660,7 +2627,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
 
                         {selectListTutor !== "AEIS" && selectListTutor !== "Secondary" && GRADE_LIST && Array.isArray(GRADE_LIST.Grade_List) && (
                           <View style={{ flexDirection: "row", marginTop: hp(3) }}>
-                            {GRADE_LIST.Grade_List?.map((item) => (
+                            {GRADE_LIST.Grade_List.map((item) => (
                               <View
                                 style={{
                                   width: wp(15),
@@ -2676,8 +2643,8 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                                     width: wp(8),
                                     borderWidth: 1,
                                     borderColor: "lightgrey",
-                                    backgroundColor: gradeArray?.some(
-                                      (obj) => obj.hasOwnProperty("Tutoring_Grade") && obj["Tutoring_Grade"] === item.grade_name
+                                    backgroundColor: gradeArray.some(
+                                      (obj) => obj.hasOwnProperty("Grade") && obj["Grade"] === item.grade_name
                                     ) ? "#2F5597" : "#fff",
                                   }}
                                 ></TouchableOpacity>
@@ -2697,241 +2664,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                       </View>
 
 
-                      {/* {selectListTutor === "AEIS" ?
 
-                        <View
-                          style={{
-                            marginHorizontal: wp(5),
-                            //marginTop: hp(3),
-                            flexDirection: "row",
-                          }}
-                        >
-                          {GRADE_LIST?.Grade_List &&
-                            GRADE_LIST?.Grade_List?.map((item) => {
-                              return (
-                                <View
-                                  style={{
-                                    width: wp(15),
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                  }}
-                                >
-                                  <TouchableOpacity
-                                    key={item.id}
-                                    onPress={() => gradeData(item?.grade_name)}
-                                    style={{
-                                      height: hp(4),
-                                      width: wp(8),
-                                      borderWidth: 1,
-                                      borderColor: "lightgrey",
-                                      backgroundColor: gradeArray.some(
-                                        (obj) =>
-                                          obj.hasOwnProperty("Grade") &&
-                                          obj["Grade"] === item.grade_name
-                                      )
-                                        ? "#2F5597"
-                                        : "#fff",
-
-                                    }}
-                                  ></TouchableOpacity>
-                                  <Text
-                                    style={{
-                                      color: "grey",
-                                      fontSize: 10,
-                                      fontWeight: "700",
-                                    }}
-                                  >
-
-
-                                    {item?.school_level_name}
-
-
-
-                                  </Text>
-                                </View>
-                              );
-                            })}
-
-                        </View>
-                        : selectListTutor === "Secondary" ?
-                          <>
-                            <View
-                              style={{
-                                marginHorizontal: wp(5),
-                                marginTop: hp(3),
-                                flexDirection: "row",
-                              }}
-                            >
-                              {GRADE_LIST?.Grade_List?.Grades &&
-                                GRADE_LIST?.Grade_List?.Grades?.map((item) => {
-                                  return (
-                                    <View
-                                      style={{
-                                        width: wp(15),
-                                        alignItems: "center",
-                                        justifyContent: "center",
-
-                                      }}
-                                    >
-                                      <TouchableOpacity
-                                        //  onPress={() => setP1("P1")}
-                                        key={item.id}
-                                        onPress={() => gradeData(item?.grade_name)}
-                                        style={{
-                                          height: hp(4),
-                                          width: wp(8),
-                                          borderWidth: 1,
-                                          borderColor: "lightgrey",
-                                          backgroundColor: gradeArray.some(
-                                            (obj) =>
-                                              obj.hasOwnProperty("Grade") &&
-                                              obj["Grade"] === item.grade_name
-                                          )
-                                            ? "#2F5597"
-                                            : "#fff",
-                                          // gradeArray.map((item) => item?.Grade) ==
-                                          // item?.grade_name
-                                          //   ? "#2F5597"
-                                          //   : "#fff",
-                                        }}
-                                      ></TouchableOpacity>
-                                      <Text
-                                        style={{
-                                          color: "grey",
-                                          fontSize: 10,
-                                          fontWeight: "700",
-                                        }}
-                                      >
-
-
-                                        {
-                                          item?.grade_name}
-
-
-                                      
-                                      </Text>
-                                    </View>
-                                  );
-                                })}
-                            </View>
-
-                            <View
-                              style={{
-                                marginHorizontal: wp(5),
-                                marginTop: hp(2),
-                                flexDirection: "row",
-                              }}
-                            >
-
-                              {GRADE_LIST?.Grade_List?.Grades &&
-                                GRADE_LIST?.Grade_List?.Streams?.map((item) => {
-                                  return (
-                                    <View
-                                      style={{
-                                        width: wp(15),
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                      }}
-                                    >
-                                      <TouchableOpacity
-                                        //  onPress={() => setP1("P1")}
-                                        key={item.id}
-                                        onPress={() => gradeData(item?.grade_name)}
-                                        style={{
-                                          height: hp(4),
-                                          width: wp(8),
-                                          borderWidth: 1,
-                                          borderColor: "lightgrey",
-                                          backgroundColor: gradeArray.some(
-                                            (obj) =>
-                                              obj.hasOwnProperty("Grade") &&
-                                              obj["Grade"] === item.grade_name
-                                          )
-                                            ? "#2F5597"
-                                            : "#fff",
-                                          // gradeArray.map((item) => item?.Grade) ==
-                                          // item?.grade_name
-                                          //   ? "#2F5597"
-                                          //   : "#fff",
-                                        }}
-                                      ></TouchableOpacity>
-                                      <Text
-                                        style={{
-                                          color: "grey",
-                                          fontSize: 10,
-                                          fontWeight: "700",
-                                        }}
-                                      >
-
-
-                                        {
-                                          item?.stream_name}
-
-
-                                    
-                                      </Text>
-                                    </View>
-                                  );
-                                })}
-                            </View>
-                          </>
-                          :
-                          <View
-                            style={{
-                              marginHorizontal: wp(5),
-                              marginTop: hp(3),
-                              flexDirection: "row",
-                            }}
-                          >
-
-                           {GRADE_LIST?.Grade_List &&
-                              GRADE_LIST?.Grade_List?.map((item) => {
-                                return (
-                                  <View
-                                    style={{
-                                      width: wp(15),
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    <TouchableOpacity
-
-                                      onPress={() => gradeData(item?.grade_name)}
-                                      style={{
-                                        height: hp(4),
-                                        width: wp(8),
-                                        borderWidth: 1,
-                                        borderColor: "lightgrey",
-                                        backgroundColor: gradeArray.some(
-                                          (obj) =>
-                                            obj.hasOwnProperty("Grade") &&
-                                            obj["Grade"] === item.grade_name
-                                        )
-                                          ? "#2F5597"
-                                          : "#fff",
-
-                                      }}
-                                    ></TouchableOpacity>
-                                    <Text
-                                      style={{
-                                        color: "grey",
-                                        fontSize: 10,
-                                        fontWeight: "700",
-                                      }}
-                                    >
-
-
-
-                                      {item?.grade_name}
-
-
-
-                                    </Text>
-                                  </View>
-                                );
-                              })} 
-                          </View>
-                      } */}
                     </View>
 
                   )}
@@ -2991,7 +2724,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                             paddingHorizontal: wp(4),
                           }}
                         >
-                          {state_list?.map(
+                          {state_list.map(
                             (item) =>
                               item.value === state && (
                                 <Text
@@ -3048,7 +2781,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                             paddingHorizontal: wp(4),
                           }}
                         >
-                          {state_list2?.map(
+                          {state_list2.map(
                             (item) =>
                               item.value === state2 && (
                                 <Text
@@ -3119,7 +2852,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                     <Text
                       style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
                     >
-                      Select Level Details
+                      Select Level Details22
                     </Text>
                   </View>
 
@@ -3179,7 +2912,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                             paddingHorizontal: wp(4),
                           }}
                         >
-                          {state_list?.map(
+                          {state_list.map(
                             (item) =>
                               item.value === state && (
                                 <Text
@@ -3236,7 +2969,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                             paddingHorizontal: wp(4),
                           }}
                         >
-                          {state_list2?.map(
+                          {state_list2.map(
                             (item) =>
                               item.value === state2 && (
                                 <Text
@@ -3378,273 +3111,360 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
               }}
             >
               <View style={styles.modalWrapper2}>
-                <View style={styles.modalWrapp}>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      marginTop: hp(2),
-                      justifyContent: "space-between",
-                      marginHorizontal: wp(5),
-                    }}
-                  >
-                    <TouchableOpacity
-                      onPress={() => setLevelDetailGrade(false)}
-                      style={styles.crossImageWrapper}
-                    >
-                      <Image
-                        source={require("../Assets/closeingray.png")}
-                        style={styles.crossImage}
-                      />
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() => {
-                        UpdateGradeRecord()
-                        setLevelDetailGrade(false);
+                <View
+                  style={{ height: selectListTutor == "Secondary" ? hp(85) : hp(55), width: wp(100), backgroundColor: "#fff" }}
+
+                >
+
+                  <View style={styles.modalWrapp}>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        marginTop: hp(2),
+                        justifyContent: "space-between",
+                        marginHorizontal: wp(5),
                       }}
-                      style={styles.tickWrapper}
                     >
-                      <Image
-                        source={require("../Assets/right.png")}
-                        style={styles.tickImage}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                  <View
-                    style={{ justifyContent: "center", alignItems: "center" }}
-                  >
-                    <Text
-                      style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
-                    >
-                      Select Level Details
-                    </Text>
-                  </View>
-
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      marginTop: hp(3),
-                      marginHorizontal: wp(5),
-                    }}
-                  >
-                    <Text
-                      style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
-                    >
-                      Select according to preference
-                    </Text>
-                    {selectListTutor == "Secondary" ?
-
-                      <View />
-                      :
                       <TouchableOpacity
-                        onPress={() => SelectAllOption()}
-                        style={{
-                          borderWidth: 1,
-                          borderColor: "#2F5597",
-                          height: hp(5),
-                          width: wp(20),
-                          borderRadius: 5,
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
+                        onPress={() => setLevelDetailGrade(false)}
+                        style={styles.crossImageWrapper}
                       >
-                        <Text
-                          style={{
-                            color: "#2F5597",
-                            fontSize: 12,
-                            fontWeight: "800",
-                          }}
-                        >
-                          Select All
-                        </Text>
+                        <Image
+                          source={require("../Assets/closeingray.png")}
+                          style={styles.crossImage}
+                        />
                       </TouchableOpacity>
-                    }
-                  </View>
+                      <TouchableOpacity
+                        onPress={() => {
+                          UpdateGradeRecord()
+                          setLevelDetailGrade(false);
 
-                  {loader1 == true ? (
-                    <View>
-                      <ActivityIndicator size="small" />
+                          setLevelDetail(false);
+                          setTutoring(false);
+                        }}
+                        style={styles.tickWrapper}
+                      >
+                        <Image
+                          source={require("../Assets/right.png")}
+                          style={styles.tickImage}
+                        />
+                      </TouchableOpacity>
                     </View>
-                  ) : (
+                    <View
+                      style={{ justifyContent: "center", alignItems: "center" }}
+                    >
+                      <Text
+                        style={{ color: "grey", fontSize: 20, fontWeight: "800" }}
+                      >
+                        Select Level Details33
+                      </Text>
+                    </View>
 
                     <View
                       style={{
-                        marginHorizontal: wp(5),
-                        marginTop: hp(3),
                         flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginTop: hp(3),
+                        marginHorizontal: wp(5),
                       }}
                     >
+                      <Text
+                        style={{ color: "grey", fontSize: 14, fontWeight: "800" }}
+                      >
+                        Select according to preference1
+                      </Text>
+                      {selectListTutor == "Secondary" ?
+
+                        <View />
+                        :
+                        <TouchableOpacity
+                          onPress={() => SelectAllOption()}
+                          style={{
+                            borderWidth: 1,
+                            borderColor: "#2F5597",
+                            height: hp(5),
+                            width: wp(20),
+                            borderRadius: 5,
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Text
+                            style={{
+                              color: "#2F5597",
+                              fontSize: 12,
+                              fontWeight: "800",
+                            }}
+                          >
+                            Select All
+                          </Text>
+                        </TouchableOpacity>
+                      }
+                    </View>
+
+                    {loader1 == true ? (
+                      <View>
+                        <ActivityIndicator size="small" />
+                      </View>
+                    ) : (
 
                       <View
-                        style={{}}>
-                        {selectListTutor === "AEIS" && GRADE_LIST && Array.isArray(GRADE_LIST.Grade_List) && (
-                          <>
-                            <View style={{ flexDirection: "row" }}>
+                        style={{
+                          marginHorizontal: wp(5),
+                          marginTop: hp(3),
+                          flexDirection: "row",
+                        }}
+                      >
 
-
-                              <View
-                                style={{
-                                  width: wp(15),
-                                  alignItems: "center",
-                                  justifyContent: "center",
-
-
-                                }}
-                              >
-                                <TouchableOpacity
-                                  // key={item.id}
-                                  //  onPress={() => AdmissionLevel(item?.school_level_name)}
-                                  onPress={() => AdmissionLevel("Primary")}
-                                  style={{
-                                    height: hp(4),
-                                    width: wp(8),
-                                    borderWidth: 1,
-                                    borderColor: "lightgrey",
-                                    backgroundColor: admissionArray[0]?.Admission === "Primary" ? "#2F5597" : "#fff",
-                                  }}
-
-                                >
-
-
-                                </TouchableOpacity>
-                                <Text
-                                  style={{
-                                    color: "grey",
-                                    fontSize: 10,
-                                    fontWeight: "700",
-                                  }}
-                                >
-
-
-
-                                  {/* {item?.school_level_name} */}
-                                  Primary
-
-
-
-                                </Text>
-
-                              </View>
-                              <View
-                                style={{
-                                  width: wp(15),
-                                  alignItems: "center",
-                                  justifyContent: "center",
-
-
-                                }}
-                              >
-                                <TouchableOpacity
-                                  // key={item.id}
-                                  //  onPress={() => AdmissionLevel(item?.school_level_name)}
-                                  onPress={() => AdmissionLevel("Secondary")}
-                                  style={{
-                                    height: hp(4),
-                                    width: wp(8),
-                                    borderWidth: 1,
-                                    borderColor: "lightgrey",
-                                    backgroundColor: admissionArray[0]?.Admission === "Secondary" ? "#2F5597" : "#fff",
-                                  }}
-
-                                >
-
-
-                                </TouchableOpacity>
-                                <Text
-                                  style={{
-                                    color: "grey",
-                                    fontSize: 10,
-                                    fontWeight: "700",
-                                  }}
-                                >
-
-
-
-                                  {/* {item?.school_level_name} */}
-                                  Secondary
-
-
-
-                                </Text>
-                              </View>
-                            </View>
-                            <View style={{ flexDirection: 'row' }}>
-
-
-                              {GRADE_LIST?.Grade_List && GRADE_LIST?.Grade_List?.map((item) => (
-                                <>
-                                  {/* {item.school_level_name && ( */}
-
-                                  {/* )} */}
-
-
-                                  <View>
-                                    {loader == true ? (
-                                      <View>
-                                        <ActivityIndicator size="small" />
-                                      </View>
-                                    ) :
-                                      admissionlevel && admissionlevel.trim() !== "" && item.grade_name && (
-                                        <View style={{ marginTop: 20 }}>
-                                          <View
-                                            style={{
-                                              width: wp(15),
-                                              alignItems: "center",
-                                              justifyContent: "center",
-
-
-                                            }}
-                                          >
-
-
-                                            <TouchableOpacity
-                                              key={item.id}
-                                              onPress={() => gradeData(item?.grade_name)}
-                                              style={{
-                                                height: hp(4),
-                                                width: wp(8),
-                                                borderWidth: 1,
-                                                borderColor: "lightgrey",
-                                                backgroundColor: gradeArray?.some(
-                                                  (obj) => obj.hasOwnProperty("Tutoring_Grade") && obj["Tutoring_Grade"] === item.grade_name
-                                                ) ? "#2F5597" : "#fff",
-                                              }}
-
-                                            >
-
-
-                                            </TouchableOpacity>
-                                            <Text
-                                              style={{
-                                                color: "grey",
-                                                fontSize: 10,
-                                                fontWeight: "700",
-                                              }}
-                                            >
-
-
-
-                                              {item?.grade_name}
-
-
-
-                                            </Text>
-                                          </View>
-                                        </View>
-                                      )
-                                    }
-                                  </View>
-
-                                </>
-
-                              ))}
-                            </View>
-
-
-                            {/* {admissionlevel && admissionlevel.trim() !== "" && (
+                        <View
+                          style={{}}>
+                          {selectListTutor === "AEIS" && GRADE_LIST && Array.isArray(GRADE_LIST.Grade_List) && (
+                            <>
                               <View style={{ flexDirection: "row" }}>
+
+
+                                <View
+                                  style={{
+                                    width: wp(15),
+                                    alignItems: "center",
+                                    justifyContent: "center",
+
+
+                                  }}
+                                >
+                                  <TouchableOpacity
+                                    // key={item.id}
+                                    //  onPress={() => AdmissionLevel(item?.school_level_name)}
+                                    onPress={() => AdmissionLevel("Primary")}
+                                    style={{
+                                      height: hp(4),
+                                      width: wp(8),
+                                      borderWidth: 1,
+                                      borderColor: "lightgrey",
+                                      backgroundColor: admissionArray[0]?.Admission === "Primary" ? "#2F5597" : "#fff",
+                                    }}
+
+                                  >
+
+
+                                  </TouchableOpacity>
+                                  <Text
+                                    style={{
+                                      color: "grey",
+                                      fontSize: 10,
+                                      fontWeight: "700",
+                                    }}
+                                  >
+
+
+
+                                    {/* {item?.school_level_name} */}
+                                    Primary
+
+
+
+                                  </Text>
+
+                                </View>
+                                <View
+                                  style={{
+                                    width: wp(15),
+                                    alignItems: "center",
+                                    justifyContent: "center",
+
+
+                                  }}
+                                >
+                                  <TouchableOpacity
+                                    // key={item.id}
+                                    //  onPress={() => AdmissionLevel(item?.school_level_name)}
+                                    onPress={() => AdmissionLevel("Secondary")}
+                                    style={{
+                                      height: hp(4),
+                                      width: wp(8),
+                                      borderWidth: 1,
+                                      borderColor: "lightgrey",
+                                      backgroundColor: admissionArray[0]?.Admission === "Secondary" ? "#2F5597" : "#fff",
+                                    }}
+
+                                  >
+
+
+                                  </TouchableOpacity>
+                                  <Text
+                                    style={{
+                                      color: "grey",
+                                      fontSize: 10,
+                                      fontWeight: "700",
+                                    }}
+                                  >
+
+
+
+                                    {/* {item?.school_level_name} */}
+                                    Secondary
+
+
+
+                                  </Text>
+                                </View>
+                              </View>
+                              <View style={{ flexDirection: 'row' }}>
+
+
                                 {GRADE_LIST?.Grade_List && GRADE_LIST?.Grade_List?.map((item) => (
+                                  <>
+                                    {/* {item.school_level_name && ( */}
+
+                                    {/* )} */}
+
+
+                                    <View>
+                                      {loader == true ? (
+                                        <View>
+                                          <ActivityIndicator size="small" />
+                                        </View>
+                                      ) :
+                                        admissionlevel && admissionlevel.trim() !== "" && item.grade_name && (
+                                          <View style={{ marginTop: 20 }}>
+                                            <View
+                                              style={{
+                                                width: wp(15),
+                                                alignItems: "center",
+                                                justifyContent: "center",
+
+
+                                              }}
+                                            >
+
+
+                                              <TouchableOpacity
+                                                key={item.id}
+                                                onPress={() => gradeData(item?.grade_name)}
+                                                style={{
+                                                  height: hp(4),
+                                                  width: wp(8),
+                                                  borderWidth: 1,
+                                                  borderColor: "lightgrey",
+                                                  backgroundColor: gradeArray.some(
+                                                    (obj) => obj.hasOwnProperty("Grade") && obj["Grade"] === item.grade_name
+                                                  ) ? "#2F5597" : "#fff",
+                                                }}
+
+                                              >
+
+
+                                              </TouchableOpacity>
+                                              <Text
+                                                style={{
+                                                  color: "grey",
+                                                  fontSize: 10,
+                                                  fontWeight: "700",
+                                                }}
+                                              >
+
+
+
+                                                {item?.grade_name}
+
+
+
+                                              </Text>
+                                            </View>
+                                          </View>
+                                        )
+                                      }
+                                    </View>
+
+                                  </>
+
+                                ))}
+                              </View>
+
+
+
+
+                            </>
+                          )}
+
+                          {selectListTutor === "Secondary" && (
+                            <>
+                              <View style={{
+                                // flexDirection: "row",
+                                // marginTop: hp(3)
+                              }}>
+                                {GRADE_LIST?.Grade_List_For_Tutor && GRADE_LIST?.Grade_List_For_Tutor.map((grade) => (
+                                  <View style={{ flexDirection: "row", }}
+                                    key={grade.grade_name}>
+                                    <View style={{ width: wp(20) }}>
+                                      <TouchableOpacity
+                                        //  key={item.id}
+                                        onPress={() => SecondarySec(grade.grade_name)}
+                                        style={{
+                                          height: hp(4),
+                                          width: wp(8),
+                                          borderWidth: 1,
+                                          borderColor: "lightgrey",
+                                          //  backgroundColor: gradeArray[0]?.Grade === grade.grade_name ? "#2F5597" : "#fff",
+                                          backgroundColor: selectedSec.includes(grade.grade_name) ? "#2F5597" : "#fff",
+                                        }}
+
+                                      ></TouchableOpacity>
+                                      <Text style={{
+                                        color: "grey",
+                                        fontSize: 10,
+                                        marginBottom: wp(5),
+                                        fontWeight: "700",
+                                      }}>{grade.grade_name}</Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+
+                                      {grade.streams_sec && grade.streams_sec.map((stream) => (
+                                        <View style={{}}>
+                                          <TouchableOpacity
+                                            key={stream.id}
+                                            onPress={() =>{ 
+                                              if (selectedSec.includes(grade.grade_name)) {
+                                                StreamLevel(grade.grade_name, stream.stream_name)  
+                                              }else{
+                                                Alert.alert('Please Select Grade First!')
+                                              }
+                                              
+                                            }}
+
+                                            style={{
+                                              height: hp(4),
+                                              width: wp(8),
+                                              marginRight: wp(5),
+                                              borderWidth: 1,
+                                              borderColor: 'lightgrey',
+                                              // backgroundColor: streamArray.some(obj => obj.Stream === stream.stream_name) ? '#2F5597' : '#fff',
+                                              //  backgroundColor: selectedStreams.includes(stream.stream_name) ? '#2F5597' : '#fff',
+
+                                              backgroundColor: selectedStreams[grade.grade_name]?.includes(stream.stream_name)
+                                                ? '#2F5597'
+                                                : '#fff',
+
+                                              ///margin: 5,
+                                            }}
+                                          ></TouchableOpacity>
+                                          <Text style={{
+                                            color: "grey",
+                                            // textAlign: "center",
+                                            fontSize: 10,
+                                            fontWeight: "700",
+                                          }}>{stream.stream_name}</Text>
+                                        </View>
+                                      ))}
+                                    </View>
+                                  </View>
+                                ))}
+
+                              </View>
+
+                              <View style={{ flexDirection: "row", marginTop: hp(2) }}>
+                                {GRADE_LIST?.Grade_List && GRADE_LIST?.Grade_List?.Streams?.map((item) => (
                                   <View
                                     style={{
                                       width: wp(15),
@@ -3652,25 +3472,18 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                                       justifyContent: "center",
                                     }}
                                   >
-
-
                                     <TouchableOpacity
                                       key={item.id}
-                                      onPress={() => gradeData(item?.grade_name)}
+                                      onPress={() => StreamLevel(item?.stream_name)}
                                       style={{
                                         height: hp(4),
                                         width: wp(8),
                                         borderWidth: 1,
                                         borderColor: "lightgrey",
-                                        backgroundColor: gradeArray.some(
-                                          (obj) => obj.hasOwnProperty("Grade") && obj["Grade"] === item.grade_name
-                                        ) ? "#2F5597" : "#fff",
+                                        backgroundColor: gradeArray && gradeArray[0]?.Grade === item.stream_name ? "#2F5597" : "#fff",
+
                                       }}
-
-                                    >
-
-
-                                    </TouchableOpacity>
+                                    ></TouchableOpacity>
                                     <Text
                                       style={{
                                         color: "grey",
@@ -3681,7 +3494,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
 
 
 
-                                      {item?.grade_name}
+                                      {item?.stream_name}
 
 
 
@@ -3689,35 +3502,34 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                                   </View>
                                 ))}
                               </View>
-                            )
-                            } */}
+                            </>
+                          )}
+                          {console.log(selectListTutor, 'XXXXXXXXXXXXXXXXXXXXXXXX')}
 
-                          </>
-                        )}
 
-                        {selectListTutor === "Secondary" && (
-                          <>
-                            <View style={{
-                              flexDirection: "row",
-                              // marginTop: hp(3)
-                            }}>
-                              {GRADE_LIST?.Grade_List && GRADE_LIST?.Grade_List?.Grades?.map((item) => (
+
+
+                          {selectListTutor !== "AEIS" && selectListTutor !== "Secondary" && GRADE_LIST && Array.isArray(GRADE_LIST.Grade_List) && (
+                            <View style={{ flexDirection: "row", marginTop: hp(3) }}>
+                              {GRADE_LIST.Grade_List.map((item) => (
                                 <View
                                   style={{
                                     width: wp(15),
                                     alignItems: "center",
                                     justifyContent: "center",
                                   }}
+                                  key={item.id}
                                 >
                                   <TouchableOpacity
-                                    key={item.id}
-                                    onPress={() => SecAdmissionLevel(item?.grade_name)}
+                                    onPress={() => gradeData(item?.grade_name)}
                                     style={{
                                       height: hp(4),
                                       width: wp(8),
                                       borderWidth: 1,
                                       borderColor: "lightgrey",
-                                      backgroundColor: admissionArray[0]?.Admission === item.grade_name ? "#2F5597" : "#fff",
+                                      backgroundColor: gradeArray.some(
+                                        (obj) => obj.hasOwnProperty("Grade") && obj["Grade"] === item.grade_name
+                                      ) ? "#2F5597" : "#fff",
                                     }}
                                   ></TouchableOpacity>
                                   <Text
@@ -3727,146 +3539,19 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                                       fontWeight: "700",
                                     }}
                                   >
-
-
-
                                     {item?.grade_name}
-
-
-
                                   </Text>
                                 </View>
                               ))}
                             </View>
+                          )}
+                        </View>
 
-                            <View style={{ flexDirection: "row", marginTop: hp(2) }}>
-                              {GRADE_LIST?.Grade_List && GRADE_LIST?.Grade_List?.Streams?.map((item) => (
-                                <View
-                                  style={{
-                                    width: wp(15),
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                  }}
-                                >
-                                  <TouchableOpacity
-                                    key={item.id}
-                                    onPress={() => StreamLevel(item?.stream_name)}
-                                    style={{
-                                      height: hp(4),
-                                      width: wp(8),
-                                      borderWidth: 1,
-                                      borderColor: "lightgrey",
-                                      backgroundColor: gradeArray[0]?.Tutoring_Grade === item.stream_name ? "#2F5597" : "#fff",
-
-                                    }}
-                                  ></TouchableOpacity>
-                                  <Text
-                                    style={{
-                                      color: "grey",
-                                      fontSize: 10,
-                                      fontWeight: "700",
-                                    }}
-                                  >
-
-
-
-                                    {item?.stream_name}
-
-
-
-                                  </Text>
-                                </View>
-                              ))}
-                            </View>
-                          </>
-                        )}
-
-
-                        {selectListTutor !== "AEIS" && selectListTutor !== "Secondary" && GRADE_LIST && Array.isArray(GRADE_LIST.Grade_List) && (
-                          <View style={{ flexDirection: "row", marginTop: hp(3) }}>
-                            {GRADE_LIST?.Grade_List?.map((item) => (
-                              <View
-                                style={{
-                                  width: wp(15),
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                }}
-                                key={item.id}
-                              >
-                                <TouchableOpacity
-                                  onPress={() => gradeData(item?.grade_name)}
-                                  style={{
-                                    height: hp(4),
-                                    width: wp(8),
-                                    borderWidth: 1,
-                                    borderColor: "lightgrey",
-                                    backgroundColor: gradeArray?.some(
-                                      (obj) => obj.hasOwnProperty("Tutoring_Grade") && obj["Tutoring_Grade"] === item.grade_name
-                                    ) ? "#2F5597" : "#fff",
-                                  }}
-                                ></TouchableOpacity>
-                                <Text
-                                  style={{
-                                    color: "grey",
-                                    fontSize: 10,
-                                    fontWeight: "700",
-                                  }}
-                                >
-                                  {item?.grade_name}
-                                </Text>
-                              </View>
-                            ))}
-                          </View>
-                        )}
                       </View>
-                      {/* {GRADE_LIST && Array.isArray(GRADE_LIST.Grade_List) && (
-                        GRADE_LIST?.Grade_List &&
-                        GRADE_LIST?.Grade_List.map((item) => {
-                          return (
-                            <View
-                              style={{
-                                width: wp(15),
-                                alignItems: "center",
-                                justifyContent: "center",
-                              }}
-                            >
-                              <TouchableOpacity
-                                //  onPress={() => setP1("P1")}
-                                onPress={() => gradeData(item?.grade_name)}
-                                style={{
-                                  height: hp(4),
-                                  width: wp(8),
-                                  borderWidth: 1,
-                                  borderColor: "lightgrey",
-                                  backgroundColor: gradeArray.some(
-                                    (obj) =>
-                                      obj.hasOwnProperty("Grade") &&
-                                      obj["Grade"] === item.grade_name
-                                  )
-                                    ? "#2F5597"
-                                    : "#fff",
-                                  // gradeArray.map((item) => item?.Grade) ==
-                                  // item?.grade_name
-                                  //   ? "#2F5597"
-                                  //   : "#fff",
-                                }}
-                              ></TouchableOpacity>
-                              <Text
-                                style={{
-                                  color: "grey",
-                                  fontSize: 14,
-                                  fontWeight: "800",
-                                }}
-                              >
-                                {item?.grade_name}
-                              </Text>
-                            </View>
-                          );
-                        }))} */}
-                    </View>
-                  )}
+                    )}
 
 
+                  </View>
                 </View>
               </View>
             </Modal>
@@ -4016,7 +3701,7 @@ console.log(selectedItems,'selectedItemsselectedItemsselectedItems')
                     }}
                   >
                     <TouchableOpacity
-                      onPress={() => setTutorSubject(false)}
+                      onPress={() => crossTutoringSubject()}
                       style={styles.crossImageWrapper}
                     >
                       <Image

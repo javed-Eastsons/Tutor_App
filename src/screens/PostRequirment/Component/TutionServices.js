@@ -92,6 +92,7 @@ const TuitionServices = () => {
           type: Postal_Code_Address,
           payload: jj?.formatted_address,
         });
+       
       })
       .catch((error) => {
         console.log(error);
@@ -127,14 +128,23 @@ const TuitionServices = () => {
   };
   const forwardArrowFunc = () => {
     setLoader(true);
-    geocodinApi();
+    if (postalcode) {
+      geocodinApi();
 
-    setForwardArrow(true);
+   
+
+      setForwardArrow(true);
+    } else {
+      Alert.alert('Please Enter Postal Code')
+    }
     setTimeout(() => {
       setLoader(false);
     }, 2000);
   };
+  const regex = /Singapore/i; // i flag for case-insensitive search
+  const containsSingaporeRegex = regex.test(address);
 
+console.log(containsSingaporeRegex,'address')
   return (
     <View style={styles.container}>
       <Loader flag={loader} />
@@ -149,7 +159,7 @@ const TuitionServices = () => {
           style={[styles.whitebox, { elevation: 5 }]}
         >
           <View style={styles.bicons}>
-            <Image source={require("../../../Assets/hometutIcon.png")} />
+            <Image source={require("../../../Assets/3_1.png")} style={{height:20,width:25,marginTop:3}}/>
           </View>
           <Text
             style={{
@@ -190,7 +200,7 @@ const TuitionServices = () => {
         </TouchableOpacity>
         <View style={[styles.whitebox, { elevation: 5 }]}>
           <View style={styles.bicons}>
-            <Image source={require("../../../Assets/onlinetutIcon.png")} />
+            <Image source={require("../../../Assets/3_2.png")} style={{height:20,width:25,marginTop:3}} />
           </View>
 
           <Text
@@ -275,7 +285,9 @@ const TuitionServices = () => {
           </View>
         )}
       </View>
-      <TouchableOpacity
+      {
+        containsSingaporeRegex == true ?
+        <TouchableOpacity
         style={[styles.circleArrow, { display: !address ? "none" : "flex" }]}
         onPress={() => presspostalcode()}
       >
@@ -284,6 +296,9 @@ const TuitionServices = () => {
           <Image source={require("../../../Assets/circleArrow.png")} />
         )}
       </TouchableOpacity>
+      : null
+      }
+      
     </View>
   );
 };
@@ -293,7 +308,7 @@ export default TuitionServices;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
+    height: hp(50),
     backgroundColor: "#fff",
     // backgroundColor: 'pink',
     // padding: 10,
@@ -304,9 +319,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#fff",
     //backgroundColor: 'red',
-    top: 20,
-    marginRight: 10,
-    zIndex: 99999,
+    top: 15,
+    marginLeft: 5,
+    marginRight: 5,
+    zIndex: 10000,
   },
 
   LittlemoreContainer: {

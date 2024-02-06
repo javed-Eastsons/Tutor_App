@@ -314,7 +314,7 @@ const TutorLanding = () => {
                 <Image
                   source={{
                     uri:
-                      "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
+                      "https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/" +
                       userDetail[0]?.Extra_info[0].profile_image,
                   }}
                   style={styles.usericons}
@@ -327,7 +327,8 @@ const TutorLanding = () => {
                   disabled={false}
                   maxStars={5}
                   rating={0}
-                  starSize={15}
+                  starSize={12}
+                  emptyStarColor='yellow'                  
                 // selectedStar={(rating) => setStrCount(rating)}
                 />
               </View>
@@ -335,8 +336,7 @@ const TutorLanding = () => {
           </View>
 
           <View style={styles.UserRight}>
-            <Text style={{ color: "#000", fontFamily: "Poppins-Light" }}>
-              {/* {console.log(isEnabled)}I want to be a Student... */}
+            {/* <Text style={{ color: "#000", fontFamily: "Poppins-Light" }}>
               {console.log(isEnabled)}I want to find a Tutor
             </Text>
 
@@ -347,7 +347,7 @@ const TutorLanding = () => {
               onValueChange={toggleSwitch}
               value={isEnabled}
             />
-            {/* <TouchableOpacity
+            <TouchableOpacity
               onPress={() => navigation.navigate('ClientLanding')}>
               <Image
                 source={require('../Assets/togglebb.png')}

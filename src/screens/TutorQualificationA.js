@@ -57,8 +57,8 @@ const TutorQualification = ({ route }) => {
   const [value1, setValue1] = useState(null);
   // console.log("@@@@@@", value);
 
-  // console.log("!!!!!", value1);
-
+  console.log("!!!!!", route?.params?.data?.profile_image);
+const Profile = route?.params?.data?.profile_image;
   const [isFocus, setIsFocus] = useState(false);
   const [isFocus1, setIsFocus1] = useState(false);
   const [isFocus2, setIsFocus2] = useState(false);
@@ -210,7 +210,9 @@ const TutorQualification = ({ route }) => {
 
     console.log(obj, "Final DATAAAAAAAAAAAA");
 
-    navigation.navigate("TutionSchedulePicker");
+    navigation.navigate("TutionSchedulePicker",{
+      data : route?.params?.data
+    });
   };
 
   useEffect(() => {
@@ -259,10 +261,12 @@ const TutorQualification = ({ route }) => {
         </View>
         <View style={styles.Container}>
           <View style={styles.LeftImageContainer}>
-            <Image
-              source={require("../Assets/user.png")}
-              style={styles.leftImage}
-            />
+          <Image
+                source={{
+                  uri: `https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/${Profile}`,
+                }}
+                style={styles.usericons}
+              />
           </View>
           <View style={styles.UserInfoContainer}>
             <View style={styles.UserInfoContainer1}>
@@ -559,7 +563,7 @@ const TutorQualification = ({ route }) => {
             }}
           >
             <TouchableOpacity
-              onPress={() => navigation.navigate("")}
+              onPress={() => navigation.navigate("StudentBookingInfo",{cancelBooking :'cancelBooking',data : route?.params?.data})}
               style={{
                 height: "100%",
                 width: "48%",
@@ -814,5 +818,10 @@ const styles = StyleSheet.create({
     width: wp(40),
     marginBottom: 5,
     backgroundColor: "#2F5597",
+  },
+  usericons: {
+    height: 50,
+    width: 50,
+    borderRadius: 50,
   },
 });

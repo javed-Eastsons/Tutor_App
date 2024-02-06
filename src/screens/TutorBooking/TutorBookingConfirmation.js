@@ -55,10 +55,10 @@ const BookingInformationConfirmation = ({ route }) => {
     (state) => state.TutorBooingReducer
   );
   const [loader, setLoader] = useState(false);
-  // console.log(
-  //   All_Booked_Tutor_Detail,
-  //   "All_Booked_Tutor_DetailAll_Booked_Tutor_DetailAll_Booked_Tutor_DetailAll_Booked_Tutor_Detail"
-  // );
+  console.log(
+    All_Booked_Tutor_Detail[0]?.student_level_grade_subjects,
+    "All_Booked_Tutor_DetailAll_Booked_Tutor_DetailAll_Booked_Tutor_DetailAll_Booked_Tutor_Detail"
+  );
 
   console.log(
     route.params.bookingID,

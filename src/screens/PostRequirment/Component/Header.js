@@ -77,7 +77,7 @@ const PostHeader = () => {
         <View style={styles.LittlemoreContainer}>
           <View style={styles.LittlLeft}>
             <Text style={styles.Text1}>Post It!</Text>
-            <Text style={styles.Text2}>Let's Get the Word Out</Text>
+            <Text style={styles.Text2}>Let's get the Word Out</Text>
           </View>
           <View style={styles.LittlRight}>
             {/* <Image

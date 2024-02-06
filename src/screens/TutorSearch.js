@@ -153,6 +153,8 @@ const TutorSearch = () => {
       setLoader(false);
     }, 2000);
   };
+  const regex = /Singapore/i; // i flag for case-insensitive search
+  const containsSingaporeRegex = regex.test(address);
   return (
     <SafeAreaView style={styles.container}>
       <Loader flag={loader} />
@@ -387,13 +389,17 @@ const TutorSearch = () => {
                     keyboardType="phone-pad"
                     style={{ color: "#000", paddingLeft: wp(2), width: wp(28) }}
                   />
-
-                  <TouchableOpacity onPress={() => forwardArrowFunc()}>
-                    <Image
-                      source={require("../Assets/rightArrowCode.png")}
-                      style={styles.forwardArrowImage}
-                    />
-                  </TouchableOpacity>
+                    {
+                      postalcode ?
+                      <TouchableOpacity onPress={() => forwardArrowFunc()}>
+                      <Image
+                        source={require("../Assets/rightArrowCode.png")}
+                        style={styles.forwardArrowImage}
+                      />
+                    </TouchableOpacity>
+                    :null
+                    }
+                 
                 </View>
               </View>
             )}
@@ -405,19 +411,23 @@ const TutorSearch = () => {
                 <Text style={styles.forwardArrowTextWrapper}>{longitude}</Text> */}
               </View>
             )}
-
-            <TouchableOpacity
-              style={[
-                styles.circleArrow,
-                { display: !address ? "none" : "flex" },
-              ]}
-              onPress={() => presspostalcode()}
-            >
-              {/* //onPress={() => navigation.navigate('OurTutor')}> */}
-              {homeTutor === true && (
-                <Image source={require("../Assets/circleArrow.png")} />
-              )}
-            </TouchableOpacity>
+              {
+                containsSingaporeRegex == true ?
+                <TouchableOpacity
+                style={[
+                  styles.circleArrow,
+                  { display: !address ? "none" : "flex" },
+                ]}
+                onPress={() => presspostalcode()}
+              >
+                {/* //onPress={() => navigation.navigate('OurTutor')}> */}
+                {homeTutor === true && (
+                  <Image source={require("../Assets/circleArrow.png")} />
+                )}
+              </TouchableOpacity>
+              :null
+              }
+           
           </View>
 
         </ScrollView>

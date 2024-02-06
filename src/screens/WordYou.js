@@ -208,7 +208,7 @@ const WordYou = ({ route }) => {
                 placeholder="Write something about your tutoring experience,Tutoring Experience,Past Students"
                 // numberOfLines={6}
                 multiline={true}
-                maxLength={300}
+                // maxLength={300}
                 // onChangeText={(text) => {
                 //   setYourdata(text);
                 // }}
@@ -229,7 +229,7 @@ const WordYou = ({ route }) => {
 
               }}
             >
-              <Text style={{ color: "lightgrey", fontSize: 14 }}>{yourdata?.length}/300 characters</Text>
+              {/* <Text style={{ color: "lightgrey", fontSize: 14 }}>{yourdata?.length}/300 characters</Text> */}
               {/* <Text style={{ color: "lightgrey", fontSize: 14 }}>
                   300 words max
                 </Text> */}

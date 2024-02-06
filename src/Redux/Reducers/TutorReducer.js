@@ -19,6 +19,7 @@ import {
   POST_DETAIL,
   LEVEL_LIST,
   GRADE_LIST,
+  GRADE_LIST_TUTOR,
   SUBJECT_LIST,
   ALL_FAV_TUTORS,
   VIEW_ASSIGNMENT,
@@ -27,7 +28,7 @@ import {
   APPLIED_ASSIGNMENT,
   SINGLE_USER,
   INTERESTED_TUTORALL,
-  FAVOURITE_STATUS,
+  FAVOURITE_STATUS,GRADE_LIST_AEIS,GRADE_LIST_SEC
 } from "../Actions/types";
 
 const initialstate = {
@@ -51,19 +52,22 @@ const initialstate = {
   VIEW_ASSIGNMENT: [],
   FAV_ASSIGNMENT: [],
   APPLIED_ASSIGNMENT: [],
-  LEVEL_LIST: "",
-  GRADE_LIST: "",
+  LEVEL_LIST: [],
+  GRADE_LIST: [],
+  GRADE_LIST_AEIS:[],
+  GRADE_LIST_SEC:[],
   SINGLE_USER: [],
-  SUBJECT_LIST: "",
+  SUBJECT_LIST: [],
   SINGLE_USER_DETAILS: "",
   ALL_FAV_TUTORS: [],
   INTERESTED_TUTOR: [],
   INTERESTED_TUTORALL: [],
-  FAVOURITE_STATUS:''
+  FAVOURITE_STATUS:'',
+  GRADE_LIST_TUTOR:''
 };
 
 const TutorReducer = (state = initialstate, action) => {
-  //  console.log("Studenttttt", action.payload);
+   console.log("Studenttttt", action.payload);
   switch (action.type) {
     case ALL_TUTORS:
       return { ...state, GET_ALLTUTORS: action.ALLTUTORS };
@@ -111,6 +115,13 @@ const TutorReducer = (state = initialstate, action) => {
       return { ...state, LEVEL_LIST: action.payload };
     case GRADE_LIST:
       return { ...state, GRADE_LIST: action.payload };
+      case GRADE_LIST_AEIS:
+      return { ...state, GRADE_LIST_AEIS: action.payload };
+      case GRADE_LIST_SEC:
+      return { ...state, GRADE_LIST_SEC: action.payload };
+      case GRADE_LIST_TUTOR:
+        console.log(action.payload,'accccccccccccc')
+        return { ...state, GRADE_LIST_TUTOR: action.payload };
     case SUBJECT_LIST:
       return { ...state, SUBJECT_LIST: action.payload };
     case SINGLE_USER:

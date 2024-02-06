@@ -2002,11 +2002,11 @@ const PersonalInfo = ({ route }) => {
                     }}
                   >
 
-                    {console.log("https://refuel.site/projects/tutorapp/flags-medium/" + selectflag + ".png", 'selectflagselectflag')}
+                    {console.log("https://colwithfarmchips.co.uk/projects/tutorapp/flags-medium/" + selectflag + ".png", 'selectflagselectflag')}
                     {selectflag ?
 
                       <Image
-                        source={{ uri: `https://refuel.site/projects/tutorapp/flags-medium/${selectflag.toLowerCase()}.png` }}
+                        source={{ uri: `https://colwithfarmchips.co.uk/projects/tutorapp/flags-medium/${selectflag.toLowerCase()}.png` }}
                         style={{ height: hp(3), width: wp(6), marginLeft: wp(5) }}
                       />
 
@@ -2118,7 +2118,7 @@ const PersonalInfo = ({ route }) => {
                           {selectflag ?
 
                             <Image
-                              source={{ uri: `https://refuel.site/projects/tutorapp/flags-medium/${selectflag.toLowerCase()}.png` }}
+                              source={{ uri: `https://colwithfarmchips.co.uk/projects/tutorapp/flags-medium/${selectflag.toLowerCase()}.png` }}
                               style={{ height: hp(3), width: wp(6), marginLeft: wp(5) }}
                             />
 
@@ -2181,15 +2181,16 @@ const PersonalInfo = ({ route }) => {
                                     ? "#2F5597"
                                     : "#fff",
                                 marginTop: hp(2),
+                                marginLeft:20
                               }}
                             >
                               <Image
-                                source={{ uri: "https://refuel.site/projects/tutorapp/flags-medium/" + item.code.toLowerCase() + ".png" }}
+                                source={{ uri: "https://colwithfarmchips.co.uk/projects/tutorapp/flags-medium/" + item.code.toLowerCase() + ".png" }}
                                 style={{
                                   resizeMode: 'cover',
                                   height: 30,
                                   width: 30,
-                                  marginLeft: wp(5),
+                                  marginLeft: wp(8),
                                 }}
                               />
                               <Text

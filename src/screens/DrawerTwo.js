@@ -94,7 +94,7 @@ const DrawerTwo = ({ navigation }) => {
               <View style={styles.verticleLine}></View>
             </View>
             <View style={{ marginLeft: 10 }}>
-              <Text style={styles.subText}>Message from  director</Text>
+              <Text style={styles.subText}>Message from  Director</Text>
               <Text style={styles.subText}>About</Text>
               <Text style={styles.subText}>Our Services</Text>
             </View>
@@ -122,7 +122,7 @@ const DrawerTwo = ({ navigation }) => {
               <Text style={styles.subText}>My Bookings</Text>
               <Text style={styles.subText}>My Applied</Text>
               <Text style={styles.subText}>My Assignments</Text>
-              <Text style={styles.subText}>My Favs</Text>
+              <Text style={styles.subText}>My Faves</Text>
             </View>
           </View>
         </View>
@@ -213,17 +213,27 @@ const DrawerTwo = ({ navigation }) => {
             />
           </View>
           <View style={styles.SocialContainer}>
-          <View style={{backgroundColor:'#fff'}}>
           <Image
-            source={require("../Assets/Twitter1.png")}
-            style={styles.icons}
+            source={require("../Assets/Twitter.png")}
+            style={[styles.icons,{height:35,width:30}]}
           />
-          </View>
           </View>
           <View style={styles.SocialContainer}>
             <Image
               source={require("../Assets/LinkedIn.png")}
               style={styles.icons}
+            />
+          </View>
+          <View style={[styles.SocialContainer,{backgroundColor:'#fff',borderRadius:3,height:24,width:'9%'}]}>
+            <Image
+              source={require("../Assets/15_2.png")}
+              style={[styles.icons,{height:20,width:20}]}
+              />
+          </View>
+          <View style={[styles.SocialContainer,{backgroundColor:'#fff',borderRadius:3,height:24,width:'9%',marginLeft:5}]}>
+            <Image
+              source={require("../Assets/15_3.png")}
+              style={[styles.icons,{height:22,width:20}]}
             />
           </View>
         </View>

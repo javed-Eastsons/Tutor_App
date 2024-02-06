@@ -1060,7 +1060,7 @@ const MyBookings = ({ props, route }) => {
             <FlatList
               // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
               nestedScrollEnabled={true}
-              scrollEnabled={false}
+              // scrollEnabled={false}
               data={allBookedTutor}
               keyExtractor={(item, index) => index}
               showsVerticalScrollIndicator={false}
@@ -1204,59 +1204,59 @@ const MyBookings = ({ props, route }) => {
                     <TouchableOpacity
                       onPress={() => {
                         if (
-                          All_Booked_Tutor[0]
+                          item
                             ?.student_date_time_offer_confirmation ===
                           "Confirmed"
                         ) {
                           navigation.navigate("MakePayment");
                         } else {
                           if (
-                            All_Booked_Tutor[0]?.offer_status === "Accept" &&
-                            All_Booked_Tutor[0]
+                            item?.offer_status === "Accept" &&
+                            item
                               ?.student_date_time_offer_confirmation === ""
                           ) {
                             navigation.navigate("StartDT", {
                               Amount_type:
-                                All_Booked_Tutor[0]
+                              item
                                   ?.tutor_tution_offer_amount_type,
-                              fees: All_Booked_Tutor[0]?.tutor_tution_fees,
+                              fees: item?.tutor_tution_fees,
                               tutorBookingStatus:
-                                All_Booked_Tutor[0]?.tutor_booking_status,
-                              offerStatus: All_Booked_Tutor[0]?.offer_status,
+                              item?.tutor_booking_status,
+                              offerStatus: item?.offer_status,
                               tutorBookingProcessId:
-                                All_Booked_Tutor[0]?.tutor_booking_process_id,
-                              student_id: All_Booked_Tutor[0]?.student_id,
+                              item?.tutor_booking_process_id,
+                              student_id: item?.student_id,
                               student_offer_time:
-                                All_Booked_Tutor[0]?.student_offer_time,
+                              item?.student_offer_time,
                               student_offer_date:
-                                All_Booked_Tutor[0]?.student_offer_date,
+                              item?.student_offer_date,
                               // amount: offerAmount,
                               // youramount: youroffer
                             });
                           } else if (
-                            All_Booked_Tutor[0]?.amount_negotiate_by_tutor !=
+                            item?.amount_negotiate_by_tutor !=
                             "0.00"
                           ) {
                             navigation.navigate("AcceptNegotiate", {
                               amount_negotiate_by_tutor:
-                                All_Booked_Tutor[0]?.amount_negotiate_by_tutor,
+                              item?.amount_negotiate_by_tutor,
                             });
                           } else {
                             navigation.navigate("MakeOffer", {
                               Amount_type:
-                                All_Booked_Tutor[0]
+                              item
                                   ?.tutor_tution_offer_amount_type,
-                              fees: All_Booked_Tutor[0]?.tutor_tution_fees,
+                              fees: item?.tutor_tution_fees,
                               tutorBookingStatus:
-                                All_Booked_Tutor[0]?.tutor_booking_status,
-                              offerStatus: All_Booked_Tutor[0]?.offer_status,
+                              item?.tutor_booking_status,
+                              offerStatus: item?.offer_status,
                               tutorBookingProcessId:
-                                All_Booked_Tutor[0]?.tutor_booking_process_id,
-                              student_id: All_Booked_Tutor[0]?.student_id,
+                              item?.tutor_booking_process_id,
+                              student_id: item?.student_id,
                               student_offer_time:
-                                All_Booked_Tutor[0]?.student_offer_time,
+                              item?.student_offer_time,
                               student_offer_date:
-                                All_Booked_Tutor[0]?.student_offer_date,
+                              item?.student_offer_date,
                               // amount: offerAmount,
                               // youramount: youroffer
                             });

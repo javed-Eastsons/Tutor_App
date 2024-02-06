@@ -10,6 +10,7 @@ import {
   Button,
   TouchableOpacity,
   Alert,
+  BackHandler
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { TextInput } from "react-native-gesture-handler";
@@ -43,6 +44,7 @@ const UpdateProfile = ({ props, route }) => {
   const [userDetail, setUserDetail] = useState([]);
   const [newImg, setNewImg] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [profileImage, setProfileImage] = useState("");
   const { GET_USER_ID } = useSelector((state) => state.TutorReducer);
   const { PersonalInfo_Data } = useSelector((state) => state.TutorReducer);
   const { Tution_Type } = useSelector((state) => state.TutorReducer);
@@ -61,9 +63,9 @@ const UpdateProfile = ({ props, route }) => {
   //   'Hellooo',
   //   Login_Data
   // );
-  console.log(Tutoring_Data,'Tutoring_Data')
-console.log(route?.params,'ROUTEROUTEROUTEROUTE')
-  //console.log(SINGLE_USER_DETAILS[0]?.Extra_info, 'jkkkkk')
+  console.log(Tutoring_Data, 'Tutoring_Data')
+  console.log(route?.params, 'ROUTEROUTEROUTEROUTE')
+  // console.log(imageSource1, 'imageSource1imageSource1imageSource1')
   if (route.params) {
     const {
       Age,
@@ -138,7 +140,7 @@ console.log(route?.params,'ROUTEROUTEROUTEROUTE')
 
   // toDataURL(newImg).then((dataUrl) => {
   //   console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP')
-  //   var base64result = dataUrl.split(",")[1];
+  //   var base64result = dataUrl.split(",")[];
 
   //   console.log(base64result, "dataUrlOOOOOOOO:");
   //   setImageSource(base64result);
@@ -271,7 +273,7 @@ console.log(route?.params,'ROUTEROUTEROUTEROUTE')
   }, []);
 
 
-  console.log(Login_Data.profilepic, 'Login_Data.profilepicLogin_Data.profilepicLogin_Data.profilepic', imageSource)
+  // console.log(Login_Data.profilepic, 'Login_Data.profilepicLogin_Data.profilepicLogin_Data.profilepic', imageSource)
 
 
 
@@ -296,7 +298,7 @@ console.log(route?.params,'ROUTEROUTEROUTEROUTE')
 
     if (userDetail[0]?.Extra_info[0].profile_image != "") {
       setImageSource1(
-        "https://refuel.site/projects/tutorapp/UPLOAD_file/" +
+        "https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/" +
         userDetail[0]?.Extra_info[0].profile_image
       );
 
@@ -338,14 +340,62 @@ console.log(route?.params,'ROUTEROUTEROUTEROUTE')
 
   // console.log(Tution_Type, 'Tution_Type')
 
-  //console.log(Tutoring_Data, 'Tutoring_DataTutoring_DataTutoring_Data')
 
-  // console.log(TutionStatus_Data, 'TutionStatus_Data')
+  // Function to convert image to Base64 URL
+  // const imageToBase64 = async (imageUrl) => {
+  //   try {
+  //     // Fetch the image file
+  //     const response = await fetch(imageUrl);
+  //     // Convert the image file to a Blob
+  //     const blob = await response.blob();
+  //     // Read the Blob as a Base64 string
+  //     const base64String = await new Promise((resolve, reject) => {
+  //       const reader = new FileReader();
+  //       reader.onerror = reject;
+  //       reader.onload = () => {
+  //         resolve(reader.result);
+  //       };
+  //       reader.readAsDataURL(blob);
+  //     });
+  //     // Return the Base64 string
+  //     return base64String;
+  //   } catch (error) {
+  //     console.error('Error converting image to Base64:', error);
+  //     return null;
+  //   }
+  // };
 
+  // // Example usage:
+  // useEffect(() => {
+  //   const profileImageUrl = "https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/" + userDetail[0]?.Extra_info[0].profile_image
+  //   imageToBase64(profileImageUrl)
+  //     .then(base64String => {
+  //       var base64result = base64String.split(",")[1];
+  //       setProfileImage(base64result)
+  //       console.log('Base64 URL:', base64result);
+  //       // Use the base64String as needed
+  //     })
+  //     .catch(error => {
+  //       console.error('Error:', error);
+  //     });
+  // }, [])
+
+
+
+
+
+
+  console.log(userDetail[0]?.Extra_info[0].profile_image, 'imageSourceimageSourceimageSourceimageSource')
 
 
   const EditProfile = () => {
-
+    // toDataURL(userDetail[0]?.Extra_info[0].profile_image).then((dataUrl) => {
+    //   console.log('Data URL Conversion Completed');
+    //   var base64result = dataUrl.split(",")[1];
+    //   console.log(base64result, "base64resultbase64result:");
+    //   setImageSource(base64result);
+    //   setImageSource1(dataUrl);
+    // });
     console.log(
       // Tution_Type,
       // "Tutoring_TypeTutoring_TypeTutoring_Type",
@@ -365,7 +415,6 @@ console.log(route?.params,'ROUTEROUTEROUTEROUTE')
 
 
     setBtnP(true);
-
     dispatch(
       editProfile(
         Login_Data,
@@ -485,18 +534,46 @@ console.log(route?.params,'ROUTEROUTEROUTEROUTE')
 
 
 
-            {imageSource1 != "https://refuel.site/projects/tutorapp/UPLOAD_file/undefined" ? (
+            {imageSource1 != "https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/undefined" ? (
               <>
+                <View
+                  style={{
+                    width: 25,
+                    //  position: "relative",
+                    top: 18,
+                    left: wp(10),
+                    //padding: 10,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "#fff",
+                    //  borderColor: '#000',
+                    borderRadius: 20,
+                    //   borderWidth: 2,
+                    height: 25,
+                  }}
+                >
+                  <Image
+                    source={require("../Assets/pencilEdit.png")}
+                    style={{
+                      width: 15,
+                      height: 15,
+
+                      //  backgroundColor: "grey",
+                    }}
+                  />
+                </View>
+                {/* <Text style={{width:wp(100)}}>{imageSource1}</Text> */}
                 <Image
                   source={{
                     uri: imageSource1,
                   }}
                   style={styles.usericons}
                 />
-                {/* <Text>{imageSource1}</Text> */}
+                {/* <Text>1</Text> */}
+
               </>
 
-            ) : userDetail[0]?.Extra_info[0].profile_image != "" && imageSource1 == "https://refuel.site/projects/tutorapp/UPLOAD_file/undefined" ? (
+            ) : userDetail[0]?.Extra_info[0].profile_image != "" && imageSource1 == "https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/undefined" ? (
               <>
                 <View
                   style={{
@@ -526,18 +603,22 @@ console.log(route?.params,'ROUTEROUTEROUTEROUTE')
                 </View>
                 <Image
                   source={{
-                    uri: "https://refuel.site/projects/tutorapp/UPLOAD_file/" + userDetail[0]?.Extra_info[0].profile_image,
+                    uri: "https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/" + userDetail[0]?.Extra_info[0].profile_image,
                   }}
 
                   style={styles.usericons}
                 />
+                {/* <Text>2</Text> */}
               </>
             ) :
-              <Image
+              <>
+                <Image
+                  source={require("../Assets/profileImg.png")}
+                  style={styles.usericons}
+                />
+                {/* <Text>3</Text> */}
+              </>
 
-                source={require("../Assets/profileImg.png")}
-                style={styles.usericons}
-              />
 
 
             }
@@ -547,7 +628,19 @@ console.log(route?.params,'ROUTEROUTEROUTEROUTE')
               width: "30%",
             }}
           >
+            {userDetail[0]?.Extra_info[0].profile_image != "" && imageSource1 == "https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/undefined" && !imageSource1 ?
 
+              <View />
+              :
+
+              <View style={styles.tickWrapper}>
+                <Image
+                  source={require("../Assets/right.png")}
+                  style={styles.tickImage}
+                />
+              </View>
+
+            }
           </View>
         </View>
         <View style={styles.postContainer}>

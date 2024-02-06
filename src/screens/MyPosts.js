@@ -77,8 +77,9 @@ const MyPosts = () => {
   //   "ALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORSALL_FAV_TUTORS",
   //   Login_Data
   // );
-console.log(interestedTutor,'intintintint')
+  console.log(interestedTutor, 'intintintint')
   console.log(value, "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+  console.log(studentDetail,'studentDetailstudentDetail')
   const renderLabel = () => {
     if (value || isFocus) {
       return (
@@ -141,7 +142,7 @@ console.log(interestedTutor,'intintintint')
     }, 2000);
   }, [ALL_FAV_TUTORS, Tutor, INTERESTED_TUTOR, INTERESTED_TUTORALL]);
 
-  useEffect(() => {}, [
+  useEffect(() => { }, [
     ALL_FAV_TUTORS,
     Tutor,
     INTERESTED_TUTOR,
@@ -307,7 +308,7 @@ console.log(interestedTutor,'intintintint')
                     // rating={item.Average_rating}
                     rating={4}
                     starSize={14}
-                    // selectedStar={(rating) => setStrCount(rating)}
+                  // selectedStar={(rating) => setStrCount(rating)}
                   />
                 </View>
               </View>
@@ -636,267 +637,311 @@ console.log(interestedTutor,'intintintint')
                   // setInterestedTutor(item);
                   // setIsFocus(false);
                 }}
-                // renderLeftIcon={() => (
-                //   <AntDesign
-                //     style={styles.icon}
-                //     color={isFocus ? "blue" : "black"}
-                //     name="Safety"
-                //     size={20}
-                //   />
-                // )}
+              // renderLeftIcon={() => (
+              //   <AntDesign
+              //     style={styles.icon}
+              //     color={isFocus ? "blue" : "black"}
+              //     name="Safety"
+              //     size={20}
+              //   />
+              // )}
               />
             </View>
             {detail_view == "List" ? (
               <ScrollView style={{ height: hp(65) }}>
                 {
                   interestedTutor ?
-<FlatList
-                  // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
-                  scrollEnabled={true}
-                  data={interestedTutor}
-                  keyExtractor={(item, index) => index}
-                  //  showsVerticalScrollIndicator={false}
-                  //renderItem={renderItem}
-                  renderItem={({ item, index }) => (
-                    <TouchableOpacity style={{}}>
-                      <TouchableOpacity style={styles.List}>
-                        <View style={{ width: "100%", marginLeft: 10 }}>
-                          {/* <View style={{ width: "70%", flexDirection: "row" }}>
+                    <FlatList
+                      // style={styles.scrollView} contentContainerStyle={{ flexGrow: 1 }}
+                      scrollEnabled={true}
+                      data={interestedTutor}
+                      showsVerticalScrollIndicator={false}
+                      keyExtractor={(item, index) => index}
+                      //  showsVerticalScrollIndicator={false}
+                      //renderItem={renderItem}
+                      renderItem={({ item, index }) => (
+                        <TouchableOpacity style={{}}>
+                          <TouchableOpacity style={styles.List}>
+                            <View style={{ width: "100%", marginLeft: 10 }}>
+                              {/* <View style={{ width: "70%", flexDirection: "row" }}>
                           <Text style={styles.LIstText}>
                             Post ID {item.student_post_requirements_id}
                           </Text>
                         </View> */}
-                          <View
-                            style={
-                              {
-                                // height: 20,
-                                //width: "70%",
-                                //backgroundColor: "white",
-                              }
-                            }
-                          >
-                            <View>
-                              {item.student_level_grade_subjects &&
-                                item.student_level_grade_subjects.map(
-                                  (item) => {
-                                    return (
-                                      <View>
-                                        <View>
-                                          <Text
-                                            style={{
-                                              color: "#000",
-                                              fontSize: 12,
-                                            }}
-                                          >
-                                            {" "}
-                                            Level :{" "}
-                                            <Text
-                                              key={item}
-                                              style={{ fontSize: 10 }}
-                                            >
-                                              {item.Level} , {item.Grade}
-                                            </Text>
-                                          </Text>
-                                        </View>
-                                        <View style={{ marginBottom: 10 }}>
-                                          <Text
-                                            style={{
-                                              color: "#000",
-                                              fontSize: 12,
-                                            }}
-                                          >
-                                            {" "}
-                                            Subjects :{" "}
-                                            <Text
-                                              key={item}
-                                              style={{ fontSize: 10 }}
-                                            >
-                                              {item.ALL_Subjects}
-                                            </Text>
-                                          </Text>
-                                        </View>
-                                      </View>
-                                    );
+                              <View
+                                style={
+                                  {
+                                    // height: 20,
+                                    //width: "70%",
+                                    //backgroundColor: "white",
                                   }
-                                )}
+                                }
+                              >
+                                <View >
+                                  {item.student_level_grade_subjects &&
+                                    item.student_level_grade_subjects.map(
+                                      (item) => {
+                                        return (
+                                          <View >
+                                            <View>
+                                              <Text
+                                                style={{
+                                                  color: "#000",
+                                                  fontSize: 12,
+                                                }}
+                                              >
+                                                {" "}
+                                                Level :{" "}
+                                                <Text
+                                                  key={item}
+                                                  style={{ fontSize: 10 }}
+                                                >
+                                                  {item.Level} , {item.Grade}
+                                                </Text>
+                                              </Text>
+                                            </View>
+                                            {
+                                              item?.Level == 'AEIS' ?
+                                              <View>
+                                              <Text
+                                                style={{
+                                                  color: "#000",
+                                                  fontSize: 12,
+                                                }}
+                                              >
+                                                {" "}
+                                               Admission Level :{" "}
+                                                <Text
+                                                  key={item}
+                                                  style={{ fontSize: 10 }}
+                                                >
+                                                  {item.Admission_Level}
+                                                </Text>
+                                              </Text>
+                                            </View>
+                                            :null
+                                            }
+
+{
+                                              item?.Level == 'Secondary' ?
+                                              <View>
+                                              <Text
+                                                style={{
+                                                  color: "#000",
+                                                  fontSize: 12,
+                                                }}
+                                              >
+                                                {" "}
+                                               Streams :{" "}
+                                                <Text
+                                                  key={item}
+                                                  style={{ fontSize: 10 }}
+                                                >
+                                                  {item.Streams.map(item=> item + ', ')}
+                                                </Text>
+                                              </Text>
+                                            </View>
+                                            :null
+                                            }
+                                            <View style={{ marginBottom: 10 }}>
+                                              <Text
+                                                style={{
+                                                  color: "#000",
+                                                  fontSize: 12,
+                                                }}
+                                              >
+                                                {" "}
+                                                Subjects :{" "}
+                                                <Text
+                                                  key={item}
+                                                  style={{ fontSize: 10 }}
+                                                >
+                                                  {item.ALL_Subjects}
+                                                </Text>
+                                              </Text>
+                                            </View>
+                                          </View>
+                                        );
+                                      }
+                                    )}
+                                </View>
+                              </View>
+
+                              <View></View>
                             </View>
-                          </View>
-
-                          <View></View>
-                        </View>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        onPress={() =>
-                          Assignment_Detail(
-                            item.student_post_requirements_id,
-                            item.student_tution_type,
-                            item.tutor_duration_weeks,
-                            item.tutor_duration_hours,
-                            item.tutor_tution_fees,
-                            item.tutor_tution_offer_amount_type,
-                            item.booked_date,
-                            item.student_level_grade_subjects,
-                            item.tutor_qualification,
-                            item.tutor_schedule_and_slot_times
-                          )
-                        }
-                        style={{
-                          height: 40,
-                          width: 40,
-                          position: "absolute",
-                          right: 20,
-                          marginTop: 30,
-                        }}
-                      >
-                        <Image
-                          source={require("../Assets/TutorD.png")}
-                          style={{ height: 50, width: 50 }}
-                        />
-                      </TouchableOpacity>
-                      {InterestedList == "No" ? (
-                        <View
-                          style={{
-                            width: wp(48),
-                          }}
-                        >
-                          <Text style={styles.Information}>
-                            Interested Tutors: {item.tutor_details.length}
-                          </Text>
-                        </View>
-                      ) : (
-                        <View>
-                          {item.tutor_details &&
-                            item.tutor_details.map((item1, index1) => {
-                              return (
-                                <View
-                                  style={{
-                                    flexDirection: "row",
-                                    backgroundColor:
-                                      index1 % 2 == 0 ? "#f2f2f2" : "#FFFFFF",
-                                    marginBottom: 10,
-                                    padding: 5,
-                                  }}
-                                >
-                                  <View>
-                                    <View style={styles.List1}>
-                                      {Login_Data.profilepic == "" ||
-                                      Login_Data.profilepic == null ? (
-                                        <Image
-                                          source={require("../Assets/user.png")}
-                                          style={styles.usericons}
-                                        />
-                                      ) : (
-                                        <Image
-                                          source={{
-                                            uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item1.profile_image}`,
-                                          }}
-                                          style={styles.usericons}
-                                        />
-                                      )}
-
-                                      <View
-                                        style={{
-                                          height: 60,
-                                          width: "70%",
-                                          marginLeft: 10,
-                                        }}
-                                      >
-                                        <View
-                                          style={{
-                                            height: 20,
-                                            width: "70%",
-                                            flexDirection: "row",
-                                          }}
-                                        >
-                                          <Text style={styles.LIstText}>
-                                            {item1.tutor_code}
-                                          </Text>
-                                          <Image
-                                            source={{
-                                              uri: `https://refuel.site/projects/tutorapp/flags-medium/ao.png`,
-                                            }}
-                                            style={styles.Flagicons}
-                                          />
-                                        </View>
-                                        <View
-                                          style={{
-                                            height: 20,
-                                            width: "70%",
-                                          }}
-                                        >
-                                          <Text style={styles.LIstText}>
-                                            {item1.qualification}
-                                          </Text>
-                                        </View>
-                                        <View style={{ width: 40, margin: 3 }}>
-                                          <StarRating
-                                            fullStarColor="orange"
-                                            disabled={false}
-                                            maxStars={5}
-                                            // rating={item.Average_rating}
-                                            rating={4}
-                                            starSize={14}
-                                            // selectedStar={(rating) => setStrCount(rating)}
-                                          />
-                                        </View>
-                                      </View>
-                                    </View>
-
+                          </TouchableOpacity>
+                          <TouchableOpacity
+                            onPress={() =>
+                              Assignment_Detail(
+                                item.student_post_requirements_id,
+                                item.student_tution_type,
+                                item.tutor_duration_weeks,
+                                item.tutor_duration_hours,
+                                item.tutor_tution_fees,
+                                item.tutor_tution_offer_amount_type,
+                                item.booked_date,
+                                item.student_level_grade_subjects,
+                                item.tutor_qualification,
+                                item.tutor_schedule_and_slot_times
+                              )
+                            }
+                            style={{
+                              height: 40,
+                              width: 40,
+                              position: "absolute",
+                              right: 20,
+                              marginTop: 30,
+                            }}
+                          >
+                            <Image
+                              source={require("../Assets/TutorD.png")}
+                              style={{ height: 50, width: 50 }}
+                            />
+                          </TouchableOpacity>
+                          {InterestedList == "No" ? (
+                            <View
+                              style={{
+                                width: wp(48),
+                              }}
+                            >
+                              <Text style={styles.Information}>
+                                Interested Tutors: {item.tutor_details.map((item) => item?.Interested_Tutor)}
+                              </Text>
+                            </View>
+                          ) : (
+                            <View>
+                              {item.tutor_details &&
+                                item.tutor_details.map((item1, index1) => {
+                                  return (
                                     <View
                                       style={{
-                                        width: "100%",
                                         flexDirection: "row",
-                                        // alignSelf: "center",
+                                        backgroundColor:
+                                          index1 % 2 == 0 ? "#f2f2f2" : "#FFFFFF",
+                                        marginBottom: 10,
+                                        padding: 5,
                                       }}
                                     >
-                                      <View
-                                        style={{
-                                          width: "80%",
-                                          // flexDirection: "row",
-                                          // alignSelf: "center",
-                                        }}
-                                      >
-                                        <Text
-                                          style={styles.LIstText1}
-                                          numberOfLines={2}
-                                        >
-                                          {item1.personal_statement}...
-                                        </Text>
-                                      </View>
-                                      <View
-                                        style={{
-                                          width: "20%",
-                                          alignSelf: "flex-end",
-                                          // flexDirection: "row",
-                                          // alignSelf: "center",
-                                        }}
-                                      >
-                                        <TouchableOpacity>
-                                          <Text
-                                            style={[
-                                              styles.LIstText1,
-                                              { color: "#2F5597" },
-                                            ]}
+                                      <View>
+                                        <View style={styles.List1}>
+                                          {Login_Data.profilepic == "" ||
+                                            Login_Data.profilepic == null ? (
+                                            <Image
+                                              source={require("../Assets/user.png")}
+                                              style={styles.usericons}
+                                            />
+                                          ) : (
+                                            <Image
+                                              source={{
+                                                uri: `https://refuel.site/projects/tutorapp/UPLOAD_file/${item1.profile_image}`,
+                                              }}
+                                              style={styles.usericons}
+                                            />
+                                          )}
+
+                                          <View
+                                            style={{
+                                              height: 60,
+                                              width: "70%",
+                                              marginLeft: 10,
+                                            }}
                                           >
-                                            ReadMore
-                                          </Text>
-                                        </TouchableOpacity>
+                                            <View
+                                              style={{
+                                                height: 20,
+                                                width: "70%",
+                                                flexDirection: "row",
+                                              }}
+                                            >
+                                              <Text style={styles.LIstText}>
+                                                {item1.tutor_code}
+                                              </Text>
+                                              <Image
+                                                source={{
+                                                  uri: `https://refuel.site/projects/tutorapp/flags-medium/ao.png`,
+                                                }}
+                                                style={styles.Flagicons}
+                                              />
+                                            </View>
+                                            <View
+                                              style={{
+                                                height: 20,
+                                                width: "70%",
+                                              }}
+                                            >
+                                              <Text style={styles.LIstText}>
+                                                {item1.qualification}
+                                              </Text>
+                                            </View>
+                                            <View style={{ width: 40, margin: 3 }}>
+                                              <StarRating
+                                                fullStarColor="orange"
+                                                disabled={false}
+                                                maxStars={5}
+                                                // rating={item.Average_rating}
+                                                rating={4}
+                                                starSize={14}
+                                              // selectedStar={(rating) => setStrCount(rating)}
+                                              />
+                                            </View>
+                                          </View>
+                                        </View>
+
+                                        <View
+                                          style={{
+                                            width: "100%",
+                                            flexDirection: "row",
+                                            // alignSelf: "center",
+                                          }}
+                                        >
+                                          <View
+                                            style={{
+                                              width: "80%",
+                                              // flexDirection: "row",
+                                              // alignSelf: "center",
+                                            }}
+                                          >
+                                            <Text
+                                              style={styles.LIstText1}
+                                              numberOfLines={2}
+                                            >
+                                              {item1.personal_statement}...
+                                            </Text>
+                                          </View>
+                                          <View
+                                            style={{
+                                              width: "20%",
+                                              alignSelf: "flex-end",
+                                              // flexDirection: "row",
+                                              // alignSelf: "center",
+                                            }}
+                                          >
+                                            <TouchableOpacity>
+                                              <Text
+                                                style={[
+                                                  styles.LIstText1,
+                                                  { color: "#2F5597" },
+                                                ]}
+                                              >
+                                                ReadMore
+                                              </Text>
+                                            </TouchableOpacity>
+                                          </View>
+                                        </View>
                                       </View>
                                     </View>
-                                  </View>
-                                </View>
-                              );
-                            })}
-                        </View>
+                                  );
+                                })}
+                            </View>
+                          )}
+                        </TouchableOpacity>
                       )}
-                    </TouchableOpacity>
-                  )}
-                />
-                  :
-                  <Text style={styles.noData}>No Record Found</Text>
+                    />
+                    :
+                    <Text style={styles.noData}>No Record Found</Text>
 
                 }
-                
+
               </ScrollView>
             ) : (
               <View style={{ height: hp(65) }}>
@@ -932,7 +977,7 @@ console.log(interestedTutor,'intintintint')
                         maxStars={5}
                         rating={4}
                         starSize={13}
-                        // selectedStar={(rating) => setStrCount(rating)}
+                      // selectedStar={(rating) => setStrCount(rating)}
                       />
                     </View>
                   </View>
@@ -1071,11 +1116,26 @@ console.log(interestedTutor,'intintintint')
                               backgroundColor: "#fff",
                             }}
                           >
-                            <Text style={styles.Information}>
-                              {student.Grade}
-                            </Text>
+                            
                             <Text style={styles.Information}>
                               {student.Level}
+                            </Text>
+                            {
+                              student.Level == 'AEIS'?
+                              <Text style={styles.Information}>
+                              {student.Admission_Level}
+                            </Text>
+                            :null
+                            }
+                             {
+                              student.Level == 'Secondary'?
+                              <Text style={styles.Information}>
+                              {student.Streams.map(item=>item + ', ')}
+                            </Text>
+                            :null
+                            }
+                            <Text style={styles.Information}>
+                              {student.Grade}
                             </Text>
                             <Text style={styles.Information}>
                               {student.ALL_Subjects}
@@ -1355,7 +1415,7 @@ const styles = StyleSheet.create({
     //  backgroundColor: "white",
     justifyContent: "center",
     width: wp(100),
-    height: wp(30),
+    // height: wp(40),
     alignSelf: "center",
     shadowColor: "grey",
     // borderWidth:1,
@@ -1804,9 +1864,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 3,
   },
-  noData:{
-    alignSelf:'center',
-    fontSize:20,
-    marginTop:150
+  noData: {
+    alignSelf: 'center',
+    fontSize: 20,
+    marginTop: 150
   }
 });

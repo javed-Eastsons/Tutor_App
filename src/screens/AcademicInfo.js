@@ -39,7 +39,6 @@ const AcademicInfo = ({ route }) => {
   console.log(route.params.AcademicHistory_Info, 'AcademicHistory_InfoAcademicHistory_InfoAcademicHistory_Info');
 
 
-
   ("");
 
   const [showemail, setShowEmail] = React.useState("Qualification");
@@ -118,7 +117,7 @@ const AcademicInfo = ({ route }) => {
   };
 
   console.log(sections, 'SSSSSSSSSSSSS')
-
+console.log(route.params.RouteFrom,'route.params.RouteFrom')
   const deleteSection = (index) => {
     const updatedSections = [...sections];
     updatedSections.splice(index, 1);
@@ -428,6 +427,15 @@ const AcademicInfo = ({ route }) => {
       setDetailsE(true);
     }
   };
+
+  useEffect(() => {
+    if (route.params.RouteFrom != "Update") {
+      setSchool1("")
+      setCourses("")
+      setGradYear("")
+      setRecords([])
+    }
+  }, [selectQualification])
 
   const qualModalClose = () => {
     setselectQualification(false);
@@ -857,12 +865,19 @@ const AcademicInfo = ({ route }) => {
                           >
                             {school1}
                           </Text>
+
                           <Text style={{ color: "#000", fontSize: 13 }}>
                             Course: {courses}
                           </Text>
-                          <Text style={{ color: "#000", fontSize: 13 }}>
-                            Year/Graduation: {gradYear}
-                          </Text>
+
+                          {
+                            gradYear ?
+                              <Text style={{ color: "#000", fontSize: 13 }}>
+                                Year/Graduation: {gradYear}
+                              </Text>
+                              : null
+                          }
+
                           {/* <Text style={{ color: '#000', fontSize: 14, }}>{year}</Text> */}
                         </View>
                         <View>
@@ -2607,6 +2622,7 @@ const AcademicInfo = ({ route }) => {
                       width: wp(60),
                       alignItems: "center",
                       justifyContent: "center",
+                      elevation: 5
                     }}
                   >
                     <Text style={{ color: "#fff", fontSize: 14 }}>Save</Text>

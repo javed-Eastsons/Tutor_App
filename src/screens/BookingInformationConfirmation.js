@@ -40,7 +40,7 @@ import CheckBox from "@react-native-community/checkbox";
 import { BookTutor } from "../Redux/Actions/TutorBooking";
 import { indigo100 } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 
-const BookingInformationConfirmation = () => {
+const BookingInformationConfirmation = ({route}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { Tutor_Schedule } = useSelector((state) => state.TutorReducer);
@@ -56,6 +56,7 @@ const BookingInformationConfirmation = () => {
   const [offerprice, setOfferPrice] = useState("offerprice");
   const [timeslots, setTimeSlots] = useState("timeslots");
   const [currentTab, setCurrentTab] = useState("tutiontype");
+  const Profile = route?.params?.data?.profile_image;
 
   const SelectTab = (selectedval) => {
     console.log(selectedval);
@@ -118,9 +119,11 @@ console.log(Tutor_Detail,'Tutor_DetailTutor_Detail')
       </View>
       <View style={styles.Container}>
         <View style={styles.LeftImageContainer}>
-          <Image
-            source={require("../Assets/user.png")}
-            style={styles.leftImage}
+        <Image
+            source={{
+              uri: `https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/${Profile}`,
+            }}
+            style={styles.usericons}
           />
         </View>
         <View style={styles.UserInfoContainer}>
@@ -338,8 +341,19 @@ console.log(Tutor_Detail,'Tutor_DetailTutor_Detail')
                       backgroundColor: "#fff",
                     }}
                   >
-                    <Text style={styles.Information}>{student.Grade}</Text>
                     <Text style={styles.Information}>{student.Level}</Text>
+                    {
+                      student.Admission_level ?
+                      <Text style={styles.Information}>{student.Admission_level}</Text>
+                      :null
+                    }
+                    <Text style={styles.Information}>{student.Grade}</Text>
+                    {
+                      student.Stream ?
+                      <Text style={styles.Information}>{student.Stream}</Text>
+                      :null
+                    }
+
                     <Text style={styles.Information}>
                       {student.ALL_Subjects.join(", ")}
                     </Text>
@@ -688,8 +702,8 @@ console.log(Tutor_Detail,'Tutor_DetailTutor_Detail')
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate("")}
-            style={{
+              onPress={() => navigation.navigate("StudentBookingInfo",{cancelBooking :'cancelBooking',data : route?.params?.data})}
+              style={{
               height: "100%",
               width: "50%",
               backgroundColor: "#C0C0C0",
@@ -908,5 +922,10 @@ const styles = StyleSheet.create({
     // fontSize: 15,
     color: "black",
     fontFamily: "Poppins-Regular",
+  },
+  usericons: {
+    height: 50,
+    width: 50,
+    borderRadius: 50,
   },
 });

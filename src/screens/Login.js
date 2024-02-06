@@ -22,7 +22,7 @@ import { LoginUser } from "../Redux/Actions/Tutors";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../common/Loader";
 
-const Login = () => {
+const Login = ({route}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [Name, setName] = React.useState("");
@@ -53,7 +53,7 @@ const Login = () => {
   const LoginTOApp = () => {
     //  console.log(FirstName, LastName, Password, Email, ConfirmEmail, Mobile);
     setLoader(true);
-    dispatch(LoginUser(Mobile, Email, Password, navigation))
+    dispatch(LoginUser(Mobile, Email, Password,route?.params?.viaProfile,route?.params?.data, navigation))
       .then((res) => setLoader(false))
       .catch((err) => console.log(err))
       .finally(() => setLoader(false));
@@ -186,13 +186,23 @@ const Login = () => {
                     style={styles.input}
                   />
                 </View>
-                <View style={styles.bottomcontent}>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate('ForgotPassword')}
-                  >
-                    <Text style={styles.ForgotText}>Forgot Password?</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <View style={styles.bottomcontent}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate('Register', { codeadd: "NO", })}
+                    >
+                      <Text style={styles.ForgotText}>Create Account</Text>
 
-                  </TouchableOpacity>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.bottomcontent}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate('ForgotPassword')}
+                    >
+                      <Text style={styles.ForgotText}>Forgot Password?</Text>
+
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             );
@@ -261,8 +271,23 @@ const Login = () => {
             onPress={toggleShowPassword}
           /> */}
                 </View>
-                <View style={styles.bottomcontent}>
-                  <Text style={styles.ForgotText}>Forgot Password?</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <View style={styles.bottomcontent}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate('Register', { codeadd: "NO", })}
+                    >
+                      <Text style={styles.ForgotText}>Create Account</Text>
+
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.bottomcontent}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate('ForgotPassword')}
+                    >
+                      <Text style={styles.ForgotText}>Forgot Password?</Text>
+
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             );

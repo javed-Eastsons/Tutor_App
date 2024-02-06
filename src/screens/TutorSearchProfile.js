@@ -513,7 +513,8 @@ console.log(data,'routeeeeeee')
     // });
     navigation.navigate("StudentBookingInfo", {
       data: data,
-      profile_pic: data.profile_image
+      profile_pic: data.profile_image,
+      viaFrom :'TutorProfile'
     });
   };
 
@@ -690,7 +691,7 @@ console.log(data,'routeeeeeee')
         </TouchableOpacity>
         {Login_Data == "" ?
           <TouchableOpacity
-            onPress={() => navigation.navigate("Register")}
+            onPress={() => navigation.navigate("Login",{viaProfile:'viaProfile',data:data})}
 
             style={styles.FavBooKChat}>
             <Image
@@ -1016,6 +1017,7 @@ console.log(data,'routeeeeeee')
                   <ActivityIndicator />
                 )}
               </ScrollView>
+              
             );
           } else if (showwhat == "My Schools") {
             return (
@@ -1051,9 +1053,18 @@ console.log(data,'routeeeeeee')
                 )}
               </ScrollView>
             );
+          } else if (showwhat == "Reviews") {
+            return (
+              <ScrollView>
+              <Text style={{textAlign:'center',marginTop:20}}>There are no reviews yet</Text>
+             
+              </ScrollView>
+            );
           }
         })()
       }
+
+      
     </SafeAreaView >
   );
 };

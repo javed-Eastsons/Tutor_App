@@ -240,7 +240,7 @@ const ClientLanding = () => {
             </View> */}
           </View>
           <View style={styles.UserRight}>
-            <Text style={{ fontFamily: "Poppins-Light" }}>
+            {/* <Text style={{ fontFamily: "Poppins-Light" }}>
               {console.log(isEnabled)}I want to be an Educator.....
             </Text>
             <TouchableOpacity
@@ -253,7 +253,7 @@ const ClientLanding = () => {
                 onValueChange={toggleSwitch}
                 value={isEnabled}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
         <View

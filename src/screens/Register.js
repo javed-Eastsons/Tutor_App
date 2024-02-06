@@ -486,8 +486,7 @@ const Register = ({ route }) => {
         <View style={styles.Headcontainer}>
           <Text style={styles.headtext}>Create Account</Text>
           <Text style={styles.Firsttext}>
-            Good Choice! Create an Account & experiance all {"\n"}the
-            intersting features.
+           
           </Text>
         </View>
         <View
@@ -675,40 +674,7 @@ const Register = ({ route }) => {
           /> */}
         </View>
 
-        <View style={{ flexDirection: "row", width: wp(90), alignSelf: "center", justifyContent: "center" }}>
-          <Text style={styles.TermsCondition}>
-            View T&C and Privacy Policy
-          </Text>
-          <TouchableOpacity
-            //  onPress={() => setEnable(!enable)}
-            onPress={() => setTermsModalVisible(true)}
-            style={
-              enable
-                ? {
-                  height: 20,
-                  width: 20,
-
-                  borderRadius: 20,
-                  alignSelf: "flex-end",
-                  borderColor: "lightgrey",
-                  padding: 2,
-                  marginLeft: 10,
-                  backgroundColor: "#2F5597",
-                  // marginLeft: wp(10),
-                  borderWidth: 3,
-                }
-                : {
-                  height: 20,
-                  width: 20,
-                  marginLeft: 10,
-                  borderRadius: 20,
-                  borderColor: "lightgrey",
-                  // marginLeft: wp(10),
-                  borderWidth: 1,
-                }
-            }
-          ></TouchableOpacity>
-        </View>
+      
 
         {showemail == false ? (
           <View style={styles.moblieSec}>
@@ -721,7 +687,7 @@ const Register = ({ route }) => {
             <TouchableOpacity
               disabled={iconArraow == "show" ? false : true}
               style={styles.emailtoch}
-              onPress={() => showcontent()}
+              onPress={() => setShowEmail(true)}
             >
               <Text style={styles.ButtonText}>Email</Text>
             </TouchableOpacity>
@@ -742,6 +708,7 @@ const Register = ({ route }) => {
             </TouchableOpacity>
           </View>
         )}
+        
 
         {showemail == false ? (
           <View>
@@ -861,6 +828,46 @@ const Register = ({ route }) => {
                 {ConfirmEmailmsg}
               </Text>
             </View>
+            <View style={{ flexDirection: "row", width: wp(90), alignSelf: "center", justifyContent: "center" }}>
+          <Text style={styles.TermsCondition}>
+            View T&C and Privacy Policy
+          </Text>
+          <TouchableOpacity
+            //  onPress={() => setEnable(!enable)}
+            onPress={() =>{
+              if(enable){
+               setEnable(false)
+              }else{
+                setEnable(true)
+              }
+              }}
+            style={
+              enable
+                ? {
+                  height: 20,
+                  width: 20,
+
+                  borderRadius: 20,
+                  alignSelf: "flex-end",
+                  borderColor: "lightgrey",
+                  padding: 2,
+                  marginLeft: 10,
+                  backgroundColor: "#2F5597",
+                  // marginLeft: wp(10),
+                  borderWidth: 3,
+                }
+                : {
+                  height: 20,
+                  width: 20,
+                  marginLeft: 10,
+                  borderRadius: 20,
+                  borderColor: "lightgrey",
+                  // marginLeft: wp(10),
+                  borderWidth: 1,
+                }
+            }
+          ></TouchableOpacity>
+        </View>
             {console.log(!enable, 'HHHHHHHHHHHHH', enable, FirstName)}
             <TouchableOpacity
               disabled={

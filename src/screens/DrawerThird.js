@@ -57,7 +57,7 @@ const DrawerThird = () => {
 
           </View>
           <View style={{ marginLeft: 10 }}>
-            <Text style={styles.subText}>Message from director</Text>
+            <Text style={styles.subText}>Message from Director</Text>
             <Text style={styles.subText}>About</Text>
             <Text style={styles.subText}>Our Services</Text>
             <Text style={styles.subText}>Our Tutors</Text>
@@ -123,8 +123,8 @@ const DrawerThird = () => {
         <View style={styles.SocialContainer}>
           <View style={{backgroundColor:'#fff'}}>
           <Image
-            source={require("../Assets/Twitter1.png")}
-            style={styles.icons}
+            source={require("../Assets/Twitter.png")}
+            style={[styles.icons,{height:35,width:30}]}
           />
           </View>
          
@@ -135,6 +135,18 @@ const DrawerThird = () => {
             style={styles.icons}
           />
         </View>
+        <View style={[styles.SocialContainer,{backgroundColor:'#fff',borderRadius:3,height:24,width:'9%'}]}>
+            <Image
+              source={require("../Assets/15_2.png")}
+              style={[styles.icons,{height:20,width:20}]}
+              />
+          </View>
+          <View style={[styles.SocialContainer,{backgroundColor:'#fff',borderRadius:3,height:24,width:'9%',marginLeft:5}]}>
+            <Image
+              source={require("../Assets/15_3.png")}
+              style={[styles.icons,{height:22,width:20}]}
+            />
+          </View>
       </View>
       <View style={styles.MenuLIstContainer}>
         <View style={styles.MenuLIst}>

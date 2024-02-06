@@ -293,8 +293,19 @@ const BookingSummaryComponent = () => {
                       backgroundColor: "#fff",
                     }}
                   >
-                    <Text style={styles.Information}>{student.Grade}</Text>
                     <Text style={styles.Information}>{student.Level}</Text>
+                    {
+                      student.Stream ?
+                        <Text style={styles.Information}>{student.Stream}</Text>
+                        : null
+                    }
+                    {
+                      student.Admission_level ?
+                        <Text style={styles.Information}>{student.Admission_level}</Text>
+                        : null
+                    }
+                    <Text style={styles.Information}>{student.Grade}</Text>
+
                     <Text style={styles.Information}>
                       {student.ALL_Subjects.join(", ")}
                     </Text>

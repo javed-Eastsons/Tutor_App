@@ -76,7 +76,7 @@ const Afternoon6 = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM"];
 const Evening6 = ["12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM"];
 const Night6 = ["6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM", "12 PM"];
 
-const TutionSchedulePicker = ({}) => {
+const TutionSchedulePicker = ({route }) => {
   const [time, setTime] = useState(morning);
   const [days, setDays] = useState(Days);
   const [selectedDay, setSelectedDay] = useState("");
@@ -86,6 +86,7 @@ const TutionSchedulePicker = ({}) => {
   const { Tutor_Qualification } = useSelector((state) => state.TutorReducer);
   // const { Tutor_Schedule } = useSelector((state) => state.TutorReducer);
   // console.log(Tutor_Schedule, "Tutor_ScheduleTutor_ScheduleTutor_Schedule");
+  const Profile = route?.params?.data?.profile_image;
 
   const dispatch = useDispatch();
   // console.log(
@@ -100,7 +101,8 @@ const TutionSchedulePicker = ({}) => {
   const [selectedSat, setSelectedSat] = useState([]);
   const [selectedSun, setSelectedSun] = useState([]);
   const [selected1, setSelected1] = useState([]);
-
+console.log(selectedDay,'kkkkk')
+console.log(selectedTue,'selectedTueselectedTue')
   const handler = (time) => {
     let picker = selected;
     if (selected.includes(time)) {
@@ -128,7 +130,7 @@ const TutionSchedulePicker = ({}) => {
 
   console.log(selected, "selectedMonselectedMon");
 
-  handleTimeSlot = (time) => {};
+  handleTimeSlot = (time) => { };
 
   const handlerTue = (time) => {
     console.log("Selected Tue Timeee", time);
@@ -829,7 +831,9 @@ const TutionSchedulePicker = ({}) => {
     });
 
     console.log(obj, "FINALLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
-    navigation.navigate("BookingInformationConfirmation");
+    navigation.navigate("BookingInformationConfirmation",{
+      data : route?.params?.data
+    });
   };
 
   return (
@@ -858,8 +862,10 @@ const TutionSchedulePicker = ({}) => {
       <View style={styles.Container}>
         <View style={styles.LeftImageContainer}>
           <Image
-            source={require("../Assets/user.png")}
-            style={styles.leftImage}
+            source={{
+              uri: `https://colwithfarmchips.co.uk/projects/tutorapp/UPLOAD_file/${Profile}`,
+            }}
+            style={styles.usericons}
           />
         </View>
         <View style={styles.UserInfoContainer}>
@@ -879,7 +885,7 @@ const TutionSchedulePicker = ({}) => {
             maxStars={5}
             // rating={item.Average_rating}
             starSize={15}
-            // selectedStar={(rating) => setStrCount(rating)}
+          // selectedStar={(rating) => setStrCount(rating)}
           />
         </View>
       </View>
@@ -900,7 +906,7 @@ const TutionSchedulePicker = ({}) => {
           }}
         >
           <Text style={styles.BookText1}>
-            Tution Schedule Picker (Optional)
+            Tution Schedule Picker (Optional)swsws
           </Text>
         </View>
         <View
@@ -2181,8 +2187,8 @@ const TutionSchedulePicker = ({}) => {
           }}
         >
           <TouchableOpacity
-            onPress={() => navigation.navigate("")}
-            style={{
+              onPress={() => navigation.navigate("StudentBookingInfo",{cancelBooking :'cancelBooking',data : route?.params?.data})}
+              style={{
               height: "100%",
               width: "50%",
               backgroundColor: "#C0C0C0",
@@ -2435,5 +2441,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "black",
     // fontWeight: "bold",
+  },
+  usericons: {
+    height: 50,
+    width: 50,
+    borderRadius: 50,
   },
 });

@@ -369,11 +369,26 @@ const MakePayment = ({ route }) => {
                     minute: "2-digit",
                   })} */}
                 </Text>
-                <Button
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: "#000",
+                    textAlign: "center",
+                    marginBottom: 20,
+                  }}
+                >
+                  {All_Booked_Tutor[0]?.student_offer_date}
+                  {/* {time.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",q1q1q1q1q11qq1q1q1q1q1q1
+                  })} */}
+                </Text>
+                
+                {/* <Button
                   title="Select"
                   color="#2F5597"
                   onPress={showTimePicker}
-                />
+                /> */}
               </View>
             </View>
             <View

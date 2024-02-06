@@ -260,7 +260,7 @@ export const GetResultAfterPostcode = (postalcode, Login_Data, navigation) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        // console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
+        console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson);
 
         if (responseJson.status == true) {
           // console.log(

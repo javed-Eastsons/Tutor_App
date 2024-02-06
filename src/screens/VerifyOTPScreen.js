@@ -303,42 +303,42 @@ const VerifyOTPScreen = ({ route }) => {
       style={styles.container}>
       <Loader flag={loader} />
 
-
       <View
         style={{
-          borderTopLeftRadius: 10,
-          borderTopRightRadius: 10,
+          // borderTopLeftRadius: 10,
+          // borderTopRightRadius: 10,
           alignSelf: "center",
           position: "absolute",
           bottom: 0,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-          height: hp(60),
+          // borderTopLeftRadius: 20,
+          // borderTopRightRadius: 20,
+          height: hp(99),
           width: wp(100),
           backgroundColor: "#fff",
         }}
       >
         <View style={styles.BlueContainer}>
-          <Text style={styles.BlueText}>Verify Email Address222</Text>
+          <Text style={styles.BlueText}>Verify Email Address</Text>
         </View>
         <View
           style={{
-            borderTopLeftRadius: 50,
-            borderTopRightRadius: 50,
+            // borderTopLeftRadius: 50,
+            // borderTopRightRadius: 50,
             alignSelf: "center",
-            position: "absolute",
-            top: hp(8),
+            // position: "absolute",
+            // top: hp(8),
+            marginTop:30,
             height: hp(45),
-            width: wp(90),
-            backgroundColor: "#fff",
-            elevation: 20,
+            width: wp(100),
+            // backgroundColor: "#fff",
+            // elevation: 20,
             color: '#000'
           }}
         >
           <View style={styles.ModelTextContainer}>
-            <Text style={styles.ModelText}>Verification Code</Text>
+            <Text style={styles.ModelText}>Verify The Authorisation Code</Text>
             <Text style={styles.ModelText2}>
-              OTP is sent to your email address
+              Sent To <Text style={{color:'#000'}}>{route.params.Email}</Text>
             </Text>
           </View>
           <OTPTextView
@@ -347,19 +347,21 @@ const VerifyOTPScreen = ({ route }) => {
             inputCount={4}
             keyboardType="numeric"
             //  defaultValue={OTP}
-            borderWidth={0}
-            backgroundColor={"grey"}
-            borderBottomWidth={0}
+            // borderWidth={0}
+            borderBottomWidth={2}
+            // backgroundColor={"grey"}
+            borderColor={"grey"}
+            // borderBottomWidth={0}
             size={10}
-            borderRadius={10}
+            // borderRadius={10}
             width={65}
             height={66}
-            tintColor={"#fff"}
+            tintColor={"#000"}
           />
           <View
             style={{
 
-              alignSelf: "center", marginTop: 10,
+              alignSelf: "center", marginTop: 20,
 
             }}
           >
@@ -392,7 +394,7 @@ const VerifyOTPScreen = ({ route }) => {
             style={{
 
 
-              width: wp(90), alignSelf: "center", marginBottom: wp(2)
+              width: wp(90), alignSelf: "center", marginBottom: wp(2),marginTop:20
 
             }}
 
@@ -415,6 +417,7 @@ const VerifyOTPScreen = ({ route }) => {
               alignItems: "center",
               justifyContent: "center",
               borderRadius: 50,
+              marginTop:20
             }}
             onPress={() => {
               verifyOTP();
@@ -427,7 +430,6 @@ const VerifyOTPScreen = ({ route }) => {
           </TouchableOpacity>
         </View>
       </View>
-
 
 
 
@@ -743,6 +745,7 @@ const VerifyOTPScreen = ({ route }) => {
           </View>
         </View>
       </Modal>
+
     </KeyboardAvoidingView >
   );
 };
@@ -774,7 +777,7 @@ const styles = StyleSheet.create({
   ModelText: {
     fontSize: 20,
     fontWeight: "700",
-    textAlign: "center",
+    // textAlign: "center",
   },
   TermModelText: {
     fontSize: 12,
@@ -785,8 +788,9 @@ const styles = StyleSheet.create({
   ModelText2: {
     fontSize: 16,
     fontWeight: "600",
-    textAlign: "center",
+    // textAlign: "center",
     paddingTop: 20,
+    marginTop:20
   },
   underlineStyleBase: {
     width: 45,
@@ -812,12 +816,12 @@ const styles = StyleSheet.create({
   },
 
   BlueContainer: {
-    height: hp(15),
+    height: hp(9),
     backgroundColor: "#2F5597",
-    borderTopLeftRadius: 20,
+    // borderTopLeftRadius: 20,
     width: wp(100),
     alignSelf: "center",
-    borderTopRightRadius: 20,
+    // borderTopRightRadius: 20,
     // marginTop: hp(10),
   },
   strengthText: {

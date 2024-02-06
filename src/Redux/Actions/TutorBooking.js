@@ -300,7 +300,7 @@ export const GetBookedTutorDetail = (bookingData, navigation) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        //  console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", responseJson.output);
+         console.log("All_Booked_Tutor_Detail", responseJson.output);
         if (responseJson.status == true) {
           dispatch({
             type: All_Booked_Tutor_Detail,

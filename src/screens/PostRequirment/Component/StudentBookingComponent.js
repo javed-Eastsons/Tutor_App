@@ -35,9 +35,11 @@ import {
   getLevelList,
   getGradeList,
   getSubjectList,
+  getGradesAEIS,
+  getGradesSecondary
 } from "../../../Redux/Actions/Tutors";
 
-import { Loader } from "../../../../../../common/Loader";
+import { Loader } from "../../../common/Loader";
 import StudentDetail from "../StudentDetail";
 var selectArray = [];
 var selectFilter = [];
@@ -84,14 +86,18 @@ const StudentBookingComponent = (props) => {
   const [records, setRecords] = useState(selectArray);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editId, setEditId] = useState();
+  const [admissionLevel, setAdmissionLevel] = useState()
+  const [streamName, setStreamName] = useState()
+  const [loader, setLoader] = useState(false);
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const navigation = useNavigation();
   const { LEVEL_LIST } = useSelector((state) => state.TutorReducer);
   const { SUBJECT_LIST } = useSelector((state) => state.TutorReducer);
 
   const { GRADE_LIST } = useSelector((state) => state.TutorReducer);
-
+  const { GRADE_LIST_AEIS } = useSelector((state) => state.TutorReducer);
+  const { GRADE_LIST_SEC } = useSelector((state) => state.TutorReducer);
   console.log("@@@@@@", value);
   // console.log(">>>>>>", value2);
   console.log(LEVEL_LIST?.Level_list, "LEVEL_LIST-REDUX");
@@ -146,6 +152,12 @@ const StudentBookingComponent = (props) => {
     item1["ID"] = count;
     item1["Level"] = value;
     item1["Grade"] = value2;
+    if (value == 'Secondary') {
+      item1["Streams"] = [streamName]
+    }
+    if (value == 'AEIS') {
+      item1["Admission_Level"] = admissionLevel;
+    }
     item1["ALL_Subjects"] = selectedlevel;
 
     if (!isExistInArray(selectArray, "Level", item1.Level)) {
@@ -187,7 +199,7 @@ const StudentBookingComponent = (props) => {
   ];
 
   const deleteRecord = (idToDelete) => {
-    const updatedRecords = records.filter((record) => record.Id !== idToDelete);
+    const updatedRecords = records.filter((record) => record.ID !== idToDelete);
     console.log(updatedRecords, "AAAAAAAAAAAA");
     setRecords(updatedRecords);
   };
@@ -258,9 +270,30 @@ const StudentBookingComponent = (props) => {
     selectArray = [];
     dispatch(getLevelList());
   }, []);
+
   useEffect(() => {
-    dispatch(getGradeList(value));
+    setLoader(true);
+    if (value != 'Secondary') {
+      dispatch(getGradeList(value));
+
+    } else {
+      dispatch(getGradesSecondary(value));
+    }
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
   }, [value]);
+
+  useEffect(() => {
+    setLoader(true)
+    dispatch(getGradesAEIS(value, admissionLevel));
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
+  }, [admissionLevel]);
+
+
+
   console.log(GRADE_LIST, "GRADE_LIST-REDUX");
 
   useEffect(() => {
@@ -298,35 +331,40 @@ const StudentBookingComponent = (props) => {
   return (
     // <View style={styles.container}>
     <View style={{ flex: 1, marginHorizontal: 10 }}>
+      <Loader flag={loader} />
+
       <View style={[styles.Bookcard, styles.BookshadowProp]}>
-        <View
-          style={{
-            height: 40,
-            width: "100%",
-            padding: 10,
-            flexDirection: "row",
-          }}
-        >
-          <Text style={styles.BookText1}>Student's Details</Text>
-          <View style={{ position: "absolute", right: 10 }}>
-            <Image
-              source={require("../../../Assets/Student.png")}
-              style={styles.TypeImage}
-            />
-          </View>
-        </View>
-        <View style={{ height: 40, width: "93%", alignSelf: "center" }}>
-          <Text style={styles.BookText2}>
-            you can add multiple student's details.One at a time...
-          </Text>
-        </View>
-        <ScrollView nestedScrollEnabled={true}>
+        <ScrollView nestedScrollEnabled={true} showsVerticalScrollIndicator={false}>
           <View
             style={{
-              height: "80%",
+              height: 40,
               width: "100%",
               padding: 10,
-              // backgroundColor: "#fff",
+              flexDirection: "row",
+            }}
+          >
+            <Text style={styles.BookText1}>Student's Details</Text>
+            <View style={{ position: "absolute", right: 10 }}>
+              <Image
+                source={require("../../../Assets/TutionType.png")}
+                style={styles.TypeImage}
+              />
+            </View>
+          </View>
+          <View style={{ width: "93%", alignSelf: "center" }}>
+            <Text style={styles.BookText2}>
+              you can add multiple student's details.One at a time...
+            </Text>
+          </View>
+          <ScrollView
+          showsVerticalScrollIndicator={false}
+            style={{
+              //  height: "90%",
+
+              width: "100%",
+              padding: 10,
+              marginBottom: hp(5),
+              backgroundColor: "white",
             }}
           >
             {records.map((item) => (
@@ -349,34 +387,45 @@ const StudentBookingComponent = (props) => {
                       elevation: 3,
                     }}
                   ></View>
-                  <View style={{ height: 100, width: "80%" }}>
+                  <View style={{ width: "80%" }}>
                     <Text style={styles.Information}>{item.Level}</Text>
+                    {
+                      item.Admission_level ?
+                        <Text style={styles.Information}>{item.Admission_level}</Text>
+                        : null
+                    }
                     <Text style={styles.Information}>{item.Grade}</Text>
+                    {
+                      item.Stream ?
+                        <Text style={styles.Information}>{item.Stream}</Text>
+                        : null
+                    }
+
                     <Text style={styles.Information}>
                       {item.ALL_Subjects + " "}
                     </Text>
                     {/* {item.ALL_Subjects.map((subject, index) => (
-                     <Text style={{ flexDirection: "row" }} key={index}>
-                       {subject}
-                     </Text>
-                   ))} */}
+                    <Text style={{ flexDirection: "row" }} key={index}>
+                      {subject}
+                    </Text>
+                  ))} */}
 
                     {/* {item.Subjects &&
-                     Student_Detail.Subjects.map((item) => {
-                       return (
-                         <Text key={item} style={styles.Information}>
-                           {item.subject}
-                         </Text>
-                       );
-                     })} */}
+                    Student_Detail.Subjects.map((item) => {
+                      return (
+                        <Text key={item} style={styles.Information}>
+                          {item.subject}
+                        </Text>
+                      );
+                    })} */}
                     {/* {Student_Detail.Subjects &&
-                     Student_Detail.Subjects.map((item) => {
-                       return (
-                         <Text key={item} style={styles.Information}>
-                           {item.subject}
-                         </Text>
-                       );
-                     })} */}
+                    Student_Detail.Subjects.map((item) => {
+                      return (
+                        <Text key={item} style={styles.Information}>
+                          {item.subject}
+                        </Text>
+                      );
+                    })} */}
                     <Text style={styles.Information}></Text>
                   </View>
                   <View style={{ height: 80, width: "10%" }}>
@@ -402,7 +451,7 @@ const StudentBookingComponent = (props) => {
                       />
                     </TouchableOpacity>
                     <TouchableOpacity
-                      onPress={() => deleteRecord(item.Id)}
+                      onPress={() => deleteRecord(item.ID)}
                       style={{
                         height: 40,
                         width: "100%",
@@ -416,13 +465,13 @@ const StudentBookingComponent = (props) => {
                 </View>
 
                 {/* <Text
-                 style={{ color: "#2F5597" }}
-                 ellipsizeMode="clip"
-                 numberOfLines={1}
-               >
-                 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                 - - -
-               </Text> */}
+                style={{ color: "#2F5597" }}
+                ellipsizeMode="clip"
+                numberOfLines={1}
+              >
+                - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                - - -
+              </Text> */}
               </View>
             ))}
 
@@ -450,7 +499,7 @@ const StudentBookingComponent = (props) => {
             {moredetail == "showSection" || records == [] ? (
               <View
                 style={{
-                  height: "80%",
+                  height: "50%",
                   width: "100%",
                   padding: 10,
                   backgroundColor: "white",
@@ -459,17 +508,12 @@ const StudentBookingComponent = (props) => {
                 <View style={styles.DetailContainer}>
                   <View style={{ width: "30%" }}>
                     <Text
-                      style={{
-                        marginTop: 10,
-                        fontSize: 15,
-                        color: "black",
-                        fontFamily: "Poppins-Regular",
-                      }}
+                      style={{ color: "black", fontFamily: "Poppins-Regular" }}
                     >
                       Level :
                     </Text>
                   </View>
-                  <View style={{ width: "60%" }}>
+                  <View style={{ width: "100%" }}>
                     <Dropdown
                       style={[
                         styles.dropdown,
@@ -495,120 +539,538 @@ const StudentBookingComponent = (props) => {
                   </View>
                 </View>
 
-                <View style={styles.DetailContainer}>
-                  <View style={{ width: "30%" }}>
-                    <Text
-                      style={{
-                        marginTop: 10,
-                        fontSize: 15,
-                        color: "black",
-                        fontFamily: "Poppins-Regular",
-                      }}
-                    >
-                      Grade :
-                    </Text>
-                  </View>
-                  <View style={{ width: "60%" }}>
-                    <Dropdown
-                      style={[
-                        styles.dropdown,
-                        isFocus2 && { borderColor: "black" },
-                      ]}
-                      placeholderStyle={{ fontSize: 12 }}
-                      selectedTextStyle={styles.selectedTextStyle}
-                      iconStyle={styles.iconStyle}
-                      itemTextStyle={{ color: "grey", fontSize: 12 }}
-                      data={GRADE_LIST?.Grade_List}
-                      labelField="grade_name"
-                      valueField="grade_name"
-                      allowFontScaling={false}
-                      placeholder={!isFocus2 ? " " : "..."}
-                      value={value2}
-                      onFocus={() => setIsFocus2(true)}
-                      onBlur={() => setIsFocus2(false)}
-                      onChange={(item) => {
-                        setValue2(item.grade_name);
-                        setIsFocus2(false);
-                      }}
-                    />
-                  </View>
-                </View>
 
-                <View style={[styles.DetailContainer]}>
-                  <View style={{ height: 100, width: "30%" }}>
-                    <Text
-                      style={{
-                        marginTop: 10,
-                        fontSize: 15,
-                        color: "black",
-                        fontFamily: "Poppins-Regular",
-                      }}
-                    >
-                      Subjects :
-                    </Text>
-                  </View>
-                  <View style={styles.SelectMoreContainer}>
-                    <MultiSelect
-                      items={SUBJECT_LIST?.Subject_List}
-                      uniqueKey="subjects_name"
-                      onSelectedItemsChange={onSelectedlevel}
-                      selectedItems={selectedlevel}
-                      //  selectText="Select one or more"
-                      searchInputPlaceholderText="Search Items..."
-                      onChangeInput={(text) =>
-                        console.log("SSSSSSSSSSSSSS", text)
+
+
+                {
+                  value == 'Secondary' ?
+                    <View>
+                      <View style={styles.DetailContainer}>
+                        <View style={{ width: "30%" }}>
+                          <Text
+                            style={{
+                              marginTop: 10,
+                              fontFamily: "Poppins-Regular",
+                              color: "black",
+                            }}
+                          >
+                            Grade :
+                          </Text>
+                        </View>
+                        <View style={{ width: "100%" }}>
+
+
+
+                          <Dropdown
+                            style={[
+                              styles.dropdown,
+                              isFocus2 && { borderColor: "black" },
+                            ]}
+                            placeholderStyle={{ fontSize: 12 }}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            iconStyle={styles.iconStyle}
+                            itemTextStyle={{ color: "grey", fontSize: 12 }}
+                            data={GRADE_LIST_SEC?.Grade_List?.Grades}
+                            labelField="grade_name"
+                            valueField="grade_name"
+                            allowFontScaling={false}
+                            placeholder={!isFocus2 ? " " : "..."}
+                            value={value2}
+                            onFocus={() => setIsFocus2(true)}
+                            onBlur={() => setIsFocus2(false)}
+                            onChange={(item) => {
+                              setValue2(item.grade_name);
+                              setIsFocus2(false);
+                            }}
+                          />
+                        </View>
+                      </View>
+                      {
+                        value2 ?
+                          <View style={styles.DetailContainer}>
+                            <View style={{ width: "30%" }}>
+                              <Text
+                                style={{
+                                  marginTop: 10,
+                                  fontFamily: "Poppins-Regular",
+                                  color: "black",
+                                }}
+                              >
+                                Streams :
+                              </Text>
+                            </View>
+                            <View style={{ width: "100%" }}>
+                              {/* <MultiSelect
+                          items={GRADE_LIST?.Grade_List?.Streams}
+                          uniqueKey="stream_name"
+                          onSelectedItemsChange={onSelectedGrade}
+                          selectedItems={streamName}
+                          //  selectText="Select one or more"
+                          searchInputPlaceholderText="Search Items..."
+                          onChangeInput={(text) =>
+                            console.log("SSSSSSSSSSSSSS", text)
+                          }
+                          tagRemoveIconColor="#2F5597"
+                          tagBorderColor="#2F5597"
+                          tagTextColor="#2F5597"
+                          selectedItemTextColor="#2F5597"
+                          fontSize={12}
+                          selectedItemIconColor="#2F5597"
+                          itemTextColor="#000"
+                          itemFontSize={12}
+                          displayKey="stream_name"
+                          searchInputStyle={{ color: "#CCC", fontSize: 12 }}
+                          // styleRowList={{ width: "90%" }}
+                          // submitButtonColor="#000"
+                          //submitButtonText="Submit"
+                          // styleDropdownMenu={{ backgroundColor: "red" }}
+                          hideSubmitButton
+                        // styleItemsContainer={{}}
+                        /> */}
+
+                              <Dropdown
+                                style={[
+                                  styles.dropdown,
+                                  isFocus2 && { borderColor: "black" },
+                                ]}
+                                placeholderStyle={{ fontSize: 12 }}
+                                selectedTextStyle={styles.selectedTextStyle}
+                                iconStyle={styles.iconStyle}
+                                itemTextStyle={{ color: "grey", fontSize: 12 }}
+                                data={GRADE_LIST_SEC?.Grade_List?.Streams}
+                                labelField="stream_name"
+                                valueField="stream_name"
+                                allowFontScaling={false}
+                                placeholder={!isFocus2 ? " " : "..."}
+                                value={streamName}
+                                onFocus={() => setIsFocus2(true)}
+                                onBlur={() => setIsFocus2(false)}
+                                onChange={(item) => {
+                                  setStreamName(item.stream_name);
+                                  setIsFocus2(false);
+                                }}
+                              />
+                            </View>
+                          </View>
+                          : null
                       }
-                      tagRemoveIconColor="#2F5597"
-                      tagBorderColor="#2F5597"
-                      tagTextColor="#2F5597"
-                      styleTextTag={{ fontSize: 12 }}
-                      selectedItemTextColor="#2F5597"
-                      selectedItemIconColor="#2F5597"
-                      itemTextColor="#000"
-                      itemFontSize={12}
-                      fontSize={14}
-                      displayKey="subjects_name"
-                      searchInputStyle={{ color: "#CCC", fontSize: 12 }}
-                      styleRowList={{ width: "90%" }}
-                      fixedHeight={true}
-                      // submitButtonColor="#000"
-                      //submitButtonText="Submit"
-                      styleDropdownMenu={{ backgroundColor: "red" }}
-                      hideSubmitButton
-                      styleItemsContainer={{
-                        height: 100,
-                      }}
-                    />
-                    {/* </View> */}
-                  </View>
-                </View>
-                <TouchableOpacity
-                  onPress={() => ClickOnDone()}
-                  style={{
-                    height: 35,
-                    width: 100,
-                    backgroundColor: "#F6BE00",
 
-                    alignSelf: "flex-end",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderRadius: 10,
-                    bottom: 0,
-                    right: 10,
-                    position: "absolute",
-                    //   right: -230,
-                  }}
-                >
-                  <Text style={styles.ButtonText}>Done</Text>
-                </TouchableOpacity>
+                      {
+                        streamName && value2 ?
+                          <View>
+                            <View style={styles.DetailContainer}>
+                              <View style={{ height: 100, width: "30%" }}>
+                                <Text
+                                  style={{
+                                    marginTop: 10,
+                                    fontFamily: "Poppins-Regular",
+                                    color: "black",
+                                  }}
+                                >
+                                  Subjects :
+                                </Text>
+                              </View>
+                              <View style={styles.SelectMoreContainer}>
+                                <MultiSelect
+                                  items={SUBJECT_LIST?.Subject_List}
+                                  uniqueKey="subjects_name"
+                                  onSelectedItemsChange={onSelectedlevel}
+                                  selectedItems={selectedlevel}
+                                  //  selectText="Select one or more"
+                                  searchInputPlaceholderText="Search Items..."
+                                  onChangeInput={(text) =>
+                                    console.log("SSSSSSSSSSSSSS", text)
+                                  }
+                                  tagRemoveIconColor="#2F5597"
+                                  tagBorderColor="#2F5597"
+                                  tagTextColor="#2F5597"
+                                  selectedItemTextColor="#2F5597"
+                                  fontSize={12}
+                                  selectedItemIconColor="#2F5597"
+                                  itemTextColor="#000"
+                                  itemFontSize={12}
+                                  displayKey="subjects_name"
+                                  searchInputStyle={{ color: "#CCC", fontSize: 12 }}
+                                  // styleRowList={{ width: "90%" }}
+                                  // submitButtonColor="#000"
+                                  //submitButtonText="Submit"
+                                  // styleDropdownMenu={{ backgroundColor: "red" }}
+                                  hideSubmitButton
+                                // styleItemsContainer={{}}
+                                />
+                                {/* </View> */}
+                              </View>
+                            </View>
+                            <View style={styles.DetailContainer}>
+                              <TouchableOpacity
+                                onPress={() => ClickOnDone()}
+                                style={{
+                                  height: 35,
+                                  width: 80,
+                                  backgroundColor: "#F6BE00",
+
+                                  alignSelf: "flex-end",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  borderRadius: 10,
+                                  bottom: 0,
+                                  right: 200,
+                                  position: "absolute",
+
+                                  //   right: -230,
+                                }}
+                              >
+                                <Text style={styles.ButtonText}>Done</Text>
+                              </TouchableOpacity>
+                            </View>
+                          </View>
+                          : null
+                      }
+
+                    </View>
+                    :
+                    value == 'AEIS' ?
+                      <View>
+                        <View style={styles.DetailContainer}>
+                          <View style={{ width: "30%" }}>
+                            <Text
+                              style={{
+                                marginTop: 10,
+                                fontFamily: "Poppins-Regular",
+                                color: "black",
+                              }}
+                            >
+                              Admission Level :
+                            </Text>
+                          </View>
+                          <View style={{ width: "100%" }}>
+                            <Dropdown
+                              style={[
+                                styles.dropdown,
+                                isFocus2 && { borderColor: "black" },
+                              ]}
+                              placeholderStyle={{ fontSize: 12 }}
+                              selectedTextStyle={styles.selectedTextStyle}
+                              iconStyle={styles.iconStyle}
+                              itemTextStyle={{ color: "grey", fontSize: 12 }}
+                              data={GRADE_LIST?.Grade_List}
+                              labelField="school_level_name"
+                              valueField="school_level_name"
+                              allowFontScaling={false}
+                              // placeholder={!isFocus2 ? " " : "..."}
+                              value={admissionLevel}
+                              onFocus={() => setIsFocus2(true)}
+                              onBlur={() => setIsFocus2(false)}
+                              onChange={(item) => {
+                                console.log(item, 'itemitemitemitem')
+                                setAdmissionLevel(item?.school_level_name);
+                                setIsFocus2(false);
+                              }}
+                            />
+
+
+                            {/* <Dropdown
+                            style={[
+                              styles.dropdown,
+                              isFocus2 && { borderColor: "black" },
+                            ]}
+                            placeholderStyle={{ fontSize: 12 }}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            iconStyle={styles.iconStyle}
+                            itemTextStyle={{ color: "grey", fontSize: 12 }}
+                            data={GRADE_LIST?.Grade_List}
+                            labelField="school_level_name"
+                            valueField="school_level_name"
+                            allowFontScaling={false}
+                            placeholder={!isFocus2 ? " " : "..."}
+                            value={admissionLevel}
+                            onFocus={() => setIsFocus2(true)}
+                            onBlur={() => setIsFocus2(false)}
+                            onChange={(item) => {
+                              setAdmissionLevel(item.school_level_name);
+                              setIsFocus2(false);
+                            }}
+                          /> */}
+                          </View>
+                        </View>
+                        {
+                          admissionLevel ?
+                            <View style={styles.DetailContainer}>
+                              <View style={{ width: "30%" }}>
+                                <Text
+                                  style={{
+                                    marginTop: 10,
+                                    fontFamily: "Poppins-Regular",
+                                    color: "black",
+                                  }}
+                                >
+                                  Grade :
+                                </Text>
+                              </View>
+                              <View style={{ width: "100%" }}>
+
+
+
+                                <Dropdown
+                                  style={[
+                                    styles.dropdown,
+                                    isFocus2 && { borderColor: "black" },
+                                  ]}
+                                  placeholderStyle={{ fontSize: 12 }}
+                                  selectedTextStyle={styles.selectedTextStyle}
+                                  iconStyle={styles.iconStyle}
+                                  itemTextStyle={{ color: "grey", fontSize: 12 }}
+                                  data={GRADE_LIST_AEIS?.Grade_List}
+                                  labelField="grade_name"
+                                  valueField="grade_name"
+                                  allowFontScaling={false}
+                                  placeholder={!isFocus2 ? " " : "..."}
+                                  value={value2}
+                                  onFocus={() => setIsFocus2(true)}
+                                  onBlur={() => setIsFocus2(false)}
+                                  onChange={(item) => {
+                                    setValue2(item.grade_name);
+                                    setIsFocus2(false);
+                                  }}
+                                />
+                              </View>
+                            </View>
+                            : null
+                        }
+                        {
+                          admissionLevel && value2 ?
+                            <View>
+                              <View style={styles.DetailContainer}>
+                                <View style={{ height: 100, width: "30%" }}>
+                                  <Text
+                                    style={{
+                                      marginTop: 10,
+                                      fontFamily: "Poppins-Regular",
+                                      color: "black",
+                                    }}
+                                  >
+                                    Subjects :
+                                  </Text>
+                                </View>
+                                <View style={styles.SelectMoreContainer}>
+                                  <MultiSelect
+                                    items={SUBJECT_LIST?.Subject_List}
+                                    uniqueKey="subjects_name"
+                                    onSelectedItemsChange={onSelectedlevel}
+                                    selectedItems={selectedlevel}
+                                    //  selectText="Select one or more"
+                                    searchInputPlaceholderText="Search Items..."
+                                    onChangeInput={(text) =>
+                                      console.log("SSSSSSSSSSSSSS", text)
+                                    }
+                                    tagRemoveIconColor="#2F5597"
+                                    tagBorderColor="#2F5597"
+                                    tagTextColor="#2F5597"
+                                    selectedItemTextColor="#2F5597"
+                                    fontSize={12}
+                                    selectedItemIconColor="#2F5597"
+                                    itemTextColor="#000"
+                                    itemFontSize={12}
+                                    displayKey="subjects_name"
+                                    searchInputStyle={{ color: "#CCC", fontSize: 12 }}
+                                    // styleRowList={{ width: "90%" }}
+                                    // submitButtonColor="#000"
+                                    //submitButtonText="Submit"
+                                    // styleDropdownMenu={{ backgroundColor: "red" }}
+                                    hideSubmitButton
+                                  // styleItemsContainer={{}}
+                                  />
+                                  {/* </View> */}
+                                </View>
+                              </View>
+                              <View style={styles.DetailContainer}>
+                                <TouchableOpacity
+                                  onPress={() => ClickOnDone()}
+                                  style={{
+                                    height: 35,
+                                    width: 80,
+                                    backgroundColor: "#F6BE00",
+
+                                    alignSelf: "flex-end",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    borderRadius: 10,
+                                    bottom: 0,
+                                    right: 200,
+                                    position: "absolute",
+
+                                    //   right: -230,
+                                  }}
+                                >
+                                  <Text style={styles.ButtonText}>Done</Text>
+                                </TouchableOpacity>
+                              </View>
+                            </View>
+                            : null
+                        }
+
+                      </View>
+                      :
+                      value != 'Secondary' && value != 'AEIS' && value != undefined ?
+                        <View>
+
+                          <View style={styles.DetailContainer}>
+                            <View style={{ width: "30%" }}>
+                              <Text
+                                style={{
+                                  marginTop: 10,
+                                  fontFamily: "Poppins-Regular",
+                                  color: "black",
+                                }}
+                              >
+                                Grade :
+                              </Text>
+                            </View>
+                            <View style={{ width: "100%" }}>
+
+
+
+
+
+
+                              <Dropdown
+                                style={[
+                                  styles.dropdown,
+                                  isFocus2 && { borderColor: "black" },
+                                ]}
+                                placeholderStyle={{ fontSize: 12 }}
+                                selectedTextStyle={styles.selectedTextStyle}
+                                iconStyle={styles.iconStyle}
+                                itemTextStyle={{ color: "grey", fontSize: 12 }}
+                                data={GRADE_LIST?.Grade_List}
+                                labelField="grade_name"
+                                valueField="grade_name"
+                                allowFontScaling={false}
+                                placeholder={!isFocus2 ? " " : "..."}
+                                value={value2}
+                                onFocus={() => setIsFocus2(true)}
+                                onBlur={() => setIsFocus2(false)}
+                                onChange={(item) => {
+                                  setValue2(item.grade_name);
+                                  setIsFocus2(false);
+                                }}
+                              />
+
+
+
+                            </View>
+                          </View>
+                          {
+                            value2 ?
+                              <View>
+                                <View style={styles.DetailContainer}>
+                                  <View style={{ height: 100, width: "30%" }}>
+                                    <Text
+                                      style={{
+                                        marginTop: 10,
+                                        fontFamily: "Poppins-Regular",
+                                        color: "black",
+                                      }}
+                                    >
+                                      Subjects :
+                                    </Text>
+                                  </View>
+                                  <View style={styles.SelectMoreContainer}>
+                                    <MultiSelect
+                                      items={SUBJECT_LIST?.Subject_List}
+                                      uniqueKey="subjects_name"
+                                      onSelectedItemsChange={onSelectedlevel}
+                                      selectedItems={selectedlevel}
+                                      //  selectText="Select one or more"
+                                      searchInputPlaceholderText="Search Items..."
+                                      onChangeInput={(text) =>
+                                        console.log("SSSSSSSSSSSSSS", text)
+                                      }
+                                      tagRemoveIconColor="#2F5597"
+                                      tagBorderColor="#2F5597"
+                                      tagTextColor="#2F5597"
+                                      selectedItemTextColor="#2F5597"
+                                      fontSize={12}
+                                      selectedItemIconColor="#2F5597"
+                                      itemTextColor="#000"
+                                      itemFontSize={12}
+                                      displayKey="subjects_name"
+                                      searchInputStyle={{ color: "#CCC", fontSize: 12 }}
+                                      // styleRowList={{ width: "90%" }}
+                                      // submitButtonColor="#000"
+                                      //submitButtonText="Submit"
+                                      // styleDropdownMenu={{ backgroundColor: "red" }}
+                                      hideSubmitButton
+                                    // styleItemsContainer={{}}
+                                    />
+                                    {/* </View> */}
+                                  </View>
+                                </View>
+                                <View style={styles.DetailContainer}>
+                                  <TouchableOpacity
+                                    onPress={() => ClickOnDone()}
+                                    style={{
+                                      height: 35,
+                                      width: 80,
+                                      backgroundColor: "#F6BE00",
+
+                                      alignSelf: "flex-end",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      borderRadius: 10,
+                                      bottom: 0,
+                                      right: 200,
+                                      position: "absolute",
+
+                                      //   right: -230,
+                                    }}
+                                  >
+                                    <Text style={styles.ButtonText}>Done</Text>
+                                  </TouchableOpacity>
+                                </View>
+                              </View>
+                              : null
+
+                          }
+
+                        </View>
+                        : null
+                }
+
+
+
+
+
               </View>
             ) : (
               <View />
             )}
-          </View>
-        </ScrollView>
+
+            {/* <TouchableOpacity
+            onPress={() => GoTONext()}
+            style={{
+              height: 35,
+              width: 100,
+              backgroundColor: "#F6BE00",
+              marginTop: 20,
+              alignSelf: "flex-end",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 10,
+              bottom: 10,
+              right: 10,
+              position: "absolute",
+              //   right: -230,
+            }}
+          >
+            <Text style={styles.ButtonText}>Done</Text>
+          </TouchableOpacity> */}
+            <View style={{ height: hp(10) }}></View>
+          </ScrollView>
+
+          </ScrollView>
       </View>
-      <View style={{ marginTop: 50 }}>
+      <View >
         <TouchableOpacity style={styles.circleArrow} onPress={() => GoToNext()}>
           <Image source={require("../../../Assets/circleArrow.png")} />
         </TouchableOpacity>
@@ -857,7 +1319,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "flex-end",
     paddingRight: wp(3.5),
-    paddingBottom: hp(2),
+    // paddingBottom: hp(2),
   },
   SelectMoreContainer: {
     // height: 150,

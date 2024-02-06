@@ -510,7 +510,7 @@ const ClientLandingBefore = () => {
                           ]}
                           numberOfLines={2}
                         >
-                          {item.personal_statement}
+                          {item.personal_statement.slice(0, 40)}.....
                         </Text>
                         <View
                           style={{ width: wp(25), }}

@@ -17,7 +17,9 @@ import {
   ALL_FAV_TUTORS,
   INTERESTED_TUTOR,
   INTERESTED_TUTORALL,
-  FAVOURITE_STATUS
+  FAVOURITE_STATUS,
+  GRADE_LIST_AEIS,
+  GRADE_LIST_SEC
 } from "./types";
 import AsyncStorage from "@react-native-community/async-storage";
 import axios, * as others from "axios";
@@ -72,7 +74,7 @@ export const getGradeList = (Level, Admission_level) => {
 
     }
 
-
+// Alert.alert(Admission_level)
     console.log(data, "formdata");
     return fetch(url, {
       method: "POST",
@@ -98,6 +100,96 @@ export const getGradeList = (Level, Admission_level) => {
   };
 };
 
+export const getGradesSecondary = (Level, Admission_level) => {
+
+  console.log(Level, Admission_level, "KKKKKKKKKKK1111111111111")
+  return (dispatch, getState) => {
+    const url =
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/GradeListBasedOnLevel/GradeListBasedOnLevel.php";
+    let data = new FormData();
+    data.append("Level", Level);
+    if (Admission_level == undefined) {
+
+      data.append("Admission_level", "");
+
+    }
+
+    else {
+
+      data.append("Admission_level", Admission_level);
+
+    }
+
+// Alert.alert(Admission_level)
+    console.log(data, "formdataAEIS");
+    return fetch(url, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("GRADE_LISTYYYYYYYYYYYYYYYYYYAEIS", responseJson);
+        if (responseJson.status == true) {
+          dispatch({
+            type: GRADE_LIST_SEC,
+            payload: responseJson,
+          }); // navigation.navigate("Auth4");
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+  };
+};
+export const getGradesAEIS = (Level, Admission_level) => {
+
+  console.log(Level, Admission_level, "KKKKKKKKKKK1111111111111")
+  return (dispatch, getState) => {
+    const url =
+      "https://colwithfarmchips.co.uk/projects/tutorapp/APIs/GradeListBasedOnLevel/GradeListBasedOnLevel.php";
+    let data = new FormData();
+    data.append("Level", Level);
+    if (Admission_level == undefined) {
+
+      data.append("Admission_level", "");
+
+    }
+
+    else {
+
+      data.append("Admission_level", Admission_level);
+
+    }
+
+// Alert.alert(Admission_level)
+    console.log(data, "formdataAEIS");
+    return fetch(url, {
+      method: "POST",
+      headers: new Headers({
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+        // "Authorization": authtoken,
+      }),
+
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log("GRADE_LISTYYYYYYYYYYYYYYYYYYAEIS", responseJson);
+        if (responseJson.status == true) {
+          dispatch({
+            type: GRADE_LIST_AEIS,
+            payload: responseJson,
+          }); // navigation.navigate("Auth4");
+        }
+      })
+      .catch((error) => console.log("LLLLLLLLL", error.message));
+  };
+};
 export const getTutorGradeList = (Level, Admission_level) => {
 
   console.log(Level, Admission_level, "IUU********888888888888888888")
@@ -113,8 +205,8 @@ export const getTutorGradeList = (Level, Admission_level) => {
       data.append("Admission_level", Admission_level);
     }
 
-
-    console.log(data, "formdata");
+    // Alert.alert(Admission_level,'getTutorGradeList')
+    console.log(data, "formdataGetTutorGradeList");
     return fetch(url, {
       method: "POST",
       headers: new Headers({
@@ -616,7 +708,7 @@ console.log(formData,'registerPAyLoad')
   };
 };
 
-export const LoginUser = (Mobile, Email, Password, navigation) => {
+export const LoginUser = (Mobile, Email, Password,viaProfile,data, navigation) => {
   console.log(Mobile, Email, Password);
   return (dispatch, getState) => {
     axios.defaults.baseURL = "https://colwithfarmchips.co.uk";
@@ -693,7 +785,14 @@ export const LoginUser = (Mobile, Email, Password, navigation) => {
           });
           console.log("Client succesfull login");
 
+          if(viaProfile == 'viaProfile'){
+            navigation.navigate("StudentBookingInfo",{
+              data: data,
+              profile_pic: data.profile_image,
+            })
+          }else{
           navigation.replace("Auth");
+          }
 
 
           // await AsyncStorage.setItem("token",responseJson.Access_Token)
@@ -963,28 +1062,28 @@ export const editProfile = (
       if (Array.isArray(item.Tutoring_Grade) && typeof item.Tutoring_ALL_Subjects === 'string') {
         return {
           ...item,
-          "Tutoring_Grade": item.Tutoring_Grade.map(grade => grade?.Tutoring_Grade),
-          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.split(',').map(subject => subject?.Tutoring_ALL_Subjects.trim())
+          "Tutoring_Grade": item.Tutoring_Grade?.map(grade => grade),
+          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects?.split(',').map(subject => subject?.trim())
         };
       } else if (typeof item.Tutoring_Grade === 'string' && Array.isArray(item.Tutoring_ALL_Subjects)) {
         return {
           ...item,
-          "Tutoring_Grade": item.Tutoring_Grade.split(',').map(grade => grade?.Tutoring_Grade.trim()),
-          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.map(subject => subject?.Tutoring_ALL_Subjects)
+          "Tutoring_Grade": item.Tutoring_Grade.split(',').map(grade => grade?.trim()),
+          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.map(subject => subject)
         };
       }
 
       else if (Array.isArray(item.Tutoring_Grade) && Array.isArray(item.Tutoring_ALL_Subjects)) {
         return {
           ...item,
-          "Tutoring_Grade": item.Tutoring_Grade.map(grade => grade?.Tutoring_Grade),
-          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.map(subject => subject?.Tutoring_ALL_Subjects)
+          "Tutoring_Grade": item.Tutoring_Grade.map(grade => grade),
+          "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.map(subject => subject)
         };
       }
       else {
         return {
           ...item,
-          "Tutoring_Grade": item.Tutoring_Grade.split(',').map(grade => grade.trim()),
+          "Tutoring_Grade": item.Tutoring_Grade && item.Tutoring_Grade.split(',').map(grade => grade.trim()),
           "Tutoring_ALL_Subjects": item.Tutoring_ALL_Subjects.split(',').map(subject => subject.trim())
         }
 
@@ -1648,7 +1747,7 @@ export const studentPostRequirement = (
       "Qualifications": Tutor_Qualification?.TutorQualification,
       "Tutor_Schedules_Slot_Time": Tutor_Schedule?.Tutor_schedules
     }
-    console.log(data, "newdataaaaaaaa");
+    console.log(data?.Student_Level_Grade_Subjects, "newdataaaaaaaa");
     let config = {
       method: "POST",
       maxBodyLength: Infinity,
@@ -1662,7 +1761,7 @@ export const studentPostRequirement = (
     axios
       .request(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
+        console.log(JSON.stringify(response.data),'oooooooo');
         if (response.data.status == true) {
           Alert.alert(response.data.message);
 
