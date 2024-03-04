@@ -356,7 +356,7 @@ const ClientLanding = () => {
                   fontFamily: "Poppins-Regular",
                 }}
               >
-                Post it!
+                Post Now
               </Text>
             </TouchableOpacity>
           </TouchableOpacity>

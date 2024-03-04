@@ -513,7 +513,7 @@ const StudentBookingComponent = (props) => {
                       Level :
                     </Text>
                   </View>
-                  <View style={{ width: "100%" }}>
+                  <View style={{ width: "50%" }}>
                     <Dropdown
                       style={[
                         styles.dropdown,

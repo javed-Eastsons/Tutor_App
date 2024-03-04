@@ -92,7 +92,7 @@ const TuitionServices = () => {
           type: Postal_Code_Address,
           payload: jj?.formatted_address,
         });
-       
+
       })
       .catch((error) => {
         console.log(error);
@@ -131,7 +131,7 @@ const TuitionServices = () => {
     if (postalcode) {
       geocodinApi();
 
-   
+
 
       setForwardArrow(true);
     } else {
@@ -144,7 +144,7 @@ const TuitionServices = () => {
   const regex = /Singapore/i; // i flag for case-insensitive search
   const containsSingaporeRegex = regex.test(address);
 
-console.log(containsSingaporeRegex,'address')
+  console.log(containsSingaporeRegex, 'address')
   return (
     <View style={styles.container}>
       <Loader flag={loader} />
@@ -154,17 +154,73 @@ console.log(containsSingaporeRegex,'address')
         </Text>
       </View>
       <View style={styles.blueContiner1}>
+        <View style={[styles.whitebox, { elevation: 5 }]}>
+          <View style={styles.bicons}>
+            <Image source={require("../../../Assets/3_1.png")} style={{ height: 20, width: 25, marginTop: 3 }} />
+          </View>
+
+          <Text
+            style={{
+              textAlign: "center",
+              fontWeight: "600",
+              color: "#000",
+              fontSize: 13,
+              paddingTop: 10,
+              paddingBottom: 10,
+            }}
+          >
+            Online{"\n"}Tution
+          </Text>
+          <View
+            style={{
+              alignSelf: "center",
+              height: 20,
+              width: 20,
+              borderRadius: 50,
+              borderColor: "#000",
+              borderWidth: 1,
+            }}
+          ></View>
+        </View>
+        <View style={[styles.whitebox, { elevation: 5 }]}>
+          <View style={styles.bicons}>
+          <Image source={require("../../../Assets/3_2.png")} style={{ height: 20, width: 25, marginTop: 3 }} />
+          </View>
+          <Text
+            style={{
+              textAlign: "center",
+              fontWeight: "600",
+              fontSize: 13,
+              paddingTop: 10,
+              color: "#000",
+              paddingBottom: 10,
+            }}
+          >
+            Homework{"\n"}Help
+          </Text>
+          <View
+            style={{
+              alignSelf: "center",
+              height: 20,
+              width: 20,
+              borderRadius: 50,
+              borderColor: "#000",
+              borderWidth: 1,
+            }}
+          ></View>
+        </View>
+
         <TouchableOpacity
           onPress={() => setHomeTutor(true)}
           style={[styles.whitebox, { elevation: 5 }]}
         >
           <View style={styles.bicons}>
-            <Image source={require("../../../Assets/3_1.png")} style={{height:20,width:25,marginTop:3}}/>
+            <Image source={require("../../../Assets/3_1.png")} style={{ height: 20, width: 25, marginTop: 3 }} />
           </View>
           <Text
             style={{
               textAlign: "center",
-              fontWeight: "800",
+              fontWeight: "600",
               fontSize: 13,
               paddingTop: 10,
               color: "#000",
@@ -198,61 +254,6 @@ console.log(containsSingaporeRegex,'address')
             )}
           </View>
         </TouchableOpacity>
-        <View style={[styles.whitebox, { elevation: 5 }]}>
-          <View style={styles.bicons}>
-            <Image source={require("../../../Assets/3_2.png")} style={{height:20,width:25,marginTop:3}} />
-          </View>
-
-          <Text
-            style={{
-              textAlign: "center",
-              fontWeight: "800",
-              color: "#000",
-              fontSize: 13,
-              paddingTop: 10,
-              paddingBottom: 10,
-            }}
-          >
-            Online{"\n"}Tution
-          </Text>
-          <View
-            style={{
-              alignSelf: "center",
-              height: 20,
-              width: 20,
-              borderRadius: 50,
-              borderColor: "#000",
-              borderWidth: 1,
-            }}
-          ></View>
-        </View>
-        <View style={[styles.whitebox, { elevation: 5 }]}>
-          <View style={styles.bicons}>
-            <Image source={require("../../../Assets/helptutIcon.png")} />
-          </View>
-          <Text
-            style={{
-              textAlign: "center",
-              fontWeight: "800",
-              fontSize: 13,
-              paddingTop: 10,
-              color: "#000",
-              paddingBottom: 10,
-            }}
-          >
-            Homework{"\n"}Help
-          </Text>
-          <View
-            style={{
-              alignSelf: "center",
-              height: 20,
-              width: 20,
-              borderRadius: 50,
-              borderColor: "#000",
-              borderWidth: 1,
-            }}
-          ></View>
-        </View>
       </View>
 
       <View style={{}}>
@@ -287,18 +288,18 @@ console.log(containsSingaporeRegex,'address')
       </View>
       {
         containsSingaporeRegex == true ?
-        <TouchableOpacity
-        style={[styles.circleArrow, { display: !address ? "none" : "flex" }]}
-        onPress={() => presspostalcode()}
-      >
-        {/* //onPress={() => navigation.navigate('OurTutor')}> */}
-        {homeTutor === true && (
-          <Image source={require("../../../Assets/circleArrow.png")} />
-        )}
-      </TouchableOpacity>
-      : null
+          <TouchableOpacity
+            style={[styles.circleArrow, { display: !address ? "none" : "flex" }]}
+            onPress={() => presspostalcode()}
+          >
+            {/* //onPress={() => navigation.navigate('OurTutor')}> */}
+            {homeTutor === true && (
+              <Image source={require("../../../Assets/circleArrow.png")} />
+            )}
+          </TouchableOpacity>
+          : null
       }
-      
+
     </View>
   );
 };

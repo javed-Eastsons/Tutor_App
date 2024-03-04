@@ -159,6 +159,7 @@ const VerifyOTPScreen = ({ route }) => {
           //  navigation.navigate('Auth');
           //   console.log('WWWpppp', responseJson.message)
           Alert.alert(responseJson.message);
+          Alert.alert('hii')
           // dispatch({
           setTimeout(() => {
             setLoader(false);

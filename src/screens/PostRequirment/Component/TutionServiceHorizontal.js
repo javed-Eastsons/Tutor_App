@@ -98,31 +98,7 @@ const TuitionServicesHorizontal = (props) => {
         </View>
         <View style={{ width: wp(60), marginTop: hp(2) }}>
           <View>
-            {homeTutor === true && (
-              <View style={styles.tutorWrapper}>
-                <Text style={styles.tutorText}>
-                  Tuition Location Postal Code
-                </Text>
-                <View style={styles.inputWrapper}>
-                  <TextInput
-                    //placeholder='510208'
-                    placeholderTextColor={"#000"}
-                    onChangeText={(text) => {
-                      setpostalcode(text);
-                    }}
-                    value={props.postalcode}
-                    keyboardType="phone-pad"
-                    style={{ color: "#000", paddingLeft: wp(2), width: wp(28) }}
-                  />
-                  <TouchableOpacity onPress={() => setForwardArrow(true)}>
-                    {/* <Image
-                      source={require("../../../Assets/rightArrowCode.png")}
-                      style={styles.forwardArrowImage}
-                    /> */}
-                  </TouchableOpacity>
-                </View>
-              </View>
-            )}
+          
 
             {forwardArrrow === true && (
               <View style={styles.forwardArrowWrapper}>
@@ -297,13 +273,13 @@ const styles = StyleSheet.create({
     paddingBottom: hp(2),
   },
   forwardArrowWrapper: {
-    borderWidth: 0.2,
-    borderColor: "#000",
+    // borderWidth: 0.2,
+    // borderColor: "#000",
     width: wp(50),
     alignSelf: "center",
     justifyContent: "center",
     height: hp(5),
-    marginTop: hp(2),
+    marginTop: hp(10),
   },
   forwardArrowTextWrapper: {
     color: "#000",

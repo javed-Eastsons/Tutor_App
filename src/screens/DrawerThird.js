@@ -121,12 +121,10 @@ const DrawerThird = () => {
           <Image source={require("../Assets/Insta.png")} style={styles.icons} />
         </View>
         <View style={styles.SocialContainer}>
-          <View style={{backgroundColor:'#fff'}}>
           <Image
             source={require("../Assets/Twitter.png")}
             style={[styles.icons,{height:35,width:30}]}
           />
-          </View>
          
         </View>
         <View style={styles.SocialContainer}>

@@ -254,7 +254,7 @@ const Register = ({ route }) => {
     console.log("isVerfyModalVisible=", isVerfyModalVisible);
     //Alert.alert(otpmsgs)
     setVerifyModalVisible(false);
-    
+
   };
 
   const selectrole = (role) => {
@@ -486,7 +486,7 @@ const Register = ({ route }) => {
         <View style={styles.Headcontainer}>
           <Text style={styles.headtext}>Create Account</Text>
           <Text style={styles.Firsttext}>
-           
+
           </Text>
         </View>
         <View
@@ -674,7 +674,7 @@ const Register = ({ route }) => {
           /> */}
         </View>
 
-      
+
 
         {showemail == false ? (
           <View style={styles.moblieSec}>
@@ -708,7 +708,7 @@ const Register = ({ route }) => {
             </TouchableOpacity>
           </View>
         )}
-        
+
 
         {showemail == false ? (
           <View>
@@ -731,9 +731,9 @@ const Register = ({ route }) => {
                   height: 45,
                 }}
                 placeholderStyle={{ fontSize: 14 }}
-                itemTextStyle={{color:'gray'}}
-                selectedTextStyle={{color:'gray'}}
-                inputSearchStyle={{color:'gray'}}
+                itemTextStyle={{ color: 'gray' }}
+                selectedTextStyle={{ color: 'gray' }}
+                inputSearchStyle={{ color: 'gray' }}
                 iconStyle={styles.iconStyle}
                 data={data}
                 search
@@ -828,46 +828,7 @@ const Register = ({ route }) => {
                 {ConfirmEmailmsg}
               </Text>
             </View>
-            <View style={{ flexDirection: "row", width: wp(90), alignSelf: "center", justifyContent: "center" }}>
-          <Text style={styles.TermsCondition}>
-            View T&C and Privacy Policy
-          </Text>
-          <TouchableOpacity
-            //  onPress={() => setEnable(!enable)}
-            onPress={() =>{
-              if(enable){
-               setEnable(false)
-              }else{
-                setEnable(true)
-              }
-              }}
-            style={
-              enable
-                ? {
-                  height: 20,
-                  width: 20,
-
-                  borderRadius: 20,
-                  alignSelf: "flex-end",
-                  borderColor: "lightgrey",
-                  padding: 2,
-                  marginLeft: 10,
-                  backgroundColor: "#2F5597",
-                  // marginLeft: wp(10),
-                  borderWidth: 3,
-                }
-                : {
-                  height: 20,
-                  width: 20,
-                  marginLeft: 10,
-                  borderRadius: 20,
-                  borderColor: "lightgrey",
-                  // marginLeft: wp(10),
-                  borderWidth: 1,
-                }
-            }
-          ></TouchableOpacity>
-        </View>
+           
             {console.log(!enable, 'HHHHHHHHHHHHH', enable, FirstName)}
             <TouchableOpacity
               disabled={
@@ -1242,7 +1203,7 @@ const styles = StyleSheet.create({
   TermModelText: {
     fontSize: 12,
     // fontWeight: "700",
-    color:'gray',
+    color: 'gray',
     justifyContent: "center"
   },
 
@@ -1418,6 +1379,7 @@ const styles = StyleSheet.create({
     color: "#131313",
     fontFamily: "Poppins-SemiBold",
     fontSize: 12,
+    marginLeft:10
   },
   Rolecontainer: {
     //flexDirection: "row",

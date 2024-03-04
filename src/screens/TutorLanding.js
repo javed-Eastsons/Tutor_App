@@ -328,7 +328,7 @@ const TutorLanding = () => {
                   maxStars={5}
                   rating={0}
                   starSize={12}
-                  emptyStarColor='yellow'                  
+                  emptyStarColor='orange'                  
                 // selectedStar={(rating) => setStrCount(rating)}
                 />
               </View>

@@ -43,6 +43,7 @@ const TutorSearch = () => {
   const { Login_Data } = useSelector((state) => state.TutorReducer);
 
   console.log(Login_Data, "Login_DataLogin_DataLogin_DataLogin_Data");
+  console.log(address, "addressaddressaddressaddress");
 
   const presspostalcode = () => {
     //console.log("cdddddddddddddd", address, postalcode);
@@ -145,16 +146,34 @@ const TutorSearch = () => {
   };
 
   const forwardArrowFunc = () => {
-    console.log("QQQQQQQQQQQQQQQQQQQQQQ");
     setLoader(true);
-    geocodinApi();
-    setForwardArrow(true);
+    
+    if (postalcode) {
+      geocodinApi();
+      setForwardArrow(true);
+    } else {
+      Alert.alert('Please Enter Postal Code')
+    }
     setTimeout(() => {
       setLoader(false);
     }, 2000);
   };
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return function (...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => func.apply(this, args), delay);
+    };
+  };
+  const handlePostalCodeChange = debounce((value) => {
+    if (value.includes('Singapore')) {
+      Alert.alert('Singapore found in address');
+    }
+  }, 100);
   const regex = /Singapore/i; // i flag for case-insensitive search
   const containsSingaporeRegex = regex.test(address);
+
+  
   return (
     <SafeAreaView style={styles.container}>
       <Loader flag={loader} />
@@ -384,21 +403,20 @@ const TutorSearch = () => {
                     placeholderTextColor={"#000"}
                     onChangeText={(text) => {
                       setpostalcode(text);
+                      handlePostalCodeChange(text);
                     }}
                     value={postalcode}
                     keyboardType="phone-pad"
                     style={{ color: "#000", paddingLeft: wp(2), width: wp(28) }}
                   />
-                    {
-                      postalcode ?
+                    
                       <TouchableOpacity onPress={() => forwardArrowFunc()}>
                       <Image
                         source={require("../Assets/rightArrowCode.png")}
                         style={styles.forwardArrowImage}
                       />
                     </TouchableOpacity>
-                    :null
-                    }
+                   
                  
                 </View>
               </View>
@@ -425,7 +443,7 @@ const TutorSearch = () => {
                   <Image source={require("../Assets/circleArrow.png")} />
                 )}
               </TouchableOpacity>
-              :null
+              : null
               }
            
           </View>

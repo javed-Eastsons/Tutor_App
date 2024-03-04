@@ -271,15 +271,8 @@ const Login = ({route}) => {
             onPress={toggleShowPassword}
           /> */}
                 </View>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <View style={styles.bottomcontent}>
-                    <TouchableOpacity
-                      onPress={() => navigation.navigate('Register', { codeadd: "NO", })}
-                    >
-                      <Text style={styles.ForgotText}>Create Account</Text>
-
-                    </TouchableOpacity>
-                  </View>
+                {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}> */}
+                 
                   <View style={styles.bottomcontent}>
                     <TouchableOpacity
                       onPress={() => navigation.navigate('ForgotPassword')}
@@ -288,7 +281,15 @@ const Login = ({route}) => {
 
                     </TouchableOpacity>
                   </View>
-                </View>
+                  <View style={[styles.bottomcontent,{marginTop:20,alignSelf:'center'}]}>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate('Register', { codeadd: "NO", })}
+                    >
+                      <Text style={styles.ForgotText}>Don't have an Account? <Text style={{color:'blue'}}>Create Account</Text></Text>
+
+                    </TouchableOpacity>
+                  </View>
+                {/* </View> */}
               </View>
             );
           } else {
@@ -428,7 +429,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     width: wp(90),
     alignSelf: "center",
-    marginTop: hp(25),
+    marginTop: hp(20),
     justifyContent: "center",
 
 

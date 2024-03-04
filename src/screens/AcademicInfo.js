@@ -433,9 +433,9 @@ console.log(route.params.RouteFrom,'route.params.RouteFrom')
       setSchool1("")
       setCourses("")
       setGradYear("")
-      setRecords([])
+      // setRecords([])
     }
-  }, [selectQualification])
+  }, [qualification])
 
   const qualModalClose = () => {
     setselectQualification(false);
@@ -470,6 +470,8 @@ console.log(route.params.RouteFrom,'route.params.RouteFrom')
       setDetailsE(true);
     }
   };
+ 
+  
   const isExistInArray = (Ex_array, Ex_Key, Ex_value) => {
     var isExist = false;
     Ex_array.forEach(function (element, index) {
